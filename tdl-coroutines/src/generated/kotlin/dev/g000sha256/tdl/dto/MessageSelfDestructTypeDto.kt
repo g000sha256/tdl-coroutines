@@ -1,0 +1,90 @@
+/*
+ * Copyright 2025 Georgii Ippolitov (g000sha256)
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package dev.g000sha256.tdl.dto
+
+import kotlin.Any
+import kotlin.Boolean
+import kotlin.Int
+import kotlin.String
+
+/**
+ * This class is an abstract base class.
+ * Describes when a message will be self-destructed.
+ */
+public sealed class MessageSelfDestructTypeDto private constructor() {
+    /**
+     * The message will be self-destructed in the specified time after its content was opened.
+     *
+     * @property selfDestructTime The message's self-destruct time, in seconds; must be between 0 and 60 in private chats.
+     */
+    public class Timer public constructor(
+        public val selfDestructTime: Int,
+    ) : MessageSelfDestructTypeDto() {
+        override fun equals(other: Any?): Boolean {
+            if (other === this) {
+                return true
+            }
+            if (other == null) {
+                return false
+            }
+            if (other::class != this::class) {
+                return false
+            }
+            other as Timer
+            return other.selfDestructTime == selfDestructTime
+        }
+
+        override fun hashCode(): Int {
+            var hashCode = this::class.hashCode()
+            hashCode = 31 * hashCode + selfDestructTime.hashCode()
+            return hashCode
+        }
+
+        override fun toString(): String {
+            return buildString {
+                append("MessageSelfDestructTypeDto.Timer")
+                append("(")
+                append("selfDestructTime=")
+                append(selfDestructTime)
+                append(")")
+            }
+        }
+    }
+
+    /**
+     * The message can be opened only once and will be self-destructed once closed.
+     */
+    public class Immediately public constructor() : MessageSelfDestructTypeDto() {
+        override fun equals(other: Any?): Boolean {
+            if (other === this) {
+                return true
+            }
+            if (other == null) {
+                return false
+            }
+            return this::class == other::class
+        }
+
+        override fun hashCode(): Int {
+            return this::class.hashCode()
+        }
+
+        override fun toString(): String {
+            return "MessageSelfDestructTypeDto.Immediately()"
+        }
+    }
+}

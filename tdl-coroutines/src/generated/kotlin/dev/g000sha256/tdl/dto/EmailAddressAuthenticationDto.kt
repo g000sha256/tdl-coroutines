@@ -1,0 +1,145 @@
+/*
+ * Copyright 2025 Georgii Ippolitov (g000sha256)
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package dev.g000sha256.tdl.dto
+
+import kotlin.Any
+import kotlin.Boolean
+import kotlin.Int
+import kotlin.String
+
+/**
+ * This class is an abstract base class.
+ * Contains authentication data for an email address.
+ */
+public sealed class EmailAddressAuthenticationDto private constructor() {
+    /**
+     * An authentication code delivered to a user's email address.
+     *
+     * @property code The code.
+     */
+    public class Code public constructor(
+        public val code: String,
+    ) : EmailAddressAuthenticationDto() {
+        override fun equals(other: Any?): Boolean {
+            if (other === this) {
+                return true
+            }
+            if (other == null) {
+                return false
+            }
+            if (other::class != this::class) {
+                return false
+            }
+            other as Code
+            return other.code == code
+        }
+
+        override fun hashCode(): Int {
+            var hashCode = this::class.hashCode()
+            hashCode = 31 * hashCode + code.hashCode()
+            return hashCode
+        }
+
+        override fun toString(): String {
+            return buildString {
+                append("EmailAddressAuthenticationDto.Code")
+                append("(")
+                append("code=")
+                append(code)
+                append(")")
+            }
+        }
+    }
+
+    /**
+     * An authentication token received through Apple ID.
+     *
+     * @property token The token.
+     */
+    public class AppleId public constructor(
+        public val token: String,
+    ) : EmailAddressAuthenticationDto() {
+        override fun equals(other: Any?): Boolean {
+            if (other === this) {
+                return true
+            }
+            if (other == null) {
+                return false
+            }
+            if (other::class != this::class) {
+                return false
+            }
+            other as AppleId
+            return other.token == token
+        }
+
+        override fun hashCode(): Int {
+            var hashCode = this::class.hashCode()
+            hashCode = 31 * hashCode + token.hashCode()
+            return hashCode
+        }
+
+        override fun toString(): String {
+            return buildString {
+                append("EmailAddressAuthenticationDto.AppleId")
+                append("(")
+                append("token=")
+                append(token)
+                append(")")
+            }
+        }
+    }
+
+    /**
+     * An authentication token received through Google ID.
+     *
+     * @property token The token.
+     */
+    public class GoogleId public constructor(
+        public val token: String,
+    ) : EmailAddressAuthenticationDto() {
+        override fun equals(other: Any?): Boolean {
+            if (other === this) {
+                return true
+            }
+            if (other == null) {
+                return false
+            }
+            if (other::class != this::class) {
+                return false
+            }
+            other as GoogleId
+            return other.token == token
+        }
+
+        override fun hashCode(): Int {
+            var hashCode = this::class.hashCode()
+            hashCode = 31 * hashCode + token.hashCode()
+            return hashCode
+        }
+
+        override fun toString(): String {
+            return buildString {
+                append("EmailAddressAuthenticationDto.GoogleId")
+                append("(")
+                append("token=")
+                append(token)
+                append(")")
+            }
+        }
+    }
+}
