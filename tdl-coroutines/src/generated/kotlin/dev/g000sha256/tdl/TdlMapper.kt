@@ -783,7 +783,7 @@ import dev.g000sha256.tdl.dto.update.WebAppMessageSentUpdateDto
 import org.drinkless.tdlib.TdApi
 
 internal class TdlMapper {
-    public fun map(dto: TdApi.AccentColor): AccentColorDto {
+    fun map(dto: TdApi.AccentColor): AccentColorDto {
         return AccentColorDto(
             id = dto.id,
             builtInAccentColorId = dto.builtInAccentColorId,
@@ -793,7 +793,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: AccentColorDto): TdApi.AccentColor {
+    fun map(dto: AccentColorDto): TdApi.AccentColor {
         return TdApi.AccentColor(
             id = dto.id,
             builtInAccentColorId = dto.builtInAccentColorId,
@@ -803,7 +803,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.AcceptedGiftTypes): AcceptedGiftTypesDto {
+    fun map(dto: TdApi.AcceptedGiftTypes): AcceptedGiftTypesDto {
         return AcceptedGiftTypesDto(
             unlimitedGifts = dto.unlimitedGifts,
             limitedGifts = dto.limitedGifts,
@@ -812,7 +812,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: AcceptedGiftTypesDto): TdApi.AcceptedGiftTypes {
+    fun map(dto: AcceptedGiftTypesDto): TdApi.AcceptedGiftTypes {
         return TdApi.AcceptedGiftTypes(
             unlimitedGifts = dto.unlimitedGifts,
             limitedGifts = dto.limitedGifts,
@@ -821,7 +821,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.AccountInfo): AccountInfoDto {
+    fun map(dto: TdApi.AccountInfo): AccountInfoDto {
         return AccountInfoDto(
             registrationMonth = dto.registrationMonth,
             registrationYear = dto.registrationYear,
@@ -831,7 +831,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: AccountInfoDto): TdApi.AccountInfo {
+    fun map(dto: AccountInfoDto): TdApi.AccountInfo {
         return TdApi.AccountInfo(
             registrationMonth = dto.registrationMonth,
             registrationYear = dto.registrationYear,
@@ -841,19 +841,19 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.AccountTtl): AccountTtlDto {
+    fun map(dto: TdApi.AccountTtl): AccountTtlDto {
         return AccountTtlDto(
             days = dto.days,
         )
     }
 
-    public fun map(dto: AccountTtlDto): TdApi.AccountTtl {
+    fun map(dto: AccountTtlDto): TdApi.AccountTtl {
         return TdApi.AccountTtl(
             days = dto.days,
         )
     }
 
-    public fun map(dto: TdApi.AddedReaction): AddedReactionDto {
+    fun map(dto: TdApi.AddedReaction): AddedReactionDto {
         return AddedReactionDto(
             type = map(dto.type),
             senderId = map(dto.senderId),
@@ -862,7 +862,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: AddedReactionDto): TdApi.AddedReaction {
+    fun map(dto: AddedReactionDto): TdApi.AddedReaction {
         return TdApi.AddedReaction(
             type = map(dto.type),
             senderId = map(dto.senderId),
@@ -871,7 +871,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.AddedReactions): AddedReactionsDto {
+    fun map(dto: TdApi.AddedReactions): AddedReactionsDto {
         return AddedReactionsDto(
             totalCount = dto.totalCount,
             reactions = dto.reactions.mapArray { map(it) },
@@ -879,7 +879,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: AddedReactionsDto): TdApi.AddedReactions {
+    fun map(dto: AddedReactionsDto): TdApi.AddedReactions {
         return TdApi.AddedReactions(
             totalCount = dto.totalCount,
             reactions = dto.reactions.mapArray { map(it) },
@@ -887,7 +887,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.Address): AddressDto {
+    fun map(dto: TdApi.Address): AddressDto {
         return AddressDto(
             countryCode = dto.countryCode,
             state = dto.state,
@@ -898,7 +898,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: AddressDto): TdApi.Address {
+    fun map(dto: AddressDto): TdApi.Address {
         return TdApi.Address(
             countryCode = dto.countryCode,
             state = dto.state,
@@ -909,7 +909,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.AffiliateInfo): AffiliateInfoDto {
+    fun map(dto: TdApi.AffiliateInfo): AffiliateInfoDto {
         return AffiliateInfoDto(
             commissionPerMille = dto.commissionPerMille,
             affiliateChatId = dto.affiliateChatId,
@@ -917,7 +917,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: AffiliateInfoDto): TdApi.AffiliateInfo {
+    fun map(dto: AffiliateInfoDto): TdApi.AffiliateInfo {
         return TdApi.AffiliateInfo(
             commissionPerMille = dto.commissionPerMille,
             affiliateChatId = dto.affiliateChatId,
@@ -925,7 +925,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.AffiliateProgramInfo): AffiliateProgramInfoDto {
+    fun map(dto: TdApi.AffiliateProgramInfo): AffiliateProgramInfoDto {
         return AffiliateProgramInfoDto(
             parameters = map(dto.parameters),
             endDate = dto.endDate,
@@ -933,7 +933,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: AffiliateProgramInfoDto): TdApi.AffiliateProgramInfo {
+    fun map(dto: AffiliateProgramInfoDto): TdApi.AffiliateProgramInfo {
         return TdApi.AffiliateProgramInfo(
             parameters = map(dto.parameters),
             endDate = dto.endDate,
@@ -941,21 +941,21 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.AffiliateProgramParameters): AffiliateProgramParametersDto {
+    fun map(dto: TdApi.AffiliateProgramParameters): AffiliateProgramParametersDto {
         return AffiliateProgramParametersDto(
             commissionPerMille = dto.commissionPerMille,
             monthCount = dto.monthCount,
         )
     }
 
-    public fun map(dto: AffiliateProgramParametersDto): TdApi.AffiliateProgramParameters {
+    fun map(dto: AffiliateProgramParametersDto): TdApi.AffiliateProgramParameters {
         return TdApi.AffiliateProgramParameters(
             commissionPerMille = dto.commissionPerMille,
             monthCount = dto.monthCount,
         )
     }
 
-    public fun map(dto: TdApi.AlternativeVideo): AlternativeVideoDto {
+    fun map(dto: TdApi.AlternativeVideo): AlternativeVideoDto {
         return AlternativeVideoDto(
             id = dto.id,
             width = dto.width,
@@ -966,7 +966,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: AlternativeVideoDto): TdApi.AlternativeVideo {
+    fun map(dto: AlternativeVideoDto): TdApi.AlternativeVideo {
         return TdApi.AlternativeVideo(
             id = dto.id,
             width = dto.width,
@@ -977,7 +977,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.AnimatedChatPhoto): AnimatedChatPhotoDto {
+    fun map(dto: TdApi.AnimatedChatPhoto): AnimatedChatPhotoDto {
         return AnimatedChatPhotoDto(
             length = dto.length,
             file = map(dto.file),
@@ -985,7 +985,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: AnimatedChatPhotoDto): TdApi.AnimatedChatPhoto {
+    fun map(dto: AnimatedChatPhotoDto): TdApi.AnimatedChatPhoto {
         return TdApi.AnimatedChatPhoto(
             length = dto.length,
             file = map(dto.file),
@@ -993,7 +993,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.AnimatedEmoji): AnimatedEmojiDto {
+    fun map(dto: TdApi.AnimatedEmoji): AnimatedEmojiDto {
         return AnimatedEmojiDto(
             sticker = dto.sticker?.let { map(it) },
             stickerWidth = dto.stickerWidth,
@@ -1003,7 +1003,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: AnimatedEmojiDto): TdApi.AnimatedEmoji {
+    fun map(dto: AnimatedEmojiDto): TdApi.AnimatedEmoji {
         return TdApi.AnimatedEmoji(
             sticker = dto.sticker?.let { map(it) },
             stickerWidth = dto.stickerWidth,
@@ -1013,7 +1013,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.Animation): AnimationDto {
+    fun map(dto: TdApi.Animation): AnimationDto {
         return AnimationDto(
             duration = dto.duration,
             width = dto.width,
@@ -1027,7 +1027,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: AnimationDto): TdApi.Animation {
+    fun map(dto: AnimationDto): TdApi.Animation {
         return TdApi.Animation(
             duration = dto.duration,
             width = dto.width,
@@ -1041,19 +1041,19 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.Animations): AnimationsDto {
+    fun map(dto: TdApi.Animations): AnimationsDto {
         return AnimationsDto(
             animations = dto.animations.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: AnimationsDto): TdApi.Animations {
+    fun map(dto: AnimationsDto): TdApi.Animations {
         return TdApi.Animations(
             animations = dto.animations.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: TdApi.ArchiveChatListSettings): ArchiveChatListSettingsDto {
+    fun map(dto: TdApi.ArchiveChatListSettings): ArchiveChatListSettingsDto {
         return ArchiveChatListSettingsDto(
             archiveAndMuteNewChatsFromUnknownUsers = dto.archiveAndMuteNewChatsFromUnknownUsers,
             keepUnmutedChatsArchived = dto.keepUnmutedChatsArchived,
@@ -1061,7 +1061,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: ArchiveChatListSettingsDto): TdApi.ArchiveChatListSettings {
+    fun map(dto: ArchiveChatListSettingsDto): TdApi.ArchiveChatListSettings {
         return TdApi.ArchiveChatListSettings(
             archiveAndMuteNewChatsFromUnknownUsers = dto.archiveAndMuteNewChatsFromUnknownUsers,
             keepUnmutedChatsArchived = dto.keepUnmutedChatsArchived,
@@ -1069,7 +1069,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.AttachmentMenuBot): AttachmentMenuBotDto {
+    fun map(dto: TdApi.AttachmentMenuBot): AttachmentMenuBotDto {
         return AttachmentMenuBotDto(
             botUserId = dto.botUserId,
             supportsSelfChat = dto.supportsSelfChat,
@@ -1097,7 +1097,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: AttachmentMenuBotDto): TdApi.AttachmentMenuBot {
+    fun map(dto: AttachmentMenuBotDto): TdApi.AttachmentMenuBot {
         return TdApi.AttachmentMenuBot(
             botUserId = dto.botUserId,
             supportsSelfChat = dto.supportsSelfChat,
@@ -1125,21 +1125,21 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.AttachmentMenuBotColor): AttachmentMenuBotColorDto {
+    fun map(dto: TdApi.AttachmentMenuBotColor): AttachmentMenuBotColorDto {
         return AttachmentMenuBotColorDto(
             lightColor = dto.lightColor,
             darkColor = dto.darkColor,
         )
     }
 
-    public fun map(dto: AttachmentMenuBotColorDto): TdApi.AttachmentMenuBotColor {
+    fun map(dto: AttachmentMenuBotColorDto): TdApi.AttachmentMenuBotColor {
         return TdApi.AttachmentMenuBotColor(
             lightColor = dto.lightColor,
             darkColor = dto.darkColor,
         )
     }
 
-    public fun map(dto: TdApi.Audio): AudioDto {
+    fun map(dto: TdApi.Audio): AudioDto {
         return AudioDto(
             duration = dto.duration,
             title = dto.title,
@@ -1153,7 +1153,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: AudioDto): TdApi.Audio {
+    fun map(dto: AudioDto): TdApi.Audio {
         return TdApi.Audio(
             duration = dto.duration,
             title = dto.title,
@@ -1167,7 +1167,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.AuthenticationCodeInfo): AuthenticationCodeInfoDto {
+    fun map(dto: TdApi.AuthenticationCodeInfo): AuthenticationCodeInfoDto {
         return AuthenticationCodeInfoDto(
             phoneNumber = dto.phoneNumber,
             type = map(dto.type),
@@ -1176,7 +1176,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: AuthenticationCodeInfoDto): TdApi.AuthenticationCodeInfo {
+    fun map(dto: AuthenticationCodeInfoDto): TdApi.AuthenticationCodeInfo {
         return TdApi.AuthenticationCodeInfo(
             phoneNumber = dto.phoneNumber,
             type = map(dto.type),
@@ -1185,7 +1185,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.AutoDownloadSettings): AutoDownloadSettingsDto {
+    fun map(dto: TdApi.AutoDownloadSettings): AutoDownloadSettingsDto {
         return AutoDownloadSettingsDto(
             isAutoDownloadEnabled = dto.isAutoDownloadEnabled,
             maxPhotoFileSize = dto.maxPhotoFileSize,
@@ -1199,7 +1199,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: AutoDownloadSettingsDto): TdApi.AutoDownloadSettings {
+    fun map(dto: AutoDownloadSettingsDto): TdApi.AutoDownloadSettings {
         return TdApi.AutoDownloadSettings(
             isAutoDownloadEnabled = dto.isAutoDownloadEnabled,
             maxPhotoFileSize = dto.maxPhotoFileSize,
@@ -1213,7 +1213,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.AutoDownloadSettingsPresets): AutoDownloadSettingsPresetsDto {
+    fun map(dto: TdApi.AutoDownloadSettingsPresets): AutoDownloadSettingsPresetsDto {
         return AutoDownloadSettingsPresetsDto(
             low = map(dto.low),
             medium = map(dto.medium),
@@ -1221,7 +1221,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: AutoDownloadSettingsPresetsDto): TdApi.AutoDownloadSettingsPresets {
+    fun map(dto: AutoDownloadSettingsPresetsDto): TdApi.AutoDownloadSettingsPresets {
         return TdApi.AutoDownloadSettingsPresets(
             low = map(dto.low),
             medium = map(dto.medium),
@@ -1229,7 +1229,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.AutosaveSettings): AutosaveSettingsDto {
+    fun map(dto: TdApi.AutosaveSettings): AutosaveSettingsDto {
         return AutosaveSettingsDto(
             privateChatSettings = map(dto.privateChatSettings),
             groupSettings = map(dto.groupSettings),
@@ -1238,7 +1238,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: AutosaveSettingsDto): TdApi.AutosaveSettings {
+    fun map(dto: AutosaveSettingsDto): TdApi.AutosaveSettings {
         return TdApi.AutosaveSettings(
             privateChatSettings = map(dto.privateChatSettings),
             groupSettings = map(dto.groupSettings),
@@ -1247,35 +1247,35 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.AutosaveSettingsException): AutosaveSettingsExceptionDto {
+    fun map(dto: TdApi.AutosaveSettingsException): AutosaveSettingsExceptionDto {
         return AutosaveSettingsExceptionDto(
             chatId = dto.chatId,
             settings = map(dto.settings),
         )
     }
 
-    public fun map(dto: AutosaveSettingsExceptionDto): TdApi.AutosaveSettingsException {
+    fun map(dto: AutosaveSettingsExceptionDto): TdApi.AutosaveSettingsException {
         return TdApi.AutosaveSettingsException(
             chatId = dto.chatId,
             settings = map(dto.settings),
         )
     }
 
-    public fun map(dto: TdApi.AvailableReaction): AvailableReactionDto {
+    fun map(dto: TdApi.AvailableReaction): AvailableReactionDto {
         return AvailableReactionDto(
             type = map(dto.type),
             needsPremium = dto.needsPremium,
         )
     }
 
-    public fun map(dto: AvailableReactionDto): TdApi.AvailableReaction {
+    fun map(dto: AvailableReactionDto): TdApi.AvailableReaction {
         return TdApi.AvailableReaction(
             type = map(dto.type),
             needsPremium = dto.needsPremium,
         )
     }
 
-    public fun map(dto: TdApi.AvailableReactions): AvailableReactionsDto {
+    fun map(dto: TdApi.AvailableReactions): AvailableReactionsDto {
         return AvailableReactionsDto(
             topReactions = dto.topReactions.mapArray { map(it) },
             recentReactions = dto.recentReactions.mapArray { map(it) },
@@ -1286,7 +1286,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: AvailableReactionsDto): TdApi.AvailableReactions {
+    fun map(dto: AvailableReactionsDto): TdApi.AvailableReactions {
         return TdApi.AvailableReactions(
             topReactions = dto.topReactions.mapArray { map(it) },
             recentReactions = dto.recentReactions.mapArray { map(it) },
@@ -1297,7 +1297,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.Background): BackgroundDto {
+    fun map(dto: TdApi.Background): BackgroundDto {
         return BackgroundDto(
             id = dto.id,
             isDefault = dto.isDefault,
@@ -1308,7 +1308,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: BackgroundDto): TdApi.Background {
+    fun map(dto: BackgroundDto): TdApi.Background {
         return TdApi.Background(
             id = dto.id,
             isDefault = dto.isDefault,
@@ -1319,47 +1319,47 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.Backgrounds): BackgroundsDto {
+    fun map(dto: TdApi.Backgrounds): BackgroundsDto {
         return BackgroundsDto(
             backgrounds = dto.backgrounds.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: BackgroundsDto): TdApi.Backgrounds {
+    fun map(dto: BackgroundsDto): TdApi.Backgrounds {
         return TdApi.Backgrounds(
             backgrounds = dto.backgrounds.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: TdApi.BankCardActionOpenUrl): BankCardActionOpenUrlDto {
+    fun map(dto: TdApi.BankCardActionOpenUrl): BankCardActionOpenUrlDto {
         return BankCardActionOpenUrlDto(
             text = dto.text,
             url = dto.url,
         )
     }
 
-    public fun map(dto: BankCardActionOpenUrlDto): TdApi.BankCardActionOpenUrl {
+    fun map(dto: BankCardActionOpenUrlDto): TdApi.BankCardActionOpenUrl {
         return TdApi.BankCardActionOpenUrl(
             text = dto.text,
             url = dto.url,
         )
     }
 
-    public fun map(dto: TdApi.BankCardInfo): BankCardInfoDto {
+    fun map(dto: TdApi.BankCardInfo): BankCardInfoDto {
         return BankCardInfoDto(
             title = dto.title,
             actions = dto.actions.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: BankCardInfoDto): TdApi.BankCardInfo {
+    fun map(dto: BankCardInfoDto): TdApi.BankCardInfo {
         return TdApi.BankCardInfo(
             title = dto.title,
             actions = dto.actions.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: TdApi.BasicGroup): BasicGroupDto {
+    fun map(dto: TdApi.BasicGroup): BasicGroupDto {
         return BasicGroupDto(
             id = dto.id,
             memberCount = dto.memberCount,
@@ -1369,7 +1369,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: BasicGroupDto): TdApi.BasicGroup {
+    fun map(dto: BasicGroupDto): TdApi.BasicGroup {
         return TdApi.BasicGroup(
             id = dto.id,
             memberCount = dto.memberCount,
@@ -1379,7 +1379,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.BasicGroupFullInfo): BasicGroupFullInfoDto {
+    fun map(dto: TdApi.BasicGroupFullInfo): BasicGroupFullInfoDto {
         return BasicGroupFullInfoDto(
             photo = dto.photo?.let { map(it) },
             description = dto.description,
@@ -1392,7 +1392,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: BasicGroupFullInfoDto): TdApi.BasicGroupFullInfo {
+    fun map(dto: BasicGroupFullInfoDto): TdApi.BasicGroupFullInfo {
         return TdApi.BasicGroupFullInfo(
             photo = dto.photo?.let { map(it) },
             description = dto.description,
@@ -1405,7 +1405,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.Birthdate): BirthdateDto {
+    fun map(dto: TdApi.Birthdate): BirthdateDto {
         return BirthdateDto(
             day = dto.day,
             month = dto.month,
@@ -1413,7 +1413,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: BirthdateDto): TdApi.Birthdate {
+    fun map(dto: BirthdateDto): TdApi.Birthdate {
         return TdApi.Birthdate(
             day = dto.day,
             month = dto.month,
@@ -1421,35 +1421,35 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.BotCommand): BotCommandDto {
+    fun map(dto: TdApi.BotCommand): BotCommandDto {
         return BotCommandDto(
             command = dto.command,
             description = dto.description,
         )
     }
 
-    public fun map(dto: BotCommandDto): TdApi.BotCommand {
+    fun map(dto: BotCommandDto): TdApi.BotCommand {
         return TdApi.BotCommand(
             command = dto.command,
             description = dto.description,
         )
     }
 
-    public fun map(dto: TdApi.BotCommands): BotCommandsDto {
+    fun map(dto: TdApi.BotCommands): BotCommandsDto {
         return BotCommandsDto(
             botUserId = dto.botUserId,
             commands = dto.commands.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: BotCommandsDto): TdApi.BotCommands {
+    fun map(dto: BotCommandsDto): TdApi.BotCommands {
         return TdApi.BotCommands(
             botUserId = dto.botUserId,
             commands = dto.commands.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: TdApi.BotInfo): BotInfoDto {
+    fun map(dto: TdApi.BotInfo): BotInfoDto {
         return BotInfoDto(
             shortDescription = dto.shortDescription,
             description = dto.description,
@@ -1476,7 +1476,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: BotInfoDto): TdApi.BotInfo {
+    fun map(dto: BotInfoDto): TdApi.BotInfo {
         return TdApi.BotInfo(
             shortDescription = dto.shortDescription,
             description = dto.description,
@@ -1503,61 +1503,61 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.BotMediaPreview): BotMediaPreviewDto {
+    fun map(dto: TdApi.BotMediaPreview): BotMediaPreviewDto {
         return BotMediaPreviewDto(
             date = dto.date,
             content = map(dto.content),
         )
     }
 
-    public fun map(dto: BotMediaPreviewDto): TdApi.BotMediaPreview {
+    fun map(dto: BotMediaPreviewDto): TdApi.BotMediaPreview {
         return TdApi.BotMediaPreview(
             date = dto.date,
             content = map(dto.content),
         )
     }
 
-    public fun map(dto: TdApi.BotMediaPreviewInfo): BotMediaPreviewInfoDto {
+    fun map(dto: TdApi.BotMediaPreviewInfo): BotMediaPreviewInfoDto {
         return BotMediaPreviewInfoDto(
             previews = dto.previews.mapArray { map(it) },
             languageCodes = dto.languageCodes,
         )
     }
 
-    public fun map(dto: BotMediaPreviewInfoDto): TdApi.BotMediaPreviewInfo {
+    fun map(dto: BotMediaPreviewInfoDto): TdApi.BotMediaPreviewInfo {
         return TdApi.BotMediaPreviewInfo(
             previews = dto.previews.mapArray { map(it) },
             languageCodes = dto.languageCodes,
         )
     }
 
-    public fun map(dto: TdApi.BotMediaPreviews): BotMediaPreviewsDto {
+    fun map(dto: TdApi.BotMediaPreviews): BotMediaPreviewsDto {
         return BotMediaPreviewsDto(
             previews = dto.previews.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: BotMediaPreviewsDto): TdApi.BotMediaPreviews {
+    fun map(dto: BotMediaPreviewsDto): TdApi.BotMediaPreviews {
         return TdApi.BotMediaPreviews(
             previews = dto.previews.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: TdApi.BotMenuButton): BotMenuButtonDto {
+    fun map(dto: TdApi.BotMenuButton): BotMenuButtonDto {
         return BotMenuButtonDto(
             text = dto.text,
             url = dto.url,
         )
     }
 
-    public fun map(dto: BotMenuButtonDto): TdApi.BotMenuButton {
+    fun map(dto: BotMenuButtonDto): TdApi.BotMenuButton {
         return TdApi.BotMenuButton(
             text = dto.text,
             url = dto.url,
         )
     }
 
-    public fun map(dto: TdApi.BotVerification): BotVerificationDto {
+    fun map(dto: TdApi.BotVerification): BotVerificationDto {
         return BotVerificationDto(
             botUserId = dto.botUserId,
             iconCustomEmojiId = dto.iconCustomEmojiId,
@@ -1565,7 +1565,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: BotVerificationDto): TdApi.BotVerification {
+    fun map(dto: BotVerificationDto): TdApi.BotVerification {
         return TdApi.BotVerification(
             botUserId = dto.botUserId,
             iconCustomEmojiId = dto.iconCustomEmojiId,
@@ -1573,7 +1573,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.BotVerificationParameters): BotVerificationParametersDto {
+    fun map(dto: TdApi.BotVerificationParameters): BotVerificationParametersDto {
         return BotVerificationParametersDto(
             iconCustomEmojiId = dto.iconCustomEmojiId,
             organizationName = dto.organizationName,
@@ -1582,7 +1582,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: BotVerificationParametersDto): TdApi.BotVerificationParameters {
+    fun map(dto: BotVerificationParametersDto): TdApi.BotVerificationParameters {
         return TdApi.BotVerificationParameters(
             iconCustomEmojiId = dto.iconCustomEmojiId,
             organizationName = dto.organizationName,
@@ -1591,7 +1591,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.BusinessAwayMessageSettings): BusinessAwayMessageSettingsDto {
+    fun map(dto: TdApi.BusinessAwayMessageSettings): BusinessAwayMessageSettingsDto {
         return BusinessAwayMessageSettingsDto(
             shortcutId = dto.shortcutId,
             recipients = map(dto.recipients),
@@ -1600,7 +1600,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: BusinessAwayMessageSettingsDto): TdApi.BusinessAwayMessageSettings {
+    fun map(dto: BusinessAwayMessageSettingsDto): TdApi.BusinessAwayMessageSettings {
         return TdApi.BusinessAwayMessageSettings(
             shortcutId = dto.shortcutId,
             recipients = map(dto.recipients),
@@ -1609,7 +1609,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.BusinessBotManageBar): BusinessBotManageBarDto {
+    fun map(dto: TdApi.BusinessBotManageBar): BusinessBotManageBarDto {
         return BusinessBotManageBarDto(
             botUserId = dto.botUserId,
             manageUrl = dto.manageUrl,
@@ -1618,7 +1618,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: BusinessBotManageBarDto): TdApi.BusinessBotManageBar {
+    fun map(dto: BusinessBotManageBarDto): TdApi.BusinessBotManageBar {
         return TdApi.BusinessBotManageBar(
             botUserId = dto.botUserId,
             manageUrl = dto.manageUrl,
@@ -1627,7 +1627,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.BusinessBotRights): BusinessBotRightsDto {
+    fun map(dto: TdApi.BusinessBotRights): BusinessBotRightsDto {
         return BusinessBotRightsDto(
             canReply = dto.canReply,
             canReadMessages = dto.canReadMessages,
@@ -1646,7 +1646,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: BusinessBotRightsDto): TdApi.BusinessBotRights {
+    fun map(dto: BusinessBotRightsDto): TdApi.BusinessBotRights {
         return TdApi.BusinessBotRights(
             canReply = dto.canReply,
             canReadMessages = dto.canReadMessages,
@@ -1665,7 +1665,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.BusinessChatLink): BusinessChatLinkDto {
+    fun map(dto: TdApi.BusinessChatLink): BusinessChatLinkDto {
         return BusinessChatLinkDto(
             link = dto.link,
             text = map(dto.text),
@@ -1674,7 +1674,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: BusinessChatLinkDto): TdApi.BusinessChatLink {
+    fun map(dto: BusinessChatLinkDto): TdApi.BusinessChatLink {
         return TdApi.BusinessChatLink(
             link = dto.link,
             text = map(dto.text),
@@ -1683,33 +1683,33 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.BusinessChatLinkInfo): BusinessChatLinkInfoDto {
+    fun map(dto: TdApi.BusinessChatLinkInfo): BusinessChatLinkInfoDto {
         return BusinessChatLinkInfoDto(
             chatId = dto.chatId,
             text = map(dto.text),
         )
     }
 
-    public fun map(dto: BusinessChatLinkInfoDto): TdApi.BusinessChatLinkInfo {
+    fun map(dto: BusinessChatLinkInfoDto): TdApi.BusinessChatLinkInfo {
         return TdApi.BusinessChatLinkInfo(
             chatId = dto.chatId,
             text = map(dto.text),
         )
     }
 
-    public fun map(dto: TdApi.BusinessChatLinks): BusinessChatLinksDto {
+    fun map(dto: TdApi.BusinessChatLinks): BusinessChatLinksDto {
         return BusinessChatLinksDto(
             links = dto.links.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: BusinessChatLinksDto): TdApi.BusinessChatLinks {
+    fun map(dto: BusinessChatLinksDto): TdApi.BusinessChatLinks {
         return TdApi.BusinessChatLinks(
             links = dto.links.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: TdApi.BusinessConnectedBot): BusinessConnectedBotDto {
+    fun map(dto: TdApi.BusinessConnectedBot): BusinessConnectedBotDto {
         return BusinessConnectedBotDto(
             botUserId = dto.botUserId,
             recipients = map(dto.recipients),
@@ -1717,7 +1717,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: BusinessConnectedBotDto): TdApi.BusinessConnectedBot {
+    fun map(dto: BusinessConnectedBotDto): TdApi.BusinessConnectedBot {
         return TdApi.BusinessConnectedBot(
             botUserId = dto.botUserId,
             recipients = map(dto.recipients),
@@ -1725,7 +1725,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.BusinessConnection): BusinessConnectionDto {
+    fun map(dto: TdApi.BusinessConnection): BusinessConnectionDto {
         return BusinessConnectionDto(
             id = dto.id,
             userId = dto.userId,
@@ -1736,7 +1736,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: BusinessConnectionDto): TdApi.BusinessConnection {
+    fun map(dto: BusinessConnectionDto): TdApi.BusinessConnection {
         return TdApi.BusinessConnection(
             id = dto.id,
             userId = dto.userId,
@@ -1747,33 +1747,33 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.BusinessFeaturePromotionAnimation): BusinessFeaturePromotionAnimationDto {
+    fun map(dto: TdApi.BusinessFeaturePromotionAnimation): BusinessFeaturePromotionAnimationDto {
         return BusinessFeaturePromotionAnimationDto(
             feature = map(dto.feature),
             animation = map(dto.animation),
         )
     }
 
-    public fun map(dto: BusinessFeaturePromotionAnimationDto): TdApi.BusinessFeaturePromotionAnimation {
+    fun map(dto: BusinessFeaturePromotionAnimationDto): TdApi.BusinessFeaturePromotionAnimation {
         return TdApi.BusinessFeaturePromotionAnimation(
             feature = map(dto.feature),
             animation = map(dto.animation),
         )
     }
 
-    public fun map(dto: TdApi.BusinessFeatures): BusinessFeaturesDto {
+    fun map(dto: TdApi.BusinessFeatures): BusinessFeaturesDto {
         return BusinessFeaturesDto(
             features = dto.features.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: BusinessFeaturesDto): TdApi.BusinessFeatures {
+    fun map(dto: BusinessFeaturesDto): TdApi.BusinessFeatures {
         return TdApi.BusinessFeatures(
             features = dto.features.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: TdApi.BusinessGreetingMessageSettings): BusinessGreetingMessageSettingsDto {
+    fun map(dto: TdApi.BusinessGreetingMessageSettings): BusinessGreetingMessageSettingsDto {
         return BusinessGreetingMessageSettingsDto(
             shortcutId = dto.shortcutId,
             recipients = map(dto.recipients),
@@ -1781,7 +1781,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: BusinessGreetingMessageSettingsDto): TdApi.BusinessGreetingMessageSettings {
+    fun map(dto: BusinessGreetingMessageSettingsDto): TdApi.BusinessGreetingMessageSettings {
         return TdApi.BusinessGreetingMessageSettings(
             shortcutId = dto.shortcutId,
             recipients = map(dto.recipients),
@@ -1789,7 +1789,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.BusinessInfo): BusinessInfoDto {
+    fun map(dto: TdApi.BusinessInfo): BusinessInfoDto {
         return BusinessInfoDto(
             location = dto.location?.let { map(it) },
             openingHours = dto.openingHours?.let { map(it) },
@@ -1802,7 +1802,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: BusinessInfoDto): TdApi.BusinessInfo {
+    fun map(dto: BusinessInfoDto): TdApi.BusinessInfo {
         return TdApi.BusinessInfo(
             location = dto.location?.let { map(it) },
             openingHours = dto.openingHours?.let { map(it) },
@@ -1815,75 +1815,75 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.BusinessLocation): BusinessLocationDto {
+    fun map(dto: TdApi.BusinessLocation): BusinessLocationDto {
         return BusinessLocationDto(
             location = dto.location?.let { map(it) },
             address = dto.address,
         )
     }
 
-    public fun map(dto: BusinessLocationDto): TdApi.BusinessLocation {
+    fun map(dto: BusinessLocationDto): TdApi.BusinessLocation {
         return TdApi.BusinessLocation(
             location = dto.location?.let { map(it) },
             address = dto.address,
         )
     }
 
-    public fun map(dto: TdApi.BusinessMessage): BusinessMessageDto {
+    fun map(dto: TdApi.BusinessMessage): BusinessMessageDto {
         return BusinessMessageDto(
             message = map(dto.message),
             replyToMessage = dto.replyToMessage?.let { map(it) },
         )
     }
 
-    public fun map(dto: BusinessMessageDto): TdApi.BusinessMessage {
+    fun map(dto: BusinessMessageDto): TdApi.BusinessMessage {
         return TdApi.BusinessMessage(
             message = map(dto.message),
             replyToMessage = dto.replyToMessage?.let { map(it) },
         )
     }
 
-    public fun map(dto: TdApi.BusinessMessages): BusinessMessagesDto {
+    fun map(dto: TdApi.BusinessMessages): BusinessMessagesDto {
         return BusinessMessagesDto(
             messages = dto.messages.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: BusinessMessagesDto): TdApi.BusinessMessages {
+    fun map(dto: BusinessMessagesDto): TdApi.BusinessMessages {
         return TdApi.BusinessMessages(
             messages = dto.messages.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: TdApi.BusinessOpeningHours): BusinessOpeningHoursDto {
+    fun map(dto: TdApi.BusinessOpeningHours): BusinessOpeningHoursDto {
         return BusinessOpeningHoursDto(
             timeZoneId = dto.timeZoneId,
             openingHours = dto.openingHours.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: BusinessOpeningHoursDto): TdApi.BusinessOpeningHours {
+    fun map(dto: BusinessOpeningHoursDto): TdApi.BusinessOpeningHours {
         return TdApi.BusinessOpeningHours(
             timeZoneId = dto.timeZoneId,
             openingHours = dto.openingHours.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: TdApi.BusinessOpeningHoursInterval): BusinessOpeningHoursIntervalDto {
+    fun map(dto: TdApi.BusinessOpeningHoursInterval): BusinessOpeningHoursIntervalDto {
         return BusinessOpeningHoursIntervalDto(
             startMinute = dto.startMinute,
             endMinute = dto.endMinute,
         )
     }
 
-    public fun map(dto: BusinessOpeningHoursIntervalDto): TdApi.BusinessOpeningHoursInterval {
+    fun map(dto: BusinessOpeningHoursIntervalDto): TdApi.BusinessOpeningHoursInterval {
         return TdApi.BusinessOpeningHoursInterval(
             startMinute = dto.startMinute,
             endMinute = dto.endMinute,
         )
     }
 
-    public fun map(dto: TdApi.BusinessRecipients): BusinessRecipientsDto {
+    fun map(dto: TdApi.BusinessRecipients): BusinessRecipientsDto {
         return BusinessRecipientsDto(
             chatIds = dto.chatIds,
             excludedChatIds = dto.excludedChatIds,
@@ -1895,7 +1895,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: BusinessRecipientsDto): TdApi.BusinessRecipients {
+    fun map(dto: BusinessRecipientsDto): TdApi.BusinessRecipients {
         return TdApi.BusinessRecipients(
             chatIds = dto.chatIds,
             excludedChatIds = dto.excludedChatIds,
@@ -1907,7 +1907,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.BusinessStartPage): BusinessStartPageDto {
+    fun map(dto: TdApi.BusinessStartPage): BusinessStartPageDto {
         return BusinessStartPageDto(
             title = dto.title,
             message = dto.message,
@@ -1915,7 +1915,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: BusinessStartPageDto): TdApi.BusinessStartPage {
+    fun map(dto: BusinessStartPageDto): TdApi.BusinessStartPage {
         return TdApi.BusinessStartPage(
             title = dto.title,
             message = dto.message,
@@ -1923,7 +1923,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.Call): CallDto {
+    fun map(dto: TdApi.Call): CallDto {
         return CallDto(
             id = dto.id,
             userId = dto.userId,
@@ -1933,7 +1933,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: CallDto): TdApi.Call {
+    fun map(dto: CallDto): TdApi.Call {
         return TdApi.Call(
             id = dto.id,
             userId = dto.userId,
@@ -1943,19 +1943,19 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.CallId): CallIdDto {
+    fun map(dto: TdApi.CallId): CallIdDto {
         return CallIdDto(
             id = dto.id,
         )
     }
 
-    public fun map(dto: CallIdDto): TdApi.CallId {
+    fun map(dto: CallIdDto): TdApi.CallId {
         return TdApi.CallId(
             id = dto.id,
         )
     }
 
-    public fun map(dto: TdApi.CallProtocol): CallProtocolDto {
+    fun map(dto: TdApi.CallProtocol): CallProtocolDto {
         return CallProtocolDto(
             udpP2p = dto.udpP2p,
             udpReflector = dto.udpReflector,
@@ -1965,7 +1965,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: CallProtocolDto): TdApi.CallProtocol {
+    fun map(dto: CallProtocolDto): TdApi.CallProtocol {
         return TdApi.CallProtocol(
             udpP2p = dto.udpP2p,
             udpReflector = dto.udpReflector,
@@ -1975,7 +1975,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.CallServer): CallServerDto {
+    fun map(dto: TdApi.CallServer): CallServerDto {
         return CallServerDto(
             id = dto.id,
             ipAddress = dto.ipAddress,
@@ -1985,7 +1985,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: CallServerDto): TdApi.CallServer {
+    fun map(dto: CallServerDto): TdApi.CallServer {
         return TdApi.CallServer(
             id = dto.id,
             ipAddress = dto.ipAddress,
@@ -1995,7 +1995,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.CallbackQueryAnswer): CallbackQueryAnswerDto {
+    fun map(dto: TdApi.CallbackQueryAnswer): CallbackQueryAnswerDto {
         return CallbackQueryAnswerDto(
             text = dto.text,
             showAlert = dto.showAlert,
@@ -2003,7 +2003,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: CallbackQueryAnswerDto): TdApi.CallbackQueryAnswer {
+    fun map(dto: CallbackQueryAnswerDto): TdApi.CallbackQueryAnswer {
         return TdApi.CallbackQueryAnswer(
             text = dto.text,
             showAlert = dto.showAlert,
@@ -2011,7 +2011,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.Chat): ChatDto {
+    fun map(dto: TdApi.Chat): ChatDto {
         return ChatDto(
             id = dto.id,
             type = map(dto.type),
@@ -2057,7 +2057,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: ChatDto): TdApi.Chat {
+    fun map(dto: ChatDto): TdApi.Chat {
         return TdApi.Chat(
             id = dto.id,
             type = map(dto.type),
@@ -2103,7 +2103,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.ChatActiveStories): ChatActiveStoriesDto {
+    fun map(dto: TdApi.ChatActiveStories): ChatActiveStoriesDto {
         return ChatActiveStoriesDto(
             chatId = dto.chatId,
             list = dto.list?.let { map(it) },
@@ -2113,7 +2113,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: ChatActiveStoriesDto): TdApi.ChatActiveStories {
+    fun map(dto: ChatActiveStoriesDto): TdApi.ChatActiveStories {
         return TdApi.ChatActiveStories(
             chatId = dto.chatId,
             list = dto.list?.let { map(it) },
@@ -2123,7 +2123,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.ChatAdministrator): ChatAdministratorDto {
+    fun map(dto: TdApi.ChatAdministrator): ChatAdministratorDto {
         return ChatAdministratorDto(
             userId = dto.userId,
             customTitle = dto.customTitle,
@@ -2131,7 +2131,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: ChatAdministratorDto): TdApi.ChatAdministrator {
+    fun map(dto: ChatAdministratorDto): TdApi.ChatAdministrator {
         return TdApi.ChatAdministrator(
             userId = dto.userId,
             customTitle = dto.customTitle,
@@ -2139,7 +2139,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.ChatAdministratorRights): ChatAdministratorRightsDto {
+    fun map(dto: TdApi.ChatAdministratorRights): ChatAdministratorRightsDto {
         return ChatAdministratorRightsDto(
             canManageChat = dto.canManageChat,
             canChangeInfo = dto.canChangeInfo,
@@ -2159,7 +2159,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: ChatAdministratorRightsDto): TdApi.ChatAdministratorRights {
+    fun map(dto: ChatAdministratorRightsDto): TdApi.ChatAdministratorRights {
         return TdApi.ChatAdministratorRights(
             canManageChat = dto.canManageChat,
             canChangeInfo = dto.canChangeInfo,
@@ -2179,33 +2179,33 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.ChatAdministrators): ChatAdministratorsDto {
+    fun map(dto: TdApi.ChatAdministrators): ChatAdministratorsDto {
         return ChatAdministratorsDto(
             administrators = dto.administrators.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: ChatAdministratorsDto): TdApi.ChatAdministrators {
+    fun map(dto: ChatAdministratorsDto): TdApi.ChatAdministrators {
         return TdApi.ChatAdministrators(
             administrators = dto.administrators.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: TdApi.ChatBackground): ChatBackgroundDto {
+    fun map(dto: TdApi.ChatBackground): ChatBackgroundDto {
         return ChatBackgroundDto(
             background = map(dto.background),
             darkThemeDimming = dto.darkThemeDimming,
         )
     }
 
-    public fun map(dto: ChatBackgroundDto): TdApi.ChatBackground {
+    fun map(dto: ChatBackgroundDto): TdApi.ChatBackground {
         return TdApi.ChatBackground(
             background = map(dto.background),
             darkThemeDimming = dto.darkThemeDimming,
         )
     }
 
-    public fun map(dto: TdApi.ChatBoost): ChatBoostDto {
+    fun map(dto: TdApi.ChatBoost): ChatBoostDto {
         return ChatBoostDto(
             id = dto.id,
             count = dto.count,
@@ -2215,7 +2215,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: ChatBoostDto): TdApi.ChatBoost {
+    fun map(dto: ChatBoostDto): TdApi.ChatBoost {
         return TdApi.ChatBoost(
             id = dto.id,
             count = dto.count,
@@ -2225,7 +2225,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.ChatBoostFeatures): ChatBoostFeaturesDto {
+    fun map(dto: TdApi.ChatBoostFeatures): ChatBoostFeaturesDto {
         return ChatBoostFeaturesDto(
             features = dto.features.mapArray { map(it) },
             minProfileBackgroundCustomEmojiBoostLevel = dto.minProfileBackgroundCustomEmojiBoostLevel,
@@ -2239,7 +2239,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: ChatBoostFeaturesDto): TdApi.ChatBoostFeatures {
+    fun map(dto: ChatBoostFeaturesDto): TdApi.ChatBoostFeatures {
         return TdApi.ChatBoostFeatures(
             features = dto.features.mapArray { map(it) },
             minProfileBackgroundCustomEmojiBoostLevel = dto.minProfileBackgroundCustomEmojiBoostLevel,
@@ -2253,7 +2253,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.ChatBoostLevelFeatures): ChatBoostLevelFeaturesDto {
+    fun map(dto: TdApi.ChatBoostLevelFeatures): ChatBoostLevelFeaturesDto {
         return ChatBoostLevelFeaturesDto(
             level = dto.level,
             storyPerDayCount = dto.storyPerDayCount,
@@ -2272,7 +2272,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: ChatBoostLevelFeaturesDto): TdApi.ChatBoostLevelFeatures {
+    fun map(dto: ChatBoostLevelFeaturesDto): TdApi.ChatBoostLevelFeatures {
         return TdApi.ChatBoostLevelFeatures(
             level = dto.level,
             storyPerDayCount = dto.storyPerDayCount,
@@ -2291,35 +2291,35 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.ChatBoostLink): ChatBoostLinkDto {
+    fun map(dto: TdApi.ChatBoostLink): ChatBoostLinkDto {
         return ChatBoostLinkDto(
             link = dto.link,
             isPublic = dto.isPublic,
         )
     }
 
-    public fun map(dto: ChatBoostLinkDto): TdApi.ChatBoostLink {
+    fun map(dto: ChatBoostLinkDto): TdApi.ChatBoostLink {
         return TdApi.ChatBoostLink(
             link = dto.link,
             isPublic = dto.isPublic,
         )
     }
 
-    public fun map(dto: TdApi.ChatBoostLinkInfo): ChatBoostLinkInfoDto {
+    fun map(dto: TdApi.ChatBoostLinkInfo): ChatBoostLinkInfoDto {
         return ChatBoostLinkInfoDto(
             isPublic = dto.isPublic,
             chatId = dto.chatId,
         )
     }
 
-    public fun map(dto: ChatBoostLinkInfoDto): TdApi.ChatBoostLinkInfo {
+    fun map(dto: ChatBoostLinkInfoDto): TdApi.ChatBoostLinkInfo {
         return TdApi.ChatBoostLinkInfo(
             isPublic = dto.isPublic,
             chatId = dto.chatId,
         )
     }
 
-    public fun map(dto: TdApi.ChatBoostSlot): ChatBoostSlotDto {
+    fun map(dto: TdApi.ChatBoostSlot): ChatBoostSlotDto {
         return ChatBoostSlotDto(
             slotId = dto.slotId,
             currentlyBoostedChatId = dto.currentlyBoostedChatId,
@@ -2329,7 +2329,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: ChatBoostSlotDto): TdApi.ChatBoostSlot {
+    fun map(dto: ChatBoostSlotDto): TdApi.ChatBoostSlot {
         return TdApi.ChatBoostSlot(
             slotId = dto.slotId,
             currentlyBoostedChatId = dto.currentlyBoostedChatId,
@@ -2339,19 +2339,19 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.ChatBoostSlots): ChatBoostSlotsDto {
+    fun map(dto: TdApi.ChatBoostSlots): ChatBoostSlotsDto {
         return ChatBoostSlotsDto(
             slots = dto.slots.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: ChatBoostSlotsDto): TdApi.ChatBoostSlots {
+    fun map(dto: ChatBoostSlotsDto): TdApi.ChatBoostSlots {
         return TdApi.ChatBoostSlots(
             slots = dto.slots.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: TdApi.ChatBoostStatus): ChatBoostStatusDto {
+    fun map(dto: TdApi.ChatBoostStatus): ChatBoostStatusDto {
         return ChatBoostStatusDto(
             boostUrl = dto.boostUrl,
             appliedSlotIds = dto.appliedSlotIds,
@@ -2366,7 +2366,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: ChatBoostStatusDto): TdApi.ChatBoostStatus {
+    fun map(dto: ChatBoostStatusDto): TdApi.ChatBoostStatus {
         return TdApi.ChatBoostStatus(
             boostUrl = dto.boostUrl,
             appliedSlotIds = dto.appliedSlotIds,
@@ -2381,7 +2381,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.ChatEvent): ChatEventDto {
+    fun map(dto: TdApi.ChatEvent): ChatEventDto {
         return ChatEventDto(
             id = dto.id,
             date = dto.date,
@@ -2390,7 +2390,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: ChatEventDto): TdApi.ChatEvent {
+    fun map(dto: ChatEventDto): TdApi.ChatEvent {
         return TdApi.ChatEvent(
             id = dto.id,
             date = dto.date,
@@ -2399,7 +2399,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.ChatEventLogFilters): ChatEventLogFiltersDto {
+    fun map(dto: TdApi.ChatEventLogFilters): ChatEventLogFiltersDto {
         return ChatEventLogFiltersDto(
             messageEdits = dto.messageEdits,
             messageDeletions = dto.messageDeletions,
@@ -2418,7 +2418,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: ChatEventLogFiltersDto): TdApi.ChatEventLogFilters {
+    fun map(dto: ChatEventLogFiltersDto): TdApi.ChatEventLogFilters {
         return TdApi.ChatEventLogFilters(
             messageEdits = dto.messageEdits,
             messageDeletions = dto.messageDeletions,
@@ -2437,19 +2437,19 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.ChatEvents): ChatEventsDto {
+    fun map(dto: TdApi.ChatEvents): ChatEventsDto {
         return ChatEventsDto(
             events = dto.events.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: ChatEventsDto): TdApi.ChatEvents {
+    fun map(dto: ChatEventsDto): TdApi.ChatEvents {
         return TdApi.ChatEvents(
             events = dto.events.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: TdApi.ChatFolder): ChatFolderDto {
+    fun map(dto: TdApi.ChatFolder): ChatFolderDto {
         return ChatFolderDto(
             name = map(dto.name),
             icon = dto.icon?.let { map(it) },
@@ -2469,7 +2469,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: ChatFolderDto): TdApi.ChatFolder {
+    fun map(dto: ChatFolderDto): TdApi.ChatFolder {
         return TdApi.ChatFolder(
             name = map(dto.name),
             icon = dto.icon?.let { map(it) },
@@ -2489,19 +2489,19 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.ChatFolderIcon): ChatFolderIconDto {
+    fun map(dto: TdApi.ChatFolderIcon): ChatFolderIconDto {
         return ChatFolderIconDto(
             name = dto.name,
         )
     }
 
-    public fun map(dto: ChatFolderIconDto): TdApi.ChatFolderIcon {
+    fun map(dto: ChatFolderIconDto): TdApi.ChatFolderIcon {
         return TdApi.ChatFolderIcon(
             name = dto.name,
         )
     }
 
-    public fun map(dto: TdApi.ChatFolderInfo): ChatFolderInfoDto {
+    fun map(dto: TdApi.ChatFolderInfo): ChatFolderInfoDto {
         return ChatFolderInfoDto(
             id = dto.id,
             name = map(dto.name),
@@ -2512,7 +2512,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: ChatFolderInfoDto): TdApi.ChatFolderInfo {
+    fun map(dto: ChatFolderInfoDto): TdApi.ChatFolderInfo {
         return TdApi.ChatFolderInfo(
             id = dto.id,
             name = map(dto.name),
@@ -2523,7 +2523,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.ChatFolderInviteLink): ChatFolderInviteLinkDto {
+    fun map(dto: TdApi.ChatFolderInviteLink): ChatFolderInviteLinkDto {
         return ChatFolderInviteLinkDto(
             inviteLink = dto.inviteLink,
             name = dto.name,
@@ -2531,7 +2531,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: ChatFolderInviteLinkDto): TdApi.ChatFolderInviteLink {
+    fun map(dto: ChatFolderInviteLinkDto): TdApi.ChatFolderInviteLink {
         return TdApi.ChatFolderInviteLink(
             inviteLink = dto.inviteLink,
             name = dto.name,
@@ -2539,7 +2539,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.ChatFolderInviteLinkInfo): ChatFolderInviteLinkInfoDto {
+    fun map(dto: TdApi.ChatFolderInviteLinkInfo): ChatFolderInviteLinkInfoDto {
         return ChatFolderInviteLinkInfoDto(
             chatFolderInfo = map(dto.chatFolderInfo),
             missingChatIds = dto.missingChatIds,
@@ -2547,7 +2547,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: ChatFolderInviteLinkInfoDto): TdApi.ChatFolderInviteLinkInfo {
+    fun map(dto: ChatFolderInviteLinkInfoDto): TdApi.ChatFolderInviteLinkInfo {
         return TdApi.ChatFolderInviteLinkInfo(
             chatFolderInfo = map(dto.chatFolderInfo),
             missingChatIds = dto.missingChatIds,
@@ -2555,33 +2555,33 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.ChatFolderInviteLinks): ChatFolderInviteLinksDto {
+    fun map(dto: TdApi.ChatFolderInviteLinks): ChatFolderInviteLinksDto {
         return ChatFolderInviteLinksDto(
             inviteLinks = dto.inviteLinks.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: ChatFolderInviteLinksDto): TdApi.ChatFolderInviteLinks {
+    fun map(dto: ChatFolderInviteLinksDto): TdApi.ChatFolderInviteLinks {
         return TdApi.ChatFolderInviteLinks(
             inviteLinks = dto.inviteLinks.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: TdApi.ChatFolderName): ChatFolderNameDto {
+    fun map(dto: TdApi.ChatFolderName): ChatFolderNameDto {
         return ChatFolderNameDto(
             text = map(dto.text),
             animateCustomEmoji = dto.animateCustomEmoji,
         )
     }
 
-    public fun map(dto: ChatFolderNameDto): TdApi.ChatFolderName {
+    fun map(dto: ChatFolderNameDto): TdApi.ChatFolderName {
         return TdApi.ChatFolderName(
             text = map(dto.text),
             animateCustomEmoji = dto.animateCustomEmoji,
         )
     }
 
-    public fun map(dto: TdApi.ChatInviteLink): ChatInviteLinkDto {
+    fun map(dto: TdApi.ChatInviteLink): ChatInviteLinkDto {
         return ChatInviteLinkDto(
             inviteLink = dto.inviteLink,
             name = dto.name,
@@ -2600,7 +2600,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: ChatInviteLinkDto): TdApi.ChatInviteLink {
+    fun map(dto: ChatInviteLinkDto): TdApi.ChatInviteLink {
         return TdApi.ChatInviteLink(
             inviteLink = dto.inviteLink,
             name = dto.name,
@@ -2619,7 +2619,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.ChatInviteLinkCount): ChatInviteLinkCountDto {
+    fun map(dto: TdApi.ChatInviteLinkCount): ChatInviteLinkCountDto {
         return ChatInviteLinkCountDto(
             userId = dto.userId,
             inviteLinkCount = dto.inviteLinkCount,
@@ -2627,7 +2627,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: ChatInviteLinkCountDto): TdApi.ChatInviteLinkCount {
+    fun map(dto: ChatInviteLinkCountDto): TdApi.ChatInviteLinkCount {
         return TdApi.ChatInviteLinkCount(
             userId = dto.userId,
             inviteLinkCount = dto.inviteLinkCount,
@@ -2635,19 +2635,19 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.ChatInviteLinkCounts): ChatInviteLinkCountsDto {
+    fun map(dto: TdApi.ChatInviteLinkCounts): ChatInviteLinkCountsDto {
         return ChatInviteLinkCountsDto(
             inviteLinkCounts = dto.inviteLinkCounts.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: ChatInviteLinkCountsDto): TdApi.ChatInviteLinkCounts {
+    fun map(dto: ChatInviteLinkCountsDto): TdApi.ChatInviteLinkCounts {
         return TdApi.ChatInviteLinkCounts(
             inviteLinkCounts = dto.inviteLinkCounts.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: TdApi.ChatInviteLinkInfo): ChatInviteLinkInfoDto {
+    fun map(dto: TdApi.ChatInviteLinkInfo): ChatInviteLinkInfoDto {
         return ChatInviteLinkInfoDto(
             chatId = dto.chatId,
             accessibleFor = dto.accessibleFor,
@@ -2665,7 +2665,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: ChatInviteLinkInfoDto): TdApi.ChatInviteLinkInfo {
+    fun map(dto: ChatInviteLinkInfoDto): TdApi.ChatInviteLinkInfo {
         return TdApi.ChatInviteLinkInfo(
             chatId = dto.chatId,
             accessibleFor = dto.accessibleFor,
@@ -2683,7 +2683,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.ChatInviteLinkMember): ChatInviteLinkMemberDto {
+    fun map(dto: TdApi.ChatInviteLinkMember): ChatInviteLinkMemberDto {
         return ChatInviteLinkMemberDto(
             userId = dto.userId,
             joinedChatDate = dto.joinedChatDate,
@@ -2692,7 +2692,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: ChatInviteLinkMemberDto): TdApi.ChatInviteLinkMember {
+    fun map(dto: ChatInviteLinkMemberDto): TdApi.ChatInviteLinkMember {
         return TdApi.ChatInviteLinkMember(
             userId = dto.userId,
             joinedChatDate = dto.joinedChatDate,
@@ -2701,21 +2701,21 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.ChatInviteLinkMembers): ChatInviteLinkMembersDto {
+    fun map(dto: TdApi.ChatInviteLinkMembers): ChatInviteLinkMembersDto {
         return ChatInviteLinkMembersDto(
             totalCount = dto.totalCount,
             members = dto.members.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: ChatInviteLinkMembersDto): TdApi.ChatInviteLinkMembers {
+    fun map(dto: ChatInviteLinkMembersDto): TdApi.ChatInviteLinkMembers {
         return TdApi.ChatInviteLinkMembers(
             totalCount = dto.totalCount,
             members = dto.members.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: TdApi.ChatInviteLinkSubscriptionInfo): ChatInviteLinkSubscriptionInfoDto {
+    fun map(dto: TdApi.ChatInviteLinkSubscriptionInfo): ChatInviteLinkSubscriptionInfoDto {
         return ChatInviteLinkSubscriptionInfoDto(
             pricing = map(dto.pricing),
             canReuse = dto.canReuse,
@@ -2723,7 +2723,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: ChatInviteLinkSubscriptionInfoDto): TdApi.ChatInviteLinkSubscriptionInfo {
+    fun map(dto: ChatInviteLinkSubscriptionInfoDto): TdApi.ChatInviteLinkSubscriptionInfo {
         return TdApi.ChatInviteLinkSubscriptionInfo(
             pricing = map(dto.pricing),
             canReuse = dto.canReuse,
@@ -2731,21 +2731,21 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.ChatInviteLinks): ChatInviteLinksDto {
+    fun map(dto: TdApi.ChatInviteLinks): ChatInviteLinksDto {
         return ChatInviteLinksDto(
             totalCount = dto.totalCount,
             inviteLinks = dto.inviteLinks.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: ChatInviteLinksDto): TdApi.ChatInviteLinks {
+    fun map(dto: ChatInviteLinksDto): TdApi.ChatInviteLinks {
         return TdApi.ChatInviteLinks(
             totalCount = dto.totalCount,
             inviteLinks = dto.inviteLinks.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: TdApi.ChatJoinRequest): ChatJoinRequestDto {
+    fun map(dto: TdApi.ChatJoinRequest): ChatJoinRequestDto {
         return ChatJoinRequestDto(
             userId = dto.userId,
             date = dto.date,
@@ -2753,7 +2753,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: ChatJoinRequestDto): TdApi.ChatJoinRequest {
+    fun map(dto: ChatJoinRequestDto): TdApi.ChatJoinRequest {
         return TdApi.ChatJoinRequest(
             userId = dto.userId,
             date = dto.date,
@@ -2761,61 +2761,61 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.ChatJoinRequests): ChatJoinRequestsDto {
+    fun map(dto: TdApi.ChatJoinRequests): ChatJoinRequestsDto {
         return ChatJoinRequestsDto(
             totalCount = dto.totalCount,
             requests = dto.requests.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: ChatJoinRequestsDto): TdApi.ChatJoinRequests {
+    fun map(dto: ChatJoinRequestsDto): TdApi.ChatJoinRequests {
         return TdApi.ChatJoinRequests(
             totalCount = dto.totalCount,
             requests = dto.requests.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: TdApi.ChatJoinRequestsInfo): ChatJoinRequestsInfoDto {
+    fun map(dto: TdApi.ChatJoinRequestsInfo): ChatJoinRequestsInfoDto {
         return ChatJoinRequestsInfoDto(
             totalCount = dto.totalCount,
             userIds = dto.userIds,
         )
     }
 
-    public fun map(dto: ChatJoinRequestsInfoDto): TdApi.ChatJoinRequestsInfo {
+    fun map(dto: ChatJoinRequestsInfoDto): TdApi.ChatJoinRequestsInfo {
         return TdApi.ChatJoinRequestsInfo(
             totalCount = dto.totalCount,
             userIds = dto.userIds,
         )
     }
 
-    public fun map(dto: TdApi.ChatLists): ChatListsDto {
+    fun map(dto: TdApi.ChatLists): ChatListsDto {
         return ChatListsDto(
             chatLists = dto.chatLists.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: ChatListsDto): TdApi.ChatLists {
+    fun map(dto: ChatListsDto): TdApi.ChatLists {
         return TdApi.ChatLists(
             chatLists = dto.chatLists.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: TdApi.ChatLocation): ChatLocationDto {
+    fun map(dto: TdApi.ChatLocation): ChatLocationDto {
         return ChatLocationDto(
             location = map(dto.location),
             address = dto.address,
         )
     }
 
-    public fun map(dto: ChatLocationDto): TdApi.ChatLocation {
+    fun map(dto: ChatLocationDto): TdApi.ChatLocation {
         return TdApi.ChatLocation(
             location = map(dto.location),
             address = dto.address,
         )
     }
 
-    public fun map(dto: TdApi.ChatMember): ChatMemberDto {
+    fun map(dto: TdApi.ChatMember): ChatMemberDto {
         return ChatMemberDto(
             memberId = map(dto.memberId),
             inviterUserId = dto.inviterUserId,
@@ -2824,7 +2824,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: ChatMemberDto): TdApi.ChatMember {
+    fun map(dto: ChatMemberDto): TdApi.ChatMember {
         return TdApi.ChatMember(
             memberId = map(dto.memberId),
             inviterUserId = dto.inviterUserId,
@@ -2833,47 +2833,47 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.ChatMembers): ChatMembersDto {
+    fun map(dto: TdApi.ChatMembers): ChatMembersDto {
         return ChatMembersDto(
             totalCount = dto.totalCount,
             members = dto.members.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: ChatMembersDto): TdApi.ChatMembers {
+    fun map(dto: ChatMembersDto): TdApi.ChatMembers {
         return TdApi.ChatMembers(
             totalCount = dto.totalCount,
             members = dto.members.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: TdApi.ChatMessageSender): ChatMessageSenderDto {
+    fun map(dto: TdApi.ChatMessageSender): ChatMessageSenderDto {
         return ChatMessageSenderDto(
             sender = map(dto.sender),
             needsPremium = dto.needsPremium,
         )
     }
 
-    public fun map(dto: ChatMessageSenderDto): TdApi.ChatMessageSender {
+    fun map(dto: ChatMessageSenderDto): TdApi.ChatMessageSender {
         return TdApi.ChatMessageSender(
             sender = map(dto.sender),
             needsPremium = dto.needsPremium,
         )
     }
 
-    public fun map(dto: TdApi.ChatMessageSenders): ChatMessageSendersDto {
+    fun map(dto: TdApi.ChatMessageSenders): ChatMessageSendersDto {
         return ChatMessageSendersDto(
             senders = dto.senders.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: ChatMessageSendersDto): TdApi.ChatMessageSenders {
+    fun map(dto: ChatMessageSendersDto): TdApi.ChatMessageSenders {
         return TdApi.ChatMessageSenders(
             senders = dto.senders.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: TdApi.ChatNotificationSettings): ChatNotificationSettingsDto {
+    fun map(dto: TdApi.ChatNotificationSettings): ChatNotificationSettingsDto {
         return ChatNotificationSettingsDto(
             useDefaultMuteFor = dto.useDefaultMuteFor,
             muteFor = dto.muteFor,
@@ -2894,7 +2894,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: ChatNotificationSettingsDto): TdApi.ChatNotificationSettings {
+    fun map(dto: ChatNotificationSettingsDto): TdApi.ChatNotificationSettings {
         return TdApi.ChatNotificationSettings(
             useDefaultMuteFor = dto.useDefaultMuteFor,
             muteFor = dto.muteFor,
@@ -2915,7 +2915,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.ChatPermissions): ChatPermissionsDto {
+    fun map(dto: TdApi.ChatPermissions): ChatPermissionsDto {
         return ChatPermissionsDto(
             canSendBasicMessages = dto.canSendBasicMessages,
             canSendAudios = dto.canSendAudios,
@@ -2934,7 +2934,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: ChatPermissionsDto): TdApi.ChatPermissions {
+    fun map(dto: ChatPermissionsDto): TdApi.ChatPermissions {
         return TdApi.ChatPermissions(
             canSendBasicMessages = dto.canSendBasicMessages,
             canSendAudios = dto.canSendAudios,
@@ -2953,7 +2953,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.ChatPhoto): ChatPhotoDto {
+    fun map(dto: TdApi.ChatPhoto): ChatPhotoDto {
         return ChatPhotoDto(
             id = dto.id,
             addedDate = dto.addedDate,
@@ -2965,7 +2965,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: ChatPhotoDto): TdApi.ChatPhoto {
+    fun map(dto: ChatPhotoDto): TdApi.ChatPhoto {
         return TdApi.ChatPhoto(
             id = dto.id,
             addedDate = dto.addedDate,
@@ -2977,7 +2977,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.ChatPhotoInfo): ChatPhotoInfoDto {
+    fun map(dto: TdApi.ChatPhotoInfo): ChatPhotoInfoDto {
         return ChatPhotoInfoDto(
             small = map(dto.small),
             big = map(dto.big),
@@ -2987,7 +2987,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: ChatPhotoInfoDto): TdApi.ChatPhotoInfo {
+    fun map(dto: ChatPhotoInfoDto): TdApi.ChatPhotoInfo {
         return TdApi.ChatPhotoInfo(
             small = map(dto.small),
             big = map(dto.big),
@@ -2997,35 +2997,35 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.ChatPhotoSticker): ChatPhotoStickerDto {
+    fun map(dto: TdApi.ChatPhotoSticker): ChatPhotoStickerDto {
         return ChatPhotoStickerDto(
             type = map(dto.type),
             backgroundFill = map(dto.backgroundFill),
         )
     }
 
-    public fun map(dto: ChatPhotoStickerDto): TdApi.ChatPhotoSticker {
+    fun map(dto: ChatPhotoStickerDto): TdApi.ChatPhotoSticker {
         return TdApi.ChatPhotoSticker(
             type = map(dto.type),
             backgroundFill = map(dto.backgroundFill),
         )
     }
 
-    public fun map(dto: TdApi.ChatPhotos): ChatPhotosDto {
+    fun map(dto: TdApi.ChatPhotos): ChatPhotosDto {
         return ChatPhotosDto(
             totalCount = dto.totalCount,
             photos = dto.photos.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: ChatPhotosDto): TdApi.ChatPhotos {
+    fun map(dto: ChatPhotosDto): TdApi.ChatPhotos {
         return TdApi.ChatPhotos(
             totalCount = dto.totalCount,
             photos = dto.photos.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: TdApi.ChatPosition): ChatPositionDto {
+    fun map(dto: TdApi.ChatPosition): ChatPositionDto {
         return ChatPositionDto(
             list = map(dto.list),
             order = dto.order,
@@ -3034,7 +3034,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: ChatPositionDto): TdApi.ChatPosition {
+    fun map(dto: ChatPositionDto): TdApi.ChatPosition {
         return TdApi.ChatPosition(
             list = map(dto.list),
             order = dto.order,
@@ -3043,7 +3043,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.ChatRevenueAmount): ChatRevenueAmountDto {
+    fun map(dto: TdApi.ChatRevenueAmount): ChatRevenueAmountDto {
         return ChatRevenueAmountDto(
             cryptocurrency = dto.cryptocurrency,
             totalAmount = dto.totalAmount,
@@ -3053,7 +3053,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: ChatRevenueAmountDto): TdApi.ChatRevenueAmount {
+    fun map(dto: ChatRevenueAmountDto): TdApi.ChatRevenueAmount {
         return TdApi.ChatRevenueAmount(
             cryptocurrency = dto.cryptocurrency,
             totalAmount = dto.totalAmount,
@@ -3063,7 +3063,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.ChatRevenueStatistics): ChatRevenueStatisticsDto {
+    fun map(dto: TdApi.ChatRevenueStatistics): ChatRevenueStatisticsDto {
         return ChatRevenueStatisticsDto(
             revenueByHourGraph = map(dto.revenueByHourGraph),
             revenueGraph = map(dto.revenueGraph),
@@ -3072,7 +3072,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: ChatRevenueStatisticsDto): TdApi.ChatRevenueStatistics {
+    fun map(dto: ChatRevenueStatisticsDto): TdApi.ChatRevenueStatistics {
         return TdApi.ChatRevenueStatistics(
             revenueByHourGraph = map(dto.revenueByHourGraph),
             revenueGraph = map(dto.revenueGraph),
@@ -3081,7 +3081,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.ChatRevenueTransaction): ChatRevenueTransactionDto {
+    fun map(dto: TdApi.ChatRevenueTransaction): ChatRevenueTransactionDto {
         return ChatRevenueTransactionDto(
             cryptocurrency = dto.cryptocurrency,
             cryptocurrencyAmount = dto.cryptocurrencyAmount,
@@ -3089,7 +3089,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: ChatRevenueTransactionDto): TdApi.ChatRevenueTransaction {
+    fun map(dto: ChatRevenueTransactionDto): TdApi.ChatRevenueTransaction {
         return TdApi.ChatRevenueTransaction(
             cryptocurrency = dto.cryptocurrency,
             cryptocurrencyAmount = dto.cryptocurrencyAmount,
@@ -3097,21 +3097,21 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.ChatRevenueTransactions): ChatRevenueTransactionsDto {
+    fun map(dto: TdApi.ChatRevenueTransactions): ChatRevenueTransactionsDto {
         return ChatRevenueTransactionsDto(
             totalCount = dto.totalCount,
             transactions = dto.transactions.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: ChatRevenueTransactionsDto): TdApi.ChatRevenueTransactions {
+    fun map(dto: ChatRevenueTransactionsDto): TdApi.ChatRevenueTransactions {
         return TdApi.ChatRevenueTransactions(
             totalCount = dto.totalCount,
             transactions = dto.transactions.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: TdApi.ChatStatisticsAdministratorActionsInfo): ChatStatisticsAdministratorActionsInfoDto {
+    fun map(dto: TdApi.ChatStatisticsAdministratorActionsInfo): ChatStatisticsAdministratorActionsInfoDto {
         return ChatStatisticsAdministratorActionsInfoDto(
             userId = dto.userId,
             deletedMessageCount = dto.deletedMessageCount,
@@ -3120,7 +3120,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: ChatStatisticsAdministratorActionsInfoDto): TdApi.ChatStatisticsAdministratorActionsInfo {
+    fun map(dto: ChatStatisticsAdministratorActionsInfoDto): TdApi.ChatStatisticsAdministratorActionsInfo {
         return TdApi.ChatStatisticsAdministratorActionsInfo(
             userId = dto.userId,
             deletedMessageCount = dto.deletedMessageCount,
@@ -3129,7 +3129,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.ChatStatisticsInteractionInfo): ChatStatisticsInteractionInfoDto {
+    fun map(dto: TdApi.ChatStatisticsInteractionInfo): ChatStatisticsInteractionInfoDto {
         return ChatStatisticsInteractionInfoDto(
             objectType = map(dto.objectType),
             viewCount = dto.viewCount,
@@ -3138,7 +3138,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: ChatStatisticsInteractionInfoDto): TdApi.ChatStatisticsInteractionInfo {
+    fun map(dto: ChatStatisticsInteractionInfoDto): TdApi.ChatStatisticsInteractionInfo {
         return TdApi.ChatStatisticsInteractionInfo(
             objectType = map(dto.objectType),
             viewCount = dto.viewCount,
@@ -3147,21 +3147,21 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.ChatStatisticsInviterInfo): ChatStatisticsInviterInfoDto {
+    fun map(dto: TdApi.ChatStatisticsInviterInfo): ChatStatisticsInviterInfoDto {
         return ChatStatisticsInviterInfoDto(
             userId = dto.userId,
             addedMemberCount = dto.addedMemberCount,
         )
     }
 
-    public fun map(dto: ChatStatisticsInviterInfoDto): TdApi.ChatStatisticsInviterInfo {
+    fun map(dto: ChatStatisticsInviterInfoDto): TdApi.ChatStatisticsInviterInfo {
         return TdApi.ChatStatisticsInviterInfo(
             userId = dto.userId,
             addedMemberCount = dto.addedMemberCount,
         )
     }
 
-    public fun map(dto: TdApi.ChatStatisticsMessageSenderInfo): ChatStatisticsMessageSenderInfoDto {
+    fun map(dto: TdApi.ChatStatisticsMessageSenderInfo): ChatStatisticsMessageSenderInfoDto {
         return ChatStatisticsMessageSenderInfoDto(
             userId = dto.userId,
             sentMessageCount = dto.sentMessageCount,
@@ -3169,7 +3169,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: ChatStatisticsMessageSenderInfoDto): TdApi.ChatStatisticsMessageSenderInfo {
+    fun map(dto: ChatStatisticsMessageSenderInfoDto): TdApi.ChatStatisticsMessageSenderInfo {
         return TdApi.ChatStatisticsMessageSenderInfo(
             userId = dto.userId,
             sentMessageCount = dto.sentMessageCount,
@@ -3177,7 +3177,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.ChatTheme): ChatThemeDto {
+    fun map(dto: TdApi.ChatTheme): ChatThemeDto {
         return ChatThemeDto(
             name = dto.name,
             lightSettings = map(dto.lightSettings),
@@ -3185,7 +3185,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: ChatThemeDto): TdApi.ChatTheme {
+    fun map(dto: ChatThemeDto): TdApi.ChatTheme {
         return TdApi.ChatTheme(
             name = dto.name,
             lightSettings = map(dto.lightSettings),
@@ -3193,47 +3193,47 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.Chats): ChatsDto {
+    fun map(dto: TdApi.Chats): ChatsDto {
         return ChatsDto(
             totalCount = dto.totalCount,
             chatIds = dto.chatIds,
         )
     }
 
-    public fun map(dto: ChatsDto): TdApi.Chats {
+    fun map(dto: ChatsDto): TdApi.Chats {
         return TdApi.Chats(
             totalCount = dto.totalCount,
             chatIds = dto.chatIds,
         )
     }
 
-    public fun map(dto: TdApi.CloseBirthdayUser): CloseBirthdayUserDto {
+    fun map(dto: TdApi.CloseBirthdayUser): CloseBirthdayUserDto {
         return CloseBirthdayUserDto(
             userId = dto.userId,
             birthdate = map(dto.birthdate),
         )
     }
 
-    public fun map(dto: CloseBirthdayUserDto): TdApi.CloseBirthdayUser {
+    fun map(dto: CloseBirthdayUserDto): TdApi.CloseBirthdayUser {
         return TdApi.CloseBirthdayUser(
             userId = dto.userId,
             birthdate = map(dto.birthdate),
         )
     }
 
-    public fun map(dto: TdApi.ClosedVectorPath): ClosedVectorPathDto {
+    fun map(dto: TdApi.ClosedVectorPath): ClosedVectorPathDto {
         return ClosedVectorPathDto(
             commands = dto.commands.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: ClosedVectorPathDto): TdApi.ClosedVectorPath {
+    fun map(dto: ClosedVectorPathDto): TdApi.ClosedVectorPath {
         return TdApi.ClosedVectorPath(
             commands = dto.commands.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: TdApi.CollectibleItemInfo): CollectibleItemInfoDto {
+    fun map(dto: TdApi.CollectibleItemInfo): CollectibleItemInfoDto {
         return CollectibleItemInfoDto(
             purchaseDate = dto.purchaseDate,
             currency = dto.currency,
@@ -3244,7 +3244,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: CollectibleItemInfoDto): TdApi.CollectibleItemInfo {
+    fun map(dto: CollectibleItemInfoDto): TdApi.CollectibleItemInfo {
         return TdApi.CollectibleItemInfo(
             purchaseDate = dto.purchaseDate,
             currency = dto.currency,
@@ -3255,7 +3255,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.ConnectedAffiliateProgram): ConnectedAffiliateProgramDto {
+    fun map(dto: TdApi.ConnectedAffiliateProgram): ConnectedAffiliateProgramDto {
         return ConnectedAffiliateProgramDto(
             url = dto.url,
             botUserId = dto.botUserId,
@@ -3267,7 +3267,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: ConnectedAffiliateProgramDto): TdApi.ConnectedAffiliateProgram {
+    fun map(dto: ConnectedAffiliateProgramDto): TdApi.ConnectedAffiliateProgram {
         return TdApi.ConnectedAffiliateProgram(
             url = dto.url,
             botUserId = dto.botUserId,
@@ -3279,7 +3279,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.ConnectedAffiliatePrograms): ConnectedAffiliateProgramsDto {
+    fun map(dto: TdApi.ConnectedAffiliatePrograms): ConnectedAffiliateProgramsDto {
         return ConnectedAffiliateProgramsDto(
             totalCount = dto.totalCount,
             programs = dto.programs.mapArray { map(it) },
@@ -3287,7 +3287,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: ConnectedAffiliateProgramsDto): TdApi.ConnectedAffiliatePrograms {
+    fun map(dto: ConnectedAffiliateProgramsDto): TdApi.ConnectedAffiliatePrograms {
         return TdApi.ConnectedAffiliatePrograms(
             totalCount = dto.totalCount,
             programs = dto.programs.mapArray { map(it) },
@@ -3295,7 +3295,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.ConnectedWebsite): ConnectedWebsiteDto {
+    fun map(dto: TdApi.ConnectedWebsite): ConnectedWebsiteDto {
         return ConnectedWebsiteDto(
             id = dto.id,
             domainName = dto.domainName,
@@ -3309,7 +3309,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: ConnectedWebsiteDto): TdApi.ConnectedWebsite {
+    fun map(dto: ConnectedWebsiteDto): TdApi.ConnectedWebsite {
         return TdApi.ConnectedWebsite(
             id = dto.id,
             domainName = dto.domainName,
@@ -3323,19 +3323,19 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.ConnectedWebsites): ConnectedWebsitesDto {
+    fun map(dto: TdApi.ConnectedWebsites): ConnectedWebsitesDto {
         return ConnectedWebsitesDto(
             websites = dto.websites.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: ConnectedWebsitesDto): TdApi.ConnectedWebsites {
+    fun map(dto: ConnectedWebsitesDto): TdApi.ConnectedWebsites {
         return TdApi.ConnectedWebsites(
             websites = dto.websites.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: TdApi.Contact): ContactDto {
+    fun map(dto: TdApi.Contact): ContactDto {
         return ContactDto(
             phoneNumber = dto.phoneNumber,
             firstName = dto.firstName,
@@ -3345,7 +3345,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: ContactDto): TdApi.Contact {
+    fun map(dto: ContactDto): TdApi.Contact {
         return TdApi.Contact(
             phoneNumber = dto.phoneNumber,
             firstName = dto.firstName,
@@ -3355,31 +3355,31 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.Count): CountDto {
+    fun map(dto: TdApi.Count): CountDto {
         return CountDto(
             count = dto.count,
         )
     }
 
-    public fun map(dto: CountDto): TdApi.Count {
+    fun map(dto: CountDto): TdApi.Count {
         return TdApi.Count(
             count = dto.count,
         )
     }
 
-    public fun map(dto: TdApi.Countries): CountriesDto {
+    fun map(dto: TdApi.Countries): CountriesDto {
         return CountriesDto(
             countries = dto.countries.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: CountriesDto): TdApi.Countries {
+    fun map(dto: CountriesDto): TdApi.Countries {
         return TdApi.Countries(
             countries = dto.countries.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: TdApi.CountryInfo): CountryInfoDto {
+    fun map(dto: TdApi.CountryInfo): CountryInfoDto {
         return CountryInfoDto(
             countryCode = dto.countryCode,
             name = dto.name,
@@ -3389,7 +3389,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: CountryInfoDto): TdApi.CountryInfo {
+    fun map(dto: CountryInfoDto): TdApi.CountryInfo {
         return TdApi.CountryInfo(
             countryCode = dto.countryCode,
             name = dto.name,
@@ -3399,71 +3399,71 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.CreatedBasicGroupChat): CreatedBasicGroupChatDto {
+    fun map(dto: TdApi.CreatedBasicGroupChat): CreatedBasicGroupChatDto {
         return CreatedBasicGroupChatDto(
             chatId = dto.chatId,
             failedToAddMembers = map(dto.failedToAddMembers),
         )
     }
 
-    public fun map(dto: CreatedBasicGroupChatDto): TdApi.CreatedBasicGroupChat {
+    fun map(dto: CreatedBasicGroupChatDto): TdApi.CreatedBasicGroupChat {
         return TdApi.CreatedBasicGroupChat(
             chatId = dto.chatId,
             failedToAddMembers = map(dto.failedToAddMembers),
         )
     }
 
-    public fun map(dto: TdApi.CurrentWeather): CurrentWeatherDto {
+    fun map(dto: TdApi.CurrentWeather): CurrentWeatherDto {
         return CurrentWeatherDto(
             temperature = dto.temperature,
             emoji = dto.emoji,
         )
     }
 
-    public fun map(dto: CurrentWeatherDto): TdApi.CurrentWeather {
+    fun map(dto: CurrentWeatherDto): TdApi.CurrentWeather {
         return TdApi.CurrentWeather(
             temperature = dto.temperature,
             emoji = dto.emoji,
         )
     }
 
-    public fun map(dto: TdApi.CustomRequestResult): CustomRequestResultDto {
+    fun map(dto: TdApi.CustomRequestResult): CustomRequestResultDto {
         return CustomRequestResultDto(
             result = dto.result,
         )
     }
 
-    public fun map(dto: CustomRequestResultDto): TdApi.CustomRequestResult {
+    fun map(dto: CustomRequestResultDto): TdApi.CustomRequestResult {
         return TdApi.CustomRequestResult(
             result = dto.result,
         )
     }
 
-    public fun map(dto: TdApi.Data): DataDto {
+    fun map(dto: TdApi.Data): DataDto {
         return DataDto(
             data = dto.data,
         )
     }
 
-    public fun map(dto: DataDto): TdApi.Data {
+    fun map(dto: DataDto): TdApi.Data {
         return TdApi.Data(
             data = dto.data,
         )
     }
 
-    public fun map(dto: TdApi.DatabaseStatistics): DatabaseStatisticsDto {
+    fun map(dto: TdApi.DatabaseStatistics): DatabaseStatisticsDto {
         return DatabaseStatisticsDto(
             statistics = dto.statistics,
         )
     }
 
-    public fun map(dto: DatabaseStatisticsDto): TdApi.DatabaseStatistics {
+    fun map(dto: DatabaseStatisticsDto): TdApi.DatabaseStatistics {
         return TdApi.DatabaseStatistics(
             statistics = dto.statistics,
         )
     }
 
-    public fun map(dto: TdApi.Date): DateDto {
+    fun map(dto: TdApi.Date): DateDto {
         return DateDto(
             day = dto.day,
             month = dto.month,
@@ -3471,7 +3471,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: DateDto): TdApi.Date {
+    fun map(dto: DateDto): TdApi.Date {
         return TdApi.Date(
             day = dto.day,
             month = dto.month,
@@ -3479,49 +3479,49 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.DateRange): DateRangeDto {
+    fun map(dto: TdApi.DateRange): DateRangeDto {
         return DateRangeDto(
             startDate = dto.startDate,
             endDate = dto.endDate,
         )
     }
 
-    public fun map(dto: DateRangeDto): TdApi.DateRange {
+    fun map(dto: DateRangeDto): TdApi.DateRange {
         return TdApi.DateRange(
             startDate = dto.startDate,
             endDate = dto.endDate,
         )
     }
 
-    public fun map(dto: TdApi.DatedFile): DatedFileDto {
+    fun map(dto: TdApi.DatedFile): DatedFileDto {
         return DatedFileDto(
             file = map(dto.file),
             date = dto.date,
         )
     }
 
-    public fun map(dto: DatedFileDto): TdApi.DatedFile {
+    fun map(dto: DatedFileDto): TdApi.DatedFile {
         return TdApi.DatedFile(
             file = map(dto.file),
             date = dto.date,
         )
     }
 
-    public fun map(dto: TdApi.DeepLinkInfo): DeepLinkInfoDto {
+    fun map(dto: TdApi.DeepLinkInfo): DeepLinkInfoDto {
         return DeepLinkInfoDto(
             text = map(dto.text),
             needUpdateApplication = dto.needUpdateApplication,
         )
     }
 
-    public fun map(dto: DeepLinkInfoDto): TdApi.DeepLinkInfo {
+    fun map(dto: DeepLinkInfoDto): TdApi.DeepLinkInfo {
         return TdApi.DeepLinkInfo(
             text = map(dto.text),
             needUpdateApplication = dto.needUpdateApplication,
         )
     }
 
-    public fun map(dto: TdApi.Document): DocumentDto {
+    fun map(dto: TdApi.Document): DocumentDto {
         return DocumentDto(
             fileName = dto.fileName,
             mimeType = dto.mimeType,
@@ -3531,7 +3531,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: DocumentDto): TdApi.Document {
+    fun map(dto: DocumentDto): TdApi.Document {
         return TdApi.Document(
             fileName = dto.fileName,
             mimeType = dto.mimeType,
@@ -3541,7 +3541,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.DownloadedFileCounts): DownloadedFileCountsDto {
+    fun map(dto: TdApi.DownloadedFileCounts): DownloadedFileCountsDto {
         return DownloadedFileCountsDto(
             activeCount = dto.activeCount,
             pausedCount = dto.pausedCount,
@@ -3549,7 +3549,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: DownloadedFileCountsDto): TdApi.DownloadedFileCounts {
+    fun map(dto: DownloadedFileCountsDto): TdApi.DownloadedFileCounts {
         return TdApi.DownloadedFileCounts(
             activeCount = dto.activeCount,
             pausedCount = dto.pausedCount,
@@ -3557,7 +3557,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.DraftMessage): DraftMessageDto {
+    fun map(dto: TdApi.DraftMessage): DraftMessageDto {
         return DraftMessageDto(
             replyTo = dto.replyTo?.let { map(it) },
             date = dto.date,
@@ -3566,7 +3566,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: DraftMessageDto): TdApi.DraftMessage {
+    fun map(dto: DraftMessageDto): TdApi.DraftMessage {
         return TdApi.DraftMessage(
             replyTo = dto.replyTo?.let { map(it) },
             date = dto.date,
@@ -3575,33 +3575,33 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.EmailAddressAuthenticationCodeInfo): EmailAddressAuthenticationCodeInfoDto {
+    fun map(dto: TdApi.EmailAddressAuthenticationCodeInfo): EmailAddressAuthenticationCodeInfoDto {
         return EmailAddressAuthenticationCodeInfoDto(
             emailAddressPattern = dto.emailAddressPattern,
             length = dto.length,
         )
     }
 
-    public fun map(dto: EmailAddressAuthenticationCodeInfoDto): TdApi.EmailAddressAuthenticationCodeInfo {
+    fun map(dto: EmailAddressAuthenticationCodeInfoDto): TdApi.EmailAddressAuthenticationCodeInfo {
         return TdApi.EmailAddressAuthenticationCodeInfo(
             emailAddressPattern = dto.emailAddressPattern,
             length = dto.length,
         )
     }
 
-    public fun map(dto: TdApi.EmojiCategories): EmojiCategoriesDto {
+    fun map(dto: TdApi.EmojiCategories): EmojiCategoriesDto {
         return EmojiCategoriesDto(
             categories = dto.categories.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: EmojiCategoriesDto): TdApi.EmojiCategories {
+    fun map(dto: EmojiCategoriesDto): TdApi.EmojiCategories {
         return TdApi.EmojiCategories(
             categories = dto.categories.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: TdApi.EmojiCategory): EmojiCategoryDto {
+    fun map(dto: TdApi.EmojiCategory): EmojiCategoryDto {
         return EmojiCategoryDto(
             name = dto.name,
             icon = map(dto.icon),
@@ -3610,7 +3610,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: EmojiCategoryDto): TdApi.EmojiCategory {
+    fun map(dto: EmojiCategoryDto): TdApi.EmojiCategory {
         return TdApi.EmojiCategory(
             name = dto.name,
             icon = map(dto.icon),
@@ -3619,33 +3619,33 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.EmojiKeyword): EmojiKeywordDto {
+    fun map(dto: TdApi.EmojiKeyword): EmojiKeywordDto {
         return EmojiKeywordDto(
             emoji = dto.emoji,
             keyword = dto.keyword,
         )
     }
 
-    public fun map(dto: EmojiKeywordDto): TdApi.EmojiKeyword {
+    fun map(dto: EmojiKeywordDto): TdApi.EmojiKeyword {
         return TdApi.EmojiKeyword(
             emoji = dto.emoji,
             keyword = dto.keyword,
         )
     }
 
-    public fun map(dto: TdApi.EmojiKeywords): EmojiKeywordsDto {
+    fun map(dto: TdApi.EmojiKeywords): EmojiKeywordsDto {
         return EmojiKeywordsDto(
             emojiKeywords = dto.emojiKeywords.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: EmojiKeywordsDto): TdApi.EmojiKeywords {
+    fun map(dto: EmojiKeywordsDto): TdApi.EmojiKeywords {
         return TdApi.EmojiKeywords(
             emojiKeywords = dto.emojiKeywords.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: TdApi.EmojiReaction): EmojiReactionDto {
+    fun map(dto: TdApi.EmojiReaction): EmojiReactionDto {
         return EmojiReactionDto(
             emoji = dto.emoji,
             title = dto.title,
@@ -3660,7 +3660,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: EmojiReactionDto): TdApi.EmojiReaction {
+    fun map(dto: EmojiReactionDto): TdApi.EmojiReaction {
         return TdApi.EmojiReaction(
             emoji = dto.emoji,
             title = dto.title,
@@ -3675,57 +3675,57 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.EmojiStatus): EmojiStatusDto {
+    fun map(dto: TdApi.EmojiStatus): EmojiStatusDto {
         return EmojiStatusDto(
             type = map(dto.type),
             expirationDate = dto.expirationDate,
         )
     }
 
-    public fun map(dto: EmojiStatusDto): TdApi.EmojiStatus {
+    fun map(dto: EmojiStatusDto): TdApi.EmojiStatus {
         return TdApi.EmojiStatus(
             type = map(dto.type),
             expirationDate = dto.expirationDate,
         )
     }
 
-    public fun map(dto: TdApi.EmojiStatusCustomEmojis): EmojiStatusCustomEmojisDto {
+    fun map(dto: TdApi.EmojiStatusCustomEmojis): EmojiStatusCustomEmojisDto {
         return EmojiStatusCustomEmojisDto(
             customEmojiIds = dto.customEmojiIds,
         )
     }
 
-    public fun map(dto: EmojiStatusCustomEmojisDto): TdApi.EmojiStatusCustomEmojis {
+    fun map(dto: EmojiStatusCustomEmojisDto): TdApi.EmojiStatusCustomEmojis {
         return TdApi.EmojiStatusCustomEmojis(
             customEmojiIds = dto.customEmojiIds,
         )
     }
 
-    public fun map(dto: TdApi.EmojiStatuses): EmojiStatusesDto {
+    fun map(dto: TdApi.EmojiStatuses): EmojiStatusesDto {
         return EmojiStatusesDto(
             emojiStatuses = dto.emojiStatuses.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: EmojiStatusesDto): TdApi.EmojiStatuses {
+    fun map(dto: EmojiStatusesDto): TdApi.EmojiStatuses {
         return TdApi.EmojiStatuses(
             emojiStatuses = dto.emojiStatuses.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: TdApi.Emojis): EmojisDto {
+    fun map(dto: TdApi.Emojis): EmojisDto {
         return EmojisDto(
             emojis = dto.emojis,
         )
     }
 
-    public fun map(dto: EmojisDto): TdApi.Emojis {
+    fun map(dto: EmojisDto): TdApi.Emojis {
         return TdApi.Emojis(
             emojis = dto.emojis,
         )
     }
 
-    public fun map(dto: TdApi.EncryptedCredentials): EncryptedCredentialsDto {
+    fun map(dto: TdApi.EncryptedCredentials): EncryptedCredentialsDto {
         return EncryptedCredentialsDto(
             data = dto.data,
             hash = dto.hash,
@@ -3733,7 +3733,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: EncryptedCredentialsDto): TdApi.EncryptedCredentials {
+    fun map(dto: EncryptedCredentialsDto): TdApi.EncryptedCredentials {
         return TdApi.EncryptedCredentials(
             data = dto.data,
             hash = dto.hash,
@@ -3741,7 +3741,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.EncryptedPassportElement): EncryptedPassportElementDto {
+    fun map(dto: TdApi.EncryptedPassportElement): EncryptedPassportElementDto {
         return EncryptedPassportElementDto(
             type = map(dto.type),
             data = dto.data,
@@ -3755,7 +3755,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: EncryptedPassportElementDto): TdApi.EncryptedPassportElement {
+    fun map(dto: EncryptedPassportElementDto): TdApi.EncryptedPassportElement {
         return TdApi.EncryptedPassportElement(
             type = map(dto.type),
             data = dto.data,
@@ -3769,35 +3769,35 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.Error): ErrorDto {
+    fun map(dto: TdApi.Error): ErrorDto {
         return ErrorDto(
             code = dto.code,
             message = dto.message,
         )
     }
 
-    public fun map(dto: ErrorDto): TdApi.Error {
+    fun map(dto: ErrorDto): TdApi.Error {
         return TdApi.Error(
             code = dto.code,
             message = dto.message,
         )
     }
 
-    public fun map(dto: TdApi.FactCheck): FactCheckDto {
+    fun map(dto: TdApi.FactCheck): FactCheckDto {
         return FactCheckDto(
             text = map(dto.text),
             countryCode = dto.countryCode,
         )
     }
 
-    public fun map(dto: FactCheckDto): TdApi.FactCheck {
+    fun map(dto: FactCheckDto): TdApi.FactCheck {
         return TdApi.FactCheck(
             text = map(dto.text),
             countryCode = dto.countryCode,
         )
     }
 
-    public fun map(dto: TdApi.FailedToAddMember): FailedToAddMemberDto {
+    fun map(dto: TdApi.FailedToAddMember): FailedToAddMemberDto {
         return FailedToAddMemberDto(
             userId = dto.userId,
             premiumWouldAllowInvite = dto.premiumWouldAllowInvite,
@@ -3805,7 +3805,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: FailedToAddMemberDto): TdApi.FailedToAddMember {
+    fun map(dto: FailedToAddMemberDto): TdApi.FailedToAddMember {
         return TdApi.FailedToAddMember(
             userId = dto.userId,
             premiumWouldAllowInvite = dto.premiumWouldAllowInvite,
@@ -3813,19 +3813,19 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.FailedToAddMembers): FailedToAddMembersDto {
+    fun map(dto: TdApi.FailedToAddMembers): FailedToAddMembersDto {
         return FailedToAddMembersDto(
             failedToAddMembers = dto.failedToAddMembers.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: FailedToAddMembersDto): TdApi.FailedToAddMembers {
+    fun map(dto: FailedToAddMembersDto): TdApi.FailedToAddMembers {
         return TdApi.FailedToAddMembers(
             failedToAddMembers = dto.failedToAddMembers.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: TdApi.File): FileDto {
+    fun map(dto: TdApi.File): FileDto {
         return FileDto(
             id = dto.id,
             size = dto.size,
@@ -3835,7 +3835,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: FileDto): TdApi.File {
+    fun map(dto: FileDto): TdApi.File {
         return TdApi.File(
             id = dto.id,
             size = dto.size,
@@ -3845,7 +3845,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.FileDownload): FileDownloadDto {
+    fun map(dto: TdApi.FileDownload): FileDownloadDto {
         return FileDownloadDto(
             fileId = dto.fileId,
             message = map(dto.message),
@@ -3855,7 +3855,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: FileDownloadDto): TdApi.FileDownload {
+    fun map(dto: FileDownloadDto): TdApi.FileDownload {
         return TdApi.FileDownload(
             fileId = dto.fileId,
             message = map(dto.message),
@@ -3865,33 +3865,33 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.FileDownloadedPrefixSize): FileDownloadedPrefixSizeDto {
+    fun map(dto: TdApi.FileDownloadedPrefixSize): FileDownloadedPrefixSizeDto {
         return FileDownloadedPrefixSizeDto(
             size = dto.size,
         )
     }
 
-    public fun map(dto: FileDownloadedPrefixSizeDto): TdApi.FileDownloadedPrefixSize {
+    fun map(dto: FileDownloadedPrefixSizeDto): TdApi.FileDownloadedPrefixSize {
         return TdApi.FileDownloadedPrefixSize(
             size = dto.size,
         )
     }
 
-    public fun map(dto: TdApi.FormattedText): FormattedTextDto {
+    fun map(dto: TdApi.FormattedText): FormattedTextDto {
         return FormattedTextDto(
             text = dto.text,
             entities = dto.entities.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: FormattedTextDto): TdApi.FormattedText {
+    fun map(dto: FormattedTextDto): TdApi.FormattedText {
         return TdApi.FormattedText(
             text = dto.text,
             entities = dto.entities.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: TdApi.ForumTopic): ForumTopicDto {
+    fun map(dto: TdApi.ForumTopic): ForumTopicDto {
         return ForumTopicDto(
             info = map(dto.info),
             lastMessage = dto.lastMessage?.let { map(it) },
@@ -3907,7 +3907,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: ForumTopicDto): TdApi.ForumTopic {
+    fun map(dto: ForumTopicDto): TdApi.ForumTopic {
         return TdApi.ForumTopic(
             info = map(dto.info),
             lastMessage = dto.lastMessage?.let { map(it) },
@@ -3923,21 +3923,21 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.ForumTopicIcon): ForumTopicIconDto {
+    fun map(dto: TdApi.ForumTopicIcon): ForumTopicIconDto {
         return ForumTopicIconDto(
             color = dto.color,
             customEmojiId = dto.customEmojiId,
         )
     }
 
-    public fun map(dto: ForumTopicIconDto): TdApi.ForumTopicIcon {
+    fun map(dto: ForumTopicIconDto): TdApi.ForumTopicIcon {
         return TdApi.ForumTopicIcon(
             color = dto.color,
             customEmojiId = dto.customEmojiId,
         )
     }
 
-    public fun map(dto: TdApi.ForumTopicInfo): ForumTopicInfoDto {
+    fun map(dto: TdApi.ForumTopicInfo): ForumTopicInfoDto {
         return ForumTopicInfoDto(
             chatId = dto.chatId,
             messageThreadId = dto.messageThreadId,
@@ -3952,7 +3952,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: ForumTopicInfoDto): TdApi.ForumTopicInfo {
+    fun map(dto: ForumTopicInfoDto): TdApi.ForumTopicInfo {
         return TdApi.ForumTopicInfo(
             chatId = dto.chatId,
             messageThreadId = dto.messageThreadId,
@@ -3967,7 +3967,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.ForumTopics): ForumTopicsDto {
+    fun map(dto: TdApi.ForumTopics): ForumTopicsDto {
         return ForumTopicsDto(
             totalCount = dto.totalCount,
             topics = dto.topics.mapArray { map(it) },
@@ -3977,7 +3977,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: ForumTopicsDto): TdApi.ForumTopics {
+    fun map(dto: ForumTopicsDto): TdApi.ForumTopics {
         return TdApi.ForumTopics(
             totalCount = dto.totalCount,
             topics = dto.topics.mapArray { map(it) },
@@ -3987,7 +3987,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.ForwardSource): ForwardSourceDto {
+    fun map(dto: TdApi.ForwardSource): ForwardSourceDto {
         return ForwardSourceDto(
             chatId = dto.chatId,
             messageId = dto.messageId,
@@ -3998,7 +3998,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: ForwardSourceDto): TdApi.ForwardSource {
+    fun map(dto: ForwardSourceDto): TdApi.ForwardSource {
         return TdApi.ForwardSource(
             chatId = dto.chatId,
             messageId = dto.messageId,
@@ -4009,21 +4009,21 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.FoundAffiliateProgram): FoundAffiliateProgramDto {
+    fun map(dto: TdApi.FoundAffiliateProgram): FoundAffiliateProgramDto {
         return FoundAffiliateProgramDto(
             botUserId = dto.botUserId,
             info = map(dto.info),
         )
     }
 
-    public fun map(dto: FoundAffiliateProgramDto): TdApi.FoundAffiliateProgram {
+    fun map(dto: FoundAffiliateProgramDto): TdApi.FoundAffiliateProgram {
         return TdApi.FoundAffiliateProgram(
             botUserId = dto.botUserId,
             info = map(dto.info),
         )
     }
 
-    public fun map(dto: TdApi.FoundAffiliatePrograms): FoundAffiliateProgramsDto {
+    fun map(dto: TdApi.FoundAffiliatePrograms): FoundAffiliateProgramsDto {
         return FoundAffiliateProgramsDto(
             totalCount = dto.totalCount,
             programs = dto.programs.mapArray { map(it) },
@@ -4031,7 +4031,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: FoundAffiliateProgramsDto): TdApi.FoundAffiliatePrograms {
+    fun map(dto: FoundAffiliateProgramsDto): TdApi.FoundAffiliatePrograms {
         return TdApi.FoundAffiliatePrograms(
             totalCount = dto.totalCount,
             programs = dto.programs.mapArray { map(it) },
@@ -4039,7 +4039,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.FoundChatBoosts): FoundChatBoostsDto {
+    fun map(dto: TdApi.FoundChatBoosts): FoundChatBoostsDto {
         return FoundChatBoostsDto(
             totalCount = dto.totalCount,
             boosts = dto.boosts.mapArray { map(it) },
@@ -4047,7 +4047,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: FoundChatBoostsDto): TdApi.FoundChatBoosts {
+    fun map(dto: FoundChatBoostsDto): TdApi.FoundChatBoosts {
         return TdApi.FoundChatBoosts(
             totalCount = dto.totalCount,
             boosts = dto.boosts.mapArray { map(it) },
@@ -4055,7 +4055,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.FoundChatMessages): FoundChatMessagesDto {
+    fun map(dto: TdApi.FoundChatMessages): FoundChatMessagesDto {
         return FoundChatMessagesDto(
             totalCount = dto.totalCount,
             messages = dto.messages.mapArray { map(it) },
@@ -4063,7 +4063,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: FoundChatMessagesDto): TdApi.FoundChatMessages {
+    fun map(dto: FoundChatMessagesDto): TdApi.FoundChatMessages {
         return TdApi.FoundChatMessages(
             totalCount = dto.totalCount,
             messages = dto.messages.mapArray { map(it) },
@@ -4071,7 +4071,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.FoundFileDownloads): FoundFileDownloadsDto {
+    fun map(dto: TdApi.FoundFileDownloads): FoundFileDownloadsDto {
         return FoundFileDownloadsDto(
             totalCounts = map(dto.totalCounts),
             files = dto.files.mapArray { map(it) },
@@ -4079,7 +4079,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: FoundFileDownloadsDto): TdApi.FoundFileDownloads {
+    fun map(dto: FoundFileDownloadsDto): TdApi.FoundFileDownloads {
         return TdApi.FoundFileDownloads(
             totalCounts = map(dto.totalCounts),
             files = dto.files.mapArray { map(it) },
@@ -4087,7 +4087,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.FoundMessages): FoundMessagesDto {
+    fun map(dto: TdApi.FoundMessages): FoundMessagesDto {
         return FoundMessagesDto(
             totalCount = dto.totalCount,
             messages = dto.messages.mapArray { map(it) },
@@ -4095,7 +4095,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: FoundMessagesDto): TdApi.FoundMessages {
+    fun map(dto: FoundMessagesDto): TdApi.FoundMessages {
         return TdApi.FoundMessages(
             totalCount = dto.totalCount,
             messages = dto.messages.mapArray { map(it) },
@@ -4103,33 +4103,33 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.FoundPosition): FoundPositionDto {
+    fun map(dto: TdApi.FoundPosition): FoundPositionDto {
         return FoundPositionDto(
             position = dto.position,
         )
     }
 
-    public fun map(dto: FoundPositionDto): TdApi.FoundPosition {
+    fun map(dto: FoundPositionDto): TdApi.FoundPosition {
         return TdApi.FoundPosition(
             position = dto.position,
         )
     }
 
-    public fun map(dto: TdApi.FoundPositions): FoundPositionsDto {
+    fun map(dto: TdApi.FoundPositions): FoundPositionsDto {
         return FoundPositionsDto(
             totalCount = dto.totalCount,
             positions = dto.positions,
         )
     }
 
-    public fun map(dto: FoundPositionsDto): TdApi.FoundPositions {
+    fun map(dto: FoundPositionsDto): TdApi.FoundPositions {
         return TdApi.FoundPositions(
             totalCount = dto.totalCount,
             positions = dto.positions,
         )
     }
 
-    public fun map(dto: TdApi.FoundStories): FoundStoriesDto {
+    fun map(dto: TdApi.FoundStories): FoundStoriesDto {
         return FoundStoriesDto(
             totalCount = dto.totalCount,
             stories = dto.stories.mapArray { map(it) },
@@ -4137,7 +4137,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: FoundStoriesDto): TdApi.FoundStories {
+    fun map(dto: FoundStoriesDto): TdApi.FoundStories {
         return TdApi.FoundStories(
             totalCount = dto.totalCount,
             stories = dto.stories.mapArray { map(it) },
@@ -4145,21 +4145,21 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.FoundUsers): FoundUsersDto {
+    fun map(dto: TdApi.FoundUsers): FoundUsersDto {
         return FoundUsersDto(
             userIds = dto.userIds,
             nextOffset = dto.nextOffset,
         )
     }
 
-    public fun map(dto: FoundUsersDto): TdApi.FoundUsers {
+    fun map(dto: FoundUsersDto): TdApi.FoundUsers {
         return TdApi.FoundUsers(
             userIds = dto.userIds,
             nextOffset = dto.nextOffset,
         )
     }
 
-    public fun map(dto: TdApi.FoundWebApp): FoundWebAppDto {
+    fun map(dto: TdApi.FoundWebApp): FoundWebAppDto {
         return FoundWebAppDto(
             webApp = map(dto.webApp),
             requestWriteAccess = dto.requestWriteAccess,
@@ -4167,7 +4167,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: FoundWebAppDto): TdApi.FoundWebApp {
+    fun map(dto: FoundWebAppDto): TdApi.FoundWebApp {
         return TdApi.FoundWebApp(
             webApp = map(dto.webApp),
             requestWriteAccess = dto.requestWriteAccess,
@@ -4175,7 +4175,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.Game): GameDto {
+    fun map(dto: TdApi.Game): GameDto {
         return GameDto(
             id = dto.id,
             shortName = dto.shortName,
@@ -4187,7 +4187,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: GameDto): TdApi.Game {
+    fun map(dto: GameDto): TdApi.Game {
         return TdApi.Game(
             id = dto.id,
             shortName = dto.shortName,
@@ -4199,7 +4199,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.GameHighScore): GameHighScoreDto {
+    fun map(dto: TdApi.GameHighScore): GameHighScoreDto {
         return GameHighScoreDto(
             position = dto.position,
             userId = dto.userId,
@@ -4207,7 +4207,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: GameHighScoreDto): TdApi.GameHighScore {
+    fun map(dto: GameHighScoreDto): TdApi.GameHighScore {
         return TdApi.GameHighScore(
             position = dto.position,
             userId = dto.userId,
@@ -4215,19 +4215,19 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.GameHighScores): GameHighScoresDto {
+    fun map(dto: TdApi.GameHighScores): GameHighScoresDto {
         return GameHighScoresDto(
             scores = dto.scores.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: GameHighScoresDto): TdApi.GameHighScores {
+    fun map(dto: GameHighScoresDto): TdApi.GameHighScores {
         return TdApi.GameHighScores(
             scores = dto.scores.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: TdApi.Gift): GiftDto {
+    fun map(dto: TdApi.Gift): GiftDto {
         return GiftDto(
             id = dto.id,
             sticker = map(dto.sticker),
@@ -4242,7 +4242,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: GiftDto): TdApi.Gift {
+    fun map(dto: GiftDto): TdApi.Gift {
         return TdApi.Gift(
             id = dto.id,
             sticker = map(dto.sticker),
@@ -4257,21 +4257,21 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.GiftSettings): GiftSettingsDto {
+    fun map(dto: TdApi.GiftSettings): GiftSettingsDto {
         return GiftSettingsDto(
             showGiftButton = dto.showGiftButton,
             acceptedGiftTypes = map(dto.acceptedGiftTypes),
         )
     }
 
-    public fun map(dto: GiftSettingsDto): TdApi.GiftSettings {
+    fun map(dto: GiftSettingsDto): TdApi.GiftSettings {
         return TdApi.GiftSettings(
             showGiftButton = dto.showGiftButton,
             acceptedGiftTypes = map(dto.acceptedGiftTypes),
         )
     }
 
-    public fun map(dto: TdApi.GiftUpgradePreview): GiftUpgradePreviewDto {
+    fun map(dto: TdApi.GiftUpgradePreview): GiftUpgradePreviewDto {
         return GiftUpgradePreviewDto(
             models = dto.models.mapArray { map(it) },
             symbols = dto.symbols.mapArray { map(it) },
@@ -4279,7 +4279,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: GiftUpgradePreviewDto): TdApi.GiftUpgradePreview {
+    fun map(dto: GiftUpgradePreviewDto): TdApi.GiftUpgradePreview {
         return TdApi.GiftUpgradePreview(
             models = dto.models.mapArray { map(it) },
             symbols = dto.symbols.mapArray { map(it) },
@@ -4287,19 +4287,19 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.Gifts): GiftsDto {
+    fun map(dto: TdApi.Gifts): GiftsDto {
         return GiftsDto(
             gifts = dto.gifts.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: GiftsDto): TdApi.Gifts {
+    fun map(dto: GiftsDto): TdApi.Gifts {
         return TdApi.Gifts(
             gifts = dto.gifts.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: TdApi.GiveawayParameters): GiveawayParametersDto {
+    fun map(dto: TdApi.GiveawayParameters): GiveawayParametersDto {
         return GiveawayParametersDto(
             boostedChatId = dto.boostedChatId,
             additionalChatIds = dto.additionalChatIds,
@@ -4311,7 +4311,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: GiveawayParametersDto): TdApi.GiveawayParameters {
+    fun map(dto: GiveawayParametersDto): TdApi.GiveawayParameters {
         return TdApi.GiveawayParameters(
             boostedChatId = dto.boostedChatId,
             additionalChatIds = dto.additionalChatIds,
@@ -4323,7 +4323,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.GroupCall): GroupCallDto {
+    fun map(dto: TdApi.GroupCall): GroupCallDto {
         return GroupCallDto(
             id = dto.id,
             title = dto.title,
@@ -4352,7 +4352,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: GroupCallDto): TdApi.GroupCall {
+    fun map(dto: GroupCallDto): TdApi.GroupCall {
         return TdApi.GroupCall(
             id = dto.id,
             title = dto.title,
@@ -4381,33 +4381,33 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.GroupCallId): GroupCallIdDto {
+    fun map(dto: TdApi.GroupCallId): GroupCallIdDto {
         return GroupCallIdDto(
             id = dto.id,
         )
     }
 
-    public fun map(dto: GroupCallIdDto): TdApi.GroupCallId {
+    fun map(dto: GroupCallIdDto): TdApi.GroupCallId {
         return TdApi.GroupCallId(
             id = dto.id,
         )
     }
 
-    public fun map(dto: TdApi.GroupCallInfo): GroupCallInfoDto {
+    fun map(dto: TdApi.GroupCallInfo): GroupCallInfoDto {
         return GroupCallInfoDto(
             groupCallId = dto.groupCallId,
             joinPayload = dto.joinPayload,
         )
     }
 
-    public fun map(dto: GroupCallInfoDto): TdApi.GroupCallInfo {
+    fun map(dto: GroupCallInfoDto): TdApi.GroupCallInfo {
         return TdApi.GroupCallInfo(
             groupCallId = dto.groupCallId,
             joinPayload = dto.joinPayload,
         )
     }
 
-    public fun map(dto: TdApi.GroupCallJoinParameters): GroupCallJoinParametersDto {
+    fun map(dto: TdApi.GroupCallJoinParameters): GroupCallJoinParametersDto {
         return GroupCallJoinParametersDto(
             audioSourceId = dto.audioSourceId,
             payload = dto.payload,
@@ -4416,7 +4416,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: GroupCallJoinParametersDto): TdApi.GroupCallJoinParameters {
+    fun map(dto: GroupCallJoinParametersDto): TdApi.GroupCallJoinParameters {
         return TdApi.GroupCallJoinParameters(
             audioSourceId = dto.audioSourceId,
             payload = dto.payload,
@@ -4425,7 +4425,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.GroupCallParticipant): GroupCallParticipantDto {
+    fun map(dto: TdApi.GroupCallParticipant): GroupCallParticipantDto {
         return GroupCallParticipantDto(
             participantId = map(dto.participantId),
             audioSourceId = dto.audioSourceId,
@@ -4448,7 +4448,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: GroupCallParticipantDto): TdApi.GroupCallParticipant {
+    fun map(dto: GroupCallParticipantDto): TdApi.GroupCallParticipant {
         return TdApi.GroupCallParticipant(
             participantId = map(dto.participantId),
             audioSourceId = dto.audioSourceId,
@@ -4471,7 +4471,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.GroupCallParticipantVideoInfo): GroupCallParticipantVideoInfoDto {
+    fun map(dto: TdApi.GroupCallParticipantVideoInfo): GroupCallParticipantVideoInfoDto {
         return GroupCallParticipantVideoInfoDto(
             sourceGroups = dto.sourceGroups.mapArray { map(it) },
             endpointId = dto.endpointId,
@@ -4479,7 +4479,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: GroupCallParticipantVideoInfoDto): TdApi.GroupCallParticipantVideoInfo {
+    fun map(dto: GroupCallParticipantVideoInfoDto): TdApi.GroupCallParticipantVideoInfo {
         return TdApi.GroupCallParticipantVideoInfo(
             sourceGroups = dto.sourceGroups.mapArray { map(it) },
             endpointId = dto.endpointId,
@@ -4487,73 +4487,73 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.GroupCallParticipants): GroupCallParticipantsDto {
+    fun map(dto: TdApi.GroupCallParticipants): GroupCallParticipantsDto {
         return GroupCallParticipantsDto(
             totalCount = dto.totalCount,
             participantIds = dto.participantIds.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: GroupCallParticipantsDto): TdApi.GroupCallParticipants {
+    fun map(dto: GroupCallParticipantsDto): TdApi.GroupCallParticipants {
         return TdApi.GroupCallParticipants(
             totalCount = dto.totalCount,
             participantIds = dto.participantIds.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: TdApi.GroupCallRecentSpeaker): GroupCallRecentSpeakerDto {
+    fun map(dto: TdApi.GroupCallRecentSpeaker): GroupCallRecentSpeakerDto {
         return GroupCallRecentSpeakerDto(
             participantId = map(dto.participantId),
             isSpeaking = dto.isSpeaking,
         )
     }
 
-    public fun map(dto: GroupCallRecentSpeakerDto): TdApi.GroupCallRecentSpeaker {
+    fun map(dto: GroupCallRecentSpeakerDto): TdApi.GroupCallRecentSpeaker {
         return TdApi.GroupCallRecentSpeaker(
             participantId = map(dto.participantId),
             isSpeaking = dto.isSpeaking,
         )
     }
 
-    public fun map(dto: TdApi.GroupCallVideoSourceGroup): GroupCallVideoSourceGroupDto {
+    fun map(dto: TdApi.GroupCallVideoSourceGroup): GroupCallVideoSourceGroupDto {
         return GroupCallVideoSourceGroupDto(
             semantics = dto.semantics,
             sourceIds = dto.sourceIds,
         )
     }
 
-    public fun map(dto: GroupCallVideoSourceGroupDto): TdApi.GroupCallVideoSourceGroup {
+    fun map(dto: GroupCallVideoSourceGroupDto): TdApi.GroupCallVideoSourceGroup {
         return TdApi.GroupCallVideoSourceGroup(
             semantics = dto.semantics,
             sourceIds = dto.sourceIds,
         )
     }
 
-    public fun map(dto: TdApi.Hashtags): HashtagsDto {
+    fun map(dto: TdApi.Hashtags): HashtagsDto {
         return HashtagsDto(
             hashtags = dto.hashtags,
         )
     }
 
-    public fun map(dto: HashtagsDto): TdApi.Hashtags {
+    fun map(dto: HashtagsDto): TdApi.Hashtags {
         return TdApi.Hashtags(
             hashtags = dto.hashtags,
         )
     }
 
-    public fun map(dto: TdApi.HttpUrl): HttpUrlDto {
+    fun map(dto: TdApi.HttpUrl): HttpUrlDto {
         return HttpUrlDto(
             url = dto.url,
         )
     }
 
-    public fun map(dto: HttpUrlDto): TdApi.HttpUrl {
+    fun map(dto: HttpUrlDto): TdApi.HttpUrl {
         return TdApi.HttpUrl(
             url = dto.url,
         )
     }
 
-    public fun map(dto: TdApi.IdentityDocument): IdentityDocumentDto {
+    fun map(dto: TdApi.IdentityDocument): IdentityDocumentDto {
         return IdentityDocumentDto(
             number = dto.number,
             expirationDate = dto.expirationDate?.let { map(it) },
@@ -4564,7 +4564,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: IdentityDocumentDto): TdApi.IdentityDocument {
+    fun map(dto: IdentityDocumentDto): TdApi.IdentityDocument {
         return TdApi.IdentityDocument(
             number = dto.number,
             expirationDate = dto.expirationDate?.let { map(it) },
@@ -4575,35 +4575,35 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.ImportedContacts): ImportedContactsDto {
+    fun map(dto: TdApi.ImportedContacts): ImportedContactsDto {
         return ImportedContactsDto(
             userIds = dto.userIds,
             importerCount = dto.importerCount,
         )
     }
 
-    public fun map(dto: ImportedContactsDto): TdApi.ImportedContacts {
+    fun map(dto: ImportedContactsDto): TdApi.ImportedContacts {
         return TdApi.ImportedContacts(
             userIds = dto.userIds,
             importerCount = dto.importerCount,
         )
     }
 
-    public fun map(dto: TdApi.InlineKeyboardButton): InlineKeyboardButtonDto {
+    fun map(dto: TdApi.InlineKeyboardButton): InlineKeyboardButtonDto {
         return InlineKeyboardButtonDto(
             text = dto.text,
             type = map(dto.type),
         )
     }
 
-    public fun map(dto: InlineKeyboardButtonDto): TdApi.InlineKeyboardButton {
+    fun map(dto: InlineKeyboardButtonDto): TdApi.InlineKeyboardButton {
         return TdApi.InlineKeyboardButton(
             text = dto.text,
             type = map(dto.type),
         )
     }
 
-    public fun map(dto: TdApi.InlineQueryResults): InlineQueryResultsDto {
+    fun map(dto: TdApi.InlineQueryResults): InlineQueryResultsDto {
         return InlineQueryResultsDto(
             inlineQueryId = dto.inlineQueryId,
             button = dto.button?.let { map(it) },
@@ -4612,7 +4612,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: InlineQueryResultsDto): TdApi.InlineQueryResults {
+    fun map(dto: InlineQueryResultsDto): TdApi.InlineQueryResults {
         return TdApi.InlineQueryResults(
             inlineQueryId = dto.inlineQueryId,
             button = dto.button?.let { map(it) },
@@ -4621,35 +4621,35 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.InlineQueryResultsButton): InlineQueryResultsButtonDto {
+    fun map(dto: TdApi.InlineQueryResultsButton): InlineQueryResultsButtonDto {
         return InlineQueryResultsButtonDto(
             text = dto.text,
             type = map(dto.type),
         )
     }
 
-    public fun map(dto: InlineQueryResultsButtonDto): TdApi.InlineQueryResultsButton {
+    fun map(dto: InlineQueryResultsButtonDto): TdApi.InlineQueryResultsButton {
         return TdApi.InlineQueryResultsButton(
             text = dto.text,
             type = map(dto.type),
         )
     }
 
-    public fun map(dto: TdApi.InputBusinessChatLink): InputBusinessChatLinkDto {
+    fun map(dto: TdApi.InputBusinessChatLink): InputBusinessChatLinkDto {
         return InputBusinessChatLinkDto(
             text = map(dto.text),
             title = dto.title,
         )
     }
 
-    public fun map(dto: InputBusinessChatLinkDto): TdApi.InputBusinessChatLink {
+    fun map(dto: InputBusinessChatLinkDto): TdApi.InputBusinessChatLink {
         return TdApi.InputBusinessChatLink(
             text = map(dto.text),
             title = dto.title,
         )
     }
 
-    public fun map(dto: TdApi.InputBusinessStartPage): InputBusinessStartPageDto {
+    fun map(dto: TdApi.InputBusinessStartPage): InputBusinessStartPageDto {
         return InputBusinessStartPageDto(
             title = dto.title,
             message = dto.message,
@@ -4657,7 +4657,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: InputBusinessStartPageDto): TdApi.InputBusinessStartPage {
+    fun map(dto: InputBusinessStartPageDto): TdApi.InputBusinessStartPage {
         return TdApi.InputBusinessStartPage(
             title = dto.title,
             message = dto.message,
@@ -4665,7 +4665,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.InputIdentityDocument): InputIdentityDocumentDto {
+    fun map(dto: TdApi.InputIdentityDocument): InputIdentityDocumentDto {
         return InputIdentityDocumentDto(
             number = dto.number,
             expirationDate = dto.expirationDate?.let { map(it) },
@@ -4676,7 +4676,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: InputIdentityDocumentDto): TdApi.InputIdentityDocument {
+    fun map(dto: InputIdentityDocumentDto): TdApi.InputIdentityDocument {
         return TdApi.InputIdentityDocument(
             number = dto.number,
             expirationDate = dto.expirationDate?.let { map(it) },
@@ -4687,7 +4687,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.InputPaidMedia): InputPaidMediaDto {
+    fun map(dto: TdApi.InputPaidMedia): InputPaidMediaDto {
         return InputPaidMediaDto(
             type = map(dto.type),
             media = map(dto.media),
@@ -4698,7 +4698,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: InputPaidMediaDto): TdApi.InputPaidMedia {
+    fun map(dto: InputPaidMediaDto): TdApi.InputPaidMedia {
         return TdApi.InputPaidMedia(
             type = map(dto.type),
             media = map(dto.media),
@@ -4709,7 +4709,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.InputPassportElementError): InputPassportElementErrorDto {
+    fun map(dto: TdApi.InputPassportElementError): InputPassportElementErrorDto {
         return InputPassportElementErrorDto(
             type = map(dto.type),
             message = dto.message,
@@ -4717,7 +4717,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: InputPassportElementErrorDto): TdApi.InputPassportElementError {
+    fun map(dto: InputPassportElementErrorDto): TdApi.InputPassportElementError {
         return TdApi.InputPassportElementError(
             type = map(dto.type),
             message = dto.message,
@@ -4725,21 +4725,21 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.InputPersonalDocument): InputPersonalDocumentDto {
+    fun map(dto: TdApi.InputPersonalDocument): InputPersonalDocumentDto {
         return InputPersonalDocumentDto(
             files = dto.files.mapArray { map(it) },
             translation = dto.translation.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: InputPersonalDocumentDto): TdApi.InputPersonalDocument {
+    fun map(dto: InputPersonalDocumentDto): TdApi.InputPersonalDocument {
         return TdApi.InputPersonalDocument(
             files = dto.files.mapArray { map(it) },
             translation = dto.translation.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: TdApi.InputSticker): InputStickerDto {
+    fun map(dto: TdApi.InputSticker): InputStickerDto {
         return InputStickerDto(
             sticker = map(dto.sticker),
             format = map(dto.format),
@@ -4749,7 +4749,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: InputStickerDto): TdApi.InputSticker {
+    fun map(dto: InputStickerDto): TdApi.InputSticker {
         return TdApi.InputSticker(
             sticker = map(dto.sticker),
             format = map(dto.format),
@@ -4759,47 +4759,47 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.InputStoryArea): InputStoryAreaDto {
+    fun map(dto: TdApi.InputStoryArea): InputStoryAreaDto {
         return InputStoryAreaDto(
             position = map(dto.position),
             type = map(dto.type),
         )
     }
 
-    public fun map(dto: InputStoryAreaDto): TdApi.InputStoryArea {
+    fun map(dto: InputStoryAreaDto): TdApi.InputStoryArea {
         return TdApi.InputStoryArea(
             position = map(dto.position),
             type = map(dto.type),
         )
     }
 
-    public fun map(dto: TdApi.InputStoryAreas): InputStoryAreasDto {
+    fun map(dto: TdApi.InputStoryAreas): InputStoryAreasDto {
         return InputStoryAreasDto(
             areas = dto.areas.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: InputStoryAreasDto): TdApi.InputStoryAreas {
+    fun map(dto: InputStoryAreasDto): TdApi.InputStoryAreas {
         return TdApi.InputStoryAreas(
             areas = dto.areas.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: TdApi.InputTextQuote): InputTextQuoteDto {
+    fun map(dto: TdApi.InputTextQuote): InputTextQuoteDto {
         return InputTextQuoteDto(
             text = map(dto.text),
             position = dto.position,
         )
     }
 
-    public fun map(dto: InputTextQuoteDto): TdApi.InputTextQuote {
+    fun map(dto: InputTextQuoteDto): TdApi.InputTextQuote {
         return TdApi.InputTextQuote(
             text = map(dto.text),
             position = dto.position,
         )
     }
 
-    public fun map(dto: TdApi.InputThumbnail): InputThumbnailDto {
+    fun map(dto: TdApi.InputThumbnail): InputThumbnailDto {
         return InputThumbnailDto(
             thumbnail = map(dto.thumbnail),
             width = dto.width,
@@ -4807,7 +4807,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: InputThumbnailDto): TdApi.InputThumbnail {
+    fun map(dto: InputThumbnailDto): TdApi.InputThumbnail {
         return TdApi.InputThumbnail(
             thumbnail = map(dto.thumbnail),
             width = dto.width,
@@ -4815,7 +4815,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.Invoice): InvoiceDto {
+    fun map(dto: TdApi.Invoice): InvoiceDto {
         return InvoiceDto(
             currency = dto.currency,
             priceParts = dto.priceParts.mapArray { map(it) },
@@ -4835,7 +4835,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: InvoiceDto): TdApi.Invoice {
+    fun map(dto: InvoiceDto): TdApi.Invoice {
         return TdApi.Invoice(
             currency = dto.currency,
             priceParts = dto.priceParts.mapArray { map(it) },
@@ -4855,49 +4855,49 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.JsonObjectMember): JsonObjectMemberDto {
+    fun map(dto: TdApi.JsonObjectMember): JsonObjectMemberDto {
         return JsonObjectMemberDto(
             key = dto.key,
             value = map(dto.value),
         )
     }
 
-    public fun map(dto: JsonObjectMemberDto): TdApi.JsonObjectMember {
+    fun map(dto: JsonObjectMemberDto): TdApi.JsonObjectMember {
         return TdApi.JsonObjectMember(
             key = dto.key,
             value = map(dto.value),
         )
     }
 
-    public fun map(dto: TdApi.KeyboardButton): KeyboardButtonDto {
+    fun map(dto: TdApi.KeyboardButton): KeyboardButtonDto {
         return KeyboardButtonDto(
             text = dto.text,
             type = map(dto.type),
         )
     }
 
-    public fun map(dto: KeyboardButtonDto): TdApi.KeyboardButton {
+    fun map(dto: KeyboardButtonDto): TdApi.KeyboardButton {
         return TdApi.KeyboardButton(
             text = dto.text,
             type = map(dto.type),
         )
     }
 
-    public fun map(dto: TdApi.LabeledPricePart): LabeledPricePartDto {
+    fun map(dto: TdApi.LabeledPricePart): LabeledPricePartDto {
         return LabeledPricePartDto(
             label = dto.label,
             amount = dto.amount,
         )
     }
 
-    public fun map(dto: LabeledPricePartDto): TdApi.LabeledPricePart {
+    fun map(dto: LabeledPricePartDto): TdApi.LabeledPricePart {
         return TdApi.LabeledPricePart(
             label = dto.label,
             amount = dto.amount,
         )
     }
 
-    public fun map(dto: TdApi.LanguagePackInfo): LanguagePackInfoDto {
+    fun map(dto: TdApi.LanguagePackInfo): LanguagePackInfoDto {
         return LanguagePackInfoDto(
             id = dto.id,
             baseLanguagePackId = dto.baseLanguagePackId,
@@ -4915,7 +4915,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: LanguagePackInfoDto): TdApi.LanguagePackInfo {
+    fun map(dto: LanguagePackInfoDto): TdApi.LanguagePackInfo {
         return TdApi.LanguagePackInfo(
             id = dto.id,
             baseLanguagePackId = dto.baseLanguagePackId,
@@ -4933,33 +4933,33 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.LanguagePackString): LanguagePackStringDto {
+    fun map(dto: TdApi.LanguagePackString): LanguagePackStringDto {
         return LanguagePackStringDto(
             key = dto.key,
             value = dto.value?.let { map(it) },
         )
     }
 
-    public fun map(dto: LanguagePackStringDto): TdApi.LanguagePackString {
+    fun map(dto: LanguagePackStringDto): TdApi.LanguagePackString {
         return TdApi.LanguagePackString(
             key = dto.key,
             value = dto.value?.let { map(it) },
         )
     }
 
-    public fun map(dto: TdApi.LanguagePackStrings): LanguagePackStringsDto {
+    fun map(dto: TdApi.LanguagePackStrings): LanguagePackStringsDto {
         return LanguagePackStringsDto(
             strings = dto.strings.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: LanguagePackStringsDto): TdApi.LanguagePackStrings {
+    fun map(dto: LanguagePackStringsDto): TdApi.LanguagePackStrings {
         return TdApi.LanguagePackStrings(
             strings = dto.strings.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: TdApi.LinkPreview): LinkPreviewDto {
+    fun map(dto: TdApi.LinkPreview): LinkPreviewDto {
         return LinkPreviewDto(
             url = dto.url,
             displayUrl = dto.displayUrl,
@@ -4977,7 +4977,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: LinkPreviewDto): TdApi.LinkPreview {
+    fun map(dto: LinkPreviewDto): TdApi.LinkPreview {
         return TdApi.LinkPreview(
             url = dto.url,
             displayUrl = dto.displayUrl,
@@ -4995,7 +4995,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.LinkPreviewOptions): LinkPreviewOptionsDto {
+    fun map(dto: TdApi.LinkPreviewOptions): LinkPreviewOptionsDto {
         return LinkPreviewOptionsDto(
             isDisabled = dto.isDisabled,
             url = dto.url,
@@ -5005,7 +5005,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: LinkPreviewOptionsDto): TdApi.LinkPreviewOptions {
+    fun map(dto: LinkPreviewOptionsDto): TdApi.LinkPreviewOptions {
         return TdApi.LinkPreviewOptions(
             isDisabled = dto.isDisabled,
             url = dto.url,
@@ -5015,7 +5015,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.LocalFile): LocalFileDto {
+    fun map(dto: TdApi.LocalFile): LocalFileDto {
         return LocalFileDto(
             path = dto.path,
             canBeDownloaded = dto.canBeDownloaded,
@@ -5028,7 +5028,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: LocalFileDto): TdApi.LocalFile {
+    fun map(dto: LocalFileDto): TdApi.LocalFile {
         return TdApi.LocalFile(
             path = dto.path,
             canBeDownloaded = dto.canBeDownloaded,
@@ -5041,19 +5041,19 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.LocalizationTargetInfo): LocalizationTargetInfoDto {
+    fun map(dto: TdApi.LocalizationTargetInfo): LocalizationTargetInfoDto {
         return LocalizationTargetInfoDto(
             languagePacks = dto.languagePacks.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: LocalizationTargetInfoDto): TdApi.LocalizationTargetInfo {
+    fun map(dto: LocalizationTargetInfoDto): TdApi.LocalizationTargetInfo {
         return TdApi.LocalizationTargetInfo(
             languagePacks = dto.languagePacks.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: TdApi.Location): LocationDto {
+    fun map(dto: TdApi.Location): LocationDto {
         return LocationDto(
             latitude = dto.latitude,
             longitude = dto.longitude,
@@ -5061,7 +5061,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: LocationDto): TdApi.Location {
+    fun map(dto: LocationDto): TdApi.Location {
         return TdApi.Location(
             latitude = dto.latitude,
             longitude = dto.longitude,
@@ -5069,7 +5069,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.LocationAddress): LocationAddressDto {
+    fun map(dto: TdApi.LocationAddress): LocationAddressDto {
         return LocationAddressDto(
             countryCode = dto.countryCode,
             state = dto.state,
@@ -5078,7 +5078,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: LocationAddressDto): TdApi.LocationAddress {
+    fun map(dto: LocationAddressDto): TdApi.LocationAddress {
         return TdApi.LocationAddress(
             countryCode = dto.countryCode,
             state = dto.state,
@@ -5087,45 +5087,45 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.LogTags): LogTagsDto {
+    fun map(dto: TdApi.LogTags): LogTagsDto {
         return LogTagsDto(
             tags = dto.tags,
         )
     }
 
-    public fun map(dto: LogTagsDto): TdApi.LogTags {
+    fun map(dto: LogTagsDto): TdApi.LogTags {
         return TdApi.LogTags(
             tags = dto.tags,
         )
     }
 
-    public fun map(dto: TdApi.LogVerbosityLevel): LogVerbosityLevelDto {
+    fun map(dto: TdApi.LogVerbosityLevel): LogVerbosityLevelDto {
         return LogVerbosityLevelDto(
             verbosityLevel = dto.verbosityLevel,
         )
     }
 
-    public fun map(dto: LogVerbosityLevelDto): TdApi.LogVerbosityLevel {
+    fun map(dto: LogVerbosityLevelDto): TdApi.LogVerbosityLevel {
         return TdApi.LogVerbosityLevel(
             verbosityLevel = dto.verbosityLevel,
         )
     }
 
-    public fun map(dto: TdApi.MainWebApp): MainWebAppDto {
+    fun map(dto: TdApi.MainWebApp): MainWebAppDto {
         return MainWebAppDto(
             url = dto.url,
             mode = map(dto.mode),
         )
     }
 
-    public fun map(dto: MainWebAppDto): TdApi.MainWebApp {
+    fun map(dto: MainWebAppDto): TdApi.MainWebApp {
         return TdApi.MainWebApp(
             url = dto.url,
             mode = map(dto.mode),
         )
     }
 
-    public fun map(dto: TdApi.MaskPosition): MaskPositionDto {
+    fun map(dto: TdApi.MaskPosition): MaskPositionDto {
         return MaskPositionDto(
             point = map(dto.point),
             xShift = dto.xShift,
@@ -5134,7 +5134,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: MaskPositionDto): TdApi.MaskPosition {
+    fun map(dto: MaskPositionDto): TdApi.MaskPosition {
         return TdApi.MaskPosition(
             point = map(dto.point),
             xShift = dto.xShift,
@@ -5143,7 +5143,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.Message): MessageDto {
+    fun map(dto: TdApi.Message): MessageDto {
         return MessageDto(
             id = dto.id,
             senderId = map(dto.senderId),
@@ -5185,7 +5185,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: MessageDto): TdApi.Message {
+    fun map(dto: MessageDto): TdApi.Message {
         return TdApi.Message(
             id = dto.id,
             senderId = map(dto.senderId),
@@ -5227,47 +5227,47 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.MessageAutoDeleteTime): MessageAutoDeleteTimeDto {
+    fun map(dto: TdApi.MessageAutoDeleteTime): MessageAutoDeleteTimeDto {
         return MessageAutoDeleteTimeDto(
             time = dto.time,
         )
     }
 
-    public fun map(dto: MessageAutoDeleteTimeDto): TdApi.MessageAutoDeleteTime {
+    fun map(dto: MessageAutoDeleteTimeDto): TdApi.MessageAutoDeleteTime {
         return TdApi.MessageAutoDeleteTime(
             time = dto.time,
         )
     }
 
-    public fun map(dto: TdApi.MessageCalendar): MessageCalendarDto {
+    fun map(dto: TdApi.MessageCalendar): MessageCalendarDto {
         return MessageCalendarDto(
             totalCount = dto.totalCount,
             days = dto.days.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: MessageCalendarDto): TdApi.MessageCalendar {
+    fun map(dto: MessageCalendarDto): TdApi.MessageCalendar {
         return TdApi.MessageCalendar(
             totalCount = dto.totalCount,
             days = dto.days.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: TdApi.MessageCalendarDay): MessageCalendarDayDto {
+    fun map(dto: TdApi.MessageCalendarDay): MessageCalendarDayDto {
         return MessageCalendarDayDto(
             totalCount = dto.totalCount,
             message = map(dto.message),
         )
     }
 
-    public fun map(dto: MessageCalendarDayDto): TdApi.MessageCalendarDay {
+    fun map(dto: MessageCalendarDayDto): TdApi.MessageCalendarDay {
         return TdApi.MessageCalendarDay(
             totalCount = dto.totalCount,
             message = map(dto.message),
         )
     }
 
-    public fun map(dto: TdApi.MessageCopyOptions): MessageCopyOptionsDto {
+    fun map(dto: TdApi.MessageCopyOptions): MessageCopyOptionsDto {
         return MessageCopyOptionsDto(
             sendCopy = dto.sendCopy,
             replaceCaption = dto.replaceCaption,
@@ -5276,7 +5276,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: MessageCopyOptionsDto): TdApi.MessageCopyOptions {
+    fun map(dto: MessageCopyOptionsDto): TdApi.MessageCopyOptions {
         return TdApi.MessageCopyOptions(
             sendCopy = dto.sendCopy,
             replaceCaption = dto.replaceCaption,
@@ -5285,7 +5285,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.MessageEffect): MessageEffectDto {
+    fun map(dto: TdApi.MessageEffect): MessageEffectDto {
         return MessageEffectDto(
             id = dto.id,
             staticIcon = dto.staticIcon?.let { map(it) },
@@ -5295,7 +5295,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: MessageEffectDto): TdApi.MessageEffect {
+    fun map(dto: MessageEffectDto): TdApi.MessageEffect {
         return TdApi.MessageEffect(
             id = dto.id,
             staticIcon = dto.staticIcon?.let { map(it) },
@@ -5305,7 +5305,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.MessageForwardInfo): MessageForwardInfoDto {
+    fun map(dto: TdApi.MessageForwardInfo): MessageForwardInfoDto {
         return MessageForwardInfoDto(
             origin = map(dto.origin),
             date = dto.date,
@@ -5314,7 +5314,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: MessageForwardInfoDto): TdApi.MessageForwardInfo {
+    fun map(dto: MessageForwardInfoDto): TdApi.MessageForwardInfo {
         return TdApi.MessageForwardInfo(
             origin = map(dto.origin),
             date = dto.date,
@@ -5323,21 +5323,21 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.MessageImportInfo): MessageImportInfoDto {
+    fun map(dto: TdApi.MessageImportInfo): MessageImportInfoDto {
         return MessageImportInfoDto(
             senderName = dto.senderName,
             date = dto.date,
         )
     }
 
-    public fun map(dto: MessageImportInfoDto): TdApi.MessageImportInfo {
+    fun map(dto: MessageImportInfoDto): TdApi.MessageImportInfo {
         return TdApi.MessageImportInfo(
             senderName = dto.senderName,
             date = dto.date,
         )
     }
 
-    public fun map(dto: TdApi.MessageInteractionInfo): MessageInteractionInfoDto {
+    fun map(dto: TdApi.MessageInteractionInfo): MessageInteractionInfoDto {
         return MessageInteractionInfoDto(
             viewCount = dto.viewCount,
             forwardCount = dto.forwardCount,
@@ -5346,7 +5346,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: MessageInteractionInfoDto): TdApi.MessageInteractionInfo {
+    fun map(dto: MessageInteractionInfoDto): TdApi.MessageInteractionInfo {
         return TdApi.MessageInteractionInfo(
             viewCount = dto.viewCount,
             forwardCount = dto.forwardCount,
@@ -5355,21 +5355,21 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.MessageLink): MessageLinkDto {
+    fun map(dto: TdApi.MessageLink): MessageLinkDto {
         return MessageLinkDto(
             link = dto.link,
             isPublic = dto.isPublic,
         )
     }
 
-    public fun map(dto: MessageLinkDto): TdApi.MessageLink {
+    fun map(dto: MessageLinkDto): TdApi.MessageLink {
         return TdApi.MessageLink(
             link = dto.link,
             isPublic = dto.isPublic,
         )
     }
 
-    public fun map(dto: TdApi.MessageLinkInfo): MessageLinkInfoDto {
+    fun map(dto: TdApi.MessageLinkInfo): MessageLinkInfoDto {
         return MessageLinkInfoDto(
             isPublic = dto.isPublic,
             chatId = dto.chatId,
@@ -5380,7 +5380,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: MessageLinkInfoDto): TdApi.MessageLinkInfo {
+    fun map(dto: MessageLinkInfoDto): TdApi.MessageLinkInfo {
         return TdApi.MessageLinkInfo(
             isPublic = dto.isPublic,
             chatId = dto.chatId,
@@ -5391,7 +5391,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.MessagePosition): MessagePositionDto {
+    fun map(dto: TdApi.MessagePosition): MessagePositionDto {
         return MessagePositionDto(
             position = dto.position,
             messageId = dto.messageId,
@@ -5399,7 +5399,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: MessagePositionDto): TdApi.MessagePosition {
+    fun map(dto: MessagePositionDto): TdApi.MessagePosition {
         return TdApi.MessagePosition(
             position = dto.position,
             messageId = dto.messageId,
@@ -5407,21 +5407,21 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.MessagePositions): MessagePositionsDto {
+    fun map(dto: TdApi.MessagePositions): MessagePositionsDto {
         return MessagePositionsDto(
             totalCount = dto.totalCount,
             positions = dto.positions.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: MessagePositionsDto): TdApi.MessagePositions {
+    fun map(dto: MessagePositionsDto): TdApi.MessagePositions {
         return TdApi.MessagePositions(
             totalCount = dto.totalCount,
             positions = dto.positions.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: TdApi.MessageProperties): MessagePropertiesDto {
+    fun map(dto: TdApi.MessageProperties): MessagePropertiesDto {
         return MessagePropertiesDto(
             canBeCopiedToSecretChat = dto.canBeCopiedToSecretChat,
             canBeDeletedOnlyForSelf = dto.canBeDeletedOnlyForSelf,
@@ -5452,7 +5452,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: MessagePropertiesDto): TdApi.MessageProperties {
+    fun map(dto: MessagePropertiesDto): TdApi.MessageProperties {
         return TdApi.MessageProperties(
             canBeCopiedToSecretChat = dto.canBeCopiedToSecretChat,
             canBeDeletedOnlyForSelf = dto.canBeDeletedOnlyForSelf,
@@ -5483,7 +5483,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.MessageReaction): MessageReactionDto {
+    fun map(dto: TdApi.MessageReaction): MessageReactionDto {
         return MessageReactionDto(
             type = map(dto.type),
             totalCount = dto.totalCount,
@@ -5493,7 +5493,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: MessageReactionDto): TdApi.MessageReaction {
+    fun map(dto: MessageReactionDto): TdApi.MessageReaction {
         return TdApi.MessageReaction(
             type = map(dto.type),
             totalCount = dto.totalCount,
@@ -5503,7 +5503,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.MessageReactions): MessageReactionsDto {
+    fun map(dto: TdApi.MessageReactions): MessageReactionsDto {
         return MessageReactionsDto(
             reactions = dto.reactions.mapArray { map(it) },
             areTags = dto.areTags,
@@ -5512,7 +5512,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: MessageReactionsDto): TdApi.MessageReactions {
+    fun map(dto: MessageReactionsDto): TdApi.MessageReactions {
         return TdApi.MessageReactions(
             reactions = dto.reactions.mapArray { map(it) },
             areTags = dto.areTags,
@@ -5521,7 +5521,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.MessageReplyInfo): MessageReplyInfoDto {
+    fun map(dto: TdApi.MessageReplyInfo): MessageReplyInfoDto {
         return MessageReplyInfoDto(
             replyCount = dto.replyCount,
             recentReplierIds = dto.recentReplierIds.mapArray { map(it) },
@@ -5531,7 +5531,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: MessageReplyInfoDto): TdApi.MessageReplyInfo {
+    fun map(dto: MessageReplyInfoDto): TdApi.MessageReplyInfo {
         return TdApi.MessageReplyInfo(
             replyCount = dto.replyCount,
             recentReplierIds = dto.recentReplierIds.mapArray { map(it) },
@@ -5541,7 +5541,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.MessageSendOptions): MessageSendOptionsDto {
+    fun map(dto: TdApi.MessageSendOptions): MessageSendOptionsDto {
         return MessageSendOptionsDto(
             disableNotification = dto.disableNotification,
             fromBackground = dto.fromBackground,
@@ -5556,7 +5556,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: MessageSendOptionsDto): TdApi.MessageSendOptions {
+    fun map(dto: MessageSendOptionsDto): TdApi.MessageSendOptions {
         return TdApi.MessageSendOptions(
             disableNotification = dto.disableNotification,
             fromBackground = dto.fromBackground,
@@ -5571,21 +5571,21 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.MessageSenders): MessageSendersDto {
+    fun map(dto: TdApi.MessageSenders): MessageSendersDto {
         return MessageSendersDto(
             totalCount = dto.totalCount,
             senders = dto.senders.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: MessageSendersDto): TdApi.MessageSenders {
+    fun map(dto: MessageSendersDto): TdApi.MessageSenders {
         return TdApi.MessageSenders(
             totalCount = dto.totalCount,
             senders = dto.senders.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: TdApi.MessageSponsor): MessageSponsorDto {
+    fun map(dto: TdApi.MessageSponsor): MessageSponsorDto {
         return MessageSponsorDto(
             url = dto.url,
             photo = dto.photo?.let { map(it) },
@@ -5593,7 +5593,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: MessageSponsorDto): TdApi.MessageSponsor {
+    fun map(dto: MessageSponsorDto): TdApi.MessageSponsor {
         return TdApi.MessageSponsor(
             url = dto.url,
             photo = dto.photo?.let { map(it) },
@@ -5601,21 +5601,21 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.MessageStatistics): MessageStatisticsDto {
+    fun map(dto: TdApi.MessageStatistics): MessageStatisticsDto {
         return MessageStatisticsDto(
             messageInteractionGraph = map(dto.messageInteractionGraph),
             messageReactionGraph = map(dto.messageReactionGraph),
         )
     }
 
-    public fun map(dto: MessageStatisticsDto): TdApi.MessageStatistics {
+    fun map(dto: MessageStatisticsDto): TdApi.MessageStatistics {
         return TdApi.MessageStatistics(
             messageInteractionGraph = map(dto.messageInteractionGraph),
             messageReactionGraph = map(dto.messageReactionGraph),
         )
     }
 
-    public fun map(dto: TdApi.MessageThreadInfo): MessageThreadInfoDto {
+    fun map(dto: TdApi.MessageThreadInfo): MessageThreadInfoDto {
         return MessageThreadInfoDto(
             chatId = dto.chatId,
             messageThreadId = dto.messageThreadId,
@@ -5626,7 +5626,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: MessageThreadInfoDto): TdApi.MessageThreadInfo {
+    fun map(dto: MessageThreadInfoDto): TdApi.MessageThreadInfo {
         return TdApi.MessageThreadInfo(
             chatId = dto.chatId,
             messageThreadId = dto.messageThreadId,
@@ -5637,47 +5637,47 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.MessageViewer): MessageViewerDto {
+    fun map(dto: TdApi.MessageViewer): MessageViewerDto {
         return MessageViewerDto(
             userId = dto.userId,
             viewDate = dto.viewDate,
         )
     }
 
-    public fun map(dto: MessageViewerDto): TdApi.MessageViewer {
+    fun map(dto: MessageViewerDto): TdApi.MessageViewer {
         return TdApi.MessageViewer(
             userId = dto.userId,
             viewDate = dto.viewDate,
         )
     }
 
-    public fun map(dto: TdApi.MessageViewers): MessageViewersDto {
+    fun map(dto: TdApi.MessageViewers): MessageViewersDto {
         return MessageViewersDto(
             viewers = dto.viewers.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: MessageViewersDto): TdApi.MessageViewers {
+    fun map(dto: MessageViewersDto): TdApi.MessageViewers {
         return TdApi.MessageViewers(
             viewers = dto.viewers.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: TdApi.Messages): MessagesDto {
+    fun map(dto: TdApi.Messages): MessagesDto {
         return MessagesDto(
             totalCount = dto.totalCount,
             messages = dto.messages?.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: MessagesDto): TdApi.Messages {
+    fun map(dto: MessagesDto): TdApi.Messages {
         return TdApi.Messages(
             totalCount = dto.totalCount,
             messages = dto.messages?.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: TdApi.Minithumbnail): MinithumbnailDto {
+    fun map(dto: TdApi.Minithumbnail): MinithumbnailDto {
         return MinithumbnailDto(
             width = dto.width,
             height = dto.height,
@@ -5685,7 +5685,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: MinithumbnailDto): TdApi.Minithumbnail {
+    fun map(dto: MinithumbnailDto): TdApi.Minithumbnail {
         return TdApi.Minithumbnail(
             width = dto.width,
             height = dto.height,
@@ -5693,35 +5693,35 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.NetworkStatistics): NetworkStatisticsDto {
+    fun map(dto: TdApi.NetworkStatistics): NetworkStatisticsDto {
         return NetworkStatisticsDto(
             sinceDate = dto.sinceDate,
             entries = dto.entries.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: NetworkStatisticsDto): TdApi.NetworkStatistics {
+    fun map(dto: NetworkStatisticsDto): TdApi.NetworkStatistics {
         return TdApi.NetworkStatistics(
             sinceDate = dto.sinceDate,
             entries = dto.entries.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: TdApi.NewChatPrivacySettings): NewChatPrivacySettingsDto {
+    fun map(dto: TdApi.NewChatPrivacySettings): NewChatPrivacySettingsDto {
         return NewChatPrivacySettingsDto(
             allowNewChatsFromUnknownUsers = dto.allowNewChatsFromUnknownUsers,
             incomingPaidMessageStarCount = dto.incomingPaidMessageStarCount,
         )
     }
 
-    public fun map(dto: NewChatPrivacySettingsDto): TdApi.NewChatPrivacySettings {
+    fun map(dto: NewChatPrivacySettingsDto): TdApi.NewChatPrivacySettings {
         return TdApi.NewChatPrivacySettings(
             allowNewChatsFromUnknownUsers = dto.allowNewChatsFromUnknownUsers,
             incomingPaidMessageStarCount = dto.incomingPaidMessageStarCount,
         )
     }
 
-    public fun map(dto: TdApi.Notification): NotificationDto {
+    fun map(dto: TdApi.Notification): NotificationDto {
         return NotificationDto(
             id = dto.id,
             date = dto.date,
@@ -5730,7 +5730,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: NotificationDto): TdApi.Notification {
+    fun map(dto: NotificationDto): TdApi.Notification {
         return TdApi.Notification(
             id = dto.id,
             date = dto.date,
@@ -5739,7 +5739,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.NotificationGroup): NotificationGroupDto {
+    fun map(dto: TdApi.NotificationGroup): NotificationGroupDto {
         return NotificationGroupDto(
             id = dto.id,
             type = map(dto.type),
@@ -5749,7 +5749,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: NotificationGroupDto): TdApi.NotificationGroup {
+    fun map(dto: NotificationGroupDto): TdApi.NotificationGroup {
         return TdApi.NotificationGroup(
             id = dto.id,
             type = map(dto.type),
@@ -5759,7 +5759,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.NotificationSound): NotificationSoundDto {
+    fun map(dto: TdApi.NotificationSound): NotificationSoundDto {
         return NotificationSoundDto(
             id = dto.id,
             duration = dto.duration,
@@ -5770,7 +5770,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: NotificationSoundDto): TdApi.NotificationSound {
+    fun map(dto: NotificationSoundDto): TdApi.NotificationSound {
         return TdApi.NotificationSound(
             id = dto.id,
             duration = dto.duration,
@@ -5781,29 +5781,29 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.NotificationSounds): NotificationSoundsDto {
+    fun map(dto: TdApi.NotificationSounds): NotificationSoundsDto {
         return NotificationSoundsDto(
             notificationSounds = dto.notificationSounds.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: NotificationSoundsDto): TdApi.NotificationSounds {
+    fun map(dto: NotificationSoundsDto): TdApi.NotificationSounds {
         return TdApi.NotificationSounds(
             notificationSounds = dto.notificationSounds.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: TdApi.Ok): OkDto {
+    fun map(dto: TdApi.Ok): OkDto {
         return OkDto(
         )
     }
 
-    public fun map(dto: OkDto): TdApi.Ok {
+    fun map(dto: OkDto): TdApi.Ok {
         return TdApi.Ok(
         )
     }
 
-    public fun map(dto: TdApi.OrderInfo): OrderInfoDto {
+    fun map(dto: TdApi.OrderInfo): OrderInfoDto {
         return OrderInfoDto(
             name = dto.name,
             phoneNumber = dto.phoneNumber,
@@ -5812,7 +5812,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: OrderInfoDto): TdApi.OrderInfo {
+    fun map(dto: OrderInfoDto): TdApi.OrderInfo {
         return TdApi.OrderInfo(
             name = dto.name,
             phoneNumber = dto.phoneNumber,
@@ -5821,47 +5821,47 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.Outline): OutlineDto {
+    fun map(dto: TdApi.Outline): OutlineDto {
         return OutlineDto(
             paths = dto.paths.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: OutlineDto): TdApi.Outline {
+    fun map(dto: OutlineDto): TdApi.Outline {
         return TdApi.Outline(
             paths = dto.paths.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: TdApi.PageBlockCaption): PageBlockCaptionDto {
+    fun map(dto: TdApi.PageBlockCaption): PageBlockCaptionDto {
         return PageBlockCaptionDto(
             text = map(dto.text),
             credit = map(dto.credit),
         )
     }
 
-    public fun map(dto: PageBlockCaptionDto): TdApi.PageBlockCaption {
+    fun map(dto: PageBlockCaptionDto): TdApi.PageBlockCaption {
         return TdApi.PageBlockCaption(
             text = map(dto.text),
             credit = map(dto.credit),
         )
     }
 
-    public fun map(dto: TdApi.PageBlockListItem): PageBlockListItemDto {
+    fun map(dto: TdApi.PageBlockListItem): PageBlockListItemDto {
         return PageBlockListItemDto(
             label = dto.label,
             pageBlocks = dto.pageBlocks.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: PageBlockListItemDto): TdApi.PageBlockListItem {
+    fun map(dto: PageBlockListItemDto): TdApi.PageBlockListItem {
         return TdApi.PageBlockListItem(
             label = dto.label,
             pageBlocks = dto.pageBlocks.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: TdApi.PageBlockRelatedArticle): PageBlockRelatedArticleDto {
+    fun map(dto: TdApi.PageBlockRelatedArticle): PageBlockRelatedArticleDto {
         return PageBlockRelatedArticleDto(
             url = dto.url,
             title = dto.title,
@@ -5872,7 +5872,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: PageBlockRelatedArticleDto): TdApi.PageBlockRelatedArticle {
+    fun map(dto: PageBlockRelatedArticleDto): TdApi.PageBlockRelatedArticle {
         return TdApi.PageBlockRelatedArticle(
             url = dto.url,
             title = dto.title,
@@ -5883,7 +5883,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.PageBlockTableCell): PageBlockTableCellDto {
+    fun map(dto: TdApi.PageBlockTableCell): PageBlockTableCellDto {
         return PageBlockTableCellDto(
             text = dto.text?.let { map(it) },
             isHeader = dto.isHeader,
@@ -5894,7 +5894,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: PageBlockTableCellDto): TdApi.PageBlockTableCell {
+    fun map(dto: PageBlockTableCellDto): TdApi.PageBlockTableCell {
         return TdApi.PageBlockTableCell(
             text = dto.text?.let { map(it) },
             isHeader = dto.isHeader,
@@ -5905,7 +5905,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.PaidReactor): PaidReactorDto {
+    fun map(dto: TdApi.PaidReactor): PaidReactorDto {
         return PaidReactorDto(
             senderId = dto.senderId?.let { map(it) },
             starCount = dto.starCount,
@@ -5915,7 +5915,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: PaidReactorDto): TdApi.PaidReactor {
+    fun map(dto: PaidReactorDto): TdApi.PaidReactor {
         return TdApi.PaidReactor(
             senderId = dto.senderId?.let { map(it) },
             starCount = dto.starCount,
@@ -5925,7 +5925,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.PassportAuthorizationForm): PassportAuthorizationFormDto {
+    fun map(dto: TdApi.PassportAuthorizationForm): PassportAuthorizationFormDto {
         return PassportAuthorizationFormDto(
             id = dto.id,
             requiredElements = dto.requiredElements.mapArray { map(it) },
@@ -5933,7 +5933,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: PassportAuthorizationFormDto): TdApi.PassportAuthorizationForm {
+    fun map(dto: PassportAuthorizationFormDto): TdApi.PassportAuthorizationForm {
         return TdApi.PassportAuthorizationForm(
             id = dto.id,
             requiredElements = dto.requiredElements.mapArray { map(it) },
@@ -5941,7 +5941,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.PassportElementError): PassportElementErrorDto {
+    fun map(dto: TdApi.PassportElementError): PassportElementErrorDto {
         return PassportElementErrorDto(
             type = map(dto.type),
             message = dto.message,
@@ -5949,7 +5949,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: PassportElementErrorDto): TdApi.PassportElementError {
+    fun map(dto: PassportElementErrorDto): TdApi.PassportElementError {
         return TdApi.PassportElementError(
             type = map(dto.type),
             message = dto.message,
@@ -5957,45 +5957,45 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.PassportElements): PassportElementsDto {
+    fun map(dto: TdApi.PassportElements): PassportElementsDto {
         return PassportElementsDto(
             elements = dto.elements.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: PassportElementsDto): TdApi.PassportElements {
+    fun map(dto: PassportElementsDto): TdApi.PassportElements {
         return TdApi.PassportElements(
             elements = dto.elements.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: TdApi.PassportElementsWithErrors): PassportElementsWithErrorsDto {
+    fun map(dto: TdApi.PassportElementsWithErrors): PassportElementsWithErrorsDto {
         return PassportElementsWithErrorsDto(
             elements = dto.elements.mapArray { map(it) },
             errors = dto.errors.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: PassportElementsWithErrorsDto): TdApi.PassportElementsWithErrors {
+    fun map(dto: PassportElementsWithErrorsDto): TdApi.PassportElementsWithErrors {
         return TdApi.PassportElementsWithErrors(
             elements = dto.elements.mapArray { map(it) },
             errors = dto.errors.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: TdApi.PassportRequiredElement): PassportRequiredElementDto {
+    fun map(dto: TdApi.PassportRequiredElement): PassportRequiredElementDto {
         return PassportRequiredElementDto(
             suitableElements = dto.suitableElements.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: PassportRequiredElementDto): TdApi.PassportRequiredElement {
+    fun map(dto: PassportRequiredElementDto): TdApi.PassportRequiredElement {
         return TdApi.PassportRequiredElement(
             suitableElements = dto.suitableElements.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: TdApi.PassportSuitableElement): PassportSuitableElementDto {
+    fun map(dto: TdApi.PassportSuitableElement): PassportSuitableElementDto {
         return PassportSuitableElementDto(
             type = map(dto.type),
             isSelfieRequired = dto.isSelfieRequired,
@@ -6004,7 +6004,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: PassportSuitableElementDto): TdApi.PassportSuitableElement {
+    fun map(dto: PassportSuitableElementDto): TdApi.PassportSuitableElement {
         return TdApi.PassportSuitableElement(
             type = map(dto.type),
             isSelfieRequired = dto.isSelfieRequired,
@@ -6013,7 +6013,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.PasswordState): PasswordStateDto {
+    fun map(dto: TdApi.PasswordState): PasswordStateDto {
         return PasswordStateDto(
             hasPassword = dto.hasPassword,
             passwordHint = dto.passwordHint,
@@ -6025,7 +6025,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: PasswordStateDto): TdApi.PasswordState {
+    fun map(dto: PasswordStateDto): TdApi.PasswordState {
         return TdApi.PasswordState(
             hasPassword = dto.hasPassword,
             passwordHint = dto.passwordHint,
@@ -6037,7 +6037,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.PaymentForm): PaymentFormDto {
+    fun map(dto: TdApi.PaymentForm): PaymentFormDto {
         return PaymentFormDto(
             id = dto.id,
             type = map(dto.type),
@@ -6046,7 +6046,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: PaymentFormDto): TdApi.PaymentForm {
+    fun map(dto: PaymentFormDto): TdApi.PaymentForm {
         return TdApi.PaymentForm(
             id = dto.id,
             type = map(dto.type),
@@ -6055,21 +6055,21 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.PaymentOption): PaymentOptionDto {
+    fun map(dto: TdApi.PaymentOption): PaymentOptionDto {
         return PaymentOptionDto(
             title = dto.title,
             url = dto.url,
         )
     }
 
-    public fun map(dto: PaymentOptionDto): TdApi.PaymentOption {
+    fun map(dto: PaymentOptionDto): TdApi.PaymentOption {
         return TdApi.PaymentOption(
             title = dto.title,
             url = dto.url,
         )
     }
 
-    public fun map(dto: TdApi.PaymentReceipt): PaymentReceiptDto {
+    fun map(dto: TdApi.PaymentReceipt): PaymentReceiptDto {
         return PaymentReceiptDto(
             productInfo = map(dto.productInfo),
             date = dto.date,
@@ -6078,7 +6078,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: PaymentReceiptDto): TdApi.PaymentReceipt {
+    fun map(dto: PaymentReceiptDto): TdApi.PaymentReceipt {
         return TdApi.PaymentReceipt(
             productInfo = map(dto.productInfo),
             date = dto.date,
@@ -6087,21 +6087,21 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.PaymentResult): PaymentResultDto {
+    fun map(dto: TdApi.PaymentResult): PaymentResultDto {
         return PaymentResultDto(
             success = dto.success,
             verificationUrl = dto.verificationUrl,
         )
     }
 
-    public fun map(dto: PaymentResultDto): TdApi.PaymentResult {
+    fun map(dto: PaymentResultDto): TdApi.PaymentResult {
         return TdApi.PaymentResult(
             success = dto.success,
             verificationUrl = dto.verificationUrl,
         )
     }
 
-    public fun map(dto: TdApi.PersonalDetails): PersonalDetailsDto {
+    fun map(dto: TdApi.PersonalDetails): PersonalDetailsDto {
         return PersonalDetailsDto(
             firstName = dto.firstName,
             middleName = dto.middleName,
@@ -6116,7 +6116,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: PersonalDetailsDto): TdApi.PersonalDetails {
+    fun map(dto: PersonalDetailsDto): TdApi.PersonalDetails {
         return TdApi.PersonalDetails(
             firstName = dto.firstName,
             middleName = dto.middleName,
@@ -6131,21 +6131,21 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.PersonalDocument): PersonalDocumentDto {
+    fun map(dto: TdApi.PersonalDocument): PersonalDocumentDto {
         return PersonalDocumentDto(
             files = dto.files.mapArray { map(it) },
             translation = dto.translation.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: PersonalDocumentDto): TdApi.PersonalDocument {
+    fun map(dto: PersonalDocumentDto): TdApi.PersonalDocument {
         return TdApi.PersonalDocument(
             files = dto.files.mapArray { map(it) },
             translation = dto.translation.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: TdApi.PhoneNumberAuthenticationSettings): PhoneNumberAuthenticationSettingsDto {
+    fun map(dto: TdApi.PhoneNumberAuthenticationSettings): PhoneNumberAuthenticationSettingsDto {
         return PhoneNumberAuthenticationSettingsDto(
             allowFlashCall = dto.allowFlashCall,
             allowMissedCall = dto.allowMissedCall,
@@ -6157,7 +6157,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: PhoneNumberAuthenticationSettingsDto): TdApi.PhoneNumberAuthenticationSettings {
+    fun map(dto: PhoneNumberAuthenticationSettingsDto): TdApi.PhoneNumberAuthenticationSettings {
         return TdApi.PhoneNumberAuthenticationSettings(
             allowFlashCall = dto.allowFlashCall,
             allowMissedCall = dto.allowMissedCall,
@@ -6169,7 +6169,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.PhoneNumberInfo): PhoneNumberInfoDto {
+    fun map(dto: TdApi.PhoneNumberInfo): PhoneNumberInfoDto {
         return PhoneNumberInfoDto(
             country = dto.country?.let { map(it) },
             countryCallingCode = dto.countryCallingCode,
@@ -6178,7 +6178,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: PhoneNumberInfoDto): TdApi.PhoneNumberInfo {
+    fun map(dto: PhoneNumberInfoDto): TdApi.PhoneNumberInfo {
         return TdApi.PhoneNumberInfo(
             country = dto.country?.let { map(it) },
             countryCallingCode = dto.countryCallingCode,
@@ -6187,7 +6187,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.Photo): PhotoDto {
+    fun map(dto: TdApi.Photo): PhotoDto {
         return PhotoDto(
             hasStickers = dto.hasStickers,
             minithumbnail = dto.minithumbnail?.let { map(it) },
@@ -6195,7 +6195,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: PhotoDto): TdApi.Photo {
+    fun map(dto: PhotoDto): TdApi.Photo {
         return TdApi.Photo(
             hasStickers = dto.hasStickers,
             minithumbnail = dto.minithumbnail?.let { map(it) },
@@ -6203,7 +6203,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.PhotoSize): PhotoSizeDto {
+    fun map(dto: TdApi.PhotoSize): PhotoSizeDto {
         return PhotoSizeDto(
             type = dto.type,
             photo = map(dto.photo),
@@ -6213,7 +6213,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: PhotoSizeDto): TdApi.PhotoSize {
+    fun map(dto: PhotoSizeDto): TdApi.PhotoSize {
         return TdApi.PhotoSize(
             type = dto.type,
             photo = map(dto.photo),
@@ -6223,21 +6223,21 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.Point): PointDto {
+    fun map(dto: TdApi.Point): PointDto {
         return PointDto(
             x = dto.x,
             y = dto.y,
         )
     }
 
-    public fun map(dto: PointDto): TdApi.Point {
+    fun map(dto: PointDto): TdApi.Point {
         return TdApi.Point(
             x = dto.x,
             y = dto.y,
         )
     }
 
-    public fun map(dto: TdApi.Poll): PollDto {
+    fun map(dto: TdApi.Poll): PollDto {
         return PollDto(
             id = dto.id,
             question = map(dto.question),
@@ -6252,7 +6252,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: PollDto): TdApi.Poll {
+    fun map(dto: PollDto): TdApi.Poll {
         return TdApi.Poll(
             id = dto.id,
             question = map(dto.question),
@@ -6267,7 +6267,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.PollOption): PollOptionDto {
+    fun map(dto: TdApi.PollOption): PollOptionDto {
         return PollOptionDto(
             text = map(dto.text),
             voterCount = dto.voterCount,
@@ -6277,7 +6277,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: PollOptionDto): TdApi.PollOption {
+    fun map(dto: PollOptionDto): TdApi.PollOption {
         return TdApi.PollOption(
             text = map(dto.text),
             voterCount = dto.voterCount,
@@ -6287,21 +6287,21 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.PremiumFeaturePromotionAnimation): PremiumFeaturePromotionAnimationDto {
+    fun map(dto: TdApi.PremiumFeaturePromotionAnimation): PremiumFeaturePromotionAnimationDto {
         return PremiumFeaturePromotionAnimationDto(
             feature = map(dto.feature),
             animation = map(dto.animation),
         )
     }
 
-    public fun map(dto: PremiumFeaturePromotionAnimationDto): TdApi.PremiumFeaturePromotionAnimation {
+    fun map(dto: PremiumFeaturePromotionAnimationDto): TdApi.PremiumFeaturePromotionAnimation {
         return TdApi.PremiumFeaturePromotionAnimation(
             feature = map(dto.feature),
             animation = map(dto.animation),
         )
     }
 
-    public fun map(dto: TdApi.PremiumFeatures): PremiumFeaturesDto {
+    fun map(dto: TdApi.PremiumFeatures): PremiumFeaturesDto {
         return PremiumFeaturesDto(
             features = dto.features.mapArray { map(it) },
             limits = dto.limits.mapArray { map(it) },
@@ -6309,7 +6309,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: PremiumFeaturesDto): TdApi.PremiumFeatures {
+    fun map(dto: PremiumFeaturesDto): TdApi.PremiumFeatures {
         return TdApi.PremiumFeatures(
             features = dto.features.mapArray { map(it) },
             limits = dto.limits.mapArray { map(it) },
@@ -6317,7 +6317,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.PremiumGiftCodeInfo): PremiumGiftCodeInfoDto {
+    fun map(dto: TdApi.PremiumGiftCodeInfo): PremiumGiftCodeInfoDto {
         return PremiumGiftCodeInfoDto(
             creatorId = dto.creatorId?.let { map(it) },
             creationDate = dto.creationDate,
@@ -6329,7 +6329,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: PremiumGiftCodeInfoDto): TdApi.PremiumGiftCodeInfo {
+    fun map(dto: PremiumGiftCodeInfoDto): TdApi.PremiumGiftCodeInfo {
         return TdApi.PremiumGiftCodeInfo(
             creatorId = dto.creatorId?.let { map(it) },
             creationDate = dto.creationDate,
@@ -6341,7 +6341,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.PremiumGiftPaymentOption): PremiumGiftPaymentOptionDto {
+    fun map(dto: TdApi.PremiumGiftPaymentOption): PremiumGiftPaymentOptionDto {
         return PremiumGiftPaymentOptionDto(
             currency = dto.currency,
             amount = dto.amount,
@@ -6353,7 +6353,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: PremiumGiftPaymentOptionDto): TdApi.PremiumGiftPaymentOption {
+    fun map(dto: PremiumGiftPaymentOptionDto): TdApi.PremiumGiftPaymentOption {
         return TdApi.PremiumGiftPaymentOption(
             currency = dto.currency,
             amount = dto.amount,
@@ -6365,19 +6365,19 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.PremiumGiftPaymentOptions): PremiumGiftPaymentOptionsDto {
+    fun map(dto: TdApi.PremiumGiftPaymentOptions): PremiumGiftPaymentOptionsDto {
         return PremiumGiftPaymentOptionsDto(
             options = dto.options.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: PremiumGiftPaymentOptionsDto): TdApi.PremiumGiftPaymentOptions {
+    fun map(dto: PremiumGiftPaymentOptionsDto): TdApi.PremiumGiftPaymentOptions {
         return TdApi.PremiumGiftPaymentOptions(
             options = dto.options.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: TdApi.PremiumGiveawayPaymentOption): PremiumGiveawayPaymentOptionDto {
+    fun map(dto: TdApi.PremiumGiveawayPaymentOption): PremiumGiveawayPaymentOptionDto {
         return PremiumGiveawayPaymentOptionDto(
             currency = dto.currency,
             amount = dto.amount,
@@ -6388,7 +6388,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: PremiumGiveawayPaymentOptionDto): TdApi.PremiumGiveawayPaymentOption {
+    fun map(dto: PremiumGiveawayPaymentOptionDto): TdApi.PremiumGiveawayPaymentOption {
         return TdApi.PremiumGiveawayPaymentOption(
             currency = dto.currency,
             amount = dto.amount,
@@ -6399,19 +6399,19 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.PremiumGiveawayPaymentOptions): PremiumGiveawayPaymentOptionsDto {
+    fun map(dto: TdApi.PremiumGiveawayPaymentOptions): PremiumGiveawayPaymentOptionsDto {
         return PremiumGiveawayPaymentOptionsDto(
             options = dto.options.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: PremiumGiveawayPaymentOptionsDto): TdApi.PremiumGiveawayPaymentOptions {
+    fun map(dto: PremiumGiveawayPaymentOptionsDto): TdApi.PremiumGiveawayPaymentOptions {
         return TdApi.PremiumGiveawayPaymentOptions(
             options = dto.options.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: TdApi.PremiumLimit): PremiumLimitDto {
+    fun map(dto: TdApi.PremiumLimit): PremiumLimitDto {
         return PremiumLimitDto(
             type = map(dto.type),
             defaultValue = dto.defaultValue,
@@ -6419,7 +6419,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: PremiumLimitDto): TdApi.PremiumLimit {
+    fun map(dto: PremiumLimitDto): TdApi.PremiumLimit {
         return TdApi.PremiumLimit(
             type = map(dto.type),
             defaultValue = dto.defaultValue,
@@ -6427,7 +6427,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.PremiumPaymentOption): PremiumPaymentOptionDto {
+    fun map(dto: TdApi.PremiumPaymentOption): PremiumPaymentOptionDto {
         return PremiumPaymentOptionDto(
             currency = dto.currency,
             amount = dto.amount,
@@ -6438,7 +6438,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: PremiumPaymentOptionDto): TdApi.PremiumPaymentOption {
+    fun map(dto: PremiumPaymentOptionDto): TdApi.PremiumPaymentOption {
         return TdApi.PremiumPaymentOption(
             currency = dto.currency,
             amount = dto.amount,
@@ -6449,7 +6449,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.PremiumState): PremiumStateDto {
+    fun map(dto: TdApi.PremiumState): PremiumStateDto {
         return PremiumStateDto(
             state = map(dto.state),
             paymentOptions = dto.paymentOptions.mapArray { map(it) },
@@ -6458,7 +6458,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: PremiumStateDto): TdApi.PremiumState {
+    fun map(dto: PremiumStateDto): TdApi.PremiumState {
         return TdApi.PremiumState(
             state = map(dto.state),
             paymentOptions = dto.paymentOptions.mapArray { map(it) },
@@ -6467,7 +6467,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.PremiumStatePaymentOption): PremiumStatePaymentOptionDto {
+    fun map(dto: TdApi.PremiumStatePaymentOption): PremiumStatePaymentOptionDto {
         return PremiumStatePaymentOptionDto(
             paymentOption = map(dto.paymentOption),
             isCurrent = dto.isCurrent,
@@ -6476,7 +6476,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: PremiumStatePaymentOptionDto): TdApi.PremiumStatePaymentOption {
+    fun map(dto: PremiumStatePaymentOptionDto): TdApi.PremiumStatePaymentOption {
         return TdApi.PremiumStatePaymentOption(
             paymentOption = map(dto.paymentOption),
             isCurrent = dto.isCurrent,
@@ -6485,7 +6485,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.PrepaidGiveaway): PrepaidGiveawayDto {
+    fun map(dto: TdApi.PrepaidGiveaway): PrepaidGiveawayDto {
         return PrepaidGiveawayDto(
             id = dto.id,
             winnerCount = dto.winnerCount,
@@ -6495,7 +6495,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: PrepaidGiveawayDto): TdApi.PrepaidGiveaway {
+    fun map(dto: PrepaidGiveawayDto): TdApi.PrepaidGiveaway {
         return TdApi.PrepaidGiveaway(
             id = dto.id,
             winnerCount = dto.winnerCount,
@@ -6505,7 +6505,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.PreparedInlineMessage): PreparedInlineMessageDto {
+    fun map(dto: TdApi.PreparedInlineMessage): PreparedInlineMessageDto {
         return PreparedInlineMessageDto(
             inlineQueryId = dto.inlineQueryId,
             result = map(dto.result),
@@ -6513,7 +6513,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: PreparedInlineMessageDto): TdApi.PreparedInlineMessage {
+    fun map(dto: PreparedInlineMessageDto): TdApi.PreparedInlineMessage {
         return TdApi.PreparedInlineMessage(
             inlineQueryId = dto.inlineQueryId,
             result = map(dto.result),
@@ -6521,21 +6521,21 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.PreparedInlineMessageId): PreparedInlineMessageIdDto {
+    fun map(dto: TdApi.PreparedInlineMessageId): PreparedInlineMessageIdDto {
         return PreparedInlineMessageIdDto(
             id = dto.id,
             expirationDate = dto.expirationDate,
         )
     }
 
-    public fun map(dto: PreparedInlineMessageIdDto): TdApi.PreparedInlineMessageId {
+    fun map(dto: PreparedInlineMessageIdDto): TdApi.PreparedInlineMessageId {
         return TdApi.PreparedInlineMessageId(
             id = dto.id,
             expirationDate = dto.expirationDate,
         )
     }
 
-    public fun map(dto: TdApi.ProductInfo): ProductInfoDto {
+    fun map(dto: TdApi.ProductInfo): ProductInfoDto {
         return ProductInfoDto(
             title = dto.title,
             description = map(dto.description),
@@ -6543,7 +6543,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: ProductInfoDto): TdApi.ProductInfo {
+    fun map(dto: ProductInfoDto): TdApi.ProductInfo {
         return TdApi.ProductInfo(
             title = dto.title,
             description = map(dto.description),
@@ -6551,7 +6551,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.ProfileAccentColor): ProfileAccentColorDto {
+    fun map(dto: TdApi.ProfileAccentColor): ProfileAccentColorDto {
         return ProfileAccentColorDto(
             id = dto.id,
             lightThemeColors = map(dto.lightThemeColors),
@@ -6561,7 +6561,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: ProfileAccentColorDto): TdApi.ProfileAccentColor {
+    fun map(dto: ProfileAccentColorDto): TdApi.ProfileAccentColor {
         return TdApi.ProfileAccentColor(
             id = dto.id,
             lightThemeColors = map(dto.lightThemeColors),
@@ -6571,7 +6571,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.ProfileAccentColors): ProfileAccentColorsDto {
+    fun map(dto: TdApi.ProfileAccentColors): ProfileAccentColorsDto {
         return ProfileAccentColorsDto(
             paletteColors = dto.paletteColors,
             backgroundColors = dto.backgroundColors,
@@ -6579,7 +6579,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: ProfileAccentColorsDto): TdApi.ProfileAccentColors {
+    fun map(dto: ProfileAccentColorsDto): TdApi.ProfileAccentColors {
         return TdApi.ProfileAccentColors(
             paletteColors = dto.paletteColors,
             backgroundColors = dto.backgroundColors,
@@ -6587,7 +6587,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.ProfilePhoto): ProfilePhotoDto {
+    fun map(dto: TdApi.ProfilePhoto): ProfilePhotoDto {
         return ProfilePhotoDto(
             id = dto.id,
             small = map(dto.small),
@@ -6598,7 +6598,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: ProfilePhotoDto): TdApi.ProfilePhoto {
+    fun map(dto: ProfilePhotoDto): TdApi.ProfilePhoto {
         return TdApi.ProfilePhoto(
             id = dto.id,
             small = map(dto.small),
@@ -6609,19 +6609,19 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.Proxies): ProxiesDto {
+    fun map(dto: TdApi.Proxies): ProxiesDto {
         return ProxiesDto(
             proxies = dto.proxies.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: ProxiesDto): TdApi.Proxies {
+    fun map(dto: ProxiesDto): TdApi.Proxies {
         return TdApi.Proxies(
             proxies = dto.proxies.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: TdApi.Proxy): ProxyDto {
+    fun map(dto: TdApi.Proxy): ProxyDto {
         return ProxyDto(
             id = dto.id,
             server = dto.server,
@@ -6632,7 +6632,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: ProxyDto): TdApi.Proxy {
+    fun map(dto: ProxyDto): TdApi.Proxy {
         return TdApi.Proxy(
             id = dto.id,
             server = dto.server,
@@ -6643,7 +6643,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.PublicForwards): PublicForwardsDto {
+    fun map(dto: TdApi.PublicForwards): PublicForwardsDto {
         return PublicForwardsDto(
             totalCount = dto.totalCount,
             forwards = dto.forwards.mapArray { map(it) },
@@ -6651,7 +6651,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: PublicForwardsDto): TdApi.PublicForwards {
+    fun map(dto: PublicForwardsDto): TdApi.PublicForwards {
         return TdApi.PublicForwards(
             totalCount = dto.totalCount,
             forwards = dto.forwards.mapArray { map(it) },
@@ -6659,19 +6659,19 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.PushReceiverId): PushReceiverIdDto {
+    fun map(dto: TdApi.PushReceiverId): PushReceiverIdDto {
         return PushReceiverIdDto(
             id = dto.id,
         )
     }
 
-    public fun map(dto: PushReceiverIdDto): TdApi.PushReceiverId {
+    fun map(dto: PushReceiverIdDto): TdApi.PushReceiverId {
         return TdApi.PushReceiverId(
             id = dto.id,
         )
     }
 
-    public fun map(dto: TdApi.QuickReplyMessage): QuickReplyMessageDto {
+    fun map(dto: TdApi.QuickReplyMessage): QuickReplyMessageDto {
         return QuickReplyMessageDto(
             id = dto.id,
             sendingState = dto.sendingState?.let { map(it) },
@@ -6684,7 +6684,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: QuickReplyMessageDto): TdApi.QuickReplyMessage {
+    fun map(dto: QuickReplyMessageDto): TdApi.QuickReplyMessage {
         return TdApi.QuickReplyMessage(
             id = dto.id,
             sendingState = dto.sendingState?.let { map(it) },
@@ -6697,19 +6697,19 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.QuickReplyMessages): QuickReplyMessagesDto {
+    fun map(dto: TdApi.QuickReplyMessages): QuickReplyMessagesDto {
         return QuickReplyMessagesDto(
             messages = dto.messages?.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: QuickReplyMessagesDto): TdApi.QuickReplyMessages {
+    fun map(dto: QuickReplyMessagesDto): TdApi.QuickReplyMessages {
         return TdApi.QuickReplyMessages(
             messages = dto.messages?.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: TdApi.QuickReplyShortcut): QuickReplyShortcutDto {
+    fun map(dto: TdApi.QuickReplyShortcut): QuickReplyShortcutDto {
         return QuickReplyShortcutDto(
             id = dto.id,
             name = dto.name,
@@ -6718,7 +6718,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: QuickReplyShortcutDto): TdApi.QuickReplyShortcut {
+    fun map(dto: QuickReplyShortcutDto): TdApi.QuickReplyShortcut {
         return TdApi.QuickReplyShortcut(
             id = dto.id,
             name = dto.name,
@@ -6727,7 +6727,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.ReactionNotificationSettings): ReactionNotificationSettingsDto {
+    fun map(dto: TdApi.ReactionNotificationSettings): ReactionNotificationSettingsDto {
         return ReactionNotificationSettingsDto(
             messageReactionSource = map(dto.messageReactionSource),
             storyReactionSource = map(dto.storyReactionSource),
@@ -6736,7 +6736,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: ReactionNotificationSettingsDto): TdApi.ReactionNotificationSettings {
+    fun map(dto: ReactionNotificationSettingsDto): TdApi.ReactionNotificationSettings {
         return TdApi.ReactionNotificationSettings(
             messageReactionSource = map(dto.messageReactionSource),
             storyReactionSource = map(dto.storyReactionSource),
@@ -6745,19 +6745,19 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.ReadDatePrivacySettings): ReadDatePrivacySettingsDto {
+    fun map(dto: TdApi.ReadDatePrivacySettings): ReadDatePrivacySettingsDto {
         return ReadDatePrivacySettingsDto(
             showReadDate = dto.showReadDate,
         )
     }
 
-    public fun map(dto: ReadDatePrivacySettingsDto): TdApi.ReadDatePrivacySettings {
+    fun map(dto: ReadDatePrivacySettingsDto): TdApi.ReadDatePrivacySettings {
         return TdApi.ReadDatePrivacySettings(
             showReadDate = dto.showReadDate,
         )
     }
 
-    public fun map(dto: TdApi.ReceivedGift): ReceivedGiftDto {
+    fun map(dto: TdApi.ReceivedGift): ReceivedGiftDto {
         return ReceivedGiftDto(
             receivedGiftId = dto.receivedGiftId,
             senderId = dto.senderId?.let { map(it) },
@@ -6777,7 +6777,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: ReceivedGiftDto): TdApi.ReceivedGift {
+    fun map(dto: ReceivedGiftDto): TdApi.ReceivedGift {
         return TdApi.ReceivedGift(
             receivedGiftId = dto.receivedGiftId,
             senderId = dto.senderId?.let { map(it) },
@@ -6797,7 +6797,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.ReceivedGifts): ReceivedGiftsDto {
+    fun map(dto: TdApi.ReceivedGifts): ReceivedGiftsDto {
         return ReceivedGiftsDto(
             totalCount = dto.totalCount,
             gifts = dto.gifts.mapArray { map(it) },
@@ -6806,7 +6806,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: ReceivedGiftsDto): TdApi.ReceivedGifts {
+    fun map(dto: ReceivedGiftsDto): TdApi.ReceivedGifts {
         return TdApi.ReceivedGifts(
             totalCount = dto.totalCount,
             gifts = dto.gifts.mapArray { map(it) },
@@ -6815,45 +6815,45 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.RecommendedChatFolder): RecommendedChatFolderDto {
+    fun map(dto: TdApi.RecommendedChatFolder): RecommendedChatFolderDto {
         return RecommendedChatFolderDto(
             folder = map(dto.folder),
             description = dto.description,
         )
     }
 
-    public fun map(dto: RecommendedChatFolderDto): TdApi.RecommendedChatFolder {
+    fun map(dto: RecommendedChatFolderDto): TdApi.RecommendedChatFolder {
         return TdApi.RecommendedChatFolder(
             folder = map(dto.folder),
             description = dto.description,
         )
     }
 
-    public fun map(dto: TdApi.RecommendedChatFolders): RecommendedChatFoldersDto {
+    fun map(dto: TdApi.RecommendedChatFolders): RecommendedChatFoldersDto {
         return RecommendedChatFoldersDto(
             chatFolders = dto.chatFolders.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: RecommendedChatFoldersDto): TdApi.RecommendedChatFolders {
+    fun map(dto: RecommendedChatFoldersDto): TdApi.RecommendedChatFolders {
         return TdApi.RecommendedChatFolders(
             chatFolders = dto.chatFolders.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: TdApi.RecoveryEmailAddress): RecoveryEmailAddressDto {
+    fun map(dto: TdApi.RecoveryEmailAddress): RecoveryEmailAddressDto {
         return RecoveryEmailAddressDto(
             recoveryEmailAddress = dto.recoveryEmailAddress,
         )
     }
 
-    public fun map(dto: RecoveryEmailAddressDto): TdApi.RecoveryEmailAddress {
+    fun map(dto: RecoveryEmailAddressDto): TdApi.RecoveryEmailAddress {
         return TdApi.RecoveryEmailAddress(
             recoveryEmailAddress = dto.recoveryEmailAddress,
         )
     }
 
-    public fun map(dto: TdApi.RemoteFile): RemoteFileDto {
+    fun map(dto: TdApi.RemoteFile): RemoteFileDto {
         return RemoteFileDto(
             id = dto.id,
             uniqueId = dto.uniqueId,
@@ -6863,7 +6863,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: RemoteFileDto): TdApi.RemoteFile {
+    fun map(dto: RemoteFileDto): TdApi.RemoteFile {
         return TdApi.RemoteFile(
             id = dto.id,
             uniqueId = dto.uniqueId,
@@ -6873,49 +6873,49 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.ReportOption): ReportOptionDto {
+    fun map(dto: TdApi.ReportOption): ReportOptionDto {
         return ReportOptionDto(
             id = dto.id,
             text = dto.text,
         )
     }
 
-    public fun map(dto: ReportOptionDto): TdApi.ReportOption {
+    fun map(dto: ReportOptionDto): TdApi.ReportOption {
         return TdApi.ReportOption(
             id = dto.id,
             text = dto.text,
         )
     }
 
-    public fun map(dto: TdApi.RtmpUrl): RtmpUrlDto {
+    fun map(dto: TdApi.RtmpUrl): RtmpUrlDto {
         return RtmpUrlDto(
             url = dto.url,
             streamKey = dto.streamKey,
         )
     }
 
-    public fun map(dto: RtmpUrlDto): TdApi.RtmpUrl {
+    fun map(dto: RtmpUrlDto): TdApi.RtmpUrl {
         return TdApi.RtmpUrl(
             url = dto.url,
             streamKey = dto.streamKey,
         )
     }
 
-    public fun map(dto: TdApi.SavedCredentials): SavedCredentialsDto {
+    fun map(dto: TdApi.SavedCredentials): SavedCredentialsDto {
         return SavedCredentialsDto(
             id = dto.id,
             title = dto.title,
         )
     }
 
-    public fun map(dto: SavedCredentialsDto): TdApi.SavedCredentials {
+    fun map(dto: SavedCredentialsDto): TdApi.SavedCredentials {
         return TdApi.SavedCredentials(
             id = dto.id,
             title = dto.title,
         )
     }
 
-    public fun map(dto: TdApi.SavedMessagesTag): SavedMessagesTagDto {
+    fun map(dto: TdApi.SavedMessagesTag): SavedMessagesTagDto {
         return SavedMessagesTagDto(
             tag = map(dto.tag),
             label = dto.label,
@@ -6923,7 +6923,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: SavedMessagesTagDto): TdApi.SavedMessagesTag {
+    fun map(dto: SavedMessagesTagDto): TdApi.SavedMessagesTag {
         return TdApi.SavedMessagesTag(
             tag = map(dto.tag),
             label = dto.label,
@@ -6931,19 +6931,19 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.SavedMessagesTags): SavedMessagesTagsDto {
+    fun map(dto: TdApi.SavedMessagesTags): SavedMessagesTagsDto {
         return SavedMessagesTagsDto(
             tags = dto.tags.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: SavedMessagesTagsDto): TdApi.SavedMessagesTags {
+    fun map(dto: SavedMessagesTagsDto): TdApi.SavedMessagesTags {
         return TdApi.SavedMessagesTags(
             tags = dto.tags.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: TdApi.SavedMessagesTopic): SavedMessagesTopicDto {
+    fun map(dto: TdApi.SavedMessagesTopic): SavedMessagesTopicDto {
         return SavedMessagesTopicDto(
             id = dto.id,
             type = map(dto.type),
@@ -6954,7 +6954,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: SavedMessagesTopicDto): TdApi.SavedMessagesTopic {
+    fun map(dto: SavedMessagesTopicDto): TdApi.SavedMessagesTopic {
         return TdApi.SavedMessagesTopic(
             id = dto.id,
             type = map(dto.type),
@@ -6965,7 +6965,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.ScopeAutosaveSettings): ScopeAutosaveSettingsDto {
+    fun map(dto: TdApi.ScopeAutosaveSettings): ScopeAutosaveSettingsDto {
         return ScopeAutosaveSettingsDto(
             autosavePhotos = dto.autosavePhotos,
             autosaveVideos = dto.autosaveVideos,
@@ -6973,7 +6973,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: ScopeAutosaveSettingsDto): TdApi.ScopeAutosaveSettings {
+    fun map(dto: ScopeAutosaveSettingsDto): TdApi.ScopeAutosaveSettings {
         return TdApi.ScopeAutosaveSettings(
             autosavePhotos = dto.autosavePhotos,
             autosaveVideos = dto.autosaveVideos,
@@ -6981,7 +6981,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.ScopeNotificationSettings): ScopeNotificationSettingsDto {
+    fun map(dto: TdApi.ScopeNotificationSettings): ScopeNotificationSettingsDto {
         return ScopeNotificationSettingsDto(
             muteFor = dto.muteFor,
             soundId = dto.soundId,
@@ -6995,7 +6995,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: ScopeNotificationSettingsDto): TdApi.ScopeNotificationSettings {
+    fun map(dto: ScopeNotificationSettingsDto): TdApi.ScopeNotificationSettings {
         return TdApi.ScopeNotificationSettings(
             muteFor = dto.muteFor,
             soundId = dto.soundId,
@@ -7009,19 +7009,19 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.Seconds): SecondsDto {
+    fun map(dto: TdApi.Seconds): SecondsDto {
         return SecondsDto(
             seconds = dto.seconds,
         )
     }
 
-    public fun map(dto: SecondsDto): TdApi.Seconds {
+    fun map(dto: SecondsDto): TdApi.Seconds {
         return TdApi.Seconds(
             seconds = dto.seconds,
         )
     }
 
-    public fun map(dto: TdApi.SecretChat): SecretChatDto {
+    fun map(dto: TdApi.SecretChat): SecretChatDto {
         return SecretChatDto(
             id = dto.id,
             userId = dto.userId,
@@ -7032,7 +7032,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: SecretChatDto): TdApi.SecretChat {
+    fun map(dto: SecretChatDto): TdApi.SecretChat {
         return TdApi.SecretChat(
             id = dto.id,
             userId = dto.userId,
@@ -7043,19 +7043,19 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.SentWebAppMessage): SentWebAppMessageDto {
+    fun map(dto: TdApi.SentWebAppMessage): SentWebAppMessageDto {
         return SentWebAppMessageDto(
             inlineMessageId = dto.inlineMessageId,
         )
     }
 
-    public fun map(dto: SentWebAppMessageDto): TdApi.SentWebAppMessage {
+    fun map(dto: SentWebAppMessageDto): TdApi.SentWebAppMessage {
         return TdApi.SentWebAppMessage(
             inlineMessageId = dto.inlineMessageId,
         )
     }
 
-    public fun map(dto: TdApi.Session): SessionDto {
+    fun map(dto: TdApi.Session): SessionDto {
         return SessionDto(
             id = dto.id,
             isCurrent = dto.isCurrent,
@@ -7078,7 +7078,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: SessionDto): TdApi.Session {
+    fun map(dto: SessionDto): TdApi.Session {
         return TdApi.Session(
             id = dto.id,
             isCurrent = dto.isCurrent,
@@ -7101,21 +7101,21 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.Sessions): SessionsDto {
+    fun map(dto: TdApi.Sessions): SessionsDto {
         return SessionsDto(
             sessions = dto.sessions.mapArray { map(it) },
             inactiveSessionTtlDays = dto.inactiveSessionTtlDays,
         )
     }
 
-    public fun map(dto: SessionsDto): TdApi.Sessions {
+    fun map(dto: SessionsDto): TdApi.Sessions {
         return TdApi.Sessions(
             sessions = dto.sessions.mapArray { map(it) },
             inactiveSessionTtlDays = dto.inactiveSessionTtlDays,
         )
     }
 
-    public fun map(dto: TdApi.SharedChat): SharedChatDto {
+    fun map(dto: TdApi.SharedChat): SharedChatDto {
         return SharedChatDto(
             chatId = dto.chatId,
             title = dto.title,
@@ -7124,7 +7124,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: SharedChatDto): TdApi.SharedChat {
+    fun map(dto: SharedChatDto): TdApi.SharedChat {
         return TdApi.SharedChat(
             chatId = dto.chatId,
             title = dto.title,
@@ -7133,7 +7133,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.SharedUser): SharedUserDto {
+    fun map(dto: TdApi.SharedUser): SharedUserDto {
         return SharedUserDto(
             userId = dto.userId,
             firstName = dto.firstName,
@@ -7143,7 +7143,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: SharedUserDto): TdApi.SharedUser {
+    fun map(dto: SharedUserDto): TdApi.SharedUser {
         return TdApi.SharedUser(
             userId = dto.userId,
             firstName = dto.firstName,
@@ -7153,7 +7153,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.ShippingOption): ShippingOptionDto {
+    fun map(dto: TdApi.ShippingOption): ShippingOptionDto {
         return ShippingOptionDto(
             id = dto.id,
             title = dto.title,
@@ -7161,7 +7161,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: ShippingOptionDto): TdApi.ShippingOption {
+    fun map(dto: ShippingOptionDto): TdApi.ShippingOption {
         return TdApi.ShippingOption(
             id = dto.id,
             title = dto.title,
@@ -7169,7 +7169,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.SponsoredChat): SponsoredChatDto {
+    fun map(dto: TdApi.SponsoredChat): SponsoredChatDto {
         return SponsoredChatDto(
             uniqueId = dto.uniqueId,
             chatId = dto.chatId,
@@ -7178,7 +7178,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: SponsoredChatDto): TdApi.SponsoredChat {
+    fun map(dto: SponsoredChatDto): TdApi.SponsoredChat {
         return TdApi.SponsoredChat(
             uniqueId = dto.uniqueId,
             chatId = dto.chatId,
@@ -7187,19 +7187,19 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.SponsoredChats): SponsoredChatsDto {
+    fun map(dto: TdApi.SponsoredChats): SponsoredChatsDto {
         return SponsoredChatsDto(
             chats = dto.chats.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: SponsoredChatsDto): TdApi.SponsoredChats {
+    fun map(dto: SponsoredChatsDto): TdApi.SponsoredChats {
         return TdApi.SponsoredChats(
             chats = dto.chats.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: TdApi.SponsoredMessage): SponsoredMessageDto {
+    fun map(dto: TdApi.SponsoredMessage): SponsoredMessageDto {
         return SponsoredMessageDto(
             messageId = dto.messageId,
             isRecommended = dto.isRecommended,
@@ -7214,7 +7214,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: SponsoredMessageDto): TdApi.SponsoredMessage {
+    fun map(dto: SponsoredMessageDto): TdApi.SponsoredMessage {
         return TdApi.SponsoredMessage(
             messageId = dto.messageId,
             isRecommended = dto.isRecommended,
@@ -7229,47 +7229,47 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.SponsoredMessages): SponsoredMessagesDto {
+    fun map(dto: TdApi.SponsoredMessages): SponsoredMessagesDto {
         return SponsoredMessagesDto(
             messages = dto.messages.mapArray { map(it) },
             messagesBetween = dto.messagesBetween,
         )
     }
 
-    public fun map(dto: SponsoredMessagesDto): TdApi.SponsoredMessages {
+    fun map(dto: SponsoredMessagesDto): TdApi.SponsoredMessages {
         return TdApi.SponsoredMessages(
             messages = dto.messages.mapArray { map(it) },
             messagesBetween = dto.messagesBetween,
         )
     }
 
-    public fun map(dto: TdApi.StarAmount): StarAmountDto {
+    fun map(dto: TdApi.StarAmount): StarAmountDto {
         return StarAmountDto(
             starCount = dto.starCount,
             nanostarCount = dto.nanostarCount,
         )
     }
 
-    public fun map(dto: StarAmountDto): TdApi.StarAmount {
+    fun map(dto: StarAmountDto): TdApi.StarAmount {
         return TdApi.StarAmount(
             starCount = dto.starCount,
             nanostarCount = dto.nanostarCount,
         )
     }
 
-    public fun map(dto: TdApi.StarCount): StarCountDto {
+    fun map(dto: TdApi.StarCount): StarCountDto {
         return StarCountDto(
             starCount = dto.starCount,
         )
     }
 
-    public fun map(dto: StarCountDto): TdApi.StarCount {
+    fun map(dto: StarCountDto): TdApi.StarCount {
         return TdApi.StarCount(
             starCount = dto.starCount,
         )
     }
 
-    public fun map(dto: TdApi.StarGiveawayPaymentOption): StarGiveawayPaymentOptionDto {
+    fun map(dto: TdApi.StarGiveawayPaymentOption): StarGiveawayPaymentOptionDto {
         return StarGiveawayPaymentOptionDto(
             currency = dto.currency,
             amount = dto.amount,
@@ -7282,7 +7282,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: StarGiveawayPaymentOptionDto): TdApi.StarGiveawayPaymentOption {
+    fun map(dto: StarGiveawayPaymentOptionDto): TdApi.StarGiveawayPaymentOption {
         return TdApi.StarGiveawayPaymentOption(
             currency = dto.currency,
             amount = dto.amount,
@@ -7295,19 +7295,19 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.StarGiveawayPaymentOptions): StarGiveawayPaymentOptionsDto {
+    fun map(dto: TdApi.StarGiveawayPaymentOptions): StarGiveawayPaymentOptionsDto {
         return StarGiveawayPaymentOptionsDto(
             options = dto.options.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: StarGiveawayPaymentOptionsDto): TdApi.StarGiveawayPaymentOptions {
+    fun map(dto: StarGiveawayPaymentOptionsDto): TdApi.StarGiveawayPaymentOptions {
         return TdApi.StarGiveawayPaymentOptions(
             options = dto.options.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: TdApi.StarGiveawayWinnerOption): StarGiveawayWinnerOptionDto {
+    fun map(dto: TdApi.StarGiveawayWinnerOption): StarGiveawayWinnerOptionDto {
         return StarGiveawayWinnerOptionDto(
             winnerCount = dto.winnerCount,
             wonStarCount = dto.wonStarCount,
@@ -7315,7 +7315,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: StarGiveawayWinnerOptionDto): TdApi.StarGiveawayWinnerOption {
+    fun map(dto: StarGiveawayWinnerOptionDto): TdApi.StarGiveawayWinnerOption {
         return TdApi.StarGiveawayWinnerOption(
             winnerCount = dto.winnerCount,
             wonStarCount = dto.wonStarCount,
@@ -7323,7 +7323,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.StarPaymentOption): StarPaymentOptionDto {
+    fun map(dto: TdApi.StarPaymentOption): StarPaymentOptionDto {
         return StarPaymentOptionDto(
             currency = dto.currency,
             amount = dto.amount,
@@ -7333,7 +7333,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: StarPaymentOptionDto): TdApi.StarPaymentOption {
+    fun map(dto: StarPaymentOptionDto): TdApi.StarPaymentOption {
         return TdApi.StarPaymentOption(
             currency = dto.currency,
             amount = dto.amount,
@@ -7343,19 +7343,19 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.StarPaymentOptions): StarPaymentOptionsDto {
+    fun map(dto: TdApi.StarPaymentOptions): StarPaymentOptionsDto {
         return StarPaymentOptionsDto(
             options = dto.options.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: StarPaymentOptionsDto): TdApi.StarPaymentOptions {
+    fun map(dto: StarPaymentOptionsDto): TdApi.StarPaymentOptions {
         return TdApi.StarPaymentOptions(
             options = dto.options.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: TdApi.StarRevenueStatistics): StarRevenueStatisticsDto {
+    fun map(dto: TdApi.StarRevenueStatistics): StarRevenueStatisticsDto {
         return StarRevenueStatisticsDto(
             revenueByDayGraph = map(dto.revenueByDayGraph),
             status = map(dto.status),
@@ -7363,7 +7363,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: StarRevenueStatisticsDto): TdApi.StarRevenueStatistics {
+    fun map(dto: StarRevenueStatisticsDto): TdApi.StarRevenueStatistics {
         return TdApi.StarRevenueStatistics(
             revenueByDayGraph = map(dto.revenueByDayGraph),
             status = map(dto.status),
@@ -7371,7 +7371,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.StarRevenueStatus): StarRevenueStatusDto {
+    fun map(dto: TdApi.StarRevenueStatus): StarRevenueStatusDto {
         return StarRevenueStatusDto(
             totalAmount = map(dto.totalAmount),
             currentAmount = map(dto.currentAmount),
@@ -7381,7 +7381,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: StarRevenueStatusDto): TdApi.StarRevenueStatus {
+    fun map(dto: StarRevenueStatusDto): TdApi.StarRevenueStatus {
         return TdApi.StarRevenueStatus(
             totalAmount = map(dto.totalAmount),
             currentAmount = map(dto.currentAmount),
@@ -7391,7 +7391,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.StarSubscription): StarSubscriptionDto {
+    fun map(dto: TdApi.StarSubscription): StarSubscriptionDto {
         return StarSubscriptionDto(
             id = dto.id,
             chatId = dto.chatId,
@@ -7403,7 +7403,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: StarSubscriptionDto): TdApi.StarSubscription {
+    fun map(dto: StarSubscriptionDto): TdApi.StarSubscription {
         return TdApi.StarSubscription(
             id = dto.id,
             chatId = dto.chatId,
@@ -7415,21 +7415,21 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.StarSubscriptionPricing): StarSubscriptionPricingDto {
+    fun map(dto: TdApi.StarSubscriptionPricing): StarSubscriptionPricingDto {
         return StarSubscriptionPricingDto(
             period = dto.period,
             starCount = dto.starCount,
         )
     }
 
-    public fun map(dto: StarSubscriptionPricingDto): TdApi.StarSubscriptionPricing {
+    fun map(dto: StarSubscriptionPricingDto): TdApi.StarSubscriptionPricing {
         return TdApi.StarSubscriptionPricing(
             period = dto.period,
             starCount = dto.starCount,
         )
     }
 
-    public fun map(dto: TdApi.StarSubscriptions): StarSubscriptionsDto {
+    fun map(dto: TdApi.StarSubscriptions): StarSubscriptionsDto {
         return StarSubscriptionsDto(
             starAmount = map(dto.starAmount),
             subscriptions = dto.subscriptions.mapArray { map(it) },
@@ -7438,7 +7438,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: StarSubscriptionsDto): TdApi.StarSubscriptions {
+    fun map(dto: StarSubscriptionsDto): TdApi.StarSubscriptions {
         return TdApi.StarSubscriptions(
             starAmount = map(dto.starAmount),
             subscriptions = dto.subscriptions.mapArray { map(it) },
@@ -7447,7 +7447,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.StarTransaction): StarTransactionDto {
+    fun map(dto: TdApi.StarTransaction): StarTransactionDto {
         return StarTransactionDto(
             id = dto.id,
             starAmount = map(dto.starAmount),
@@ -7457,7 +7457,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: StarTransactionDto): TdApi.StarTransaction {
+    fun map(dto: StarTransactionDto): TdApi.StarTransaction {
         return TdApi.StarTransaction(
             id = dto.id,
             starAmount = map(dto.starAmount),
@@ -7467,7 +7467,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.StarTransactions): StarTransactionsDto {
+    fun map(dto: TdApi.StarTransactions): StarTransactionsDto {
         return StarTransactionsDto(
             starAmount = map(dto.starAmount),
             transactions = dto.transactions.mapArray { map(it) },
@@ -7475,7 +7475,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: StarTransactionsDto): TdApi.StarTransactions {
+    fun map(dto: StarTransactionsDto): TdApi.StarTransactions {
         return TdApi.StarTransactions(
             starAmount = map(dto.starAmount),
             transactions = dto.transactions.mapArray { map(it) },
@@ -7483,7 +7483,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.StatisticalValue): StatisticalValueDto {
+    fun map(dto: TdApi.StatisticalValue): StatisticalValueDto {
         return StatisticalValueDto(
             value = dto.value,
             previousValue = dto.previousValue,
@@ -7491,7 +7491,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: StatisticalValueDto): TdApi.StatisticalValue {
+    fun map(dto: StatisticalValueDto): TdApi.StatisticalValue {
         return TdApi.StatisticalValue(
             value = dto.value,
             previousValue = dto.previousValue,
@@ -7499,7 +7499,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.Sticker): StickerDto {
+    fun map(dto: TdApi.Sticker): StickerDto {
         return StickerDto(
             id = dto.id,
             setId = dto.setId,
@@ -7513,7 +7513,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: StickerDto): TdApi.Sticker {
+    fun map(dto: StickerDto): TdApi.Sticker {
         return TdApi.Sticker(
             id = dto.id,
             setId = dto.setId,
@@ -7527,7 +7527,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.StickerSet): StickerSetDto {
+    fun map(dto: TdApi.StickerSet): StickerSetDto {
         return StickerSetDto(
             id = dto.id,
             title = dto.title,
@@ -7547,7 +7547,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: StickerSetDto): TdApi.StickerSet {
+    fun map(dto: StickerSetDto): TdApi.StickerSet {
         return TdApi.StickerSet(
             id = dto.id,
             title = dto.title,
@@ -7567,7 +7567,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.StickerSetInfo): StickerSetInfoDto {
+    fun map(dto: TdApi.StickerSetInfo): StickerSetInfoDto {
         return StickerSetInfoDto(
             id = dto.id,
             title = dto.title,
@@ -7587,7 +7587,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: StickerSetInfoDto): TdApi.StickerSetInfo {
+    fun map(dto: StickerSetInfoDto): TdApi.StickerSetInfo {
         return TdApi.StickerSetInfo(
             id = dto.id,
             title = dto.title,
@@ -7607,33 +7607,33 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.StickerSets): StickerSetsDto {
+    fun map(dto: TdApi.StickerSets): StickerSetsDto {
         return StickerSetsDto(
             totalCount = dto.totalCount,
             sets = dto.sets.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: StickerSetsDto): TdApi.StickerSets {
+    fun map(dto: StickerSetsDto): TdApi.StickerSets {
         return TdApi.StickerSets(
             totalCount = dto.totalCount,
             sets = dto.sets.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: TdApi.Stickers): StickersDto {
+    fun map(dto: TdApi.Stickers): StickersDto {
         return StickersDto(
             stickers = dto.stickers.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: StickersDto): TdApi.Stickers {
+    fun map(dto: StickersDto): TdApi.Stickers {
         return TdApi.Stickers(
             stickers = dto.stickers.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: TdApi.StorageStatistics): StorageStatisticsDto {
+    fun map(dto: TdApi.StorageStatistics): StorageStatisticsDto {
         return StorageStatisticsDto(
             size = dto.size,
             count = dto.count,
@@ -7641,7 +7641,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: StorageStatisticsDto): TdApi.StorageStatistics {
+    fun map(dto: StorageStatisticsDto): TdApi.StorageStatistics {
         return TdApi.StorageStatistics(
             size = dto.size,
             count = dto.count,
@@ -7649,7 +7649,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.StorageStatisticsByChat): StorageStatisticsByChatDto {
+    fun map(dto: TdApi.StorageStatisticsByChat): StorageStatisticsByChatDto {
         return StorageStatisticsByChatDto(
             chatId = dto.chatId,
             size = dto.size,
@@ -7658,7 +7658,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: StorageStatisticsByChatDto): TdApi.StorageStatisticsByChat {
+    fun map(dto: StorageStatisticsByChatDto): TdApi.StorageStatisticsByChat {
         return TdApi.StorageStatisticsByChat(
             chatId = dto.chatId,
             size = dto.size,
@@ -7667,7 +7667,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.StorageStatisticsByFileType): StorageStatisticsByFileTypeDto {
+    fun map(dto: TdApi.StorageStatisticsByFileType): StorageStatisticsByFileTypeDto {
         return StorageStatisticsByFileTypeDto(
             fileType = map(dto.fileType),
             size = dto.size,
@@ -7675,7 +7675,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: StorageStatisticsByFileTypeDto): TdApi.StorageStatisticsByFileType {
+    fun map(dto: StorageStatisticsByFileTypeDto): TdApi.StorageStatisticsByFileType {
         return TdApi.StorageStatisticsByFileType(
             fileType = map(dto.fileType),
             size = dto.size,
@@ -7683,7 +7683,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.StorageStatisticsFast): StorageStatisticsFastDto {
+    fun map(dto: TdApi.StorageStatisticsFast): StorageStatisticsFastDto {
         return StorageStatisticsFastDto(
             filesSize = dto.filesSize,
             fileCount = dto.fileCount,
@@ -7693,7 +7693,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: StorageStatisticsFastDto): TdApi.StorageStatisticsFast {
+    fun map(dto: StorageStatisticsFastDto): TdApi.StorageStatisticsFast {
         return TdApi.StorageStatisticsFast(
             filesSize = dto.filesSize,
             fileCount = dto.fileCount,
@@ -7703,7 +7703,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.Stories): StoriesDto {
+    fun map(dto: TdApi.Stories): StoriesDto {
         return StoriesDto(
             totalCount = dto.totalCount,
             stories = dto.stories.mapArray { map(it) },
@@ -7711,7 +7711,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: StoriesDto): TdApi.Stories {
+    fun map(dto: StoriesDto): TdApi.Stories {
         return TdApi.Stories(
             totalCount = dto.totalCount,
             stories = dto.stories.mapArray { map(it) },
@@ -7719,7 +7719,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.Story): StoryDto {
+    fun map(dto: TdApi.Story): StoryDto {
         return StoryDto(
             id = dto.id,
             posterChatId = dto.posterChatId,
@@ -7748,7 +7748,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: StoryDto): TdApi.Story {
+    fun map(dto: StoryDto): TdApi.Story {
         return TdApi.Story(
             id = dto.id,
             posterChatId = dto.posterChatId,
@@ -7777,21 +7777,21 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.StoryArea): StoryAreaDto {
+    fun map(dto: TdApi.StoryArea): StoryAreaDto {
         return StoryAreaDto(
             position = map(dto.position),
             type = map(dto.type),
         )
     }
 
-    public fun map(dto: StoryAreaDto): TdApi.StoryArea {
+    fun map(dto: StoryAreaDto): TdApi.StoryArea {
         return TdApi.StoryArea(
             position = map(dto.position),
             type = map(dto.type),
         )
     }
 
-    public fun map(dto: TdApi.StoryAreaPosition): StoryAreaPositionDto {
+    fun map(dto: TdApi.StoryAreaPosition): StoryAreaPositionDto {
         return StoryAreaPositionDto(
             xPercentage = dto.xPercentage,
             yPercentage = dto.yPercentage,
@@ -7802,7 +7802,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: StoryAreaPositionDto): TdApi.StoryAreaPosition {
+    fun map(dto: StoryAreaPositionDto): TdApi.StoryAreaPosition {
         return TdApi.StoryAreaPosition(
             xPercentage = dto.xPercentage,
             yPercentage = dto.yPercentage,
@@ -7813,21 +7813,21 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.StoryFullId): StoryFullIdDto {
+    fun map(dto: TdApi.StoryFullId): StoryFullIdDto {
         return StoryFullIdDto(
             posterChatId = dto.posterChatId,
             storyId = dto.storyId,
         )
     }
 
-    public fun map(dto: StoryFullIdDto): TdApi.StoryFullId {
+    fun map(dto: StoryFullIdDto): TdApi.StoryFullId {
         return TdApi.StoryFullId(
             posterChatId = dto.posterChatId,
             storyId = dto.storyId,
         )
     }
 
-    public fun map(dto: TdApi.StoryInfo): StoryInfoDto {
+    fun map(dto: TdApi.StoryInfo): StoryInfoDto {
         return StoryInfoDto(
             storyId = dto.storyId,
             date = dto.date,
@@ -7835,7 +7835,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: StoryInfoDto): TdApi.StoryInfo {
+    fun map(dto: StoryInfoDto): TdApi.StoryInfo {
         return TdApi.StoryInfo(
             storyId = dto.storyId,
             date = dto.date,
@@ -7843,7 +7843,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.StoryInteraction): StoryInteractionDto {
+    fun map(dto: TdApi.StoryInteraction): StoryInteractionDto {
         return StoryInteractionDto(
             actorId = map(dto.actorId),
             interactionDate = dto.interactionDate,
@@ -7852,7 +7852,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: StoryInteractionDto): TdApi.StoryInteraction {
+    fun map(dto: StoryInteractionDto): TdApi.StoryInteraction {
         return TdApi.StoryInteraction(
             actorId = map(dto.actorId),
             interactionDate = dto.interactionDate,
@@ -7861,7 +7861,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.StoryInteractionInfo): StoryInteractionInfoDto {
+    fun map(dto: TdApi.StoryInteractionInfo): StoryInteractionInfoDto {
         return StoryInteractionInfoDto(
             viewCount = dto.viewCount,
             forwardCount = dto.forwardCount,
@@ -7870,7 +7870,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: StoryInteractionInfoDto): TdApi.StoryInteractionInfo {
+    fun map(dto: StoryInteractionInfoDto): TdApi.StoryInteractionInfo {
         return TdApi.StoryInteractionInfo(
             viewCount = dto.viewCount,
             forwardCount = dto.forwardCount,
@@ -7879,7 +7879,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.StoryInteractions): StoryInteractionsDto {
+    fun map(dto: TdApi.StoryInteractions): StoryInteractionsDto {
         return StoryInteractionsDto(
             totalCount = dto.totalCount,
             totalForwardCount = dto.totalForwardCount,
@@ -7889,7 +7889,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: StoryInteractionsDto): TdApi.StoryInteractions {
+    fun map(dto: StoryInteractionsDto): TdApi.StoryInteractions {
         return TdApi.StoryInteractions(
             totalCount = dto.totalCount,
             totalForwardCount = dto.totalForwardCount,
@@ -7899,35 +7899,35 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.StoryRepostInfo): StoryRepostInfoDto {
+    fun map(dto: TdApi.StoryRepostInfo): StoryRepostInfoDto {
         return StoryRepostInfoDto(
             origin = map(dto.origin),
             isContentModified = dto.isContentModified,
         )
     }
 
-    public fun map(dto: StoryRepostInfoDto): TdApi.StoryRepostInfo {
+    fun map(dto: StoryRepostInfoDto): TdApi.StoryRepostInfo {
         return TdApi.StoryRepostInfo(
             origin = map(dto.origin),
             isContentModified = dto.isContentModified,
         )
     }
 
-    public fun map(dto: TdApi.StoryStatistics): StoryStatisticsDto {
+    fun map(dto: TdApi.StoryStatistics): StoryStatisticsDto {
         return StoryStatisticsDto(
             storyInteractionGraph = map(dto.storyInteractionGraph),
             storyReactionGraph = map(dto.storyReactionGraph),
         )
     }
 
-    public fun map(dto: StoryStatisticsDto): TdApi.StoryStatistics {
+    fun map(dto: StoryStatisticsDto): TdApi.StoryStatistics {
         return TdApi.StoryStatistics(
             storyInteractionGraph = map(dto.storyInteractionGraph),
             storyReactionGraph = map(dto.storyReactionGraph),
         )
     }
 
-    public fun map(dto: TdApi.StoryVideo): StoryVideoDto {
+    fun map(dto: TdApi.StoryVideo): StoryVideoDto {
         return StoryVideoDto(
             duration = dto.duration,
             width = dto.width,
@@ -7942,7 +7942,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: StoryVideoDto): TdApi.StoryVideo {
+    fun map(dto: StoryVideoDto): TdApi.StoryVideo {
         return TdApi.StoryVideo(
             duration = dto.duration,
             width = dto.width,
@@ -7957,7 +7957,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.Supergroup): SupergroupDto {
+    fun map(dto: TdApi.Supergroup): SupergroupDto {
         return SupergroupDto(
             id = dto.id,
             usernames = dto.usernames?.let { map(it) },
@@ -7984,7 +7984,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: SupergroupDto): TdApi.Supergroup {
+    fun map(dto: SupergroupDto): TdApi.Supergroup {
         return TdApi.Supergroup(
             id = dto.id,
             usernames = dto.usernames?.let { map(it) },
@@ -8011,7 +8011,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.SupergroupFullInfo): SupergroupFullInfoDto {
+    fun map(dto: TdApi.SupergroupFullInfo): SupergroupFullInfoDto {
         return SupergroupFullInfoDto(
             photo = dto.photo?.let { map(it) },
             description = dto.description,
@@ -8053,7 +8053,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: SupergroupFullInfoDto): TdApi.SupergroupFullInfo {
+    fun map(dto: SupergroupFullInfoDto): TdApi.SupergroupFullInfo {
         return TdApi.SupergroupFullInfo(
             photo = dto.photo?.let { map(it) },
             description = dto.description,
@@ -8095,33 +8095,33 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.TMeUrl): TMeUrlDto {
+    fun map(dto: TdApi.TMeUrl): TMeUrlDto {
         return TMeUrlDto(
             url = dto.url,
             type = map(dto.type),
         )
     }
 
-    public fun map(dto: TMeUrlDto): TdApi.TMeUrl {
+    fun map(dto: TMeUrlDto): TdApi.TMeUrl {
         return TdApi.TMeUrl(
             url = dto.url,
             type = map(dto.type),
         )
     }
 
-    public fun map(dto: TdApi.TMeUrls): TMeUrlsDto {
+    fun map(dto: TdApi.TMeUrls): TMeUrlsDto {
         return TMeUrlsDto(
             urls = dto.urls.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: TMeUrlsDto): TdApi.TMeUrls {
+    fun map(dto: TMeUrlsDto): TdApi.TMeUrls {
         return TdApi.TMeUrls(
             urls = dto.urls.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: TdApi.TargetChatTypes): TargetChatTypesDto {
+    fun map(dto: TdApi.TargetChatTypes): TargetChatTypesDto {
         return TargetChatTypesDto(
             allowUserChats = dto.allowUserChats,
             allowBotChats = dto.allowBotChats,
@@ -8130,7 +8130,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TargetChatTypesDto): TdApi.TargetChatTypes {
+    fun map(dto: TargetChatTypesDto): TdApi.TargetChatTypes {
         return TdApi.TargetChatTypes(
             allowUserChats = dto.allowUserChats,
             allowBotChats = dto.allowBotChats,
@@ -8139,21 +8139,21 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.TemporaryPasswordState): TemporaryPasswordStateDto {
+    fun map(dto: TdApi.TemporaryPasswordState): TemporaryPasswordStateDto {
         return TemporaryPasswordStateDto(
             hasPassword = dto.hasPassword,
             validFor = dto.validFor,
         )
     }
 
-    public fun map(dto: TemporaryPasswordStateDto): TdApi.TemporaryPasswordState {
+    fun map(dto: TemporaryPasswordStateDto): TdApi.TemporaryPasswordState {
         return TdApi.TemporaryPasswordState(
             hasPassword = dto.hasPassword,
             validFor = dto.validFor,
         )
     }
 
-    public fun map(dto: TdApi.TermsOfService): TermsOfServiceDto {
+    fun map(dto: TdApi.TermsOfService): TermsOfServiceDto {
         return TermsOfServiceDto(
             text = map(dto.text),
             minUserAge = dto.minUserAge,
@@ -8161,7 +8161,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TermsOfServiceDto): TdApi.TermsOfService {
+    fun map(dto: TermsOfServiceDto): TdApi.TermsOfService {
         return TdApi.TermsOfService(
             text = map(dto.text),
             minUserAge = dto.minUserAge,
@@ -8169,115 +8169,115 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.TestBytes): TestBytesDto {
+    fun map(dto: TdApi.TestBytes): TestBytesDto {
         return TestBytesDto(
             value = dto.value,
         )
     }
 
-    public fun map(dto: TestBytesDto): TdApi.TestBytes {
+    fun map(dto: TestBytesDto): TdApi.TestBytes {
         return TdApi.TestBytes(
             value = dto.value,
         )
     }
 
-    public fun map(dto: TdApi.TestInt): TestIntDto {
+    fun map(dto: TdApi.TestInt): TestIntDto {
         return TestIntDto(
             value = dto.value,
         )
     }
 
-    public fun map(dto: TestIntDto): TdApi.TestInt {
+    fun map(dto: TestIntDto): TdApi.TestInt {
         return TdApi.TestInt(
             value = dto.value,
         )
     }
 
-    public fun map(dto: TdApi.TestString): TestStringDto {
+    fun map(dto: TdApi.TestString): TestStringDto {
         return TestStringDto(
             value = dto.value,
         )
     }
 
-    public fun map(dto: TestStringDto): TdApi.TestString {
+    fun map(dto: TestStringDto): TdApi.TestString {
         return TdApi.TestString(
             value = dto.value,
         )
     }
 
-    public fun map(dto: TdApi.TestVectorInt): TestVectorIntDto {
+    fun map(dto: TdApi.TestVectorInt): TestVectorIntDto {
         return TestVectorIntDto(
             value = dto.value,
         )
     }
 
-    public fun map(dto: TestVectorIntDto): TdApi.TestVectorInt {
+    fun map(dto: TestVectorIntDto): TdApi.TestVectorInt {
         return TdApi.TestVectorInt(
             value = dto.value,
         )
     }
 
-    public fun map(dto: TdApi.TestVectorIntObject): TestVectorIntObjectDto {
+    fun map(dto: TdApi.TestVectorIntObject): TestVectorIntObjectDto {
         return TestVectorIntObjectDto(
             value = dto.value.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: TestVectorIntObjectDto): TdApi.TestVectorIntObject {
+    fun map(dto: TestVectorIntObjectDto): TdApi.TestVectorIntObject {
         return TdApi.TestVectorIntObject(
             value = dto.value.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: TdApi.TestVectorString): TestVectorStringDto {
+    fun map(dto: TdApi.TestVectorString): TestVectorStringDto {
         return TestVectorStringDto(
             value = dto.value,
         )
     }
 
-    public fun map(dto: TestVectorStringDto): TdApi.TestVectorString {
+    fun map(dto: TestVectorStringDto): TdApi.TestVectorString {
         return TdApi.TestVectorString(
             value = dto.value,
         )
     }
 
-    public fun map(dto: TdApi.TestVectorStringObject): TestVectorStringObjectDto {
+    fun map(dto: TdApi.TestVectorStringObject): TestVectorStringObjectDto {
         return TestVectorStringObjectDto(
             value = dto.value.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: TestVectorStringObjectDto): TdApi.TestVectorStringObject {
+    fun map(dto: TestVectorStringObjectDto): TdApi.TestVectorStringObject {
         return TdApi.TestVectorStringObject(
             value = dto.value.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: TdApi.Text): TextDto {
+    fun map(dto: TdApi.Text): TextDto {
         return TextDto(
             text = dto.text,
         )
     }
 
-    public fun map(dto: TextDto): TdApi.Text {
+    fun map(dto: TextDto): TdApi.Text {
         return TdApi.Text(
             text = dto.text,
         )
     }
 
-    public fun map(dto: TdApi.TextEntities): TextEntitiesDto {
+    fun map(dto: TdApi.TextEntities): TextEntitiesDto {
         return TextEntitiesDto(
             entities = dto.entities.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: TextEntitiesDto): TdApi.TextEntities {
+    fun map(dto: TextEntitiesDto): TdApi.TextEntities {
         return TdApi.TextEntities(
             entities = dto.entities.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: TdApi.TextEntity): TextEntityDto {
+    fun map(dto: TdApi.TextEntity): TextEntityDto {
         return TextEntityDto(
             offset = dto.offset,
             length = dto.length,
@@ -8285,7 +8285,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TextEntityDto): TdApi.TextEntity {
+    fun map(dto: TextEntityDto): TdApi.TextEntity {
         return TdApi.TextEntity(
             offset = dto.offset,
             length = dto.length,
@@ -8293,7 +8293,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.TextQuote): TextQuoteDto {
+    fun map(dto: TdApi.TextQuote): TextQuoteDto {
         return TextQuoteDto(
             text = map(dto.text),
             position = dto.position,
@@ -8301,7 +8301,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TextQuoteDto): TdApi.TextQuote {
+    fun map(dto: TextQuoteDto): TdApi.TextQuote {
         return TdApi.TextQuote(
             text = map(dto.text),
             position = dto.position,
@@ -8309,7 +8309,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.ThemeParameters): ThemeParametersDto {
+    fun map(dto: TdApi.ThemeParameters): ThemeParametersDto {
         return ThemeParametersDto(
             backgroundColor = dto.backgroundColor,
             secondaryBackgroundColor = dto.secondaryBackgroundColor,
@@ -8329,7 +8329,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: ThemeParametersDto): TdApi.ThemeParameters {
+    fun map(dto: ThemeParametersDto): TdApi.ThemeParameters {
         return TdApi.ThemeParameters(
             backgroundColor = dto.backgroundColor,
             secondaryBackgroundColor = dto.secondaryBackgroundColor,
@@ -8349,7 +8349,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.ThemeSettings): ThemeSettingsDto {
+    fun map(dto: TdApi.ThemeSettings): ThemeSettingsDto {
         return ThemeSettingsDto(
             accentColor = dto.accentColor,
             background = dto.background?.let { map(it) },
@@ -8359,7 +8359,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: ThemeSettingsDto): TdApi.ThemeSettings {
+    fun map(dto: ThemeSettingsDto): TdApi.ThemeSettings {
         return TdApi.ThemeSettings(
             accentColor = dto.accentColor,
             background = dto.background?.let { map(it) },
@@ -8369,7 +8369,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.Thumbnail): ThumbnailDto {
+    fun map(dto: TdApi.Thumbnail): ThumbnailDto {
         return ThumbnailDto(
             format = map(dto.format),
             width = dto.width,
@@ -8378,7 +8378,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: ThumbnailDto): TdApi.Thumbnail {
+    fun map(dto: ThumbnailDto): TdApi.Thumbnail {
         return TdApi.Thumbnail(
             format = map(dto.format),
             width = dto.width,
@@ -8387,7 +8387,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.TimeZone): TimeZoneDto {
+    fun map(dto: TdApi.TimeZone): TimeZoneDto {
         return TimeZoneDto(
             id = dto.id,
             name = dto.name,
@@ -8395,7 +8395,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TimeZoneDto): TdApi.TimeZone {
+    fun map(dto: TimeZoneDto): TdApi.TimeZone {
         return TdApi.TimeZone(
             id = dto.id,
             name = dto.name,
@@ -8403,19 +8403,19 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.TimeZones): TimeZonesDto {
+    fun map(dto: TdApi.TimeZones): TimeZonesDto {
         return TimeZonesDto(
             timeZones = dto.timeZones.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: TimeZonesDto): TdApi.TimeZones {
+    fun map(dto: TimeZonesDto): TdApi.TimeZones {
         return TdApi.TimeZones(
             timeZones = dto.timeZones.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: TdApi.TrendingStickerSets): TrendingStickerSetsDto {
+    fun map(dto: TdApi.TrendingStickerSets): TrendingStickerSetsDto {
         return TrendingStickerSetsDto(
             totalCount = dto.totalCount,
             sets = dto.sets.mapArray { map(it) },
@@ -8423,7 +8423,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TrendingStickerSetsDto): TdApi.TrendingStickerSets {
+    fun map(dto: TrendingStickerSetsDto): TdApi.TrendingStickerSets {
         return TdApi.TrendingStickerSets(
             totalCount = dto.totalCount,
             sets = dto.sets.mapArray { map(it) },
@@ -8431,7 +8431,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.UnconfirmedSession): UnconfirmedSessionDto {
+    fun map(dto: TdApi.UnconfirmedSession): UnconfirmedSessionDto {
         return UnconfirmedSessionDto(
             id = dto.id,
             logInDate = dto.logInDate,
@@ -8440,7 +8440,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: UnconfirmedSessionDto): TdApi.UnconfirmedSession {
+    fun map(dto: UnconfirmedSessionDto): TdApi.UnconfirmedSession {
         return TdApi.UnconfirmedSession(
             id = dto.id,
             logInDate = dto.logInDate,
@@ -8449,7 +8449,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.UnreadReaction): UnreadReactionDto {
+    fun map(dto: TdApi.UnreadReaction): UnreadReactionDto {
         return UnreadReactionDto(
             type = map(dto.type),
             senderId = map(dto.senderId),
@@ -8457,7 +8457,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: UnreadReactionDto): TdApi.UnreadReaction {
+    fun map(dto: UnreadReactionDto): TdApi.UnreadReaction {
         return TdApi.UnreadReaction(
             type = map(dto.type),
             senderId = map(dto.senderId),
@@ -8465,13 +8465,13 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.Updates): UpdatesDto {
+    fun map(dto: TdApi.Updates): UpdatesDto {
         return UpdatesDto(
             updates = dto.updates.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: TdApi.UpgradeGiftResult): UpgradeGiftResultDto {
+    fun map(dto: TdApi.UpgradeGiftResult): UpgradeGiftResultDto {
         return UpgradeGiftResultDto(
             gift = map(dto.gift),
             receivedGiftId = dto.receivedGiftId,
@@ -8482,7 +8482,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: UpgradeGiftResultDto): TdApi.UpgradeGiftResult {
+    fun map(dto: UpgradeGiftResultDto): TdApi.UpgradeGiftResult {
         return TdApi.UpgradeGiftResult(
             gift = map(dto.gift),
             receivedGiftId = dto.receivedGiftId,
@@ -8493,7 +8493,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.UpgradedGift): UpgradedGiftDto {
+    fun map(dto: TdApi.UpgradedGift): UpgradedGiftDto {
         return UpgradedGiftDto(
             id = dto.id,
             title = dto.title,
@@ -8512,7 +8512,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: UpgradedGiftDto): TdApi.UpgradedGift {
+    fun map(dto: UpgradedGiftDto): TdApi.UpgradedGift {
         return TdApi.UpgradedGift(
             id = dto.id,
             title = dto.title,
@@ -8531,7 +8531,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.UpgradedGiftBackdrop): UpgradedGiftBackdropDto {
+    fun map(dto: TdApi.UpgradedGiftBackdrop): UpgradedGiftBackdropDto {
         return UpgradedGiftBackdropDto(
             name = dto.name,
             colors = map(dto.colors),
@@ -8539,7 +8539,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: UpgradedGiftBackdropDto): TdApi.UpgradedGiftBackdrop {
+    fun map(dto: UpgradedGiftBackdropDto): TdApi.UpgradedGiftBackdrop {
         return TdApi.UpgradedGiftBackdrop(
             name = dto.name,
             colors = map(dto.colors),
@@ -8547,7 +8547,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.UpgradedGiftBackdropColors): UpgradedGiftBackdropColorsDto {
+    fun map(dto: TdApi.UpgradedGiftBackdropColors): UpgradedGiftBackdropColorsDto {
         return UpgradedGiftBackdropColorsDto(
             centerColor = dto.centerColor,
             edgeColor = dto.edgeColor,
@@ -8556,7 +8556,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: UpgradedGiftBackdropColorsDto): TdApi.UpgradedGiftBackdropColors {
+    fun map(dto: UpgradedGiftBackdropColorsDto): TdApi.UpgradedGiftBackdropColors {
         return TdApi.UpgradedGiftBackdropColors(
             centerColor = dto.centerColor,
             edgeColor = dto.edgeColor,
@@ -8565,7 +8565,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.UpgradedGiftModel): UpgradedGiftModelDto {
+    fun map(dto: TdApi.UpgradedGiftModel): UpgradedGiftModelDto {
         return UpgradedGiftModelDto(
             name = dto.name,
             sticker = map(dto.sticker),
@@ -8573,7 +8573,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: UpgradedGiftModelDto): TdApi.UpgradedGiftModel {
+    fun map(dto: UpgradedGiftModelDto): TdApi.UpgradedGiftModel {
         return TdApi.UpgradedGiftModel(
             name = dto.name,
             sticker = map(dto.sticker),
@@ -8581,7 +8581,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.UpgradedGiftOriginalDetails): UpgradedGiftOriginalDetailsDto {
+    fun map(dto: TdApi.UpgradedGiftOriginalDetails): UpgradedGiftOriginalDetailsDto {
         return UpgradedGiftOriginalDetailsDto(
             senderId = dto.senderId?.let { map(it) },
             receiverId = map(dto.receiverId),
@@ -8590,7 +8590,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: UpgradedGiftOriginalDetailsDto): TdApi.UpgradedGiftOriginalDetails {
+    fun map(dto: UpgradedGiftOriginalDetailsDto): TdApi.UpgradedGiftOriginalDetails {
         return TdApi.UpgradedGiftOriginalDetails(
             senderId = dto.senderId?.let { map(it) },
             receiverId = map(dto.receiverId),
@@ -8599,7 +8599,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.UpgradedGiftSymbol): UpgradedGiftSymbolDto {
+    fun map(dto: TdApi.UpgradedGiftSymbol): UpgradedGiftSymbolDto {
         return UpgradedGiftSymbolDto(
             name = dto.name,
             sticker = map(dto.sticker),
@@ -8607,7 +8607,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: UpgradedGiftSymbolDto): TdApi.UpgradedGiftSymbol {
+    fun map(dto: UpgradedGiftSymbolDto): TdApi.UpgradedGiftSymbol {
         return TdApi.UpgradedGiftSymbol(
             name = dto.name,
             sticker = map(dto.sticker),
@@ -8615,7 +8615,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.User): UserDto {
+    fun map(dto: TdApi.User): UserDto {
         return UserDto(
             id = dto.id,
             firstName = dto.firstName,
@@ -8647,7 +8647,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: UserDto): TdApi.User {
+    fun map(dto: UserDto): TdApi.User {
         return TdApi.User(
             id = dto.id,
             firstName = dto.firstName,
@@ -8679,7 +8679,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.UserFullInfo): UserFullInfoDto {
+    fun map(dto: TdApi.UserFullInfo): UserFullInfoDto {
         return UserFullInfoDto(
             personalPhoto = dto.personalPhoto?.let { map(it) },
             photo = dto.photo?.let { map(it) },
@@ -8708,7 +8708,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: UserFullInfoDto): TdApi.UserFullInfo {
+    fun map(dto: UserFullInfoDto): TdApi.UserFullInfo {
         return TdApi.UserFullInfo(
             personalPhoto = dto.personalPhoto?.let { map(it) },
             photo = dto.photo?.let { map(it) },
@@ -8737,33 +8737,33 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.UserLink): UserLinkDto {
+    fun map(dto: TdApi.UserLink): UserLinkDto {
         return UserLinkDto(
             url = dto.url,
             expiresIn = dto.expiresIn,
         )
     }
 
-    public fun map(dto: UserLinkDto): TdApi.UserLink {
+    fun map(dto: UserLinkDto): TdApi.UserLink {
         return TdApi.UserLink(
             url = dto.url,
             expiresIn = dto.expiresIn,
         )
     }
 
-    public fun map(dto: TdApi.UserPrivacySettingRules): UserPrivacySettingRulesDto {
+    fun map(dto: TdApi.UserPrivacySettingRules): UserPrivacySettingRulesDto {
         return UserPrivacySettingRulesDto(
             rules = dto.rules.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: UserPrivacySettingRulesDto): TdApi.UserPrivacySettingRules {
+    fun map(dto: UserPrivacySettingRulesDto): TdApi.UserPrivacySettingRules {
         return TdApi.UserPrivacySettingRules(
             rules = dto.rules.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: TdApi.UserSupportInfo): UserSupportInfoDto {
+    fun map(dto: TdApi.UserSupportInfo): UserSupportInfoDto {
         return UserSupportInfoDto(
             message = map(dto.message),
             author = dto.author,
@@ -8771,7 +8771,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: UserSupportInfoDto): TdApi.UserSupportInfo {
+    fun map(dto: UserSupportInfoDto): TdApi.UserSupportInfo {
         return TdApi.UserSupportInfo(
             message = map(dto.message),
             author = dto.author,
@@ -8779,7 +8779,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.Usernames): UsernamesDto {
+    fun map(dto: TdApi.Usernames): UsernamesDto {
         return UsernamesDto(
             activeUsernames = dto.activeUsernames,
             disabledUsernames = dto.disabledUsernames,
@@ -8787,7 +8787,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: UsernamesDto): TdApi.Usernames {
+    fun map(dto: UsernamesDto): TdApi.Usernames {
         return TdApi.Usernames(
             activeUsernames = dto.activeUsernames,
             disabledUsernames = dto.disabledUsernames,
@@ -8795,35 +8795,35 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.Users): UsersDto {
+    fun map(dto: TdApi.Users): UsersDto {
         return UsersDto(
             totalCount = dto.totalCount,
             userIds = dto.userIds,
         )
     }
 
-    public fun map(dto: UsersDto): TdApi.Users {
+    fun map(dto: UsersDto): TdApi.Users {
         return TdApi.Users(
             totalCount = dto.totalCount,
             userIds = dto.userIds,
         )
     }
 
-    public fun map(dto: TdApi.ValidatedOrderInfo): ValidatedOrderInfoDto {
+    fun map(dto: TdApi.ValidatedOrderInfo): ValidatedOrderInfoDto {
         return ValidatedOrderInfoDto(
             orderInfoId = dto.orderInfoId,
             shippingOptions = dto.shippingOptions.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: ValidatedOrderInfoDto): TdApi.ValidatedOrderInfo {
+    fun map(dto: ValidatedOrderInfoDto): TdApi.ValidatedOrderInfo {
         return TdApi.ValidatedOrderInfo(
             orderInfoId = dto.orderInfoId,
             shippingOptions = dto.shippingOptions.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: TdApi.Venue): VenueDto {
+    fun map(dto: TdApi.Venue): VenueDto {
         return VenueDto(
             location = map(dto.location),
             title = dto.title,
@@ -8834,7 +8834,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: VenueDto): TdApi.Venue {
+    fun map(dto: VenueDto): TdApi.Venue {
         return TdApi.Venue(
             location = map(dto.location),
             title = dto.title,
@@ -8845,7 +8845,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.VerificationStatus): VerificationStatusDto {
+    fun map(dto: TdApi.VerificationStatus): VerificationStatusDto {
         return VerificationStatusDto(
             isVerified = dto.isVerified,
             isScam = dto.isScam,
@@ -8854,7 +8854,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: VerificationStatusDto): TdApi.VerificationStatus {
+    fun map(dto: VerificationStatusDto): TdApi.VerificationStatus {
         return TdApi.VerificationStatus(
             isVerified = dto.isVerified,
             isScam = dto.isScam,
@@ -8863,7 +8863,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.Video): VideoDto {
+    fun map(dto: TdApi.Video): VideoDto {
         return VideoDto(
             duration = dto.duration,
             width = dto.width,
@@ -8878,7 +8878,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: VideoDto): TdApi.Video {
+    fun map(dto: VideoDto): TdApi.Video {
         return TdApi.Video(
             duration = dto.duration,
             width = dto.width,
@@ -8893,7 +8893,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.VideoChat): VideoChatDto {
+    fun map(dto: TdApi.VideoChat): VideoChatDto {
         return VideoChatDto(
             groupCallId = dto.groupCallId,
             hasParticipants = dto.hasParticipants,
@@ -8901,7 +8901,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: VideoChatDto): TdApi.VideoChat {
+    fun map(dto: VideoChatDto): TdApi.VideoChat {
         return TdApi.VideoChat(
             groupCallId = dto.groupCallId,
             hasParticipants = dto.hasParticipants,
@@ -8909,7 +8909,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.VideoChatStream): VideoChatStreamDto {
+    fun map(dto: TdApi.VideoChatStream): VideoChatStreamDto {
         return VideoChatStreamDto(
             channelId = dto.channelId,
             scale = dto.scale,
@@ -8917,7 +8917,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: VideoChatStreamDto): TdApi.VideoChatStream {
+    fun map(dto: VideoChatStreamDto): TdApi.VideoChatStream {
         return TdApi.VideoChatStream(
             channelId = dto.channelId,
             scale = dto.scale,
@@ -8925,19 +8925,19 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.VideoChatStreams): VideoChatStreamsDto {
+    fun map(dto: TdApi.VideoChatStreams): VideoChatStreamsDto {
         return VideoChatStreamsDto(
             streams = dto.streams.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: VideoChatStreamsDto): TdApi.VideoChatStreams {
+    fun map(dto: VideoChatStreamsDto): TdApi.VideoChatStreams {
         return TdApi.VideoChatStreams(
             streams = dto.streams.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: TdApi.VideoNote): VideoNoteDto {
+    fun map(dto: TdApi.VideoNote): VideoNoteDto {
         return VideoNoteDto(
             duration = dto.duration,
             waveform = dto.waveform,
@@ -8949,7 +8949,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: VideoNoteDto): TdApi.VideoNote {
+    fun map(dto: VideoNoteDto): TdApi.VideoNote {
         return TdApi.VideoNote(
             duration = dto.duration,
             waveform = dto.waveform,
@@ -8961,7 +8961,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.VoiceNote): VoiceNoteDto {
+    fun map(dto: TdApi.VoiceNote): VoiceNoteDto {
         return VoiceNoteDto(
             duration = dto.duration,
             waveform = dto.waveform,
@@ -8971,7 +8971,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: VoiceNoteDto): TdApi.VoiceNote {
+    fun map(dto: VoiceNoteDto): TdApi.VoiceNote {
         return TdApi.VoiceNote(
             duration = dto.duration,
             waveform = dto.waveform,
@@ -8981,7 +8981,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.WebApp): WebAppDto {
+    fun map(dto: TdApi.WebApp): WebAppDto {
         return WebAppDto(
             shortName = dto.shortName,
             title = dto.title,
@@ -8991,7 +8991,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: WebAppDto): TdApi.WebApp {
+    fun map(dto: WebAppDto): TdApi.WebApp {
         return TdApi.WebApp(
             shortName = dto.shortName,
             title = dto.title,
@@ -9001,21 +9001,21 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.WebAppInfo): WebAppInfoDto {
+    fun map(dto: TdApi.WebAppInfo): WebAppInfoDto {
         return WebAppInfoDto(
             launchId = dto.launchId,
             url = dto.url,
         )
     }
 
-    public fun map(dto: WebAppInfoDto): TdApi.WebAppInfo {
+    fun map(dto: WebAppInfoDto): TdApi.WebAppInfo {
         return TdApi.WebAppInfo(
             launchId = dto.launchId,
             url = dto.url,
         )
     }
 
-    public fun map(dto: TdApi.WebAppOpenParameters): WebAppOpenParametersDto {
+    fun map(dto: TdApi.WebAppOpenParameters): WebAppOpenParametersDto {
         return WebAppOpenParametersDto(
             theme = dto.theme?.let { map(it) },
             applicationName = dto.applicationName,
@@ -9023,7 +9023,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: WebAppOpenParametersDto): TdApi.WebAppOpenParameters {
+    fun map(dto: WebAppOpenParametersDto): TdApi.WebAppOpenParameters {
         return TdApi.WebAppOpenParameters(
             theme = dto.theme?.let { map(it) },
             applicationName = dto.applicationName,
@@ -9031,7 +9031,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.WebPageInstantView): WebPageInstantViewDto {
+    fun map(dto: TdApi.WebPageInstantView): WebPageInstantViewDto {
         return WebPageInstantViewDto(
             pageBlocks = dto.pageBlocks.mapArray { map(it) },
             viewCount = dto.viewCount,
@@ -9042,7 +9042,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: WebPageInstantViewDto): TdApi.WebPageInstantView {
+    fun map(dto: WebPageInstantViewDto): TdApi.WebPageInstantView {
         return TdApi.WebPageInstantView(
             pageBlocks = dto.pageBlocks.mapArray { map(it) },
             viewCount = dto.viewCount,
@@ -9053,7 +9053,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.AffiliateProgramSortOrder): AffiliateProgramSortOrderDto {
+    fun map(dto: TdApi.AffiliateProgramSortOrder): AffiliateProgramSortOrderDto {
         when(dto) {
             is TdApi.AffiliateProgramSortOrderProfitability -> {
                 return AffiliateProgramSortOrderDto.Profitability(
@@ -9071,7 +9071,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: AffiliateProgramSortOrderDto): TdApi.AffiliateProgramSortOrder {
+    fun map(dto: AffiliateProgramSortOrderDto): TdApi.AffiliateProgramSortOrder {
         when(dto) {
             is AffiliateProgramSortOrderDto.Profitability -> {
                 return TdApi.AffiliateProgramSortOrderProfitability(
@@ -9088,7 +9088,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.AffiliateType): AffiliateTypeDto {
+    fun map(dto: TdApi.AffiliateType): AffiliateTypeDto {
         when(dto) {
             is TdApi.AffiliateTypeCurrentUser -> {
                 return AffiliateTypeDto.CurrentUser(
@@ -9108,7 +9108,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: AffiliateTypeDto): TdApi.AffiliateType {
+    fun map(dto: AffiliateTypeDto): TdApi.AffiliateType {
         when(dto) {
             is AffiliateTypeDto.CurrentUser -> {
                 return TdApi.AffiliateTypeCurrentUser(
@@ -9127,7 +9127,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.AuthenticationCodeType): AuthenticationCodeTypeDto {
+    fun map(dto: TdApi.AuthenticationCodeType): AuthenticationCodeTypeDto {
         when(dto) {
             is TdApi.AuthenticationCodeTypeTelegramMessage -> {
                 return AuthenticationCodeTypeDto.TelegramMessage(
@@ -9188,7 +9188,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: AuthenticationCodeTypeDto): TdApi.AuthenticationCodeType {
+    fun map(dto: AuthenticationCodeTypeDto): TdApi.AuthenticationCodeType {
         when(dto) {
             is AuthenticationCodeTypeDto.TelegramMessage -> {
                 return TdApi.AuthenticationCodeTypeTelegramMessage(
@@ -9248,7 +9248,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.AuthorizationState): AuthorizationStateDto {
+    fun map(dto: TdApi.AuthorizationState): AuthorizationStateDto {
         when(dto) {
             is TdApi.AuthorizationStateWaitTdlibParameters -> {
                 return AuthorizationStateDto.WaitTdlibParameters(
@@ -9320,7 +9320,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: AuthorizationStateDto): TdApi.AuthorizationState {
+    fun map(dto: AuthorizationStateDto): TdApi.AuthorizationState {
         when(dto) {
             is AuthorizationStateDto.WaitTdlibParameters -> {
                 return TdApi.AuthorizationStateWaitTdlibParameters(
@@ -9391,7 +9391,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.AutosaveSettingsScope): AutosaveSettingsScopeDto {
+    fun map(dto: TdApi.AutosaveSettingsScope): AutosaveSettingsScopeDto {
         when(dto) {
             is TdApi.AutosaveSettingsScopePrivateChats -> {
                 return AutosaveSettingsScopeDto.PrivateChats(
@@ -9414,7 +9414,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: AutosaveSettingsScopeDto): TdApi.AutosaveSettingsScope {
+    fun map(dto: AutosaveSettingsScopeDto): TdApi.AutosaveSettingsScope {
         when(dto) {
             is AutosaveSettingsScopeDto.PrivateChats -> {
                 return TdApi.AutosaveSettingsScopePrivateChats(
@@ -9436,7 +9436,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.BackgroundFill): BackgroundFillDto {
+    fun map(dto: TdApi.BackgroundFill): BackgroundFillDto {
         when(dto) {
             is TdApi.BackgroundFillSolid -> {
                 return BackgroundFillDto.Solid(
@@ -9459,7 +9459,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: BackgroundFillDto): TdApi.BackgroundFill {
+    fun map(dto: BackgroundFillDto): TdApi.BackgroundFill {
         when(dto) {
             is BackgroundFillDto.Solid -> {
                 return TdApi.BackgroundFillSolid(
@@ -9481,7 +9481,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.BackgroundType): BackgroundTypeDto {
+    fun map(dto: TdApi.BackgroundType): BackgroundTypeDto {
         when(dto) {
             is TdApi.BackgroundTypeWallpaper -> {
                 return BackgroundTypeDto.Wallpaper(
@@ -9511,7 +9511,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: BackgroundTypeDto): TdApi.BackgroundType {
+    fun map(dto: BackgroundTypeDto): TdApi.BackgroundType {
         when(dto) {
             is BackgroundTypeDto.Wallpaper -> {
                 return TdApi.BackgroundTypeWallpaper(
@@ -9540,7 +9540,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.BlockList): BlockListDto {
+    fun map(dto: TdApi.BlockList): BlockListDto {
         when(dto) {
             is TdApi.BlockListMain -> {
                 return BlockListDto.Main(
@@ -9554,7 +9554,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: BlockListDto): TdApi.BlockList {
+    fun map(dto: BlockListDto): TdApi.BlockList {
         when(dto) {
             is BlockListDto.Main -> {
                 return TdApi.BlockListMain(
@@ -9567,7 +9567,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.BotCommandScope): BotCommandScopeDto {
+    fun map(dto: TdApi.BotCommandScope): BotCommandScopeDto {
         when(dto) {
             is TdApi.BotCommandScopeDefault -> {
                 return BotCommandScopeDto.Default(
@@ -9605,7 +9605,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: BotCommandScopeDto): TdApi.BotCommandScope {
+    fun map(dto: BotCommandScopeDto): TdApi.BotCommandScope {
         when(dto) {
             is BotCommandScopeDto.Default -> {
                 return TdApi.BotCommandScopeDefault(
@@ -9642,7 +9642,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.BotWriteAccessAllowReason): BotWriteAccessAllowReasonDto {
+    fun map(dto: TdApi.BotWriteAccessAllowReason): BotWriteAccessAllowReasonDto {
         when(dto) {
             is TdApi.BotWriteAccessAllowReasonConnectedWebsite -> {
                 return BotWriteAccessAllowReasonDto.ConnectedWebsite(
@@ -9666,7 +9666,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: BotWriteAccessAllowReasonDto): TdApi.BotWriteAccessAllowReason {
+    fun map(dto: BotWriteAccessAllowReasonDto): TdApi.BotWriteAccessAllowReason {
         when(dto) {
             is BotWriteAccessAllowReasonDto.ConnectedWebsite -> {
                 return TdApi.BotWriteAccessAllowReasonConnectedWebsite(
@@ -9689,7 +9689,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.BusinessAwayMessageSchedule): BusinessAwayMessageScheduleDto {
+    fun map(dto: TdApi.BusinessAwayMessageSchedule): BusinessAwayMessageScheduleDto {
         when(dto) {
             is TdApi.BusinessAwayMessageScheduleAlways -> {
                 return BusinessAwayMessageScheduleDto.Always(
@@ -9709,7 +9709,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: BusinessAwayMessageScheduleDto): TdApi.BusinessAwayMessageSchedule {
+    fun map(dto: BusinessAwayMessageScheduleDto): TdApi.BusinessAwayMessageSchedule {
         when(dto) {
             is BusinessAwayMessageScheduleDto.Always -> {
                 return TdApi.BusinessAwayMessageScheduleAlways(
@@ -9728,7 +9728,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.BusinessFeature): BusinessFeatureDto {
+    fun map(dto: TdApi.BusinessFeature): BusinessFeatureDto {
         when(dto) {
             is TdApi.BusinessFeatureLocation -> {
                 return BusinessFeatureDto.Location(
@@ -9778,7 +9778,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: BusinessFeatureDto): TdApi.BusinessFeature {
+    fun map(dto: BusinessFeatureDto): TdApi.BusinessFeature {
         when(dto) {
             is BusinessFeatureDto.Location -> {
                 return TdApi.BusinessFeatureLocation(
@@ -9827,7 +9827,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.CallDiscardReason): CallDiscardReasonDto {
+    fun map(dto: TdApi.CallDiscardReason): CallDiscardReasonDto {
         when(dto) {
             is TdApi.CallDiscardReasonEmpty -> {
                 return CallDiscardReasonDto.Empty(
@@ -9858,7 +9858,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: CallDiscardReasonDto): TdApi.CallDiscardReason {
+    fun map(dto: CallDiscardReasonDto): TdApi.CallDiscardReason {
         when(dto) {
             is CallDiscardReasonDto.Empty -> {
                 return TdApi.CallDiscardReasonEmpty(
@@ -9888,7 +9888,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.CallProblem): CallProblemDto {
+    fun map(dto: TdApi.CallProblem): CallProblemDto {
         when(dto) {
             is TdApi.CallProblemEcho -> {
                 return CallProblemDto.Echo(
@@ -9930,7 +9930,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: CallProblemDto): TdApi.CallProblem {
+    fun map(dto: CallProblemDto): TdApi.CallProblem {
         when(dto) {
             is CallProblemDto.Echo -> {
                 return TdApi.CallProblemEcho(
@@ -9971,7 +9971,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.CallServerType): CallServerTypeDto {
+    fun map(dto: TdApi.CallServerType): CallServerTypeDto {
         when(dto) {
             is TdApi.CallServerTypeTelegramReflector -> {
                 return CallServerTypeDto.TelegramReflector(
@@ -9991,7 +9991,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: CallServerTypeDto): TdApi.CallServerType {
+    fun map(dto: CallServerTypeDto): TdApi.CallServerType {
         when(dto) {
             is CallServerTypeDto.TelegramReflector -> {
                 return TdApi.CallServerTypeTelegramReflector(
@@ -10010,7 +10010,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.CallState): CallStateDto {
+    fun map(dto: TdApi.CallState): CallStateDto {
         when(dto) {
             is TdApi.CallStatePending -> {
                 return CallStateDto.Pending(
@@ -10055,7 +10055,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: CallStateDto): TdApi.CallState {
+    fun map(dto: CallStateDto): TdApi.CallState {
         when(dto) {
             is CallStateDto.Pending -> {
                 return TdApi.CallStatePending(
@@ -10099,7 +10099,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.CallbackQueryPayload): CallbackQueryPayloadDto {
+    fun map(dto: TdApi.CallbackQueryPayload): CallbackQueryPayloadDto {
         when(dto) {
             is TdApi.CallbackQueryPayloadData -> {
                 return CallbackQueryPayloadDto.Data(
@@ -10121,7 +10121,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: CallbackQueryPayloadDto): TdApi.CallbackQueryPayload {
+    fun map(dto: CallbackQueryPayloadDto): TdApi.CallbackQueryPayload {
         when(dto) {
             is CallbackQueryPayloadDto.Data -> {
                 return TdApi.CallbackQueryPayloadData(
@@ -10142,7 +10142,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.CanPostStoryResult): CanPostStoryResultDto {
+    fun map(dto: TdApi.CanPostStoryResult): CanPostStoryResultDto {
         when(dto) {
             is TdApi.CanPostStoryResultOk -> {
                 return CanPostStoryResultDto.Ok(
@@ -10174,7 +10174,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: CanPostStoryResultDto): TdApi.CanPostStoryResult {
+    fun map(dto: CanPostStoryResultDto): TdApi.CanPostStoryResult {
         when(dto) {
             is CanPostStoryResultDto.Ok -> {
                 return TdApi.CanPostStoryResultOk(
@@ -10205,7 +10205,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.CanSendMessageToUserResult): CanSendMessageToUserResultDto {
+    fun map(dto: TdApi.CanSendMessageToUserResult): CanSendMessageToUserResultDto {
         when(dto) {
             is TdApi.CanSendMessageToUserResultOk -> {
                 return CanSendMessageToUserResultDto.Ok(
@@ -10228,7 +10228,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: CanSendMessageToUserResultDto): TdApi.CanSendMessageToUserResult {
+    fun map(dto: CanSendMessageToUserResultDto): TdApi.CanSendMessageToUserResult {
         when(dto) {
             is CanSendMessageToUserResultDto.Ok -> {
                 return TdApi.CanSendMessageToUserResultOk(
@@ -10250,7 +10250,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.CanTransferOwnershipResult): CanTransferOwnershipResultDto {
+    fun map(dto: TdApi.CanTransferOwnershipResult): CanTransferOwnershipResultDto {
         when(dto) {
             is TdApi.CanTransferOwnershipResultOk -> {
                 return CanTransferOwnershipResultDto.Ok(
@@ -10274,7 +10274,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: CanTransferOwnershipResultDto): TdApi.CanTransferOwnershipResult {
+    fun map(dto: CanTransferOwnershipResultDto): TdApi.CanTransferOwnershipResult {
         when(dto) {
             is CanTransferOwnershipResultDto.Ok -> {
                 return TdApi.CanTransferOwnershipResultOk(
@@ -10297,7 +10297,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.ChatAction): ChatActionDto {
+    fun map(dto: TdApi.ChatAction): ChatActionDto {
         when(dto) {
             is TdApi.ChatActionTyping -> {
                 return ChatActionDto.Typing(
@@ -10369,7 +10369,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: ChatActionDto): TdApi.ChatAction {
+    fun map(dto: ChatActionDto): TdApi.ChatAction {
         when(dto) {
             is ChatActionDto.Typing -> {
                 return TdApi.ChatActionTyping(
@@ -10440,7 +10440,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.ChatActionBar): ChatActionBarDto {
+    fun map(dto: TdApi.ChatActionBar): ChatActionBarDto {
         when(dto) {
             is TdApi.ChatActionBarReportSpam -> {
                 return ChatActionBarDto.ReportSpam(
@@ -10476,7 +10476,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: ChatActionBarDto): TdApi.ChatActionBar {
+    fun map(dto: ChatActionBarDto): TdApi.ChatActionBar {
         when(dto) {
             is ChatActionBarDto.ReportSpam -> {
                 return TdApi.ChatActionBarReportSpam(
@@ -10511,7 +10511,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.ChatAvailableReactions): ChatAvailableReactionsDto {
+    fun map(dto: TdApi.ChatAvailableReactions): ChatAvailableReactionsDto {
         when(dto) {
             is TdApi.ChatAvailableReactionsAll -> {
                 return ChatAvailableReactionsDto.All(
@@ -10528,7 +10528,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: ChatAvailableReactionsDto): TdApi.ChatAvailableReactions {
+    fun map(dto: ChatAvailableReactionsDto): TdApi.ChatAvailableReactions {
         when(dto) {
             is ChatAvailableReactionsDto.All -> {
                 return TdApi.ChatAvailableReactionsAll(
@@ -10544,7 +10544,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.ChatBoostSource): ChatBoostSourceDto {
+    fun map(dto: TdApi.ChatBoostSource): ChatBoostSourceDto {
         when(dto) {
             is TdApi.ChatBoostSourceGiftCode -> {
                 return ChatBoostSourceDto.GiftCode(
@@ -10570,7 +10570,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: ChatBoostSourceDto): TdApi.ChatBoostSource {
+    fun map(dto: ChatBoostSourceDto): TdApi.ChatBoostSource {
         when(dto) {
             is ChatBoostSourceDto.GiftCode -> {
                 return TdApi.ChatBoostSourceGiftCode(
@@ -10595,7 +10595,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.ChatEventAction): ChatEventActionDto {
+    fun map(dto: TdApi.ChatEventAction): ChatEventActionDto {
         when(dto) {
             is TdApi.ChatEventMessageEdited -> {
                 return ChatEventActionDto.MessageEdited(
@@ -10891,7 +10891,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: ChatEventActionDto): TdApi.ChatEventAction {
+    fun map(dto: ChatEventActionDto): TdApi.ChatEventAction {
         when(dto) {
             is ChatEventActionDto.MessageEdited -> {
                 return TdApi.ChatEventMessageEdited(
@@ -11186,7 +11186,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.ChatList): ChatListDto {
+    fun map(dto: TdApi.ChatList): ChatListDto {
         when(dto) {
             is TdApi.ChatListMain -> {
                 return ChatListDto.Main(
@@ -11205,7 +11205,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: ChatListDto): TdApi.ChatList {
+    fun map(dto: ChatListDto): TdApi.ChatList {
         when(dto) {
             is ChatListDto.Main -> {
                 return TdApi.ChatListMain(
@@ -11223,7 +11223,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.ChatMemberStatus): ChatMemberStatusDto {
+    fun map(dto: TdApi.ChatMemberStatus): ChatMemberStatusDto {
         when(dto) {
             is TdApi.ChatMemberStatusCreator -> {
                 return ChatMemberStatusDto.Creator(
@@ -11264,7 +11264,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: ChatMemberStatusDto): TdApi.ChatMemberStatus {
+    fun map(dto: ChatMemberStatusDto): TdApi.ChatMemberStatus {
         when(dto) {
             is ChatMemberStatusDto.Creator -> {
                 return TdApi.ChatMemberStatusCreator(
@@ -11304,7 +11304,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.ChatMembersFilter): ChatMembersFilterDto {
+    fun map(dto: TdApi.ChatMembersFilter): ChatMembersFilterDto {
         when(dto) {
             is TdApi.ChatMembersFilterContacts -> {
                 return ChatMembersFilterDto.Contacts(
@@ -11339,7 +11339,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: ChatMembersFilterDto): TdApi.ChatMembersFilter {
+    fun map(dto: ChatMembersFilterDto): TdApi.ChatMembersFilter {
         when(dto) {
             is ChatMembersFilterDto.Contacts -> {
                 return TdApi.ChatMembersFilterContacts(
@@ -11373,7 +11373,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.ChatPhotoStickerType): ChatPhotoStickerTypeDto {
+    fun map(dto: TdApi.ChatPhotoStickerType): ChatPhotoStickerTypeDto {
         when(dto) {
             is TdApi.ChatPhotoStickerTypeRegularOrMask -> {
                 return ChatPhotoStickerTypeDto.RegularOrMask(
@@ -11390,7 +11390,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: ChatPhotoStickerTypeDto): TdApi.ChatPhotoStickerType {
+    fun map(dto: ChatPhotoStickerTypeDto): TdApi.ChatPhotoStickerType {
         when(dto) {
             is ChatPhotoStickerTypeDto.RegularOrMask -> {
                 return TdApi.ChatPhotoStickerTypeRegularOrMask(
@@ -11406,7 +11406,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.ChatRevenueTransactionType): ChatRevenueTransactionTypeDto {
+    fun map(dto: TdApi.ChatRevenueTransactionType): ChatRevenueTransactionTypeDto {
         when(dto) {
             is TdApi.ChatRevenueTransactionTypeEarnings -> {
                 return ChatRevenueTransactionTypeDto.Earnings(
@@ -11431,7 +11431,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: ChatRevenueTransactionTypeDto): TdApi.ChatRevenueTransactionType {
+    fun map(dto: ChatRevenueTransactionTypeDto): TdApi.ChatRevenueTransactionType {
         when(dto) {
             is ChatRevenueTransactionTypeDto.Earnings -> {
                 return TdApi.ChatRevenueTransactionTypeEarnings(
@@ -11455,7 +11455,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.ChatSource): ChatSourceDto {
+    fun map(dto: TdApi.ChatSource): ChatSourceDto {
         when(dto) {
             is TdApi.ChatSourceMtprotoProxy -> {
                 return ChatSourceDto.MtprotoProxy(
@@ -11471,7 +11471,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: ChatSourceDto): TdApi.ChatSource {
+    fun map(dto: ChatSourceDto): TdApi.ChatSource {
         when(dto) {
             is ChatSourceDto.MtprotoProxy -> {
                 return TdApi.ChatSourceMtprotoProxy(
@@ -11486,7 +11486,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.ChatStatistics): ChatStatisticsDto {
+    fun map(dto: TdApi.ChatStatistics): ChatStatisticsDto {
         when(dto) {
             is TdApi.ChatStatisticsSupergroup -> {
                 return ChatStatisticsDto.Supergroup(
@@ -11538,7 +11538,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: ChatStatisticsDto): TdApi.ChatStatistics {
+    fun map(dto: ChatStatisticsDto): TdApi.ChatStatistics {
         when(dto) {
             is ChatStatisticsDto.Supergroup -> {
                 return TdApi.ChatStatisticsSupergroup(
@@ -11589,7 +11589,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.ChatStatisticsObjectType): ChatStatisticsObjectTypeDto {
+    fun map(dto: TdApi.ChatStatisticsObjectType): ChatStatisticsObjectTypeDto {
         when(dto) {
             is TdApi.ChatStatisticsObjectTypeMessage -> {
                 return ChatStatisticsObjectTypeDto.Message(
@@ -11605,7 +11605,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: ChatStatisticsObjectTypeDto): TdApi.ChatStatisticsObjectType {
+    fun map(dto: ChatStatisticsObjectTypeDto): TdApi.ChatStatisticsObjectType {
         when(dto) {
             is ChatStatisticsObjectTypeDto.Message -> {
                 return TdApi.ChatStatisticsObjectTypeMessage(
@@ -11620,7 +11620,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.ChatType): ChatTypeDto {
+    fun map(dto: TdApi.ChatType): ChatTypeDto {
         when(dto) {
             is TdApi.ChatTypePrivate -> {
                 return ChatTypeDto.Private(
@@ -11648,7 +11648,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: ChatTypeDto): TdApi.ChatType {
+    fun map(dto: ChatTypeDto): TdApi.ChatType {
         when(dto) {
             is ChatTypeDto.Private -> {
                 return TdApi.ChatTypePrivate(
@@ -11675,7 +11675,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.CheckChatUsernameResult): CheckChatUsernameResultDto {
+    fun map(dto: TdApi.CheckChatUsernameResult): CheckChatUsernameResultDto {
         when(dto) {
             is TdApi.CheckChatUsernameResultOk -> {
                 return CheckChatUsernameResultDto.Ok(
@@ -11705,7 +11705,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: CheckChatUsernameResultDto): TdApi.CheckChatUsernameResult {
+    fun map(dto: CheckChatUsernameResultDto): TdApi.CheckChatUsernameResult {
         when(dto) {
             is CheckChatUsernameResultDto.Ok -> {
                 return TdApi.CheckChatUsernameResultOk(
@@ -11734,7 +11734,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.CheckStickerSetNameResult): CheckStickerSetNameResultDto {
+    fun map(dto: TdApi.CheckStickerSetNameResult): CheckStickerSetNameResultDto {
         when(dto) {
             is TdApi.CheckStickerSetNameResultOk -> {
                 return CheckStickerSetNameResultDto.Ok(
@@ -11752,7 +11752,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: CheckStickerSetNameResultDto): TdApi.CheckStickerSetNameResult {
+    fun map(dto: CheckStickerSetNameResultDto): TdApi.CheckStickerSetNameResult {
         when(dto) {
             is CheckStickerSetNameResultDto.Ok -> {
                 return TdApi.CheckStickerSetNameResultOk(
@@ -11769,7 +11769,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.CollectibleItemType): CollectibleItemTypeDto {
+    fun map(dto: TdApi.CollectibleItemType): CollectibleItemTypeDto {
         when(dto) {
             is TdApi.CollectibleItemTypeUsername -> {
                 return CollectibleItemTypeDto.Username(
@@ -11785,7 +11785,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: CollectibleItemTypeDto): TdApi.CollectibleItemType {
+    fun map(dto: CollectibleItemTypeDto): TdApi.CollectibleItemType {
         when(dto) {
             is CollectibleItemTypeDto.Username -> {
                 return TdApi.CollectibleItemTypeUsername(
@@ -11800,7 +11800,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.ConnectionState): ConnectionStateDto {
+    fun map(dto: TdApi.ConnectionState): ConnectionStateDto {
         when(dto) {
             is TdApi.ConnectionStateWaitingForNetwork -> {
                 return ConnectionStateDto.WaitingForNetwork(
@@ -11826,7 +11826,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: ConnectionStateDto): TdApi.ConnectionState {
+    fun map(dto: ConnectionStateDto): TdApi.ConnectionState {
         when(dto) {
             is ConnectionStateDto.WaitingForNetwork -> {
                 return TdApi.ConnectionStateWaitingForNetwork(
@@ -11851,7 +11851,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.DeviceToken): DeviceTokenDto {
+    fun map(dto: TdApi.DeviceToken): DeviceTokenDto {
         when(dto) {
             is TdApi.DeviceTokenFirebaseCloudMessaging -> {
                 return DeviceTokenDto.FirebaseCloudMessaging(
@@ -11924,7 +11924,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: DeviceTokenDto): TdApi.DeviceToken {
+    fun map(dto: DeviceTokenDto): TdApi.DeviceToken {
         when(dto) {
             is DeviceTokenDto.FirebaseCloudMessaging -> {
                 return TdApi.DeviceTokenFirebaseCloudMessaging(
@@ -11996,7 +11996,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.DiceStickers): DiceStickersDto {
+    fun map(dto: TdApi.DiceStickers): DiceStickersDto {
         when(dto) {
             is TdApi.DiceStickersRegular -> {
                 return DiceStickersDto.Regular(
@@ -12016,7 +12016,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: DiceStickersDto): TdApi.DiceStickers {
+    fun map(dto: DiceStickersDto): TdApi.DiceStickers {
         when(dto) {
             is DiceStickersDto.Regular -> {
                 return TdApi.DiceStickersRegular(
@@ -12035,7 +12035,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.EmailAddressAuthentication): EmailAddressAuthenticationDto {
+    fun map(dto: TdApi.EmailAddressAuthentication): EmailAddressAuthenticationDto {
         when(dto) {
             is TdApi.EmailAddressAuthenticationCode -> {
                 return EmailAddressAuthenticationDto.Code(
@@ -12056,7 +12056,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: EmailAddressAuthenticationDto): TdApi.EmailAddressAuthentication {
+    fun map(dto: EmailAddressAuthenticationDto): TdApi.EmailAddressAuthentication {
         when(dto) {
             is EmailAddressAuthenticationDto.Code -> {
                 return TdApi.EmailAddressAuthenticationCode(
@@ -12076,7 +12076,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.EmailAddressResetState): EmailAddressResetStateDto {
+    fun map(dto: TdApi.EmailAddressResetState): EmailAddressResetStateDto {
         when(dto) {
             is TdApi.EmailAddressResetStateAvailable -> {
                 return EmailAddressResetStateDto.Available(
@@ -12092,7 +12092,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: EmailAddressResetStateDto): TdApi.EmailAddressResetState {
+    fun map(dto: EmailAddressResetStateDto): TdApi.EmailAddressResetState {
         when(dto) {
             is EmailAddressResetStateDto.Available -> {
                 return TdApi.EmailAddressResetStateAvailable(
@@ -12107,7 +12107,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.EmojiCategorySource): EmojiCategorySourceDto {
+    fun map(dto: TdApi.EmojiCategorySource): EmojiCategorySourceDto {
         when(dto) {
             is TdApi.EmojiCategorySourceSearch -> {
                 return EmojiCategorySourceDto.Search(
@@ -12122,7 +12122,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: EmojiCategorySourceDto): TdApi.EmojiCategorySource {
+    fun map(dto: EmojiCategorySourceDto): TdApi.EmojiCategorySource {
         when(dto) {
             is EmojiCategorySourceDto.Search -> {
                 return TdApi.EmojiCategorySourceSearch(
@@ -12136,7 +12136,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.EmojiCategoryType): EmojiCategoryTypeDto {
+    fun map(dto: TdApi.EmojiCategoryType): EmojiCategoryTypeDto {
         when(dto) {
             is TdApi.EmojiCategoryTypeDefault -> {
                 return EmojiCategoryTypeDto.Default(
@@ -12158,7 +12158,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: EmojiCategoryTypeDto): TdApi.EmojiCategoryType {
+    fun map(dto: EmojiCategoryTypeDto): TdApi.EmojiCategoryType {
         when(dto) {
             is EmojiCategoryTypeDto.Default -> {
                 return TdApi.EmojiCategoryTypeDefault(
@@ -12179,7 +12179,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.EmojiStatusType): EmojiStatusTypeDto {
+    fun map(dto: TdApi.EmojiStatusType): EmojiStatusTypeDto {
         when(dto) {
             is TdApi.EmojiStatusTypeCustomEmoji -> {
                 return EmojiStatusTypeDto.CustomEmoji(
@@ -12200,7 +12200,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: EmojiStatusTypeDto): TdApi.EmojiStatusType {
+    fun map(dto: EmojiStatusTypeDto): TdApi.EmojiStatusType {
         when(dto) {
             is EmojiStatusTypeDto.CustomEmoji -> {
                 return TdApi.EmojiStatusTypeCustomEmoji(
@@ -12220,7 +12220,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.FileType): FileTypeDto {
+    fun map(dto: TdApi.FileType): FileTypeDto {
         when(dto) {
             is TdApi.FileTypeNone -> {
                 return FileTypeDto.None(
@@ -12318,7 +12318,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: FileTypeDto): TdApi.FileType {
+    fun map(dto: FileTypeDto): TdApi.FileType {
         when(dto) {
             is FileTypeDto.None -> {
                 return TdApi.FileTypeNone(
@@ -12415,7 +12415,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.FirebaseAuthenticationSettings): FirebaseAuthenticationSettingsDto {
+    fun map(dto: TdApi.FirebaseAuthenticationSettings): FirebaseAuthenticationSettingsDto {
         when(dto) {
             is TdApi.FirebaseAuthenticationSettingsAndroid -> {
                 return FirebaseAuthenticationSettingsDto.Android(
@@ -12431,7 +12431,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: FirebaseAuthenticationSettingsDto): TdApi.FirebaseAuthenticationSettings {
+    fun map(dto: FirebaseAuthenticationSettingsDto): TdApi.FirebaseAuthenticationSettings {
         when(dto) {
             is FirebaseAuthenticationSettingsDto.Android -> {
                 return TdApi.FirebaseAuthenticationSettingsAndroid(
@@ -12446,7 +12446,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.FirebaseDeviceVerificationParameters): FirebaseDeviceVerificationParametersDto {
+    fun map(dto: TdApi.FirebaseDeviceVerificationParameters): FirebaseDeviceVerificationParametersDto {
         when(dto) {
             is TdApi.FirebaseDeviceVerificationParametersSafetyNet -> {
                 return FirebaseDeviceVerificationParametersDto.SafetyNet(
@@ -12463,7 +12463,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: FirebaseDeviceVerificationParametersDto): TdApi.FirebaseDeviceVerificationParameters {
+    fun map(dto: FirebaseDeviceVerificationParametersDto): TdApi.FirebaseDeviceVerificationParameters {
         when(dto) {
             is FirebaseDeviceVerificationParametersDto.SafetyNet -> {
                 return TdApi.FirebaseDeviceVerificationParametersSafetyNet(
@@ -12479,7 +12479,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.GiveawayInfo): GiveawayInfoDto {
+    fun map(dto: TdApi.GiveawayInfo): GiveawayInfoDto {
         when(dto) {
             is TdApi.GiveawayInfoOngoing -> {
                 return GiveawayInfoDto.Ongoing(
@@ -12504,7 +12504,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: GiveawayInfoDto): TdApi.GiveawayInfo {
+    fun map(dto: GiveawayInfoDto): TdApi.GiveawayInfo {
         when(dto) {
             is GiveawayInfoDto.Ongoing -> {
                 return TdApi.GiveawayInfoOngoing(
@@ -12528,7 +12528,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.GiveawayParticipantStatus): GiveawayParticipantStatusDto {
+    fun map(dto: TdApi.GiveawayParticipantStatus): GiveawayParticipantStatusDto {
         when(dto) {
             is TdApi.GiveawayParticipantStatusEligible -> {
                 return GiveawayParticipantStatusDto.Eligible(
@@ -12557,7 +12557,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: GiveawayParticipantStatusDto): TdApi.GiveawayParticipantStatus {
+    fun map(dto: GiveawayParticipantStatusDto): TdApi.GiveawayParticipantStatus {
         when(dto) {
             is GiveawayParticipantStatusDto.Eligible -> {
                 return TdApi.GiveawayParticipantStatusEligible(
@@ -12585,7 +12585,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.GiveawayPrize): GiveawayPrizeDto {
+    fun map(dto: TdApi.GiveawayPrize): GiveawayPrizeDto {
         when(dto) {
             is TdApi.GiveawayPrizePremium -> {
                 return GiveawayPrizeDto.Premium(
@@ -12601,7 +12601,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: GiveawayPrizeDto): TdApi.GiveawayPrize {
+    fun map(dto: GiveawayPrizeDto): TdApi.GiveawayPrize {
         when(dto) {
             is GiveawayPrizeDto.Premium -> {
                 return TdApi.GiveawayPrizePremium(
@@ -12616,7 +12616,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.GroupCallDataChannel): GroupCallDataChannelDto {
+    fun map(dto: TdApi.GroupCallDataChannel): GroupCallDataChannelDto {
         when(dto) {
             is TdApi.GroupCallDataChannelMain -> {
                 return GroupCallDataChannelDto.Main(
@@ -12630,7 +12630,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: GroupCallDataChannelDto): TdApi.GroupCallDataChannel {
+    fun map(dto: GroupCallDataChannelDto): TdApi.GroupCallDataChannel {
         when(dto) {
             is GroupCallDataChannelDto.Main -> {
                 return TdApi.GroupCallDataChannelMain(
@@ -12643,7 +12643,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.GroupCallVideoQuality): GroupCallVideoQualityDto {
+    fun map(dto: TdApi.GroupCallVideoQuality): GroupCallVideoQualityDto {
         when(dto) {
             is TdApi.GroupCallVideoQualityThumbnail -> {
                 return GroupCallVideoQualityDto.Thumbnail(
@@ -12661,7 +12661,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: GroupCallVideoQualityDto): TdApi.GroupCallVideoQuality {
+    fun map(dto: GroupCallVideoQualityDto): TdApi.GroupCallVideoQuality {
         when(dto) {
             is GroupCallVideoQualityDto.Thumbnail -> {
                 return TdApi.GroupCallVideoQualityThumbnail(
@@ -12678,7 +12678,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.InlineKeyboardButtonType): InlineKeyboardButtonTypeDto {
+    fun map(dto: TdApi.InlineKeyboardButtonType): InlineKeyboardButtonTypeDto {
         when(dto) {
             is TdApi.InlineKeyboardButtonTypeUrl -> {
                 return InlineKeyboardButtonTypeDto.Url(
@@ -12735,7 +12735,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: InlineKeyboardButtonTypeDto): TdApi.InlineKeyboardButtonType {
+    fun map(dto: InlineKeyboardButtonTypeDto): TdApi.InlineKeyboardButtonType {
         when(dto) {
             is InlineKeyboardButtonTypeDto.Url -> {
                 return TdApi.InlineKeyboardButtonTypeUrl(
@@ -12791,7 +12791,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.InlineQueryResult): InlineQueryResultDto {
+    fun map(dto: TdApi.InlineQueryResult): InlineQueryResultDto {
         when(dto) {
             is TdApi.InlineQueryResultArticle -> {
                 return InlineQueryResultDto.Article(
@@ -12884,7 +12884,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: InlineQueryResultDto): TdApi.InlineQueryResult {
+    fun map(dto: InlineQueryResultDto): TdApi.InlineQueryResult {
         when(dto) {
             is InlineQueryResultDto.Article -> {
                 return TdApi.InlineQueryResultArticle(
@@ -12976,7 +12976,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.InlineQueryResultsButtonType): InlineQueryResultsButtonTypeDto {
+    fun map(dto: TdApi.InlineQueryResultsButtonType): InlineQueryResultsButtonTypeDto {
         when(dto) {
             is TdApi.InlineQueryResultsButtonTypeStartBot -> {
                 return InlineQueryResultsButtonTypeDto.StartBot(
@@ -12992,7 +12992,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: InlineQueryResultsButtonTypeDto): TdApi.InlineQueryResultsButtonType {
+    fun map(dto: InlineQueryResultsButtonTypeDto): TdApi.InlineQueryResultsButtonType {
         when(dto) {
             is InlineQueryResultsButtonTypeDto.StartBot -> {
                 return TdApi.InlineQueryResultsButtonTypeStartBot(
@@ -13007,7 +13007,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.InputBackground): InputBackgroundDto {
+    fun map(dto: TdApi.InputBackground): InputBackgroundDto {
         when(dto) {
             is TdApi.InputBackgroundLocal -> {
                 return InputBackgroundDto.Local(
@@ -13028,7 +13028,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: InputBackgroundDto): TdApi.InputBackground {
+    fun map(dto: InputBackgroundDto): TdApi.InputBackground {
         when(dto) {
             is InputBackgroundDto.Local -> {
                 return TdApi.InputBackgroundLocal(
@@ -13048,7 +13048,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.InputChatPhoto): InputChatPhotoDto {
+    fun map(dto: TdApi.InputChatPhoto): InputChatPhotoDto {
         when(dto) {
             is TdApi.InputChatPhotoPrevious -> {
                 return InputChatPhotoDto.Previous(
@@ -13075,7 +13075,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: InputChatPhotoDto): TdApi.InputChatPhoto {
+    fun map(dto: InputChatPhotoDto): TdApi.InputChatPhoto {
         when(dto) {
             is InputChatPhotoDto.Previous -> {
                 return TdApi.InputChatPhotoPrevious(
@@ -13101,7 +13101,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.InputCredentials): InputCredentialsDto {
+    fun map(dto: TdApi.InputCredentials): InputCredentialsDto {
         when(dto) {
             is TdApi.InputCredentialsSaved -> {
                 return InputCredentialsDto.Saved(
@@ -13128,7 +13128,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: InputCredentialsDto): TdApi.InputCredentials {
+    fun map(dto: InputCredentialsDto): TdApi.InputCredentials {
         when(dto) {
             is InputCredentialsDto.Saved -> {
                 return TdApi.InputCredentialsSaved(
@@ -13154,7 +13154,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.InputFile): InputFileDto {
+    fun map(dto: TdApi.InputFile): InputFileDto {
         when(dto) {
             is TdApi.InputFileId -> {
                 return InputFileDto.Id(
@@ -13182,7 +13182,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: InputFileDto): TdApi.InputFile {
+    fun map(dto: InputFileDto): TdApi.InputFile {
         when(dto) {
             is InputFileDto.Id -> {
                 return TdApi.InputFileId(
@@ -13209,7 +13209,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.InputGroupCall): InputGroupCallDto {
+    fun map(dto: TdApi.InputGroupCall): InputGroupCallDto {
         when(dto) {
             is TdApi.InputGroupCallLink -> {
                 return InputGroupCallDto.Link(
@@ -13226,7 +13226,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: InputGroupCallDto): TdApi.InputGroupCall {
+    fun map(dto: InputGroupCallDto): TdApi.InputGroupCall {
         when(dto) {
             is InputGroupCallDto.Link -> {
                 return TdApi.InputGroupCallLink(
@@ -13242,7 +13242,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.InputInlineQueryResult): InputInlineQueryResultDto {
+    fun map(dto: TdApi.InputInlineQueryResult): InputInlineQueryResultDto {
         when(dto) {
             is TdApi.InputInlineQueryResultAnimation -> {
                 return InputInlineQueryResultDto.Animation(
@@ -13392,7 +13392,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: InputInlineQueryResultDto): TdApi.InputInlineQueryResult {
+    fun map(dto: InputInlineQueryResultDto): TdApi.InputInlineQueryResult {
         when(dto) {
             is InputInlineQueryResultDto.Animation -> {
                 return TdApi.InputInlineQueryResultAnimation(
@@ -13541,7 +13541,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.InputInvoice): InputInvoiceDto {
+    fun map(dto: TdApi.InputInvoice): InputInvoiceDto {
         when(dto) {
             is TdApi.InputInvoiceMessage -> {
                 return InputInvoiceDto.Message(
@@ -13563,7 +13563,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: InputInvoiceDto): TdApi.InputInvoice {
+    fun map(dto: InputInvoiceDto): TdApi.InputInvoice {
         when(dto) {
             is InputInvoiceDto.Message -> {
                 return TdApi.InputInvoiceMessage(
@@ -13584,7 +13584,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.InputMessageContent): InputMessageContentDto {
+    fun map(dto: TdApi.InputMessageContent): InputMessageContentDto {
         when(dto) {
             is TdApi.InputMessageText -> {
                 return InputMessageContentDto.Text(
@@ -13768,7 +13768,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: InputMessageContentDto): TdApi.InputMessageContent {
+    fun map(dto: InputMessageContentDto): TdApi.InputMessageContent {
         when(dto) {
             is InputMessageContentDto.Text -> {
                 return TdApi.InputMessageText(
@@ -13951,7 +13951,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.InputMessageReplyTo): InputMessageReplyToDto {
+    fun map(dto: TdApi.InputMessageReplyTo): InputMessageReplyToDto {
         when(dto) {
             is TdApi.InputMessageReplyToMessage -> {
                 return InputMessageReplyToDto.Message(
@@ -13976,7 +13976,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: InputMessageReplyToDto): TdApi.InputMessageReplyTo {
+    fun map(dto: InputMessageReplyToDto): TdApi.InputMessageReplyTo {
         when(dto) {
             is InputMessageReplyToDto.Message -> {
                 return TdApi.InputMessageReplyToMessage(
@@ -14000,7 +14000,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.InputPaidMediaType): InputPaidMediaTypeDto {
+    fun map(dto: TdApi.InputPaidMediaType): InputPaidMediaTypeDto {
         when(dto) {
             is TdApi.InputPaidMediaTypePhoto -> {
                 return InputPaidMediaTypeDto.Photo(
@@ -14018,7 +14018,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: InputPaidMediaTypeDto): TdApi.InputPaidMediaType {
+    fun map(dto: InputPaidMediaTypeDto): TdApi.InputPaidMediaType {
         when(dto) {
             is InputPaidMediaTypeDto.Photo -> {
                 return TdApi.InputPaidMediaTypePhoto(
@@ -14035,7 +14035,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.InputPassportElement): InputPassportElementDto {
+    fun map(dto: TdApi.InputPassportElement): InputPassportElementDto {
         when(dto) {
             is TdApi.InputPassportElementPersonalDetails -> {
                 return InputPassportElementDto.PersonalDetails(
@@ -14106,7 +14106,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: InputPassportElementDto): TdApi.InputPassportElement {
+    fun map(dto: InputPassportElementDto): TdApi.InputPassportElement {
         when(dto) {
             is InputPassportElementDto.PersonalDetails -> {
                 return TdApi.InputPassportElementPersonalDetails(
@@ -14176,7 +14176,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.InputPassportElementErrorSource): InputPassportElementErrorSourceDto {
+    fun map(dto: TdApi.InputPassportElementErrorSource): InputPassportElementErrorSourceDto {
         when(dto) {
             is TdApi.InputPassportElementErrorSourceUnspecified -> {
                 return InputPassportElementErrorSourceDto.Unspecified(
@@ -14228,7 +14228,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: InputPassportElementErrorSourceDto): TdApi.InputPassportElementErrorSource {
+    fun map(dto: InputPassportElementErrorSourceDto): TdApi.InputPassportElementErrorSource {
         when(dto) {
             is InputPassportElementErrorSourceDto.Unspecified -> {
                 return TdApi.InputPassportElementErrorSourceUnspecified(
@@ -14279,7 +14279,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.InputStoryAreaType): InputStoryAreaTypeDto {
+    fun map(dto: TdApi.InputStoryAreaType): InputStoryAreaTypeDto {
         when(dto) {
             is TdApi.InputStoryAreaTypeLocation -> {
                 return InputStoryAreaTypeDto.Location(
@@ -14333,7 +14333,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: InputStoryAreaTypeDto): TdApi.InputStoryAreaType {
+    fun map(dto: InputStoryAreaTypeDto): TdApi.InputStoryAreaType {
         when(dto) {
             is InputStoryAreaTypeDto.Location -> {
                 return TdApi.InputStoryAreaTypeLocation(
@@ -14386,7 +14386,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.InputStoryContent): InputStoryContentDto {
+    fun map(dto: TdApi.InputStoryContent): InputStoryContentDto {
         when(dto) {
             is TdApi.InputStoryContentPhoto -> {
                 return InputStoryContentDto.Photo(
@@ -14407,7 +14407,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: InputStoryContentDto): TdApi.InputStoryContent {
+    fun map(dto: InputStoryContentDto): TdApi.InputStoryContent {
         when(dto) {
             is InputStoryContentDto.Photo -> {
                 return TdApi.InputStoryContentPhoto(
@@ -14427,7 +14427,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.InternalLinkType): InternalLinkTypeDto {
+    fun map(dto: TdApi.InternalLinkType): InternalLinkTypeDto {
         when(dto) {
             is TdApi.InternalLinkTypeActiveSessions -> {
                 return InternalLinkTypeDto.ActiveSessions(
@@ -14693,7 +14693,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: InternalLinkTypeDto): TdApi.InternalLinkType {
+    fun map(dto: InternalLinkTypeDto): TdApi.InternalLinkType {
         when(dto) {
             is InternalLinkTypeDto.ActiveSessions -> {
                 return TdApi.InternalLinkTypeActiveSessions(
@@ -14958,7 +14958,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.InviteGroupCallParticipantResult): InviteGroupCallParticipantResultDto {
+    fun map(dto: TdApi.InviteGroupCallParticipantResult): InviteGroupCallParticipantResultDto {
         when(dto) {
             is TdApi.InviteGroupCallParticipantResultUserPrivacyRestricted -> {
                 return InviteGroupCallParticipantResultDto.UserPrivacyRestricted(
@@ -14982,7 +14982,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: InviteGroupCallParticipantResultDto): TdApi.InviteGroupCallParticipantResult {
+    fun map(dto: InviteGroupCallParticipantResultDto): TdApi.InviteGroupCallParticipantResult {
         when(dto) {
             is InviteGroupCallParticipantResultDto.UserPrivacyRestricted -> {
                 return TdApi.InviteGroupCallParticipantResultUserPrivacyRestricted(
@@ -15005,7 +15005,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.InviteLinkChatType): InviteLinkChatTypeDto {
+    fun map(dto: TdApi.InviteLinkChatType): InviteLinkChatTypeDto {
         when(dto) {
             is TdApi.InviteLinkChatTypeBasicGroup -> {
                 return InviteLinkChatTypeDto.BasicGroup(
@@ -15023,7 +15023,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: InviteLinkChatTypeDto): TdApi.InviteLinkChatType {
+    fun map(dto: InviteLinkChatTypeDto): TdApi.InviteLinkChatType {
         when(dto) {
             is InviteLinkChatTypeDto.BasicGroup -> {
                 return TdApi.InviteLinkChatTypeBasicGroup(
@@ -15040,7 +15040,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.JsonValue): JsonValueDto {
+    fun map(dto: TdApi.JsonValue): JsonValueDto {
         when(dto) {
             is TdApi.JsonValueNull -> {
                 return JsonValueDto.Null(
@@ -15075,7 +15075,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: JsonValueDto): TdApi.JsonValue {
+    fun map(dto: JsonValueDto): TdApi.JsonValue {
         when(dto) {
             is JsonValueDto.Null -> {
                 return TdApi.JsonValueNull(
@@ -15109,7 +15109,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.KeyboardButtonType): KeyboardButtonTypeDto {
+    fun map(dto: TdApi.KeyboardButtonType): KeyboardButtonTypeDto {
         when(dto) {
             is TdApi.KeyboardButtonTypeText -> {
                 return KeyboardButtonTypeDto.Text(
@@ -15168,7 +15168,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: KeyboardButtonTypeDto): TdApi.KeyboardButtonType {
+    fun map(dto: KeyboardButtonTypeDto): TdApi.KeyboardButtonType {
         when(dto) {
             is KeyboardButtonTypeDto.Text -> {
                 return TdApi.KeyboardButtonTypeText(
@@ -15226,7 +15226,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.LanguagePackStringValue): LanguagePackStringValueDto {
+    fun map(dto: TdApi.LanguagePackStringValue): LanguagePackStringValueDto {
         when(dto) {
             is TdApi.LanguagePackStringValueOrdinary -> {
                 return LanguagePackStringValueDto.Ordinary(
@@ -15251,7 +15251,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: LanguagePackStringValueDto): TdApi.LanguagePackStringValue {
+    fun map(dto: LanguagePackStringValueDto): TdApi.LanguagePackStringValue {
         when(dto) {
             is LanguagePackStringValueDto.Ordinary -> {
                 return TdApi.LanguagePackStringValueOrdinary(
@@ -15275,7 +15275,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.LinkPreviewAlbumMedia): LinkPreviewAlbumMediaDto {
+    fun map(dto: TdApi.LinkPreviewAlbumMedia): LinkPreviewAlbumMediaDto {
         when(dto) {
             is TdApi.LinkPreviewAlbumMediaPhoto -> {
                 return LinkPreviewAlbumMediaDto.Photo(
@@ -15291,7 +15291,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: LinkPreviewAlbumMediaDto): TdApi.LinkPreviewAlbumMedia {
+    fun map(dto: LinkPreviewAlbumMediaDto): TdApi.LinkPreviewAlbumMedia {
         when(dto) {
             is LinkPreviewAlbumMediaDto.Photo -> {
                 return TdApi.LinkPreviewAlbumMediaPhoto(
@@ -15306,7 +15306,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.LinkPreviewType): LinkPreviewTypeDto {
+    fun map(dto: TdApi.LinkPreviewType): LinkPreviewTypeDto {
         when(dto) {
             is TdApi.LinkPreviewTypeAlbum -> {
                 return LinkPreviewTypeDto.Album(
@@ -15499,7 +15499,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: LinkPreviewTypeDto): TdApi.LinkPreviewType {
+    fun map(dto: LinkPreviewTypeDto): TdApi.LinkPreviewType {
         when(dto) {
             is LinkPreviewTypeDto.Album -> {
                 return TdApi.LinkPreviewTypeAlbum(
@@ -15691,7 +15691,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.LogStream): LogStreamDto {
+    fun map(dto: TdApi.LogStream): LogStreamDto {
         when(dto) {
             is TdApi.LogStreamDefault -> {
                 return LogStreamDto.Default(
@@ -15712,7 +15712,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: LogStreamDto): TdApi.LogStream {
+    fun map(dto: LogStreamDto): TdApi.LogStream {
         when(dto) {
             is LogStreamDto.Default -> {
                 return TdApi.LogStreamDefault(
@@ -15732,7 +15732,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.LoginUrlInfo): LoginUrlInfoDto {
+    fun map(dto: TdApi.LoginUrlInfo): LoginUrlInfoDto {
         when(dto) {
             is TdApi.LoginUrlInfoOpen -> {
                 return LoginUrlInfoDto.Open(
@@ -15752,7 +15752,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: LoginUrlInfoDto): TdApi.LoginUrlInfo {
+    fun map(dto: LoginUrlInfoDto): TdApi.LoginUrlInfo {
         when(dto) {
             is LoginUrlInfoDto.Open -> {
                 return TdApi.LoginUrlInfoOpen(
@@ -15771,7 +15771,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.MaskPoint): MaskPointDto {
+    fun map(dto: TdApi.MaskPoint): MaskPointDto {
         when(dto) {
             is TdApi.MaskPointForehead -> {
                 return MaskPointDto.Forehead(
@@ -15793,7 +15793,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: MaskPointDto): TdApi.MaskPoint {
+    fun map(dto: MaskPointDto): TdApi.MaskPoint {
         when(dto) {
             is MaskPointDto.Forehead -> {
                 return TdApi.MaskPointForehead(
@@ -15814,7 +15814,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.MessageContent): MessageContentDto {
+    fun map(dto: TdApi.MessageContent): MessageContentDto {
         when(dto) {
             is TdApi.MessageText -> {
                 return MessageContentDto.Text(
@@ -16366,7 +16366,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: MessageContentDto): TdApi.MessageContent {
+    fun map(dto: MessageContentDto): TdApi.MessageContent {
         when(dto) {
             is MessageContentDto.Text -> {
                 return TdApi.MessageText(
@@ -16917,7 +16917,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.MessageEffectType): MessageEffectTypeDto {
+    fun map(dto: TdApi.MessageEffectType): MessageEffectTypeDto {
         when(dto) {
             is TdApi.MessageEffectTypeEmojiReaction -> {
                 return MessageEffectTypeDto.EmojiReaction(
@@ -16934,7 +16934,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: MessageEffectTypeDto): TdApi.MessageEffectType {
+    fun map(dto: MessageEffectTypeDto): TdApi.MessageEffectType {
         when(dto) {
             is MessageEffectTypeDto.EmojiReaction -> {
                 return TdApi.MessageEffectTypeEmojiReaction(
@@ -16950,7 +16950,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.MessageFileType): MessageFileTypeDto {
+    fun map(dto: TdApi.MessageFileType): MessageFileTypeDto {
         when(dto) {
             is TdApi.MessageFileTypePrivate -> {
                 return MessageFileTypeDto.Private(
@@ -16970,7 +16970,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: MessageFileTypeDto): TdApi.MessageFileType {
+    fun map(dto: MessageFileTypeDto): TdApi.MessageFileType {
         when(dto) {
             is MessageFileTypeDto.Private -> {
                 return TdApi.MessageFileTypePrivate(
@@ -16989,7 +16989,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.MessageOrigin): MessageOriginDto {
+    fun map(dto: TdApi.MessageOrigin): MessageOriginDto {
         when(dto) {
             is TdApi.MessageOriginUser -> {
                 return MessageOriginDto.User(
@@ -17018,7 +17018,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: MessageOriginDto): TdApi.MessageOrigin {
+    fun map(dto: MessageOriginDto): TdApi.MessageOrigin {
         when(dto) {
             is MessageOriginDto.User -> {
                 return TdApi.MessageOriginUser(
@@ -17046,7 +17046,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.MessageReadDate): MessageReadDateDto {
+    fun map(dto: TdApi.MessageReadDate): MessageReadDateDto {
         when(dto) {
             is TdApi.MessageReadDateRead -> {
                 return MessageReadDateDto.Read(
@@ -17073,7 +17073,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: MessageReadDateDto): TdApi.MessageReadDate {
+    fun map(dto: MessageReadDateDto): TdApi.MessageReadDate {
         when(dto) {
             is MessageReadDateDto.Read -> {
                 return TdApi.MessageReadDateRead(
@@ -17099,7 +17099,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.MessageReplyTo): MessageReplyToDto {
+    fun map(dto: TdApi.MessageReplyTo): MessageReplyToDto {
         when(dto) {
             is TdApi.MessageReplyToMessage -> {
                 return MessageReplyToDto.Message(
@@ -17121,7 +17121,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: MessageReplyToDto): TdApi.MessageReplyTo {
+    fun map(dto: MessageReplyToDto): TdApi.MessageReplyTo {
         when(dto) {
             is MessageReplyToDto.Message -> {
                 return TdApi.MessageReplyToMessage(
@@ -17142,7 +17142,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.MessageSchedulingState): MessageSchedulingStateDto {
+    fun map(dto: TdApi.MessageSchedulingState): MessageSchedulingStateDto {
         when(dto) {
             is TdApi.MessageSchedulingStateSendAtDate -> {
                 return MessageSchedulingStateDto.SendAtDate(
@@ -17162,7 +17162,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: MessageSchedulingStateDto): TdApi.MessageSchedulingState {
+    fun map(dto: MessageSchedulingStateDto): TdApi.MessageSchedulingState {
         when(dto) {
             is MessageSchedulingStateDto.SendAtDate -> {
                 return TdApi.MessageSchedulingStateSendAtDate(
@@ -17181,7 +17181,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.MessageSelfDestructType): MessageSelfDestructTypeDto {
+    fun map(dto: TdApi.MessageSelfDestructType): MessageSelfDestructTypeDto {
         when(dto) {
             is TdApi.MessageSelfDestructTypeTimer -> {
                 return MessageSelfDestructTypeDto.Timer(
@@ -17196,7 +17196,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: MessageSelfDestructTypeDto): TdApi.MessageSelfDestructType {
+    fun map(dto: MessageSelfDestructTypeDto): TdApi.MessageSelfDestructType {
         when(dto) {
             is MessageSelfDestructTypeDto.Timer -> {
                 return TdApi.MessageSelfDestructTypeTimer(
@@ -17210,7 +17210,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.MessageSender): MessageSenderDto {
+    fun map(dto: TdApi.MessageSender): MessageSenderDto {
         when(dto) {
             is TdApi.MessageSenderUser -> {
                 return MessageSenderDto.User(
@@ -17226,7 +17226,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: MessageSenderDto): TdApi.MessageSender {
+    fun map(dto: MessageSenderDto): TdApi.MessageSender {
         when(dto) {
             is MessageSenderDto.User -> {
                 return TdApi.MessageSenderUser(
@@ -17241,7 +17241,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.MessageSendingState): MessageSendingStateDto {
+    fun map(dto: TdApi.MessageSendingState): MessageSendingStateDto {
         when(dto) {
             is TdApi.MessageSendingStatePending -> {
                 return MessageSendingStateDto.Pending(
@@ -17263,7 +17263,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: MessageSendingStateDto): TdApi.MessageSendingState {
+    fun map(dto: MessageSendingStateDto): TdApi.MessageSendingState {
         when(dto) {
             is MessageSendingStateDto.Pending -> {
                 return TdApi.MessageSendingStatePending(
@@ -17284,7 +17284,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.MessageSource): MessageSourceDto {
+    fun map(dto: TdApi.MessageSource): MessageSourceDto {
         when(dto) {
             is TdApi.MessageSourceChatHistory -> {
                 return MessageSourceDto.ChatHistory(
@@ -17330,7 +17330,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: MessageSourceDto): TdApi.MessageSource {
+    fun map(dto: MessageSourceDto): TdApi.MessageSource {
         when(dto) {
             is MessageSourceDto.ChatHistory -> {
                 return TdApi.MessageSourceChatHistory(
@@ -17375,7 +17375,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.NetworkStatisticsEntry): NetworkStatisticsEntryDto {
+    fun map(dto: TdApi.NetworkStatisticsEntry): NetworkStatisticsEntryDto {
         when(dto) {
             is TdApi.NetworkStatisticsEntryFile -> {
                 return NetworkStatisticsEntryDto.File(
@@ -17397,7 +17397,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: NetworkStatisticsEntryDto): TdApi.NetworkStatisticsEntry {
+    fun map(dto: NetworkStatisticsEntryDto): TdApi.NetworkStatisticsEntry {
         when(dto) {
             is NetworkStatisticsEntryDto.File -> {
                 return TdApi.NetworkStatisticsEntryFile(
@@ -17418,7 +17418,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.NetworkType): NetworkTypeDto {
+    fun map(dto: TdApi.NetworkType): NetworkTypeDto {
         when(dto) {
             is TdApi.NetworkTypeNone -> {
                 return NetworkTypeDto.None(
@@ -17444,7 +17444,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: NetworkTypeDto): TdApi.NetworkType {
+    fun map(dto: NetworkTypeDto): TdApi.NetworkType {
         when(dto) {
             is NetworkTypeDto.None -> {
                 return TdApi.NetworkTypeNone(
@@ -17469,7 +17469,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.NotificationGroupType): NotificationGroupTypeDto {
+    fun map(dto: TdApi.NotificationGroupType): NotificationGroupTypeDto {
         when(dto) {
             is TdApi.NotificationGroupTypeMessages -> {
                 return NotificationGroupTypeDto.Messages(
@@ -17491,7 +17491,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: NotificationGroupTypeDto): TdApi.NotificationGroupType {
+    fun map(dto: NotificationGroupTypeDto): TdApi.NotificationGroupType {
         when(dto) {
             is NotificationGroupTypeDto.Messages -> {
                 return TdApi.NotificationGroupTypeMessages(
@@ -17512,7 +17512,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.NotificationSettingsScope): NotificationSettingsScopeDto {
+    fun map(dto: TdApi.NotificationSettingsScope): NotificationSettingsScopeDto {
         when(dto) {
             is TdApi.NotificationSettingsScopePrivateChats -> {
                 return NotificationSettingsScopeDto.PrivateChats(
@@ -17530,7 +17530,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: NotificationSettingsScopeDto): TdApi.NotificationSettingsScope {
+    fun map(dto: NotificationSettingsScopeDto): TdApi.NotificationSettingsScope {
         when(dto) {
             is NotificationSettingsScopeDto.PrivateChats -> {
                 return TdApi.NotificationSettingsScopePrivateChats(
@@ -17547,7 +17547,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.NotificationType): NotificationTypeDto {
+    fun map(dto: TdApi.NotificationType): NotificationTypeDto {
         when(dto) {
             is TdApi.NotificationTypeNewMessage -> {
                 return NotificationTypeDto.NewMessage(
@@ -17577,7 +17577,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: NotificationTypeDto): TdApi.NotificationType {
+    fun map(dto: NotificationTypeDto): TdApi.NotificationType {
         when(dto) {
             is NotificationTypeDto.NewMessage -> {
                 return TdApi.NotificationTypeNewMessage(
@@ -17606,7 +17606,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.OptionValue): OptionValueDto {
+    fun map(dto: TdApi.OptionValue): OptionValueDto {
         when(dto) {
             is TdApi.OptionValueBoolean -> {
                 return OptionValueDto.Boolean(
@@ -17631,7 +17631,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: OptionValueDto): TdApi.OptionValue {
+    fun map(dto: OptionValueDto): TdApi.OptionValue {
         when(dto) {
             is OptionValueDto.Boolean -> {
                 return TdApi.OptionValueBoolean(
@@ -17655,7 +17655,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.PageBlock): PageBlockDto {
+    fun map(dto: TdApi.PageBlock): PageBlockDto {
         when(dto) {
             is TdApi.PageBlockTitle -> {
                 return PageBlockDto.Title(
@@ -17845,7 +17845,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: PageBlockDto): TdApi.PageBlock {
+    fun map(dto: PageBlockDto): TdApi.PageBlock {
         when(dto) {
             is PageBlockDto.Title -> {
                 return TdApi.PageBlockTitle(
@@ -18034,7 +18034,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.PageBlockHorizontalAlignment): PageBlockHorizontalAlignmentDto {
+    fun map(dto: TdApi.PageBlockHorizontalAlignment): PageBlockHorizontalAlignmentDto {
         when(dto) {
             is TdApi.PageBlockHorizontalAlignmentLeft -> {
                 return PageBlockHorizontalAlignmentDto.Left(
@@ -18052,7 +18052,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: PageBlockHorizontalAlignmentDto): TdApi.PageBlockHorizontalAlignment {
+    fun map(dto: PageBlockHorizontalAlignmentDto): TdApi.PageBlockHorizontalAlignment {
         when(dto) {
             is PageBlockHorizontalAlignmentDto.Left -> {
                 return TdApi.PageBlockHorizontalAlignmentLeft(
@@ -18069,7 +18069,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.PageBlockVerticalAlignment): PageBlockVerticalAlignmentDto {
+    fun map(dto: TdApi.PageBlockVerticalAlignment): PageBlockVerticalAlignmentDto {
         when(dto) {
             is TdApi.PageBlockVerticalAlignmentTop -> {
                 return PageBlockVerticalAlignmentDto.Top(
@@ -18087,7 +18087,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: PageBlockVerticalAlignmentDto): TdApi.PageBlockVerticalAlignment {
+    fun map(dto: PageBlockVerticalAlignmentDto): TdApi.PageBlockVerticalAlignment {
         when(dto) {
             is PageBlockVerticalAlignmentDto.Top -> {
                 return TdApi.PageBlockVerticalAlignmentTop(
@@ -18104,7 +18104,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.PaidMedia): PaidMediaDto {
+    fun map(dto: TdApi.PaidMedia): PaidMediaDto {
         when(dto) {
             is TdApi.PaidMediaPreview -> {
                 return PaidMediaDto.Preview(
@@ -18134,7 +18134,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: PaidMediaDto): TdApi.PaidMedia {
+    fun map(dto: PaidMediaDto): TdApi.PaidMedia {
         when(dto) {
             is PaidMediaDto.Preview -> {
                 return TdApi.PaidMediaPreview(
@@ -18163,7 +18163,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.PaidReactionType): PaidReactionTypeDto {
+    fun map(dto: TdApi.PaidReactionType): PaidReactionTypeDto {
         when(dto) {
             is TdApi.PaidReactionTypeRegular -> {
                 return PaidReactionTypeDto.Regular(
@@ -18182,7 +18182,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: PaidReactionTypeDto): TdApi.PaidReactionType {
+    fun map(dto: PaidReactionTypeDto): TdApi.PaidReactionType {
         when(dto) {
             is PaidReactionTypeDto.Regular -> {
                 return TdApi.PaidReactionTypeRegular(
@@ -18200,7 +18200,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.PassportElement): PassportElementDto {
+    fun map(dto: TdApi.PassportElement): PassportElementDto {
         when(dto) {
             is TdApi.PassportElementPersonalDetails -> {
                 return PassportElementDto.PersonalDetails(
@@ -18271,7 +18271,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: PassportElementDto): TdApi.PassportElement {
+    fun map(dto: PassportElementDto): TdApi.PassportElement {
         when(dto) {
             is PassportElementDto.PersonalDetails -> {
                 return TdApi.PassportElementPersonalDetails(
@@ -18341,7 +18341,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.PassportElementErrorSource): PassportElementErrorSourceDto {
+    fun map(dto: TdApi.PassportElementErrorSource): PassportElementErrorSourceDto {
         when(dto) {
             is TdApi.PassportElementErrorSourceUnspecified -> {
                 return PassportElementErrorSourceDto.Unspecified(
@@ -18386,7 +18386,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: PassportElementErrorSourceDto): TdApi.PassportElementErrorSource {
+    fun map(dto: PassportElementErrorSourceDto): TdApi.PassportElementErrorSource {
         when(dto) {
             is PassportElementErrorSourceDto.Unspecified -> {
                 return TdApi.PassportElementErrorSourceUnspecified(
@@ -18430,7 +18430,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.PassportElementType): PassportElementTypeDto {
+    fun map(dto: TdApi.PassportElementType): PassportElementTypeDto {
         when(dto) {
             is TdApi.PassportElementTypePersonalDetails -> {
                 return PassportElementTypeDto.PersonalDetails(
@@ -18488,7 +18488,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: PassportElementTypeDto): TdApi.PassportElementType {
+    fun map(dto: PassportElementTypeDto): TdApi.PassportElementType {
         when(dto) {
             is PassportElementTypeDto.PersonalDetails -> {
                 return TdApi.PassportElementTypePersonalDetails(
@@ -18545,7 +18545,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.PaymentFormType): PaymentFormTypeDto {
+    fun map(dto: TdApi.PaymentFormType): PaymentFormTypeDto {
         when(dto) {
             is TdApi.PaymentFormTypeRegular -> {
                 return PaymentFormTypeDto.Regular(
@@ -18573,7 +18573,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: PaymentFormTypeDto): TdApi.PaymentFormType {
+    fun map(dto: PaymentFormTypeDto): TdApi.PaymentFormType {
         when(dto) {
             is PaymentFormTypeDto.Regular -> {
                 return TdApi.PaymentFormTypeRegular(
@@ -18600,7 +18600,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.PaymentProvider): PaymentProviderDto {
+    fun map(dto: TdApi.PaymentProvider): PaymentProviderDto {
         when(dto) {
             is TdApi.PaymentProviderSmartGlocal -> {
                 return PaymentProviderDto.SmartGlocal(
@@ -18625,7 +18625,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: PaymentProviderDto): TdApi.PaymentProvider {
+    fun map(dto: PaymentProviderDto): TdApi.PaymentProvider {
         when(dto) {
             is PaymentProviderDto.SmartGlocal -> {
                 return TdApi.PaymentProviderSmartGlocal(
@@ -18649,7 +18649,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.PaymentReceiptType): PaymentReceiptTypeDto {
+    fun map(dto: TdApi.PaymentReceiptType): PaymentReceiptTypeDto {
         when(dto) {
             is TdApi.PaymentReceiptTypeRegular -> {
                 return PaymentReceiptTypeDto.Regular(
@@ -18671,7 +18671,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: PaymentReceiptTypeDto): TdApi.PaymentReceiptType {
+    fun map(dto: PaymentReceiptTypeDto): TdApi.PaymentReceiptType {
         when(dto) {
             is PaymentReceiptTypeDto.Regular -> {
                 return TdApi.PaymentReceiptTypeRegular(
@@ -18692,7 +18692,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.PhoneNumberCodeType): PhoneNumberCodeTypeDto {
+    fun map(dto: TdApi.PhoneNumberCodeType): PhoneNumberCodeTypeDto {
         when(dto) {
             is TdApi.PhoneNumberCodeTypeChange -> {
                 return PhoneNumberCodeTypeDto.Change(
@@ -18711,7 +18711,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: PhoneNumberCodeTypeDto): TdApi.PhoneNumberCodeType {
+    fun map(dto: PhoneNumberCodeTypeDto): TdApi.PhoneNumberCodeType {
         when(dto) {
             is PhoneNumberCodeTypeDto.Change -> {
                 return TdApi.PhoneNumberCodeTypeChange(
@@ -18729,7 +18729,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.PollType): PollTypeDto {
+    fun map(dto: TdApi.PollType): PollTypeDto {
         when(dto) {
             is TdApi.PollTypeRegular -> {
                 return PollTypeDto.Regular(
@@ -18746,7 +18746,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: PollTypeDto): TdApi.PollType {
+    fun map(dto: PollTypeDto): TdApi.PollType {
         when(dto) {
             is PollTypeDto.Regular -> {
                 return TdApi.PollTypeRegular(
@@ -18762,7 +18762,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.PremiumFeature): PremiumFeatureDto {
+    fun map(dto: TdApi.PremiumFeature): PremiumFeatureDto {
         when(dto) {
             is TdApi.PremiumFeatureIncreasedLimits -> {
                 return PremiumFeatureDto.IncreasedLimits(
@@ -18864,7 +18864,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: PremiumFeatureDto): TdApi.PremiumFeature {
+    fun map(dto: PremiumFeatureDto): TdApi.PremiumFeature {
         when(dto) {
             is PremiumFeatureDto.IncreasedLimits -> {
                 return TdApi.PremiumFeatureIncreasedLimits(
@@ -18965,7 +18965,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.PremiumLimitType): PremiumLimitTypeDto {
+    fun map(dto: TdApi.PremiumLimitType): PremiumLimitTypeDto {
         when(dto) {
             is TdApi.PremiumLimitTypeSupergroupCount -> {
                 return PremiumLimitTypeDto.SupergroupCount(
@@ -19047,7 +19047,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: PremiumLimitTypeDto): TdApi.PremiumLimitType {
+    fun map(dto: PremiumLimitTypeDto): TdApi.PremiumLimitType {
         when(dto) {
             is PremiumLimitTypeDto.SupergroupCount -> {
                 return TdApi.PremiumLimitTypeSupergroupCount(
@@ -19128,7 +19128,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.PremiumSource): PremiumSourceDto {
+    fun map(dto: TdApi.PremiumSource): PremiumSourceDto {
         when(dto) {
             is TdApi.PremiumSourceLimitExceeded -> {
                 return PremiumSourceDto.LimitExceeded(
@@ -19163,7 +19163,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: PremiumSourceDto): TdApi.PremiumSource {
+    fun map(dto: PremiumSourceDto): TdApi.PremiumSource {
         when(dto) {
             is PremiumSourceDto.LimitExceeded -> {
                 return TdApi.PremiumSourceLimitExceeded(
@@ -19197,7 +19197,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.PremiumStoryFeature): PremiumStoryFeatureDto {
+    fun map(dto: TdApi.PremiumStoryFeature): PremiumStoryFeatureDto {
         when(dto) {
             is TdApi.PremiumStoryFeaturePriorityOrder -> {
                 return PremiumStoryFeatureDto.PriorityOrder(
@@ -19231,7 +19231,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: PremiumStoryFeatureDto): TdApi.PremiumStoryFeature {
+    fun map(dto: PremiumStoryFeatureDto): TdApi.PremiumStoryFeature {
         when(dto) {
             is PremiumStoryFeatureDto.PriorityOrder -> {
                 return TdApi.PremiumStoryFeaturePriorityOrder(
@@ -19264,7 +19264,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.ProxyType): ProxyTypeDto {
+    fun map(dto: TdApi.ProxyType): ProxyTypeDto {
         when(dto) {
             is TdApi.ProxyTypeSocks5 -> {
                 return ProxyTypeDto.Socks5(
@@ -19288,7 +19288,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: ProxyTypeDto): TdApi.ProxyType {
+    fun map(dto: ProxyTypeDto): TdApi.ProxyType {
         when(dto) {
             is ProxyTypeDto.Socks5 -> {
                 return TdApi.ProxyTypeSocks5(
@@ -19311,7 +19311,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.PublicChatType): PublicChatTypeDto {
+    fun map(dto: TdApi.PublicChatType): PublicChatTypeDto {
         when(dto) {
             is TdApi.PublicChatTypeHasUsername -> {
                 return PublicChatTypeDto.HasUsername(
@@ -19325,7 +19325,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: PublicChatTypeDto): TdApi.PublicChatType {
+    fun map(dto: PublicChatTypeDto): TdApi.PublicChatType {
         when(dto) {
             is PublicChatTypeDto.HasUsername -> {
                 return TdApi.PublicChatTypeHasUsername(
@@ -19338,7 +19338,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.PublicForward): PublicForwardDto {
+    fun map(dto: TdApi.PublicForward): PublicForwardDto {
         when(dto) {
             is TdApi.PublicForwardMessage -> {
                 return PublicForwardDto.Message(
@@ -19354,7 +19354,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: PublicForwardDto): TdApi.PublicForward {
+    fun map(dto: PublicForwardDto): TdApi.PublicForward {
         when(dto) {
             is PublicForwardDto.Message -> {
                 return TdApi.PublicForwardMessage(
@@ -19369,7 +19369,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.PushMessageContent): PushMessageContentDto {
+    fun map(dto: TdApi.PushMessageContent): PushMessageContentDto {
         when(dto) {
             is TdApi.PushMessageContentHidden -> {
                 return PushMessageContentDto.Hidden(
@@ -19606,7 +19606,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: PushMessageContentDto): TdApi.PushMessageContent {
+    fun map(dto: PushMessageContentDto): TdApi.PushMessageContent {
         when(dto) {
             is PushMessageContentDto.Hidden -> {
                 return TdApi.PushMessageContentHidden(
@@ -19842,7 +19842,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.ReactionNotificationSource): ReactionNotificationSourceDto {
+    fun map(dto: TdApi.ReactionNotificationSource): ReactionNotificationSourceDto {
         when(dto) {
             is TdApi.ReactionNotificationSourceNone -> {
                 return ReactionNotificationSourceDto.None(
@@ -19860,7 +19860,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: ReactionNotificationSourceDto): TdApi.ReactionNotificationSource {
+    fun map(dto: ReactionNotificationSourceDto): TdApi.ReactionNotificationSource {
         when(dto) {
             is ReactionNotificationSourceDto.None -> {
                 return TdApi.ReactionNotificationSourceNone(
@@ -19877,7 +19877,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.ReactionType): ReactionTypeDto {
+    fun map(dto: TdApi.ReactionType): ReactionTypeDto {
         when(dto) {
             is TdApi.ReactionTypeEmoji -> {
                 return ReactionTypeDto.Emoji(
@@ -19897,7 +19897,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: ReactionTypeDto): TdApi.ReactionType {
+    fun map(dto: ReactionTypeDto): TdApi.ReactionType {
         when(dto) {
             is ReactionTypeDto.Emoji -> {
                 return TdApi.ReactionTypeEmoji(
@@ -19916,7 +19916,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.ReactionUnavailabilityReason): ReactionUnavailabilityReasonDto {
+    fun map(dto: TdApi.ReactionUnavailabilityReason): ReactionUnavailabilityReasonDto {
         when(dto) {
             is TdApi.ReactionUnavailabilityReasonAnonymousAdministrator -> {
                 return ReactionUnavailabilityReasonDto.AnonymousAdministrator(
@@ -19930,7 +19930,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: ReactionUnavailabilityReasonDto): TdApi.ReactionUnavailabilityReason {
+    fun map(dto: ReactionUnavailabilityReasonDto): TdApi.ReactionUnavailabilityReason {
         when(dto) {
             is ReactionUnavailabilityReasonDto.AnonymousAdministrator -> {
                 return TdApi.ReactionUnavailabilityReasonAnonymousAdministrator(
@@ -19943,7 +19943,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.ReplyMarkup): ReplyMarkupDto {
+    fun map(dto: TdApi.ReplyMarkup): ReplyMarkupDto {
         when(dto) {
             is TdApi.ReplyMarkupRemoveKeyboard -> {
                 return ReplyMarkupDto.RemoveKeyboard(
@@ -19975,7 +19975,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: ReplyMarkupDto): TdApi.ReplyMarkup {
+    fun map(dto: ReplyMarkupDto): TdApi.ReplyMarkup {
         when(dto) {
             is ReplyMarkupDto.RemoveKeyboard -> {
                 return TdApi.ReplyMarkupRemoveKeyboard(
@@ -20006,7 +20006,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.ReportChatResult): ReportChatResultDto {
+    fun map(dto: TdApi.ReportChatResult): ReportChatResultDto {
         when(dto) {
             is TdApi.ReportChatResultOk -> {
                 return ReportChatResultDto.Ok(
@@ -20032,7 +20032,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: ReportChatResultDto): TdApi.ReportChatResult {
+    fun map(dto: ReportChatResultDto): TdApi.ReportChatResult {
         when(dto) {
             is ReportChatResultDto.Ok -> {
                 return TdApi.ReportChatResultOk(
@@ -20057,7 +20057,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.ReportReason): ReportReasonDto {
+    fun map(dto: TdApi.ReportReason): ReportReasonDto {
         when(dto) {
             is TdApi.ReportReasonSpam -> {
                 return ReportReasonDto.Spam(
@@ -20103,7 +20103,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: ReportReasonDto): TdApi.ReportReason {
+    fun map(dto: ReportReasonDto): TdApi.ReportReason {
         when(dto) {
             is ReportReasonDto.Spam -> {
                 return TdApi.ReportReasonSpam(
@@ -20148,7 +20148,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.ReportSponsoredResult): ReportSponsoredResultDto {
+    fun map(dto: TdApi.ReportSponsoredResult): ReportSponsoredResultDto {
         when(dto) {
             is TdApi.ReportSponsoredResultOk -> {
                 return ReportSponsoredResultDto.Ok(
@@ -20176,7 +20176,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: ReportSponsoredResultDto): TdApi.ReportSponsoredResult {
+    fun map(dto: ReportSponsoredResultDto): TdApi.ReportSponsoredResult {
         when(dto) {
             is ReportSponsoredResultDto.Ok -> {
                 return TdApi.ReportSponsoredResultOk(
@@ -20203,7 +20203,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.ReportStoryResult): ReportStoryResultDto {
+    fun map(dto: TdApi.ReportStoryResult): ReportStoryResultDto {
         when(dto) {
             is TdApi.ReportStoryResultOk -> {
                 return ReportStoryResultDto.Ok(
@@ -20225,7 +20225,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: ReportStoryResultDto): TdApi.ReportStoryResult {
+    fun map(dto: ReportStoryResultDto): TdApi.ReportStoryResult {
         when(dto) {
             is ReportStoryResultDto.Ok -> {
                 return TdApi.ReportStoryResultOk(
@@ -20246,7 +20246,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.ResendCodeReason): ResendCodeReasonDto {
+    fun map(dto: TdApi.ResendCodeReason): ResendCodeReasonDto {
         when(dto) {
             is TdApi.ResendCodeReasonUserRequest -> {
                 return ResendCodeReasonDto.UserRequest(
@@ -20261,7 +20261,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: ResendCodeReasonDto): TdApi.ResendCodeReason {
+    fun map(dto: ResendCodeReasonDto): TdApi.ResendCodeReason {
         when(dto) {
             is ResendCodeReasonDto.UserRequest -> {
                 return TdApi.ResendCodeReasonUserRequest(
@@ -20275,7 +20275,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.ResetPasswordResult): ResetPasswordResultDto {
+    fun map(dto: TdApi.ResetPasswordResult): ResetPasswordResultDto {
         when(dto) {
             is TdApi.ResetPasswordResultOk -> {
                 return ResetPasswordResultDto.Ok(
@@ -20295,7 +20295,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: ResetPasswordResultDto): TdApi.ResetPasswordResult {
+    fun map(dto: ResetPasswordResultDto): TdApi.ResetPasswordResult {
         when(dto) {
             is ResetPasswordResultDto.Ok -> {
                 return TdApi.ResetPasswordResultOk(
@@ -20314,7 +20314,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.RevenueWithdrawalState): RevenueWithdrawalStateDto {
+    fun map(dto: TdApi.RevenueWithdrawalState): RevenueWithdrawalStateDto {
         when(dto) {
             is TdApi.RevenueWithdrawalStatePending -> {
                 return RevenueWithdrawalStateDto.Pending(
@@ -20334,7 +20334,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: RevenueWithdrawalStateDto): TdApi.RevenueWithdrawalState {
+    fun map(dto: RevenueWithdrawalStateDto): TdApi.RevenueWithdrawalState {
         when(dto) {
             is RevenueWithdrawalStateDto.Pending -> {
                 return TdApi.RevenueWithdrawalStatePending(
@@ -20353,7 +20353,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.RichText): RichTextDto {
+    fun map(dto: TdApi.RichText): RichTextDto {
         when(dto) {
             is TdApi.RichTextPlain -> {
                 return RichTextDto.Plain(
@@ -20454,7 +20454,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: RichTextDto): TdApi.RichText {
+    fun map(dto: RichTextDto): TdApi.RichText {
         when(dto) {
             is RichTextDto.Plain -> {
                 return TdApi.RichTextPlain(
@@ -20554,7 +20554,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.SavedMessagesTopicType): SavedMessagesTopicTypeDto {
+    fun map(dto: TdApi.SavedMessagesTopicType): SavedMessagesTopicTypeDto {
         when(dto) {
             is TdApi.SavedMessagesTopicTypeMyNotes -> {
                 return SavedMessagesTopicTypeDto.MyNotes(
@@ -20573,7 +20573,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: SavedMessagesTopicTypeDto): TdApi.SavedMessagesTopicType {
+    fun map(dto: SavedMessagesTopicTypeDto): TdApi.SavedMessagesTopicType {
         when(dto) {
             is SavedMessagesTopicTypeDto.MyNotes -> {
                 return TdApi.SavedMessagesTopicTypeMyNotes(
@@ -20591,7 +20591,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.SearchMessagesChatTypeFilter): SearchMessagesChatTypeFilterDto {
+    fun map(dto: TdApi.SearchMessagesChatTypeFilter): SearchMessagesChatTypeFilterDto {
         when(dto) {
             is TdApi.SearchMessagesChatTypeFilterPrivate -> {
                 return SearchMessagesChatTypeFilterDto.Private(
@@ -20609,7 +20609,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: SearchMessagesChatTypeFilterDto): TdApi.SearchMessagesChatTypeFilter {
+    fun map(dto: SearchMessagesChatTypeFilterDto): TdApi.SearchMessagesChatTypeFilter {
         when(dto) {
             is SearchMessagesChatTypeFilterDto.Private -> {
                 return TdApi.SearchMessagesChatTypeFilterPrivate(
@@ -20626,7 +20626,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.SearchMessagesFilter): SearchMessagesFilterDto {
+    fun map(dto: TdApi.SearchMessagesFilter): SearchMessagesFilterDto {
         when(dto) {
             is TdApi.SearchMessagesFilterEmpty -> {
                 return SearchMessagesFilterDto.Empty(
@@ -20700,7 +20700,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: SearchMessagesFilterDto): TdApi.SearchMessagesFilter {
+    fun map(dto: SearchMessagesFilterDto): TdApi.SearchMessagesFilter {
         when(dto) {
             is SearchMessagesFilterDto.Empty -> {
                 return TdApi.SearchMessagesFilterEmpty(
@@ -20773,7 +20773,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.SecretChatState): SecretChatStateDto {
+    fun map(dto: TdApi.SecretChatState): SecretChatStateDto {
         when(dto) {
             is TdApi.SecretChatStatePending -> {
                 return SecretChatStateDto.Pending(
@@ -20791,7 +20791,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: SecretChatStateDto): TdApi.SecretChatState {
+    fun map(dto: SecretChatStateDto): TdApi.SecretChatState {
         when(dto) {
             is SecretChatStateDto.Pending -> {
                 return TdApi.SecretChatStatePending(
@@ -20808,7 +20808,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.SentGift): SentGiftDto {
+    fun map(dto: TdApi.SentGift): SentGiftDto {
         when(dto) {
             is TdApi.SentGiftRegular -> {
                 return SentGiftDto.Regular(
@@ -20824,7 +20824,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: SentGiftDto): TdApi.SentGift {
+    fun map(dto: SentGiftDto): TdApi.SentGift {
         when(dto) {
             is SentGiftDto.Regular -> {
                 return TdApi.SentGiftRegular(
@@ -20839,7 +20839,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.SessionType): SessionTypeDto {
+    fun map(dto: TdApi.SessionType): SessionTypeDto {
         when(dto) {
             is TdApi.SessionTypeAndroid -> {
                 return SessionTypeDto.Android(
@@ -20913,7 +20913,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: SessionTypeDto): TdApi.SessionType {
+    fun map(dto: SessionTypeDto): TdApi.SessionType {
         when(dto) {
             is SessionTypeDto.Android -> {
                 return TdApi.SessionTypeAndroid(
@@ -20986,7 +20986,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.SpeechRecognitionResult): SpeechRecognitionResultDto {
+    fun map(dto: TdApi.SpeechRecognitionResult): SpeechRecognitionResultDto {
         when(dto) {
             is TdApi.SpeechRecognitionResultPending -> {
                 return SpeechRecognitionResultDto.Pending(
@@ -21007,7 +21007,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: SpeechRecognitionResultDto): TdApi.SpeechRecognitionResult {
+    fun map(dto: SpeechRecognitionResultDto): TdApi.SpeechRecognitionResult {
         when(dto) {
             is SpeechRecognitionResultDto.Pending -> {
                 return TdApi.SpeechRecognitionResultPending(
@@ -21027,7 +21027,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.StarSubscriptionType): StarSubscriptionTypeDto {
+    fun map(dto: TdApi.StarSubscriptionType): StarSubscriptionTypeDto {
         when(dto) {
             is TdApi.StarSubscriptionTypeChannel -> {
                 return StarSubscriptionTypeDto.Channel(
@@ -21047,7 +21047,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: StarSubscriptionTypeDto): TdApi.StarSubscriptionType {
+    fun map(dto: StarSubscriptionTypeDto): TdApi.StarSubscriptionType {
         when(dto) {
             is StarSubscriptionTypeDto.Channel -> {
                 return TdApi.StarSubscriptionTypeChannel(
@@ -21066,7 +21066,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.StarTransactionDirection): StarTransactionDirectionDto {
+    fun map(dto: TdApi.StarTransactionDirection): StarTransactionDirectionDto {
         when(dto) {
             is TdApi.StarTransactionDirectionIncoming -> {
                 return StarTransactionDirectionDto.Incoming(
@@ -21080,7 +21080,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: StarTransactionDirectionDto): TdApi.StarTransactionDirection {
+    fun map(dto: StarTransactionDirectionDto): TdApi.StarTransactionDirection {
         when(dto) {
             is StarTransactionDirectionDto.Incoming -> {
                 return TdApi.StarTransactionDirectionIncoming(
@@ -21093,7 +21093,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.StarTransactionType): StarTransactionTypeDto {
+    fun map(dto: TdApi.StarTransactionType): StarTransactionTypeDto {
         when(dto) {
             is TdApi.StarTransactionTypePremiumBotDeposit -> {
                 return StarTransactionTypeDto.PremiumBotDeposit(
@@ -21288,7 +21288,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: StarTransactionTypeDto): TdApi.StarTransactionType {
+    fun map(dto: StarTransactionTypeDto): TdApi.StarTransactionType {
         when(dto) {
             is StarTransactionTypeDto.PremiumBotDeposit -> {
                 return TdApi.StarTransactionTypePremiumBotDeposit(
@@ -21482,7 +21482,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.StatisticalGraph): StatisticalGraphDto {
+    fun map(dto: TdApi.StatisticalGraph): StatisticalGraphDto {
         when(dto) {
             is TdApi.StatisticalGraphData -> {
                 return StatisticalGraphDto.Data(
@@ -21504,7 +21504,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: StatisticalGraphDto): TdApi.StatisticalGraph {
+    fun map(dto: StatisticalGraphDto): TdApi.StatisticalGraph {
         when(dto) {
             is StatisticalGraphDto.Data -> {
                 return TdApi.StatisticalGraphData(
@@ -21525,7 +21525,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.StickerFormat): StickerFormatDto {
+    fun map(dto: TdApi.StickerFormat): StickerFormatDto {
         when(dto) {
             is TdApi.StickerFormatWebp -> {
                 return StickerFormatDto.Webp(
@@ -21543,7 +21543,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: StickerFormatDto): TdApi.StickerFormat {
+    fun map(dto: StickerFormatDto): TdApi.StickerFormat {
         when(dto) {
             is StickerFormatDto.Webp -> {
                 return TdApi.StickerFormatWebp(
@@ -21560,7 +21560,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.StickerFullType): StickerFullTypeDto {
+    fun map(dto: TdApi.StickerFullType): StickerFullTypeDto {
         when(dto) {
             is TdApi.StickerFullTypeRegular -> {
                 return StickerFullTypeDto.Regular(
@@ -21582,7 +21582,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: StickerFullTypeDto): TdApi.StickerFullType {
+    fun map(dto: StickerFullTypeDto): TdApi.StickerFullType {
         when(dto) {
             is StickerFullTypeDto.Regular -> {
                 return TdApi.StickerFullTypeRegular(
@@ -21603,7 +21603,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.StickerType): StickerTypeDto {
+    fun map(dto: TdApi.StickerType): StickerTypeDto {
         when(dto) {
             is TdApi.StickerTypeRegular -> {
                 return StickerTypeDto.Regular(
@@ -21621,7 +21621,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: StickerTypeDto): TdApi.StickerType {
+    fun map(dto: StickerTypeDto): TdApi.StickerType {
         when(dto) {
             is StickerTypeDto.Regular -> {
                 return TdApi.StickerTypeRegular(
@@ -21638,7 +21638,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.StorePaymentPurpose): StorePaymentPurposeDto {
+    fun map(dto: TdApi.StorePaymentPurpose): StorePaymentPurposeDto {
         when(dto) {
             is TdApi.StorePaymentPurposePremiumSubscription -> {
                 return StorePaymentPurposeDto.PremiumSubscription(
@@ -21698,7 +21698,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: StorePaymentPurposeDto): TdApi.StorePaymentPurpose {
+    fun map(dto: StorePaymentPurposeDto): TdApi.StorePaymentPurpose {
         when(dto) {
             is StorePaymentPurposeDto.PremiumSubscription -> {
                 return TdApi.StorePaymentPurposePremiumSubscription(
@@ -21757,7 +21757,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.StoreTransaction): StoreTransactionDto {
+    fun map(dto: TdApi.StoreTransaction): StoreTransactionDto {
         when(dto) {
             is TdApi.StoreTransactionAppStore -> {
                 return StoreTransactionDto.AppStore(
@@ -21775,7 +21775,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: StoreTransactionDto): TdApi.StoreTransaction {
+    fun map(dto: StoreTransactionDto): TdApi.StoreTransaction {
         when(dto) {
             is StoreTransactionDto.AppStore -> {
                 return TdApi.StoreTransactionAppStore(
@@ -21792,7 +21792,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.StoryAreaType): StoryAreaTypeDto {
+    fun map(dto: TdApi.StoryAreaType): StoryAreaTypeDto {
         when(dto) {
             is TdApi.StoryAreaTypeLocation -> {
                 return StoryAreaTypeDto.Location(
@@ -21840,7 +21840,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: StoryAreaTypeDto): TdApi.StoryAreaType {
+    fun map(dto: StoryAreaTypeDto): TdApi.StoryAreaType {
         when(dto) {
             is StoryAreaTypeDto.Location -> {
                 return TdApi.StoryAreaTypeLocation(
@@ -21887,7 +21887,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.StoryContent): StoryContentDto {
+    fun map(dto: TdApi.StoryContent): StoryContentDto {
         when(dto) {
             is TdApi.StoryContentPhoto -> {
                 return StoryContentDto.Photo(
@@ -21908,7 +21908,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: StoryContentDto): TdApi.StoryContent {
+    fun map(dto: StoryContentDto): TdApi.StoryContent {
         when(dto) {
             is StoryContentDto.Photo -> {
                 return TdApi.StoryContentPhoto(
@@ -21928,7 +21928,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.StoryInteractionType): StoryInteractionTypeDto {
+    fun map(dto: TdApi.StoryInteractionType): StoryInteractionTypeDto {
         when(dto) {
             is TdApi.StoryInteractionTypeView -> {
                 return StoryInteractionTypeDto.View(
@@ -21949,7 +21949,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: StoryInteractionTypeDto): TdApi.StoryInteractionType {
+    fun map(dto: StoryInteractionTypeDto): TdApi.StoryInteractionType {
         when(dto) {
             is StoryInteractionTypeDto.View -> {
                 return TdApi.StoryInteractionTypeView(
@@ -21969,7 +21969,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.StoryList): StoryListDto {
+    fun map(dto: TdApi.StoryList): StoryListDto {
         when(dto) {
             is TdApi.StoryListMain -> {
                 return StoryListDto.Main(
@@ -21983,7 +21983,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: StoryListDto): TdApi.StoryList {
+    fun map(dto: StoryListDto): TdApi.StoryList {
         when(dto) {
             is StoryListDto.Main -> {
                 return TdApi.StoryListMain(
@@ -21996,7 +21996,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.StoryOrigin): StoryOriginDto {
+    fun map(dto: TdApi.StoryOrigin): StoryOriginDto {
         when(dto) {
             is TdApi.StoryOriginPublicStory -> {
                 return StoryOriginDto.PublicStory(
@@ -22013,7 +22013,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: StoryOriginDto): TdApi.StoryOrigin {
+    fun map(dto: StoryOriginDto): TdApi.StoryOrigin {
         when(dto) {
             is StoryOriginDto.PublicStory -> {
                 return TdApi.StoryOriginPublicStory(
@@ -22029,7 +22029,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.StoryPrivacySettings): StoryPrivacySettingsDto {
+    fun map(dto: TdApi.StoryPrivacySettings): StoryPrivacySettingsDto {
         when(dto) {
             is TdApi.StoryPrivacySettingsEveryone -> {
                 return StoryPrivacySettingsDto.Everyone(
@@ -22054,7 +22054,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: StoryPrivacySettingsDto): TdApi.StoryPrivacySettings {
+    fun map(dto: StoryPrivacySettingsDto): TdApi.StoryPrivacySettings {
         when(dto) {
             is StoryPrivacySettingsDto.Everyone -> {
                 return TdApi.StoryPrivacySettingsEveryone(
@@ -22078,7 +22078,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.SuggestedAction): SuggestedActionDto {
+    fun map(dto: TdApi.SuggestedAction): SuggestedActionDto {
         when(dto) {
             is TdApi.SuggestedActionEnableArchiveAndMuteNewChats -> {
                 return SuggestedActionDto.EnableArchiveAndMuteNewChats(
@@ -22143,7 +22143,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: SuggestedActionDto): TdApi.SuggestedAction {
+    fun map(dto: SuggestedActionDto): TdApi.SuggestedAction {
         when(dto) {
             is SuggestedActionDto.EnableArchiveAndMuteNewChats -> {
                 return TdApi.SuggestedActionEnableArchiveAndMuteNewChats(
@@ -22207,7 +22207,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.SupergroupMembersFilter): SupergroupMembersFilterDto {
+    fun map(dto: TdApi.SupergroupMembersFilter): SupergroupMembersFilterDto {
         when(dto) {
             is TdApi.SupergroupMembersFilterRecent -> {
                 return SupergroupMembersFilterDto.Recent(
@@ -22251,7 +22251,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: SupergroupMembersFilterDto): TdApi.SupergroupMembersFilter {
+    fun map(dto: SupergroupMembersFilterDto): TdApi.SupergroupMembersFilter {
         when(dto) {
             is SupergroupMembersFilterDto.Recent -> {
                 return TdApi.SupergroupMembersFilterRecent(
@@ -22294,7 +22294,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.TMeUrlType): TMeUrlTypeDto {
+    fun map(dto: TdApi.TMeUrlType): TMeUrlTypeDto {
         when(dto) {
             is TdApi.TMeUrlTypeUser -> {
                 return TMeUrlTypeDto.User(
@@ -22320,7 +22320,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TMeUrlTypeDto): TdApi.TMeUrlType {
+    fun map(dto: TMeUrlTypeDto): TdApi.TMeUrlType {
         when(dto) {
             is TMeUrlTypeDto.User -> {
                 return TdApi.TMeUrlTypeUser(
@@ -22345,7 +22345,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.TargetChat): TargetChatDto {
+    fun map(dto: TdApi.TargetChat): TargetChatDto {
         when(dto) {
             is TdApi.TargetChatCurrent -> {
                 return TargetChatDto.Current(
@@ -22365,7 +22365,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TargetChatDto): TdApi.TargetChat {
+    fun map(dto: TargetChatDto): TdApi.TargetChat {
         when(dto) {
             is TargetChatDto.Current -> {
                 return TdApi.TargetChatCurrent(
@@ -22384,7 +22384,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.TelegramPaymentPurpose): TelegramPaymentPurposeDto {
+    fun map(dto: TdApi.TelegramPaymentPurpose): TelegramPaymentPurposeDto {
         when(dto) {
             is TdApi.TelegramPaymentPurposePremiumGift -> {
                 return TelegramPaymentPurposeDto.PremiumGift(
@@ -22447,7 +22447,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TelegramPaymentPurposeDto): TdApi.TelegramPaymentPurpose {
+    fun map(dto: TelegramPaymentPurposeDto): TdApi.TelegramPaymentPurpose {
         when(dto) {
             is TelegramPaymentPurposeDto.PremiumGift -> {
                 return TdApi.TelegramPaymentPurposePremiumGift(
@@ -22509,7 +22509,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.TextEntityType): TextEntityTypeDto {
+    fun map(dto: TdApi.TextEntityType): TextEntityTypeDto {
         when(dto) {
             is TdApi.TextEntityTypeMention -> {
                 return TextEntityTypeDto.Mention(
@@ -22608,7 +22608,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TextEntityTypeDto): TdApi.TextEntityType {
+    fun map(dto: TextEntityTypeDto): TdApi.TextEntityType {
         when(dto) {
             is TextEntityTypeDto.Mention -> {
                 return TdApi.TextEntityTypeMention(
@@ -22706,7 +22706,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.TextParseMode): TextParseModeDto {
+    fun map(dto: TdApi.TextParseMode): TextParseModeDto {
         when(dto) {
             is TdApi.TextParseModeMarkdown -> {
                 return TextParseModeDto.Markdown(
@@ -22721,7 +22721,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TextParseModeDto): TdApi.TextParseMode {
+    fun map(dto: TextParseModeDto): TdApi.TextParseMode {
         when(dto) {
             is TextParseModeDto.Markdown -> {
                 return TdApi.TextParseModeMarkdown(
@@ -22735,7 +22735,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.ThumbnailFormat): ThumbnailFormatDto {
+    fun map(dto: TdApi.ThumbnailFormat): ThumbnailFormatDto {
         when(dto) {
             is TdApi.ThumbnailFormatJpeg -> {
                 return ThumbnailFormatDto.Jpeg(
@@ -22769,7 +22769,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: ThumbnailFormatDto): TdApi.ThumbnailFormat {
+    fun map(dto: ThumbnailFormatDto): TdApi.ThumbnailFormat {
         when(dto) {
             is ThumbnailFormatDto.Jpeg -> {
                 return TdApi.ThumbnailFormatJpeg(
@@ -22802,7 +22802,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.TopChatCategory): TopChatCategoryDto {
+    fun map(dto: TdApi.TopChatCategory): TopChatCategoryDto {
         when(dto) {
             is TdApi.TopChatCategoryUsers -> {
                 return TopChatCategoryDto.Users(
@@ -22840,7 +22840,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TopChatCategoryDto): TdApi.TopChatCategory {
+    fun map(dto: TopChatCategoryDto): TdApi.TopChatCategory {
         when(dto) {
             is TopChatCategoryDto.Users -> {
                 return TdApi.TopChatCategoryUsers(
@@ -22877,7 +22877,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.UserPrivacySetting): UserPrivacySettingDto {
+    fun map(dto: TdApi.UserPrivacySetting): UserPrivacySettingDto {
         when(dto) {
             is TdApi.UserPrivacySettingShowStatus -> {
                 return UserPrivacySettingDto.ShowStatus(
@@ -22935,7 +22935,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: UserPrivacySettingDto): TdApi.UserPrivacySetting {
+    fun map(dto: UserPrivacySettingDto): TdApi.UserPrivacySetting {
         when(dto) {
             is UserPrivacySettingDto.ShowStatus -> {
                 return TdApi.UserPrivacySettingShowStatus(
@@ -22992,7 +22992,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.UserPrivacySettingRule): UserPrivacySettingRuleDto {
+    fun map(dto: TdApi.UserPrivacySettingRule): UserPrivacySettingRuleDto {
         when(dto) {
             is TdApi.UserPrivacySettingRuleAllowAll -> {
                 return UserPrivacySettingRuleDto.AllowAll(
@@ -23046,7 +23046,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: UserPrivacySettingRuleDto): TdApi.UserPrivacySettingRule {
+    fun map(dto: UserPrivacySettingRuleDto): TdApi.UserPrivacySettingRule {
         when(dto) {
             is UserPrivacySettingRuleDto.AllowAll -> {
                 return TdApi.UserPrivacySettingRuleAllowAll(
@@ -23099,7 +23099,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.UserStatus): UserStatusDto {
+    fun map(dto: TdApi.UserStatus): UserStatusDto {
         when(dto) {
             is TdApi.UserStatusEmpty -> {
                 return UserStatusDto.Empty(
@@ -23134,7 +23134,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: UserStatusDto): TdApi.UserStatus {
+    fun map(dto: UserStatusDto): TdApi.UserStatus {
         when(dto) {
             is UserStatusDto.Empty -> {
                 return TdApi.UserStatusEmpty(
@@ -23168,7 +23168,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.UserType): UserTypeDto {
+    fun map(dto: TdApi.UserType): UserTypeDto {
         when(dto) {
             is TdApi.UserTypeRegular -> {
                 return UserTypeDto.Regular(
@@ -23200,7 +23200,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: UserTypeDto): TdApi.UserType {
+    fun map(dto: UserTypeDto): TdApi.UserType {
         when(dto) {
             is UserTypeDto.Regular -> {
                 return TdApi.UserTypeRegular(
@@ -23231,7 +23231,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.VectorPathCommand): VectorPathCommandDto {
+    fun map(dto: TdApi.VectorPathCommand): VectorPathCommandDto {
         when(dto) {
             is TdApi.VectorPathCommandLine -> {
                 return VectorPathCommandDto.Line(
@@ -23249,7 +23249,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: VectorPathCommandDto): TdApi.VectorPathCommand {
+    fun map(dto: VectorPathCommandDto): TdApi.VectorPathCommand {
         when(dto) {
             is VectorPathCommandDto.Line -> {
                 return TdApi.VectorPathCommandLine(
@@ -23266,7 +23266,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.WebAppOpenMode): WebAppOpenModeDto {
+    fun map(dto: TdApi.WebAppOpenMode): WebAppOpenModeDto {
         when(dto) {
             is TdApi.WebAppOpenModeCompact -> {
                 return WebAppOpenModeDto.Compact(
@@ -23284,7 +23284,7 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: WebAppOpenModeDto): TdApi.WebAppOpenMode {
+    fun map(dto: WebAppOpenModeDto): TdApi.WebAppOpenMode {
         when(dto) {
             is WebAppOpenModeDto.Compact -> {
                 return TdApi.WebAppOpenModeCompact(
@@ -23301,59 +23301,59 @@ internal class TdlMapper {
         }
     }
 
-    public fun map(dto: TdApi.UpdateAuthorizationState): AuthorizationStateUpdateDto {
+    fun map(dto: TdApi.UpdateAuthorizationState): AuthorizationStateUpdateDto {
         return AuthorizationStateUpdateDto(
             authorizationState = map(dto.authorizationState),
         )
     }
 
-    public fun map(dto: AuthorizationStateUpdateDto): TdApi.UpdateAuthorizationState {
+    fun map(dto: AuthorizationStateUpdateDto): TdApi.UpdateAuthorizationState {
         return TdApi.UpdateAuthorizationState(
             authorizationState = map(dto.authorizationState),
         )
     }
 
-    public fun map(dto: TdApi.UpdateNewMessage): NewMessageUpdateDto {
+    fun map(dto: TdApi.UpdateNewMessage): NewMessageUpdateDto {
         return NewMessageUpdateDto(
             message = map(dto.message),
         )
     }
 
-    public fun map(dto: NewMessageUpdateDto): TdApi.UpdateNewMessage {
+    fun map(dto: NewMessageUpdateDto): TdApi.UpdateNewMessage {
         return TdApi.UpdateNewMessage(
             message = map(dto.message),
         )
     }
 
-    public fun map(dto: TdApi.UpdateMessageSendAcknowledged): MessageSendAcknowledgedUpdateDto {
+    fun map(dto: TdApi.UpdateMessageSendAcknowledged): MessageSendAcknowledgedUpdateDto {
         return MessageSendAcknowledgedUpdateDto(
             chatId = dto.chatId,
             messageId = dto.messageId,
         )
     }
 
-    public fun map(dto: MessageSendAcknowledgedUpdateDto): TdApi.UpdateMessageSendAcknowledged {
+    fun map(dto: MessageSendAcknowledgedUpdateDto): TdApi.UpdateMessageSendAcknowledged {
         return TdApi.UpdateMessageSendAcknowledged(
             chatId = dto.chatId,
             messageId = dto.messageId,
         )
     }
 
-    public fun map(dto: TdApi.UpdateMessageSendSucceeded): MessageSendSucceededUpdateDto {
+    fun map(dto: TdApi.UpdateMessageSendSucceeded): MessageSendSucceededUpdateDto {
         return MessageSendSucceededUpdateDto(
             message = map(dto.message),
             oldMessageId = dto.oldMessageId,
         )
     }
 
-    public fun map(dto: MessageSendSucceededUpdateDto): TdApi.UpdateMessageSendSucceeded {
+    fun map(dto: MessageSendSucceededUpdateDto): TdApi.UpdateMessageSendSucceeded {
         return TdApi.UpdateMessageSendSucceeded(
             message = map(dto.message),
             oldMessageId = dto.oldMessageId,
         )
     }
 
-    public fun map(dto: TdApi.UpdateMessageSendFailed): MessageSendFailedUpdateDto {
+    fun map(dto: TdApi.UpdateMessageSendFailed): MessageSendFailedUpdateDto {
         return MessageSendFailedUpdateDto(
             message = map(dto.message),
             oldMessageId = dto.oldMessageId,
@@ -23361,7 +23361,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: MessageSendFailedUpdateDto): TdApi.UpdateMessageSendFailed {
+    fun map(dto: MessageSendFailedUpdateDto): TdApi.UpdateMessageSendFailed {
         return TdApi.UpdateMessageSendFailed(
             message = map(dto.message),
             oldMessageId = dto.oldMessageId,
@@ -23369,7 +23369,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.UpdateMessageContent): MessageContentUpdateDto {
+    fun map(dto: TdApi.UpdateMessageContent): MessageContentUpdateDto {
         return MessageContentUpdateDto(
             chatId = dto.chatId,
             messageId = dto.messageId,
@@ -23377,7 +23377,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: MessageContentUpdateDto): TdApi.UpdateMessageContent {
+    fun map(dto: MessageContentUpdateDto): TdApi.UpdateMessageContent {
         return TdApi.UpdateMessageContent(
             chatId = dto.chatId,
             messageId = dto.messageId,
@@ -23385,7 +23385,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.UpdateMessageEdited): MessageEditedUpdateDto {
+    fun map(dto: TdApi.UpdateMessageEdited): MessageEditedUpdateDto {
         return MessageEditedUpdateDto(
             chatId = dto.chatId,
             messageId = dto.messageId,
@@ -23394,7 +23394,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: MessageEditedUpdateDto): TdApi.UpdateMessageEdited {
+    fun map(dto: MessageEditedUpdateDto): TdApi.UpdateMessageEdited {
         return TdApi.UpdateMessageEdited(
             chatId = dto.chatId,
             messageId = dto.messageId,
@@ -23403,7 +23403,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.UpdateMessageIsPinned): MessageIsPinnedUpdateDto {
+    fun map(dto: TdApi.UpdateMessageIsPinned): MessageIsPinnedUpdateDto {
         return MessageIsPinnedUpdateDto(
             chatId = dto.chatId,
             messageId = dto.messageId,
@@ -23411,7 +23411,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: MessageIsPinnedUpdateDto): TdApi.UpdateMessageIsPinned {
+    fun map(dto: MessageIsPinnedUpdateDto): TdApi.UpdateMessageIsPinned {
         return TdApi.UpdateMessageIsPinned(
             chatId = dto.chatId,
             messageId = dto.messageId,
@@ -23419,7 +23419,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.UpdateMessageInteractionInfo): MessageInteractionInfoUpdateDto {
+    fun map(dto: TdApi.UpdateMessageInteractionInfo): MessageInteractionInfoUpdateDto {
         return MessageInteractionInfoUpdateDto(
             chatId = dto.chatId,
             messageId = dto.messageId,
@@ -23427,7 +23427,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: MessageInteractionInfoUpdateDto): TdApi.UpdateMessageInteractionInfo {
+    fun map(dto: MessageInteractionInfoUpdateDto): TdApi.UpdateMessageInteractionInfo {
         return TdApi.UpdateMessageInteractionInfo(
             chatId = dto.chatId,
             messageId = dto.messageId,
@@ -23435,21 +23435,21 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.UpdateMessageContentOpened): MessageContentOpenedUpdateDto {
+    fun map(dto: TdApi.UpdateMessageContentOpened): MessageContentOpenedUpdateDto {
         return MessageContentOpenedUpdateDto(
             chatId = dto.chatId,
             messageId = dto.messageId,
         )
     }
 
-    public fun map(dto: MessageContentOpenedUpdateDto): TdApi.UpdateMessageContentOpened {
+    fun map(dto: MessageContentOpenedUpdateDto): TdApi.UpdateMessageContentOpened {
         return TdApi.UpdateMessageContentOpened(
             chatId = dto.chatId,
             messageId = dto.messageId,
         )
     }
 
-    public fun map(dto: TdApi.UpdateMessageMentionRead): MessageMentionReadUpdateDto {
+    fun map(dto: TdApi.UpdateMessageMentionRead): MessageMentionReadUpdateDto {
         return MessageMentionReadUpdateDto(
             chatId = dto.chatId,
             messageId = dto.messageId,
@@ -23457,7 +23457,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: MessageMentionReadUpdateDto): TdApi.UpdateMessageMentionRead {
+    fun map(dto: MessageMentionReadUpdateDto): TdApi.UpdateMessageMentionRead {
         return TdApi.UpdateMessageMentionRead(
             chatId = dto.chatId,
             messageId = dto.messageId,
@@ -23465,7 +23465,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.UpdateMessageUnreadReactions): MessageUnreadReactionsUpdateDto {
+    fun map(dto: TdApi.UpdateMessageUnreadReactions): MessageUnreadReactionsUpdateDto {
         return MessageUnreadReactionsUpdateDto(
             chatId = dto.chatId,
             messageId = dto.messageId,
@@ -23474,7 +23474,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: MessageUnreadReactionsUpdateDto): TdApi.UpdateMessageUnreadReactions {
+    fun map(dto: MessageUnreadReactionsUpdateDto): TdApi.UpdateMessageUnreadReactions {
         return TdApi.UpdateMessageUnreadReactions(
             chatId = dto.chatId,
             messageId = dto.messageId,
@@ -23483,7 +23483,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.UpdateMessageFactCheck): MessageFactCheckUpdateDto {
+    fun map(dto: TdApi.UpdateMessageFactCheck): MessageFactCheckUpdateDto {
         return MessageFactCheckUpdateDto(
             chatId = dto.chatId,
             messageId = dto.messageId,
@@ -23491,7 +23491,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: MessageFactCheckUpdateDto): TdApi.UpdateMessageFactCheck {
+    fun map(dto: MessageFactCheckUpdateDto): TdApi.UpdateMessageFactCheck {
         return TdApi.UpdateMessageFactCheck(
             chatId = dto.chatId,
             messageId = dto.messageId,
@@ -23499,75 +23499,75 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.UpdateMessageLiveLocationViewed): MessageLiveLocationViewedUpdateDto {
+    fun map(dto: TdApi.UpdateMessageLiveLocationViewed): MessageLiveLocationViewedUpdateDto {
         return MessageLiveLocationViewedUpdateDto(
             chatId = dto.chatId,
             messageId = dto.messageId,
         )
     }
 
-    public fun map(dto: MessageLiveLocationViewedUpdateDto): TdApi.UpdateMessageLiveLocationViewed {
+    fun map(dto: MessageLiveLocationViewedUpdateDto): TdApi.UpdateMessageLiveLocationViewed {
         return TdApi.UpdateMessageLiveLocationViewed(
             chatId = dto.chatId,
             messageId = dto.messageId,
         )
     }
 
-    public fun map(dto: TdApi.UpdateVideoPublished): VideoPublishedUpdateDto {
+    fun map(dto: TdApi.UpdateVideoPublished): VideoPublishedUpdateDto {
         return VideoPublishedUpdateDto(
             chatId = dto.chatId,
             messageId = dto.messageId,
         )
     }
 
-    public fun map(dto: VideoPublishedUpdateDto): TdApi.UpdateVideoPublished {
+    fun map(dto: VideoPublishedUpdateDto): TdApi.UpdateVideoPublished {
         return TdApi.UpdateVideoPublished(
             chatId = dto.chatId,
             messageId = dto.messageId,
         )
     }
 
-    public fun map(dto: TdApi.UpdateNewChat): NewChatUpdateDto {
+    fun map(dto: TdApi.UpdateNewChat): NewChatUpdateDto {
         return NewChatUpdateDto(
             chat = map(dto.chat),
         )
     }
 
-    public fun map(dto: NewChatUpdateDto): TdApi.UpdateNewChat {
+    fun map(dto: NewChatUpdateDto): TdApi.UpdateNewChat {
         return TdApi.UpdateNewChat(
             chat = map(dto.chat),
         )
     }
 
-    public fun map(dto: TdApi.UpdateChatTitle): ChatTitleUpdateDto {
+    fun map(dto: TdApi.UpdateChatTitle): ChatTitleUpdateDto {
         return ChatTitleUpdateDto(
             chatId = dto.chatId,
             title = dto.title,
         )
     }
 
-    public fun map(dto: ChatTitleUpdateDto): TdApi.UpdateChatTitle {
+    fun map(dto: ChatTitleUpdateDto): TdApi.UpdateChatTitle {
         return TdApi.UpdateChatTitle(
             chatId = dto.chatId,
             title = dto.title,
         )
     }
 
-    public fun map(dto: TdApi.UpdateChatPhoto): ChatPhotoUpdateDto {
+    fun map(dto: TdApi.UpdateChatPhoto): ChatPhotoUpdateDto {
         return ChatPhotoUpdateDto(
             chatId = dto.chatId,
             photo = dto.photo?.let { map(it) },
         )
     }
 
-    public fun map(dto: ChatPhotoUpdateDto): TdApi.UpdateChatPhoto {
+    fun map(dto: ChatPhotoUpdateDto): TdApi.UpdateChatPhoto {
         return TdApi.UpdateChatPhoto(
             chatId = dto.chatId,
             photo = dto.photo?.let { map(it) },
         )
     }
 
-    public fun map(dto: TdApi.UpdateChatAccentColors): ChatAccentColorsUpdateDto {
+    fun map(dto: TdApi.UpdateChatAccentColors): ChatAccentColorsUpdateDto {
         return ChatAccentColorsUpdateDto(
             chatId = dto.chatId,
             accentColorId = dto.accentColorId,
@@ -23577,7 +23577,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: ChatAccentColorsUpdateDto): TdApi.UpdateChatAccentColors {
+    fun map(dto: ChatAccentColorsUpdateDto): TdApi.UpdateChatAccentColors {
         return TdApi.UpdateChatAccentColors(
             chatId = dto.chatId,
             accentColorId = dto.accentColorId,
@@ -23587,21 +23587,21 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.UpdateChatPermissions): ChatPermissionsUpdateDto {
+    fun map(dto: TdApi.UpdateChatPermissions): ChatPermissionsUpdateDto {
         return ChatPermissionsUpdateDto(
             chatId = dto.chatId,
             permissions = map(dto.permissions),
         )
     }
 
-    public fun map(dto: ChatPermissionsUpdateDto): TdApi.UpdateChatPermissions {
+    fun map(dto: ChatPermissionsUpdateDto): TdApi.UpdateChatPermissions {
         return TdApi.UpdateChatPermissions(
             chatId = dto.chatId,
             permissions = map(dto.permissions),
         )
     }
 
-    public fun map(dto: TdApi.UpdateChatLastMessage): ChatLastMessageUpdateDto {
+    fun map(dto: TdApi.UpdateChatLastMessage): ChatLastMessageUpdateDto {
         return ChatLastMessageUpdateDto(
             chatId = dto.chatId,
             lastMessage = dto.lastMessage?.let { map(it) },
@@ -23609,7 +23609,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: ChatLastMessageUpdateDto): TdApi.UpdateChatLastMessage {
+    fun map(dto: ChatLastMessageUpdateDto): TdApi.UpdateChatLastMessage {
         return TdApi.UpdateChatLastMessage(
             chatId = dto.chatId,
             lastMessage = dto.lastMessage?.let { map(it) },
@@ -23617,49 +23617,49 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.UpdateChatPosition): ChatPositionUpdateDto {
+    fun map(dto: TdApi.UpdateChatPosition): ChatPositionUpdateDto {
         return ChatPositionUpdateDto(
             chatId = dto.chatId,
             position = map(dto.position),
         )
     }
 
-    public fun map(dto: ChatPositionUpdateDto): TdApi.UpdateChatPosition {
+    fun map(dto: ChatPositionUpdateDto): TdApi.UpdateChatPosition {
         return TdApi.UpdateChatPosition(
             chatId = dto.chatId,
             position = map(dto.position),
         )
     }
 
-    public fun map(dto: TdApi.UpdateChatAddedToList): ChatAddedToListUpdateDto {
+    fun map(dto: TdApi.UpdateChatAddedToList): ChatAddedToListUpdateDto {
         return ChatAddedToListUpdateDto(
             chatId = dto.chatId,
             chatList = map(dto.chatList),
         )
     }
 
-    public fun map(dto: ChatAddedToListUpdateDto): TdApi.UpdateChatAddedToList {
+    fun map(dto: ChatAddedToListUpdateDto): TdApi.UpdateChatAddedToList {
         return TdApi.UpdateChatAddedToList(
             chatId = dto.chatId,
             chatList = map(dto.chatList),
         )
     }
 
-    public fun map(dto: TdApi.UpdateChatRemovedFromList): ChatRemovedFromListUpdateDto {
+    fun map(dto: TdApi.UpdateChatRemovedFromList): ChatRemovedFromListUpdateDto {
         return ChatRemovedFromListUpdateDto(
             chatId = dto.chatId,
             chatList = map(dto.chatList),
         )
     }
 
-    public fun map(dto: ChatRemovedFromListUpdateDto): TdApi.UpdateChatRemovedFromList {
+    fun map(dto: ChatRemovedFromListUpdateDto): TdApi.UpdateChatRemovedFromList {
         return TdApi.UpdateChatRemovedFromList(
             chatId = dto.chatId,
             chatList = map(dto.chatList),
         )
     }
 
-    public fun map(dto: TdApi.UpdateChatReadInbox): ChatReadInboxUpdateDto {
+    fun map(dto: TdApi.UpdateChatReadInbox): ChatReadInboxUpdateDto {
         return ChatReadInboxUpdateDto(
             chatId = dto.chatId,
             lastReadInboxMessageId = dto.lastReadInboxMessageId,
@@ -23667,7 +23667,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: ChatReadInboxUpdateDto): TdApi.UpdateChatReadInbox {
+    fun map(dto: ChatReadInboxUpdateDto): TdApi.UpdateChatReadInbox {
         return TdApi.UpdateChatReadInbox(
             chatId = dto.chatId,
             lastReadInboxMessageId = dto.lastReadInboxMessageId,
@@ -23675,63 +23675,63 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.UpdateChatReadOutbox): ChatReadOutboxUpdateDto {
+    fun map(dto: TdApi.UpdateChatReadOutbox): ChatReadOutboxUpdateDto {
         return ChatReadOutboxUpdateDto(
             chatId = dto.chatId,
             lastReadOutboxMessageId = dto.lastReadOutboxMessageId,
         )
     }
 
-    public fun map(dto: ChatReadOutboxUpdateDto): TdApi.UpdateChatReadOutbox {
+    fun map(dto: ChatReadOutboxUpdateDto): TdApi.UpdateChatReadOutbox {
         return TdApi.UpdateChatReadOutbox(
             chatId = dto.chatId,
             lastReadOutboxMessageId = dto.lastReadOutboxMessageId,
         )
     }
 
-    public fun map(dto: TdApi.UpdateChatActionBar): ChatActionBarUpdateDto {
+    fun map(dto: TdApi.UpdateChatActionBar): ChatActionBarUpdateDto {
         return ChatActionBarUpdateDto(
             chatId = dto.chatId,
             actionBar = dto.actionBar?.let { map(it) },
         )
     }
 
-    public fun map(dto: ChatActionBarUpdateDto): TdApi.UpdateChatActionBar {
+    fun map(dto: ChatActionBarUpdateDto): TdApi.UpdateChatActionBar {
         return TdApi.UpdateChatActionBar(
             chatId = dto.chatId,
             actionBar = dto.actionBar?.let { map(it) },
         )
     }
 
-    public fun map(dto: TdApi.UpdateChatBusinessBotManageBar): ChatBusinessBotManageBarUpdateDto {
+    fun map(dto: TdApi.UpdateChatBusinessBotManageBar): ChatBusinessBotManageBarUpdateDto {
         return ChatBusinessBotManageBarUpdateDto(
             chatId = dto.chatId,
             businessBotManageBar = dto.businessBotManageBar?.let { map(it) },
         )
     }
 
-    public fun map(dto: ChatBusinessBotManageBarUpdateDto): TdApi.UpdateChatBusinessBotManageBar {
+    fun map(dto: ChatBusinessBotManageBarUpdateDto): TdApi.UpdateChatBusinessBotManageBar {
         return TdApi.UpdateChatBusinessBotManageBar(
             chatId = dto.chatId,
             businessBotManageBar = dto.businessBotManageBar?.let { map(it) },
         )
     }
 
-    public fun map(dto: TdApi.UpdateChatAvailableReactions): ChatAvailableReactionsUpdateDto {
+    fun map(dto: TdApi.UpdateChatAvailableReactions): ChatAvailableReactionsUpdateDto {
         return ChatAvailableReactionsUpdateDto(
             chatId = dto.chatId,
             availableReactions = map(dto.availableReactions),
         )
     }
 
-    public fun map(dto: ChatAvailableReactionsUpdateDto): TdApi.UpdateChatAvailableReactions {
+    fun map(dto: ChatAvailableReactionsUpdateDto): TdApi.UpdateChatAvailableReactions {
         return TdApi.UpdateChatAvailableReactions(
             chatId = dto.chatId,
             availableReactions = map(dto.availableReactions),
         )
     }
 
-    public fun map(dto: TdApi.UpdateChatDraftMessage): ChatDraftMessageUpdateDto {
+    fun map(dto: TdApi.UpdateChatDraftMessage): ChatDraftMessageUpdateDto {
         return ChatDraftMessageUpdateDto(
             chatId = dto.chatId,
             draftMessage = dto.draftMessage?.let { map(it) },
@@ -23739,7 +23739,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: ChatDraftMessageUpdateDto): TdApi.UpdateChatDraftMessage {
+    fun map(dto: ChatDraftMessageUpdateDto): TdApi.UpdateChatDraftMessage {
         return TdApi.UpdateChatDraftMessage(
             chatId = dto.chatId,
             draftMessage = dto.draftMessage?.let { map(it) },
@@ -23747,259 +23747,259 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.UpdateChatEmojiStatus): ChatEmojiStatusUpdateDto {
+    fun map(dto: TdApi.UpdateChatEmojiStatus): ChatEmojiStatusUpdateDto {
         return ChatEmojiStatusUpdateDto(
             chatId = dto.chatId,
             emojiStatus = dto.emojiStatus?.let { map(it) },
         )
     }
 
-    public fun map(dto: ChatEmojiStatusUpdateDto): TdApi.UpdateChatEmojiStatus {
+    fun map(dto: ChatEmojiStatusUpdateDto): TdApi.UpdateChatEmojiStatus {
         return TdApi.UpdateChatEmojiStatus(
             chatId = dto.chatId,
             emojiStatus = dto.emojiStatus?.let { map(it) },
         )
     }
 
-    public fun map(dto: TdApi.UpdateChatMessageSender): ChatMessageSenderUpdateDto {
+    fun map(dto: TdApi.UpdateChatMessageSender): ChatMessageSenderUpdateDto {
         return ChatMessageSenderUpdateDto(
             chatId = dto.chatId,
             messageSenderId = dto.messageSenderId?.let { map(it) },
         )
     }
 
-    public fun map(dto: ChatMessageSenderUpdateDto): TdApi.UpdateChatMessageSender {
+    fun map(dto: ChatMessageSenderUpdateDto): TdApi.UpdateChatMessageSender {
         return TdApi.UpdateChatMessageSender(
             chatId = dto.chatId,
             messageSenderId = dto.messageSenderId?.let { map(it) },
         )
     }
 
-    public fun map(dto: TdApi.UpdateChatMessageAutoDeleteTime): ChatMessageAutoDeleteTimeUpdateDto {
+    fun map(dto: TdApi.UpdateChatMessageAutoDeleteTime): ChatMessageAutoDeleteTimeUpdateDto {
         return ChatMessageAutoDeleteTimeUpdateDto(
             chatId = dto.chatId,
             messageAutoDeleteTime = dto.messageAutoDeleteTime,
         )
     }
 
-    public fun map(dto: ChatMessageAutoDeleteTimeUpdateDto): TdApi.UpdateChatMessageAutoDeleteTime {
+    fun map(dto: ChatMessageAutoDeleteTimeUpdateDto): TdApi.UpdateChatMessageAutoDeleteTime {
         return TdApi.UpdateChatMessageAutoDeleteTime(
             chatId = dto.chatId,
             messageAutoDeleteTime = dto.messageAutoDeleteTime,
         )
     }
 
-    public fun map(dto: TdApi.UpdateChatNotificationSettings): ChatNotificationSettingsUpdateDto {
+    fun map(dto: TdApi.UpdateChatNotificationSettings): ChatNotificationSettingsUpdateDto {
         return ChatNotificationSettingsUpdateDto(
             chatId = dto.chatId,
             notificationSettings = map(dto.notificationSettings),
         )
     }
 
-    public fun map(dto: ChatNotificationSettingsUpdateDto): TdApi.UpdateChatNotificationSettings {
+    fun map(dto: ChatNotificationSettingsUpdateDto): TdApi.UpdateChatNotificationSettings {
         return TdApi.UpdateChatNotificationSettings(
             chatId = dto.chatId,
             notificationSettings = map(dto.notificationSettings),
         )
     }
 
-    public fun map(dto: TdApi.UpdateChatPendingJoinRequests): ChatPendingJoinRequestsUpdateDto {
+    fun map(dto: TdApi.UpdateChatPendingJoinRequests): ChatPendingJoinRequestsUpdateDto {
         return ChatPendingJoinRequestsUpdateDto(
             chatId = dto.chatId,
             pendingJoinRequests = dto.pendingJoinRequests?.let { map(it) },
         )
     }
 
-    public fun map(dto: ChatPendingJoinRequestsUpdateDto): TdApi.UpdateChatPendingJoinRequests {
+    fun map(dto: ChatPendingJoinRequestsUpdateDto): TdApi.UpdateChatPendingJoinRequests {
         return TdApi.UpdateChatPendingJoinRequests(
             chatId = dto.chatId,
             pendingJoinRequests = dto.pendingJoinRequests?.let { map(it) },
         )
     }
 
-    public fun map(dto: TdApi.UpdateChatReplyMarkup): ChatReplyMarkupUpdateDto {
+    fun map(dto: TdApi.UpdateChatReplyMarkup): ChatReplyMarkupUpdateDto {
         return ChatReplyMarkupUpdateDto(
             chatId = dto.chatId,
             replyMarkupMessageId = dto.replyMarkupMessageId,
         )
     }
 
-    public fun map(dto: ChatReplyMarkupUpdateDto): TdApi.UpdateChatReplyMarkup {
+    fun map(dto: ChatReplyMarkupUpdateDto): TdApi.UpdateChatReplyMarkup {
         return TdApi.UpdateChatReplyMarkup(
             chatId = dto.chatId,
             replyMarkupMessageId = dto.replyMarkupMessageId,
         )
     }
 
-    public fun map(dto: TdApi.UpdateChatBackground): ChatBackgroundUpdateDto {
+    fun map(dto: TdApi.UpdateChatBackground): ChatBackgroundUpdateDto {
         return ChatBackgroundUpdateDto(
             chatId = dto.chatId,
             background = dto.background?.let { map(it) },
         )
     }
 
-    public fun map(dto: ChatBackgroundUpdateDto): TdApi.UpdateChatBackground {
+    fun map(dto: ChatBackgroundUpdateDto): TdApi.UpdateChatBackground {
         return TdApi.UpdateChatBackground(
             chatId = dto.chatId,
             background = dto.background?.let { map(it) },
         )
     }
 
-    public fun map(dto: TdApi.UpdateChatTheme): ChatThemeUpdateDto {
+    fun map(dto: TdApi.UpdateChatTheme): ChatThemeUpdateDto {
         return ChatThemeUpdateDto(
             chatId = dto.chatId,
             themeName = dto.themeName,
         )
     }
 
-    public fun map(dto: ChatThemeUpdateDto): TdApi.UpdateChatTheme {
+    fun map(dto: ChatThemeUpdateDto): TdApi.UpdateChatTheme {
         return TdApi.UpdateChatTheme(
             chatId = dto.chatId,
             themeName = dto.themeName,
         )
     }
 
-    public fun map(dto: TdApi.UpdateChatUnreadMentionCount): ChatUnreadMentionCountUpdateDto {
+    fun map(dto: TdApi.UpdateChatUnreadMentionCount): ChatUnreadMentionCountUpdateDto {
         return ChatUnreadMentionCountUpdateDto(
             chatId = dto.chatId,
             unreadMentionCount = dto.unreadMentionCount,
         )
     }
 
-    public fun map(dto: ChatUnreadMentionCountUpdateDto): TdApi.UpdateChatUnreadMentionCount {
+    fun map(dto: ChatUnreadMentionCountUpdateDto): TdApi.UpdateChatUnreadMentionCount {
         return TdApi.UpdateChatUnreadMentionCount(
             chatId = dto.chatId,
             unreadMentionCount = dto.unreadMentionCount,
         )
     }
 
-    public fun map(dto: TdApi.UpdateChatUnreadReactionCount): ChatUnreadReactionCountUpdateDto {
+    fun map(dto: TdApi.UpdateChatUnreadReactionCount): ChatUnreadReactionCountUpdateDto {
         return ChatUnreadReactionCountUpdateDto(
             chatId = dto.chatId,
             unreadReactionCount = dto.unreadReactionCount,
         )
     }
 
-    public fun map(dto: ChatUnreadReactionCountUpdateDto): TdApi.UpdateChatUnreadReactionCount {
+    fun map(dto: ChatUnreadReactionCountUpdateDto): TdApi.UpdateChatUnreadReactionCount {
         return TdApi.UpdateChatUnreadReactionCount(
             chatId = dto.chatId,
             unreadReactionCount = dto.unreadReactionCount,
         )
     }
 
-    public fun map(dto: TdApi.UpdateChatVideoChat): ChatVideoChatUpdateDto {
+    fun map(dto: TdApi.UpdateChatVideoChat): ChatVideoChatUpdateDto {
         return ChatVideoChatUpdateDto(
             chatId = dto.chatId,
             videoChat = map(dto.videoChat),
         )
     }
 
-    public fun map(dto: ChatVideoChatUpdateDto): TdApi.UpdateChatVideoChat {
+    fun map(dto: ChatVideoChatUpdateDto): TdApi.UpdateChatVideoChat {
         return TdApi.UpdateChatVideoChat(
             chatId = dto.chatId,
             videoChat = map(dto.videoChat),
         )
     }
 
-    public fun map(dto: TdApi.UpdateChatDefaultDisableNotification): ChatDefaultDisableNotificationUpdateDto {
+    fun map(dto: TdApi.UpdateChatDefaultDisableNotification): ChatDefaultDisableNotificationUpdateDto {
         return ChatDefaultDisableNotificationUpdateDto(
             chatId = dto.chatId,
             defaultDisableNotification = dto.defaultDisableNotification,
         )
     }
 
-    public fun map(dto: ChatDefaultDisableNotificationUpdateDto): TdApi.UpdateChatDefaultDisableNotification {
+    fun map(dto: ChatDefaultDisableNotificationUpdateDto): TdApi.UpdateChatDefaultDisableNotification {
         return TdApi.UpdateChatDefaultDisableNotification(
             chatId = dto.chatId,
             defaultDisableNotification = dto.defaultDisableNotification,
         )
     }
 
-    public fun map(dto: TdApi.UpdateChatHasProtectedContent): ChatHasProtectedContentUpdateDto {
+    fun map(dto: TdApi.UpdateChatHasProtectedContent): ChatHasProtectedContentUpdateDto {
         return ChatHasProtectedContentUpdateDto(
             chatId = dto.chatId,
             hasProtectedContent = dto.hasProtectedContent,
         )
     }
 
-    public fun map(dto: ChatHasProtectedContentUpdateDto): TdApi.UpdateChatHasProtectedContent {
+    fun map(dto: ChatHasProtectedContentUpdateDto): TdApi.UpdateChatHasProtectedContent {
         return TdApi.UpdateChatHasProtectedContent(
             chatId = dto.chatId,
             hasProtectedContent = dto.hasProtectedContent,
         )
     }
 
-    public fun map(dto: TdApi.UpdateChatIsTranslatable): ChatIsTranslatableUpdateDto {
+    fun map(dto: TdApi.UpdateChatIsTranslatable): ChatIsTranslatableUpdateDto {
         return ChatIsTranslatableUpdateDto(
             chatId = dto.chatId,
             isTranslatable = dto.isTranslatable,
         )
     }
 
-    public fun map(dto: ChatIsTranslatableUpdateDto): TdApi.UpdateChatIsTranslatable {
+    fun map(dto: ChatIsTranslatableUpdateDto): TdApi.UpdateChatIsTranslatable {
         return TdApi.UpdateChatIsTranslatable(
             chatId = dto.chatId,
             isTranslatable = dto.isTranslatable,
         )
     }
 
-    public fun map(dto: TdApi.UpdateChatIsMarkedAsUnread): ChatIsMarkedAsUnreadUpdateDto {
+    fun map(dto: TdApi.UpdateChatIsMarkedAsUnread): ChatIsMarkedAsUnreadUpdateDto {
         return ChatIsMarkedAsUnreadUpdateDto(
             chatId = dto.chatId,
             isMarkedAsUnread = dto.isMarkedAsUnread,
         )
     }
 
-    public fun map(dto: ChatIsMarkedAsUnreadUpdateDto): TdApi.UpdateChatIsMarkedAsUnread {
+    fun map(dto: ChatIsMarkedAsUnreadUpdateDto): TdApi.UpdateChatIsMarkedAsUnread {
         return TdApi.UpdateChatIsMarkedAsUnread(
             chatId = dto.chatId,
             isMarkedAsUnread = dto.isMarkedAsUnread,
         )
     }
 
-    public fun map(dto: TdApi.UpdateChatViewAsTopics): ChatViewAsTopicsUpdateDto {
+    fun map(dto: TdApi.UpdateChatViewAsTopics): ChatViewAsTopicsUpdateDto {
         return ChatViewAsTopicsUpdateDto(
             chatId = dto.chatId,
             viewAsTopics = dto.viewAsTopics,
         )
     }
 
-    public fun map(dto: ChatViewAsTopicsUpdateDto): TdApi.UpdateChatViewAsTopics {
+    fun map(dto: ChatViewAsTopicsUpdateDto): TdApi.UpdateChatViewAsTopics {
         return TdApi.UpdateChatViewAsTopics(
             chatId = dto.chatId,
             viewAsTopics = dto.viewAsTopics,
         )
     }
 
-    public fun map(dto: TdApi.UpdateChatBlockList): ChatBlockListUpdateDto {
+    fun map(dto: TdApi.UpdateChatBlockList): ChatBlockListUpdateDto {
         return ChatBlockListUpdateDto(
             chatId = dto.chatId,
             blockList = dto.blockList?.let { map(it) },
         )
     }
 
-    public fun map(dto: ChatBlockListUpdateDto): TdApi.UpdateChatBlockList {
+    fun map(dto: ChatBlockListUpdateDto): TdApi.UpdateChatBlockList {
         return TdApi.UpdateChatBlockList(
             chatId = dto.chatId,
             blockList = dto.blockList?.let { map(it) },
         )
     }
 
-    public fun map(dto: TdApi.UpdateChatHasScheduledMessages): ChatHasScheduledMessagesUpdateDto {
+    fun map(dto: TdApi.UpdateChatHasScheduledMessages): ChatHasScheduledMessagesUpdateDto {
         return ChatHasScheduledMessagesUpdateDto(
             chatId = dto.chatId,
             hasScheduledMessages = dto.hasScheduledMessages,
         )
     }
 
-    public fun map(dto: ChatHasScheduledMessagesUpdateDto): TdApi.UpdateChatHasScheduledMessages {
+    fun map(dto: ChatHasScheduledMessagesUpdateDto): TdApi.UpdateChatHasScheduledMessages {
         return TdApi.UpdateChatHasScheduledMessages(
             chatId = dto.chatId,
             hasScheduledMessages = dto.hasScheduledMessages,
         )
     }
 
-    public fun map(dto: TdApi.UpdateChatFolders): ChatFoldersUpdateDto {
+    fun map(dto: TdApi.UpdateChatFolders): ChatFoldersUpdateDto {
         return ChatFoldersUpdateDto(
             chatFolders = dto.chatFolders.mapArray { map(it) },
             mainChatListPosition = dto.mainChatListPosition,
@@ -24007,7 +24007,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: ChatFoldersUpdateDto): TdApi.UpdateChatFolders {
+    fun map(dto: ChatFoldersUpdateDto): TdApi.UpdateChatFolders {
         return TdApi.UpdateChatFolders(
             chatFolders = dto.chatFolders.mapArray { map(it) },
             mainChatListPosition = dto.mainChatListPosition,
@@ -24015,107 +24015,107 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.UpdateChatOnlineMemberCount): ChatOnlineMemberCountUpdateDto {
+    fun map(dto: TdApi.UpdateChatOnlineMemberCount): ChatOnlineMemberCountUpdateDto {
         return ChatOnlineMemberCountUpdateDto(
             chatId = dto.chatId,
             onlineMemberCount = dto.onlineMemberCount,
         )
     }
 
-    public fun map(dto: ChatOnlineMemberCountUpdateDto): TdApi.UpdateChatOnlineMemberCount {
+    fun map(dto: ChatOnlineMemberCountUpdateDto): TdApi.UpdateChatOnlineMemberCount {
         return TdApi.UpdateChatOnlineMemberCount(
             chatId = dto.chatId,
             onlineMemberCount = dto.onlineMemberCount,
         )
     }
 
-    public fun map(dto: TdApi.UpdateSavedMessagesTopic): SavedMessagesTopicUpdateDto {
+    fun map(dto: TdApi.UpdateSavedMessagesTopic): SavedMessagesTopicUpdateDto {
         return SavedMessagesTopicUpdateDto(
             topic = map(dto.topic),
         )
     }
 
-    public fun map(dto: SavedMessagesTopicUpdateDto): TdApi.UpdateSavedMessagesTopic {
+    fun map(dto: SavedMessagesTopicUpdateDto): TdApi.UpdateSavedMessagesTopic {
         return TdApi.UpdateSavedMessagesTopic(
             topic = map(dto.topic),
         )
     }
 
-    public fun map(dto: TdApi.UpdateSavedMessagesTopicCount): SavedMessagesTopicCountUpdateDto {
+    fun map(dto: TdApi.UpdateSavedMessagesTopicCount): SavedMessagesTopicCountUpdateDto {
         return SavedMessagesTopicCountUpdateDto(
             topicCount = dto.topicCount,
         )
     }
 
-    public fun map(dto: SavedMessagesTopicCountUpdateDto): TdApi.UpdateSavedMessagesTopicCount {
+    fun map(dto: SavedMessagesTopicCountUpdateDto): TdApi.UpdateSavedMessagesTopicCount {
         return TdApi.UpdateSavedMessagesTopicCount(
             topicCount = dto.topicCount,
         )
     }
 
-    public fun map(dto: TdApi.UpdateQuickReplyShortcut): QuickReplyShortcutUpdateDto {
+    fun map(dto: TdApi.UpdateQuickReplyShortcut): QuickReplyShortcutUpdateDto {
         return QuickReplyShortcutUpdateDto(
             shortcut = map(dto.shortcut),
         )
     }
 
-    public fun map(dto: QuickReplyShortcutUpdateDto): TdApi.UpdateQuickReplyShortcut {
+    fun map(dto: QuickReplyShortcutUpdateDto): TdApi.UpdateQuickReplyShortcut {
         return TdApi.UpdateQuickReplyShortcut(
             shortcut = map(dto.shortcut),
         )
     }
 
-    public fun map(dto: TdApi.UpdateQuickReplyShortcutDeleted): QuickReplyShortcutDeletedUpdateDto {
+    fun map(dto: TdApi.UpdateQuickReplyShortcutDeleted): QuickReplyShortcutDeletedUpdateDto {
         return QuickReplyShortcutDeletedUpdateDto(
             shortcutId = dto.shortcutId,
         )
     }
 
-    public fun map(dto: QuickReplyShortcutDeletedUpdateDto): TdApi.UpdateQuickReplyShortcutDeleted {
+    fun map(dto: QuickReplyShortcutDeletedUpdateDto): TdApi.UpdateQuickReplyShortcutDeleted {
         return TdApi.UpdateQuickReplyShortcutDeleted(
             shortcutId = dto.shortcutId,
         )
     }
 
-    public fun map(dto: TdApi.UpdateQuickReplyShortcuts): QuickReplyShortcutsUpdateDto {
+    fun map(dto: TdApi.UpdateQuickReplyShortcuts): QuickReplyShortcutsUpdateDto {
         return QuickReplyShortcutsUpdateDto(
             shortcutIds = dto.shortcutIds,
         )
     }
 
-    public fun map(dto: QuickReplyShortcutsUpdateDto): TdApi.UpdateQuickReplyShortcuts {
+    fun map(dto: QuickReplyShortcutsUpdateDto): TdApi.UpdateQuickReplyShortcuts {
         return TdApi.UpdateQuickReplyShortcuts(
             shortcutIds = dto.shortcutIds,
         )
     }
 
-    public fun map(dto: TdApi.UpdateQuickReplyShortcutMessages): QuickReplyShortcutMessagesUpdateDto {
+    fun map(dto: TdApi.UpdateQuickReplyShortcutMessages): QuickReplyShortcutMessagesUpdateDto {
         return QuickReplyShortcutMessagesUpdateDto(
             shortcutId = dto.shortcutId,
             messages = dto.messages.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: QuickReplyShortcutMessagesUpdateDto): TdApi.UpdateQuickReplyShortcutMessages {
+    fun map(dto: QuickReplyShortcutMessagesUpdateDto): TdApi.UpdateQuickReplyShortcutMessages {
         return TdApi.UpdateQuickReplyShortcutMessages(
             shortcutId = dto.shortcutId,
             messages = dto.messages.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: TdApi.UpdateForumTopicInfo): ForumTopicInfoUpdateDto {
+    fun map(dto: TdApi.UpdateForumTopicInfo): ForumTopicInfoUpdateDto {
         return ForumTopicInfoUpdateDto(
             info = map(dto.info),
         )
     }
 
-    public fun map(dto: ForumTopicInfoUpdateDto): TdApi.UpdateForumTopicInfo {
+    fun map(dto: ForumTopicInfoUpdateDto): TdApi.UpdateForumTopicInfo {
         return TdApi.UpdateForumTopicInfo(
             info = map(dto.info),
         )
     }
 
-    public fun map(dto: TdApi.UpdateForumTopic): ForumTopicUpdateDto {
+    fun map(dto: TdApi.UpdateForumTopic): ForumTopicUpdateDto {
         return ForumTopicUpdateDto(
             chatId = dto.chatId,
             messageThreadId = dto.messageThreadId,
@@ -24126,7 +24126,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: ForumTopicUpdateDto): TdApi.UpdateForumTopic {
+    fun map(dto: ForumTopicUpdateDto): TdApi.UpdateForumTopic {
         return TdApi.UpdateForumTopic(
             chatId = dto.chatId,
             messageThreadId = dto.messageThreadId,
@@ -24137,47 +24137,47 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.UpdateScopeNotificationSettings): ScopeNotificationSettingsUpdateDto {
+    fun map(dto: TdApi.UpdateScopeNotificationSettings): ScopeNotificationSettingsUpdateDto {
         return ScopeNotificationSettingsUpdateDto(
             scope = map(dto.scope),
             notificationSettings = map(dto.notificationSettings),
         )
     }
 
-    public fun map(dto: ScopeNotificationSettingsUpdateDto): TdApi.UpdateScopeNotificationSettings {
+    fun map(dto: ScopeNotificationSettingsUpdateDto): TdApi.UpdateScopeNotificationSettings {
         return TdApi.UpdateScopeNotificationSettings(
             scope = map(dto.scope),
             notificationSettings = map(dto.notificationSettings),
         )
     }
 
-    public fun map(dto: TdApi.UpdateReactionNotificationSettings): ReactionNotificationSettingsUpdateDto {
+    fun map(dto: TdApi.UpdateReactionNotificationSettings): ReactionNotificationSettingsUpdateDto {
         return ReactionNotificationSettingsUpdateDto(
             notificationSettings = map(dto.notificationSettings),
         )
     }
 
-    public fun map(dto: ReactionNotificationSettingsUpdateDto): TdApi.UpdateReactionNotificationSettings {
+    fun map(dto: ReactionNotificationSettingsUpdateDto): TdApi.UpdateReactionNotificationSettings {
         return TdApi.UpdateReactionNotificationSettings(
             notificationSettings = map(dto.notificationSettings),
         )
     }
 
-    public fun map(dto: TdApi.UpdateNotification): NotificationUpdateDto {
+    fun map(dto: TdApi.UpdateNotification): NotificationUpdateDto {
         return NotificationUpdateDto(
             notificationGroupId = dto.notificationGroupId,
             notification = map(dto.notification),
         )
     }
 
-    public fun map(dto: NotificationUpdateDto): TdApi.UpdateNotification {
+    fun map(dto: NotificationUpdateDto): TdApi.UpdateNotification {
         return TdApi.UpdateNotification(
             notificationGroupId = dto.notificationGroupId,
             notification = map(dto.notification),
         )
     }
 
-    public fun map(dto: TdApi.UpdateNotificationGroup): NotificationGroupUpdateDto {
+    fun map(dto: TdApi.UpdateNotificationGroup): NotificationGroupUpdateDto {
         return NotificationGroupUpdateDto(
             notificationGroupId = dto.notificationGroupId,
             type = map(dto.type),
@@ -24190,7 +24190,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: NotificationGroupUpdateDto): TdApi.UpdateNotificationGroup {
+    fun map(dto: NotificationGroupUpdateDto): TdApi.UpdateNotificationGroup {
         return TdApi.UpdateNotificationGroup(
             notificationGroupId = dto.notificationGroupId,
             type = map(dto.type),
@@ -24203,33 +24203,33 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.UpdateActiveNotifications): ActiveNotificationsUpdateDto {
+    fun map(dto: TdApi.UpdateActiveNotifications): ActiveNotificationsUpdateDto {
         return ActiveNotificationsUpdateDto(
             groups = dto.groups.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: ActiveNotificationsUpdateDto): TdApi.UpdateActiveNotifications {
+    fun map(dto: ActiveNotificationsUpdateDto): TdApi.UpdateActiveNotifications {
         return TdApi.UpdateActiveNotifications(
             groups = dto.groups.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: TdApi.UpdateHavePendingNotifications): HavePendingNotificationsUpdateDto {
+    fun map(dto: TdApi.UpdateHavePendingNotifications): HavePendingNotificationsUpdateDto {
         return HavePendingNotificationsUpdateDto(
             haveDelayedNotifications = dto.haveDelayedNotifications,
             haveUnreceivedNotifications = dto.haveUnreceivedNotifications,
         )
     }
 
-    public fun map(dto: HavePendingNotificationsUpdateDto): TdApi.UpdateHavePendingNotifications {
+    fun map(dto: HavePendingNotificationsUpdateDto): TdApi.UpdateHavePendingNotifications {
         return TdApi.UpdateHavePendingNotifications(
             haveDelayedNotifications = dto.haveDelayedNotifications,
             haveUnreceivedNotifications = dto.haveUnreceivedNotifications,
         )
     }
 
-    public fun map(dto: TdApi.UpdateDeleteMessages): DeleteMessagesUpdateDto {
+    fun map(dto: TdApi.UpdateDeleteMessages): DeleteMessagesUpdateDto {
         return DeleteMessagesUpdateDto(
             chatId = dto.chatId,
             messageIds = dto.messageIds,
@@ -24238,7 +24238,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: DeleteMessagesUpdateDto): TdApi.UpdateDeleteMessages {
+    fun map(dto: DeleteMessagesUpdateDto): TdApi.UpdateDeleteMessages {
         return TdApi.UpdateDeleteMessages(
             chatId = dto.chatId,
             messageIds = dto.messageIds,
@@ -24247,7 +24247,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.UpdateChatAction): ChatActionUpdateDto {
+    fun map(dto: TdApi.UpdateChatAction): ChatActionUpdateDto {
         return ChatActionUpdateDto(
             chatId = dto.chatId,
             messageThreadId = dto.messageThreadId,
@@ -24256,7 +24256,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: ChatActionUpdateDto): TdApi.UpdateChatAction {
+    fun map(dto: ChatActionUpdateDto): TdApi.UpdateChatAction {
         return TdApi.UpdateChatAction(
             chatId = dto.chatId,
             messageThreadId = dto.messageThreadId,
@@ -24265,137 +24265,137 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.UpdateUserStatus): UserStatusUpdateDto {
+    fun map(dto: TdApi.UpdateUserStatus): UserStatusUpdateDto {
         return UserStatusUpdateDto(
             userId = dto.userId,
             status = map(dto.status),
         )
     }
 
-    public fun map(dto: UserStatusUpdateDto): TdApi.UpdateUserStatus {
+    fun map(dto: UserStatusUpdateDto): TdApi.UpdateUserStatus {
         return TdApi.UpdateUserStatus(
             userId = dto.userId,
             status = map(dto.status),
         )
     }
 
-    public fun map(dto: TdApi.UpdateUser): UserUpdateDto {
+    fun map(dto: TdApi.UpdateUser): UserUpdateDto {
         return UserUpdateDto(
             user = map(dto.user),
         )
     }
 
-    public fun map(dto: UserUpdateDto): TdApi.UpdateUser {
+    fun map(dto: UserUpdateDto): TdApi.UpdateUser {
         return TdApi.UpdateUser(
             user = map(dto.user),
         )
     }
 
-    public fun map(dto: TdApi.UpdateBasicGroup): BasicGroupUpdateDto {
+    fun map(dto: TdApi.UpdateBasicGroup): BasicGroupUpdateDto {
         return BasicGroupUpdateDto(
             basicGroup = map(dto.basicGroup),
         )
     }
 
-    public fun map(dto: BasicGroupUpdateDto): TdApi.UpdateBasicGroup {
+    fun map(dto: BasicGroupUpdateDto): TdApi.UpdateBasicGroup {
         return TdApi.UpdateBasicGroup(
             basicGroup = map(dto.basicGroup),
         )
     }
 
-    public fun map(dto: TdApi.UpdateSupergroup): SupergroupUpdateDto {
+    fun map(dto: TdApi.UpdateSupergroup): SupergroupUpdateDto {
         return SupergroupUpdateDto(
             supergroup = map(dto.supergroup),
         )
     }
 
-    public fun map(dto: SupergroupUpdateDto): TdApi.UpdateSupergroup {
+    fun map(dto: SupergroupUpdateDto): TdApi.UpdateSupergroup {
         return TdApi.UpdateSupergroup(
             supergroup = map(dto.supergroup),
         )
     }
 
-    public fun map(dto: TdApi.UpdateSecretChat): SecretChatUpdateDto {
+    fun map(dto: TdApi.UpdateSecretChat): SecretChatUpdateDto {
         return SecretChatUpdateDto(
             secretChat = map(dto.secretChat),
         )
     }
 
-    public fun map(dto: SecretChatUpdateDto): TdApi.UpdateSecretChat {
+    fun map(dto: SecretChatUpdateDto): TdApi.UpdateSecretChat {
         return TdApi.UpdateSecretChat(
             secretChat = map(dto.secretChat),
         )
     }
 
-    public fun map(dto: TdApi.UpdateUserFullInfo): UserFullInfoUpdateDto {
+    fun map(dto: TdApi.UpdateUserFullInfo): UserFullInfoUpdateDto {
         return UserFullInfoUpdateDto(
             userId = dto.userId,
             userFullInfo = map(dto.userFullInfo),
         )
     }
 
-    public fun map(dto: UserFullInfoUpdateDto): TdApi.UpdateUserFullInfo {
+    fun map(dto: UserFullInfoUpdateDto): TdApi.UpdateUserFullInfo {
         return TdApi.UpdateUserFullInfo(
             userId = dto.userId,
             userFullInfo = map(dto.userFullInfo),
         )
     }
 
-    public fun map(dto: TdApi.UpdateBasicGroupFullInfo): BasicGroupFullInfoUpdateDto {
+    fun map(dto: TdApi.UpdateBasicGroupFullInfo): BasicGroupFullInfoUpdateDto {
         return BasicGroupFullInfoUpdateDto(
             basicGroupId = dto.basicGroupId,
             basicGroupFullInfo = map(dto.basicGroupFullInfo),
         )
     }
 
-    public fun map(dto: BasicGroupFullInfoUpdateDto): TdApi.UpdateBasicGroupFullInfo {
+    fun map(dto: BasicGroupFullInfoUpdateDto): TdApi.UpdateBasicGroupFullInfo {
         return TdApi.UpdateBasicGroupFullInfo(
             basicGroupId = dto.basicGroupId,
             basicGroupFullInfo = map(dto.basicGroupFullInfo),
         )
     }
 
-    public fun map(dto: TdApi.UpdateSupergroupFullInfo): SupergroupFullInfoUpdateDto {
+    fun map(dto: TdApi.UpdateSupergroupFullInfo): SupergroupFullInfoUpdateDto {
         return SupergroupFullInfoUpdateDto(
             supergroupId = dto.supergroupId,
             supergroupFullInfo = map(dto.supergroupFullInfo),
         )
     }
 
-    public fun map(dto: SupergroupFullInfoUpdateDto): TdApi.UpdateSupergroupFullInfo {
+    fun map(dto: SupergroupFullInfoUpdateDto): TdApi.UpdateSupergroupFullInfo {
         return TdApi.UpdateSupergroupFullInfo(
             supergroupId = dto.supergroupId,
             supergroupFullInfo = map(dto.supergroupFullInfo),
         )
     }
 
-    public fun map(dto: TdApi.UpdateServiceNotification): ServiceNotificationUpdateDto {
+    fun map(dto: TdApi.UpdateServiceNotification): ServiceNotificationUpdateDto {
         return ServiceNotificationUpdateDto(
             type = dto.type,
             content = map(dto.content),
         )
     }
 
-    public fun map(dto: ServiceNotificationUpdateDto): TdApi.UpdateServiceNotification {
+    fun map(dto: ServiceNotificationUpdateDto): TdApi.UpdateServiceNotification {
         return TdApi.UpdateServiceNotification(
             type = dto.type,
             content = map(dto.content),
         )
     }
 
-    public fun map(dto: TdApi.UpdateFile): FileUpdateDto {
+    fun map(dto: TdApi.UpdateFile): FileUpdateDto {
         return FileUpdateDto(
             file = map(dto.file),
         )
     }
 
-    public fun map(dto: FileUpdateDto): TdApi.UpdateFile {
+    fun map(dto: FileUpdateDto): TdApi.UpdateFile {
         return TdApi.UpdateFile(
             file = map(dto.file),
         )
     }
 
-    public fun map(dto: TdApi.UpdateFileGenerationStart): FileGenerationStartUpdateDto {
+    fun map(dto: TdApi.UpdateFileGenerationStart): FileGenerationStartUpdateDto {
         return FileGenerationStartUpdateDto(
             generationId = dto.generationId,
             originalPath = dto.originalPath,
@@ -24404,7 +24404,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: FileGenerationStartUpdateDto): TdApi.UpdateFileGenerationStart {
+    fun map(dto: FileGenerationStartUpdateDto): TdApi.UpdateFileGenerationStart {
         return TdApi.UpdateFileGenerationStart(
             generationId = dto.generationId,
             originalPath = dto.originalPath,
@@ -24413,19 +24413,19 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.UpdateFileGenerationStop): FileGenerationStopUpdateDto {
+    fun map(dto: TdApi.UpdateFileGenerationStop): FileGenerationStopUpdateDto {
         return FileGenerationStopUpdateDto(
             generationId = dto.generationId,
         )
     }
 
-    public fun map(dto: FileGenerationStopUpdateDto): TdApi.UpdateFileGenerationStop {
+    fun map(dto: FileGenerationStopUpdateDto): TdApi.UpdateFileGenerationStop {
         return TdApi.UpdateFileGenerationStop(
             generationId = dto.generationId,
         )
     }
 
-    public fun map(dto: TdApi.UpdateFileDownloads): FileDownloadsUpdateDto {
+    fun map(dto: TdApi.UpdateFileDownloads): FileDownloadsUpdateDto {
         return FileDownloadsUpdateDto(
             totalSize = dto.totalSize,
             totalCount = dto.totalCount,
@@ -24433,7 +24433,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: FileDownloadsUpdateDto): TdApi.UpdateFileDownloads {
+    fun map(dto: FileDownloadsUpdateDto): TdApi.UpdateFileDownloads {
         return TdApi.UpdateFileDownloads(
             totalSize = dto.totalSize,
             totalCount = dto.totalCount,
@@ -24441,21 +24441,21 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.UpdateFileAddedToDownloads): FileAddedToDownloadsUpdateDto {
+    fun map(dto: TdApi.UpdateFileAddedToDownloads): FileAddedToDownloadsUpdateDto {
         return FileAddedToDownloadsUpdateDto(
             fileDownload = map(dto.fileDownload),
             counts = map(dto.counts),
         )
     }
 
-    public fun map(dto: FileAddedToDownloadsUpdateDto): TdApi.UpdateFileAddedToDownloads {
+    fun map(dto: FileAddedToDownloadsUpdateDto): TdApi.UpdateFileAddedToDownloads {
         return TdApi.UpdateFileAddedToDownloads(
             fileDownload = map(dto.fileDownload),
             counts = map(dto.counts),
         )
     }
 
-    public fun map(dto: TdApi.UpdateFileDownload): FileDownloadUpdateDto {
+    fun map(dto: TdApi.UpdateFileDownload): FileDownloadUpdateDto {
         return FileDownloadUpdateDto(
             fileId = dto.fileId,
             completeDate = dto.completeDate,
@@ -24464,7 +24464,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: FileDownloadUpdateDto): TdApi.UpdateFileDownload {
+    fun map(dto: FileDownloadUpdateDto): TdApi.UpdateFileDownload {
         return TdApi.UpdateFileDownload(
             fileId = dto.fileId,
             completeDate = dto.completeDate,
@@ -24473,21 +24473,21 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.UpdateFileRemovedFromDownloads): FileRemovedFromDownloadsUpdateDto {
+    fun map(dto: TdApi.UpdateFileRemovedFromDownloads): FileRemovedFromDownloadsUpdateDto {
         return FileRemovedFromDownloadsUpdateDto(
             fileId = dto.fileId,
             counts = map(dto.counts),
         )
     }
 
-    public fun map(dto: FileRemovedFromDownloadsUpdateDto): TdApi.UpdateFileRemovedFromDownloads {
+    fun map(dto: FileRemovedFromDownloadsUpdateDto): TdApi.UpdateFileRemovedFromDownloads {
         return TdApi.UpdateFileRemovedFromDownloads(
             fileId = dto.fileId,
             counts = map(dto.counts),
         )
     }
 
-    public fun map(dto: TdApi.UpdateApplicationVerificationRequired): ApplicationVerificationRequiredUpdateDto {
+    fun map(dto: TdApi.UpdateApplicationVerificationRequired): ApplicationVerificationRequiredUpdateDto {
         return ApplicationVerificationRequiredUpdateDto(
             verificationId = dto.verificationId,
             nonce = dto.nonce,
@@ -24495,7 +24495,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: ApplicationVerificationRequiredUpdateDto): TdApi.UpdateApplicationVerificationRequired {
+    fun map(dto: ApplicationVerificationRequiredUpdateDto): TdApi.UpdateApplicationVerificationRequired {
         return TdApi.UpdateApplicationVerificationRequired(
             verificationId = dto.verificationId,
             nonce = dto.nonce,
@@ -24503,7 +24503,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.UpdateApplicationRecaptchaVerificationRequired): ApplicationRecaptchaVerificationRequiredUpdateDto {
+    fun map(dto: TdApi.UpdateApplicationRecaptchaVerificationRequired): ApplicationRecaptchaVerificationRequiredUpdateDto {
         return ApplicationRecaptchaVerificationRequiredUpdateDto(
             verificationId = dto.verificationId,
             action = dto.action,
@@ -24511,7 +24511,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: ApplicationRecaptchaVerificationRequiredUpdateDto): TdApi.UpdateApplicationRecaptchaVerificationRequired {
+    fun map(dto: ApplicationRecaptchaVerificationRequiredUpdateDto): TdApi.UpdateApplicationRecaptchaVerificationRequired {
         return TdApi.UpdateApplicationRecaptchaVerificationRequired(
             verificationId = dto.verificationId,
             action = dto.action,
@@ -24519,59 +24519,59 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.UpdateCall): CallUpdateDto {
+    fun map(dto: TdApi.UpdateCall): CallUpdateDto {
         return CallUpdateDto(
             call = map(dto.call),
         )
     }
 
-    public fun map(dto: CallUpdateDto): TdApi.UpdateCall {
+    fun map(dto: CallUpdateDto): TdApi.UpdateCall {
         return TdApi.UpdateCall(
             call = map(dto.call),
         )
     }
 
-    public fun map(dto: TdApi.UpdateGroupCall): GroupCallUpdateDto {
+    fun map(dto: TdApi.UpdateGroupCall): GroupCallUpdateDto {
         return GroupCallUpdateDto(
             groupCall = map(dto.groupCall),
         )
     }
 
-    public fun map(dto: GroupCallUpdateDto): TdApi.UpdateGroupCall {
+    fun map(dto: GroupCallUpdateDto): TdApi.UpdateGroupCall {
         return TdApi.UpdateGroupCall(
             groupCall = map(dto.groupCall),
         )
     }
 
-    public fun map(dto: TdApi.UpdateGroupCallParticipant): GroupCallParticipantUpdateDto {
+    fun map(dto: TdApi.UpdateGroupCallParticipant): GroupCallParticipantUpdateDto {
         return GroupCallParticipantUpdateDto(
             groupCallId = dto.groupCallId,
             participant = map(dto.participant),
         )
     }
 
-    public fun map(dto: GroupCallParticipantUpdateDto): TdApi.UpdateGroupCallParticipant {
+    fun map(dto: GroupCallParticipantUpdateDto): TdApi.UpdateGroupCallParticipant {
         return TdApi.UpdateGroupCallParticipant(
             groupCallId = dto.groupCallId,
             participant = map(dto.participant),
         )
     }
 
-    public fun map(dto: TdApi.UpdateGroupCallParticipants): GroupCallParticipantsUpdateDto {
+    fun map(dto: TdApi.UpdateGroupCallParticipants): GroupCallParticipantsUpdateDto {
         return GroupCallParticipantsUpdateDto(
             groupCallId = dto.groupCallId,
             participantUserIds = dto.participantUserIds,
         )
     }
 
-    public fun map(dto: GroupCallParticipantsUpdateDto): TdApi.UpdateGroupCallParticipants {
+    fun map(dto: GroupCallParticipantsUpdateDto): TdApi.UpdateGroupCallParticipants {
         return TdApi.UpdateGroupCallParticipants(
             groupCallId = dto.groupCallId,
             participantUserIds = dto.participantUserIds,
         )
     }
 
-    public fun map(dto: TdApi.UpdateGroupCallVerificationState): GroupCallVerificationStateUpdateDto {
+    fun map(dto: TdApi.UpdateGroupCallVerificationState): GroupCallVerificationStateUpdateDto {
         return GroupCallVerificationStateUpdateDto(
             groupCallId = dto.groupCallId,
             generation = dto.generation,
@@ -24579,7 +24579,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: GroupCallVerificationStateUpdateDto): TdApi.UpdateGroupCallVerificationState {
+    fun map(dto: GroupCallVerificationStateUpdateDto): TdApi.UpdateGroupCallVerificationState {
         return TdApi.UpdateGroupCallVerificationState(
             groupCallId = dto.groupCallId,
             generation = dto.generation,
@@ -24587,35 +24587,35 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.UpdateNewCallSignalingData): NewCallSignalingDataUpdateDto {
+    fun map(dto: TdApi.UpdateNewCallSignalingData): NewCallSignalingDataUpdateDto {
         return NewCallSignalingDataUpdateDto(
             callId = dto.callId,
             data = dto.data,
         )
     }
 
-    public fun map(dto: NewCallSignalingDataUpdateDto): TdApi.UpdateNewCallSignalingData {
+    fun map(dto: NewCallSignalingDataUpdateDto): TdApi.UpdateNewCallSignalingData {
         return TdApi.UpdateNewCallSignalingData(
             callId = dto.callId,
             data = dto.data,
         )
     }
 
-    public fun map(dto: TdApi.UpdateUserPrivacySettingRules): UserPrivacySettingRulesUpdateDto {
+    fun map(dto: TdApi.UpdateUserPrivacySettingRules): UserPrivacySettingRulesUpdateDto {
         return UserPrivacySettingRulesUpdateDto(
             setting = map(dto.setting),
             rules = map(dto.rules),
         )
     }
 
-    public fun map(dto: UserPrivacySettingRulesUpdateDto): TdApi.UpdateUserPrivacySettingRules {
+    fun map(dto: UserPrivacySettingRulesUpdateDto): TdApi.UpdateUserPrivacySettingRules {
         return TdApi.UpdateUserPrivacySettingRules(
             setting = map(dto.setting),
             rules = map(dto.rules),
         )
     }
 
-    public fun map(dto: TdApi.UpdateUnreadMessageCount): UnreadMessageCountUpdateDto {
+    fun map(dto: TdApi.UpdateUnreadMessageCount): UnreadMessageCountUpdateDto {
         return UnreadMessageCountUpdateDto(
             chatList = map(dto.chatList),
             unreadCount = dto.unreadCount,
@@ -24623,7 +24623,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: UnreadMessageCountUpdateDto): TdApi.UpdateUnreadMessageCount {
+    fun map(dto: UnreadMessageCountUpdateDto): TdApi.UpdateUnreadMessageCount {
         return TdApi.UpdateUnreadMessageCount(
             chatList = map(dto.chatList),
             unreadCount = dto.unreadCount,
@@ -24631,7 +24631,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.UpdateUnreadChatCount): UnreadChatCountUpdateDto {
+    fun map(dto: TdApi.UpdateUnreadChatCount): UnreadChatCountUpdateDto {
         return UnreadChatCountUpdateDto(
             chatList = map(dto.chatList),
             totalCount = dto.totalCount,
@@ -24642,7 +24642,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: UnreadChatCountUpdateDto): TdApi.UpdateUnreadChatCount {
+    fun map(dto: UnreadChatCountUpdateDto): TdApi.UpdateUnreadChatCount {
         return TdApi.UpdateUnreadChatCount(
             chatList = map(dto.chatList),
             totalCount = dto.totalCount,
@@ -24653,47 +24653,47 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.UpdateStory): StoryUpdateDto {
+    fun map(dto: TdApi.UpdateStory): StoryUpdateDto {
         return StoryUpdateDto(
             story = map(dto.story),
         )
     }
 
-    public fun map(dto: StoryUpdateDto): TdApi.UpdateStory {
+    fun map(dto: StoryUpdateDto): TdApi.UpdateStory {
         return TdApi.UpdateStory(
             story = map(dto.story),
         )
     }
 
-    public fun map(dto: TdApi.UpdateStoryDeleted): StoryDeletedUpdateDto {
+    fun map(dto: TdApi.UpdateStoryDeleted): StoryDeletedUpdateDto {
         return StoryDeletedUpdateDto(
             storyPosterChatId = dto.storyPosterChatId,
             storyId = dto.storyId,
         )
     }
 
-    public fun map(dto: StoryDeletedUpdateDto): TdApi.UpdateStoryDeleted {
+    fun map(dto: StoryDeletedUpdateDto): TdApi.UpdateStoryDeleted {
         return TdApi.UpdateStoryDeleted(
             storyPosterChatId = dto.storyPosterChatId,
             storyId = dto.storyId,
         )
     }
 
-    public fun map(dto: TdApi.UpdateStoryPostSucceeded): StoryPostSucceededUpdateDto {
+    fun map(dto: TdApi.UpdateStoryPostSucceeded): StoryPostSucceededUpdateDto {
         return StoryPostSucceededUpdateDto(
             story = map(dto.story),
             oldStoryId = dto.oldStoryId,
         )
     }
 
-    public fun map(dto: StoryPostSucceededUpdateDto): TdApi.UpdateStoryPostSucceeded {
+    fun map(dto: StoryPostSucceededUpdateDto): TdApi.UpdateStoryPostSucceeded {
         return TdApi.UpdateStoryPostSucceeded(
             story = map(dto.story),
             oldStoryId = dto.oldStoryId,
         )
     }
 
-    public fun map(dto: TdApi.UpdateStoryPostFailed): StoryPostFailedUpdateDto {
+    fun map(dto: TdApi.UpdateStoryPostFailed): StoryPostFailedUpdateDto {
         return StoryPostFailedUpdateDto(
             story = map(dto.story),
             error = map(dto.error),
@@ -24701,7 +24701,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: StoryPostFailedUpdateDto): TdApi.UpdateStoryPostFailed {
+    fun map(dto: StoryPostFailedUpdateDto): TdApi.UpdateStoryPostFailed {
         return TdApi.UpdateStoryPostFailed(
             story = map(dto.story),
             error = map(dto.error),
@@ -24709,205 +24709,205 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.UpdateChatActiveStories): ChatActiveStoriesUpdateDto {
+    fun map(dto: TdApi.UpdateChatActiveStories): ChatActiveStoriesUpdateDto {
         return ChatActiveStoriesUpdateDto(
             activeStories = map(dto.activeStories),
         )
     }
 
-    public fun map(dto: ChatActiveStoriesUpdateDto): TdApi.UpdateChatActiveStories {
+    fun map(dto: ChatActiveStoriesUpdateDto): TdApi.UpdateChatActiveStories {
         return TdApi.UpdateChatActiveStories(
             activeStories = map(dto.activeStories),
         )
     }
 
-    public fun map(dto: TdApi.UpdateStoryListChatCount): StoryListChatCountUpdateDto {
+    fun map(dto: TdApi.UpdateStoryListChatCount): StoryListChatCountUpdateDto {
         return StoryListChatCountUpdateDto(
             storyList = map(dto.storyList),
             chatCount = dto.chatCount,
         )
     }
 
-    public fun map(dto: StoryListChatCountUpdateDto): TdApi.UpdateStoryListChatCount {
+    fun map(dto: StoryListChatCountUpdateDto): TdApi.UpdateStoryListChatCount {
         return TdApi.UpdateStoryListChatCount(
             storyList = map(dto.storyList),
             chatCount = dto.chatCount,
         )
     }
 
-    public fun map(dto: TdApi.UpdateStoryStealthMode): StoryStealthModeUpdateDto {
+    fun map(dto: TdApi.UpdateStoryStealthMode): StoryStealthModeUpdateDto {
         return StoryStealthModeUpdateDto(
             activeUntilDate = dto.activeUntilDate,
             cooldownUntilDate = dto.cooldownUntilDate,
         )
     }
 
-    public fun map(dto: StoryStealthModeUpdateDto): TdApi.UpdateStoryStealthMode {
+    fun map(dto: StoryStealthModeUpdateDto): TdApi.UpdateStoryStealthMode {
         return TdApi.UpdateStoryStealthMode(
             activeUntilDate = dto.activeUntilDate,
             cooldownUntilDate = dto.cooldownUntilDate,
         )
     }
 
-    public fun map(dto: TdApi.UpdateOption): OptionUpdateDto {
+    fun map(dto: TdApi.UpdateOption): OptionUpdateDto {
         return OptionUpdateDto(
             name = dto.name,
             value = map(dto.value),
         )
     }
 
-    public fun map(dto: OptionUpdateDto): TdApi.UpdateOption {
+    fun map(dto: OptionUpdateDto): TdApi.UpdateOption {
         return TdApi.UpdateOption(
             name = dto.name,
             value = map(dto.value),
         )
     }
 
-    public fun map(dto: TdApi.UpdateStickerSet): StickerSetUpdateDto {
+    fun map(dto: TdApi.UpdateStickerSet): StickerSetUpdateDto {
         return StickerSetUpdateDto(
             stickerSet = map(dto.stickerSet),
         )
     }
 
-    public fun map(dto: StickerSetUpdateDto): TdApi.UpdateStickerSet {
+    fun map(dto: StickerSetUpdateDto): TdApi.UpdateStickerSet {
         return TdApi.UpdateStickerSet(
             stickerSet = map(dto.stickerSet),
         )
     }
 
-    public fun map(dto: TdApi.UpdateInstalledStickerSets): InstalledStickerSetsUpdateDto {
+    fun map(dto: TdApi.UpdateInstalledStickerSets): InstalledStickerSetsUpdateDto {
         return InstalledStickerSetsUpdateDto(
             stickerType = map(dto.stickerType),
             stickerSetIds = dto.stickerSetIds,
         )
     }
 
-    public fun map(dto: InstalledStickerSetsUpdateDto): TdApi.UpdateInstalledStickerSets {
+    fun map(dto: InstalledStickerSetsUpdateDto): TdApi.UpdateInstalledStickerSets {
         return TdApi.UpdateInstalledStickerSets(
             stickerType = map(dto.stickerType),
             stickerSetIds = dto.stickerSetIds,
         )
     }
 
-    public fun map(dto: TdApi.UpdateTrendingStickerSets): TrendingStickerSetsUpdateDto {
+    fun map(dto: TdApi.UpdateTrendingStickerSets): TrendingStickerSetsUpdateDto {
         return TrendingStickerSetsUpdateDto(
             stickerType = map(dto.stickerType),
             stickerSets = map(dto.stickerSets),
         )
     }
 
-    public fun map(dto: TrendingStickerSetsUpdateDto): TdApi.UpdateTrendingStickerSets {
+    fun map(dto: TrendingStickerSetsUpdateDto): TdApi.UpdateTrendingStickerSets {
         return TdApi.UpdateTrendingStickerSets(
             stickerType = map(dto.stickerType),
             stickerSets = map(dto.stickerSets),
         )
     }
 
-    public fun map(dto: TdApi.UpdateRecentStickers): RecentStickersUpdateDto {
+    fun map(dto: TdApi.UpdateRecentStickers): RecentStickersUpdateDto {
         return RecentStickersUpdateDto(
             isAttached = dto.isAttached,
             stickerIds = dto.stickerIds,
         )
     }
 
-    public fun map(dto: RecentStickersUpdateDto): TdApi.UpdateRecentStickers {
+    fun map(dto: RecentStickersUpdateDto): TdApi.UpdateRecentStickers {
         return TdApi.UpdateRecentStickers(
             isAttached = dto.isAttached,
             stickerIds = dto.stickerIds,
         )
     }
 
-    public fun map(dto: TdApi.UpdateFavoriteStickers): FavoriteStickersUpdateDto {
+    fun map(dto: TdApi.UpdateFavoriteStickers): FavoriteStickersUpdateDto {
         return FavoriteStickersUpdateDto(
             stickerIds = dto.stickerIds,
         )
     }
 
-    public fun map(dto: FavoriteStickersUpdateDto): TdApi.UpdateFavoriteStickers {
+    fun map(dto: FavoriteStickersUpdateDto): TdApi.UpdateFavoriteStickers {
         return TdApi.UpdateFavoriteStickers(
             stickerIds = dto.stickerIds,
         )
     }
 
-    public fun map(dto: TdApi.UpdateSavedAnimations): SavedAnimationsUpdateDto {
+    fun map(dto: TdApi.UpdateSavedAnimations): SavedAnimationsUpdateDto {
         return SavedAnimationsUpdateDto(
             animationIds = dto.animationIds,
         )
     }
 
-    public fun map(dto: SavedAnimationsUpdateDto): TdApi.UpdateSavedAnimations {
+    fun map(dto: SavedAnimationsUpdateDto): TdApi.UpdateSavedAnimations {
         return TdApi.UpdateSavedAnimations(
             animationIds = dto.animationIds,
         )
     }
 
-    public fun map(dto: TdApi.UpdateSavedNotificationSounds): SavedNotificationSoundsUpdateDto {
+    fun map(dto: TdApi.UpdateSavedNotificationSounds): SavedNotificationSoundsUpdateDto {
         return SavedNotificationSoundsUpdateDto(
             notificationSoundIds = dto.notificationSoundIds,
         )
     }
 
-    public fun map(dto: SavedNotificationSoundsUpdateDto): TdApi.UpdateSavedNotificationSounds {
+    fun map(dto: SavedNotificationSoundsUpdateDto): TdApi.UpdateSavedNotificationSounds {
         return TdApi.UpdateSavedNotificationSounds(
             notificationSoundIds = dto.notificationSoundIds,
         )
     }
 
-    public fun map(dto: TdApi.UpdateDefaultBackground): DefaultBackgroundUpdateDto {
+    fun map(dto: TdApi.UpdateDefaultBackground): DefaultBackgroundUpdateDto {
         return DefaultBackgroundUpdateDto(
             forDarkTheme = dto.forDarkTheme,
             background = dto.background?.let { map(it) },
         )
     }
 
-    public fun map(dto: DefaultBackgroundUpdateDto): TdApi.UpdateDefaultBackground {
+    fun map(dto: DefaultBackgroundUpdateDto): TdApi.UpdateDefaultBackground {
         return TdApi.UpdateDefaultBackground(
             forDarkTheme = dto.forDarkTheme,
             background = dto.background?.let { map(it) },
         )
     }
 
-    public fun map(dto: TdApi.UpdateChatThemes): ChatThemesUpdateDto {
+    fun map(dto: TdApi.UpdateChatThemes): ChatThemesUpdateDto {
         return ChatThemesUpdateDto(
             chatThemes = dto.chatThemes.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: ChatThemesUpdateDto): TdApi.UpdateChatThemes {
+    fun map(dto: ChatThemesUpdateDto): TdApi.UpdateChatThemes {
         return TdApi.UpdateChatThemes(
             chatThemes = dto.chatThemes.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: TdApi.UpdateAccentColors): AccentColorsUpdateDto {
+    fun map(dto: TdApi.UpdateAccentColors): AccentColorsUpdateDto {
         return AccentColorsUpdateDto(
             colors = dto.colors.mapArray { map(it) },
             availableAccentColorIds = dto.availableAccentColorIds,
         )
     }
 
-    public fun map(dto: AccentColorsUpdateDto): TdApi.UpdateAccentColors {
+    fun map(dto: AccentColorsUpdateDto): TdApi.UpdateAccentColors {
         return TdApi.UpdateAccentColors(
             colors = dto.colors.mapArray { map(it) },
             availableAccentColorIds = dto.availableAccentColorIds,
         )
     }
 
-    public fun map(dto: TdApi.UpdateProfileAccentColors): ProfileAccentColorsUpdateDto {
+    fun map(dto: TdApi.UpdateProfileAccentColors): ProfileAccentColorsUpdateDto {
         return ProfileAccentColorsUpdateDto(
             colors = dto.colors.mapArray { map(it) },
             availableAccentColorIds = dto.availableAccentColorIds,
         )
     }
 
-    public fun map(dto: ProfileAccentColorsUpdateDto): TdApi.UpdateProfileAccentColors {
+    fun map(dto: ProfileAccentColorsUpdateDto): TdApi.UpdateProfileAccentColors {
         return TdApi.UpdateProfileAccentColors(
             colors = dto.colors.mapArray { map(it) },
             availableAccentColorIds = dto.availableAccentColorIds,
         )
     }
 
-    public fun map(dto: TdApi.UpdateLanguagePackStrings): LanguagePackStringsUpdateDto {
+    fun map(dto: TdApi.UpdateLanguagePackStrings): LanguagePackStringsUpdateDto {
         return LanguagePackStringsUpdateDto(
             localizationTarget = dto.localizationTarget,
             languagePackId = dto.languagePackId,
@@ -24915,7 +24915,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: LanguagePackStringsUpdateDto): TdApi.UpdateLanguagePackStrings {
+    fun map(dto: LanguagePackStringsUpdateDto): TdApi.UpdateLanguagePackStrings {
         return TdApi.UpdateLanguagePackStrings(
             localizationTarget = dto.localizationTarget,
             languagePackId = dto.languagePackId,
@@ -24923,19 +24923,19 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.UpdateConnectionState): ConnectionStateUpdateDto {
+    fun map(dto: TdApi.UpdateConnectionState): ConnectionStateUpdateDto {
         return ConnectionStateUpdateDto(
             state = map(dto.state),
         )
     }
 
-    public fun map(dto: ConnectionStateUpdateDto): TdApi.UpdateConnectionState {
+    fun map(dto: ConnectionStateUpdateDto): TdApi.UpdateConnectionState {
         return TdApi.UpdateConnectionState(
             state = map(dto.state),
         )
     }
 
-    public fun map(dto: TdApi.UpdateFreezeState): FreezeStateUpdateDto {
+    fun map(dto: TdApi.UpdateFreezeState): FreezeStateUpdateDto {
         return FreezeStateUpdateDto(
             isFrozen = dto.isFrozen,
             freezingDate = dto.freezingDate,
@@ -24944,7 +24944,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: FreezeStateUpdateDto): TdApi.UpdateFreezeState {
+    fun map(dto: FreezeStateUpdateDto): TdApi.UpdateFreezeState {
         return TdApi.UpdateFreezeState(
             isFrozen = dto.isFrozen,
             freezingDate = dto.freezingDate,
@@ -24953,173 +24953,173 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.UpdateTermsOfService): TermsOfServiceUpdateDto {
+    fun map(dto: TdApi.UpdateTermsOfService): TermsOfServiceUpdateDto {
         return TermsOfServiceUpdateDto(
             termsOfServiceId = dto.termsOfServiceId,
             termsOfService = map(dto.termsOfService),
         )
     }
 
-    public fun map(dto: TermsOfServiceUpdateDto): TdApi.UpdateTermsOfService {
+    fun map(dto: TermsOfServiceUpdateDto): TdApi.UpdateTermsOfService {
         return TdApi.UpdateTermsOfService(
             termsOfServiceId = dto.termsOfServiceId,
             termsOfService = map(dto.termsOfService),
         )
     }
 
-    public fun map(dto: TdApi.UpdateUnconfirmedSession): UnconfirmedSessionUpdateDto {
+    fun map(dto: TdApi.UpdateUnconfirmedSession): UnconfirmedSessionUpdateDto {
         return UnconfirmedSessionUpdateDto(
             session = dto.session?.let { map(it) },
         )
     }
 
-    public fun map(dto: UnconfirmedSessionUpdateDto): TdApi.UpdateUnconfirmedSession {
+    fun map(dto: UnconfirmedSessionUpdateDto): TdApi.UpdateUnconfirmedSession {
         return TdApi.UpdateUnconfirmedSession(
             session = dto.session?.let { map(it) },
         )
     }
 
-    public fun map(dto: TdApi.UpdateAttachmentMenuBots): AttachmentMenuBotsUpdateDto {
+    fun map(dto: TdApi.UpdateAttachmentMenuBots): AttachmentMenuBotsUpdateDto {
         return AttachmentMenuBotsUpdateDto(
             bots = dto.bots.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: AttachmentMenuBotsUpdateDto): TdApi.UpdateAttachmentMenuBots {
+    fun map(dto: AttachmentMenuBotsUpdateDto): TdApi.UpdateAttachmentMenuBots {
         return TdApi.UpdateAttachmentMenuBots(
             bots = dto.bots.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: TdApi.UpdateWebAppMessageSent): WebAppMessageSentUpdateDto {
+    fun map(dto: TdApi.UpdateWebAppMessageSent): WebAppMessageSentUpdateDto {
         return WebAppMessageSentUpdateDto(
             webAppLaunchId = dto.webAppLaunchId,
         )
     }
 
-    public fun map(dto: WebAppMessageSentUpdateDto): TdApi.UpdateWebAppMessageSent {
+    fun map(dto: WebAppMessageSentUpdateDto): TdApi.UpdateWebAppMessageSent {
         return TdApi.UpdateWebAppMessageSent(
             webAppLaunchId = dto.webAppLaunchId,
         )
     }
 
-    public fun map(dto: TdApi.UpdateActiveEmojiReactions): ActiveEmojiReactionsUpdateDto {
+    fun map(dto: TdApi.UpdateActiveEmojiReactions): ActiveEmojiReactionsUpdateDto {
         return ActiveEmojiReactionsUpdateDto(
             emojis = dto.emojis,
         )
     }
 
-    public fun map(dto: ActiveEmojiReactionsUpdateDto): TdApi.UpdateActiveEmojiReactions {
+    fun map(dto: ActiveEmojiReactionsUpdateDto): TdApi.UpdateActiveEmojiReactions {
         return TdApi.UpdateActiveEmojiReactions(
             emojis = dto.emojis,
         )
     }
 
-    public fun map(dto: TdApi.UpdateAvailableMessageEffects): AvailableMessageEffectsUpdateDto {
+    fun map(dto: TdApi.UpdateAvailableMessageEffects): AvailableMessageEffectsUpdateDto {
         return AvailableMessageEffectsUpdateDto(
             reactionEffectIds = dto.reactionEffectIds,
             stickerEffectIds = dto.stickerEffectIds,
         )
     }
 
-    public fun map(dto: AvailableMessageEffectsUpdateDto): TdApi.UpdateAvailableMessageEffects {
+    fun map(dto: AvailableMessageEffectsUpdateDto): TdApi.UpdateAvailableMessageEffects {
         return TdApi.UpdateAvailableMessageEffects(
             reactionEffectIds = dto.reactionEffectIds,
             stickerEffectIds = dto.stickerEffectIds,
         )
     }
 
-    public fun map(dto: TdApi.UpdateDefaultReactionType): DefaultReactionTypeUpdateDto {
+    fun map(dto: TdApi.UpdateDefaultReactionType): DefaultReactionTypeUpdateDto {
         return DefaultReactionTypeUpdateDto(
             reactionType = map(dto.reactionType),
         )
     }
 
-    public fun map(dto: DefaultReactionTypeUpdateDto): TdApi.UpdateDefaultReactionType {
+    fun map(dto: DefaultReactionTypeUpdateDto): TdApi.UpdateDefaultReactionType {
         return TdApi.UpdateDefaultReactionType(
             reactionType = map(dto.reactionType),
         )
     }
 
-    public fun map(dto: TdApi.UpdateDefaultPaidReactionType): DefaultPaidReactionTypeUpdateDto {
+    fun map(dto: TdApi.UpdateDefaultPaidReactionType): DefaultPaidReactionTypeUpdateDto {
         return DefaultPaidReactionTypeUpdateDto(
             type = map(dto.type),
         )
     }
 
-    public fun map(dto: DefaultPaidReactionTypeUpdateDto): TdApi.UpdateDefaultPaidReactionType {
+    fun map(dto: DefaultPaidReactionTypeUpdateDto): TdApi.UpdateDefaultPaidReactionType {
         return TdApi.UpdateDefaultPaidReactionType(
             type = map(dto.type),
         )
     }
 
-    public fun map(dto: TdApi.UpdateSavedMessagesTags): SavedMessagesTagsUpdateDto {
+    fun map(dto: TdApi.UpdateSavedMessagesTags): SavedMessagesTagsUpdateDto {
         return SavedMessagesTagsUpdateDto(
             savedMessagesTopicId = dto.savedMessagesTopicId,
             tags = map(dto.tags),
         )
     }
 
-    public fun map(dto: SavedMessagesTagsUpdateDto): TdApi.UpdateSavedMessagesTags {
+    fun map(dto: SavedMessagesTagsUpdateDto): TdApi.UpdateSavedMessagesTags {
         return TdApi.UpdateSavedMessagesTags(
             savedMessagesTopicId = dto.savedMessagesTopicId,
             tags = map(dto.tags),
         )
     }
 
-    public fun map(dto: TdApi.UpdateActiveLiveLocationMessages): ActiveLiveLocationMessagesUpdateDto {
+    fun map(dto: TdApi.UpdateActiveLiveLocationMessages): ActiveLiveLocationMessagesUpdateDto {
         return ActiveLiveLocationMessagesUpdateDto(
             messages = dto.messages.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: ActiveLiveLocationMessagesUpdateDto): TdApi.UpdateActiveLiveLocationMessages {
+    fun map(dto: ActiveLiveLocationMessagesUpdateDto): TdApi.UpdateActiveLiveLocationMessages {
         return TdApi.UpdateActiveLiveLocationMessages(
             messages = dto.messages.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: TdApi.UpdateOwnedStarCount): OwnedStarCountUpdateDto {
+    fun map(dto: TdApi.UpdateOwnedStarCount): OwnedStarCountUpdateDto {
         return OwnedStarCountUpdateDto(
             starAmount = map(dto.starAmount),
         )
     }
 
-    public fun map(dto: OwnedStarCountUpdateDto): TdApi.UpdateOwnedStarCount {
+    fun map(dto: OwnedStarCountUpdateDto): TdApi.UpdateOwnedStarCount {
         return TdApi.UpdateOwnedStarCount(
             starAmount = map(dto.starAmount),
         )
     }
 
-    public fun map(dto: TdApi.UpdateChatRevenueAmount): ChatRevenueAmountUpdateDto {
+    fun map(dto: TdApi.UpdateChatRevenueAmount): ChatRevenueAmountUpdateDto {
         return ChatRevenueAmountUpdateDto(
             chatId = dto.chatId,
             revenueAmount = map(dto.revenueAmount),
         )
     }
 
-    public fun map(dto: ChatRevenueAmountUpdateDto): TdApi.UpdateChatRevenueAmount {
+    fun map(dto: ChatRevenueAmountUpdateDto): TdApi.UpdateChatRevenueAmount {
         return TdApi.UpdateChatRevenueAmount(
             chatId = dto.chatId,
             revenueAmount = map(dto.revenueAmount),
         )
     }
 
-    public fun map(dto: TdApi.UpdateStarRevenueStatus): StarRevenueStatusUpdateDto {
+    fun map(dto: TdApi.UpdateStarRevenueStatus): StarRevenueStatusUpdateDto {
         return StarRevenueStatusUpdateDto(
             ownerId = map(dto.ownerId),
             status = map(dto.status),
         )
     }
 
-    public fun map(dto: StarRevenueStatusUpdateDto): TdApi.UpdateStarRevenueStatus {
+    fun map(dto: StarRevenueStatusUpdateDto): TdApi.UpdateStarRevenueStatus {
         return TdApi.UpdateStarRevenueStatus(
             ownerId = map(dto.ownerId),
             status = map(dto.status),
         )
     }
 
-    public fun map(dto: TdApi.UpdateSpeechRecognitionTrial): SpeechRecognitionTrialUpdateDto {
+    fun map(dto: TdApi.UpdateSpeechRecognitionTrial): SpeechRecognitionTrialUpdateDto {
         return SpeechRecognitionTrialUpdateDto(
             maxMediaDuration = dto.maxMediaDuration,
             weeklyCount = dto.weeklyCount,
@@ -25128,7 +25128,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: SpeechRecognitionTrialUpdateDto): TdApi.UpdateSpeechRecognitionTrial {
+    fun map(dto: SpeechRecognitionTrialUpdateDto): TdApi.UpdateSpeechRecognitionTrial {
         return TdApi.UpdateSpeechRecognitionTrial(
             maxMediaDuration = dto.maxMediaDuration,
             weeklyCount = dto.weeklyCount,
@@ -25137,19 +25137,19 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.UpdateDiceEmojis): DiceEmojisUpdateDto {
+    fun map(dto: TdApi.UpdateDiceEmojis): DiceEmojisUpdateDto {
         return DiceEmojisUpdateDto(
             emojis = dto.emojis,
         )
     }
 
-    public fun map(dto: DiceEmojisUpdateDto): TdApi.UpdateDiceEmojis {
+    fun map(dto: DiceEmojisUpdateDto): TdApi.UpdateDiceEmojis {
         return TdApi.UpdateDiceEmojis(
             emojis = dto.emojis,
         )
     }
 
-    public fun map(dto: TdApi.UpdateAnimatedEmojiMessageClicked): AnimatedEmojiMessageClickedUpdateDto {
+    fun map(dto: TdApi.UpdateAnimatedEmojiMessageClicked): AnimatedEmojiMessageClickedUpdateDto {
         return AnimatedEmojiMessageClickedUpdateDto(
             chatId = dto.chatId,
             messageId = dto.messageId,
@@ -25157,7 +25157,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: AnimatedEmojiMessageClickedUpdateDto): TdApi.UpdateAnimatedEmojiMessageClicked {
+    fun map(dto: AnimatedEmojiMessageClickedUpdateDto): TdApi.UpdateAnimatedEmojiMessageClicked {
         return TdApi.UpdateAnimatedEmojiMessageClicked(
             chatId = dto.chatId,
             messageId = dto.messageId,
@@ -25165,113 +25165,113 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.UpdateAnimationSearchParameters): AnimationSearchParametersUpdateDto {
+    fun map(dto: TdApi.UpdateAnimationSearchParameters): AnimationSearchParametersUpdateDto {
         return AnimationSearchParametersUpdateDto(
             provider = dto.provider,
             emojis = dto.emojis,
         )
     }
 
-    public fun map(dto: AnimationSearchParametersUpdateDto): TdApi.UpdateAnimationSearchParameters {
+    fun map(dto: AnimationSearchParametersUpdateDto): TdApi.UpdateAnimationSearchParameters {
         return TdApi.UpdateAnimationSearchParameters(
             provider = dto.provider,
             emojis = dto.emojis,
         )
     }
 
-    public fun map(dto: TdApi.UpdateSuggestedActions): SuggestedActionsUpdateDto {
+    fun map(dto: TdApi.UpdateSuggestedActions): SuggestedActionsUpdateDto {
         return SuggestedActionsUpdateDto(
             addedActions = dto.addedActions.mapArray { map(it) },
             removedActions = dto.removedActions.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: SuggestedActionsUpdateDto): TdApi.UpdateSuggestedActions {
+    fun map(dto: SuggestedActionsUpdateDto): TdApi.UpdateSuggestedActions {
         return TdApi.UpdateSuggestedActions(
             addedActions = dto.addedActions.mapArray { map(it) },
             removedActions = dto.removedActions.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: TdApi.UpdateSpeedLimitNotification): SpeedLimitNotificationUpdateDto {
+    fun map(dto: TdApi.UpdateSpeedLimitNotification): SpeedLimitNotificationUpdateDto {
         return SpeedLimitNotificationUpdateDto(
             isUpload = dto.isUpload,
         )
     }
 
-    public fun map(dto: SpeedLimitNotificationUpdateDto): TdApi.UpdateSpeedLimitNotification {
+    fun map(dto: SpeedLimitNotificationUpdateDto): TdApi.UpdateSpeedLimitNotification {
         return TdApi.UpdateSpeedLimitNotification(
             isUpload = dto.isUpload,
         )
     }
 
-    public fun map(dto: TdApi.UpdateContactCloseBirthdays): ContactCloseBirthdaysUpdateDto {
+    fun map(dto: TdApi.UpdateContactCloseBirthdays): ContactCloseBirthdaysUpdateDto {
         return ContactCloseBirthdaysUpdateDto(
             closeBirthdayUsers = dto.closeBirthdayUsers.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: ContactCloseBirthdaysUpdateDto): TdApi.UpdateContactCloseBirthdays {
+    fun map(dto: ContactCloseBirthdaysUpdateDto): TdApi.UpdateContactCloseBirthdays {
         return TdApi.UpdateContactCloseBirthdays(
             closeBirthdayUsers = dto.closeBirthdayUsers.mapArray { map(it) },
         )
     }
 
-    public fun map(dto: TdApi.UpdateAutosaveSettings): AutosaveSettingsUpdateDto {
+    fun map(dto: TdApi.UpdateAutosaveSettings): AutosaveSettingsUpdateDto {
         return AutosaveSettingsUpdateDto(
             scope = map(dto.scope),
             settings = dto.settings?.let { map(it) },
         )
     }
 
-    public fun map(dto: AutosaveSettingsUpdateDto): TdApi.UpdateAutosaveSettings {
+    fun map(dto: AutosaveSettingsUpdateDto): TdApi.UpdateAutosaveSettings {
         return TdApi.UpdateAutosaveSettings(
             scope = map(dto.scope),
             settings = dto.settings?.let { map(it) },
         )
     }
 
-    public fun map(dto: TdApi.UpdateBusinessConnection): BusinessConnectionUpdateDto {
+    fun map(dto: TdApi.UpdateBusinessConnection): BusinessConnectionUpdateDto {
         return BusinessConnectionUpdateDto(
             connection = map(dto.connection),
         )
     }
 
-    public fun map(dto: BusinessConnectionUpdateDto): TdApi.UpdateBusinessConnection {
+    fun map(dto: BusinessConnectionUpdateDto): TdApi.UpdateBusinessConnection {
         return TdApi.UpdateBusinessConnection(
             connection = map(dto.connection),
         )
     }
 
-    public fun map(dto: TdApi.UpdateNewBusinessMessage): NewBusinessMessageUpdateDto {
+    fun map(dto: TdApi.UpdateNewBusinessMessage): NewBusinessMessageUpdateDto {
         return NewBusinessMessageUpdateDto(
             connectionId = dto.connectionId,
             message = map(dto.message),
         )
     }
 
-    public fun map(dto: NewBusinessMessageUpdateDto): TdApi.UpdateNewBusinessMessage {
+    fun map(dto: NewBusinessMessageUpdateDto): TdApi.UpdateNewBusinessMessage {
         return TdApi.UpdateNewBusinessMessage(
             connectionId = dto.connectionId,
             message = map(dto.message),
         )
     }
 
-    public fun map(dto: TdApi.UpdateBusinessMessageEdited): BusinessMessageEditedUpdateDto {
+    fun map(dto: TdApi.UpdateBusinessMessageEdited): BusinessMessageEditedUpdateDto {
         return BusinessMessageEditedUpdateDto(
             connectionId = dto.connectionId,
             message = map(dto.message),
         )
     }
 
-    public fun map(dto: BusinessMessageEditedUpdateDto): TdApi.UpdateBusinessMessageEdited {
+    fun map(dto: BusinessMessageEditedUpdateDto): TdApi.UpdateBusinessMessageEdited {
         return TdApi.UpdateBusinessMessageEdited(
             connectionId = dto.connectionId,
             message = map(dto.message),
         )
     }
 
-    public fun map(dto: TdApi.UpdateBusinessMessagesDeleted): BusinessMessagesDeletedUpdateDto {
+    fun map(dto: TdApi.UpdateBusinessMessagesDeleted): BusinessMessagesDeletedUpdateDto {
         return BusinessMessagesDeletedUpdateDto(
             connectionId = dto.connectionId,
             chatId = dto.chatId,
@@ -25279,7 +25279,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: BusinessMessagesDeletedUpdateDto): TdApi.UpdateBusinessMessagesDeleted {
+    fun map(dto: BusinessMessagesDeletedUpdateDto): TdApi.UpdateBusinessMessagesDeleted {
         return TdApi.UpdateBusinessMessagesDeleted(
             connectionId = dto.connectionId,
             chatId = dto.chatId,
@@ -25287,7 +25287,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.UpdateNewInlineQuery): NewInlineQueryUpdateDto {
+    fun map(dto: TdApi.UpdateNewInlineQuery): NewInlineQueryUpdateDto {
         return NewInlineQueryUpdateDto(
             id = dto.id,
             senderUserId = dto.senderUserId,
@@ -25298,7 +25298,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: NewInlineQueryUpdateDto): TdApi.UpdateNewInlineQuery {
+    fun map(dto: NewInlineQueryUpdateDto): TdApi.UpdateNewInlineQuery {
         return TdApi.UpdateNewInlineQuery(
             id = dto.id,
             senderUserId = dto.senderUserId,
@@ -25309,7 +25309,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.UpdateNewChosenInlineResult): NewChosenInlineResultUpdateDto {
+    fun map(dto: TdApi.UpdateNewChosenInlineResult): NewChosenInlineResultUpdateDto {
         return NewChosenInlineResultUpdateDto(
             senderUserId = dto.senderUserId,
             userLocation = dto.userLocation?.let { map(it) },
@@ -25319,7 +25319,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: NewChosenInlineResultUpdateDto): TdApi.UpdateNewChosenInlineResult {
+    fun map(dto: NewChosenInlineResultUpdateDto): TdApi.UpdateNewChosenInlineResult {
         return TdApi.UpdateNewChosenInlineResult(
             senderUserId = dto.senderUserId,
             userLocation = dto.userLocation?.let { map(it) },
@@ -25329,7 +25329,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.UpdateNewCallbackQuery): NewCallbackQueryUpdateDto {
+    fun map(dto: TdApi.UpdateNewCallbackQuery): NewCallbackQueryUpdateDto {
         return NewCallbackQueryUpdateDto(
             id = dto.id,
             senderUserId = dto.senderUserId,
@@ -25340,7 +25340,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: NewCallbackQueryUpdateDto): TdApi.UpdateNewCallbackQuery {
+    fun map(dto: NewCallbackQueryUpdateDto): TdApi.UpdateNewCallbackQuery {
         return TdApi.UpdateNewCallbackQuery(
             id = dto.id,
             senderUserId = dto.senderUserId,
@@ -25351,7 +25351,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.UpdateNewInlineCallbackQuery): NewInlineCallbackQueryUpdateDto {
+    fun map(dto: TdApi.UpdateNewInlineCallbackQuery): NewInlineCallbackQueryUpdateDto {
         return NewInlineCallbackQueryUpdateDto(
             id = dto.id,
             senderUserId = dto.senderUserId,
@@ -25361,7 +25361,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: NewInlineCallbackQueryUpdateDto): TdApi.UpdateNewInlineCallbackQuery {
+    fun map(dto: NewInlineCallbackQueryUpdateDto): TdApi.UpdateNewInlineCallbackQuery {
         return TdApi.UpdateNewInlineCallbackQuery(
             id = dto.id,
             senderUserId = dto.senderUserId,
@@ -25371,7 +25371,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.UpdateNewBusinessCallbackQuery): NewBusinessCallbackQueryUpdateDto {
+    fun map(dto: TdApi.UpdateNewBusinessCallbackQuery): NewBusinessCallbackQueryUpdateDto {
         return NewBusinessCallbackQueryUpdateDto(
             id = dto.id,
             senderUserId = dto.senderUserId,
@@ -25382,7 +25382,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: NewBusinessCallbackQueryUpdateDto): TdApi.UpdateNewBusinessCallbackQuery {
+    fun map(dto: NewBusinessCallbackQueryUpdateDto): TdApi.UpdateNewBusinessCallbackQuery {
         return TdApi.UpdateNewBusinessCallbackQuery(
             id = dto.id,
             senderUserId = dto.senderUserId,
@@ -25393,7 +25393,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.UpdateNewShippingQuery): NewShippingQueryUpdateDto {
+    fun map(dto: TdApi.UpdateNewShippingQuery): NewShippingQueryUpdateDto {
         return NewShippingQueryUpdateDto(
             id = dto.id,
             senderUserId = dto.senderUserId,
@@ -25402,7 +25402,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: NewShippingQueryUpdateDto): TdApi.UpdateNewShippingQuery {
+    fun map(dto: NewShippingQueryUpdateDto): TdApi.UpdateNewShippingQuery {
         return TdApi.UpdateNewShippingQuery(
             id = dto.id,
             senderUserId = dto.senderUserId,
@@ -25411,7 +25411,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.UpdateNewPreCheckoutQuery): NewPreCheckoutQueryUpdateDto {
+    fun map(dto: TdApi.UpdateNewPreCheckoutQuery): NewPreCheckoutQueryUpdateDto {
         return NewPreCheckoutQueryUpdateDto(
             id = dto.id,
             senderUserId = dto.senderUserId,
@@ -25423,7 +25423,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: NewPreCheckoutQueryUpdateDto): TdApi.UpdateNewPreCheckoutQuery {
+    fun map(dto: NewPreCheckoutQueryUpdateDto): TdApi.UpdateNewPreCheckoutQuery {
         return TdApi.UpdateNewPreCheckoutQuery(
             id = dto.id,
             senderUserId = dto.senderUserId,
@@ -25435,19 +25435,19 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.UpdateNewCustomEvent): NewCustomEventUpdateDto {
+    fun map(dto: TdApi.UpdateNewCustomEvent): NewCustomEventUpdateDto {
         return NewCustomEventUpdateDto(
             event = dto.event,
         )
     }
 
-    public fun map(dto: NewCustomEventUpdateDto): TdApi.UpdateNewCustomEvent {
+    fun map(dto: NewCustomEventUpdateDto): TdApi.UpdateNewCustomEvent {
         return TdApi.UpdateNewCustomEvent(
             event = dto.event,
         )
     }
 
-    public fun map(dto: TdApi.UpdateNewCustomQuery): NewCustomQueryUpdateDto {
+    fun map(dto: TdApi.UpdateNewCustomQuery): NewCustomQueryUpdateDto {
         return NewCustomQueryUpdateDto(
             id = dto.id,
             data = dto.data,
@@ -25455,7 +25455,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: NewCustomQueryUpdateDto): TdApi.UpdateNewCustomQuery {
+    fun map(dto: NewCustomQueryUpdateDto): TdApi.UpdateNewCustomQuery {
         return TdApi.UpdateNewCustomQuery(
             id = dto.id,
             data = dto.data,
@@ -25463,19 +25463,19 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.UpdatePoll): PollUpdateDto {
+    fun map(dto: TdApi.UpdatePoll): PollUpdateDto {
         return PollUpdateDto(
             poll = map(dto.poll),
         )
     }
 
-    public fun map(dto: PollUpdateDto): TdApi.UpdatePoll {
+    fun map(dto: PollUpdateDto): TdApi.UpdatePoll {
         return TdApi.UpdatePoll(
             poll = map(dto.poll),
         )
     }
 
-    public fun map(dto: TdApi.UpdatePollAnswer): PollAnswerUpdateDto {
+    fun map(dto: TdApi.UpdatePollAnswer): PollAnswerUpdateDto {
         return PollAnswerUpdateDto(
             pollId = dto.pollId,
             voterId = map(dto.voterId),
@@ -25483,7 +25483,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: PollAnswerUpdateDto): TdApi.UpdatePollAnswer {
+    fun map(dto: PollAnswerUpdateDto): TdApi.UpdatePollAnswer {
         return TdApi.UpdatePollAnswer(
             pollId = dto.pollId,
             voterId = map(dto.voterId),
@@ -25491,7 +25491,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.UpdateChatMember): ChatMemberUpdateDto {
+    fun map(dto: TdApi.UpdateChatMember): ChatMemberUpdateDto {
         return ChatMemberUpdateDto(
             chatId = dto.chatId,
             actorUserId = dto.actorUserId,
@@ -25504,7 +25504,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: ChatMemberUpdateDto): TdApi.UpdateChatMember {
+    fun map(dto: ChatMemberUpdateDto): TdApi.UpdateChatMember {
         return TdApi.UpdateChatMember(
             chatId = dto.chatId,
             actorUserId = dto.actorUserId,
@@ -25517,7 +25517,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.UpdateNewChatJoinRequest): NewChatJoinRequestUpdateDto {
+    fun map(dto: TdApi.UpdateNewChatJoinRequest): NewChatJoinRequestUpdateDto {
         return NewChatJoinRequestUpdateDto(
             chatId = dto.chatId,
             request = map(dto.request),
@@ -25526,7 +25526,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: NewChatJoinRequestUpdateDto): TdApi.UpdateNewChatJoinRequest {
+    fun map(dto: NewChatJoinRequestUpdateDto): TdApi.UpdateNewChatJoinRequest {
         return TdApi.UpdateNewChatJoinRequest(
             chatId = dto.chatId,
             request = map(dto.request),
@@ -25535,21 +25535,21 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.UpdateChatBoost): ChatBoostUpdateDto {
+    fun map(dto: TdApi.UpdateChatBoost): ChatBoostUpdateDto {
         return ChatBoostUpdateDto(
             chatId = dto.chatId,
             boost = map(dto.boost),
         )
     }
 
-    public fun map(dto: ChatBoostUpdateDto): TdApi.UpdateChatBoost {
+    fun map(dto: ChatBoostUpdateDto): TdApi.UpdateChatBoost {
         return TdApi.UpdateChatBoost(
             chatId = dto.chatId,
             boost = map(dto.boost),
         )
     }
 
-    public fun map(dto: TdApi.UpdateMessageReaction): MessageReactionUpdateDto {
+    fun map(dto: TdApi.UpdateMessageReaction): MessageReactionUpdateDto {
         return MessageReactionUpdateDto(
             chatId = dto.chatId,
             messageId = dto.messageId,
@@ -25560,7 +25560,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: MessageReactionUpdateDto): TdApi.UpdateMessageReaction {
+    fun map(dto: MessageReactionUpdateDto): TdApi.UpdateMessageReaction {
         return TdApi.UpdateMessageReaction(
             chatId = dto.chatId,
             messageId = dto.messageId,
@@ -25571,7 +25571,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.UpdateMessageReactions): MessageReactionsUpdateDto {
+    fun map(dto: TdApi.UpdateMessageReactions): MessageReactionsUpdateDto {
         return MessageReactionsUpdateDto(
             chatId = dto.chatId,
             messageId = dto.messageId,
@@ -25580,7 +25580,7 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: MessageReactionsUpdateDto): TdApi.UpdateMessageReactions {
+    fun map(dto: MessageReactionsUpdateDto): TdApi.UpdateMessageReactions {
         return TdApi.UpdateMessageReactions(
             chatId = dto.chatId,
             messageId = dto.messageId,
@@ -25589,21 +25589,21 @@ internal class TdlMapper {
         )
     }
 
-    public fun map(dto: TdApi.UpdatePaidMediaPurchased): PaidMediaPurchasedUpdateDto {
+    fun map(dto: TdApi.UpdatePaidMediaPurchased): PaidMediaPurchasedUpdateDto {
         return PaidMediaPurchasedUpdateDto(
             userId = dto.userId,
             payload = dto.payload,
         )
     }
 
-    public fun map(dto: PaidMediaPurchasedUpdateDto): TdApi.UpdatePaidMediaPurchased {
+    fun map(dto: PaidMediaPurchasedUpdateDto): TdApi.UpdatePaidMediaPurchased {
         return TdApi.UpdatePaidMediaPurchased(
             userId = dto.userId,
             payload = dto.payload,
         )
     }
 
-    public fun map(dto: TdApi.Update): UpdateDto {
+    fun map(dto: TdApi.Update): UpdateDto {
         when(dto) {
             is TdApi.UpdateAuthorizationState -> return map(dto)
             is TdApi.UpdateNewMessage -> return map(dto)
