@@ -24,7 +24,9 @@ internal class TdApi private constructor() {
         abstract fun getConstructor(): Int
     }
 
-    abstract class Function<T : Object> : Object()
+    abstract class Function<T : Object> : Object() {
+        external override fun toString(): String
+    }
 
     class AccentColor(
         @JvmField
