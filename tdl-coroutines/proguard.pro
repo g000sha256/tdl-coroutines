@@ -12,7 +12,7 @@
 
     java.lang.String TDL_VERSION;
 
-    abstract <methods>;
+    <methods>;
 
 }
 
@@ -38,11 +38,17 @@
 
 }
 
--keepclasseswithmembers class dev.g000sha256.tdl.dto.** {
+-keep class dev.g000sha256.tdl.dto.**
 
-    public <init>(...);
+-keepclassmembers class dev.g000sha256.tdl.dto.** {
 
-    public <methods>;
+    <init>(...);
+
+}
+
+-keepclassmembers class dev.g000sha256.tdl.dto.** {
+
+    <methods>;
 
 }
 
