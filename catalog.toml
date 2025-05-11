@@ -9,5 +9,6 @@ libs-jetBrains-kotlin = { module = "org.jetbrains.kotlin:kotlin-stdlib", version
 
 [plugins]
 android-library = { id = "com.android.library", version = "8.9.2" }
+g000sha256-sonatypeMavenCentral = { id = "dev.g000sha256.sonatype-maven-central", version = "1.0.0" }
 jetBrains-binaryCompatibilityValidator = { id = "org.jetbrains.kotlinx.binary-compatibility-validator", version = "0.17.0" }
 jetBrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }

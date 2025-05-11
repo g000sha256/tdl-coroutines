@@ -5,6 +5,7 @@ include(":tdl-coroutines-generator")
 pluginManagement {
     repositories {
         google()
+        gradlePluginPortal()
         mavenCentral()
     }
 }
