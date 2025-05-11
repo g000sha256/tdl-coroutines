@@ -63,8 +63,6 @@ coroutineScope.launch {
 ## To Do List
 
 - GitHub release workflow.
-- Generator source code.
-- Example application.
 - Define optional parameters and properties.
 - Research replacing arrays with `List` or `ImmutableList`.
 - Usage of `Client.nativeClientExecute`.
