@@ -1346,7 +1346,6 @@ public abstract class TdlClient internal constructor() {
 
     /**
      * Activates stealth mode for stories, which hides all views of stories from the current user in the last &quot;story_stealth_mode_past_period&quot; seconds and for the next &quot;story_stealth_mode_future_period&quot; seconds; for Telegram Premium users only.
-     *
      */
     public abstract suspend fun activateStoryStealthMode(): TdlResult<Ok>
 
@@ -1781,7 +1780,6 @@ public abstract class TdlClient internal constructor() {
 
     /**
      * Checks whether the current session can be used to transfer a chat ownership to another user.
-     *
      */
     public abstract suspend fun canTransferOwnership(): TdlResult<CanTransferOwnershipResult>
 
@@ -1795,7 +1793,6 @@ public abstract class TdlClient internal constructor() {
 
     /**
      * Cancels reset of 2-step verification password. The method can be called if passwordState.pendingResetDate &gt; 0.
-     *
      */
     public abstract suspend fun cancelPasswordReset(): TdlResult<Ok>
 
@@ -1808,7 +1805,6 @@ public abstract class TdlClient internal constructor() {
 
     /**
      * Cancels verification of the 2-step verification recovery email address.
-     *
      */
     public abstract suspend fun cancelRecoveryEmailAddressVerification(): TdlResult<PasswordState>
 
@@ -1989,25 +1985,21 @@ public abstract class TdlClient internal constructor() {
 
     /**
      * Clears the list of all autosave settings exceptions. The method is guaranteed to work only after at least one call to getAutosaveSettings.
-     *
      */
     public abstract suspend fun clearAutosaveSettingsExceptions(): TdlResult<Ok>
 
     /**
      * Clears all imported contacts, contact list remains unchanged.
-     *
      */
     public abstract suspend fun clearImportedContacts(): TdlResult<Ok>
 
     /**
      * Clears the list of recently used emoji statuses for self status.
-     *
      */
     public abstract suspend fun clearRecentEmojiStatuses(): TdlResult<Ok>
 
     /**
      * Clears the list of recently used reactions.
-     *
      */
     public abstract suspend fun clearRecentReactions(): TdlResult<Ok>
 
@@ -2020,7 +2012,6 @@ public abstract class TdlClient internal constructor() {
 
     /**
      * Clears the list of recently found chats.
-     *
      */
     public abstract suspend fun clearRecentlyFoundChats(): TdlResult<Ok>
 
@@ -2056,13 +2047,11 @@ public abstract class TdlClient internal constructor() {
 
     /**
      * Informs TDLib that the user clicked Premium subscription button on the Premium features screen.
-     *
      */
     public abstract suspend fun clickPremiumSubscriptionButton(): TdlResult<Ok>
 
     /**
      * Closes the TDLib instance. All databases will be flushed to disk and properly closed. After the close completes, updateAuthorizationState with authorizationStateClosed will be sent. Can be called before initialization.
-     *
      */
     public abstract suspend fun close(): TdlResult<Ok>
 
@@ -2592,7 +2581,6 @@ public abstract class TdlClient internal constructor() {
 
     /**
      * Deletes saved credentials for all payment provider bots.
-     *
      */
     public abstract suspend fun deleteSavedCredentials(): TdlResult<Ok>
 
@@ -2618,7 +2606,6 @@ public abstract class TdlClient internal constructor() {
 
     /**
      * Deletes saved order information.
-     *
      */
     public abstract suspend fun deleteSavedOrderInfo(): TdlResult<Ok>
 
@@ -2639,7 +2626,6 @@ public abstract class TdlClient internal constructor() {
 
     /**
      * Closes the TDLib instance, destroying all local data without a proper logout. The current user session will remain in the list of all active sessions. All local data will be destroyed. After the destruction completes updateAuthorizationState with authorizationStateClosed will be sent. Can be called before authorization.
-     *
      */
     public abstract suspend fun destroy(): TdlResult<Ok>
 
@@ -2652,7 +2638,6 @@ public abstract class TdlClient internal constructor() {
 
     /**
      * Disables the currently enabled proxy. Can be called before authorization.
-     *
      */
     public abstract suspend fun disableProxy(): TdlResult<Ok>
 
@@ -2685,7 +2670,6 @@ public abstract class TdlClient internal constructor() {
 
     /**
      * Disconnects all websites from the current user's Telegram account.
-     *
      */
     public abstract suspend fun disconnectAllWebsites(): TdlResult<Ok>
 
@@ -3242,13 +3226,11 @@ public abstract class TdlClient internal constructor() {
 
     /**
      * Returns the period of inactivity after which the account of the current user will automatically be deleted.
-     *
      */
     public abstract suspend fun getAccountTtl(): TdlResult<AccountTtl>
 
     /**
      * Returns all active sessions of the current user.
-     *
      */
     public abstract suspend fun getActiveSessions(): TdlResult<Sessions>
 
@@ -3283,19 +3265,16 @@ public abstract class TdlClient internal constructor() {
 
     /**
      * Returns application config, provided by the server. Can be called before authorization.
-     *
      */
     public abstract suspend fun getApplicationConfig(): TdlResult<JsonValue>
 
     /**
      * Returns the link for downloading official Telegram application to be used when the current user invites friends to Telegram.
-     *
      */
     public abstract suspend fun getApplicationDownloadLink(): TdlResult<HttpUrl>
 
     /**
      * Returns settings for automatic moving of chats to and from the Archive chat lists.
-     *
      */
     public abstract suspend fun getArchiveChatListSettings(): TdlResult<ArchiveChatListSettings>
 
@@ -3328,31 +3307,26 @@ public abstract class TdlClient internal constructor() {
 
     /**
      * Returns the current authorization state. This is an offline method. For informational purposes only. Use updateAuthorizationState instead to maintain the current authorization state. Can be called before initialization.
-     *
      */
     public abstract suspend fun getAuthorizationState(): TdlResult<AuthorizationState>
 
     /**
      * Returns auto-download settings presets for the current user.
-     *
      */
     public abstract suspend fun getAutoDownloadSettingsPresets(): TdlResult<AutoDownloadSettingsPresets>
 
     /**
      * Returns autosave settings for the current user.
-     *
      */
     public abstract suspend fun getAutosaveSettings(): TdlResult<AutosaveSettings>
 
     /**
      * Returns the list of available chat boost slots for the current user.
-     *
      */
     public abstract suspend fun getAvailableChatBoostSlots(): TdlResult<ChatBoostSlots>
 
     /**
      * Returns gifts that can be sent to other users and channel chats.
-     *
      */
     public abstract suspend fun getAvailableGifts(): TdlResult<Gifts>
 
@@ -3468,13 +3442,11 @@ public abstract class TdlClient internal constructor() {
 
     /**
      * Returns business chat links created for the current account.
-     *
      */
     public abstract suspend fun getBusinessChatLinks(): TdlResult<BusinessChatLinks>
 
     /**
      * Returns the business bot that is connected to the current user account. Returns a 404 error if there is no connected bot.
-     *
      */
     public abstract suspend fun getBusinessConnectedBot(): TdlResult<BusinessConnectedBot>
 
@@ -3980,13 +3952,11 @@ public abstract class TdlClient internal constructor() {
 
     /**
      * Returns supergroup and channel chats in which the current user has the right to post stories. The chats must be rechecked with canPostStory before actually trying to post a story there.
-     *
      */
     public abstract suspend fun getChatsToPostStories(): TdlResult<Chats>
 
     /**
      * Returns all close friends of the current user.
-     *
      */
     public abstract suspend fun getCloseFriends(): TdlResult<Users>
 
@@ -4028,25 +3998,21 @@ public abstract class TdlClient internal constructor() {
 
     /**
      * Returns all website where the current user used Telegram to log in.
-     *
      */
     public abstract suspend fun getConnectedWebsites(): TdlResult<ConnectedWebsites>
 
     /**
      * Returns all contacts of the user.
-     *
      */
     public abstract suspend fun getContacts(): TdlResult<Users>
 
     /**
      * Returns information about existing countries. Can be called before authorization.
-     *
      */
     public abstract suspend fun getCountries(): TdlResult<Countries>
 
     /**
      * Uses the current IP address to find the current country. Returns two-letter ISO 3166-1 alpha-2 country code. Can be called before authorization.
-     *
      */
     public abstract suspend fun getCountryCode(): TdlResult<Text>
 
@@ -4066,7 +4032,6 @@ public abstract class TdlClient internal constructor() {
 
     /**
      * Returns all updates needed to restore current TDLib state, i.e. all actual updateAuthorizationState/updateUser/updateNewChat and others. This is especially useful if TDLib is run in a separate process. Can be called before initialization.
-     *
      */
     public abstract suspend fun getCurrentState(): TdlResult<Updates>
 
@@ -4079,7 +4044,6 @@ public abstract class TdlClient internal constructor() {
 
     /**
      * Returns TGS stickers with generic animations for custom emoji reactions.
-     *
      */
     public abstract suspend fun getCustomEmojiReactionAnimations(): TdlResult<Stickers>
 
@@ -4092,7 +4056,6 @@ public abstract class TdlClient internal constructor() {
 
     /**
      * Returns database statistics.
-     *
      */
     public abstract suspend fun getDatabaseStatistics(): TdlResult<DatabaseStatistics>
 
@@ -4105,43 +4068,36 @@ public abstract class TdlClient internal constructor() {
 
     /**
      * Returns default list of custom emoji stickers for reply background.
-     *
      */
     public abstract suspend fun getDefaultBackgroundCustomEmojiStickers(): TdlResult<Stickers>
 
     /**
      * Returns default emoji statuses for chats.
-     *
      */
     public abstract suspend fun getDefaultChatEmojiStatuses(): TdlResult<EmojiStatusCustomEmojis>
 
     /**
      * Returns default list of custom emoji stickers for placing on a chat photo.
-     *
      */
     public abstract suspend fun getDefaultChatPhotoCustomEmojiStickers(): TdlResult<Stickers>
 
     /**
      * Returns default emoji statuses for self status.
-     *
      */
     public abstract suspend fun getDefaultEmojiStatuses(): TdlResult<EmojiStatusCustomEmojis>
 
     /**
      * Returns default message auto-delete time setting for new chats.
-     *
      */
     public abstract suspend fun getDefaultMessageAutoDeleteTime(): TdlResult<MessageAutoDeleteTime>
 
     /**
      * Returns default list of custom emoji stickers for placing on a profile photo.
-     *
      */
     public abstract suspend fun getDefaultProfilePhotoCustomEmojiStickers(): TdlResult<Stickers>
 
     /**
      * Returns the list of emoji statuses, which can't be used as chat emoji status, even they are from a sticker set with isAllowedAsChatEmojiStatus == true.
-     *
      */
     public abstract suspend fun getDisallowedChatEmojiStatuses(): TdlResult<EmojiStatusCustomEmojis>
 
@@ -4183,7 +4139,6 @@ public abstract class TdlClient internal constructor() {
 
     /**
      * Returns favorite stickers.
-     *
      */
     public abstract suspend fun getFavoriteStickers(): TdlResult<Stickers>
 
@@ -4226,7 +4181,6 @@ public abstract class TdlClient internal constructor() {
 
     /**
      * Returns the list of custom emoji, which can be used as forum topic icon by all users.
-     *
      */
     public abstract suspend fun getForumTopicDefaultIcons(): TdlResult<Stickers>
 
@@ -4287,7 +4241,6 @@ public abstract class TdlClient internal constructor() {
 
     /**
      * Returns greeting stickers from regular sticker sets that can be used for the start page of other users.
-     *
      */
     public abstract suspend fun getGreetingStickers(): TdlResult<Stickers>
 
@@ -4329,13 +4282,11 @@ public abstract class TdlClient internal constructor() {
 
     /**
      * Returns the total number of imported contacts.
-     *
      */
     public abstract suspend fun getImportedContactCount(): TdlResult<Count>
 
     /**
      * Returns a list of recently inactive supergroups and channels. Can be used when user reaches limit on the number of joined supergroups and channels and receives CHANNELSTOOMUCH error. Also, the limit can be increased with Telegram Premium.
-     *
      */
     public abstract suspend fun getInactiveSupergroupChats(): TdlResult<Chats>
 
@@ -4462,7 +4413,6 @@ public abstract class TdlClient internal constructor() {
 
     /**
      * Returns information about currently used log stream for internal logging of TDLib. Can be called synchronously.
-     *
      */
     public abstract suspend fun getLogStream(): TdlResult<LogStream>
 
@@ -4475,13 +4425,11 @@ public abstract class TdlClient internal constructor() {
 
     /**
      * Returns the list of available TDLib internal log tags, for example, [&quot;actor&quot;, &quot;binlog&quot;, &quot;connections&quot;, &quot;notifications&quot;, &quot;proxy&quot;]. Can be called synchronously.
-     *
      */
     public abstract suspend fun getLogTags(): TdlResult<LogTags>
 
     /**
      * Returns current verbosity level of the internal logging of TDLib. Can be called synchronously.
-     *
      */
     public abstract suspend fun getLogVerbosityLevel(): TdlResult<LogVerbosityLevel>
 
@@ -4556,7 +4504,6 @@ public abstract class TdlClient internal constructor() {
 
     /**
      * Returns the current user.
-     *
      */
     public abstract suspend fun getMe(): TdlResult<User>
 
@@ -4765,7 +4712,6 @@ public abstract class TdlClient internal constructor() {
 
     /**
      * Returns privacy settings for new chat creation.
-     *
      */
     public abstract suspend fun getNewChatPrivacySettings(): TdlResult<NewChatPrivacySettings>
 
@@ -4778,7 +4724,6 @@ public abstract class TdlClient internal constructor() {
 
     /**
      * Returns the list of bots owned by the current user.
-     *
      */
     public abstract suspend fun getOwnedBots(): TdlResult<Users>
 
@@ -4830,7 +4775,6 @@ public abstract class TdlClient internal constructor() {
 
     /**
      * Returns the current state of 2-step verification.
-     *
      */
     public abstract suspend fun getPasswordState(): TdlResult<PasswordState>
 
@@ -4898,7 +4842,6 @@ public abstract class TdlClient internal constructor() {
 
     /**
      * Returns available options for gifting Telegram Premium to a user.
-     *
      */
     public abstract suspend fun getPremiumGiftPaymentOptions(): TdlResult<PremiumGiftPaymentOptions>
 
@@ -4925,13 +4868,11 @@ public abstract class TdlClient internal constructor() {
 
     /**
      * Returns state of Telegram Premium subscription and promotion videos for Premium features.
-     *
      */
     public abstract suspend fun getPremiumState(): TdlResult<PremiumState>
 
     /**
      * Returns examples of premium stickers for demonstration purposes.
-     *
      */
     public abstract suspend fun getPremiumStickerExamples(): TdlResult<Stickers>
 
@@ -4952,7 +4893,6 @@ public abstract class TdlClient internal constructor() {
 
     /**
      * Returns the list of proxies that are currently set up. Can be called before authorization.
-     *
      */
     public abstract suspend fun getProxies(): TdlResult<Proxies>
 
@@ -4972,7 +4912,6 @@ public abstract class TdlClient internal constructor() {
 
     /**
      * Returns privacy settings for message read date.
-     *
      */
     public abstract suspend fun getReadDatePrivacySettings(): TdlResult<ReadDatePrivacySettings>
 
@@ -5012,13 +4951,11 @@ public abstract class TdlClient internal constructor() {
 
     /**
      * Returns recent emoji statuses for self status.
-     *
      */
     public abstract suspend fun getRecentEmojiStatuses(): TdlResult<EmojiStatuses>
 
     /**
      * Returns up to 20 recently used inline bots in the order of their last usage.
-     *
      */
     public abstract suspend fun getRecentInlineBots(): TdlResult<Users>
 
@@ -5045,13 +4982,11 @@ public abstract class TdlClient internal constructor() {
 
     /**
      * Returns recommended chat folders for the current user.
-     *
      */
     public abstract suspend fun getRecommendedChatFolders(): TdlResult<RecommendedChatFolders>
 
     /**
      * Returns a list of channel chats recommended to the current user.
-     *
      */
     public abstract suspend fun getRecommendedChats(): TdlResult<Chats>
 
@@ -5080,7 +5015,6 @@ public abstract class TdlClient internal constructor() {
 
     /**
      * Returns saved animations.
-     *
      */
     public abstract suspend fun getSavedAnimations(): TdlResult<Animations>
 
@@ -5123,13 +5057,11 @@ public abstract class TdlClient internal constructor() {
 
     /**
      * Returns the list of saved notification sounds. If a sound isn't in the list, then default sound needs to be used.
-     *
      */
     public abstract suspend fun getSavedNotificationSounds(): TdlResult<NotificationSounds>
 
     /**
      * Returns saved order information. Returns a 404 error if there is no saved order information.
-     *
      */
     public abstract suspend fun getSavedOrderInfo(): TdlResult<OrderInfo>
 
@@ -5178,13 +5110,11 @@ public abstract class TdlClient internal constructor() {
 
     /**
      * Returns available options for Telegram Star giveaway creation.
-     *
      */
     public abstract suspend fun getStarGiveawayPaymentOptions(): TdlResult<StarGiveawayPaymentOptions>
 
     /**
      * Returns available options for Telegram Stars purchase.
-     *
      */
     public abstract suspend fun getStarPaymentOptions(): TdlResult<StarPaymentOptions>
 
@@ -5305,7 +5235,6 @@ public abstract class TdlClient internal constructor() {
 
     /**
      * Quickly returns approximate storage usage statistics. Can be called before authorization.
-     *
      */
     public abstract suspend fun getStorageStatisticsFast(): TdlResult<StorageStatisticsFast>
 
@@ -5352,7 +5281,6 @@ public abstract class TdlClient internal constructor() {
 
     /**
      * Returns the list of chats with non-default notification settings for stories.
-     *
      */
     public abstract suspend fun getStoryNotificationSettingsExceptions(): TdlResult<Chats>
 
@@ -5401,13 +5329,11 @@ public abstract class TdlClient internal constructor() {
 
     /**
      * Returns a list of basic group and supergroup chats, which can be used as a discussion group for a channel. Returned basic group chats must be first upgraded to supergroups before they can be set as a discussion group. To set a returned supergroup as a discussion group, access to its old messages must be enabled using toggleSupergroupIsAllHistoryAvailable first.
-     *
      */
     public abstract suspend fun getSuitableDiscussionChats(): TdlResult<Chats>
 
     /**
      * Returns a list of channel chats, which can be used as a personal chat.
-     *
      */
     public abstract suspend fun getSuitablePersonalChats(): TdlResult<Chats>
 
@@ -5442,19 +5368,16 @@ public abstract class TdlClient internal constructor() {
 
     /**
      * Returns localized name of the Telegram support user; for Telegram support only.
-     *
      */
     public abstract suspend fun getSupportName(): TdlResult<Text>
 
     /**
      * Returns a user that can be contacted to get support.
-     *
      */
     public abstract suspend fun getSupportUser(): TdlResult<User>
 
     /**
      * Returns information about the current temporary password.
-     *
      */
     public abstract suspend fun getTemporaryPasswordState(): TdlResult<TemporaryPasswordState>
 
@@ -5474,19 +5397,16 @@ public abstract class TdlClient internal constructor() {
 
     /**
      * Returns up to 8 emoji statuses, which must be shown in the emoji status list for chats.
-     *
      */
     public abstract suspend fun getThemedChatEmojiStatuses(): TdlResult<EmojiStatusCustomEmojis>
 
     /**
      * Returns up to 8 emoji statuses, which must be shown right after the default Premium Badge in the emoji status list for self status.
-     *
      */
     public abstract suspend fun getThemedEmojiStatuses(): TdlResult<EmojiStatusCustomEmojis>
 
     /**
      * Returns the list of supported time zones.
-     *
      */
     public abstract suspend fun getTimeZones(): TdlResult<TimeZones>
 
@@ -5520,7 +5440,6 @@ public abstract class TdlClient internal constructor() {
 
     /**
      * Returns available upgraded gift emoji statuses for self status.
-     *
      */
     public abstract suspend fun getUpgradedGiftEmojiStatuses(): TdlResult<EmojiStatuses>
 
@@ -5556,7 +5475,6 @@ public abstract class TdlClient internal constructor() {
 
     /**
      * Returns an HTTPS link, which can be used to get information about the current user.
-     *
      */
     public abstract suspend fun getUserLink(): TdlResult<UserLink>
 
@@ -5697,7 +5615,6 @@ public abstract class TdlClient internal constructor() {
 
     /**
      * Hides the list of contacts that have close birthdays for 24 hours.
-     *
      */
     public abstract suspend fun hideContactCloseBirthdays(): TdlResult<Ok>
 
@@ -5847,7 +5764,6 @@ public abstract class TdlClient internal constructor() {
 
     /**
      * Loads quick reply shortcuts created by the current user. The loaded data will be sent through updateQuickReplyShortcut and updateQuickReplyShortcuts.
-     *
      */
     public abstract suspend fun loadQuickReplyShortcuts(): TdlResult<Ok>
 
@@ -5860,7 +5776,6 @@ public abstract class TdlClient internal constructor() {
 
     /**
      * Closes the TDLib instance after a proper logout. Requires an available network connection. All local data will be destroyed. After the logout completes, updateAuthorizationState with authorizationStateClosed will be sent.
-     *
      */
     public abstract suspend fun logOut(): TdlResult<Ok>
 
@@ -6582,13 +6497,11 @@ public abstract class TdlClient internal constructor() {
 
     /**
      * Requests to send a 2-step verification password recovery code to an email address that was previously set up. Works only when the current authorization state is authorizationStateWaitPassword.
-     *
      */
     public abstract suspend fun requestAuthenticationPasswordRecovery(): TdlResult<Ok>
 
     /**
      * Requests to send a 2-step verification password recovery code to an email address that was previously set up.
-     *
      */
     public abstract suspend fun requestPasswordRecovery(): TdlResult<EmailAddressAuthenticationCodeInfo>
 
@@ -6608,13 +6521,11 @@ public abstract class TdlClient internal constructor() {
 
     /**
      * Resends the code to verify an email address to be added to a user's Telegram Passport.
-     *
      */
     public abstract suspend fun resendEmailAddressVerificationCode(): TdlResult<EmailAddressAuthenticationCodeInfo>
 
     /**
      * Resends the login email address verification code.
-     *
      */
     public abstract suspend fun resendLoginEmailAddressCode(): TdlResult<EmailAddressAuthenticationCodeInfo>
 
@@ -6642,37 +6553,31 @@ public abstract class TdlClient internal constructor() {
 
     /**
      * Resends the 2-step verification recovery email address verification code.
-     *
      */
     public abstract suspend fun resendRecoveryEmailAddressCode(): TdlResult<PasswordState>
 
     /**
      * Resets all chat and scope notification settings to their default values. By default, all chats are unmuted and message previews are shown.
-     *
      */
     public abstract suspend fun resetAllNotificationSettings(): TdlResult<Ok>
 
     /**
      * Resets the login email address. May return an error with a message &quot;TASK_ALREADY_EXISTS&quot; if reset is still pending. Works only when the current authorization state is authorizationStateWaitEmailCode and authorizationState.canResetEmailAddress == true.
-     *
      */
     public abstract suspend fun resetAuthenticationEmailAddress(): TdlResult<Ok>
 
     /**
      * Resets list of installed backgrounds to its default value.
-     *
      */
     public abstract suspend fun resetInstalledBackgrounds(): TdlResult<Ok>
 
     /**
      * Resets all network data usage statistics to zero. Can be called before authorization.
-     *
      */
     public abstract suspend fun resetNetworkStatistics(): TdlResult<Ok>
 
     /**
      * Removes 2-step verification password without previous password and access to recovery email address. The password can't be reset immediately and the request needs to be repeated after the specified time.
-     *
      */
     public abstract suspend fun resetPassword(): TdlResult<ResetPasswordResult>
 
@@ -8686,7 +8591,6 @@ public abstract class TdlClient internal constructor() {
 
     /**
      * Terminates all other sessions of the current user.
-     *
      */
     public abstract suspend fun terminateAllOtherSessions(): TdlResult<Ok>
 
@@ -8706,7 +8610,6 @@ public abstract class TdlClient internal constructor() {
 
     /**
      * Does nothing; for testing only. This is an offline method. Can be called before authorization.
-     *
      */
     public abstract suspend fun testCallEmpty(): TdlResult<Ok>
 
@@ -8747,13 +8650,11 @@ public abstract class TdlClient internal constructor() {
 
     /**
      * Forces an updates.getDifference call to the Telegram servers; for testing only.
-     *
      */
     public abstract suspend fun testGetDifference(): TdlResult<Ok>
 
     /**
      * Sends a simple network request to the Telegram servers; for testing only. Can be called before authorization.
-     *
      */
     public abstract suspend fun testNetwork(): TdlResult<Ok>
 
@@ -8790,7 +8691,6 @@ public abstract class TdlClient internal constructor() {
 
     /**
      * Does nothing and ensures that the Update object is used; for testing only. This is an offline method. Can be called before authorization.
-     *
      */
     public abstract suspend fun testUseUpdate(): TdlResult<Update>
 
