@@ -67,7 +67,6 @@ coroutineScope.launch {
 ## To-Do list
 
 - Add GitHub release workflow.
-- Add generator source code.
 - Add example application.
 - Define optional parameters and properties. Add initializers.
 - Link JNI directly. Remove `TdApi`.

@@ -1,14 +1,19 @@
 [versions]
+javaParser = "3.26.4"
 kotlin = "2.1.20"
 
 [libraries]
+libs-javaParser-core = { module = "com.github.javaparser:javaparser-core", version.ref = "javaParser" }
+libs-javaParser-symbolSolverCore = { module = "com.github.javaparser:javaparser-symbol-solver-core", version.ref = "javaParser" }
 libs-jetBrains-annotations = { module = "org.jetbrains:annotations", version = "26.0.2" }
 libs-jetBrains-atomic = { module = "org.jetbrains.kotlinx:atomicfu-jvm", version = "0.27.0" }
 libs-jetBrains-coroutinesCore = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version = "1.10.2" }
 libs-jetBrains-kotlin = { module = "org.jetbrains.kotlin:kotlin-stdlib", version.ref = "kotlin" }
+libs-squareUp-kotlinPoet = { module = "com.squareup:kotlinpoet", version = "2.1.0" }
 
 [plugins]
 android-library = { id = "com.android.library", version = "8.9.2" }
 g000sha256-sonatypeMavenCentral = { id = "dev.g000sha256.sonatype-maven-central", version = "1.0.0" }
 jetBrains-binaryCompatibilityValidator = { id = "org.jetbrains.kotlinx.binary-compatibility-validator", version = "0.17.0" }
 jetBrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+jetBrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
