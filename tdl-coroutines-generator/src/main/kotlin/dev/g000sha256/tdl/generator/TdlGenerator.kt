@@ -62,6 +62,7 @@ import com.squareup.kotlinpoet.TypeSpec
 import com.squareup.kotlinpoet.TypeVariableName
 import java.io.File
 import java.nio.file.Paths
+import kotlin.io.path.pathString
 import kotlin.io.path.readLines
 import kotlin.io.path.writeLines
 import kotlin.jvm.optionals.getOrNull
@@ -135,7 +136,11 @@ private const val LICENCE = """/*
 private const val PACKAGE = "dev.g000sha256.tdl"
 private const val PACKAGE_DTO = "$PACKAGE.dto"
 
-private val currentPath = System.getProperty("user.dir") as String
+private val currentPath = System
+    .getProperty("user.dir")
+    .let { Paths.get(it) }
+    .parent
+    .pathString
 
 @Suppress("CheckedExceptionsKotlin")
 private fun readCompilationUnit(file: File): CompilationUnit {

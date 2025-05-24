@@ -2,6 +2,11 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
     alias(catalog.plugins.jetBrains.kotlin.jvm)
+    id("application")
+}
+
+application {
+    mainClass = "dev.g000sha256.tdl.generator.TdlGeneratorKt"
 }
 
 java {
