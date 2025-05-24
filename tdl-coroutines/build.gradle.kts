@@ -33,7 +33,9 @@ android {
         targetCompatibility = JavaVersion.VERSION_1_8
     }
 
-    defaultConfig { minSdk = 24 }
+    defaultConfig {
+        minSdk = 24
+    }
 
     publishing {
         singleVariant("release") {

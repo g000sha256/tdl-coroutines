@@ -4,6 +4,7 @@
 -keepclasseswithmembers class org.drinkless.tdlib.TdApi {
 
     java.lang.String GIT_COMMIT_HASH;
+
     java.lang.String VERSION;
 
 }
