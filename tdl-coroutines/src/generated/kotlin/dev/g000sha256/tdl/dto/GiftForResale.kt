@@ -22,17 +22,15 @@ import kotlin.Int
 import kotlin.String
 
 /**
- * A gift which purchase, upgrade or transfer were refunded.
+ * Describes a gift available for resale.
  *
  * @property gift The gift.
- * @property senderId Sender of the gift.
- * @property isUpgrade True, if the gift was obtained by upgrading of a previously received gift; otherwise, this is a transferred or resold gift.
+ * @property receivedGiftId Unique identifier of the received gift for the current user; only for the gifts owned by the current user.
  */
-public class MessageRefundedUpgradedGift public constructor(
-    public val gift: Gift,
-    public val senderId: MessageSender,
-    public val isUpgrade: Boolean,
-) : MessageContent() {
+public class GiftForResale public constructor(
+    public val gift: UpgradedGift,
+    public val receivedGiftId: String,
+) {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true
@@ -43,36 +41,29 @@ public class MessageRefundedUpgradedGift public constructor(
         if (other::class != this::class) {
             return false
         }
-        other as MessageRefundedUpgradedGift
+        other as GiftForResale
         if (other.gift != gift) {
             return false
         }
-        if (other.senderId != senderId) {
-            return false
-        }
-        return other.isUpgrade == isUpgrade
+        return other.receivedGiftId == receivedGiftId
     }
 
     override fun hashCode(): Int {
         var hashCode = this::class.hashCode()
         hashCode = 31 * hashCode + gift.hashCode()
-        hashCode = 31 * hashCode + senderId.hashCode()
-        hashCode = 31 * hashCode + isUpgrade.hashCode()
+        hashCode = 31 * hashCode + receivedGiftId.hashCode()
         return hashCode
     }
 
     override fun toString(): String {
         return buildString {
-            append("MessageRefundedUpgradedGift")
+            append("GiftForResale")
             append("(")
             append("gift=")
             append(gift)
             append(", ")
-            append("senderId=")
-            append(senderId)
-            append(", ")
-            append("isUpgrade=")
-            append(isUpgrade)
+            append("receivedGiftId=")
+            append(receivedGiftId)
             append(")")
         }
     }

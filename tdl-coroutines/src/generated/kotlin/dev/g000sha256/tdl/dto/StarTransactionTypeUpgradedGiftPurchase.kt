@@ -19,20 +19,19 @@ package dev.g000sha256.tdl.dto
 import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
+import kotlin.Long
 import kotlin.String
 
 /**
- * A gift which purchase, upgrade or transfer were refunded.
+ * The transaction is a purchase of an upgraded gift for some user or channel; for regular users only.
  *
+ * @property userId Identifier of the user that sold the gift.
  * @property gift The gift.
- * @property senderId Sender of the gift.
- * @property isUpgrade True, if the gift was obtained by upgrading of a previously received gift; otherwise, this is a transferred or resold gift.
  */
-public class MessageRefundedUpgradedGift public constructor(
-    public val gift: Gift,
-    public val senderId: MessageSender,
-    public val isUpgrade: Boolean,
-) : MessageContent() {
+public class StarTransactionTypeUpgradedGiftPurchase public constructor(
+    public val userId: Long,
+    public val gift: UpgradedGift,
+) : StarTransactionType() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true
@@ -43,36 +42,29 @@ public class MessageRefundedUpgradedGift public constructor(
         if (other::class != this::class) {
             return false
         }
-        other as MessageRefundedUpgradedGift
-        if (other.gift != gift) {
+        other as StarTransactionTypeUpgradedGiftPurchase
+        if (other.userId != userId) {
             return false
         }
-        if (other.senderId != senderId) {
-            return false
-        }
-        return other.isUpgrade == isUpgrade
+        return other.gift == gift
     }
 
     override fun hashCode(): Int {
         var hashCode = this::class.hashCode()
+        hashCode = 31 * hashCode + userId.hashCode()
         hashCode = 31 * hashCode + gift.hashCode()
-        hashCode = 31 * hashCode + senderId.hashCode()
-        hashCode = 31 * hashCode + isUpgrade.hashCode()
         return hashCode
     }
 
     override fun toString(): String {
         return buildString {
-            append("MessageRefundedUpgradedGift")
+            append("StarTransactionTypeUpgradedGiftPurchase")
             append("(")
+            append("userId=")
+            append(userId)
+            append(", ")
             append("gift=")
             append(gift)
-            append(", ")
-            append("senderId=")
-            append(senderId)
-            append(", ")
-            append("isUpgrade=")
-            append(isUpgrade)
             append(")")
         }
     }

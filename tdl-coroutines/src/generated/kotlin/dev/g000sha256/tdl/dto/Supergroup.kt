@@ -31,6 +31,7 @@ import kotlin.String
  * @property status Status of the current user in the supergroup or channel; custom title will always be empty.
  * @property memberCount Number of members in the supergroup or channel; 0 if unknown. Currently, it is guaranteed to be known only if the supergroup or channel was received through getChatSimilarChats, getChatsToPostStories, getCreatedPublicChats, getGroupsInCommon, getInactiveSupergroupChats, getRecommendedChats, getSuitableDiscussionChats, getUserPrivacySettingRules, getVideoChatAvailableParticipants, searchPublicChats, or in chatFolderInviteLinkInfo.missingChatIds, or in userFullInfo.personalChatId, or for chats with messages or stories from publicForwards and foundStories.
  * @property boostLevel Approximate boost level for the chat.
+ * @property hasAutomaticTranslation True, if automatic translation of messages is enabled in the channel.
  * @property hasLinkedChat True, if the channel has a discussion group, or the supergroup is the designated discussion group for a channel.
  * @property hasLocation True, if the supergroup is connected to a location, i.e. the supergroup is a location-based supergroup.
  * @property signMessages True, if messages sent to the channel contains name of the sender. This field is only applicable to channels.
@@ -55,6 +56,7 @@ public class Supergroup public constructor(
     public val status: ChatMemberStatus,
     public val memberCount: Int,
     public val boostLevel: Int,
+    public val hasAutomaticTranslation: Boolean,
     public val hasLinkedChat: Boolean,
     public val hasLocation: Boolean,
     public val signMessages: Boolean,
@@ -99,6 +101,9 @@ public class Supergroup public constructor(
             return false
         }
         if (other.boostLevel != boostLevel) {
+            return false
+        }
+        if (other.hasAutomaticTranslation != hasAutomaticTranslation) {
             return false
         }
         if (other.hasLinkedChat != hasLinkedChat) {
@@ -157,6 +162,7 @@ public class Supergroup public constructor(
         hashCode = 31 * hashCode + status.hashCode()
         hashCode = 31 * hashCode + memberCount.hashCode()
         hashCode = 31 * hashCode + boostLevel.hashCode()
+        hashCode = 31 * hashCode + hasAutomaticTranslation.hashCode()
         hashCode = 31 * hashCode + hasLinkedChat.hashCode()
         hashCode = 31 * hashCode + hasLocation.hashCode()
         hashCode = 31 * hashCode + signMessages.hashCode()
@@ -197,6 +203,9 @@ public class Supergroup public constructor(
             append(", ")
             append("boostLevel=")
             append(boostLevel)
+            append(", ")
+            append("hasAutomaticTranslation=")
+            append(hasAutomaticTranslation)
             append(", ")
             append("hasLinkedChat=")
             append(hasLinkedChat)

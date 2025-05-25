@@ -24,11 +24,13 @@ import kotlin.String
 /**
  * Describes a backdrop of an upgraded gift.
  *
+ * @property id Unique identifier of the backdrop.
  * @property name Name of the backdrop.
  * @property colors Colors of the backdrop.
  * @property rarityPerMille The number of upgraded gifts that receive this backdrop for each 1000 gifts upgraded.
  */
 public class UpgradedGiftBackdrop public constructor(
+    public val id: Int,
     public val name: String,
     public val colors: UpgradedGiftBackdropColors,
     public val rarityPerMille: Int,
@@ -44,6 +46,9 @@ public class UpgradedGiftBackdrop public constructor(
             return false
         }
         other as UpgradedGiftBackdrop
+        if (other.id != id) {
+            return false
+        }
         if (other.name != name) {
             return false
         }
@@ -55,6 +60,7 @@ public class UpgradedGiftBackdrop public constructor(
 
     override fun hashCode(): Int {
         var hashCode = this::class.hashCode()
+        hashCode = 31 * hashCode + id.hashCode()
         hashCode = 31 * hashCode + name.hashCode()
         hashCode = 31 * hashCode + colors.hashCode()
         hashCode = 31 * hashCode + rarityPerMille.hashCode()
@@ -65,6 +71,9 @@ public class UpgradedGiftBackdrop public constructor(
         return buildString {
             append("UpgradedGiftBackdrop")
             append("(")
+            append("id=")
+            append(id)
+            append(", ")
             append("name=")
             append(name)
             append(", ")

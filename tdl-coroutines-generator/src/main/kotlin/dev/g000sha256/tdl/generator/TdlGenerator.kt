@@ -76,19 +76,19 @@ public fun main() {
 
     val objectClassDeclarations = compilationUnit
         .findAll(ClassOrInterfaceDeclaration::class.java)
-        .also { check(value = it.size == 2773) { "${it.size} != 2773" } }
+        .also { check(value = it.size == 2796) { "${it.size} != 2796" } }
         .filter { it.nameAsString != "TdApi" }
-        .also { check(value = it.size == 2772) { "${it.size} != 2772" } }
+        .also { check(value = it.size == 2795) { "${it.size} != 2795" } }
         .filter { it.extends(className = "Object") }
-        .also { check(value = it.size == 2771) { "${it.size} != 2771" } }
+        .also { check(value = it.size == 2794) { "${it.size} != 2794" } }
 
     val allDtoClassDeclarations = objectClassDeclarations
         .filter { it.nameAsString != "Function" && !it.extends(className = "Function") }
-        .also { check(value = it.size == 1919) { "${it.size} != 1919" } }
+        .also { check(value = it.size == 1938) { "${it.size} != 1938" } }
 
     val functionClassDeclarations = objectClassDeclarations
         .filter { it.extends(className = "Function") }
-        .also { check(value = it.size == 851) { "${it.size} != 851" } }
+        .also { check(value = it.size == 855) { "${it.size} != 855" } }
 
     val updateDtoClassDeclarations = allDtoClassDeclarations
         .filter { it.extends(className = "Update") }
@@ -755,7 +755,7 @@ private fun writeTdApi(compilationUnit: CompilationUnit) {
                                             propertySpec = PropertySpec
                                                 .builder(name = "VERSION", type = STRING)
                                                 .addModifier(modifier = KModifier.CONST)
-                                                .initializer(format = "\"1.8.48\"") // TODO
+                                                .initializer(format = "\"1.8.49\"") // TODO
                                                 .build()
                                         )
                                         .build()

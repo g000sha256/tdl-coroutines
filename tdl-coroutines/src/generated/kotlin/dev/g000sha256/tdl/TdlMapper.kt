@@ -78,6 +78,8 @@ import dev.g000sha256.tdl.dto.AutosaveSettingsScopeChannelChats
 import dev.g000sha256.tdl.dto.AutosaveSettingsScopeChat
 import dev.g000sha256.tdl.dto.AutosaveSettingsScopeGroupChats
 import dev.g000sha256.tdl.dto.AutosaveSettingsScopePrivateChats
+import dev.g000sha256.tdl.dto.AvailableGift
+import dev.g000sha256.tdl.dto.AvailableGifts
 import dev.g000sha256.tdl.dto.AvailableReaction
 import dev.g000sha256.tdl.dto.AvailableReactions
 import dev.g000sha256.tdl.dto.Background
@@ -257,6 +259,7 @@ import dev.g000sha256.tdl.dto.ChatEvent
 import dev.g000sha256.tdl.dto.ChatEventAccentColorChanged
 import dev.g000sha256.tdl.dto.ChatEventAction
 import dev.g000sha256.tdl.dto.ChatEventActiveUsernamesChanged
+import dev.g000sha256.tdl.dto.ChatEventAutomaticTranslationToggled
 import dev.g000sha256.tdl.dto.ChatEventAvailableReactionsChanged
 import dev.g000sha256.tdl.dto.ChatEventBackgroundChanged
 import dev.g000sha256.tdl.dto.ChatEventCustomEmojiStickerSetChanged
@@ -536,9 +539,14 @@ import dev.g000sha256.tdl.dto.Game
 import dev.g000sha256.tdl.dto.GameHighScore
 import dev.g000sha256.tdl.dto.GameHighScores
 import dev.g000sha256.tdl.dto.Gift
+import dev.g000sha256.tdl.dto.GiftForResale
+import dev.g000sha256.tdl.dto.GiftForResaleOrder
+import dev.g000sha256.tdl.dto.GiftForResaleOrderNumber
+import dev.g000sha256.tdl.dto.GiftForResaleOrderPrice
+import dev.g000sha256.tdl.dto.GiftForResaleOrderPriceChangeDate
 import dev.g000sha256.tdl.dto.GiftSettings
 import dev.g000sha256.tdl.dto.GiftUpgradePreview
-import dev.g000sha256.tdl.dto.Gifts
+import dev.g000sha256.tdl.dto.GiftsForResale
 import dev.g000sha256.tdl.dto.GiveawayInfo
 import dev.g000sha256.tdl.dto.GiveawayInfoCompleted
 import dev.g000sha256.tdl.dto.GiveawayInfoOngoing
@@ -742,6 +750,7 @@ import dev.g000sha256.tdl.dto.InternalLinkTypeLanguageSettings
 import dev.g000sha256.tdl.dto.InternalLinkTypeMainWebApp
 import dev.g000sha256.tdl.dto.InternalLinkTypeMessage
 import dev.g000sha256.tdl.dto.InternalLinkTypeMessageDraft
+import dev.g000sha256.tdl.dto.InternalLinkTypeMyStars
 import dev.g000sha256.tdl.dto.InternalLinkTypePassportDataRequest
 import dev.g000sha256.tdl.dto.InternalLinkTypePhoneNumberConfirmation
 import dev.g000sha256.tdl.dto.InternalLinkTypePremiumFeatures
@@ -1516,6 +1525,8 @@ import dev.g000sha256.tdl.dto.StarTransactionTypePremiumPurchase
 import dev.g000sha256.tdl.dto.StarTransactionTypeTelegramAdsWithdrawal
 import dev.g000sha256.tdl.dto.StarTransactionTypeTelegramApiUsage
 import dev.g000sha256.tdl.dto.StarTransactionTypeUnsupported
+import dev.g000sha256.tdl.dto.StarTransactionTypeUpgradedGiftPurchase
+import dev.g000sha256.tdl.dto.StarTransactionTypeUpgradedGiftSale
 import dev.g000sha256.tdl.dto.StarTransactionTypeUserDeposit
 import dev.g000sha256.tdl.dto.StarTransactions
 import dev.g000sha256.tdl.dto.StatisticalGraph
@@ -1598,6 +1609,7 @@ import dev.g000sha256.tdl.dto.SuggestedAction
 import dev.g000sha256.tdl.dto.SuggestedActionCheckPassword
 import dev.g000sha256.tdl.dto.SuggestedActionCheckPhoneNumber
 import dev.g000sha256.tdl.dto.SuggestedActionConvertToBroadcastGroup
+import dev.g000sha256.tdl.dto.SuggestedActionCustom
 import dev.g000sha256.tdl.dto.SuggestedActionEnableArchiveAndMuteNewChats
 import dev.g000sha256.tdl.dto.SuggestedActionExtendPremium
 import dev.g000sha256.tdl.dto.SuggestedActionExtendStarSubscriptions
@@ -1865,11 +1877,18 @@ import dev.g000sha256.tdl.dto.UpdateWebAppMessageSent
 import dev.g000sha256.tdl.dto.Updates
 import dev.g000sha256.tdl.dto.UpgradeGiftResult
 import dev.g000sha256.tdl.dto.UpgradedGift
+import dev.g000sha256.tdl.dto.UpgradedGiftAttributeId
+import dev.g000sha256.tdl.dto.UpgradedGiftAttributeIdBackdrop
+import dev.g000sha256.tdl.dto.UpgradedGiftAttributeIdModel
+import dev.g000sha256.tdl.dto.UpgradedGiftAttributeIdSymbol
 import dev.g000sha256.tdl.dto.UpgradedGiftBackdrop
 import dev.g000sha256.tdl.dto.UpgradedGiftBackdropColors
+import dev.g000sha256.tdl.dto.UpgradedGiftBackdropCount
 import dev.g000sha256.tdl.dto.UpgradedGiftModel
+import dev.g000sha256.tdl.dto.UpgradedGiftModelCount
 import dev.g000sha256.tdl.dto.UpgradedGiftOriginalDetails
 import dev.g000sha256.tdl.dto.UpgradedGiftSymbol
+import dev.g000sha256.tdl.dto.UpgradedGiftSymbolCount
 import dev.g000sha256.tdl.dto.User
 import dev.g000sha256.tdl.dto.UserFullInfo
 import dev.g000sha256.tdl.dto.UserLink
@@ -2902,6 +2921,36 @@ internal class TdlMapper {
     fun map(dto: AutosaveSettingsScopeChat): TdApi.AutosaveSettingsScopeChat {
         return TdApi.AutosaveSettingsScopeChat(
             chatId = dto.chatId,
+        )
+    }
+
+    fun map(dto: TdApi.AvailableGift): AvailableGift {
+        return AvailableGift(
+            gift = map(dto.gift),
+            resaleCount = dto.resaleCount,
+            minResaleStarCount = dto.minResaleStarCount,
+            title = dto.title,
+        )
+    }
+
+    fun map(dto: AvailableGift): TdApi.AvailableGift {
+        return TdApi.AvailableGift(
+            gift = map(dto.gift),
+            resaleCount = dto.resaleCount,
+            minResaleStarCount = dto.minResaleStarCount,
+            title = dto.title,
+        )
+    }
+
+    fun map(dto: TdApi.AvailableGifts): AvailableGifts {
+        return AvailableGifts(
+            gifts = dto.gifts.mapArray { map(it) },
+        )
+    }
+
+    fun map(dto: AvailableGifts): TdApi.AvailableGifts {
+        return TdApi.AvailableGifts(
+            gifts = dto.gifts.mapArray { map(it) },
         )
     }
 
@@ -4540,7 +4589,9 @@ internal class TdlMapper {
     }
 
     fun map(dto: TdApi.CanPostStoryResultOk): CanPostStoryResultOk {
-        return CanPostStoryResultOk()
+        return CanPostStoryResultOk(
+            storyCount = dto.storyCount,
+        )
     }
 
     fun map(dto: TdApi.CanPostStoryResultPremiumNeeded): CanPostStoryResultPremiumNeeded {
@@ -4579,7 +4630,9 @@ internal class TdlMapper {
     }
 
     fun map(dto: CanPostStoryResultOk): TdApi.CanPostStoryResultOk {
-        return TdApi.CanPostStoryResultOk()
+        return TdApi.CanPostStoryResultOk(
+            storyCount = dto.storyCount,
+        )
     }
 
     fun map(dto: CanPostStoryResultPremiumNeeded): TdApi.CanPostStoryResultPremiumNeeded {
@@ -5258,6 +5311,7 @@ internal class TdlMapper {
             minChatThemeBackgroundBoostLevel = dto.minChatThemeBackgroundBoostLevel,
             minCustomBackgroundBoostLevel = dto.minCustomBackgroundBoostLevel,
             minCustomEmojiStickerSetBoostLevel = dto.minCustomEmojiStickerSetBoostLevel,
+            minAutomaticTranslationBoostLevel = dto.minAutomaticTranslationBoostLevel,
             minSpeechRecognitionBoostLevel = dto.minSpeechRecognitionBoostLevel,
             minSponsoredMessageDisableBoostLevel = dto.minSponsoredMessageDisableBoostLevel,
         )
@@ -5272,6 +5326,7 @@ internal class TdlMapper {
             minChatThemeBackgroundBoostLevel = dto.minChatThemeBackgroundBoostLevel,
             minCustomBackgroundBoostLevel = dto.minCustomBackgroundBoostLevel,
             minCustomEmojiStickerSetBoostLevel = dto.minCustomEmojiStickerSetBoostLevel,
+            minAutomaticTranslationBoostLevel = dto.minAutomaticTranslationBoostLevel,
             minSpeechRecognitionBoostLevel = dto.minSpeechRecognitionBoostLevel,
             minSponsoredMessageDisableBoostLevel = dto.minSponsoredMessageDisableBoostLevel,
         )
@@ -5291,6 +5346,7 @@ internal class TdlMapper {
             chatThemeBackgroundCount = dto.chatThemeBackgroundCount,
             canSetCustomBackground = dto.canSetCustomBackground,
             canSetCustomEmojiStickerSet = dto.canSetCustomEmojiStickerSet,
+            canEnableAutomaticTranslation = dto.canEnableAutomaticTranslation,
             canRecognizeSpeech = dto.canRecognizeSpeech,
             canDisableSponsoredMessages = dto.canDisableSponsoredMessages,
         )
@@ -5310,6 +5366,7 @@ internal class TdlMapper {
             chatThemeBackgroundCount = dto.chatThemeBackgroundCount,
             canSetCustomBackground = dto.canSetCustomBackground,
             canSetCustomEmojiStickerSet = dto.canSetCustomEmojiStickerSet,
+            canEnableAutomaticTranslation = dto.canEnableAutomaticTranslation,
             canRecognizeSpeech = dto.canRecognizeSpeech,
             canDisableSponsoredMessages = dto.canDisableSponsoredMessages,
         )
@@ -5524,6 +5581,7 @@ internal class TdlMapper {
             is TdApi.ChatEventHasAggressiveAntiSpamEnabledToggled -> return map(dto)
             is TdApi.ChatEventSignMessagesToggled -> return map(dto)
             is TdApi.ChatEventShowMessageSenderToggled -> return map(dto)
+            is TdApi.ChatEventAutomaticTranslationToggled -> return map(dto)
             is TdApi.ChatEventInviteLinkEdited -> return map(dto)
             is TdApi.ChatEventInviteLinkRevoked -> return map(dto)
             is TdApi.ChatEventInviteLinkDeleted -> return map(dto)
@@ -5787,6 +5845,12 @@ internal class TdlMapper {
         )
     }
 
+    fun map(dto: TdApi.ChatEventAutomaticTranslationToggled): ChatEventAutomaticTranslationToggled {
+        return ChatEventAutomaticTranslationToggled(
+            hasAutomaticTranslation = dto.hasAutomaticTranslation,
+        )
+    }
+
     fun map(dto: TdApi.ChatEventInviteLinkEdited): ChatEventInviteLinkEdited {
         return ChatEventInviteLinkEdited(
             oldInviteLink = map(dto.oldInviteLink),
@@ -5920,6 +5984,7 @@ internal class TdlMapper {
             is ChatEventHasAggressiveAntiSpamEnabledToggled -> return map(dto)
             is ChatEventSignMessagesToggled -> return map(dto)
             is ChatEventShowMessageSenderToggled -> return map(dto)
+            is ChatEventAutomaticTranslationToggled -> return map(dto)
             is ChatEventInviteLinkEdited -> return map(dto)
             is ChatEventInviteLinkRevoked -> return map(dto)
             is ChatEventInviteLinkDeleted -> return map(dto)
@@ -6179,6 +6244,12 @@ internal class TdlMapper {
     fun map(dto: ChatEventShowMessageSenderToggled): TdApi.ChatEventShowMessageSenderToggled {
         return TdApi.ChatEventShowMessageSenderToggled(
             showMessageSender = dto.showMessageSender,
+        )
+    }
+
+    fun map(dto: ChatEventAutomaticTranslationToggled): TdApi.ChatEventAutomaticTranslationToggled {
+        return TdApi.ChatEventAutomaticTranslationToggled(
+            hasAutomaticTranslation = dto.hasAutomaticTranslation,
         )
     }
 
@@ -9726,6 +9797,61 @@ internal class TdlMapper {
         )
     }
 
+    fun map(dto: TdApi.GiftForResale): GiftForResale {
+        return GiftForResale(
+            gift = map(dto.gift),
+            receivedGiftId = dto.receivedGiftId,
+        )
+    }
+
+    fun map(dto: GiftForResale): TdApi.GiftForResale {
+        return TdApi.GiftForResale(
+            gift = map(dto.gift),
+            receivedGiftId = dto.receivedGiftId,
+        )
+    }
+
+    fun map(dto: TdApi.GiftForResaleOrder): GiftForResaleOrder {
+        when (dto) {
+            is TdApi.GiftForResaleOrderPrice -> return map(dto)
+            is TdApi.GiftForResaleOrderPriceChangeDate -> return map(dto)
+            is TdApi.GiftForResaleOrderNumber -> return map(dto)
+            else -> error("Unknown DTO class type (${dto.javaClass})")
+        }
+    }
+
+    fun map(dto: TdApi.GiftForResaleOrderPrice): GiftForResaleOrderPrice {
+        return GiftForResaleOrderPrice()
+    }
+
+    fun map(dto: TdApi.GiftForResaleOrderPriceChangeDate): GiftForResaleOrderPriceChangeDate {
+        return GiftForResaleOrderPriceChangeDate()
+    }
+
+    fun map(dto: TdApi.GiftForResaleOrderNumber): GiftForResaleOrderNumber {
+        return GiftForResaleOrderNumber()
+    }
+
+    fun map(dto: GiftForResaleOrder): TdApi.GiftForResaleOrder {
+        when (dto) {
+            is GiftForResaleOrderPrice -> return map(dto)
+            is GiftForResaleOrderPriceChangeDate -> return map(dto)
+            is GiftForResaleOrderNumber -> return map(dto)
+        }
+    }
+
+    fun map(dto: GiftForResaleOrderPrice): TdApi.GiftForResaleOrderPrice {
+        return TdApi.GiftForResaleOrderPrice()
+    }
+
+    fun map(dto: GiftForResaleOrderPriceChangeDate): TdApi.GiftForResaleOrderPriceChangeDate {
+        return TdApi.GiftForResaleOrderPriceChangeDate()
+    }
+
+    fun map(dto: GiftForResaleOrderNumber): TdApi.GiftForResaleOrderNumber {
+        return TdApi.GiftForResaleOrderNumber()
+    }
+
     fun map(dto: TdApi.GiftSettings): GiftSettings {
         return GiftSettings(
             showGiftButton = dto.showGiftButton,
@@ -9756,15 +9882,25 @@ internal class TdlMapper {
         )
     }
 
-    fun map(dto: TdApi.Gifts): Gifts {
-        return Gifts(
+    fun map(dto: TdApi.GiftsForResale): GiftsForResale {
+        return GiftsForResale(
+            totalCount = dto.totalCount,
             gifts = dto.gifts.mapArray { map(it) },
+            models = dto.models.mapArray { map(it) },
+            symbols = dto.symbols.mapArray { map(it) },
+            backdrops = dto.backdrops.mapArray { map(it) },
+            nextOffset = dto.nextOffset,
         )
     }
 
-    fun map(dto: Gifts): TdApi.Gifts {
-        return TdApi.Gifts(
+    fun map(dto: GiftsForResale): TdApi.GiftsForResale {
+        return TdApi.GiftsForResale(
+            totalCount = dto.totalCount,
             gifts = dto.gifts.mapArray { map(it) },
+            models = dto.models.mapArray { map(it) },
+            symbols = dto.symbols.mapArray { map(it) },
+            backdrops = dto.backdrops.mapArray { map(it) },
+            nextOffset = dto.nextOffset,
         )
     }
 
@@ -12744,6 +12880,7 @@ internal class TdlMapper {
             is TdApi.InternalLinkTypeMainWebApp -> return map(dto)
             is TdApi.InternalLinkTypeMessage -> return map(dto)
             is TdApi.InternalLinkTypeMessageDraft -> return map(dto)
+            is TdApi.InternalLinkTypeMyStars -> return map(dto)
             is TdApi.InternalLinkTypePassportDataRequest -> return map(dto)
             is TdApi.InternalLinkTypePhoneNumberConfirmation -> return map(dto)
             is TdApi.InternalLinkTypePremiumFeatures -> return map(dto)
@@ -12928,6 +13065,10 @@ internal class TdlMapper {
         )
     }
 
+    fun map(dto: TdApi.InternalLinkTypeMyStars): InternalLinkTypeMyStars {
+        return InternalLinkTypeMyStars()
+    }
+
     fun map(dto: TdApi.InternalLinkTypePassportDataRequest): InternalLinkTypePassportDataRequest {
         return InternalLinkTypePassportDataRequest(
             botUserId = dto.botUserId,
@@ -13094,6 +13235,7 @@ internal class TdlMapper {
             is InternalLinkTypeMainWebApp -> return map(dto)
             is InternalLinkTypeMessage -> return map(dto)
             is InternalLinkTypeMessageDraft -> return map(dto)
+            is InternalLinkTypeMyStars -> return map(dto)
             is InternalLinkTypePassportDataRequest -> return map(dto)
             is InternalLinkTypePhoneNumberConfirmation -> return map(dto)
             is InternalLinkTypePremiumFeatures -> return map(dto)
@@ -13275,6 +13417,10 @@ internal class TdlMapper {
             text = map(dto.text),
             containsLink = dto.containsLink,
         )
+    }
+
+    fun map(dto: InternalLinkTypeMyStars): TdApi.InternalLinkTypeMyStars {
+        return TdApi.InternalLinkTypeMyStars()
     }
 
     fun map(dto: InternalLinkTypePassportDataRequest): TdApi.InternalLinkTypePassportDataRequest {
@@ -15557,7 +15703,10 @@ internal class TdlMapper {
             isSaved = dto.isSaved,
             canBeTransferred = dto.canBeTransferred,
             wasTransferred = dto.wasTransferred,
+            lastResaleStarCount = dto.lastResaleStarCount,
             transferStarCount = dto.transferStarCount,
+            nextTransferDate = dto.nextTransferDate,
+            nextResaleDate = dto.nextResaleDate,
             exportDate = dto.exportDate,
         )
     }
@@ -16256,7 +16405,10 @@ internal class TdlMapper {
             isSaved = dto.isSaved,
             canBeTransferred = dto.canBeTransferred,
             wasTransferred = dto.wasTransferred,
+            lastResaleStarCount = dto.lastResaleStarCount,
             transferStarCount = dto.transferStarCount,
+            nextTransferDate = dto.nextTransferDate,
+            nextResaleDate = dto.nextResaleDate,
             exportDate = dto.exportDate,
         )
     }
@@ -21650,6 +21802,8 @@ internal class TdlMapper {
             sellStarCount = dto.sellStarCount,
             prepaidUpgradeStarCount = dto.prepaidUpgradeStarCount,
             transferStarCount = dto.transferStarCount,
+            nextTransferDate = dto.nextTransferDate,
+            nextResaleDate = dto.nextResaleDate,
             exportDate = dto.exportDate,
         )
     }
@@ -21670,6 +21824,8 @@ internal class TdlMapper {
             sellStarCount = dto.sellStarCount,
             prepaidUpgradeStarCount = dto.prepaidUpgradeStarCount,
             transferStarCount = dto.transferStarCount,
+            nextTransferDate = dto.nextTransferDate,
+            nextResaleDate = dto.nextResaleDate,
             exportDate = dto.exportDate,
         )
     }
@@ -23801,6 +23957,8 @@ internal class TdlMapper {
             is TdApi.StarTransactionTypeGiftTransfer -> return map(dto)
             is TdApi.StarTransactionTypeGiftSale -> return map(dto)
             is TdApi.StarTransactionTypeGiftUpgrade -> return map(dto)
+            is TdApi.StarTransactionTypeUpgradedGiftPurchase -> return map(dto)
+            is TdApi.StarTransactionTypeUpgradedGiftSale -> return map(dto)
             is TdApi.StarTransactionTypeChannelPaidReactionSend -> return map(dto)
             is TdApi.StarTransactionTypeChannelPaidReactionReceive -> return map(dto)
             is TdApi.StarTransactionTypeAffiliateProgramCommission -> return map(dto)
@@ -23968,6 +24126,21 @@ internal class TdlMapper {
         )
     }
 
+    fun map(dto: TdApi.StarTransactionTypeUpgradedGiftPurchase): StarTransactionTypeUpgradedGiftPurchase {
+        return StarTransactionTypeUpgradedGiftPurchase(
+            userId = dto.userId,
+            gift = map(dto.gift),
+        )
+    }
+
+    fun map(dto: TdApi.StarTransactionTypeUpgradedGiftSale): StarTransactionTypeUpgradedGiftSale {
+        return StarTransactionTypeUpgradedGiftSale(
+            userId = dto.userId,
+            gift = map(dto.gift),
+            affiliate = map(dto.affiliate),
+        )
+    }
+
     fun map(dto: TdApi.StarTransactionTypeChannelPaidReactionSend): StarTransactionTypeChannelPaidReactionSend {
         return StarTransactionTypeChannelPaidReactionSend(
             chatId = dto.chatId,
@@ -24054,6 +24227,8 @@ internal class TdlMapper {
             is StarTransactionTypeGiftTransfer -> return map(dto)
             is StarTransactionTypeGiftSale -> return map(dto)
             is StarTransactionTypeGiftUpgrade -> return map(dto)
+            is StarTransactionTypeUpgradedGiftPurchase -> return map(dto)
+            is StarTransactionTypeUpgradedGiftSale -> return map(dto)
             is StarTransactionTypeChannelPaidReactionSend -> return map(dto)
             is StarTransactionTypeChannelPaidReactionReceive -> return map(dto)
             is StarTransactionTypeAffiliateProgramCommission -> return map(dto)
@@ -24217,6 +24392,21 @@ internal class TdlMapper {
         return TdApi.StarTransactionTypeGiftUpgrade(
             userId = dto.userId,
             gift = map(dto.gift),
+        )
+    }
+
+    fun map(dto: StarTransactionTypeUpgradedGiftPurchase): TdApi.StarTransactionTypeUpgradedGiftPurchase {
+        return TdApi.StarTransactionTypeUpgradedGiftPurchase(
+            userId = dto.userId,
+            gift = map(dto.gift),
+        )
+    }
+
+    fun map(dto: StarTransactionTypeUpgradedGiftSale): TdApi.StarTransactionTypeUpgradedGiftSale {
+        return TdApi.StarTransactionTypeUpgradedGiftSale(
+            userId = dto.userId,
+            gift = map(dto.gift),
+            affiliate = map(dto.affiliate),
         )
     }
 
@@ -25531,6 +25721,7 @@ internal class TdlMapper {
             is TdApi.SuggestedActionSetProfilePhoto -> return map(dto)
             is TdApi.SuggestedActionExtendPremium -> return map(dto)
             is TdApi.SuggestedActionExtendStarSubscriptions -> return map(dto)
+            is TdApi.SuggestedActionCustom -> return map(dto)
             else -> error("Unknown DTO class type (${dto.javaClass})")
         }
     }
@@ -25597,6 +25788,15 @@ internal class TdlMapper {
         return SuggestedActionExtendStarSubscriptions()
     }
 
+    fun map(dto: TdApi.SuggestedActionCustom): SuggestedActionCustom {
+        return SuggestedActionCustom(
+            name = dto.name,
+            title = map(dto.title),
+            description = map(dto.description),
+            url = dto.url,
+        )
+    }
+
     fun map(dto: SuggestedAction): TdApi.SuggestedAction {
         when (dto) {
             is SuggestedActionEnableArchiveAndMuteNewChats -> return map(dto)
@@ -25613,6 +25813,7 @@ internal class TdlMapper {
             is SuggestedActionSetProfilePhoto -> return map(dto)
             is SuggestedActionExtendPremium -> return map(dto)
             is SuggestedActionExtendStarSubscriptions -> return map(dto)
+            is SuggestedActionCustom -> return map(dto)
         }
     }
 
@@ -25678,6 +25879,15 @@ internal class TdlMapper {
         return TdApi.SuggestedActionExtendStarSubscriptions()
     }
 
+    fun map(dto: SuggestedActionCustom): TdApi.SuggestedActionCustom {
+        return TdApi.SuggestedActionCustom(
+            name = dto.name,
+            title = map(dto.title),
+            description = map(dto.description),
+            url = dto.url,
+        )
+    }
+
     fun map(dto: TdApi.Supergroup): Supergroup {
         return Supergroup(
             id = dto.id,
@@ -25686,6 +25896,7 @@ internal class TdlMapper {
             status = map(dto.status),
             memberCount = dto.memberCount,
             boostLevel = dto.boostLevel,
+            hasAutomaticTranslation = dto.hasAutomaticTranslation,
             hasLinkedChat = dto.hasLinkedChat,
             hasLocation = dto.hasLocation,
             signMessages = dto.signMessages,
@@ -25713,6 +25924,7 @@ internal class TdlMapper {
             status = map(dto.status),
             memberCount = dto.memberCount,
             boostLevel = dto.boostLevel,
+            hasAutomaticTranslation = dto.hasAutomaticTranslation,
             hasLinkedChat = dto.hasLinkedChat,
             hasLocation = dto.hasLocation,
             signMessages = dto.signMessages,
@@ -29672,6 +29884,8 @@ internal class TdlMapper {
             isSaved = dto.isSaved,
             canBeTransferred = dto.canBeTransferred,
             transferStarCount = dto.transferStarCount,
+            nextTransferDate = dto.nextTransferDate,
+            nextResaleDate = dto.nextResaleDate,
             exportDate = dto.exportDate,
         )
     }
@@ -29683,6 +29897,8 @@ internal class TdlMapper {
             isSaved = dto.isSaved,
             canBeTransferred = dto.canBeTransferred,
             transferStarCount = dto.transferStarCount,
+            nextTransferDate = dto.nextTransferDate,
+            nextResaleDate = dto.nextResaleDate,
             exportDate = dto.exportDate,
         )
     }
@@ -29703,6 +29919,7 @@ internal class TdlMapper {
             symbol = map(dto.symbol),
             backdrop = map(dto.backdrop),
             originalDetails = dto.originalDetails?.let { map(it) },
+            resaleStarCount = dto.resaleStarCount,
         )
     }
 
@@ -29722,11 +29939,66 @@ internal class TdlMapper {
             symbol = map(dto.symbol),
             backdrop = map(dto.backdrop),
             originalDetails = dto.originalDetails?.let { map(it) },
+            resaleStarCount = dto.resaleStarCount,
+        )
+    }
+
+    fun map(dto: TdApi.UpgradedGiftAttributeId): UpgradedGiftAttributeId {
+        when (dto) {
+            is TdApi.UpgradedGiftAttributeIdModel -> return map(dto)
+            is TdApi.UpgradedGiftAttributeIdSymbol -> return map(dto)
+            is TdApi.UpgradedGiftAttributeIdBackdrop -> return map(dto)
+            else -> error("Unknown DTO class type (${dto.javaClass})")
+        }
+    }
+
+    fun map(dto: TdApi.UpgradedGiftAttributeIdModel): UpgradedGiftAttributeIdModel {
+        return UpgradedGiftAttributeIdModel(
+            stickerId = dto.stickerId,
+        )
+    }
+
+    fun map(dto: TdApi.UpgradedGiftAttributeIdSymbol): UpgradedGiftAttributeIdSymbol {
+        return UpgradedGiftAttributeIdSymbol(
+            stickerId = dto.stickerId,
+        )
+    }
+
+    fun map(dto: TdApi.UpgradedGiftAttributeIdBackdrop): UpgradedGiftAttributeIdBackdrop {
+        return UpgradedGiftAttributeIdBackdrop(
+            backdropId = dto.backdropId,
+        )
+    }
+
+    fun map(dto: UpgradedGiftAttributeId): TdApi.UpgradedGiftAttributeId {
+        when (dto) {
+            is UpgradedGiftAttributeIdModel -> return map(dto)
+            is UpgradedGiftAttributeIdSymbol -> return map(dto)
+            is UpgradedGiftAttributeIdBackdrop -> return map(dto)
+        }
+    }
+
+    fun map(dto: UpgradedGiftAttributeIdModel): TdApi.UpgradedGiftAttributeIdModel {
+        return TdApi.UpgradedGiftAttributeIdModel(
+            stickerId = dto.stickerId,
+        )
+    }
+
+    fun map(dto: UpgradedGiftAttributeIdSymbol): TdApi.UpgradedGiftAttributeIdSymbol {
+        return TdApi.UpgradedGiftAttributeIdSymbol(
+            stickerId = dto.stickerId,
+        )
+    }
+
+    fun map(dto: UpgradedGiftAttributeIdBackdrop): TdApi.UpgradedGiftAttributeIdBackdrop {
+        return TdApi.UpgradedGiftAttributeIdBackdrop(
+            backdropId = dto.backdropId,
         )
     }
 
     fun map(dto: TdApi.UpgradedGiftBackdrop): UpgradedGiftBackdrop {
         return UpgradedGiftBackdrop(
+            id = dto.id,
             name = dto.name,
             colors = map(dto.colors),
             rarityPerMille = dto.rarityPerMille,
@@ -29735,6 +30007,7 @@ internal class TdlMapper {
 
     fun map(dto: UpgradedGiftBackdrop): TdApi.UpgradedGiftBackdrop {
         return TdApi.UpgradedGiftBackdrop(
+            id = dto.id,
             name = dto.name,
             colors = map(dto.colors),
             rarityPerMille = dto.rarityPerMille,
@@ -29759,6 +30032,20 @@ internal class TdlMapper {
         )
     }
 
+    fun map(dto: TdApi.UpgradedGiftBackdropCount): UpgradedGiftBackdropCount {
+        return UpgradedGiftBackdropCount(
+            backdrop = map(dto.backdrop),
+            totalCount = dto.totalCount,
+        )
+    }
+
+    fun map(dto: UpgradedGiftBackdropCount): TdApi.UpgradedGiftBackdropCount {
+        return TdApi.UpgradedGiftBackdropCount(
+            backdrop = map(dto.backdrop),
+            totalCount = dto.totalCount,
+        )
+    }
+
     fun map(dto: TdApi.UpgradedGiftModel): UpgradedGiftModel {
         return UpgradedGiftModel(
             name = dto.name,
@@ -29772,6 +30059,20 @@ internal class TdlMapper {
             name = dto.name,
             sticker = map(dto.sticker),
             rarityPerMille = dto.rarityPerMille,
+        )
+    }
+
+    fun map(dto: TdApi.UpgradedGiftModelCount): UpgradedGiftModelCount {
+        return UpgradedGiftModelCount(
+            model = map(dto.model),
+            totalCount = dto.totalCount,
+        )
+    }
+
+    fun map(dto: UpgradedGiftModelCount): TdApi.UpgradedGiftModelCount {
+        return TdApi.UpgradedGiftModelCount(
+            model = map(dto.model),
+            totalCount = dto.totalCount,
         )
     }
 
@@ -29806,6 +30107,20 @@ internal class TdlMapper {
             name = dto.name,
             sticker = map(dto.sticker),
             rarityPerMille = dto.rarityPerMille,
+        )
+    }
+
+    fun map(dto: TdApi.UpgradedGiftSymbolCount): UpgradedGiftSymbolCount {
+        return UpgradedGiftSymbolCount(
+            symbol = map(dto.symbol),
+            totalCount = dto.totalCount,
+        )
+    }
+
+    fun map(dto: UpgradedGiftSymbolCount): TdApi.UpgradedGiftSymbolCount {
+        return TdApi.UpgradedGiftSymbolCount(
+            symbol = map(dto.symbol),
+            totalCount = dto.totalCount,
         )
     }
 

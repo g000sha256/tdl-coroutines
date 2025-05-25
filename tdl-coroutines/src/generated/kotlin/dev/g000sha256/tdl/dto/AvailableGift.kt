@@ -19,20 +19,23 @@ package dev.g000sha256.tdl.dto
 import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
+import kotlin.Long
 import kotlin.String
 
 /**
- * A gift which purchase, upgrade or transfer were refunded.
+ * Describes a gift that is available for purchase.
  *
  * @property gift The gift.
- * @property senderId Sender of the gift.
- * @property isUpgrade True, if the gift was obtained by upgrading of a previously received gift; otherwise, this is a transferred or resold gift.
+ * @property resaleCount Number of gifts that are available for resale.
+ * @property minResaleStarCount The minimum price for the gifts available for resale; 0 if there are no such gifts.
+ * @property title The title of the upgraded gift; empty if the gift isn't available for resale.
  */
-public class MessageRefundedUpgradedGift public constructor(
+public class AvailableGift public constructor(
     public val gift: Gift,
-    public val senderId: MessageSender,
-    public val isUpgrade: Boolean,
-) : MessageContent() {
+    public val resaleCount: Int,
+    public val minResaleStarCount: Long,
+    public val title: String,
+) {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true
@@ -43,36 +46,43 @@ public class MessageRefundedUpgradedGift public constructor(
         if (other::class != this::class) {
             return false
         }
-        other as MessageRefundedUpgradedGift
+        other as AvailableGift
         if (other.gift != gift) {
             return false
         }
-        if (other.senderId != senderId) {
+        if (other.resaleCount != resaleCount) {
             return false
         }
-        return other.isUpgrade == isUpgrade
+        if (other.minResaleStarCount != minResaleStarCount) {
+            return false
+        }
+        return other.title == title
     }
 
     override fun hashCode(): Int {
         var hashCode = this::class.hashCode()
         hashCode = 31 * hashCode + gift.hashCode()
-        hashCode = 31 * hashCode + senderId.hashCode()
-        hashCode = 31 * hashCode + isUpgrade.hashCode()
+        hashCode = 31 * hashCode + resaleCount.hashCode()
+        hashCode = 31 * hashCode + minResaleStarCount.hashCode()
+        hashCode = 31 * hashCode + title.hashCode()
         return hashCode
     }
 
     override fun toString(): String {
         return buildString {
-            append("MessageRefundedUpgradedGift")
+            append("AvailableGift")
             append("(")
             append("gift=")
             append(gift)
             append(", ")
-            append("senderId=")
-            append(senderId)
+            append("resaleCount=")
+            append(resaleCount)
             append(", ")
-            append("isUpgrade=")
-            append(isUpgrade)
+            append("minResaleStarCount=")
+            append(minResaleStarCount)
+            append(", ")
+            append("title=")
+            append(title)
             append(")")
         }
     }

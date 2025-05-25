@@ -30,6 +30,8 @@ import kotlin.String
  * @property isSaved True, if the gift is displayed on the user's or the channel's profile page.
  * @property canBeTransferred True, if the gift can be transferred to another owner.
  * @property transferStarCount Number of Telegram Stars that must be paid to transfer the upgraded gift.
+ * @property nextTransferDate Point in time (Unix timestamp) when the gift can be transferred to another owner; 0 if the gift can be transferred immediately or transfer isn't possible.
+ * @property nextResaleDate Point in time (Unix timestamp) when the gift can be resold to another user; 0 if the gift can't be resold; only for the receiver of the gift.
  * @property exportDate Point in time (Unix timestamp) when the gift can be transferred to the TON blockchain as an NFT.
  */
 public class UpgradeGiftResult public constructor(
@@ -38,6 +40,8 @@ public class UpgradeGiftResult public constructor(
     public val isSaved: Boolean,
     public val canBeTransferred: Boolean,
     public val transferStarCount: Long,
+    public val nextTransferDate: Int,
+    public val nextResaleDate: Int,
     public val exportDate: Int,
 ) {
     override fun equals(other: Any?): Boolean {
@@ -66,6 +70,12 @@ public class UpgradeGiftResult public constructor(
         if (other.transferStarCount != transferStarCount) {
             return false
         }
+        if (other.nextTransferDate != nextTransferDate) {
+            return false
+        }
+        if (other.nextResaleDate != nextResaleDate) {
+            return false
+        }
         return other.exportDate == exportDate
     }
 
@@ -76,6 +86,8 @@ public class UpgradeGiftResult public constructor(
         hashCode = 31 * hashCode + isSaved.hashCode()
         hashCode = 31 * hashCode + canBeTransferred.hashCode()
         hashCode = 31 * hashCode + transferStarCount.hashCode()
+        hashCode = 31 * hashCode + nextTransferDate.hashCode()
+        hashCode = 31 * hashCode + nextResaleDate.hashCode()
         hashCode = 31 * hashCode + exportDate.hashCode()
         return hashCode
     }
@@ -98,6 +110,12 @@ public class UpgradeGiftResult public constructor(
             append(", ")
             append("transferStarCount=")
             append(transferStarCount)
+            append(", ")
+            append("nextTransferDate=")
+            append(nextTransferDate)
+            append(", ")
+            append("nextResaleDate=")
+            append(nextResaleDate)
             append(", ")
             append("exportDate=")
             append(exportDate)

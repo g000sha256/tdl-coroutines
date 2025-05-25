@@ -32,6 +32,7 @@ import kotlin.String
  * @property minChatThemeBackgroundBoostLevel The minimum boost level required to set a chat theme background as chat background.
  * @property minCustomBackgroundBoostLevel The minimum boost level required to set custom chat background.
  * @property minCustomEmojiStickerSetBoostLevel The minimum boost level required to set custom emoji sticker set for the chat; for supergroup chats only.
+ * @property minAutomaticTranslationBoostLevel The minimum boost level allowing to enable automatic translation of messages for non-Premium users; for channel chats only.
  * @property minSpeechRecognitionBoostLevel The minimum boost level allowing to recognize speech in video note and voice note messages for non-Premium users; for supergroup chats only.
  * @property minSponsoredMessageDisableBoostLevel The minimum boost level allowing to disable sponsored messages in the chat; for channel chats only.
  */
@@ -43,6 +44,7 @@ public class ChatBoostFeatures public constructor(
     public val minChatThemeBackgroundBoostLevel: Int,
     public val minCustomBackgroundBoostLevel: Int,
     public val minCustomEmojiStickerSetBoostLevel: Int,
+    public val minAutomaticTranslationBoostLevel: Int,
     public val minSpeechRecognitionBoostLevel: Int,
     public val minSponsoredMessageDisableBoostLevel: Int,
 ) {
@@ -79,6 +81,9 @@ public class ChatBoostFeatures public constructor(
         if (other.minCustomEmojiStickerSetBoostLevel != minCustomEmojiStickerSetBoostLevel) {
             return false
         }
+        if (other.minAutomaticTranslationBoostLevel != minAutomaticTranslationBoostLevel) {
+            return false
+        }
         if (other.minSpeechRecognitionBoostLevel != minSpeechRecognitionBoostLevel) {
             return false
         }
@@ -94,6 +99,7 @@ public class ChatBoostFeatures public constructor(
         hashCode = 31 * hashCode + minChatThemeBackgroundBoostLevel.hashCode()
         hashCode = 31 * hashCode + minCustomBackgroundBoostLevel.hashCode()
         hashCode = 31 * hashCode + minCustomEmojiStickerSetBoostLevel.hashCode()
+        hashCode = 31 * hashCode + minAutomaticTranslationBoostLevel.hashCode()
         hashCode = 31 * hashCode + minSpeechRecognitionBoostLevel.hashCode()
         hashCode = 31 * hashCode + minSponsoredMessageDisableBoostLevel.hashCode()
         return hashCode
@@ -125,6 +131,9 @@ public class ChatBoostFeatures public constructor(
             append(", ")
             append("minCustomEmojiStickerSetBoostLevel=")
             append(minCustomEmojiStickerSetBoostLevel)
+            append(", ")
+            append("minAutomaticTranslationBoostLevel=")
+            append(minAutomaticTranslationBoostLevel)
             append(", ")
             append("minSpeechRecognitionBoostLevel=")
             append(minSpeechRecognitionBoostLevel)

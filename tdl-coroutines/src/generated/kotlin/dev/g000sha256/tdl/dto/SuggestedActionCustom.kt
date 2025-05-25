@@ -22,17 +22,19 @@ import kotlin.Int
 import kotlin.String
 
 /**
- * A gift which purchase, upgrade or transfer were refunded.
+ * A custom suggestion to be shown at the top of the chat list.
  *
- * @property gift The gift.
- * @property senderId Sender of the gift.
- * @property isUpgrade True, if the gift was obtained by upgrading of a previously received gift; otherwise, this is a transferred or resold gift.
+ * @property name Unique name of the suggestion.
+ * @property title Title of the suggestion.
+ * @property description Description of the suggestion.
+ * @property url The link to open when the suggestion is clicked.
  */
-public class MessageRefundedUpgradedGift public constructor(
-    public val gift: Gift,
-    public val senderId: MessageSender,
-    public val isUpgrade: Boolean,
-) : MessageContent() {
+public class SuggestedActionCustom public constructor(
+    public val name: String,
+    public val title: FormattedText,
+    public val description: FormattedText,
+    public val url: String,
+) : SuggestedAction() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true
@@ -43,36 +45,43 @@ public class MessageRefundedUpgradedGift public constructor(
         if (other::class != this::class) {
             return false
         }
-        other as MessageRefundedUpgradedGift
-        if (other.gift != gift) {
+        other as SuggestedActionCustom
+        if (other.name != name) {
             return false
         }
-        if (other.senderId != senderId) {
+        if (other.title != title) {
             return false
         }
-        return other.isUpgrade == isUpgrade
+        if (other.description != description) {
+            return false
+        }
+        return other.url == url
     }
 
     override fun hashCode(): Int {
         var hashCode = this::class.hashCode()
-        hashCode = 31 * hashCode + gift.hashCode()
-        hashCode = 31 * hashCode + senderId.hashCode()
-        hashCode = 31 * hashCode + isUpgrade.hashCode()
+        hashCode = 31 * hashCode + name.hashCode()
+        hashCode = 31 * hashCode + title.hashCode()
+        hashCode = 31 * hashCode + description.hashCode()
+        hashCode = 31 * hashCode + url.hashCode()
         return hashCode
     }
 
     override fun toString(): String {
         return buildString {
-            append("MessageRefundedUpgradedGift")
+            append("SuggestedActionCustom")
             append("(")
-            append("gift=")
-            append(gift)
+            append("name=")
+            append(name)
             append(", ")
-            append("senderId=")
-            append(senderId)
+            append("title=")
+            append(title)
             append(", ")
-            append("isUpgrade=")
-            append(isUpgrade)
+            append("description=")
+            append(description)
+            append(", ")
+            append("url=")
+            append(url)
             append(")")
         }
     }

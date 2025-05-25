@@ -36,6 +36,7 @@ import kotlin.String
  * @property chatThemeBackgroundCount Number of chat theme backgrounds that can be set as chat background.
  * @property canSetCustomBackground True, if custom background can be set in the chat for all users.
  * @property canSetCustomEmojiStickerSet True, if custom emoji sticker set can be set for the chat.
+ * @property canEnableAutomaticTranslation True, if automatic translation of messages can be enabled in the chat.
  * @property canRecognizeSpeech True, if speech recognition can be used for video note and voice note messages by all users.
  * @property canDisableSponsoredMessages True, if sponsored messages can be disabled in the chat.
  */
@@ -52,6 +53,7 @@ public class ChatBoostLevelFeatures public constructor(
     public val chatThemeBackgroundCount: Int,
     public val canSetCustomBackground: Boolean,
     public val canSetCustomEmojiStickerSet: Boolean,
+    public val canEnableAutomaticTranslation: Boolean,
     public val canRecognizeSpeech: Boolean,
     public val canDisableSponsoredMessages: Boolean,
 ) {
@@ -102,6 +104,9 @@ public class ChatBoostLevelFeatures public constructor(
         if (other.canSetCustomEmojiStickerSet != canSetCustomEmojiStickerSet) {
             return false
         }
+        if (other.canEnableAutomaticTranslation != canEnableAutomaticTranslation) {
+            return false
+        }
         if (other.canRecognizeSpeech != canRecognizeSpeech) {
             return false
         }
@@ -122,6 +127,7 @@ public class ChatBoostLevelFeatures public constructor(
         hashCode = 31 * hashCode + chatThemeBackgroundCount.hashCode()
         hashCode = 31 * hashCode + canSetCustomBackground.hashCode()
         hashCode = 31 * hashCode + canSetCustomEmojiStickerSet.hashCode()
+        hashCode = 31 * hashCode + canEnableAutomaticTranslation.hashCode()
         hashCode = 31 * hashCode + canRecognizeSpeech.hashCode()
         hashCode = 31 * hashCode + canDisableSponsoredMessages.hashCode()
         return hashCode
@@ -166,6 +172,9 @@ public class ChatBoostLevelFeatures public constructor(
             append(", ")
             append("canSetCustomEmojiStickerSet=")
             append(canSetCustomEmojiStickerSet)
+            append(", ")
+            append("canEnableAutomaticTranslation=")
+            append(canEnableAutomaticTranslation)
             append(", ")
             append("canRecognizeSpeech=")
             append(canRecognizeSpeech)

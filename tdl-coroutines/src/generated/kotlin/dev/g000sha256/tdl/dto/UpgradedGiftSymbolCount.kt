@@ -17,18 +17,19 @@
 package dev.g000sha256.tdl.dto
 
 import kotlin.Any
-import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
 
 /**
- * Contains a list of gifts that can be sent to another user or channel chat.
+ * Describes a symbol shown on the pattern of an upgraded gift.
  *
- * @property gifts The list of gifts.
+ * @property symbol The symbol.
+ * @property totalCount Total number of gifts with the symbol.
  */
-public class Gifts public constructor(
-    public val gifts: Array<Gift>,
+public class UpgradedGiftSymbolCount public constructor(
+    public val symbol: UpgradedGiftSymbol,
+    public val totalCount: Int,
 ) {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
@@ -40,24 +41,29 @@ public class Gifts public constructor(
         if (other::class != this::class) {
             return false
         }
-        other as Gifts
-        return other.gifts.contentDeepEquals(gifts)
+        other as UpgradedGiftSymbolCount
+        if (other.symbol != symbol) {
+            return false
+        }
+        return other.totalCount == totalCount
     }
 
     override fun hashCode(): Int {
         var hashCode = this::class.hashCode()
-        hashCode = 31 * hashCode + gifts.contentDeepHashCode()
+        hashCode = 31 * hashCode + symbol.hashCode()
+        hashCode = 31 * hashCode + totalCount.hashCode()
         return hashCode
     }
 
     override fun toString(): String {
         return buildString {
-            append("Gifts")
+            append("UpgradedGiftSymbolCount")
             append("(")
-            append("gifts=")
-            gifts
-                .contentDeepToString()
-                .also { append(it) }
+            append("symbol=")
+            append(symbol)
+            append(", ")
+            append("totalCount=")
+            append(totalCount)
             append(")")
         }
     }
