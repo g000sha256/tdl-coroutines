@@ -5,6 +5,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dev.g000sha256.tdl.TdlClient
 import dev.g000sha256.tdl.TdlResult
+import dev.g000sha256.tdl.dto.AuthorizationStateClosed
+import dev.g000sha256.tdl.dto.AuthorizationStateLoggingOut
 import dev.g000sha256.tdl.dto.AuthorizationStateReady
 import dev.g000sha256.tdl.dto.AuthorizationStateWaitCode
 import dev.g000sha256.tdl.dto.AuthorizationStateWaitPassword
@@ -149,6 +151,15 @@ internal class MainViewModel : ViewModel() {
                     is AuthorizationStateReady -> {
                         textsMutableStateFlow.value = null
                         titlesMutableStateFlow.value = "Ready"
+                    }
+                    is AuthorizationStateLoggingOut -> {
+                        textsMutableStateFlow.value = null
+                        titlesMutableStateFlow.value = "LoggingOut"
+                    }
+                    is AuthorizationStateClosed -> {
+                        textsMutableStateFlow.value = null
+                        titlesMutableStateFlow.value = "Closed"
+                        // TODO Recreate TdlClient instance?
                     }
                     else -> Unit
                 }
