@@ -31,6 +31,7 @@ import dev.g000sha256.tdl.dto.AutoDownloadSettings
 import dev.g000sha256.tdl.dto.AutoDownloadSettingsPresets
 import dev.g000sha256.tdl.dto.AutosaveSettings
 import dev.g000sha256.tdl.dto.AutosaveSettingsScope
+import dev.g000sha256.tdl.dto.AvailableGifts
 import dev.g000sha256.tdl.dto.AvailableReactions
 import dev.g000sha256.tdl.dto.Background
 import dev.g000sha256.tdl.dto.BackgroundType
@@ -160,9 +161,10 @@ import dev.g000sha256.tdl.dto.FoundStories
 import dev.g000sha256.tdl.dto.FoundUsers
 import dev.g000sha256.tdl.dto.FoundWebApp
 import dev.g000sha256.tdl.dto.GameHighScores
+import dev.g000sha256.tdl.dto.GiftForResaleOrder
 import dev.g000sha256.tdl.dto.GiftSettings
 import dev.g000sha256.tdl.dto.GiftUpgradePreview
-import dev.g000sha256.tdl.dto.Gifts
+import dev.g000sha256.tdl.dto.GiftsForResale
 import dev.g000sha256.tdl.dto.GiveawayInfo
 import dev.g000sha256.tdl.dto.GiveawayParameters
 import dev.g000sha256.tdl.dto.GroupCall
@@ -511,6 +513,7 @@ import dev.g000sha256.tdl.dto.UpdateWebAppMessageSent
 import dev.g000sha256.tdl.dto.Updates
 import dev.g000sha256.tdl.dto.UpgradeGiftResult
 import dev.g000sha256.tdl.dto.UpgradedGift
+import dev.g000sha256.tdl.dto.UpgradedGiftAttributeId
 import dev.g000sha256.tdl.dto.User
 import dev.g000sha256.tdl.dto.UserFullInfo
 import dev.g000sha256.tdl.dto.UserLink
@@ -3328,7 +3331,7 @@ public abstract class TdlClient internal constructor() {
     /**
      * Returns gifts that can be sent to other users and channel chats.
      */
-    public abstract suspend fun getAvailableGifts(): TdlResult<Gifts>
+    public abstract suspend fun getAvailableGifts(): TdlResult<AvailableGifts>
 
     /**
      * Constructs a persistent HTTP URL for a background.
@@ -6770,6 +6773,23 @@ public abstract class TdlClient internal constructor() {
     ): TdlResult<FoundFileDownloads>
 
     /**
+     * Returns upgraded gifts that can be bought from other owners.
+     *
+     * @param giftId Identifier of the regular gift that was upgraded to a unique gift.
+     * @param order Order in which the results will be sorted.
+     * @param attributes Attributes used to filter received gifts. If multiple attributes of the same type are specified, then all of them are allowed. If none attributes of specific type are specified, then all values for this attribute type are allowed.
+     * @param offset Offset of the first entry to return as received from the previous request with the same order and attributes; use empty string to get the first chunk of results.
+     * @param limit The maximum number of gifts to return.
+     */
+    public abstract suspend fun searchGiftsForResale(
+        giftId: Long,
+        order: GiftForResaleOrder,
+        attributes: Array<UpgradedGiftAttributeId>,
+        offset: String,
+        limit: Int,
+    ): TdlResult<GiftsForResale>
+
+    /**
      * Searches for recently used hashtags by their prefix.
      *
      * @param prefix Hashtag prefix to search for.
@@ -7295,6 +7315,19 @@ public abstract class TdlClient internal constructor() {
         shortcutId: Int,
         sendingId: Int,
     ): TdlResult<Messages>
+
+    /**
+     * Sends an upgraded gift that is available for resale to another user or channel chat; gifts already owned by the current user must be transferred using transferGift and can't be passed to the method.
+     *
+     * @param giftName Name of the upgraded gift to send.
+     * @param ownerId Identifier of the user or the channel chat that will receive the gift.
+     * @param starCount The amount of Telegram Stars required to pay for the gift.
+     */
+    public abstract suspend fun sendResoldGift(
+        giftName: String,
+        ownerId: MessageSender,
+        starCount: Long,
+    ): TdlResult<Ok>
 
     /**
      * Sends a custom request from a Web App.
@@ -7937,6 +7970,14 @@ public abstract class TdlClient internal constructor() {
         score: Int,
         force: Boolean,
     ): TdlResult<Message>
+
+    /**
+     * Changes resale price of a unique gift owned by the current user.
+     *
+     * @param receivedGiftId Identifier of the unique gift.
+     * @param resaleStarCount The new price for the unique gift; 0 or getOption(&quot;gift_resale_star_count_min&quot;)-getOption(&quot;gift_resale_star_count_max&quot;). Pass 0 to disallow gift resale. The current user will receive getOption(&quot;gift_resale_earnings_per_mille&quot;) Telegram Stars for each 1000 Telegram Stars paid for the gift.
+     */
+    public abstract suspend fun setGiftResalePrice(receivedGiftId: String, resaleStarCount: Long): TdlResult<Ok>
 
     /**
      * Changes settings for gift receiving for the current user.
@@ -8970,6 +9011,14 @@ public abstract class TdlClient internal constructor() {
      * @param hasAggressiveAntiSpamEnabled The new value of hasAggressiveAntiSpamEnabled.
      */
     public abstract suspend fun toggleSupergroupHasAggressiveAntiSpamEnabled(supergroupId: Long, hasAggressiveAntiSpamEnabled: Boolean): TdlResult<Ok>
+
+    /**
+     * Toggles whether messages are automatically translated in the channel chat; requires canChangeInfo administrator right in the channel. The chat must have at least chatBoostFeatures.minAutomaticTranslationBoostLevel boost level to enable automatic translation.
+     *
+     * @param supergroupId The identifier of the channel.
+     * @param hasAutomaticTranslation The new value of hasAutomaticTranslation.
+     */
+    public abstract suspend fun toggleSupergroupHasAutomaticTranslation(supergroupId: Long, hasAutomaticTranslation: Boolean): TdlResult<Ok>
 
     /**
      * Toggles whether non-administrators can receive only administrators and bots using getSupergroupMembers or searchChatMembers. Can be called only if supergroupFullInfo.canHideMembers == true.

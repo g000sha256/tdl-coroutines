@@ -1,7 +1,7 @@
 # TDL Coroutines
 
 [![Maven Central](https://img.shields.io/maven-central/v/dev.g000sha256/tdl-coroutines?label=Maven%20Central&labelColor=171C35&color=E38E33)](https://central.sonatype.com/artifact/dev.g000sha256/tdl-coroutines)
-[![TDLib Version](https://img.shields.io/badge/TDLib-v1.8.48-blue?labelColor=19212A&color=53A5E3)](https://github.com/tdlib/td/tree/b8b08b02dbbc0c05e7129e2f306c636c5b8ec04f)
+[![TDLib Version](https://img.shields.io/badge/TDLib-v1.8.49-blue?labelColor=19212A&color=53A5E3)](https://github.com/tdlib/td/tree/4a967f7a633d3c98184806650607b1746020a6a8)
 
 This library provides a Kotlin Coroutines client for the Telegram Database Library ([TDLib](https://github.com/tdlib/td)).
 Data Transfer Objects (DTOs), the client, and the mapper are generated from the `TdApi.java` file.
@@ -42,7 +42,7 @@ coroutineScope.launch {
 
 ### How to send a request
 
-The `TdlClient` provides 851 request methods
+The `TdlClient` provides 855 request methods
 
 ```kotlin
 coroutineScope.launch {

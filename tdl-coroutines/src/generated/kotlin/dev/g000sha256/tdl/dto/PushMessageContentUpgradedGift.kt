@@ -24,7 +24,7 @@ import kotlin.String
 /**
  * A message with an upgraded gift.
  *
- * @property isUpgrade True, if the gift was obtained by upgrading of a previously received gift; otherwise, this is a transferred gift.
+ * @property isUpgrade True, if the gift was obtained by upgrading of a previously received gift; otherwise, this is a transferred or resold gift.
  */
 public class PushMessageContentUpgradedGift public constructor(
     public val isUpgrade: Boolean,

@@ -17,22 +17,19 @@
 package dev.g000sha256.tdl.dto
 
 import kotlin.Any
+import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
 
 /**
- * A gift which purchase, upgrade or transfer were refunded.
+ * Contains a list of gifts that can be sent to another user or channel chat.
  *
- * @property gift The gift.
- * @property senderId Sender of the gift.
- * @property isUpgrade True, if the gift was obtained by upgrading of a previously received gift; otherwise, this is a transferred or resold gift.
+ * @property gifts The list of gifts.
  */
-public class MessageRefundedUpgradedGift public constructor(
-    public val gift: Gift,
-    public val senderId: MessageSender,
-    public val isUpgrade: Boolean,
-) : MessageContent() {
+public class AvailableGifts public constructor(
+    public val gifts: Array<AvailableGift>,
+) {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true
@@ -43,36 +40,24 @@ public class MessageRefundedUpgradedGift public constructor(
         if (other::class != this::class) {
             return false
         }
-        other as MessageRefundedUpgradedGift
-        if (other.gift != gift) {
-            return false
-        }
-        if (other.senderId != senderId) {
-            return false
-        }
-        return other.isUpgrade == isUpgrade
+        other as AvailableGifts
+        return other.gifts.contentDeepEquals(gifts)
     }
 
     override fun hashCode(): Int {
         var hashCode = this::class.hashCode()
-        hashCode = 31 * hashCode + gift.hashCode()
-        hashCode = 31 * hashCode + senderId.hashCode()
-        hashCode = 31 * hashCode + isUpgrade.hashCode()
+        hashCode = 31 * hashCode + gifts.contentDeepHashCode()
         return hashCode
     }
 
     override fun toString(): String {
         return buildString {
-            append("MessageRefundedUpgradedGift")
+            append("AvailableGifts")
             append("(")
-            append("gift=")
-            append(gift)
-            append(", ")
-            append("senderId=")
-            append(senderId)
-            append(", ")
-            append("isUpgrade=")
-            append(isUpgrade)
+            append("gifts=")
+            gifts
+                .contentDeepToString()
+                .also { append(it) }
             append(")")
         }
     }

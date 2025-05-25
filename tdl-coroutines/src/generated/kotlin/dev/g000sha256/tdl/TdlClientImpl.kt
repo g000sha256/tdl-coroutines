@@ -31,6 +31,7 @@ import dev.g000sha256.tdl.dto.AutoDownloadSettings
 import dev.g000sha256.tdl.dto.AutoDownloadSettingsPresets
 import dev.g000sha256.tdl.dto.AutosaveSettings
 import dev.g000sha256.tdl.dto.AutosaveSettingsScope
+import dev.g000sha256.tdl.dto.AvailableGifts
 import dev.g000sha256.tdl.dto.AvailableReactions
 import dev.g000sha256.tdl.dto.Background
 import dev.g000sha256.tdl.dto.BackgroundType
@@ -160,9 +161,10 @@ import dev.g000sha256.tdl.dto.FoundStories
 import dev.g000sha256.tdl.dto.FoundUsers
 import dev.g000sha256.tdl.dto.FoundWebApp
 import dev.g000sha256.tdl.dto.GameHighScores
+import dev.g000sha256.tdl.dto.GiftForResaleOrder
 import dev.g000sha256.tdl.dto.GiftSettings
 import dev.g000sha256.tdl.dto.GiftUpgradePreview
-import dev.g000sha256.tdl.dto.Gifts
+import dev.g000sha256.tdl.dto.GiftsForResale
 import dev.g000sha256.tdl.dto.GiveawayInfo
 import dev.g000sha256.tdl.dto.GiveawayParameters
 import dev.g000sha256.tdl.dto.GroupCall
@@ -511,6 +513,7 @@ import dev.g000sha256.tdl.dto.UpdateWebAppMessageSent
 import dev.g000sha256.tdl.dto.Updates
 import dev.g000sha256.tdl.dto.UpgradeGiftResult
 import dev.g000sha256.tdl.dto.UpgradedGift
+import dev.g000sha256.tdl.dto.UpgradedGiftAttributeId
 import dev.g000sha256.tdl.dto.User
 import dev.g000sha256.tdl.dto.UserFullInfo
 import dev.g000sha256.tdl.dto.UserLink
@@ -3007,7 +3010,7 @@ internal class TdlClientImpl(
         return repository.send(function) { mapper.map(it) }
     }
 
-    override suspend fun getAvailableGifts(): TdlResult<Gifts> {
+    override suspend fun getAvailableGifts(): TdlResult<AvailableGifts> {
         val function = TdApi.GetAvailableGifts()
         return repository.send(function) { mapper.map(it) }
     }
@@ -6451,6 +6454,23 @@ internal class TdlClientImpl(
         return repository.send(function) { mapper.map(it) }
     }
 
+    override suspend fun searchGiftsForResale(
+        giftId: Long,
+        order: GiftForResaleOrder,
+        attributes: Array<UpgradedGiftAttributeId>,
+        offset: String,
+        limit: Int,
+    ): TdlResult<GiftsForResale> {
+        val function = TdApi.SearchGiftsForResale(
+            giftId = giftId,
+            order = mapper.map(order),
+            attributes = attributes.mapArray { mapper.map(it) },
+            offset = offset,
+            limit = limit,
+        )
+        return repository.send(function) { mapper.map(it) }
+    }
+
     override suspend fun searchHashtags(prefix: String, limit: Int): TdlResult<Hashtags> {
         val function = TdApi.SearchHashtags(
             prefix = prefix,
@@ -6974,6 +6994,19 @@ internal class TdlClientImpl(
             chatId = chatId,
             shortcutId = shortcutId,
             sendingId = sendingId,
+        )
+        return repository.send(function) { mapper.map(it) }
+    }
+
+    override suspend fun sendResoldGift(
+        giftName: String,
+        ownerId: MessageSender,
+        starCount: Long,
+    ): TdlResult<Ok> {
+        val function = TdApi.SendResoldGift(
+            giftName = giftName,
+            ownerId = mapper.map(ownerId),
+            starCount = starCount,
         )
         return repository.send(function) { mapper.map(it) }
     }
@@ -7616,6 +7649,14 @@ internal class TdlClientImpl(
             userId = userId,
             score = score,
             force = force,
+        )
+        return repository.send(function) { mapper.map(it) }
+    }
+
+    override suspend fun setGiftResalePrice(receivedGiftId: String, resaleStarCount: Long): TdlResult<Ok> {
+        val function = TdApi.SetGiftResalePrice(
+            receivedGiftId = receivedGiftId,
+            resaleStarCount = resaleStarCount,
         )
         return repository.send(function) { mapper.map(it) }
     }
@@ -8649,6 +8690,14 @@ internal class TdlClientImpl(
         val function = TdApi.ToggleSupergroupHasAggressiveAntiSpamEnabled(
             supergroupId = supergroupId,
             hasAggressiveAntiSpamEnabled = hasAggressiveAntiSpamEnabled,
+        )
+        return repository.send(function) { mapper.map(it) }
+    }
+
+    override suspend fun toggleSupergroupHasAutomaticTranslation(supergroupId: Long, hasAutomaticTranslation: Boolean): TdlResult<Ok> {
+        val function = TdApi.ToggleSupergroupHasAutomaticTranslation(
+            supergroupId = supergroupId,
+            hasAutomaticTranslation = hasAutomaticTranslation,
         )
         return repository.send(function) { mapper.map(it) }
     }

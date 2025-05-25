@@ -13,9 +13,9 @@ import kotlin.jvm.JvmField
 
 internal class TdApi private constructor() {
     companion object {
-        const val GIT_COMMIT_HASH: String = "b8b08b02dbbc0c05e7129e2f306c636c5b8ec04f"
+        const val GIT_COMMIT_HASH: String = "4a967f7a633d3c98184806650607b1746020a6a8"
 
-        const val VERSION: String = "1.8.48"
+        const val VERSION: String = "1.8.49"
     }
 
     abstract class Object {
@@ -610,6 +610,26 @@ internal class TdApi private constructor() {
         val chatId: Long,
     ) : AutosaveSettingsScope() {
         override fun getConstructor(): Int = -1_632_255_255
+    }
+
+    class AvailableGift(
+        @JvmField
+        val gift: Gift,
+        @JvmField
+        val resaleCount: Int,
+        @JvmField
+        val minResaleStarCount: Long,
+        @JvmField
+        val title: String,
+    ) : Object() {
+        override fun getConstructor(): Int = 850_530_502
+    }
+
+    class AvailableGifts(
+        @JvmField
+        val gifts: Array<AvailableGift>,
+    ) : Object() {
+        override fun getConstructor(): Int = -1_450_341_886
     }
 
     class AvailableReaction(
@@ -1535,8 +1555,11 @@ internal class TdApi private constructor() {
 
     abstract class CanPostStoryResult : Object()
 
-    class CanPostStoryResultOk : CanPostStoryResult() {
-        override fun getConstructor(): Int = 1_419_900_186
+    class CanPostStoryResultOk(
+        @JvmField
+        val storyCount: Int,
+    ) : CanPostStoryResult() {
+        override fun getConstructor(): Int = 2_083_205_610
     }
 
     class CanPostStoryResultPremiumNeeded : CanPostStoryResult() {
@@ -1944,11 +1967,13 @@ internal class TdApi private constructor() {
         @JvmField
         val minCustomEmojiStickerSetBoostLevel: Int,
         @JvmField
+        val minAutomaticTranslationBoostLevel: Int,
+        @JvmField
         val minSpeechRecognitionBoostLevel: Int,
         @JvmField
         val minSponsoredMessageDisableBoostLevel: Int,
     ) : Object() {
-        override fun getConstructor(): Int = 866_182_642
+        override fun getConstructor(): Int = -940_531_367
     }
 
     class ChatBoostLevelFeatures(
@@ -1977,11 +2002,13 @@ internal class TdApi private constructor() {
         @JvmField
         val canSetCustomEmojiStickerSet: Boolean,
         @JvmField
+        val canEnableAutomaticTranslation: Boolean,
+        @JvmField
         val canRecognizeSpeech: Boolean,
         @JvmField
         val canDisableSponsoredMessages: Boolean,
     ) : Object() {
-        override fun getConstructor(): Int = -189_458_156
+        override fun getConstructor(): Int = 975_439_470
     }
 
     class ChatBoostLink(
@@ -2405,6 +2432,13 @@ internal class TdApi private constructor() {
         val showMessageSender: Boolean,
     ) : ChatEventAction() {
         override fun getConstructor(): Int = -794_343_453
+    }
+
+    class ChatEventAutomaticTranslationToggled(
+        @JvmField
+        val hasAutomaticTranslation: Boolean,
+    ) : ChatEventAction() {
+        override fun getConstructor(): Int = 194_147_926
     }
 
     class ChatEventInviteLinkEdited(
@@ -4580,6 +4614,29 @@ internal class TdApi private constructor() {
         override fun getConstructor(): Int = 2_096_710_701
     }
 
+    class GiftForResale(
+        @JvmField
+        val gift: UpgradedGift,
+        @JvmField
+        val receivedGiftId: String,
+    ) : Object() {
+        override fun getConstructor(): Int = 1_130_990_515
+    }
+
+    abstract class GiftForResaleOrder : Object()
+
+    class GiftForResaleOrderPrice : GiftForResaleOrder() {
+        override fun getConstructor(): Int = 1_371_740_258
+    }
+
+    class GiftForResaleOrderPriceChangeDate : GiftForResaleOrder() {
+        override fun getConstructor(): Int = -1_694_144_054
+    }
+
+    class GiftForResaleOrderNumber : GiftForResaleOrder() {
+        override fun getConstructor(): Int = -1_301_157_632
+    }
+
     class GiftSettings(
         @JvmField
         val showGiftButton: Boolean,
@@ -4600,11 +4657,21 @@ internal class TdApi private constructor() {
         override fun getConstructor(): Int = 729_908_218
     }
 
-    class Gifts(
+    class GiftsForResale(
         @JvmField
-        val gifts: Array<Gift>,
+        val totalCount: Int,
+        @JvmField
+        val gifts: Array<GiftForResale>,
+        @JvmField
+        val models: Array<UpgradedGiftModelCount>,
+        @JvmField
+        val symbols: Array<UpgradedGiftSymbolCount>,
+        @JvmField
+        val backdrops: Array<UpgradedGiftBackdropCount>,
+        @JvmField
+        val nextOffset: String,
     ) : Object() {
-        override fun getConstructor(): Int = 1_652_323_382
+        override fun getConstructor(): Int = 35_082_425
     }
 
     abstract class GiveawayInfo : Object()
@@ -6539,6 +6606,10 @@ internal class TdApi private constructor() {
         override fun getConstructor(): Int = 661_633_749
     }
 
+    class InternalLinkTypeMyStars : InternalLinkType() {
+        override fun getConstructor(): Int = 1_613_887_070
+    }
+
     class InternalLinkTypePassportDataRequest(
         @JvmField
         val botUserId: Long,
@@ -8337,11 +8408,17 @@ internal class TdApi private constructor() {
         @JvmField
         val wasTransferred: Boolean,
         @JvmField
+        val lastResaleStarCount: Long,
+        @JvmField
         val transferStarCount: Long,
+        @JvmField
+        val nextTransferDate: Int,
+        @JvmField
+        val nextResaleDate: Int,
         @JvmField
         val exportDate: Int,
     ) : MessageContent() {
-        override fun getConstructor(): Int = -1_068_647_053
+        override fun getConstructor(): Int = -1_586_797_067
     }
 
     class MessageRefundedUpgradedGift(
@@ -11310,9 +11387,13 @@ internal class TdApi private constructor() {
         @JvmField
         val transferStarCount: Long,
         @JvmField
+        val nextTransferDate: Int,
+        @JvmField
+        val nextResaleDate: Int,
+        @JvmField
         val exportDate: Int,
     ) : Object() {
-        override fun getConstructor(): Int = 553_476_056
+        override fun getConstructor(): Int = 61_550_296
     }
 
     class ReceivedGifts(
@@ -12609,6 +12690,26 @@ internal class TdApi private constructor() {
         override fun getConstructor(): Int = -632_388_839
     }
 
+    class StarTransactionTypeUpgradedGiftPurchase(
+        @JvmField
+        val userId: Long,
+        @JvmField
+        val gift: UpgradedGift,
+    ) : StarTransactionType() {
+        override fun getConstructor(): Int = -59_050_247
+    }
+
+    class StarTransactionTypeUpgradedGiftSale(
+        @JvmField
+        val userId: Long,
+        @JvmField
+        val gift: UpgradedGift,
+        @JvmField
+        val affiliate: AffiliateInfo,
+    ) : StarTransactionType() {
+        override fun getConstructor(): Int = 2_041_948_603
+    }
+
     class StarTransactionTypeChannelPaidReactionSend(
         @JvmField
         val chatId: Long,
@@ -13481,6 +13582,19 @@ internal class TdApi private constructor() {
         override fun getConstructor(): Int = -47_000_234
     }
 
+    class SuggestedActionCustom(
+        @JvmField
+        val name: String,
+        @JvmField
+        val title: FormattedText,
+        @JvmField
+        val description: FormattedText,
+        @JvmField
+        val url: String,
+    ) : SuggestedAction() {
+        override fun getConstructor(): Int = 2_092_876_611
+    }
+
     class Supergroup(
         @JvmField
         val id: Long,
@@ -13494,6 +13608,8 @@ internal class TdApi private constructor() {
         val memberCount: Int,
         @JvmField
         val boostLevel: Int,
+        @JvmField
+        val hasAutomaticTranslation: Boolean,
         @JvmField
         val hasLinkedChat: Boolean,
         @JvmField
@@ -13527,7 +13643,7 @@ internal class TdApi private constructor() {
         @JvmField
         val hasUnreadActiveStories: Boolean,
     ) : Object() {
-        override fun getConstructor(): Int = 992_231_696
+        override fun getConstructor(): Int = -1_355_919_719
     }
 
     class SupergroupFullInfo(
@@ -15775,9 +15891,13 @@ internal class TdApi private constructor() {
         @JvmField
         val transferStarCount: Long,
         @JvmField
+        val nextTransferDate: Int,
+        @JvmField
+        val nextResaleDate: Int,
+        @JvmField
         val exportDate: Int,
     ) : Object() {
-        override fun getConstructor(): Int = 664_437_354
+        override fun getConstructor(): Int = 233_376_346
     }
 
     class UpgradedGift(
@@ -15809,11 +15929,38 @@ internal class TdApi private constructor() {
         val backdrop: UpgradedGiftBackdrop,
         @JvmField
         val originalDetails: UpgradedGiftOriginalDetails?,
+        @JvmField
+        val resaleStarCount: Long,
     ) : Object() {
-        override fun getConstructor(): Int = -473_646_818
+        override fun getConstructor(): Int = 992_832_410
+    }
+
+    abstract class UpgradedGiftAttributeId : Object()
+
+    class UpgradedGiftAttributeIdModel(
+        @JvmField
+        val stickerId: Long,
+    ) : UpgradedGiftAttributeId() {
+        override fun getConstructor(): Int = 1_053_287_307
+    }
+
+    class UpgradedGiftAttributeIdSymbol(
+        @JvmField
+        val stickerId: Long,
+    ) : UpgradedGiftAttributeId() {
+        override fun getConstructor(): Int = 1_188_205_608
+    }
+
+    class UpgradedGiftAttributeIdBackdrop(
+        @JvmField
+        val backdropId: Int,
+    ) : UpgradedGiftAttributeId() {
+        override fun getConstructor(): Int = 1_461_997_935
     }
 
     class UpgradedGiftBackdrop(
+        @JvmField
+        val id: Int,
         @JvmField
         val name: String,
         @JvmField
@@ -15821,7 +15968,7 @@ internal class TdApi private constructor() {
         @JvmField
         val rarityPerMille: Int,
     ) : Object() {
-        override fun getConstructor(): Int = -334_899_886
+        override fun getConstructor(): Int = -378_289_242
     }
 
     class UpgradedGiftBackdropColors(
@@ -15837,6 +15984,15 @@ internal class TdApi private constructor() {
         override fun getConstructor(): Int = 4_227_529
     }
 
+    class UpgradedGiftBackdropCount(
+        @JvmField
+        val backdrop: UpgradedGiftBackdrop,
+        @JvmField
+        val totalCount: Int,
+    ) : Object() {
+        override fun getConstructor(): Int = -562_274_120
+    }
+
     class UpgradedGiftModel(
         @JvmField
         val name: String,
@@ -15846,6 +16002,15 @@ internal class TdApi private constructor() {
         val rarityPerMille: Int,
     ) : Object() {
         override fun getConstructor(): Int = 1_360_156_751
+    }
+
+    class UpgradedGiftModelCount(
+        @JvmField
+        val model: UpgradedGiftModel,
+        @JvmField
+        val totalCount: Int,
+    ) : Object() {
+        override fun getConstructor(): Int = -1_127_238_023
     }
 
     class UpgradedGiftOriginalDetails(
@@ -15870,6 +16035,15 @@ internal class TdApi private constructor() {
         val rarityPerMille: Int,
     ) : Object() {
         override fun getConstructor(): Int = 1_128_318_383
+    }
+
+    class UpgradedGiftSymbolCount(
+        @JvmField
+        val symbol: UpgradedGiftSymbol,
+        @JvmField
+        val totalCount: Int,
+    ) : Object() {
+        override fun getConstructor(): Int = -773_579_874
     }
 
     class User(
@@ -18323,8 +18497,8 @@ internal class TdApi private constructor() {
         override fun getConstructor(): Int = 1_929_898_965
     }
 
-    class GetAvailableGifts : Function<Gifts>() {
-        override fun getConstructor(): Int = -153_786_901
+    class GetAvailableGifts : Function<AvailableGifts>() {
+        override fun getConstructor(): Int = -4_559_695
     }
 
     class GetBackgroundUrl(
@@ -21614,6 +21788,21 @@ internal class TdApi private constructor() {
         override fun getConstructor(): Int = 706_611_286
     }
 
+    class SearchGiftsForResale(
+        @JvmField
+        val giftId: Long,
+        @JvmField
+        val order: GiftForResaleOrder,
+        @JvmField
+        val attributes: Array<UpgradedGiftAttributeId>,
+        @JvmField
+        val offset: String,
+        @JvmField
+        val limit: Int,
+    ) : Function<GiftsForResale>() {
+        override fun getConstructor(): Int = 1_659_300_894
+    }
+
     class SearchHashtags(
         @JvmField
         val prefix: String,
@@ -22106,6 +22295,17 @@ internal class TdApi private constructor() {
         val sendingId: Int,
     ) : Function<Messages>() {
         override fun getConstructor(): Int = 232_068_765
+    }
+
+    class SendResoldGift(
+        @JvmField
+        val giftName: String,
+        @JvmField
+        val ownerId: MessageSender,
+        @JvmField
+        val starCount: Long,
+    ) : Function<Ok>() {
+        override fun getConstructor(): Int = -1_284_812_948
     }
 
     class SendWebAppCustomRequest(
@@ -22741,6 +22941,15 @@ internal class TdApi private constructor() {
         val force: Boolean,
     ) : Function<Message>() {
         override fun getConstructor(): Int = 2_127_359_430
+    }
+
+    class SetGiftResalePrice(
+        @JvmField
+        val receivedGiftId: String,
+        @JvmField
+        val resaleStarCount: Long,
+    ) : Function<Ok>() {
+        override fun getConstructor(): Int = -1_430_492_787
     }
 
     class SetGiftSettings(
@@ -23767,6 +23976,15 @@ internal class TdApi private constructor() {
         val hasAggressiveAntiSpamEnabled: Boolean,
     ) : Function<Ok>() {
         override fun getConstructor(): Int = 1_748_956_943
+    }
+
+    class ToggleSupergroupHasAutomaticTranslation(
+        @JvmField
+        val supergroupId: Long,
+        @JvmField
+        val hasAutomaticTranslation: Boolean,
+    ) : Function<Ok>() {
+        override fun getConstructor(): Int = -184_993_048
     }
 
     class ToggleSupergroupHasHiddenMembers(

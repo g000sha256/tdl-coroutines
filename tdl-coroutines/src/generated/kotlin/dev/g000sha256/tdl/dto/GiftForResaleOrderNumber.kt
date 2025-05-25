@@ -22,13 +22,9 @@ import kotlin.Int
 import kotlin.String
 
 /**
- * A story can be sent.
- *
- * @property storyCount Number of stories that can be posted by the user.
+ * The gifts will be sorted by their number from the smallest to the largest.
  */
-public class CanPostStoryResultOk public constructor(
-    public val storyCount: Int,
-) : CanPostStoryResult() {
+public class GiftForResaleOrderNumber public constructor() : GiftForResaleOrder() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true
@@ -36,26 +32,14 @@ public class CanPostStoryResultOk public constructor(
         if (other == null) {
             return false
         }
-        if (other::class != this::class) {
-            return false
-        }
-        other as CanPostStoryResultOk
-        return other.storyCount == storyCount
+        return this::class == other::class
     }
 
     override fun hashCode(): Int {
-        var hashCode = this::class.hashCode()
-        hashCode = 31 * hashCode + storyCount.hashCode()
-        return hashCode
+        return this::class.hashCode()
     }
 
     override fun toString(): String {
-        return buildString {
-            append("CanPostStoryResultOk")
-            append("(")
-            append("storyCount=")
-            append(storyCount)
-            append(")")
-        }
+        return "GiftForResaleOrderNumber()"
     }
 }

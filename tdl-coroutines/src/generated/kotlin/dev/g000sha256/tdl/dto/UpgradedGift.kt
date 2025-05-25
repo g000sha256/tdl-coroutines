@@ -27,7 +27,7 @@ import kotlin.String
  *
  * @property id Unique identifier of the gift.
  * @property title The title of the upgraded gift.
- * @property name Unique name of the upgraded gift that can be used with internalLinkTypeUpgradedGift.
+ * @property name Unique name of the upgraded gift that can be used with internalLinkTypeUpgradedGift or sendResoldGift.
  * @property number Unique number of the upgraded gift among gifts upgraded from the same gift.
  * @property totalUpgradedCount Total number of gifts that were upgraded from the same gift.
  * @property maxUpgradedCount The maximum number of gifts that can be upgraded from the same gift.
@@ -39,6 +39,7 @@ import kotlin.String
  * @property symbol Symbol of the upgraded gift.
  * @property backdrop Backdrop of the upgraded gift.
  * @property originalDetails Information about the originally sent gift; may be null if unknown.
+ * @property resaleStarCount Number of Telegram Stars that must be paid to buy the gift and send it to someone else; 0 if resale isn't possible.
  */
 public class UpgradedGift public constructor(
     public val id: Long,
@@ -55,6 +56,7 @@ public class UpgradedGift public constructor(
     public val symbol: UpgradedGiftSymbol,
     public val backdrop: UpgradedGiftBackdrop,
     public val originalDetails: UpgradedGiftOriginalDetails?,
+    public val resaleStarCount: Long,
 ) {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
@@ -106,7 +108,10 @@ public class UpgradedGift public constructor(
         if (other.backdrop != backdrop) {
             return false
         }
-        return other.originalDetails == originalDetails
+        if (other.originalDetails != originalDetails) {
+            return false
+        }
+        return other.resaleStarCount == resaleStarCount
     }
 
     override fun hashCode(): Int {
@@ -125,6 +130,7 @@ public class UpgradedGift public constructor(
         hashCode = 31 * hashCode + symbol.hashCode()
         hashCode = 31 * hashCode + backdrop.hashCode()
         hashCode = 31 * hashCode + originalDetails.hashCode()
+        hashCode = 31 * hashCode + resaleStarCount.hashCode()
         return hashCode
     }
 
@@ -173,6 +179,9 @@ public class UpgradedGift public constructor(
             append(", ")
             append("originalDetails=")
             append(originalDetails)
+            append(", ")
+            append("resaleStarCount=")
+            append(resaleStarCount)
             append(")")
         }
     }

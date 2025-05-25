@@ -22,17 +22,15 @@ import kotlin.Int
 import kotlin.String
 
 /**
- * A gift which purchase, upgrade or transfer were refunded.
+ * Describes a model of an upgraded gift with the number of gifts found.
  *
- * @property gift The gift.
- * @property senderId Sender of the gift.
- * @property isUpgrade True, if the gift was obtained by upgrading of a previously received gift; otherwise, this is a transferred or resold gift.
+ * @property model The model.
+ * @property totalCount Total number of gifts with the model.
  */
-public class MessageRefundedUpgradedGift public constructor(
-    public val gift: Gift,
-    public val senderId: MessageSender,
-    public val isUpgrade: Boolean,
-) : MessageContent() {
+public class UpgradedGiftModelCount public constructor(
+    public val model: UpgradedGiftModel,
+    public val totalCount: Int,
+) {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true
@@ -43,36 +41,29 @@ public class MessageRefundedUpgradedGift public constructor(
         if (other::class != this::class) {
             return false
         }
-        other as MessageRefundedUpgradedGift
-        if (other.gift != gift) {
+        other as UpgradedGiftModelCount
+        if (other.model != model) {
             return false
         }
-        if (other.senderId != senderId) {
-            return false
-        }
-        return other.isUpgrade == isUpgrade
+        return other.totalCount == totalCount
     }
 
     override fun hashCode(): Int {
         var hashCode = this::class.hashCode()
-        hashCode = 31 * hashCode + gift.hashCode()
-        hashCode = 31 * hashCode + senderId.hashCode()
-        hashCode = 31 * hashCode + isUpgrade.hashCode()
+        hashCode = 31 * hashCode + model.hashCode()
+        hashCode = 31 * hashCode + totalCount.hashCode()
         return hashCode
     }
 
     override fun toString(): String {
         return buildString {
-            append("MessageRefundedUpgradedGift")
+            append("UpgradedGiftModelCount")
             append("(")
-            append("gift=")
-            append(gift)
+            append("model=")
+            append(model)
             append(", ")
-            append("senderId=")
-            append(senderId)
-            append(", ")
-            append("isUpgrade=")
-            append(isUpgrade)
+            append("totalCount=")
+            append(totalCount)
             append(")")
         }
     }
