@@ -14,9 +14,23 @@ android {
         buildConfig = true
     }
 
+    signingConfigs {
+        register("keystore") {
+            keyAlias = "Example"
+            keyPassword = "jvi6sBUS"
+            storeFile = file(path = "keystore.jks")
+            storePassword = "fUpvT1lI"
+        }
+    }
+
     buildTypes {
+        debug {
+            signingConfig = signingConfigs.getByName("keystore")
+        }
+
         release {
             isMinifyEnabled = true
+            signingConfig = signingConfigs.getByName("keystore")
 
             proguardFile(proguardFile = "proguard.pro")
         }
