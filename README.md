@@ -67,5 +67,4 @@ coroutineScope.launch {
 - Research replacing arrays with `List` or `ImmutableList`.
 - Add usage of `Client.nativeClientExecute`.
 - Add usage of `Client.nativeClientSetLogMessageHandler`.
-- Expand README description and add more examples.
 - Add multiplatform support (JVM, iOS, etc.).
