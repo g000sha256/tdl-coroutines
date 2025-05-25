@@ -51,6 +51,14 @@ jobs:
           cd td/example/android
           ./build-tdlib.sh
 
+      - name: SHA256 checksums
+        run: |
+          cd td/example/android/tdlib/libs
+          shasum -a 256 arm64-v8a/libtdjni.so
+          shasum -a 256 armeabi-v7a/libtdjni.so
+          shasum -a 256 x86/libtdjni.so
+          shasum -a 256 x86_64/libtdjni.so
+
       - name: Assemble generator
         run: ./gradlew tdl-coroutines-generator:assemble
 
