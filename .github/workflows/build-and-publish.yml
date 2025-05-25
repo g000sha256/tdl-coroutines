@@ -1,0 +1,75 @@
+name: Build and publish
+
+on:
+  push:
+    tags:
+      - '[0-9]+.[0-9]+.[0-9]+'
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          lfs: true
+          submodules: true
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          java-version: 17
+          distribution: corretto
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: 8.14
+          cache-disabled: false
+
+      - name: Install dependencies
+        run: sudo apt-get install gperf make php
+
+      - name: Check environment
+        run: |
+          cd td/example/android
+          ./check-environment.sh
+
+      - name: Fetch Android SDK
+        run: |
+          cd td/example/android
+          ./fetch-sdk.sh
+
+      - name: Build OpenSSL
+        run: |
+          cd td/example/android
+          ./build-openssl.sh
+
+      - name: Build TDLib
+        run: |
+          cd td/example/android
+          ./build-tdlib.sh
+
+      - name: Assemble generator
+        run: ./gradlew tdl-coroutines-generator:assemble
+
+      - name: Run generator
+        run: ./gradlew tdl-coroutines-generator:run
+
+      - name: Assemble library
+        run: ./gradlew tdl-coroutines:assembleRelease
+
+      - name: Assemble example
+        run: ./gradlew tdl-coroutines-example:assembleRelease
+
+      - name: Check API compatibility
+        run: ./gradlew apiCheck
+
+      - name: Publish
+        env:
+          SIGNING_KEY: ${{ secrets.SIGNING_KEY }}
+          SIGNING_PASSWORD: ${{ secrets.SIGNING_PASSWORD }}
+          SONATYPE_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
+          SONATYPE_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
+        run: ./gradlew publish

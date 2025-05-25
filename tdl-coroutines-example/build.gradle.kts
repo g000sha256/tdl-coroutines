@@ -33,13 +33,10 @@ android {
         versionCode = 1
         versionName = "1.0"
 
-        val apiId = findProperty("Telergam.ApiId")
-            .toString()
-            .toInt()
+        val apiId = findProperty("Telergam.ApiId") ?: 0
         buildConfigField(type = "int", name = "API_ID", value = "$apiId")
 
-        val apiHash = findProperty("Telergam.ApiHash")
-            .toString()
+        val apiHash = findProperty("Telergam.ApiHash") ?: ""
         buildConfigField(type = "String", name = "API_HASH", value = "\"$apiHash\"")
     }
 
