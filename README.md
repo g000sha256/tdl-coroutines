@@ -1,4 +1,4 @@
-# [WORK IN PROGRESS] TDL Coroutines
+# TDL Coroutines
 
 [![TDLib Version](https://img.shields.io/badge/TDLib-1.8.48-blue?labelColor=19212A&color=53A5E3)](https://github.com/tdlib/td/tree/b8b08b02dbbc0c05e7129e2f306c636c5b8ec04f)
 
@@ -8,9 +8,6 @@ This library provides a Kotlin Coroutines client for the Telegram Database Libra
 Data Transfer Objects (DTOs), the client, and the mapper are generated based on the `TdApi.java` file.
 
 ## Gradle setup
-
-> [!WARNING]
-> The library hasn't been published yet
 
 ```kotlin
 repositories {
