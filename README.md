@@ -3,6 +3,8 @@
 [![Maven Central](https://img.shields.io/maven-central/v/dev.g000sha256/tdl-coroutines?label=Maven%20Central&labelColor=171C35&color=E38E33)](https://central.sonatype.com/artifact/dev.g000sha256/tdl-coroutines)
 [![TDLib Version](https://img.shields.io/badge/TDLib-v1.8.49-blue?labelColor=19212A&color=53A5E3)](https://github.com/tdlib/td/tree/4a967f7a633d3c98184806650607b1746020a6a8)
 
+[![GitHub Actions](https://img.shields.io/github/actions/workflow/status/g000sha256/tdl-coroutines/build-and-publish.yml?label=GitHub%20Actions&labelColor=161B22)](https://github.com/g000sha256/tdl-coroutines/actions/workflows/build-and-publish.yml)
+
 This library provides a Kotlin Coroutines client for the Telegram Database Library ([TDLib](https://github.com/tdlib/td)).
 Data Transfer Objects (DTOs), the client, and the mapper are generated from the `TdApi.java` file.
 
