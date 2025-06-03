@@ -97,7 +97,10 @@ public fun main() {
     check(value = allDtoClassDeclarations.size + functionClassDeclarations.size + 1 == objectClassDeclarations.size)
 
     deleteRecursively(
-        file = File(currentPath, "tdl-coroutines/src/generated")
+        file = File(currentPath, "tdl-coroutines/src/androidMainGenerated")
+    )
+    deleteRecursively(
+        file = File(currentPath, "tdl-coroutines/src/commonMainGenerated")
     )
 
     writeTdApi(compilationUnit)
@@ -112,7 +115,7 @@ public fun main() {
 
     copyFiles(
         fromDirectory = File(currentPath, "td/example/android/tdlib/libs"),
-        toDirectory = File(currentPath, "tdl-coroutines/src/generated/jniLibs")
+        toDirectory = File(currentPath, "tdl-coroutines/src/androidMainGenerated/jniLibs")
     )
 }
 
@@ -252,7 +255,7 @@ private fun writeDtoClasses(classDeclarations: List<ClassOrInterfaceDeclaration>
             )
             .indent(indent = "    ")
             .build()
-            .writeAndFixContent()
+            .writeAndFixContent(folderName = "commonMainGenerated")
     }
 }
 
@@ -536,7 +539,7 @@ private fun writeTdlClientInterface(
         )
         .indent(indent = "    ")
         .build()
-        .writeAndFixContent()
+        .writeAndFixContent(folderName = "commonMainGenerated")
 }
 
 private fun writeTdlClientImplementation(
@@ -684,7 +687,7 @@ private fun writeTdlClientImplementation(
         )
         .indent(indent = "    ")
         .build()
-        .writeAndFixContent()
+        .writeAndFixContent(folderName = "commonMainGenerated")
 }
 
 private fun copyFiles(fromDirectory: File, toDirectory: File) {
@@ -881,7 +884,7 @@ private fun writeTdApi(compilationUnit: CompilationUnit) {
         )
         .indent(indent = "    ")
         .build()
-        .writeAndFixContent(addLicence = false, removeAllPublic = true)
+        .writeAndFixContent(folderName = "commonMainGenerated", addLicence = false, removeAllPublic = true)
 }
 
 private fun writeTdlMapper(classDeclarations: List<ClassOrInterfaceDeclaration>) {
@@ -1312,7 +1315,7 @@ private fun writeTdlMapper(classDeclarations: List<ClassOrInterfaceDeclaration>)
         )
         .indent(indent = "    ")
         .build()
-        .writeAndFixContent(removeAllPublic = true)
+        .writeAndFixContent(folderName = "commonMainGenerated", removeAllPublic = true)
 }
 
 //////  //////  //////
@@ -1549,9 +1552,13 @@ private fun ClassOrInterfaceDeclaration.createProperties(): List<Property> {
         .flatten()
 }
 
-private fun FileSpec.writeAndFixContent(addLicence: Boolean = true, removeAllPublic: Boolean = false) {
+private fun FileSpec.writeAndFixContent(
+    folderName: String,
+    addLicence: Boolean = true,
+    removeAllPublic: Boolean = false
+) {
     val path = Paths
-        .get("$currentPath/tdl-coroutines/src/generated/kotlin")
+        .get("$currentPath/tdl-coroutines/src/$folderName/kotlin")
         .let { writeTo(it) }
 
     path

@@ -3,19 +3,23 @@ package dev.g000sha256.tdl
 import org.drinkless.tdlib.Client
 import org.drinkless.tdlib.TdApi
 
-internal class TdlNative {
+internal actual fun TdlNative(): TdlNative {
+    return TdlNativeImpl()
+}
+
+private class TdlNativeImpl : TdlNative {
 
     private val client = Client()
 
-    fun createClientId(): Int {
+    override fun createClientId(): Int {
         return client.createNativeClient()
     }
 
-    fun send(clientId: Int, requestId: Long, request: TdApi.Function<*>) {
+    override fun send(clientId: Int, requestId: Long, request: TdApi.Function<*>) {
         client.nativeClientSend(clientId, requestId, request)
     }
 
-    fun receive(
+    override fun receive(
         clientIds: IntArray,
         requestIds: LongArray,
         responses: Array<TdApi.Object?>,
