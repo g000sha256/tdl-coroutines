@@ -4289,7 +4289,7 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun getImportedContactCount(): TdlResult<Count>
 
     /**
-     * Returns a list of recently inactive supergroups and channels. Can be used when user reaches limit on the number of joined supergroups and channels and receives CHANNELSTOOMUCH error. Also, the limit can be increased with Telegram Premium.
+     * Returns a list of recently inactive supergroups and channels. Can be used when user reaches limit on the number of joined supergroups and channels and receives CHANNELS_TOO_MUCH error. Also, the limit can be increased with Telegram Premium.
      */
     public abstract suspend fun getInactiveSupergroupChats(): TdlResult<Chats>
 
@@ -5875,7 +5875,7 @@ public abstract class TdlClient internal constructor() {
     /**
      * Parses Markdown entities in a human-friendly format, ignoring markup errors. Can be called synchronously.
      *
-     * @param text The text to parse. For example, &quot;__italic__ ~~strikethrough~~ ||spoiler|| **bold** `code` ```pre``` __[italic__ textUrl](telegram.org) _Italic**bold italic_Bold**&quot;.
+     * @param text The text to parse. For example, &quot;__italic__ ~~strikethrough~~ ||spoiler|| **bold** `code` ```pre``` __[italic__ text_url](telegram.org) __italic**bold italic__bold**&quot;.
      */
     public abstract suspend fun parseMarkdown(text: FormattedText): TdlResult<FormattedText>
 
@@ -7381,7 +7381,7 @@ public abstract class TdlClient internal constructor() {
      * Application or reCAPTCHA verification has been completed. Can be called before authorization.
      *
      * @param verificationId Unique identifier for the verification process as received from updateApplicationVerificationRequired or updateApplicationRecaptchaVerificationRequired.
-     * @param token Play Integrity API token for the Android application, or secret from push notification for the iOS application for application verification, or reCAPTCHA token for reCAPTCHA verifications; pass an empty string to abort verification and receive error VERIFICATIONFAILED for the request.
+     * @param token Play Integrity API token for the Android application, or secret from push notification for the iOS application for application verification, or reCAPTCHA token for reCAPTCHA verifications; pass an empty string to abort verification and receive error VERIFICATION_FAILED for the request.
      */
     public abstract suspend fun setApplicationVerificationToken(verificationId: Long, token: String): TdlResult<Ok>
 

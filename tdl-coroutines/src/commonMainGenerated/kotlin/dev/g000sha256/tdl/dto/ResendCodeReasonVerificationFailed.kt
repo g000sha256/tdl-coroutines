@@ -24,7 +24,7 @@ import kotlin.String
 /**
  * The code is re-sent, because device verification has failed.
  *
- * @property errorMessage Cause of the verification failure, for example, PLAYSERVICESNOTAVAILABLE, APNSRECEIVETIMEOUT, or APNSINITFAILED.
+ * @property errorMessage Cause of the verification failure, for example, PLAY_SERVICES_NOT_AVAILABLE, APNS_RECEIVE_TIMEOUT, or APNS_INIT_FAILED.
  */
 public class ResendCodeReasonVerificationFailed public constructor(
     public val errorMessage: String,
