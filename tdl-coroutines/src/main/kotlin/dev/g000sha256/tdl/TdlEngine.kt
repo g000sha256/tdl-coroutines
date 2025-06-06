@@ -26,7 +26,6 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onSubscription
 import kotlinx.coroutines.launch
 import org.drinkless.tdlib.TdApi
-import org.drinkless.tdlib.Client as TdlNative
 
 private const val MAX_SIZE = 100
 
@@ -40,7 +39,7 @@ internal class TdlEngine(private val coroutineScope: TdlCoroutineScope, private 
     private val updatesMutableSharedFlow = MutableSharedFlow<Pair<Int, TdApi.Object>>(extraBufferCapacity = Int.MAX_VALUE)
 
     fun createClientId(): Int {
-        return native.createNativeClient()
+        return native.createClientId()
     }
 
     fun getUpdates(clientId: Int): Flow<TdApi.Object> {
@@ -54,7 +53,7 @@ internal class TdlEngine(private val coroutineScope: TdlCoroutineScope, private 
 
         val requestId = requestIdsCounter.incrementAndGet()
         return responsesMutableSharedFlow
-            .onSubscription { native.nativeClientSend(clientId, requestId, function) }
+            .onSubscription { native.send(clientId, requestId, function) }
             .first { update -> update.first == requestId }
             .second
     }
@@ -71,7 +70,7 @@ internal class TdlEngine(private val coroutineScope: TdlCoroutineScope, private 
             val responses = Array<TdApi.Object?>(MAX_SIZE) { null }
 
             while (true) {
-                val responsesCount = native.nativeClientReceive(clientIds, requestIds, responses, MAX_TIMEOUT)
+                val responsesCount = native.receive(clientIds, requestIds, responses, MAX_TIMEOUT)
                 repeat(responsesCount) { index ->
                     val clientId = clientIds.getAndSet(index, newValue = -1)
                     val requestId = requestIds.getAndSet(index, newValue = -1L)
