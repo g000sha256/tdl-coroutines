@@ -10,9 +10,9 @@ libs-androidX-viewModel = { module = "androidx.lifecycle:lifecycle-viewmodel", v
 libs-javaParser-core = { module = "com.github.javaparser:javaparser-core", version.ref = "javaParser" }
 libs-javaParser-symbolSolverCore = { module = "com.github.javaparser:javaparser-symbol-solver-core", version.ref = "javaParser" }
 libs-jetBrains-annotations = { module = "org.jetbrains:annotations", version = "26.0.2" }
-libs-jetBrains-atomic = { module = "org.jetbrains.kotlinx:atomicfu-jvm", version = "0.27.0" }
+libs-jetBrains-atomic = { module = "org.jetbrains.kotlinx:atomicfu", version = "0.27.0" }
 libs-jetBrains-coroutinesAndroid = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutines" }
-libs-jetBrains-coroutinesCore = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm", version.ref = "coroutines" }
+libs-jetBrains-coroutinesCore = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
 libs-jetBrains-kotlin = { module = "org.jetbrains.kotlin:kotlin-stdlib", version.ref = "kotlin" }
 libs-squareUp-kotlinPoet = { module = "com.squareup:kotlinpoet", version = "2.2.0" }
 
@@ -21,5 +21,7 @@ android-application = { id = "com.android.application", version.ref = "android" 
 android-library = { id = "com.android.library", version.ref = "android" }
 g000sha256-sonatypeMavenCentral = { id = "dev.g000sha256.sonatype-maven-central", version = "1.0.0" }
 jetBrains-binaryCompatibilityValidator = { id = "org.jetbrains.kotlinx.binary-compatibility-validator", version = "0.17.0" }
+jetBrains-dokka = { id = "org.jetbrains.dokka", version = "2.0.0" }
 jetBrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 jetBrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+jetBrains-kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }

@@ -16,8 +16,6 @@
 
 package dev.g000sha256.tdl
 
-import org.drinkless.tdlib.Client as TdlNative
-
 internal val serviceLocator by lazy { TdlServiceLocator() }
 
 internal class TdlServiceLocator {
