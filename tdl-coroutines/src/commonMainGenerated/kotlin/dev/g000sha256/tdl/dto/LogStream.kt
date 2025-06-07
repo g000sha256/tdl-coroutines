@@ -16,8 +16,11 @@
 
 package dev.g000sha256.tdl.dto
 
+import kotlinx.serialization.Serializable
+
 /**
  * This class is an abstract base class.
  * Describes a stream to which TDLib internal log is written.
  */
-public sealed class LogStream protected constructor()
+@Serializable
+public sealed class LogStream protected constructor() : Model()

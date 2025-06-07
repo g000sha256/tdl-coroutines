@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Stripe payment provider.
@@ -29,10 +31,16 @@ import kotlin.String
  * @property needPostalCode True, if the user ZIP/postal code must be provided.
  * @property needCardholderName True, if the cardholder name must be provided.
  */
+@SerialName(value = "paymentProviderStripe")
+@Serializable
 public class PaymentProviderStripe public constructor(
+    @SerialName(value = "publishable_key")
     public val publishableKey: String,
+    @SerialName(value = "need_country")
     public val needCountry: Boolean,
+    @SerialName(value = "need_postal_code")
     public val needPostalCode: Boolean,
+    @SerialName(value = "need_cardholder_name")
     public val needCardholderName: Boolean,
 ) : PaymentProvider() {
     override fun equals(other: Any?): Boolean {

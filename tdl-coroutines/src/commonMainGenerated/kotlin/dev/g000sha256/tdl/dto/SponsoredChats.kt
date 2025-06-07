@@ -21,15 +21,20 @@ import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains a list of sponsored chats.
  *
  * @property chats List of sponsored chats.
  */
+@SerialName(value = "sponsoredChats")
+@Serializable
 public class SponsoredChats public constructor(
+    @SerialName(value = "chats")
     public val chats: Array<SponsoredChat>,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

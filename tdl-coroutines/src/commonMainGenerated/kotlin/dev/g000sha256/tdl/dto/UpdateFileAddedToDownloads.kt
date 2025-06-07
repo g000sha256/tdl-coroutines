@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A file was added to the file download list. This update is sent only after file download list is loaded for the first time.
@@ -27,8 +29,12 @@ import kotlin.String
  * @property fileDownload The added file download.
  * @property counts New number of being downloaded and recently downloaded files found.
  */
+@SerialName(value = "updateFileAddedToDownloads")
+@Serializable
 public class UpdateFileAddedToDownloads public constructor(
+    @SerialName(value = "file_download")
     public val fileDownload: FileDownload,
+    @SerialName(value = "counts")
     public val counts: DownloadedFileCounts,
 ) : Update() {
     override fun equals(other: Any?): Boolean {

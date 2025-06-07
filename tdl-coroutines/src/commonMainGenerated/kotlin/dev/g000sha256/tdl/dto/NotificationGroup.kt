@@ -22,6 +22,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes a group of notifications.
@@ -32,13 +34,20 @@ import kotlin.String
  * @property totalCount Total number of active notifications in the group.
  * @property notifications The list of active notifications.
  */
+@SerialName(value = "notificationGroup")
+@Serializable
 public class NotificationGroup public constructor(
+    @SerialName(value = "id")
     public val id: Int,
+    @SerialName(value = "type")
     public val type: NotificationGroupType,
+    @SerialName(value = "chat_id")
     public val chatId: Long,
+    @SerialName(value = "total_count")
     public val totalCount: Int,
+    @SerialName(value = "notifications")
     public val notifications: Array<Notification>,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

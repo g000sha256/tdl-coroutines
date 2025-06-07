@@ -16,8 +16,11 @@
 
 package dev.g000sha256.tdl.dto
 
+import kotlinx.serialization.Serializable
+
 /**
  * This class is an abstract base class.
  * Describes source of a message.
  */
-public sealed class MessageSource protected constructor()
+@Serializable
+public sealed class MessageSource protected constructor() : Model()

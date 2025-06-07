@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The link is a link to the Telegram Star purchase section of the application.
@@ -28,8 +30,12 @@ import kotlin.String
  * @property starCount The number of Telegram Stars that must be owned by the user.
  * @property purpose Purpose of Telegram Star purchase. Arbitrary string specified by the server, for example, &quot;subs&quot; if the Telegram Stars are required to extend channel subscriptions.
  */
+@SerialName(value = "internalLinkTypeBuyStars")
+@Serializable
 public class InternalLinkTypeBuyStars public constructor(
+    @SerialName(value = "star_count")
     public val starCount: Long,
+    @SerialName(value = "purpose")
     public val purpose: String,
 ) : InternalLinkType() {
     override fun equals(other: Any?): Boolean {

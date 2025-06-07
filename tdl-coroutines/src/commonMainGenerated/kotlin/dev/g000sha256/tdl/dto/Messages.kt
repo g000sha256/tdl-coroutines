@@ -21,6 +21,8 @@ import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains a list of messages.
@@ -28,10 +30,14 @@ import kotlin.String
  * @property totalCount Approximate total number of messages found.
  * @property messages List of messages; messages may be null.
  */
+@SerialName(value = "messages")
+@Serializable
 public class Messages public constructor(
+    @SerialName(value = "total_count")
     public val totalCount: Int,
+    @SerialName(value = "messages")
     public val messages: Array<Message>?,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

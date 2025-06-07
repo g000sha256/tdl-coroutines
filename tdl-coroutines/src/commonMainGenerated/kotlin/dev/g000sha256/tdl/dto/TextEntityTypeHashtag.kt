@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A hashtag text, beginning with &quot;#&quot; and optionally containing a chat username at the end.
  */
+@SerialName(value = "textEntityTypeHashtag")
+@Serializable
 public class TextEntityTypeHashtag public constructor() : TextEntityType() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

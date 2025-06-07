@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The speech recognition is ongoing.
  *
  * @property partialText Partially recognized text.
  */
+@SerialName(value = "speechRecognitionResultPending")
+@Serializable
 public class SpeechRecognitionResultPending public constructor(
+    @SerialName(value = "partial_text")
     public val partialText: String,
 ) : SpeechRecognitionResult() {
     override fun equals(other: Any?): Boolean {

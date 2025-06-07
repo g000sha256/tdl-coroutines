@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Notification settings for reactions were updated.
  *
  * @property notificationSettings The new notification settings.
  */
+@SerialName(value = "updateReactionNotificationSettings")
+@Serializable
 public class UpdateReactionNotificationSettings public constructor(
+    @SerialName(value = "notification_settings")
     public val notificationSettings: ReactionNotificationSettings,
 ) : Update() {
     override fun equals(other: Any?): Boolean {

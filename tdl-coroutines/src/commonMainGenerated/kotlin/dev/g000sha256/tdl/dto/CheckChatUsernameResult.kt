@@ -16,8 +16,11 @@
 
 package dev.g000sha256.tdl.dto
 
+import kotlinx.serialization.Serializable
+
 /**
  * This class is an abstract base class.
  * Represents result of checking whether a username can be set for a chat.
  */
-public sealed class CheckChatUsernameResult protected constructor()
+@Serializable
+public sealed class CheckChatUsernameResult protected constructor() : Model()

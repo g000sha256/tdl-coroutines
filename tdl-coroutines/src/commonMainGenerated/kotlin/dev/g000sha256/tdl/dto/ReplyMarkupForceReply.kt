@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Instructs application to force a reply to this message.
@@ -27,8 +29,12 @@ import kotlin.String
  * @property isPersonal True, if a forced reply must automatically be shown to the current user. For outgoing messages, specify true to show the forced reply only for the mentioned users and for the target user of a reply.
  * @property inputFieldPlaceholder If non-empty, the placeholder to be shown in the input field when the reply is active; 0-64 characters.
  */
+@SerialName(value = "replyMarkupForceReply")
+@Serializable
 public class ReplyMarkupForceReply public constructor(
+    @SerialName(value = "is_personal")
     public val isPersonal: Boolean,
+    @SerialName(value = "input_field_placeholder")
     public val inputFieldPlaceholder: String,
 ) : ReplyMarkup() {
     override fun equals(other: Any?): Boolean {

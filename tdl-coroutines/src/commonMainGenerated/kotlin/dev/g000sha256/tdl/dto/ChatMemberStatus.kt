@@ -16,8 +16,11 @@
 
 package dev.g000sha256.tdl.dto
 
+import kotlinx.serialization.Serializable
+
 /**
  * This class is an abstract base class.
  * Provides information about the status of a member in a chat.
  */
-public sealed class ChatMemberStatus protected constructor()
+@Serializable
+public sealed class ChatMemberStatus protected constructor() : Model()

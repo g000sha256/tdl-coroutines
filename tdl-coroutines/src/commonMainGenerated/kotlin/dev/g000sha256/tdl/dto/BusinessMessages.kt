@@ -21,15 +21,20 @@ import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains a list of messages from a business account as received by a bot.
  *
  * @property messages List of business messages.
  */
+@SerialName(value = "businessMessages")
+@Serializable
 public class BusinessMessages public constructor(
+    @SerialName(value = "messages")
     public val messages: Array<BusinessMessage>,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

@@ -21,13 +21,18 @@ import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains active notifications that were shown on previous application launches. This update is sent only if the message database is used. In that case it comes once before any updateNotification and updateNotificationGroup update.
  *
  * @property groups Lists of active notification groups.
  */
+@SerialName(value = "updateActiveNotifications")
+@Serializable
 public class UpdateActiveNotifications public constructor(
+    @SerialName(value = "groups")
     public val groups: Array<NotificationGroup>,
 ) : Update() {
     override fun equals(other: Any?): Boolean {

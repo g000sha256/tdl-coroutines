@@ -21,6 +21,8 @@ import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains a list of sessions.
@@ -28,10 +30,14 @@ import kotlin.String
  * @property sessions List of sessions.
  * @property inactiveSessionTtlDays Number of days of inactivity before sessions will automatically be terminated; 1-366 days.
  */
+@SerialName(value = "sessions")
+@Serializable
 public class Sessions public constructor(
+    @SerialName(value = "sessions")
     public val sessions: Array<Session>,
+    @SerialName(value = "inactive_session_ttl_days")
     public val inactiveSessionTtlDays: Int,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

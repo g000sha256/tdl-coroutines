@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The name can be set.
  */
+@SerialName(value = "checkStickerSetNameResultOk")
+@Serializable
 public class CheckStickerSetNameResultOk public constructor() : CheckStickerSetNameResult() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

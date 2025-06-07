@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Autosave settings applied to all private chats without chat-specific settings.
  */
+@SerialName(value = "autosaveSettingsScopePrivateChats")
+@Serializable
 public class AutosaveSettingsScopePrivateChats public constructor() : AutosaveSettingsScope() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

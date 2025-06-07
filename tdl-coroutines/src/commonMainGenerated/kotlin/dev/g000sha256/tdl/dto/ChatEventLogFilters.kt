@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Represents a set of filters used to obtain a chat event log.
@@ -39,22 +41,38 @@ import kotlin.String
  * @property forumChanges True, if forum-related actions need to be returned.
  * @property subscriptionExtensions True, if subscription extensions need to be returned.
  */
+@SerialName(value = "chatEventLogFilters")
+@Serializable
 public class ChatEventLogFilters public constructor(
+    @SerialName(value = "message_edits")
     public val messageEdits: Boolean,
+    @SerialName(value = "message_deletions")
     public val messageDeletions: Boolean,
+    @SerialName(value = "message_pins")
     public val messagePins: Boolean,
+    @SerialName(value = "member_joins")
     public val memberJoins: Boolean,
+    @SerialName(value = "member_leaves")
     public val memberLeaves: Boolean,
+    @SerialName(value = "member_invites")
     public val memberInvites: Boolean,
+    @SerialName(value = "member_promotions")
     public val memberPromotions: Boolean,
+    @SerialName(value = "member_restrictions")
     public val memberRestrictions: Boolean,
+    @SerialName(value = "info_changes")
     public val infoChanges: Boolean,
+    @SerialName(value = "setting_changes")
     public val settingChanges: Boolean,
+    @SerialName(value = "invite_link_changes")
     public val inviteLinkChanges: Boolean,
+    @SerialName(value = "video_chat_changes")
     public val videoChatChanges: Boolean,
+    @SerialName(value = "forum_changes")
     public val forumChanges: Boolean,
+    @SerialName(value = "subscription_extensions")
     public val subscriptionExtensions: Boolean,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

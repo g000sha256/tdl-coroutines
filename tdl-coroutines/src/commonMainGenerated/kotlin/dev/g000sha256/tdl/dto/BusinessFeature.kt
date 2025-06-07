@@ -16,8 +16,11 @@
 
 package dev.g000sha256.tdl.dto
 
+import kotlinx.serialization.Serializable
+
 /**
  * This class is an abstract base class.
  * Describes a feature available to Business user accounts.
  */
-public sealed class BusinessFeature protected constructor()
+@Serializable
+public sealed class BusinessFeature protected constructor() : Model()

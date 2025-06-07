@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The transaction is a receiving of a commission from an affiliate program; for regular users, bots and channel chats only.
@@ -28,8 +30,12 @@ import kotlin.String
  * @property chatId Identifier of the chat that created the affiliate program.
  * @property commissionPerMille The number of Telegram Stars received by the affiliate for each 1000 Telegram Stars received by the program owner.
  */
+@SerialName(value = "starTransactionTypeAffiliateProgramCommission")
+@Serializable
 public class StarTransactionTypeAffiliateProgramCommission public constructor(
+    @SerialName(value = "chat_id")
     public val chatId: Long,
+    @SerialName(value = "commission_per_mille")
     public val commissionPerMille: Int,
 ) : StarTransactionType() {
     override fun equals(other: Any?): Boolean {

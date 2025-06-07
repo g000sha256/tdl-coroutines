@@ -16,8 +16,11 @@
 
 package dev.g000sha256.tdl.dto
 
+import kotlinx.serialization.Serializable
+
 /**
  * This class is an abstract base class.
  * Contains identifier of an upgraded gift attribute to search for.
  */
-public sealed class UpgradedGiftAttributeId protected constructor()
+@Serializable
+public sealed class UpgradedGiftAttributeId protected constructor() : Model()

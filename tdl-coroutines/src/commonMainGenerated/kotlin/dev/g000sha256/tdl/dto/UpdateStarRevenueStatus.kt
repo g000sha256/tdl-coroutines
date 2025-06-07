@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The Telegram Star revenue earned by a bot or a chat has changed. If Telegram Star transaction screen of the chat is opened, then getStarTransactions may be called to fetch new transactions.
@@ -27,8 +29,12 @@ import kotlin.String
  * @property ownerId Identifier of the owner of the Telegram Stars.
  * @property status New Telegram Star revenue status.
  */
+@SerialName(value = "updateStarRevenueStatus")
+@Serializable
 public class UpdateStarRevenueStatus public constructor(
+    @SerialName(value = "owner_id")
     public val ownerId: MessageSender,
+    @SerialName(value = "status")
     public val status: StarRevenueStatus,
 ) : Update() {
     override fun equals(other: Any?): Boolean {

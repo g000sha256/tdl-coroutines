@@ -16,8 +16,11 @@
 
 package dev.g000sha256.tdl.dto
 
+import kotlinx.serialization.Serializable
+
 /**
  * This class is an abstract base class.
  * Describes the current state of the connection to Telegram servers.
  */
-public sealed class ConnectionState protected constructor()
+@Serializable
+public sealed class ConnectionState protected constructor() : Model()

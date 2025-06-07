@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Allowed to translate chat messages real-time.
  */
+@SerialName(value = "premiumFeatureRealTimeChatTranslation")
+@Serializable
 public class PremiumFeatureRealTimeChatTranslation public constructor() : PremiumFeature() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

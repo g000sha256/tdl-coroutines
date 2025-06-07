@@ -21,6 +21,8 @@ import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains state of Telegram Premium subscription and promotion videos for Premium features.
@@ -30,12 +32,18 @@ import kotlin.String
  * @property animations The list of available promotion animations for Premium features.
  * @property businessAnimations The list of available promotion animations for Business features.
  */
+@SerialName(value = "premiumState")
+@Serializable
 public class PremiumState public constructor(
+    @SerialName(value = "state")
     public val state: FormattedText,
+    @SerialName(value = "payment_options")
     public val paymentOptions: Array<PremiumStatePaymentOption>,
+    @SerialName(value = "animations")
     public val animations: Array<PremiumFeaturePromotionAnimation>,
+    @SerialName(value = "business_animations")
     public val businessAnimations: Array<BusinessFeaturePromotionAnimation>,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

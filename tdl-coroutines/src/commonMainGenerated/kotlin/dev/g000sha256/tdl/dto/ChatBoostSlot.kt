@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes a slot for chat boost.
@@ -31,13 +33,20 @@ import kotlin.String
  * @property expirationDate Point in time (Unix timestamp) when the boost will expire.
  * @property cooldownUntilDate Point in time (Unix timestamp) after which the boost can be used for another chat.
  */
+@SerialName(value = "chatBoostSlot")
+@Serializable
 public class ChatBoostSlot public constructor(
+    @SerialName(value = "slot_id")
     public val slotId: Int,
+    @SerialName(value = "currently_boosted_chat_id")
     public val currentlyBoostedChatId: Long,
+    @SerialName(value = "start_date")
     public val startDate: Int,
+    @SerialName(value = "expiration_date")
     public val expirationDate: Int,
+    @SerialName(value = "cooldown_until_date")
     public val cooldownUntilDate: Int,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

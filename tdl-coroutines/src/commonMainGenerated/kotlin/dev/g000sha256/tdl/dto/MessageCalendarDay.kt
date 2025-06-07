@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains information about found messages sent on a specific day.
@@ -27,10 +29,14 @@ import kotlin.String
  * @property totalCount Total number of found messages sent on the day.
  * @property message First message sent on the day.
  */
+@SerialName(value = "messageCalendarDay")
+@Serializable
 public class MessageCalendarDay public constructor(
+    @SerialName(value = "total_count")
     public val totalCount: Int,
+    @SerialName(value = "message")
     public val message: Message,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

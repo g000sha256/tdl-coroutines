@@ -21,13 +21,18 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * An ordinary chat with a user.
  *
  * @property userId User identifier.
  */
+@SerialName(value = "chatTypePrivate")
+@Serializable
 public class ChatTypePrivate public constructor(
+    @SerialName(value = "user_id")
     public val userId: Long,
 ) : ChatType() {
     override fun equals(other: Any?): Boolean {

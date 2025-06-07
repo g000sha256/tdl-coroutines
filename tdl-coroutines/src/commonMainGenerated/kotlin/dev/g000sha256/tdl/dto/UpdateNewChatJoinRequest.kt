@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A user sent a join request to a chat; for bots only.
@@ -30,10 +32,16 @@ import kotlin.String
  * @property userChatId Chat identifier of the private chat with the user.
  * @property inviteLink The invite link, which was used to send join request; may be null.
  */
+@SerialName(value = "updateNewChatJoinRequest")
+@Serializable
 public class UpdateNewChatJoinRequest public constructor(
+    @SerialName(value = "chat_id")
     public val chatId: Long,
+    @SerialName(value = "request")
     public val request: ChatJoinRequest,
+    @SerialName(value = "user_chat_id")
     public val userChatId: Long,
+    @SerialName(value = "invite_link")
     public val inviteLink: ChatInviteLink?,
 ) : Update() {
     override fun equals(other: Any?): Boolean {

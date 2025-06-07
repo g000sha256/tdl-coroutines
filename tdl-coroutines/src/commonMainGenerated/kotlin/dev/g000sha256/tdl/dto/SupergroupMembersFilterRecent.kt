@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Returns recently active users in reverse chronological order.
  */
+@SerialName(value = "supergroupMembersFilterRecent")
+@Serializable
 public class SupergroupMembersFilterRecent public constructor() : SupergroupMembersFilter() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

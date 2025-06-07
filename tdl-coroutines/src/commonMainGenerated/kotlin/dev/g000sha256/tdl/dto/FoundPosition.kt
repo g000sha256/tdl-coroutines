@@ -20,15 +20,20 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains 0-based match position.
  *
  * @property position The position of the match.
  */
+@SerialName(value = "foundPosition")
+@Serializable
 public class FoundPosition public constructor(
+    @SerialName(value = "position")
     public val position: Int,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

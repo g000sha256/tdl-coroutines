@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Information about the authentication code that was sent.
@@ -29,12 +31,18 @@ import kotlin.String
  * @property nextType The way the next code will be sent to the user; may be null.
  * @property timeout Timeout before the code can be re-sent, in seconds.
  */
+@SerialName(value = "authenticationCodeInfo")
+@Serializable
 public class AuthenticationCodeInfo public constructor(
+    @SerialName(value = "phone_number")
     public val phoneNumber: String,
+    @SerialName(value = "type")
     public val type: AuthenticationCodeType,
+    @SerialName(value = "next_type")
     public val nextType: AuthenticationCodeType?,
+    @SerialName(value = "timeout")
     public val timeout: Int,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

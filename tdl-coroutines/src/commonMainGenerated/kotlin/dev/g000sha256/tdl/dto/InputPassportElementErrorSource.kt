@@ -16,8 +16,11 @@
 
 package dev.g000sha256.tdl.dto
 
+import kotlinx.serialization.Serializable
+
 /**
  * This class is an abstract base class.
  * Contains the description of an error in a Telegram Passport element; for bots only.
  */
-public sealed class InputPassportElementErrorSource protected constructor()
+@Serializable
+public sealed class InputPassportElementErrorSource protected constructor() : Model()

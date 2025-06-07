@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes a completed giveaway.
@@ -34,14 +36,24 @@ import kotlin.String
  * @property giftCode Telegram Premium gift code that was received by the current user; empty if the user isn't a winner in the giveaway or the giveaway isn't a Telegram Premium giveaway.
  * @property wonStarCount The amount of Telegram Stars won by the current user; 0 if the user isn't a winner in the giveaway or the giveaway isn't a Telegram Star giveaway.
  */
+@SerialName(value = "giveawayInfoCompleted")
+@Serializable
 public class GiveawayInfoCompleted public constructor(
+    @SerialName(value = "creation_date")
     public val creationDate: Int,
+    @SerialName(value = "actual_winners_selection_date")
     public val actualWinnersSelectionDate: Int,
+    @SerialName(value = "was_refunded")
     public val wasRefunded: Boolean,
+    @SerialName(value = "is_winner")
     public val isWinner: Boolean,
+    @SerialName(value = "winner_count")
     public val winnerCount: Int,
+    @SerialName(value = "activation_count")
     public val activationCount: Int,
+    @SerialName(value = "gift_code")
     public val giftCode: String,
+    @SerialName(value = "won_star_count")
     public val wonStarCount: Long,
 ) : GiveawayInfo() {
     override fun equals(other: Any?): Boolean {

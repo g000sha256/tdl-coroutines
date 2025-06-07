@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The link is a link to a video chat. Call searchPublicChat with the given chat username, and then joinVideoChat with the given invite hash to process the link.
@@ -28,9 +30,14 @@ import kotlin.String
  * @property inviteHash If non-empty, invite hash to be used to join the video chat without being muted by administrators.
  * @property isLiveStream True, if the video chat is expected to be a live stream in a channel or a broadcast group.
  */
+@SerialName(value = "internalLinkTypeVideoChat")
+@Serializable
 public class InternalLinkTypeVideoChat public constructor(
+    @SerialName(value = "chat_username")
     public val chatUsername: String,
+    @SerialName(value = "invite_hash")
     public val inviteHash: String,
+    @SerialName(value = "is_live_stream")
     public val isLiveStream: Boolean,
 ) : InternalLinkType() {
     override fun equals(other: Any?): Boolean {

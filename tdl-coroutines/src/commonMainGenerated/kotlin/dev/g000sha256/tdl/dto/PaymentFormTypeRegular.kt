@@ -22,6 +22,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The payment form is for a regular payment.
@@ -35,14 +37,24 @@ import kotlin.String
  * @property canSaveCredentials True, if the user can choose to save credentials.
  * @property needPassword True, if the user will be able to save credentials, if sets up a 2-step verification password.
  */
+@SerialName(value = "paymentFormTypeRegular")
+@Serializable
 public class PaymentFormTypeRegular public constructor(
+    @SerialName(value = "invoice")
     public val invoice: Invoice,
+    @SerialName(value = "payment_provider_user_id")
     public val paymentProviderUserId: Long,
+    @SerialName(value = "payment_provider")
     public val paymentProvider: PaymentProvider,
+    @SerialName(value = "additional_payment_options")
     public val additionalPaymentOptions: Array<PaymentOption>,
+    @SerialName(value = "saved_order_info")
     public val savedOrderInfo: OrderInfo?,
+    @SerialName(value = "saved_credentials")
     public val savedCredentials: Array<SavedCredentials>,
+    @SerialName(value = "can_save_credentials")
     public val canSaveCredentials: Boolean,
+    @SerialName(value = "need_password")
     public val needPassword: Boolean,
 ) : PaymentFormType() {
     override fun equals(other: Any?): Boolean {

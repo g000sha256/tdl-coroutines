@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The link is a link to a business chat. Use getBusinessChatLinkInfo with the provided link name to get information about the link, then open received private chat and replace chat draft with the provided text.
  *
  * @property linkName Name of the link.
  */
+@SerialName(value = "internalLinkTypeBusinessChat")
+@Serializable
 public class InternalLinkTypeBusinessChat public constructor(
+    @SerialName(value = "link_name")
     public val linkName: String,
 ) : InternalLinkType() {
     override fun equals(other: Any?): Boolean {

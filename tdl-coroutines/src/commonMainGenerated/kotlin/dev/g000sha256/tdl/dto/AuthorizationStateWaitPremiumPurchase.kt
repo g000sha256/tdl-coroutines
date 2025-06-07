@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The user must buy Telegram Premium as an in-store purchase to log in. Call checkAuthenticationPremiumPurchase and then setAuthenticationPremiumPurchaseTransaction.
  *
  * @property storeProductId Identifier of the store product that must be bought.
  */
+@SerialName(value = "authorizationStateWaitPremiumPurchase")
+@Serializable
 public class AuthorizationStateWaitPremiumPurchase public constructor(
+    @SerialName(value = "store_product_id")
     public val storeProductId: String,
 ) : AuthorizationState() {
     override fun equals(other: Any?): Boolean {

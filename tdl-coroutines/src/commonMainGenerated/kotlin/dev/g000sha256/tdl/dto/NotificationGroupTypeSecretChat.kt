@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A group containing a notification of type notificationTypeNewSecretChat.
  */
+@SerialName(value = "notificationGroupTypeSecretChat")
+@Serializable
 public class NotificationGroupTypeSecretChat public constructor() : NotificationGroupType() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

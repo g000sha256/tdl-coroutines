@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The type of default paid reaction has changed.
  *
  * @property type The new type of the default paid reaction.
  */
+@SerialName(value = "updateDefaultPaidReactionType")
+@Serializable
 public class UpdateDefaultPaidReactionType public constructor(
+    @SerialName(value = "type")
     public val type: PaidReactionType,
 ) : Update() {
     override fun equals(other: Any?): Boolean {

@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Returns all found messages, no filter is applied.
  */
+@SerialName(value = "searchMessagesFilterEmpty")
+@Serializable
 public class SearchMessagesFilterEmpty public constructor() : SearchMessagesFilter() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

@@ -21,13 +21,18 @@ import kotlin.Boolean
 import kotlin.Double
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Represents a numeric JSON value.
  *
  * @property value The value.
  */
+@SerialName(value = "jsonValueNumber")
+@Serializable
 public class JsonValueNumber public constructor(
+    @SerialName(value = "value")
     public val value: Double,
 ) : JsonValue() {
     override fun equals(other: Any?): Boolean {

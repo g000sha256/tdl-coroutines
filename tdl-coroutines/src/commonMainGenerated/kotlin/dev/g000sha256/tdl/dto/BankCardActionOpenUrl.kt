@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes an action associated with a bank card number.
@@ -27,10 +29,14 @@ import kotlin.String
  * @property text Action text.
  * @property url The URL to be opened.
  */
+@SerialName(value = "bankCardActionOpenUrl")
+@Serializable
 public class BankCardActionOpenUrl public constructor(
+    @SerialName(value = "text")
     public val text: String,
+    @SerialName(value = "url")
     public val url: String,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

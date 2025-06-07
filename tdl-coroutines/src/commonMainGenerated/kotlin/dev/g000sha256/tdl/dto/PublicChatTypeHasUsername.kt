@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The chat is public, because it has an active username.
  */
+@SerialName(value = "publicChatTypeHasUsername")
+@Serializable
 public class PublicChatTypeHasUsername public constructor() : PublicChatType() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

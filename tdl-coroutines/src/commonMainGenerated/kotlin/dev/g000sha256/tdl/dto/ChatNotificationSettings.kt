@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains information about notification settings for a chat or a forum topic.
@@ -42,24 +44,42 @@ import kotlin.String
  * @property useDefaultDisableMentionNotifications If true, the value for the relevant type of chat or the forum chat is used instead of disableMentionNotifications.
  * @property disableMentionNotifications If true, notifications for messages with mentions will be created as for an ordinary unread message.
  */
+@SerialName(value = "chatNotificationSettings")
+@Serializable
 public class ChatNotificationSettings public constructor(
+    @SerialName(value = "use_default_mute_for")
     public val useDefaultMuteFor: Boolean,
+    @SerialName(value = "mute_for")
     public val muteFor: Int,
+    @SerialName(value = "use_default_sound")
     public val useDefaultSound: Boolean,
+    @SerialName(value = "sound_id")
     public val soundId: Long,
+    @SerialName(value = "use_default_show_preview")
     public val useDefaultShowPreview: Boolean,
+    @SerialName(value = "show_preview")
     public val showPreview: Boolean,
+    @SerialName(value = "use_default_mute_stories")
     public val useDefaultMuteStories: Boolean,
+    @SerialName(value = "mute_stories")
     public val muteStories: Boolean,
+    @SerialName(value = "use_default_story_sound")
     public val useDefaultStorySound: Boolean,
+    @SerialName(value = "story_sound_id")
     public val storySoundId: Long,
+    @SerialName(value = "use_default_show_story_poster")
     public val useDefaultShowStoryPoster: Boolean,
+    @SerialName(value = "show_story_poster")
     public val showStoryPoster: Boolean,
+    @SerialName(value = "use_default_disable_pinned_message_notifications")
     public val useDefaultDisablePinnedMessageNotifications: Boolean,
+    @SerialName(value = "disable_pinned_message_notifications")
     public val disablePinnedMessageNotifications: Boolean,
+    @SerialName(value = "use_default_disable_mention_notifications")
     public val useDefaultDisableMentionNotifications: Boolean,
+    @SerialName(value = "disable_mention_notifications")
     public val disableMentionNotifications: Boolean,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

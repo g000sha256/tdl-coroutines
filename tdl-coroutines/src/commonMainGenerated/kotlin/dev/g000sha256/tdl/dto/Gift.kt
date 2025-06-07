@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes a gift that can be sent to another user or channel chat.
@@ -36,18 +38,30 @@ import kotlin.String
  * @property firstSendDate Point in time (Unix timestamp) when the gift was send for the first time; for sold out gifts only.
  * @property lastSendDate Point in time (Unix timestamp) when the gift was send for the last time; for sold out gifts only.
  */
+@SerialName(value = "gift")
+@Serializable
 public class Gift public constructor(
+    @SerialName(value = "id")
     public val id: Long,
+    @SerialName(value = "sticker")
     public val sticker: Sticker,
+    @SerialName(value = "star_count")
     public val starCount: Long,
+    @SerialName(value = "default_sell_star_count")
     public val defaultSellStarCount: Long,
+    @SerialName(value = "upgrade_star_count")
     public val upgradeStarCount: Long,
+    @SerialName(value = "is_for_birthday")
     public val isForBirthday: Boolean,
+    @SerialName(value = "remaining_count")
     public val remainingCount: Int,
+    @SerialName(value = "total_count")
     public val totalCount: Int,
+    @SerialName(value = "first_send_date")
     public val firstSendDate: Int,
+    @SerialName(value = "last_send_date")
     public val lastSendDate: Int,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

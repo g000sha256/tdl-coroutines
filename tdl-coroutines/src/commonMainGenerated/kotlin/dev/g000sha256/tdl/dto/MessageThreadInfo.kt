@@ -22,6 +22,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains information about a message thread.
@@ -33,14 +35,22 @@ import kotlin.String
  * @property messages The messages from which the thread starts. The messages are returned in reverse chronological order (i.e., in order of decreasing messageId).
  * @property draftMessage A draft of a message in the message thread; may be null if none.
  */
+@SerialName(value = "messageThreadInfo")
+@Serializable
 public class MessageThreadInfo public constructor(
+    @SerialName(value = "chat_id")
     public val chatId: Long,
+    @SerialName(value = "message_thread_id")
     public val messageThreadId: Long,
+    @SerialName(value = "reply_info")
     public val replyInfo: MessageReplyInfo?,
+    @SerialName(value = "unread_message_count")
     public val unreadMessageCount: Int,
+    @SerialName(value = "messages")
     public val messages: Array<Message>,
+    @SerialName(value = "draft_message")
     public val draftMessage: DraftMessage?,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

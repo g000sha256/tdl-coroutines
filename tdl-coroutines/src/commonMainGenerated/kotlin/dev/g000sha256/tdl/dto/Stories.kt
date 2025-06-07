@@ -22,6 +22,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.IntArray
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Represents a list of stories.
@@ -30,11 +32,16 @@ import kotlin.String
  * @property stories The list of stories.
  * @property pinnedStoryIds Identifiers of the pinned stories; returned only in getChatPostedToChatPageStories with fromStoryId == 0.
  */
+@SerialName(value = "stories")
+@Serializable
 public class Stories public constructor(
+    @SerialName(value = "total_count")
     public val totalCount: Int,
+    @SerialName(value = "stories")
     public val stories: Array<Story>,
+    @SerialName(value = "pinned_story_ids")
     public val pinnedStoryIds: IntArray,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

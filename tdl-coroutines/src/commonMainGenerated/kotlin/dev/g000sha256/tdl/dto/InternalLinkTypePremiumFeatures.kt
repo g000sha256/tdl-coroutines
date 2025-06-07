@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The link is a link to the Premium features screen of the application from which the user can subscribe to Telegram Premium. Call getPremiumFeatures with the given referrer to process the link.
  *
  * @property referrer Referrer specified in the link.
  */
+@SerialName(value = "internalLinkTypePremiumFeatures")
+@Serializable
 public class InternalLinkTypePremiumFeatures public constructor(
+    @SerialName(value = "referrer")
     public val referrer: String,
 ) : InternalLinkType() {
     override fun equals(other: Any?): Boolean {

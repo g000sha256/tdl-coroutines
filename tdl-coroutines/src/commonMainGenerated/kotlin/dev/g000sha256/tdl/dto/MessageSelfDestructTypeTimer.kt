@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The message will be self-destructed in the specified time after its content was opened.
  *
  * @property selfDestructTime The message's self-destruct time, in seconds; must be between 0 and 60 in private chats.
  */
+@SerialName(value = "messageSelfDestructTypeTimer")
+@Serializable
 public class MessageSelfDestructTypeTimer public constructor(
+    @SerialName(value = "self_destruct_time")
     public val selfDestructTime: Int,
 ) : MessageSelfDestructType() {
     override fun equals(other: Any?): Boolean {

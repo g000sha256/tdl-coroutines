@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A bold text.
  */
+@SerialName(value = "textEntityTypeBold")
+@Serializable
 public class TextEntityTypeBold public constructor() : TextEntityType() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

@@ -16,8 +16,11 @@
 
 package dev.g000sha256.tdl.dto
 
+import kotlinx.serialization.Serializable
+
 /**
  * This class is an abstract base class.
  * Describes type of emoji status.
  */
-public sealed class EmojiStatusType protected constructor()
+@Serializable
+public sealed class EmojiStatusType protected constructor() : Model()

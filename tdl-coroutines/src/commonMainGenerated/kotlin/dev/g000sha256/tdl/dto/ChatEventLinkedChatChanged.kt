@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The linked chat of a supergroup was changed.
@@ -28,8 +30,12 @@ import kotlin.String
  * @property oldLinkedChatId Previous supergroup linked chat identifier.
  * @property newLinkedChatId New supergroup linked chat identifier.
  */
+@SerialName(value = "chatEventLinkedChatChanged")
+@Serializable
 public class ChatEventLinkedChatChanged public constructor(
+    @SerialName(value = "old_linked_chat_id")
     public val oldLinkedChatId: Long,
+    @SerialName(value = "new_linked_chat_id")
     public val newLinkedChatId: Long,
 ) : ChatEventAction() {
     override fun equals(other: Any?): Boolean {

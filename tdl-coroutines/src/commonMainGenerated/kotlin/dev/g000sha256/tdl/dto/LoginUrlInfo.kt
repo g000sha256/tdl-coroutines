@@ -16,8 +16,11 @@
 
 package dev.g000sha256.tdl.dto
 
+import kotlinx.serialization.Serializable
+
 /**
  * This class is an abstract base class.
  * Contains information about an inline button of type inlineKeyboardButtonTypeLoginUrl.
  */
-public sealed class LoginUrlInfo protected constructor()
+@Serializable
+public sealed class LoginUrlInfo protected constructor() : Model()

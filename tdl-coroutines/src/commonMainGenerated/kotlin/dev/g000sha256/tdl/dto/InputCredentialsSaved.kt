@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Applies if a user chooses some previously saved payment credentials. To use their previously saved credentials, the user must have a valid temporary password.
  *
  * @property savedCredentialsId Identifier of the saved credentials.
  */
+@SerialName(value = "inputCredentialsSaved")
+@Serializable
 public class InputCredentialsSaved public constructor(
+    @SerialName(value = "saved_credentials_id")
     public val savedCredentialsId: String,
 ) : InputCredentials() {
     override fun equals(other: Any?): Boolean {

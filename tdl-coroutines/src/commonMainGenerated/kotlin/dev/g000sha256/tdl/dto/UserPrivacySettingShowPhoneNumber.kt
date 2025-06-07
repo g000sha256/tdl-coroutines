@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A privacy setting for managing whether the user's phone number is visible.
  */
+@SerialName(value = "userPrivacySettingShowPhoneNumber")
+@Serializable
 public class UserPrivacySettingShowPhoneNumber public constructor() : UserPrivacySetting() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Disabled ads.
  */
+@SerialName(value = "premiumFeatureDisabledAds")
+@Serializable
 public class PremiumFeatureDisabledAds public constructor() : PremiumFeature() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

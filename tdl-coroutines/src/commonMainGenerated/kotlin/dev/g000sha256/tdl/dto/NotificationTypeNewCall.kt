@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * New call was received.
  *
  * @property callId Call identifier.
  */
+@SerialName(value = "notificationTypeNewCall")
+@Serializable
 public class NotificationTypeNewCall public constructor(
+    @SerialName(value = "call_id")
     public val callId: Int,
 ) : NotificationType() {
     override fun equals(other: Any?): Boolean {

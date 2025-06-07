@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The limit for the number of active stories exceeded. The user can buy Telegram Premium, delete an active story, or wait for the oldest story to expire.
  */
+@SerialName(value = "canPostStoryResultActiveStoryLimitExceeded")
+@Serializable
 public class CanPostStoryResultActiveStoryLimitExceeded public constructor() : CanPostStoryResult() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

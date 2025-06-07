@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * One of files with the translation of the document contains an error. The error will be considered resolved when the file changes.
  *
  * @property fileIndex Index of a file with the error.
  */
+@SerialName(value = "passportElementErrorSourceTranslationFile")
+@Serializable
 public class PassportElementErrorSourceTranslationFile public constructor(
+    @SerialName(value = "file_index")
     public val fileIndex: Int,
 ) : PassportElementErrorSource() {
     override fun equals(other: Any?): Boolean {

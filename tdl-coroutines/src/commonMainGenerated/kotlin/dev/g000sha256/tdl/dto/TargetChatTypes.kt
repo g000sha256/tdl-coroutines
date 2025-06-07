@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes allowed types for the target chat.
@@ -29,12 +31,18 @@ import kotlin.String
  * @property allowGroupChats True, if basic group and supergroup chats are allowed.
  * @property allowChannelChats True, if channel chats are allowed.
  */
+@SerialName(value = "targetChatTypes")
+@Serializable
 public class TargetChatTypes public constructor(
+    @SerialName(value = "allow_user_chats")
     public val allowUserChats: Boolean,
+    @SerialName(value = "allow_bot_chats")
     public val allowBotChats: Boolean,
+    @SerialName(value = "allow_group_chats")
     public val allowGroupChats: Boolean,
+    @SerialName(value = "allow_channel_chats")
     public val allowChannelChats: Boolean,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

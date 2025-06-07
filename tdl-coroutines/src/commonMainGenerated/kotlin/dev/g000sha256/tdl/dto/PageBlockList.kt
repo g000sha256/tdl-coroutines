@@ -21,13 +21,18 @@ import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A list of data blocks.
  *
  * @property items The items of the list.
  */
+@SerialName(value = "pageBlockList")
+@Serializable
 public class PageBlockList public constructor(
+    @SerialName(value = "items")
     public val items: Array<PageBlockListItem>,
 ) : PageBlock() {
     override fun equals(other: Any?): Boolean {

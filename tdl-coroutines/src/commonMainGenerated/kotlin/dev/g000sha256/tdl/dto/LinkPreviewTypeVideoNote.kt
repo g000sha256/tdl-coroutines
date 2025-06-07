@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The link is a link to a video note message.
  *
  * @property videoNote The video note.
  */
+@SerialName(value = "linkPreviewTypeVideoNote")
+@Serializable
 public class LinkPreviewTypeVideoNote public constructor(
+    @SerialName(value = "video_note")
     public val videoNote: VideoNote,
 ) : LinkPreviewType() {
     override fun equals(other: Any?): Boolean {

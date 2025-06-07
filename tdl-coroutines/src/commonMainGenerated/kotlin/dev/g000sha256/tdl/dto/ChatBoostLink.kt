@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains an HTTPS link to boost a chat.
@@ -27,10 +29,14 @@ import kotlin.String
  * @property link The link.
  * @property isPublic True, if the link will work for non-members of the chat.
  */
+@SerialName(value = "chatBoostLink")
+@Serializable
 public class ChatBoostLink public constructor(
+    @SerialName(value = "link")
     public val link: String,
+    @SerialName(value = "is_public")
     public val isPublic: Boolean,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

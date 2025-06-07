@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The call has ended with an error.
  *
  * @property error Error. An error with the code 4005000 will be returned if an outgoing call is missed because of an expired timeout.
  */
+@SerialName(value = "callStateError")
+@Serializable
 public class CallStateError public constructor(
+    @SerialName(value = "error")
     public val error: Error,
 ) : CallState() {
     override fun equals(other: Any?): Boolean {

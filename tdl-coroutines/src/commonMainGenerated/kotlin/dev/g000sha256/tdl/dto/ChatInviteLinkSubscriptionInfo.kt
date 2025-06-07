@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains information about subscription plan that must be paid by the user to use a chat invite link.
@@ -29,11 +31,16 @@ import kotlin.String
  * @property canReuse True, if the user has already paid for the subscription and can use joinChatByInviteLink to join the subscribed chat again.
  * @property formId Identifier of the payment form to use for subscription payment; 0 if the subscription can't be paid.
  */
+@SerialName(value = "chatInviteLinkSubscriptionInfo")
+@Serializable
 public class ChatInviteLinkSubscriptionInfo public constructor(
+    @SerialName(value = "pricing")
     public val pricing: StarSubscriptionPricing,
+    @SerialName(value = "can_reuse")
     public val canReuse: Boolean,
+    @SerialName(value = "form_id")
     public val formId: Long,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

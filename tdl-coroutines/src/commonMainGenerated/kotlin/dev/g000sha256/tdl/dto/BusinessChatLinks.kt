@@ -21,15 +21,20 @@ import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains a list of business chat links created by the user.
  *
  * @property links List of links.
  */
+@SerialName(value = "businessChatLinks")
+@Serializable
 public class BusinessChatLinks public constructor(
+    @SerialName(value = "links")
     public val links: Array<BusinessChatLink>,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

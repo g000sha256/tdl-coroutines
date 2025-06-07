@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes a sponsored message.
@@ -36,18 +38,30 @@ import kotlin.String
  * @property backgroundCustomEmojiId Identifier of a custom emoji to be shown on the message background; 0 if none.
  * @property additionalInfo If non-empty, additional information about the sponsored message to be shown along with the message.
  */
+@SerialName(value = "sponsoredMessage")
+@Serializable
 public class SponsoredMessage public constructor(
+    @SerialName(value = "message_id")
     public val messageId: Long,
+    @SerialName(value = "is_recommended")
     public val isRecommended: Boolean,
+    @SerialName(value = "can_be_reported")
     public val canBeReported: Boolean,
+    @SerialName(value = "content")
     public val content: MessageContent,
+    @SerialName(value = "sponsor")
     public val sponsor: MessageSponsor,
+    @SerialName(value = "title")
     public val title: String,
+    @SerialName(value = "button_text")
     public val buttonText: String,
+    @SerialName(value = "accent_color_id")
     public val accentColorId: Int,
+    @SerialName(value = "background_custom_emoji_id")
     public val backgroundCustomEmojiId: Long,
+    @SerialName(value = "additional_info")
     public val additionalInfo: String,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

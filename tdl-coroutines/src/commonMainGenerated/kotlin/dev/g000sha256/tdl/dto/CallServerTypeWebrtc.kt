@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A WebRTC server.
@@ -29,10 +31,16 @@ import kotlin.String
  * @property supportsTurn True, if the server supports TURN.
  * @property supportsStun True, if the server supports STUN.
  */
+@SerialName(value = "callServerTypeWebrtc")
+@Serializable
 public class CallServerTypeWebrtc public constructor(
+    @SerialName(value = "username")
     public val username: String,
+    @SerialName(value = "password")
     public val password: String,
+    @SerialName(value = "supports_turn")
     public val supportsTurn: Boolean,
+    @SerialName(value = "supports_stun")
     public val supportsStun: Boolean,
 ) : CallServerType() {
     override fun equals(other: Any?): Boolean {

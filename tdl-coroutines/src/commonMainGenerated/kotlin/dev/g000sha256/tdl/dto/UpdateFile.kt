@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Information about a file was updated.
  *
  * @property file New data about the file.
  */
+@SerialName(value = "updateFile")
+@Serializable
 public class UpdateFile public constructor(
+    @SerialName(value = "file")
     public val file: File,
 ) : Update() {
     override fun equals(other: Any?): Boolean {

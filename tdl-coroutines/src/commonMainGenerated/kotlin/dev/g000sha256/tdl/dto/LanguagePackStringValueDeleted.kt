@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A deleted language pack string, the value must be taken from the built-in English language pack.
  */
+@SerialName(value = "languagePackStringValueDeleted")
+@Serializable
 public class LanguagePackStringValueDeleted public constructor() : LanguagePackStringValue() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

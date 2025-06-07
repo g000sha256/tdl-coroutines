@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The link is a link to an audio file.
@@ -28,9 +30,14 @@ import kotlin.String
  * @property mimeType MIME type of the audio file.
  * @property duration Duration of the audio, in seconds; 0 if unknown.
  */
+@SerialName(value = "linkPreviewTypeExternalAudio")
+@Serializable
 public class LinkPreviewTypeExternalAudio public constructor(
+    @SerialName(value = "url")
     public val url: String,
+    @SerialName(value = "mime_type")
     public val mimeType: String,
+    @SerialName(value = "duration")
     public val duration: Int,
 ) : LinkPreviewType() {
     override fun equals(other: Any?): Boolean {

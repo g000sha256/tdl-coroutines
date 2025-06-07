@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A token for Microsoft Push Notification Service VoIP channel.
  *
  * @property channelUri Push notification channel URI; may be empty to deregister a device.
  */
+@SerialName(value = "deviceTokenMicrosoftPushVoIP")
+@Serializable
 public class DeviceTokenMicrosoftPushVoIP public constructor(
+    @SerialName(value = "channel_uri")
     public val channelUri: String,
 ) : DeviceToken() {
     override fun equals(other: Any?): Boolean {

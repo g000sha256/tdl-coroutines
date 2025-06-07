@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Represents information about a venue.
@@ -28,9 +30,14 @@ import kotlin.String
  * @property venue Venue result.
  * @property thumbnail Result thumbnail in JPEG format; may be null.
  */
+@SerialName(value = "inlineQueryResultVenue")
+@Serializable
 public class InlineQueryResultVenue public constructor(
+    @SerialName(value = "id")
     public val id: String,
+    @SerialName(value = "venue")
     public val venue: Venue,
+    @SerialName(value = "thumbnail")
     public val thumbnail: Thumbnail?,
 ) : InlineQueryResult() {
     override fun equals(other: Any?): Boolean {

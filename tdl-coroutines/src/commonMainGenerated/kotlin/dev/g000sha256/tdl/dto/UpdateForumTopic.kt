@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Information about a topic in a forum chat was changed.
@@ -32,12 +34,20 @@ import kotlin.String
  * @property lastReadOutboxMessageId Identifier of the last read outgoing message.
  * @property notificationSettings Notification settings for the topic.
  */
+@SerialName(value = "updateForumTopic")
+@Serializable
 public class UpdateForumTopic public constructor(
+    @SerialName(value = "chat_id")
     public val chatId: Long,
+    @SerialName(value = "message_thread_id")
     public val messageThreadId: Long,
+    @SerialName(value = "is_pinned")
     public val isPinned: Boolean,
+    @SerialName(value = "last_read_inbox_message_id")
     public val lastReadInboxMessageId: Long,
+    @SerialName(value = "last_read_outbox_message_id")
     public val lastReadOutboxMessageId: Long,
+    @SerialName(value = "notification_settings")
     public val notificationSettings: ChatNotificationSettings,
 ) : Update() {
     override fun equals(other: Any?): Boolean {

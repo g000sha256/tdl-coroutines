@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A button that copies specified text to clipboard.
  *
  * @property text The text to copy to clipboard.
  */
+@SerialName(value = "inlineKeyboardButtonTypeCopyText")
+@Serializable
 public class InlineKeyboardButtonTypeCopyText public constructor(
+    @SerialName(value = "text")
     public val text: String,
 ) : InlineKeyboardButtonType() {
     override fun equals(other: Any?): Boolean {

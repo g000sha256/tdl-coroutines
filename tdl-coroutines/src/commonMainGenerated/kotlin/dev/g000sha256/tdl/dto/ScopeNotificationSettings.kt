@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains information about notification settings for several chats.
@@ -35,17 +37,28 @@ import kotlin.String
  * @property disablePinnedMessageNotifications True, if notifications for incoming pinned messages will be created as for an ordinary unread message.
  * @property disableMentionNotifications True, if notifications for messages with mentions will be created as for an ordinary unread message.
  */
+@SerialName(value = "scopeNotificationSettings")
+@Serializable
 public class ScopeNotificationSettings public constructor(
+    @SerialName(value = "mute_for")
     public val muteFor: Int,
+    @SerialName(value = "sound_id")
     public val soundId: Long,
+    @SerialName(value = "show_preview")
     public val showPreview: Boolean,
+    @SerialName(value = "use_default_mute_stories")
     public val useDefaultMuteStories: Boolean,
+    @SerialName(value = "mute_stories")
     public val muteStories: Boolean,
+    @SerialName(value = "story_sound_id")
     public val storySoundId: Long,
+    @SerialName(value = "show_story_poster")
     public val showStoryPoster: Boolean,
+    @SerialName(value = "disable_pinned_message_notifications")
     public val disablePinnedMessageNotifications: Boolean,
+    @SerialName(value = "disable_mention_notifications")
     public val disableMentionNotifications: Boolean,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

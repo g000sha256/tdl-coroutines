@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A wallpaper in JPEG format.
@@ -27,8 +29,12 @@ import kotlin.String
  * @property isBlurred True, if the wallpaper must be downscaled to fit in 450x450 square and then box-blurred with radius 12.
  * @property isMoving True, if the background needs to be slightly moved when device is tilted.
  */
+@SerialName(value = "backgroundTypeWallpaper")
+@Serializable
 public class BackgroundTypeWallpaper public constructor(
+    @SerialName(value = "is_blurred")
     public val isBlurred: Boolean,
+    @SerialName(value = "is_moving")
     public val isMoving: Boolean,
 ) : BackgroundType() {
     override fun equals(other: Any?): Boolean {

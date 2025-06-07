@@ -16,8 +16,11 @@
 
 package dev.g000sha256.tdl.dto
 
+import kotlinx.serialization.Serializable
+
 /**
  * This class is an abstract base class.
  * Represents the type of user. The following types are possible: regular users, deleted users and bots.
  */
-public sealed class UserType protected constructor()
+@Serializable
+public sealed class UserType protected constructor() : Model()

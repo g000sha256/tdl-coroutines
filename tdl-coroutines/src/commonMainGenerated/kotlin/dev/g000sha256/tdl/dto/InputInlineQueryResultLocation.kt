@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Represents a point on the map.
@@ -34,15 +36,26 @@ import kotlin.String
  * @property replyMarkup The message reply markup; pass null if none. Must be of type replyMarkupInlineKeyboard or null.
  * @property inputMessageContent The content of the message to be sent. Must be one of the following types: inputMessageText, inputMessageInvoice, inputMessageLocation, inputMessageVenue or inputMessageContact.
  */
+@SerialName(value = "inputInlineQueryResultLocation")
+@Serializable
 public class InputInlineQueryResultLocation public constructor(
+    @SerialName(value = "id")
     public val id: String,
+    @SerialName(value = "location")
     public val location: Location,
+    @SerialName(value = "live_period")
     public val livePeriod: Int,
+    @SerialName(value = "title")
     public val title: String,
+    @SerialName(value = "thumbnail_url")
     public val thumbnailUrl: String,
+    @SerialName(value = "thumbnail_width")
     public val thumbnailWidth: Int,
+    @SerialName(value = "thumbnail_height")
     public val thumbnailHeight: Int,
+    @SerialName(value = "reply_markup")
     public val replyMarkup: ReplyMarkup?,
+    @SerialName(value = "input_message_content")
     public val inputMessageContent: InputMessageContent,
 ) : InputInlineQueryResult() {
     override fun equals(other: Any?): Boolean {

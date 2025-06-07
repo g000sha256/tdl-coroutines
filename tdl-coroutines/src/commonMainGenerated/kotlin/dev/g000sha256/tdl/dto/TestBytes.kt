@@ -21,15 +21,20 @@ import kotlin.Boolean
 import kotlin.ByteArray
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A simple object containing a sequence of bytes; for testing only.
  *
  * @property value Bytes.
  */
+@SerialName(value = "testBytes")
+@Serializable
 public class TestBytes public constructor(
+    @SerialName(value = "value")
     public val value: ByteArray,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

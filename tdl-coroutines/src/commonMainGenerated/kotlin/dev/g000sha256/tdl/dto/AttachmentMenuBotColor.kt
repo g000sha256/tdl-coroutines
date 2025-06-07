@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes a color to highlight a bot added to attachment menu.
@@ -27,10 +29,14 @@ import kotlin.String
  * @property lightColor Color in the RGB format for light themes.
  * @property darkColor Color in the RGB format for dark themes.
  */
+@SerialName(value = "attachmentMenuBotColor")
+@Serializable
 public class AttachmentMenuBotColor public constructor(
+    @SerialName(value = "light_color")
     public val lightColor: Int,
+    @SerialName(value = "dark_color")
     public val darkColor: Int,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

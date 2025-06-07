@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * All reactions are available in the chat, excluding the paid reaction and custom reactions in channel chats.
  *
  * @property maxReactionCount The maximum allowed number of reactions per message; 1-11.
  */
+@SerialName(value = "chatAvailableReactionsAll")
+@Serializable
 public class ChatAvailableReactionsAll public constructor(
+    @SerialName(value = "max_reaction_count")
     public val maxReactionCount: Int,
 ) : ChatAvailableReactions() {
     override fun equals(other: Any?): Boolean {

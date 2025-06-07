@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Returns users which can be mentioned in the supergroup.
@@ -28,8 +30,12 @@ import kotlin.String
  * @property query Query to search for.
  * @property messageThreadId If non-zero, the identifier of the current message thread.
  */
+@SerialName(value = "supergroupMembersFilterMention")
+@Serializable
 public class SupergroupMembersFilterMention public constructor(
+    @SerialName(value = "query")
     public val query: String,
+    @SerialName(value = "message_thread_id")
     public val messageThreadId: Long,
 ) : SupergroupMembersFilter() {
     override fun equals(other: Any?): Boolean {

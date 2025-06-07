@@ -21,15 +21,20 @@ import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains a list of chat boost slots.
  *
  * @property slots List of boost slots.
  */
+@SerialName(value = "chatBoostSlots")
+@Serializable
 public class ChatBoostSlots public constructor(
+    @SerialName(value = "slots")
     public val slots: Array<ChatBoostSlot>,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

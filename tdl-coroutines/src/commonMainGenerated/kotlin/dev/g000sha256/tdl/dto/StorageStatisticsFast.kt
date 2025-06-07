@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains approximate storage usage statistics, excluding files of unknown file type.
@@ -31,13 +33,20 @@ import kotlin.String
  * @property languagePackDatabaseSize Size of the language pack database.
  * @property logSize Size of the TDLib internal log.
  */
+@SerialName(value = "storageStatisticsFast")
+@Serializable
 public class StorageStatisticsFast public constructor(
+    @SerialName(value = "files_size")
     public val filesSize: Long,
+    @SerialName(value = "file_count")
     public val fileCount: Int,
+    @SerialName(value = "database_size")
     public val databaseSize: Long,
+    @SerialName(value = "language_pack_database_size")
     public val languagePackDatabaseSize: Long,
+    @SerialName(value = "log_size")
     public val logSize: Long,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

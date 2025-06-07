@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * New chat members were invited to a group.
@@ -28,9 +30,14 @@ import kotlin.String
  * @property isCurrentUser True, if the current user was added to the group.
  * @property isReturned True, if the user has returned to the group themselves.
  */
+@SerialName(value = "pushMessageContentChatAddMembers")
+@Serializable
 public class PushMessageContentChatAddMembers public constructor(
+    @SerialName(value = "member_name")
     public val memberName: String,
+    @SerialName(value = "is_current_user")
     public val isCurrentUser: Boolean,
+    @SerialName(value = "is_returned")
     public val isReturned: Boolean,
 ) : PushMessageContent() {
     override fun equals(other: Any?): Boolean {

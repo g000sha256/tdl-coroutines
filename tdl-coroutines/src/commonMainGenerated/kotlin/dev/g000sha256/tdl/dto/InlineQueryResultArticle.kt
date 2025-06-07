@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Represents a link to an article or web page.
@@ -30,11 +32,18 @@ import kotlin.String
  * @property description A short description of the result.
  * @property thumbnail Result thumbnail in JPEG format; may be null.
  */
+@SerialName(value = "inlineQueryResultArticle")
+@Serializable
 public class InlineQueryResultArticle public constructor(
+    @SerialName(value = "id")
     public val id: String,
+    @SerialName(value = "url")
     public val url: String,
+    @SerialName(value = "title")
     public val title: String,
+    @SerialName(value = "description")
     public val description: String,
+    @SerialName(value = "thumbnail")
     public val thumbnail: Thumbnail?,
 ) : InlineQueryResult() {
     override fun equals(other: Any?): Boolean {

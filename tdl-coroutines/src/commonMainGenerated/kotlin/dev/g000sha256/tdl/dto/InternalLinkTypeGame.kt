@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The link is a link to a game. Call searchPublicChat with the given bot username, check that the user is a bot, ask the current user to select a chat to send the game, and then call sendMessage with inputMessageGame.
@@ -27,8 +29,12 @@ import kotlin.String
  * @property botUsername Username of the bot that owns the game.
  * @property gameShortName Short name of the game.
  */
+@SerialName(value = "internalLinkTypeGame")
+@Serializable
 public class InternalLinkTypeGame public constructor(
+    @SerialName(value = "bot_username")
     public val botUsername: String,
+    @SerialName(value = "game_short_name")
     public val gameShortName: String,
 ) : InternalLinkType() {
     override fun equals(other: Any?): Boolean {

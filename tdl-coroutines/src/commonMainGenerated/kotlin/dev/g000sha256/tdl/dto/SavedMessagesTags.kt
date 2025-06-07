@@ -21,15 +21,20 @@ import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains a list of tags used in Saved Messages.
  *
  * @property tags List of tags.
  */
+@SerialName(value = "savedMessagesTags")
+@Serializable
 public class SavedMessagesTags public constructor(
+    @SerialName(value = "tags")
     public val tags: Array<SavedMessagesTag>,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

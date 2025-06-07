@@ -21,13 +21,18 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A background from the server.
  *
  * @property backgroundId The background identifier.
  */
+@SerialName(value = "inputBackgroundRemote")
+@Serializable
 public class InputBackgroundRemote public constructor(
+    @SerialName(value = "background_id")
     public val backgroundId: Long,
 ) : InputBackground() {
     override fun equals(other: Any?): Boolean {

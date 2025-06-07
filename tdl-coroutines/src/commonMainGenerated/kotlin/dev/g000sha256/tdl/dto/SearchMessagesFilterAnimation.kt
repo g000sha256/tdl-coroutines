@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Returns only animation messages.
  */
+@SerialName(value = "searchMessagesFilterAnimation")
+@Serializable
 public class SearchMessagesFilterAnimation public constructor() : SearchMessagesFilter() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

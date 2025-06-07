@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The list of stories, shown in the main chat list and folder chat lists.
  */
+@SerialName(value = "storyListMain")
+@Serializable
 public class StoryListMain public constructor() : StoryList() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

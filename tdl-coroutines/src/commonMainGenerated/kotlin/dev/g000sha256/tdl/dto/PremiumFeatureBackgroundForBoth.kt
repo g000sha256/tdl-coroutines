@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The ability to set private chat background for both users.
  */
+@SerialName(value = "premiumFeatureBackgroundForBoth")
+@Serializable
 public class PremiumFeatureBackgroundForBoth public constructor() : PremiumFeature() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

@@ -16,8 +16,11 @@
 
 package dev.g000sha256.tdl.dto
 
+import kotlinx.serialization.Serializable
+
 /**
  * This class is an abstract base class.
  * Contains notifications about data changes.
  */
-public sealed class Update protected constructor()
+@Serializable
+public sealed class Update protected constructor() : Model()

@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A video chat participant was muted or unmuted.
@@ -27,8 +29,12 @@ import kotlin.String
  * @property participantId Identifier of the affected group call participant.
  * @property isMuted New value of isMuted.
  */
+@SerialName(value = "chatEventVideoChatParticipantIsMutedToggled")
+@Serializable
 public class ChatEventVideoChatParticipantIsMutedToggled public constructor(
+    @SerialName(value = "participant_id")
     public val participantId: MessageSender,
+    @SerialName(value = "is_muted")
     public val isMuted: Boolean,
 ) : ChatEventAction() {
     override fun equals(other: Any?): Boolean {

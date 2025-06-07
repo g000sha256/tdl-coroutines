@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A digit-only authentication code is delivered via an SMS message to the specified phone number; non-official applications may not receive this type of code.
  *
  * @property length Length of the code.
  */
+@SerialName(value = "authenticationCodeTypeSms")
+@Serializable
 public class AuthenticationCodeTypeSms public constructor(
+    @SerialName(value = "length")
     public val length: Int,
 ) : AuthenticationCodeType() {
     override fun equals(other: Any?): Boolean {

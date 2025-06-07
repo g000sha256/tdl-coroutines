@@ -21,6 +21,8 @@ import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains a list of sponsored messages.
@@ -28,10 +30,14 @@ import kotlin.String
  * @property messages List of sponsored messages.
  * @property messagesBetween The minimum number of messages between shown sponsored messages, or 0 if only one sponsored message must be shown after all ordinary messages.
  */
+@SerialName(value = "sponsoredMessages")
+@Serializable
 public class SponsoredMessages public constructor(
+    @SerialName(value = "messages")
     public val messages: Array<SponsoredMessage>,
+    @SerialName(value = "messages_between")
     public val messagesBetween: Int,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

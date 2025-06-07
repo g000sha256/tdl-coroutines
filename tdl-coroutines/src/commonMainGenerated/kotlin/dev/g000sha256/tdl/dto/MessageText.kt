@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A text message.
@@ -28,9 +30,14 @@ import kotlin.String
  * @property linkPreview A link preview attached to the message; may be null.
  * @property linkPreviewOptions Options which were used for generation of the link preview; may be null if default options were used.
  */
+@SerialName(value = "messageText")
+@Serializable
 public class MessageText public constructor(
+    @SerialName(value = "text")
     public val text: FormattedText,
+    @SerialName(value = "link_preview")
     public val linkPreview: LinkPreview?,
+    @SerialName(value = "link_preview_options")
     public val linkPreviewOptions: LinkPreviewOptions?,
 ) : MessageContent() {
     override fun equals(other: Any?): Boolean {

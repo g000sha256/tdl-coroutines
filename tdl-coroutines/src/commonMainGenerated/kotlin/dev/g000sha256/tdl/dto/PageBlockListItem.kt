@@ -21,6 +21,8 @@ import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes an item of a list page block.
@@ -28,10 +30,14 @@ import kotlin.String
  * @property label Item label.
  * @property pageBlocks Item blocks.
  */
+@SerialName(value = "pageBlockListItem")
+@Serializable
 public class PageBlockListItem public constructor(
+    @SerialName(value = "label")
     public val label: String,
+    @SerialName(value = "page_blocks")
     public val pageBlocks: Array<PageBlock>,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

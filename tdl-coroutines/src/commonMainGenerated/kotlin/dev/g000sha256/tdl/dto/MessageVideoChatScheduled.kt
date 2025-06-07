@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A new video chat was scheduled.
@@ -27,8 +29,12 @@ import kotlin.String
  * @property groupCallId Identifier of the video chat. The video chat can be received through the method getGroupCall.
  * @property startDate Point in time (Unix timestamp) when the group call is expected to be started by an administrator.
  */
+@SerialName(value = "messageVideoChatScheduled")
+@Serializable
 public class MessageVideoChatScheduled public constructor(
+    @SerialName(value = "group_call_id")
     public val groupCallId: Int,
+    @SerialName(value = "start_date")
     public val startDate: Int,
 ) : MessageContent() {
     override fun equals(other: Any?): Boolean {

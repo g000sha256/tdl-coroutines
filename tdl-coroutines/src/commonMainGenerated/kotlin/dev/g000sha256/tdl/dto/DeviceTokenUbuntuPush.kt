@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A token for Ubuntu Push Client service.
  *
  * @property token Token; may be empty to deregister a device.
  */
+@SerialName(value = "deviceTokenUbuntuPush")
+@Serializable
 public class DeviceTokenUbuntuPush public constructor(
+    @SerialName(value = "token")
     public val token: String,
 ) : DeviceToken() {
     override fun equals(other: Any?): Boolean {

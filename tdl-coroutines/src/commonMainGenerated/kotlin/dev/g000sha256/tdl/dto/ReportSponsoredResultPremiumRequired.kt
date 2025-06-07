@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The user asked to hide sponsored messages, but Telegram Premium is required for this.
  */
+@SerialName(value = "reportSponsoredResultPremiumRequired")
+@Serializable
 public class ReportSponsoredResultPremiumRequired public constructor() : ReportSponsoredResult() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

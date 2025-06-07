@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Double
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A detailed statistics about Telegram Stars earned by a bot or a chat.
@@ -29,11 +31,16 @@ import kotlin.String
  * @property status Telegram Star revenue status.
  * @property usdRate Current conversion rate of a Telegram Star to USD.
  */
+@SerialName(value = "starRevenueStatistics")
+@Serializable
 public class StarRevenueStatistics public constructor(
+    @SerialName(value = "revenue_by_day_graph")
     public val revenueByDayGraph: StatisticalGraph,
+    @SerialName(value = "status")
     public val status: StarRevenueStatus,
+    @SerialName(value = "usd_rate")
     public val usdRate: Double,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

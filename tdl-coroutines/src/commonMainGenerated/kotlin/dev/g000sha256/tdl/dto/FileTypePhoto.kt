@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The file is a photo.
  */
+@SerialName(value = "fileTypePhoto")
+@Serializable
 public class FileTypePhoto public constructor() : FileType() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

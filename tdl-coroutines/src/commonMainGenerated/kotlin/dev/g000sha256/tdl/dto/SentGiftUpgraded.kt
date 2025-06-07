@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Upgraded gift.
  *
  * @property gift The gift.
  */
+@SerialName(value = "sentGiftUpgraded")
+@Serializable
 public class SentGiftUpgraded public constructor(
+    @SerialName(value = "gift")
     public val gift: UpgradedGift,
 ) : SentGift() {
     override fun equals(other: Any?): Boolean {

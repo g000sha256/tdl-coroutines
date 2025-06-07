@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The username is invalid.
  */
+@SerialName(value = "checkChatUsernameResultUsernameInvalid")
+@Serializable
 public class CheckChatUsernameResultUsernameInvalid public constructor() : CheckChatUsernameResult() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A file defined by its unique identifier.
  *
  * @property id Unique file identifier.
  */
+@SerialName(value = "inputFileId")
+@Serializable
 public class InputFileId public constructor(
+    @SerialName(value = "id")
     public val id: Int,
 ) : InputFile() {
     override fun equals(other: Any?): Boolean {

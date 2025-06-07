@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A chat was added to a chat list.
@@ -28,8 +30,12 @@ import kotlin.String
  * @property chatId Chat identifier.
  * @property chatList The chat list to which the chat was added.
  */
+@SerialName(value = "updateChatAddedToList")
+@Serializable
 public class UpdateChatAddedToList public constructor(
+    @SerialName(value = "chat_id")
     public val chatId: Long,
+    @SerialName(value = "chat_list")
     public val chatList: ChatList,
 ) : Update() {
     override fun equals(other: Any?): Boolean {

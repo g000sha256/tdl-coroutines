@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.ByteArray
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains encrypted Telegram Passport data credentials.
@@ -29,11 +31,16 @@ import kotlin.String
  * @property hash The decrypted data hash.
  * @property secret Secret for data decryption, encrypted with the service's public key.
  */
+@SerialName(value = "encryptedCredentials")
+@Serializable
 public class EncryptedCredentials public constructor(
+    @SerialName(value = "data")
     public val data: ByteArray,
+    @SerialName(value = "hash")
     public val hash: ByteArray,
+    @SerialName(value = "secret")
     public val secret: ByteArray,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

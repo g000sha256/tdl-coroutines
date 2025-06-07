@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The link is a link to a cloud theme. TDLib has no theme support yet.
  *
  * @property themeName Name of the theme.
  */
+@SerialName(value = "internalLinkTypeTheme")
+@Serializable
 public class InternalLinkTypeTheme public constructor(
+    @SerialName(value = "theme_name")
     public val themeName: String,
 ) : InternalLinkType() {
     override fun equals(other: Any?): Boolean {

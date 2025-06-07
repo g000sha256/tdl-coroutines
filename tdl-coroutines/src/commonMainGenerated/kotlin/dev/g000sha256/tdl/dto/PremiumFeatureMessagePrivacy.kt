@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The ability to disallow incoming voice and video note messages in private chats using setUserPrivacySettingRules with userPrivacySettingAllowPrivateVoiceAndVideoNoteMessages and to restrict incoming messages from non-contacts using setNewChatPrivacySettings.
  */
+@SerialName(value = "premiumFeatureMessagePrivacy")
+@Serializable
 public class PremiumFeatureMessagePrivacy public constructor() : PremiumFeature() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

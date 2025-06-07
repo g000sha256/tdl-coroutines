@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.ByteArray
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A message with an invoice; can be used only by bots.
@@ -39,19 +41,34 @@ import kotlin.String
  * @property paidMedia The content of paid media attached to the invoice; pass null if none.
  * @property paidMediaCaption Paid media caption; pass null to use an empty caption; 0-getOption(&quot;message_caption_length_max&quot;) characters.
  */
+@SerialName(value = "inputMessageInvoice")
+@Serializable
 public class InputMessageInvoice public constructor(
+    @SerialName(value = "invoice")
     public val invoice: Invoice,
+    @SerialName(value = "title")
     public val title: String,
+    @SerialName(value = "description")
     public val description: String,
+    @SerialName(value = "photo_url")
     public val photoUrl: String,
+    @SerialName(value = "photo_size")
     public val photoSize: Int,
+    @SerialName(value = "photo_width")
     public val photoWidth: Int,
+    @SerialName(value = "photo_height")
     public val photoHeight: Int,
+    @SerialName(value = "payload")
     public val payload: ByteArray,
+    @SerialName(value = "provider_token")
     public val providerToken: String,
+    @SerialName(value = "provider_data")
     public val providerData: String,
+    @SerialName(value = "start_parameter")
     public val startParameter: String,
+    @SerialName(value = "paid_media")
     public val paidMedia: InputPaidMedia?,
+    @SerialName(value = "paid_media_caption")
     public val paidMediaCaption: FormattedText?,
 ) : InputMessageContent() {
     override fun equals(other: Any?): Boolean {

@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.LongArray
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The list of installed sticker sets was updated.
@@ -28,8 +30,12 @@ import kotlin.String
  * @property stickerType Type of the affected stickers.
  * @property stickerSetIds The new list of installed ordinary sticker sets.
  */
+@SerialName(value = "updateInstalledStickerSets")
+@Serializable
 public class UpdateInstalledStickerSets public constructor(
+    @SerialName(value = "sticker_type")
     public val stickerType: StickerType,
+    @SerialName(value = "sticker_set_ids")
     public val stickerSetIds: LongArray,
 ) : Update() {
     override fun equals(other: Any?): Boolean {

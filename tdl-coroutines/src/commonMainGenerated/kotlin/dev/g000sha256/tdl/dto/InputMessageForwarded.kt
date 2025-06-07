@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A forwarded message.
@@ -32,12 +34,20 @@ import kotlin.String
  * @property newVideoStartTimestamp The new video start timestamp; ignored if replaceVideoStartTimestamp == false.
  * @property copyOptions Options to be used to copy content of the message without reference to the original sender; pass null to forward the message as usual.
  */
+@SerialName(value = "inputMessageForwarded")
+@Serializable
 public class InputMessageForwarded public constructor(
+    @SerialName(value = "from_chat_id")
     public val fromChatId: Long,
+    @SerialName(value = "message_id")
     public val messageId: Long,
+    @SerialName(value = "in_game_share")
     public val inGameShare: Boolean,
+    @SerialName(value = "replace_video_start_timestamp")
     public val replaceVideoStartTimestamp: Boolean,
+    @SerialName(value = "new_video_start_timestamp")
     public val newVideoStartTimestamp: Int,
+    @SerialName(value = "copy_options")
     public val copyOptions: MessageCopyOptions?,
 ) : InputMessageContent() {
     override fun equals(other: Any?): Boolean {

@@ -21,15 +21,20 @@ import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains information about the current localization target.
  *
  * @property languagePacks List of available language packs for this application.
  */
+@SerialName(value = "localizationTargetInfo")
+@Serializable
 public class LocalizationTargetInfo public constructor(
+    @SerialName(value = "language_packs")
     public val languagePacks: Array<LanguagePackInfo>,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

@@ -23,6 +23,8 @@ import kotlin.Int
 import kotlin.Long
 import kotlin.LongArray
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Product invoice.
@@ -43,23 +45,40 @@ import kotlin.String
  * @property sendEmailAddressToProvider True, if the user's email address will be sent to the provider.
  * @property isFlexible True, if the total price depends on the shipping method.
  */
+@SerialName(value = "invoice")
+@Serializable
 public class Invoice public constructor(
+    @SerialName(value = "currency")
     public val currency: String,
+    @SerialName(value = "price_parts")
     public val priceParts: Array<LabeledPricePart>,
+    @SerialName(value = "subscription_period")
     public val subscriptionPeriod: Int,
+    @SerialName(value = "max_tip_amount")
     public val maxTipAmount: Long,
+    @SerialName(value = "suggested_tip_amounts")
     public val suggestedTipAmounts: LongArray,
+    @SerialName(value = "recurring_payment_terms_of_service_url")
     public val recurringPaymentTermsOfServiceUrl: String,
+    @SerialName(value = "terms_of_service_url")
     public val termsOfServiceUrl: String,
+    @SerialName(value = "is_test")
     public val isTest: Boolean,
+    @SerialName(value = "need_name")
     public val needName: Boolean,
+    @SerialName(value = "need_phone_number")
     public val needPhoneNumber: Boolean,
+    @SerialName(value = "need_email_address")
     public val needEmailAddress: Boolean,
+    @SerialName(value = "need_shipping_address")
     public val needShippingAddress: Boolean,
+    @SerialName(value = "send_phone_number_to_provider")
     public val sendPhoneNumberToProvider: Boolean,
+    @SerialName(value = "send_email_address_to_provider")
     public val sendEmailAddressToProvider: Boolean,
+    @SerialName(value = "is_flexible")
     public val isFlexible: Boolean,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

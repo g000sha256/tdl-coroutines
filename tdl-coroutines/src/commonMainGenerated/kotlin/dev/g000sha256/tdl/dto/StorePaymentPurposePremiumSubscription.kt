@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The user subscribing to Telegram Premium.
@@ -27,8 +29,12 @@ import kotlin.String
  * @property isRestore Pass true if this is a restore of a Telegram Premium purchase; only for App Store.
  * @property isUpgrade Pass true if this is an upgrade from a monthly subscription to early subscription; only for App Store.
  */
+@SerialName(value = "storePaymentPurposePremiumSubscription")
+@Serializable
 public class StorePaymentPurposePremiumSubscription public constructor(
+    @SerialName(value = "is_restore")
     public val isRestore: Boolean,
+    @SerialName(value = "is_upgrade")
     public val isUpgrade: Boolean,
 ) : StorePaymentPurpose() {
     override fun equals(other: Any?): Boolean {

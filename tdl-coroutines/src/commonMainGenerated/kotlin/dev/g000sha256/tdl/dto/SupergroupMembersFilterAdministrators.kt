@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Returns the owner and administrators.
  */
+@SerialName(value = "supergroupMembersFilterAdministrators")
+@Serializable
 public class SupergroupMembersFilterAdministrators public constructor() : SupergroupMembersFilter() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

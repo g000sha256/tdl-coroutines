@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes a gift available for resale.
@@ -27,10 +29,14 @@ import kotlin.String
  * @property gift The gift.
  * @property receivedGiftId Unique identifier of the received gift for the current user; only for the gifts owned by the current user.
  */
+@SerialName(value = "giftForResale")
+@Serializable
 public class GiftForResale public constructor(
+    @SerialName(value = "gift")
     public val gift: UpgradedGift,
+    @SerialName(value = "received_gift_id")
     public val receivedGiftId: String,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

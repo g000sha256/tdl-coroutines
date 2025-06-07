@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The gifts will be sorted by the last date when their price was changed from the newest to the oldest.
  */
+@SerialName(value = "giftForResaleOrderPriceChangeDate")
+@Serializable
 public class GiftForResaleOrderPriceChangeDate public constructor() : GiftForResaleOrder() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

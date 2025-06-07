@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A pinned forum topic was changed.
@@ -27,8 +29,12 @@ import kotlin.String
  * @property oldTopicInfo Information about the old pinned topic; may be null.
  * @property newTopicInfo Information about the new pinned topic; may be null.
  */
+@SerialName(value = "chatEventForumTopicPinned")
+@Serializable
 public class ChatEventForumTopicPinned public constructor(
+    @SerialName(value = "old_topic_info")
     public val oldTopicInfo: ForumTopicInfo?,
+    @SerialName(value = "new_topic_info")
     public val newTopicInfo: ForumTopicInfo?,
 ) : ChatEventAction() {
     override fun equals(other: Any?): Boolean {

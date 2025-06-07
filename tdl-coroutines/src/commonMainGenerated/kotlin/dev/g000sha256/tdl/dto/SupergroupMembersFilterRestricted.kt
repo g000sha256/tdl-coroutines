@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Returns restricted supergroup members; can be used only by administrators.
  *
  * @property query Query to search for.
  */
+@SerialName(value = "supergroupMembersFilterRestricted")
+@Serializable
 public class SupergroupMembersFilterRestricted public constructor(
+    @SerialName(value = "query")
     public val query: String,
 ) : SupergroupMembersFilter() {
     override fun equals(other: Any?): Boolean {

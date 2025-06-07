@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The chat must be boosted first by Telegram Premium subscribers to post more stories. Call getChatBoostStatus to get current boost status of the chat.
  */
+@SerialName(value = "canPostStoryResultBoostNeeded")
+@Serializable
 public class CanPostStoryResultBoostNeeded public constructor() : CanPostStoryResult() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

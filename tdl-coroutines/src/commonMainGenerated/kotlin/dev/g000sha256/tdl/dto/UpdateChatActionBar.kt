@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The chat action bar was changed.
@@ -28,8 +30,12 @@ import kotlin.String
  * @property chatId Chat identifier.
  * @property actionBar The new value of the action bar; may be null.
  */
+@SerialName(value = "updateChatActionBar")
+@Serializable
 public class UpdateChatActionBar public constructor(
+    @SerialName(value = "chat_id")
     public val chatId: Long,
+    @SerialName(value = "action_bar")
     public val actionBar: ChatActionBar?,
 ) : Update() {
     override fun equals(other: Any?): Boolean {

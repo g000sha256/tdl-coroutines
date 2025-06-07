@@ -21,6 +21,8 @@ import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The list of suggested to the user actions has changed.
@@ -28,8 +30,12 @@ import kotlin.String
  * @property addedActions Added suggested actions.
  * @property removedActions Removed suggested actions.
  */
+@SerialName(value = "updateSuggestedActions")
+@Serializable
 public class UpdateSuggestedActions public constructor(
+    @SerialName(value = "added_actions")
     public val addedActions: Array<SuggestedAction>,
+    @SerialName(value = "removed_actions")
     public val removedActions: Array<SuggestedAction>,
 ) : Update() {
     override fun equals(other: Any?): Boolean {

@@ -16,8 +16,11 @@
 
 package dev.g000sha256.tdl.dto
 
+import kotlinx.serialization.Serializable
+
 /**
  * This class is an abstract base class.
  * Contains information about the origin of a story that was reposted.
  */
-public sealed class StoryOrigin protected constructor()
+@Serializable
+public sealed class StoryOrigin protected constructor() : Model()

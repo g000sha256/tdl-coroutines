@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes a model of an upgraded gift with the number of gifts found.
@@ -27,10 +29,14 @@ import kotlin.String
  * @property model The model.
  * @property totalCount Total number of gifts with the model.
  */
+@SerialName(value = "upgradedGiftModelCount")
+@Serializable
 public class UpgradedGiftModelCount public constructor(
+    @SerialName(value = "model")
     public val model: UpgradedGiftModel,
+    @SerialName(value = "total_count")
     public val totalCount: Int,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

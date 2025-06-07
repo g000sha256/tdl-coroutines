@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A new forum topic was created.
  *
  * @property topicInfo Information about the topic.
  */
+@SerialName(value = "chatEventForumTopicCreated")
+@Serializable
 public class ChatEventForumTopicCreated public constructor(
+    @SerialName(value = "topic_info")
     public val topicInfo: ForumTopicInfo,
 ) : ChatEventAction() {
     override fun equals(other: Any?): Boolean {

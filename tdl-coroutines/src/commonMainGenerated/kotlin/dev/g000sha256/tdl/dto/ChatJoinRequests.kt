@@ -21,6 +21,8 @@ import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains a list of requests to join a chat.
@@ -28,10 +30,14 @@ import kotlin.String
  * @property totalCount Approximate total number of requests found.
  * @property requests List of the requests.
  */
+@SerialName(value = "chatJoinRequests")
+@Serializable
 public class ChatJoinRequests public constructor(
+    @SerialName(value = "total_count")
     public val totalCount: Int,
+    @SerialName(value = "requests")
     public val requests: Array<ChatJoinRequest>,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

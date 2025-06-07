@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A message with information about a venue.
  *
  * @property venue Venue to send.
  */
+@SerialName(value = "inputMessageVenue")
+@Serializable
 public class InputMessageVenue public constructor(
+    @SerialName(value = "venue")
     public val venue: Venue,
 ) : InputMessageContent() {
     override fun equals(other: Any?): Boolean {

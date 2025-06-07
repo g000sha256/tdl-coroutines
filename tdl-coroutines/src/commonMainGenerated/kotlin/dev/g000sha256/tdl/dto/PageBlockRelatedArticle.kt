@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains information about a related article.
@@ -31,14 +33,22 @@ import kotlin.String
  * @property author Article author; may be empty.
  * @property publishDate Point in time (Unix timestamp) when the article was published; 0 if unknown.
  */
+@SerialName(value = "pageBlockRelatedArticle")
+@Serializable
 public class PageBlockRelatedArticle public constructor(
+    @SerialName(value = "url")
     public val url: String,
+    @SerialName(value = "title")
     public val title: String,
+    @SerialName(value = "description")
     public val description: String,
+    @SerialName(value = "photo")
     public val photo: Photo?,
+    @SerialName(value = "author")
     public val author: String,
+    @SerialName(value = "publish_date")
     public val publishDate: Int,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

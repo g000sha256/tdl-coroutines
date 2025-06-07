@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Represents one language pack string.
@@ -27,10 +29,14 @@ import kotlin.String
  * @property key String key.
  * @property value String value; pass null if the string needs to be taken from the built-in English language pack.
  */
+@SerialName(value = "languagePackString")
+@Serializable
 public class LanguagePackString public constructor(
+    @SerialName(value = "key")
     public val key: String,
+    @SerialName(value = "value")
     public val value: LanguagePackStringValue?,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

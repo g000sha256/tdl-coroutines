@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The call was ended before the conversation started. It was declined by the other party.
  */
+@SerialName(value = "callDiscardReasonDeclined")
+@Serializable
 public class CallDiscardReasonDeclined public constructor() : CallDiscardReason() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

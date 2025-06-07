@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A language pack string which has different forms based on the number of some object it mentions. See https://www.unicode.org/cldr/charts/latest/supplemental/language_plural_rules.html for more information.
@@ -31,12 +33,20 @@ import kotlin.String
  * @property manyValue Value for many objects.
  * @property otherValue Default value.
  */
+@SerialName(value = "languagePackStringValuePluralized")
+@Serializable
 public class LanguagePackStringValuePluralized public constructor(
+    @SerialName(value = "zero_value")
     public val zeroValue: String,
+    @SerialName(value = "one_value")
     public val oneValue: String,
+    @SerialName(value = "two_value")
     public val twoValue: String,
+    @SerialName(value = "few_value")
     public val fewValue: String,
+    @SerialName(value = "many_value")
     public val manyValue: String,
+    @SerialName(value = "other_value")
     public val otherValue: String,
 ) : LanguagePackStringValue() {
     override fun equals(other: Any?): Boolean {

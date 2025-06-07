@@ -16,8 +16,11 @@
 
 package dev.g000sha256.tdl.dto
 
+import kotlinx.serialization.Serializable
+
 /**
  * This class is an abstract base class.
  * Describes a media from a link preview album.
  */
-public sealed class LinkPreviewAlbumMedia protected constructor()
+@Serializable
+public sealed class LinkPreviewAlbumMedia protected constructor() : Model()

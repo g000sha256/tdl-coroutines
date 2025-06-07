@@ -16,8 +16,11 @@
 
 package dev.g000sha256.tdl.dto
 
+import kotlinx.serialization.Serializable
+
 /**
  * This class is an abstract base class.
  * Points to a file.
  */
-public sealed class InputFile protected constructor()
+@Serializable
+public sealed class InputFile protected constructor() : Model()

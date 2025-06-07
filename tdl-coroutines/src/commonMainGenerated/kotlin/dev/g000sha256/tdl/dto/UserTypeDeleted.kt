@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A deleted user or deleted bot. No information on the user besides the user identifier is available. It is not possible to perform any active actions on this type of user.
  */
+@SerialName(value = "userTypeDeleted")
+@Serializable
 public class UserTypeDeleted public constructor() : UserType() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

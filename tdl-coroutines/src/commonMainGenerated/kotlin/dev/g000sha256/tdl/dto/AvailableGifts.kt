@@ -21,15 +21,20 @@ import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains a list of gifts that can be sent to another user or channel chat.
  *
  * @property gifts The list of gifts.
  */
+@SerialName(value = "availableGifts")
+@Serializable
 public class AvailableGifts public constructor(
+    @SerialName(value = "gifts")
     public val gifts: Array<AvailableGift>,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

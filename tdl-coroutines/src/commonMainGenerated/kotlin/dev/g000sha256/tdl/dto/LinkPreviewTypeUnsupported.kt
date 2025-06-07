@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The link preview type is unsupported yet.
  */
+@SerialName(value = "linkPreviewTypeUnsupported")
+@Serializable
 public class LinkPreviewTypeUnsupported public constructor() : LinkPreviewType() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

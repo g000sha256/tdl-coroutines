@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.LongArray
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The list of available message effects has changed.
@@ -28,8 +30,12 @@ import kotlin.String
  * @property reactionEffectIds The new list of available message effects from emoji reactions.
  * @property stickerEffectIds The new list of available message effects from Premium stickers.
  */
+@SerialName(value = "updateAvailableMessageEffects")
+@Serializable
 public class UpdateAvailableMessageEffects public constructor(
+    @SerialName(value = "reaction_effect_ids")
     public val reactionEffectIds: LongArray,
+    @SerialName(value = "sticker_effect_ids")
     public val stickerEffectIds: LongArray,
 ) : Update() {
     override fun equals(other: Any?): Boolean {

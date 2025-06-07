@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The user is a member of the chat and has some additional privileges. In basic groups, administrators can edit and delete messages sent by others, add new members, ban unprivileged members, and manage video chats. In supergroups and channels, there are more detailed options for administrator privileges.
@@ -28,9 +30,14 @@ import kotlin.String
  * @property canBeEdited True, if the current user can edit the administrator privileges for the called user.
  * @property rights Rights of the administrator.
  */
+@SerialName(value = "chatMemberStatusAdministrator")
+@Serializable
 public class ChatMemberStatusAdministrator public constructor(
+    @SerialName(value = "custom_title")
     public val customTitle: String,
+    @SerialName(value = "can_be_edited")
     public val canBeEdited: Boolean,
+    @SerialName(value = "rights")
     public val rights: ChatAdministratorRights,
 ) : ChatMemberStatus() {
     override fun equals(other: Any?): Boolean {

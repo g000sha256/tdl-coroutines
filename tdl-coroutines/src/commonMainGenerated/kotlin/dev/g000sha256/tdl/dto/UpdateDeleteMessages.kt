@@ -22,6 +22,8 @@ import kotlin.Int
 import kotlin.Long
 import kotlin.LongArray
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Some messages were deleted.
@@ -31,10 +33,16 @@ import kotlin.String
  * @property isPermanent True, if the messages are permanently deleted by a user (as opposed to just becoming inaccessible).
  * @property fromCache True, if the messages are deleted only from the cache and can possibly be retrieved again in the future.
  */
+@SerialName(value = "updateDeleteMessages")
+@Serializable
 public class UpdateDeleteMessages public constructor(
+    @SerialName(value = "chat_id")
     public val chatId: Long,
+    @SerialName(value = "message_ids")
     public val messageIds: LongArray,
+    @SerialName(value = "is_permanent")
     public val isPermanent: Boolean,
+    @SerialName(value = "from_cache")
     public val fromCache: Boolean,
 ) : Update() {
     override fun equals(other: Any?): Boolean {

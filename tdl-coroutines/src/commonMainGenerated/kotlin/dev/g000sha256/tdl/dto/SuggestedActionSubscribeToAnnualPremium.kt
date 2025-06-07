@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Suggests the user to subscribe to the Premium subscription with annual payments.
  */
+@SerialName(value = "suggestedActionSubscribeToAnnualPremium")
+@Serializable
 public class SuggestedActionSubscribeToAnnualPremium public constructor() : SuggestedAction() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

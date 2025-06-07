@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A message with a forwarded story.
@@ -29,9 +31,14 @@ import kotlin.String
  * @property storyId Story identifier.
  * @property viaMention True, if the story was automatically forwarded because of a mention of the user.
  */
+@SerialName(value = "messageStory")
+@Serializable
 public class MessageStory public constructor(
+    @SerialName(value = "story_poster_chat_id")
     public val storyPosterChatId: Long,
+    @SerialName(value = "story_id")
     public val storyId: Int,
+    @SerialName(value = "via_mention")
     public val viaMention: Boolean,
 ) : MessageContent() {
     override fun equals(other: Any?): Boolean {

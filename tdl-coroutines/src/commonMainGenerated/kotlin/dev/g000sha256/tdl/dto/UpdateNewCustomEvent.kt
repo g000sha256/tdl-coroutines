@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A new incoming event; for bots only.
  *
  * @property event A JSON-serialized event.
  */
+@SerialName(value = "updateNewCustomEvent")
+@Serializable
 public class UpdateNewCustomEvent public constructor(
+    @SerialName(value = "event")
     public val event: String,
 ) : Update() {
     override fun equals(other: Any?): Boolean {

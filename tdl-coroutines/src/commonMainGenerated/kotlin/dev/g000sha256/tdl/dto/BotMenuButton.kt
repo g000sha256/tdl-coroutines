@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes a button to be shown instead of bot commands menu button.
@@ -27,10 +29,14 @@ import kotlin.String
  * @property text Text of the button.
  * @property url URL of a Web App to open when the button is pressed. If the link is of the type internalLinkTypeWebApp, then it must be processed accordingly. Otherwise, the link must be passed to openWebApp.
  */
+@SerialName(value = "botMenuButton")
+@Serializable
 public class BotMenuButton public constructor(
+    @SerialName(value = "text")
     public val text: String,
+    @SerialName(value = "url")
     public val url: String,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

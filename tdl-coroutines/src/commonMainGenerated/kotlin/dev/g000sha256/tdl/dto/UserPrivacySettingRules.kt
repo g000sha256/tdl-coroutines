@@ -21,15 +21,20 @@ import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A list of privacy rules. Rules are matched in the specified order. The first matched rule defines the privacy setting for a given user. If no rule matches, the action is not allowed.
  *
  * @property rules A list of rules.
  */
+@SerialName(value = "userPrivacySettingRules")
+@Serializable
 public class UserPrivacySettingRules public constructor(
+    @SerialName(value = "rules")
     public val rules: Array<UserPrivacySettingRule>,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

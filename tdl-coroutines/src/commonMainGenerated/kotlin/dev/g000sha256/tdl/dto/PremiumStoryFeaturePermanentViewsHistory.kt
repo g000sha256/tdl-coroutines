@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The ability to check who opened the current user's stories after they expire.
  */
+@SerialName(value = "premiumStoryFeaturePermanentViewsHistory")
+@Serializable
 public class PremiumStoryFeaturePermanentViewsHistory public constructor() : PremiumStoryFeature() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

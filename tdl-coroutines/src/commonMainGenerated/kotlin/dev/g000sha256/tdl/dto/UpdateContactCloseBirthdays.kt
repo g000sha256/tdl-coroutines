@@ -21,13 +21,18 @@ import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The list of contacts that had birthdays recently or will have birthday soon has changed.
  *
  * @property closeBirthdayUsers List of contact users with close birthday.
  */
+@SerialName(value = "updateContactCloseBirthdays")
+@Serializable
 public class UpdateContactCloseBirthdays public constructor(
+    @SerialName(value = "close_birthday_users")
     public val closeBirthdayUsers: Array<CloseBirthdayUser>,
 ) : Update() {
     override fun equals(other: Any?): Boolean {

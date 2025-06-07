@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A thumbnail to be sent along with a file; must be in JPEG or WEBP format for stickers, and less than 200 KB in size.
@@ -28,11 +30,16 @@ import kotlin.String
  * @property width Thumbnail width, usually shouldn't exceed 320. Use 0 if unknown.
  * @property height Thumbnail height, usually shouldn't exceed 320. Use 0 if unknown.
  */
+@SerialName(value = "inputThumbnail")
+@Serializable
 public class InputThumbnail public constructor(
+    @SerialName(value = "thumbnail")
     public val thumbnail: InputFile,
+    @SerialName(value = "width")
     public val width: Int,
+    @SerialName(value = "height")
     public val height: Int,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

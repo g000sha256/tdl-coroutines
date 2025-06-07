@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * New terms of service must be accepted by the user. If the terms of service are declined, then the deleteAccount method must be called with the reason &quot;Decline ToS update&quot;.
@@ -27,8 +29,12 @@ import kotlin.String
  * @property termsOfServiceId Identifier of the terms of service.
  * @property termsOfService The new terms of service.
  */
+@SerialName(value = "updateTermsOfService")
+@Serializable
 public class UpdateTermsOfService public constructor(
+    @SerialName(value = "terms_of_service_id")
     public val termsOfServiceId: String,
+    @SerialName(value = "terms_of_service")
     public val termsOfService: TermsOfService,
 ) : Update() {
     override fun equals(other: Any?): Boolean {

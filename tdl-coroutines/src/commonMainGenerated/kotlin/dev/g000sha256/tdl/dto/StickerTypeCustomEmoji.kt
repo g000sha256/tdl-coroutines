@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The sticker is a custom emoji to be used inside message text and caption.
  */
+@SerialName(value = "stickerTypeCustomEmoji")
+@Serializable
 public class StickerTypeCustomEmoji public constructor() : StickerType() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

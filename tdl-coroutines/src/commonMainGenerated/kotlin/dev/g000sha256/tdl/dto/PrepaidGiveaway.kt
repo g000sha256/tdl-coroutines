@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes a prepaid giveaway.
@@ -31,13 +33,20 @@ import kotlin.String
  * @property boostCount The number of boosts received by the chat from the giveaway; for Telegram Star giveaways only.
  * @property paymentDate Point in time (Unix timestamp) when the giveaway was paid.
  */
+@SerialName(value = "prepaidGiveaway")
+@Serializable
 public class PrepaidGiveaway public constructor(
+    @SerialName(value = "id")
     public val id: Long,
+    @SerialName(value = "winner_count")
     public val winnerCount: Int,
+    @SerialName(value = "prize")
     public val prize: GiveawayPrize,
+    @SerialName(value = "boost_count")
     public val boostCount: Int,
+    @SerialName(value = "payment_date")
     public val paymentDate: Int,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

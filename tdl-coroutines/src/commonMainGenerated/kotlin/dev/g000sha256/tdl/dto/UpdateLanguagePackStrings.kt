@@ -21,6 +21,8 @@ import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Some language pack strings have been updated.
@@ -29,9 +31,14 @@ import kotlin.String
  * @property languagePackId Identifier of the updated language pack.
  * @property strings List of changed language pack strings; empty if all strings have changed.
  */
+@SerialName(value = "updateLanguagePackStrings")
+@Serializable
 public class UpdateLanguagePackStrings public constructor(
+    @SerialName(value = "localization_target")
     public val localizationTarget: String,
+    @SerialName(value = "language_pack_id")
     public val languagePackId: String,
+    @SerialName(value = "strings")
     public val strings: Array<LanguagePackString>,
 ) : Update() {
     override fun equals(other: Any?): Boolean {

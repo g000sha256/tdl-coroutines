@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The showMessageSender setting of a channel was toggled.
  *
  * @property showMessageSender New value of showMessageSender.
  */
+@SerialName(value = "chatEventShowMessageSenderToggled")
+@Serializable
 public class ChatEventShowMessageSenderToggled public constructor(
+    @SerialName(value = "show_message_sender")
     public val showMessageSender: Boolean,
 ) : ChatEventAction() {
     override fun equals(other: Any?): Boolean {

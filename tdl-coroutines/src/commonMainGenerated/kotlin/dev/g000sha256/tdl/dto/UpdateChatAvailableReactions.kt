@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The chat available reactions were changed.
@@ -28,8 +30,12 @@ import kotlin.String
  * @property chatId Chat identifier.
  * @property availableReactions The new reactions, available in the chat.
  */
+@SerialName(value = "updateChatAvailableReactions")
+@Serializable
 public class UpdateChatAvailableReactions public constructor(
+    @SerialName(value = "chat_id")
     public val chatId: Long,
+    @SerialName(value = "available_reactions")
     public val availableReactions: ChatAvailableReactions,
 ) : Update() {
     override fun equals(other: Any?): Boolean {

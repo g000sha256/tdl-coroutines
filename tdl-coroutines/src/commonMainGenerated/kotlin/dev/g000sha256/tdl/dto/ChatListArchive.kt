@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A list of chats usually located at the top of the main chat list. Unmuted chats are automatically moved from the Archive to the Main chat list when a new message arrives.
  */
+@SerialName(value = "chatListArchive")
+@Serializable
 public class ChatListArchive public constructor() : ChatList() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The user added the bot to attachment or side menu using toggleBotIsAddedToAttachmentMenu.
  */
+@SerialName(value = "botWriteAccessAllowReasonAddedToAttachmentMenu")
+@Serializable
 public class BotWriteAccessAllowReasonAddedToAttachmentMenu public constructor() : BotWriteAccessAllowReason() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

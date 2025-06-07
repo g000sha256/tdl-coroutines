@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The user accepted bot's request to send messages with allowBotToSendMessages.
  */
+@SerialName(value = "botWriteAccessAllowReasonAcceptedRequest")
+@Serializable
 public class BotWriteAccessAllowReasonAcceptedRequest public constructor() : BotWriteAccessAllowReason() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

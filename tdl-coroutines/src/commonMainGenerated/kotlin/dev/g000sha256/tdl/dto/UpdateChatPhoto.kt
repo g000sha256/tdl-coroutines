@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A chat photo was changed.
@@ -28,8 +30,12 @@ import kotlin.String
  * @property chatId Chat identifier.
  * @property photo The new chat photo; may be null.
  */
+@SerialName(value = "updateChatPhoto")
+@Serializable
 public class UpdateChatPhoto public constructor(
+    @SerialName(value = "chat_id")
     public val chatId: Long,
+    @SerialName(value = "photo")
     public val photo: ChatPhotoInfo?,
 ) : Update() {
     override fun equals(other: Any?): Boolean {

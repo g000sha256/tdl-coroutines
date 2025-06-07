@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Represents a date according to the Gregorian calendar.
@@ -28,11 +30,16 @@ import kotlin.String
  * @property month Month; 1-12.
  * @property year Year; 1-9999.
  */
+@SerialName(value = "date")
+@Serializable
 public class Date public constructor(
+    @SerialName(value = "day")
     public val day: Int,
+    @SerialName(value = "month")
     public val month: Int,
+    @SerialName(value = "year")
     public val year: Int,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

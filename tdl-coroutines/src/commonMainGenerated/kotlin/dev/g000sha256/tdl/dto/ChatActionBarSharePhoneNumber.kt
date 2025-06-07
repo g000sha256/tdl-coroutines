@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The chat is a private or secret chat with a mutual contact and the user's phone number can be shared with the other user using the method sharePhoneNumber.
  */
+@SerialName(value = "chatActionBarSharePhoneNumber")
+@Serializable
 public class ChatActionBarSharePhoneNumber public constructor() : ChatActionBar() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

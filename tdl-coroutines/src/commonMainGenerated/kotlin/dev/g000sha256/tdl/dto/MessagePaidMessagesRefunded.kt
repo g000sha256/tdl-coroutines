@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Paid messages were refunded.
@@ -28,8 +30,12 @@ import kotlin.String
  * @property messageCount The number of refunded messages.
  * @property starCount The number of refunded Telegram Stars.
  */
+@SerialName(value = "messagePaidMessagesRefunded")
+@Serializable
 public class MessagePaidMessagesRefunded public constructor(
+    @SerialName(value = "message_count")
     public val messageCount: Int,
+    @SerialName(value = "star_count")
     public val starCount: Long,
 ) : MessageContent() {
     override fun equals(other: Any?): Boolean {

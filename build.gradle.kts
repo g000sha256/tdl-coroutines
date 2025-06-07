@@ -7,4 +7,5 @@ plugins {
     alias(catalog.plugins.jetBrains.kotlin.android) apply false
     alias(catalog.plugins.jetBrains.kotlin.jvm) apply false
     alias(catalog.plugins.jetBrains.kotlin.multiplatform) apply false
+    alias(catalog.plugins.jetBrains.kotlinSerialization) apply false
 }

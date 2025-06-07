@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The user authorization state has changed.
  *
  * @property authorizationState New authorization state.
  */
+@SerialName(value = "updateAuthorizationState")
+@Serializable
 public class UpdateAuthorizationState public constructor(
+    @SerialName(value = "authorization_state")
     public val authorizationState: AuthorizationState,
 ) : Update() {
     override fun equals(other: Any?): Boolean {

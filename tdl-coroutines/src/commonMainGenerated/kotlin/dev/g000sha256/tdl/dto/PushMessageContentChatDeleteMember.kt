@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A chat member was deleted.
@@ -28,9 +30,14 @@ import kotlin.String
  * @property isCurrentUser True, if the current user was deleted from the group.
  * @property isLeft True, if the user has left the group themselves.
  */
+@SerialName(value = "pushMessageContentChatDeleteMember")
+@Serializable
 public class PushMessageContentChatDeleteMember public constructor(
+    @SerialName(value = "member_name")
     public val memberName: String,
+    @SerialName(value = "is_current_user")
     public val isCurrentUser: Boolean,
+    @SerialName(value = "is_left")
     public val isLeft: Boolean,
 ) : PushMessageContent() {
     override fun equals(other: Any?): Boolean {

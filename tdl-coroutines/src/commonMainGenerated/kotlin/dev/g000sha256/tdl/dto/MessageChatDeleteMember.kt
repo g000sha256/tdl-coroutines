@@ -21,13 +21,18 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A chat member was deleted.
  *
  * @property userId User identifier of the deleted chat member.
  */
+@SerialName(value = "messageChatDeleteMember")
+@Serializable
 public class MessageChatDeleteMember public constructor(
+    @SerialName(value = "user_id")
     public val userId: Long,
 ) : MessageContent() {
     override fun equals(other: Any?): Boolean {

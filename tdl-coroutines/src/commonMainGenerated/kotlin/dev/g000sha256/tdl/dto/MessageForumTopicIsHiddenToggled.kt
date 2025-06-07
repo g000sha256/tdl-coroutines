@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A General forum topic has been hidden or unhidden.
  *
  * @property isHidden True, if the topic was hidden; otherwise, the topic was unhidden.
  */
+@SerialName(value = "messageForumTopicIsHiddenToggled")
+@Serializable
 public class MessageForumTopicIsHiddenToggled public constructor(
+    @SerialName(value = "is_hidden")
     public val isHidden: Boolean,
 ) : MessageContent() {
     override fun equals(other: Any?): Boolean {

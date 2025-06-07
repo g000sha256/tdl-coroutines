@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The user can be messaged.
  */
+@SerialName(value = "canSendMessageToUserResultOk")
+@Serializable
 public class CanSendMessageToUserResultOk public constructor() : CanSendMessageToUserResult() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

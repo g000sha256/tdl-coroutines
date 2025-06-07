@@ -20,15 +20,20 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains a counter.
  *
  * @property count Count.
  */
+@SerialName(value = "count")
+@Serializable
 public class Count public constructor(
+    @SerialName(value = "count")
     public val count: Int,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

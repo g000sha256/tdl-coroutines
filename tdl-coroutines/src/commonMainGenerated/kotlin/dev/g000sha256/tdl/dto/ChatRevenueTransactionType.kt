@@ -16,8 +16,11 @@
 
 package dev.g000sha256.tdl.dto
 
+import kotlinx.serialization.Serializable
+
 /**
  * This class is an abstract base class.
  * Describes type of transaction for revenue earned from sponsored messages in a chat.
  */
-public sealed class ChatRevenueTransactionType protected constructor()
+@Serializable
+public sealed class ChatRevenueTransactionType protected constructor() : Model()

@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A non-standard action has happened in the chat.
  *
  * @property text Message text to be shown in the chat.
  */
+@SerialName(value = "messageCustomServiceAction")
+@Serializable
 public class MessageCustomServiceAction public constructor(
+    @SerialName(value = "text")
     public val text: String,
 ) : MessageContent() {
     override fun equals(other: Any?): Boolean {

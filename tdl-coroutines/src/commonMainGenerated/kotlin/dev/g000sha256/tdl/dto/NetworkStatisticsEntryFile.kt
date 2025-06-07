@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains information about the total amount of data that was used to send and receive files.
@@ -30,10 +32,16 @@ import kotlin.String
  * @property sentBytes Total number of bytes sent.
  * @property receivedBytes Total number of bytes received.
  */
+@SerialName(value = "networkStatisticsEntryFile")
+@Serializable
 public class NetworkStatisticsEntryFile public constructor(
+    @SerialName(value = "file_type")
     public val fileType: FileType?,
+    @SerialName(value = "network_type")
     public val networkType: NetworkType,
+    @SerialName(value = "sent_bytes")
     public val sentBytes: Long,
+    @SerialName(value = "received_bytes")
     public val receivedBytes: Long,
 ) : NetworkStatisticsEntry() {
     override fun equals(other: Any?): Boolean {

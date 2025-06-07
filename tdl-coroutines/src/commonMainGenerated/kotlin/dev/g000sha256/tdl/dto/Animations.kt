@@ -21,15 +21,20 @@ import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Represents a list of animations.
  *
  * @property animations List of animations.
  */
+@SerialName(value = "animations")
+@Serializable
 public class Animations public constructor(
+    @SerialName(value = "animations")
     public val animations: Array<Animation>,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

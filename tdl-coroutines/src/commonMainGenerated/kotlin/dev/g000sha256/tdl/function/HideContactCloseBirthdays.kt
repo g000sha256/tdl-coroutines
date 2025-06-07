@@ -14,21 +14,11 @@
  * limitations under the License.
  */
 
-package dev.g000sha256.tdl
+package dev.g000sha256.tdl.function
 
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.DelicateCoroutinesApi
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.newFixedThreadPoolContext
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
-internal class TdlCoroutineScope : CoroutineScope {
-
-    override val coroutineContext = Job() + createTdlSingleThreadCoroutineDispatcher()
-
-    @OptIn(DelicateCoroutinesApi::class)
-    private fun createTdlSingleThreadCoroutineDispatcher(): CoroutineDispatcher {
-        return newFixedThreadPoolContext(nThreads = 1, name = "TDL")
-    }
-
-}
+@SerialName(value = "hideContactCloseBirthdays")
+@Serializable
+internal class HideContactCloseBirthdays internal constructor() : Function()

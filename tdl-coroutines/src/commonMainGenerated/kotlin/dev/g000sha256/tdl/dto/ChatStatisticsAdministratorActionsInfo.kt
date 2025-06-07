@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains statistics about administrator actions done by a user.
@@ -30,12 +32,18 @@ import kotlin.String
  * @property bannedUserCount Number of users banned by the administrator.
  * @property restrictedUserCount Number of users restricted by the administrator.
  */
+@SerialName(value = "chatStatisticsAdministratorActionsInfo")
+@Serializable
 public class ChatStatisticsAdministratorActionsInfo public constructor(
+    @SerialName(value = "user_id")
     public val userId: Long,
+    @SerialName(value = "deleted_message_count")
     public val deletedMessageCount: Int,
+    @SerialName(value = "banned_user_count")
     public val bannedUserCount: Int,
+    @SerialName(value = "restricted_user_count")
     public val restrictedUserCount: Int,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

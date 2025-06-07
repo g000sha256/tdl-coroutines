@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The link is a link to an app at App Store or Google Play.
  *
  * @property photo Photo for the app.
  */
+@SerialName(value = "linkPreviewTypeApp")
+@Serializable
 public class LinkPreviewTypeApp public constructor(
+    @SerialName(value = "photo")
     public val photo: Photo,
 ) : LinkPreviewType() {
     override fun equals(other: Any?): Boolean {

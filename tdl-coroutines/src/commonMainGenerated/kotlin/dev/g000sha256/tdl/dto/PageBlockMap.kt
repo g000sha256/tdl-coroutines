@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A map.
@@ -30,11 +32,18 @@ import kotlin.String
  * @property height Map height.
  * @property caption Block caption.
  */
+@SerialName(value = "pageBlockMap")
+@Serializable
 public class PageBlockMap public constructor(
+    @SerialName(value = "location")
     public val location: Location,
+    @SerialName(value = "zoom")
     public val zoom: Int,
+    @SerialName(value = "width")
     public val width: Int,
+    @SerialName(value = "height")
     public val height: Int,
+    @SerialName(value = "caption")
     public val caption: PageBlockCaption,
 ) : PageBlock() {
     override fun equals(other: Any?): Boolean {

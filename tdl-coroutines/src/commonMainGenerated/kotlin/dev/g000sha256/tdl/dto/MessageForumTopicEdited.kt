@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A forum topic has been edited.
@@ -29,9 +31,14 @@ import kotlin.String
  * @property editIconCustomEmojiId True, if icon's customEmojiId is changed.
  * @property iconCustomEmojiId New unique identifier of the custom emoji shown on the topic icon; 0 if none. Must be ignored if editIconCustomEmojiId is false.
  */
+@SerialName(value = "messageForumTopicEdited")
+@Serializable
 public class MessageForumTopicEdited public constructor(
+    @SerialName(value = "name")
     public val name: String,
+    @SerialName(value = "edit_icon_custom_emoji_id")
     public val editIconCustomEmojiId: Boolean,
+    @SerialName(value = "icon_custom_emoji_id")
     public val iconCustomEmojiId: Long,
 ) : MessageContent() {
     override fun equals(other: Any?): Boolean {

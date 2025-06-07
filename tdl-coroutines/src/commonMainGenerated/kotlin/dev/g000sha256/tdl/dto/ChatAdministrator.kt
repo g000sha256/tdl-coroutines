@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains information about a chat administrator.
@@ -29,11 +31,16 @@ import kotlin.String
  * @property customTitle Custom title of the administrator.
  * @property isOwner True, if the user is the owner of the chat.
  */
+@SerialName(value = "chatAdministrator")
+@Serializable
 public class ChatAdministrator public constructor(
+    @SerialName(value = "user_id")
     public val userId: Long,
+    @SerialName(value = "custom_title")
     public val customTitle: String,
+    @SerialName(value = "is_owner")
     public val isOwner: Boolean,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

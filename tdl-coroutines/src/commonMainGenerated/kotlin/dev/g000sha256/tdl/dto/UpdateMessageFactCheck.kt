@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A fact-check added to a message was changed.
@@ -29,9 +31,14 @@ import kotlin.String
  * @property messageId Message identifier.
  * @property factCheck The new fact-check.
  */
+@SerialName(value = "updateMessageFactCheck")
+@Serializable
 public class UpdateMessageFactCheck public constructor(
+    @SerialName(value = "chat_id")
     public val chatId: Long,
+    @SerialName(value = "message_id")
     public val messageId: Long,
+    @SerialName(value = "fact_check")
     public val factCheck: FactCheck,
 ) : Update() {
     override fun equals(other: Any?): Boolean {

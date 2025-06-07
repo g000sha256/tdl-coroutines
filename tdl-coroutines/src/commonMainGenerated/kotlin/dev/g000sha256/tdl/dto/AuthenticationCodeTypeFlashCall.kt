@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * An authentication code is delivered by an immediately canceled call to the specified phone number. The phone number that calls is the code that must be entered automatically.
  *
  * @property pattern Pattern of the phone number from which the call will be made.
  */
+@SerialName(value = "authenticationCodeTypeFlashCall")
+@Serializable
 public class AuthenticationCodeTypeFlashCall public constructor(
+    @SerialName(value = "pattern")
     public val pattern: String,
 ) : AuthenticationCodeType() {
     override fun equals(other: Any?): Boolean {

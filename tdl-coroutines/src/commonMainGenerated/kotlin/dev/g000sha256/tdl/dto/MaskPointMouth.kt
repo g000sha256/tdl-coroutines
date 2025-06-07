@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The mask is placed relatively to the mouth.
  */
+@SerialName(value = "maskPointMouth")
+@Serializable
 public class MaskPointMouth public constructor() : MaskPoint() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

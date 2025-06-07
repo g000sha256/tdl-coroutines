@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Suggests the user to set profile photo.
  */
+@SerialName(value = "suggestedActionSetProfilePhoto")
+@Serializable
 public class SuggestedActionSetProfilePhoto public constructor() : SuggestedAction() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Represents a file.
@@ -31,13 +33,20 @@ import kotlin.String
  * @property local Information about the local copy of the file.
  * @property remote Information about the remote copy of the file.
  */
+@SerialName(value = "file")
+@Serializable
 public class File public constructor(
+    @SerialName(value = "id")
     public val id: Int,
+    @SerialName(value = "size")
     public val size: Long,
+    @SerialName(value = "expected_size")
     public val expectedSize: Long,
+    @SerialName(value = "local")
     public val local: LocalFile,
+    @SerialName(value = "remote")
     public val remote: RemoteFile,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

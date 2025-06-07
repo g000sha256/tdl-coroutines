@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The element contains an error in an unspecified place. The error will be considered resolved when new data is added.
  */
+@SerialName(value = "passportElementErrorSourceUnspecified")
+@Serializable
 public class PassportElementErrorSourceUnspecified public constructor() : PassportElementErrorSource() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

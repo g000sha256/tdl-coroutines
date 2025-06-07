@@ -23,6 +23,8 @@ import kotlin.Double
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains full information about a supergroup or channel.
@@ -65,45 +67,84 @@ import kotlin.String
  * @property upgradedFromBasicGroupId Identifier of the basic group from which supergroup was upgraded; 0 if none.
  * @property upgradedFromMaxMessageId Identifier of the last message in the basic group from which supergroup was upgraded; 0 if none.
  */
+@SerialName(value = "supergroupFullInfo")
+@Serializable
 public class SupergroupFullInfo public constructor(
+    @SerialName(value = "photo")
     public val photo: ChatPhoto?,
+    @SerialName(value = "description")
     public val description: String,
+    @SerialName(value = "member_count")
     public val memberCount: Int,
+    @SerialName(value = "administrator_count")
     public val administratorCount: Int,
+    @SerialName(value = "restricted_count")
     public val restrictedCount: Int,
+    @SerialName(value = "banned_count")
     public val bannedCount: Int,
+    @SerialName(value = "linked_chat_id")
     public val linkedChatId: Long,
+    @SerialName(value = "slow_mode_delay")
     public val slowModeDelay: Int,
+    @SerialName(value = "slow_mode_delay_expires_in")
     public val slowModeDelayExpiresIn: Double,
+    @SerialName(value = "can_enable_paid_messages")
     public val canEnablePaidMessages: Boolean,
+    @SerialName(value = "can_enable_paid_reaction")
     public val canEnablePaidReaction: Boolean,
+    @SerialName(value = "can_get_members")
     public val canGetMembers: Boolean,
+    @SerialName(value = "has_hidden_members")
     public val hasHiddenMembers: Boolean,
+    @SerialName(value = "can_hide_members")
     public val canHideMembers: Boolean,
+    @SerialName(value = "can_set_sticker_set")
     public val canSetStickerSet: Boolean,
+    @SerialName(value = "can_set_location")
     public val canSetLocation: Boolean,
+    @SerialName(value = "can_get_statistics")
     public val canGetStatistics: Boolean,
+    @SerialName(value = "can_get_revenue_statistics")
     public val canGetRevenueStatistics: Boolean,
+    @SerialName(value = "can_get_star_revenue_statistics")
     public val canGetStarRevenueStatistics: Boolean,
+    @SerialName(value = "can_send_gift")
     public val canSendGift: Boolean,
+    @SerialName(value = "can_toggle_aggressive_anti_spam")
     public val canToggleAggressiveAntiSpam: Boolean,
+    @SerialName(value = "is_all_history_available")
     public val isAllHistoryAvailable: Boolean,
+    @SerialName(value = "can_have_sponsored_messages")
     public val canHaveSponsoredMessages: Boolean,
+    @SerialName(value = "has_aggressive_anti_spam_enabled")
     public val hasAggressiveAntiSpamEnabled: Boolean,
+    @SerialName(value = "has_paid_media_allowed")
     public val hasPaidMediaAllowed: Boolean,
+    @SerialName(value = "has_pinned_stories")
     public val hasPinnedStories: Boolean,
+    @SerialName(value = "gift_count")
     public val giftCount: Int,
+    @SerialName(value = "my_boost_count")
     public val myBoostCount: Int,
+    @SerialName(value = "unrestrict_boost_count")
     public val unrestrictBoostCount: Int,
+    @SerialName(value = "sticker_set_id")
     public val stickerSetId: Long,
+    @SerialName(value = "custom_emoji_sticker_set_id")
     public val customEmojiStickerSetId: Long,
+    @SerialName(value = "location")
     public val location: ChatLocation?,
+    @SerialName(value = "invite_link")
     public val inviteLink: ChatInviteLink?,
+    @SerialName(value = "bot_commands")
     public val botCommands: Array<BotCommands>,
+    @SerialName(value = "bot_verification")
     public val botVerification: BotVerification?,
+    @SerialName(value = "upgraded_from_basic_group_id")
     public val upgradedFromBasicGroupId: Long,
+    @SerialName(value = "upgraded_from_max_message_id")
     public val upgradedFromMaxMessageId: Long,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

@@ -22,6 +22,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A chat. (Can be a private chat, basic group, supergroup, or secret chat.)
@@ -68,49 +70,92 @@ import kotlin.String
  * @property draftMessage A draft of a message in the chat; may be null if none.
  * @property clientData Application-specific data associated with the chat. (For example, the chat scroll position or local chat notification settings can be stored here.) Persistent if the message database is used.
  */
+@SerialName(value = "chat")
+@Serializable
 public class Chat public constructor(
+    @SerialName(value = "id")
     public val id: Long,
+    @SerialName(value = "type")
     public val type: ChatType,
+    @SerialName(value = "title")
     public val title: String,
+    @SerialName(value = "photo")
     public val photo: ChatPhotoInfo?,
+    @SerialName(value = "accent_color_id")
     public val accentColorId: Int,
+    @SerialName(value = "background_custom_emoji_id")
     public val backgroundCustomEmojiId: Long,
+    @SerialName(value = "profile_accent_color_id")
     public val profileAccentColorId: Int,
+    @SerialName(value = "profile_background_custom_emoji_id")
     public val profileBackgroundCustomEmojiId: Long,
+    @SerialName(value = "permissions")
     public val permissions: ChatPermissions,
+    @SerialName(value = "last_message")
     public val lastMessage: Message?,
+    @SerialName(value = "positions")
     public val positions: Array<ChatPosition>,
+    @SerialName(value = "chat_lists")
     public val chatLists: Array<ChatList>,
+    @SerialName(value = "message_sender_id")
     public val messageSenderId: MessageSender?,
+    @SerialName(value = "block_list")
     public val blockList: BlockList?,
+    @SerialName(value = "has_protected_content")
     public val hasProtectedContent: Boolean,
+    @SerialName(value = "is_translatable")
     public val isTranslatable: Boolean,
+    @SerialName(value = "is_marked_as_unread")
     public val isMarkedAsUnread: Boolean,
+    @SerialName(value = "view_as_topics")
     public val viewAsTopics: Boolean,
+    @SerialName(value = "has_scheduled_messages")
     public val hasScheduledMessages: Boolean,
+    @SerialName(value = "can_be_deleted_only_for_self")
     public val canBeDeletedOnlyForSelf: Boolean,
+    @SerialName(value = "can_be_deleted_for_all_users")
     public val canBeDeletedForAllUsers: Boolean,
+    @SerialName(value = "can_be_reported")
     public val canBeReported: Boolean,
+    @SerialName(value = "default_disable_notification")
     public val defaultDisableNotification: Boolean,
+    @SerialName(value = "unread_count")
     public val unreadCount: Int,
+    @SerialName(value = "last_read_inbox_message_id")
     public val lastReadInboxMessageId: Long,
+    @SerialName(value = "last_read_outbox_message_id")
     public val lastReadOutboxMessageId: Long,
+    @SerialName(value = "unread_mention_count")
     public val unreadMentionCount: Int,
+    @SerialName(value = "unread_reaction_count")
     public val unreadReactionCount: Int,
+    @SerialName(value = "notification_settings")
     public val notificationSettings: ChatNotificationSettings,
+    @SerialName(value = "available_reactions")
     public val availableReactions: ChatAvailableReactions,
+    @SerialName(value = "message_auto_delete_time")
     public val messageAutoDeleteTime: Int,
+    @SerialName(value = "emoji_status")
     public val emojiStatus: EmojiStatus?,
+    @SerialName(value = "background")
     public val background: ChatBackground?,
+    @SerialName(value = "theme_name")
     public val themeName: String,
+    @SerialName(value = "action_bar")
     public val actionBar: ChatActionBar?,
+    @SerialName(value = "business_bot_manage_bar")
     public val businessBotManageBar: BusinessBotManageBar?,
+    @SerialName(value = "video_chat")
     public val videoChat: VideoChat,
+    @SerialName(value = "pending_join_requests")
     public val pendingJoinRequests: ChatJoinRequestsInfo?,
+    @SerialName(value = "reply_markup_message_id")
     public val replyMarkupMessageId: Long,
+    @SerialName(value = "draft_message")
     public val draftMessage: DraftMessage?,
+    @SerialName(value = "client_data")
     public val clientData: String,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

@@ -21,13 +21,18 @@ import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Telegram Passport data has been sent to a bot.
  *
  * @property types List of Telegram Passport element types sent.
  */
+@SerialName(value = "messagePassportDataSent")
+@Serializable
 public class MessagePassportDataSent public constructor(
+    @SerialName(value = "types")
     public val types: Array<PassportElementType>,
 ) : MessageContent() {
     override fun equals(other: Any?): Boolean {

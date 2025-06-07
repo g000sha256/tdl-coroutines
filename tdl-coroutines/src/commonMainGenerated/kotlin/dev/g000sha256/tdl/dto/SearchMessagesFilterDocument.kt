@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Returns only document messages.
  */
+@SerialName(value = "searchMessagesFilterDocument")
+@Serializable
 public class SearchMessagesFilterDocument public constructor() : SearchMessagesFilter() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

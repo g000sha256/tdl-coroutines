@@ -21,15 +21,20 @@ import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Represents a list of video chat streams.
  *
  * @property streams A list of video chat streams.
  */
+@SerialName(value = "videoChatStreams")
+@Serializable
 public class VideoChatStreams public constructor(
+    @SerialName(value = "streams")
     public val streams: Array<VideoChatStream>,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

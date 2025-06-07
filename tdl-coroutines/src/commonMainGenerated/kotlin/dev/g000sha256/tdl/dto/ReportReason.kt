@@ -16,8 +16,11 @@
 
 package dev.g000sha256.tdl.dto
 
+import kotlinx.serialization.Serializable
+
 /**
  * This class is an abstract base class.
  * Describes the reason why a chat is reported.
  */
-public sealed class ReportReason protected constructor()
+@Serializable
+public sealed class ReportReason protected constructor() : Model()

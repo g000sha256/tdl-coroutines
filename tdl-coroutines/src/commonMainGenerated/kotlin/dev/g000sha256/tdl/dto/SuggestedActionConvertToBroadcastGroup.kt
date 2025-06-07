@@ -21,13 +21,18 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Suggests the user to convert specified supergroup to a broadcast group.
  *
  * @property supergroupId Supergroup identifier.
  */
+@SerialName(value = "suggestedActionConvertToBroadcastGroup")
+@Serializable
 public class SuggestedActionConvertToBroadcastGroup public constructor(
+    @SerialName(value = "supergroup_id")
     public val supergroupId: Long,
 ) : SuggestedAction() {
     override fun equals(other: Any?): Boolean {

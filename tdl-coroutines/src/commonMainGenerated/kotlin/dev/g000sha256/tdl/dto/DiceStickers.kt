@@ -16,8 +16,11 @@
 
 package dev.g000sha256.tdl.dto
 
+import kotlinx.serialization.Serializable
+
 /**
  * This class is an abstract base class.
  * Contains animated stickers which must be used for dice animation rendering.
  */
-public sealed class DiceStickers protected constructor()
+@Serializable
+public sealed class DiceStickers protected constructor() : Model()

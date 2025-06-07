@@ -21,6 +21,8 @@ import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A personal document to be saved to Telegram Passport.
@@ -28,10 +30,14 @@ import kotlin.String
  * @property files List of files containing the pages of the document.
  * @property translation List of files containing a certified English translation of the document.
  */
+@SerialName(value = "inputPersonalDocument")
+@Serializable
 public class InputPersonalDocument public constructor(
+    @SerialName(value = "files")
     public val files: Array<InputFile>,
+    @SerialName(value = "translation")
     public val translation: Array<InputFile>,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

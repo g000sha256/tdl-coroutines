@@ -21,6 +21,8 @@ import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The verification state of an encrypted group call has changed; for group calls not bound to a chat only.
@@ -29,9 +31,14 @@ import kotlin.String
  * @property generation The call state generation to which the emoji corresponds. If generation is different for two users, then their emoji may be also different.
  * @property emojis Group call state fingerprint represented as 4 emoji; may be empty if the state isn't verified yet.
  */
+@SerialName(value = "updateGroupCallVerificationState")
+@Serializable
 public class UpdateGroupCallVerificationState public constructor(
+    @SerialName(value = "group_call_id")
     public val groupCallId: Int,
+    @SerialName(value = "generation")
     public val generation: Int,
+    @SerialName(value = "emojis")
     public val emojis: Array<String>,
 ) : Update() {
     override fun equals(other: Any?): Boolean {

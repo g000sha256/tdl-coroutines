@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes a possibly non-integer amount of Telegram Stars.
@@ -28,10 +30,14 @@ import kotlin.String
  * @property starCount The integer amount of Telegram Stars rounded to 0.
  * @property nanostarCount The number of 1/1000000000 shares of Telegram Stars; from -999999999 to 999999999.
  */
+@SerialName(value = "starAmount")
+@Serializable
 public class StarAmount public constructor(
+    @SerialName(value = "star_count")
     public val starCount: Long,
+    @SerialName(value = "nanostar_count")
     public val nanostarCount: Int,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

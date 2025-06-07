@@ -21,6 +21,8 @@ import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains a list of downloaded files, found by a search.
@@ -29,11 +31,16 @@ import kotlin.String
  * @property files The list of files.
  * @property nextOffset The offset for the next request. If empty, then there are no more results.
  */
+@SerialName(value = "foundFileDownloads")
+@Serializable
 public class FoundFileDownloads public constructor(
+    @SerialName(value = "total_counts")
     public val totalCounts: DownloadedFileCounts,
+    @SerialName(value = "files")
     public val files: Array<FileDownload>,
+    @SerialName(value = "next_offset")
     public val nextOffset: String,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

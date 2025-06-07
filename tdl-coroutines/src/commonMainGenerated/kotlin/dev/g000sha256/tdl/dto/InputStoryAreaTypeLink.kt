@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * An area pointing to a HTTP or tg:// link.
  *
  * @property url HTTP or tg:// URL to be opened when the area is clicked.
  */
+@SerialName(value = "inputStoryAreaTypeLink")
+@Serializable
 public class InputStoryAreaTypeLink public constructor(
+    @SerialName(value = "url")
     public val url: String,
 ) : InputStoryAreaType() {
     override fun equals(other: Any?): Boolean {

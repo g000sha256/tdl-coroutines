@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A message with an invoice from a bot.
@@ -27,8 +29,12 @@ import kotlin.String
  * @property price Product price.
  * @property isPinned True, if the message is a pinned message with the specified content.
  */
+@SerialName(value = "pushMessageContentInvoice")
+@Serializable
 public class PushMessageContentInvoice public constructor(
+    @SerialName(value = "price")
     public val price: String,
+    @SerialName(value = "is_pinned")
     public val isPinned: Boolean,
 ) : PushMessageContent() {
     override fun equals(other: Any?): Boolean {

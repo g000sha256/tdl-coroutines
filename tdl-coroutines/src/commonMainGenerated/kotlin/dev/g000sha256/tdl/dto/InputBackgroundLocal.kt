@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A background from a local file.
  *
  * @property background Background file to use. Only inputFileLocal and inputFileGenerated are supported. The file must be in JPEG format for wallpapers and in PNG format for patterns.
  */
+@SerialName(value = "inputBackgroundLocal")
+@Serializable
 public class InputBackgroundLocal public constructor(
+    @SerialName(value = "background")
     public val background: InputFile,
 ) : InputBackground() {
     override fun equals(other: Any?): Boolean {

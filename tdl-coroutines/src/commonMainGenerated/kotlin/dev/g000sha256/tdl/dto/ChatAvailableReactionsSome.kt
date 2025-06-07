@@ -21,6 +21,8 @@ import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Only specific reactions are available in the chat.
@@ -28,8 +30,12 @@ import kotlin.String
  * @property reactions The list of reactions.
  * @property maxReactionCount The maximum allowed number of reactions per message; 1-11.
  */
+@SerialName(value = "chatAvailableReactionsSome")
+@Serializable
 public class ChatAvailableReactionsSome public constructor(
+    @SerialName(value = "reactions")
     public val reactions: Array<ReactionType>,
+    @SerialName(value = "max_reaction_count")
     public val maxReactionCount: Int,
 ) : ChatAvailableReactions() {
     override fun equals(other: Any?): Boolean {

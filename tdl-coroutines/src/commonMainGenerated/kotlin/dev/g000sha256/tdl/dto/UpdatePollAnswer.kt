@@ -22,6 +22,8 @@ import kotlin.Int
 import kotlin.IntArray
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A user changed the answer to a poll; for bots only.
@@ -30,9 +32,14 @@ import kotlin.String
  * @property voterId Identifier of the message sender that changed the answer to the poll.
  * @property optionIds 0-based identifiers of answer options, chosen by the user.
  */
+@SerialName(value = "updatePollAnswer")
+@Serializable
 public class UpdatePollAnswer public constructor(
+    @SerialName(value = "poll_id")
     public val pollId: Long,
+    @SerialName(value = "voter_id")
     public val voterId: MessageSender,
+    @SerialName(value = "option_ids")
     public val optionIds: IntArray,
 ) : Update() {
     override fun equals(other: Any?): Boolean {

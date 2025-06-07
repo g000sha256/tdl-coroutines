@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains an HTTPS URL, which can be used to get information about a user.
@@ -27,10 +29,14 @@ import kotlin.String
  * @property url The URL.
  * @property expiresIn Left time for which the link is valid, in seconds; 0 if the link is a public username link.
  */
+@SerialName(value = "userLink")
+@Serializable
 public class UserLink public constructor(
+    @SerialName(value = "url")
     public val url: String,
+    @SerialName(value = "expires_in")
     public val expiresIn: Int,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

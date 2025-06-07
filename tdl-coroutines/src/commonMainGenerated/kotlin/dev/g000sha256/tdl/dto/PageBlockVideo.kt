@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A video.
@@ -29,10 +31,16 @@ import kotlin.String
  * @property needAutoplay True, if the video must be played automatically.
  * @property isLooped True, if the video must be looped.
  */
+@SerialName(value = "pageBlockVideo")
+@Serializable
 public class PageBlockVideo public constructor(
+    @SerialName(value = "video")
     public val video: Video?,
+    @SerialName(value = "caption")
     public val caption: PageBlockCaption,
+    @SerialName(value = "need_autoplay")
     public val needAutoplay: Boolean,
+    @SerialName(value = "is_looped")
     public val isLooped: Boolean,
 ) : PageBlock() {
     override fun equals(other: Any?): Boolean {

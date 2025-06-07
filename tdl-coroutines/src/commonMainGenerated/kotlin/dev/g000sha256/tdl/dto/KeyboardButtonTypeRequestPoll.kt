@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A button that allows the user to create and send a poll when pressed; available only in private chats.
@@ -27,8 +29,12 @@ import kotlin.String
  * @property forceRegular If true, only regular polls must be allowed to create.
  * @property forceQuiz If true, only polls in quiz mode must be allowed to create.
  */
+@SerialName(value = "keyboardButtonTypeRequestPoll")
+@Serializable
 public class KeyboardButtonTypeRequestPoll public constructor(
+    @SerialName(value = "force_regular")
     public val forceRegular: Boolean,
+    @SerialName(value = "force_quiz")
     public val forceQuiz: Boolean,
 ) : KeyboardButtonType() {
     override fun equals(other: Any?): Boolean {

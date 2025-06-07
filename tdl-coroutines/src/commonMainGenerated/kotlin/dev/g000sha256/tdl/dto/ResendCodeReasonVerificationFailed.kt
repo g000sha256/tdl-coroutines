@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The code is re-sent, because device verification has failed.
  *
  * @property errorMessage Cause of the verification failure, for example, PLAY_SERVICES_NOT_AVAILABLE, APNS_RECEIVE_TIMEOUT, or APNS_INIT_FAILED.
  */
+@SerialName(value = "resendCodeReasonVerificationFailed")
+@Serializable
 public class ResendCodeReasonVerificationFailed public constructor(
+    @SerialName(value = "error_message")
     public val errorMessage: String,
 ) : ResendCodeReason() {
     override fun equals(other: Any?): Boolean {

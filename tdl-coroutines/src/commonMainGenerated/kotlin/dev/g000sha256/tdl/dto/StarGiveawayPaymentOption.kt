@@ -22,6 +22,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes an option for creating of Telegram Star giveaway. Use telegramPaymentPurposeStarGiveaway for out-of-store payments.
@@ -35,16 +37,26 @@ import kotlin.String
  * @property isDefault True, if the option must be chosen by default.
  * @property isAdditional True, if the option must be shown only in the full list of payment options.
  */
+@SerialName(value = "starGiveawayPaymentOption")
+@Serializable
 public class StarGiveawayPaymentOption public constructor(
+    @SerialName(value = "currency")
     public val currency: String,
+    @SerialName(value = "amount")
     public val amount: Long,
+    @SerialName(value = "star_count")
     public val starCount: Long,
+    @SerialName(value = "store_product_id")
     public val storeProductId: String,
+    @SerialName(value = "yearly_boost_count")
     public val yearlyBoostCount: Int,
+    @SerialName(value = "winner_options")
     public val winnerOptions: Array<StarGiveawayWinnerOption>,
+    @SerialName(value = "is_default")
     public val isDefault: Boolean,
+    @SerialName(value = "is_additional")
     public val isAdditional: Boolean,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Text that must be formatted as if inside a code HTML tag.
  */
+@SerialName(value = "textEntityTypeCode")
+@Serializable
 public class TextEntityTypeCode public constructor() : TextEntityType() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

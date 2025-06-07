@@ -21,13 +21,18 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Identifier of a gift symbol.
  *
  * @property stickerId Identifier of the sticker representing the symbol.
  */
+@SerialName(value = "upgradedGiftAttributeIdSymbol")
+@Serializable
 public class UpgradedGiftAttributeIdSymbol public constructor(
+    @SerialName(value = "sticker_id")
     public val stickerId: Long,
 ) : UpgradedGiftAttributeId() {
     override fun equals(other: Any?): Boolean {

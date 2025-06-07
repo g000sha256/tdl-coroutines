@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The user has chosen a result of an inline query; for bots only.
@@ -31,11 +33,18 @@ import kotlin.String
  * @property resultId Identifier of the chosen result.
  * @property inlineMessageId Identifier of the sent inline message, if known.
  */
+@SerialName(value = "updateNewChosenInlineResult")
+@Serializable
 public class UpdateNewChosenInlineResult public constructor(
+    @SerialName(value = "sender_user_id")
     public val senderUserId: Long,
+    @SerialName(value = "user_location")
     public val userLocation: Location?,
+    @SerialName(value = "query")
     public val query: String,
+    @SerialName(value = "result_id")
     public val resultId: String,
+    @SerialName(value = "inline_message_id")
     public val inlineMessageId: String,
 ) : Update() {
     override fun equals(other: Any?): Boolean {

@@ -21,6 +21,8 @@ import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A video message.
@@ -34,14 +36,24 @@ import kotlin.String
  * @property hasSpoiler True, if the video preview must be covered by a spoiler animation.
  * @property isSecret True, if the video thumbnail must be blurred and the video must be shown only while tapped.
  */
+@SerialName(value = "messageVideo")
+@Serializable
 public class MessageVideo public constructor(
+    @SerialName(value = "video")
     public val video: Video,
+    @SerialName(value = "alternative_videos")
     public val alternativeVideos: Array<AlternativeVideo>,
+    @SerialName(value = "cover")
     public val cover: Photo?,
+    @SerialName(value = "start_timestamp")
     public val startTimestamp: Int,
+    @SerialName(value = "caption")
     public val caption: FormattedText,
+    @SerialName(value = "show_caption_above_media")
     public val showCaptionAboveMedia: Boolean,
+    @SerialName(value = "has_spoiler")
     public val hasSpoiler: Boolean,
+    @SerialName(value = "is_secret")
     public val isSecret: Boolean,
 ) : MessageContent() {
     override fun equals(other: Any?): Boolean {

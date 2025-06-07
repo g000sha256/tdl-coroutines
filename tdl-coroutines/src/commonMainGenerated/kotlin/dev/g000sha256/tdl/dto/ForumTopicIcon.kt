@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes a forum topic icon.
@@ -28,10 +30,14 @@ import kotlin.String
  * @property color Color of the topic icon in RGB format.
  * @property customEmojiId Unique identifier of the custom emoji shown on the topic icon; 0 if none.
  */
+@SerialName(value = "forumTopicIcon")
+@Serializable
 public class ForumTopicIcon public constructor(
+    @SerialName(value = "color")
     public val color: Int,
+    @SerialName(value = "custom_emoji_id")
     public val customEmojiId: Long,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

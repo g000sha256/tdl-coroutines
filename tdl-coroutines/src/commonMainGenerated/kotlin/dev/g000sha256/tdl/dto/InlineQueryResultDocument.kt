@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Represents a document.
@@ -29,10 +31,16 @@ import kotlin.String
  * @property title Document title.
  * @property description Document description.
  */
+@SerialName(value = "inlineQueryResultDocument")
+@Serializable
 public class InlineQueryResultDocument public constructor(
+    @SerialName(value = "id")
     public val id: String,
+    @SerialName(value = "document")
     public val document: Document,
+    @SerialName(value = "title")
     public val title: String,
+    @SerialName(value = "description")
     public val description: String,
 ) : InlineQueryResult() {
     override fun equals(other: Any?): Boolean {

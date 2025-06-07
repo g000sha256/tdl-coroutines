@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The message was originally sent on behalf of a chat.
@@ -28,8 +30,12 @@ import kotlin.String
  * @property senderChatId Identifier of the chat that originally sent the message.
  * @property authorSignature For messages originally sent by an anonymous chat administrator, original message author signature.
  */
+@SerialName(value = "messageOriginChat")
+@Serializable
 public class MessageOriginChat public constructor(
+    @SerialName(value = "sender_chat_id")
     public val senderChatId: Long,
+    @SerialName(value = "author_signature")
     public val authorSignature: String,
 ) : MessageOrigin() {
     override fun equals(other: Any?): Boolean {

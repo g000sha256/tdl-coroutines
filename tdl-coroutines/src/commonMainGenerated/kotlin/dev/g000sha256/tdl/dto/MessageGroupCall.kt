@@ -21,6 +21,8 @@ import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A message with information about a group call not bound to a chat. If the message is incoming, the call isn't active, isn't missed, and has no duration, and getOption(&quot;can_accept_calls&quot;) is true, then incoming call screen must be shown to the user. Use joinGroupCall to accept the call or declineGroupCallInvitation to decline it. If the call become active or missed, then the call screen must be hidden.
@@ -31,11 +33,18 @@ import kotlin.String
  * @property duration Call duration, in seconds; for left calls only.
  * @property otherParticipantIds Identifiers of some other call participants.
  */
+@SerialName(value = "messageGroupCall")
+@Serializable
 public class MessageGroupCall public constructor(
+    @SerialName(value = "is_active")
     public val isActive: Boolean,
+    @SerialName(value = "was_missed")
     public val wasMissed: Boolean,
+    @SerialName(value = "is_video")
     public val isVideo: Boolean,
+    @SerialName(value = "duration")
     public val duration: Int,
+    @SerialName(value = "other_participant_ids")
     public val otherParticipantIds: Array<MessageSender>,
 ) : MessageContent() {
     override fun equals(other: Any?): Boolean {

@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains auto-download settings presets for the current user.
@@ -28,11 +30,16 @@ import kotlin.String
  * @property medium Preset with medium settings; expected to be used by default when using mobile data.
  * @property high Preset with highest settings; expected to be used by default when connected on Wi-Fi.
  */
+@SerialName(value = "autoDownloadSettingsPresets")
+@Serializable
 public class AutoDownloadSettingsPresets public constructor(
+    @SerialName(value = "low")
     public val low: AutoDownloadSettings,
+    @SerialName(value = "medium")
     public val medium: AutoDownloadSettings,
+    @SerialName(value = "high")
     public val high: AutoDownloadSettings,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

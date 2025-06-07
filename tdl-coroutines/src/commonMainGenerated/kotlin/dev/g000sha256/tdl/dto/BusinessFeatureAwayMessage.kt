@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The ability to set up an away message.
  */
+@SerialName(value = "businessFeatureAwayMessage")
+@Serializable
 public class BusinessFeatureAwayMessage public constructor() : BusinessFeature() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Some other payment provider, for which a web payment form must be shown.
  *
  * @property url Payment form URL.
  */
+@SerialName(value = "paymentProviderOther")
+@Serializable
 public class PaymentProviderOther public constructor(
+    @SerialName(value = "url")
     public val url: String,
 ) : PaymentProvider() {
     override fun equals(other: Any?): Boolean {

@@ -16,8 +16,11 @@
 
 package dev.g000sha256.tdl.dto
 
+import kotlinx.serialization.Serializable
+
 /**
  * This class is an abstract base class.
  * Describes type of subscription paid in Telegram Stars.
  */
-public sealed class StarSubscriptionType protected constructor()
+@Serializable
+public sealed class StarSubscriptionType protected constructor() : Model()

@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A scope covering all users.
  */
+@SerialName(value = "botCommandScopeDefault")
+@Serializable
 public class BotCommandScopeDefault public constructor() : BotCommandScope() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

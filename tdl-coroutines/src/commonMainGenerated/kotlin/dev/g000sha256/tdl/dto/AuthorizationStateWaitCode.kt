@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * TDLib needs the user's authentication code to authorize. Call checkAuthenticationCode to check the code.
  *
  * @property codeInfo Information about the authorization code that was sent.
  */
+@SerialName(value = "authorizationStateWaitCode")
+@Serializable
 public class AuthorizationStateWaitCode public constructor(
+    @SerialName(value = "code_info")
     public val codeInfo: AuthenticationCodeInfo,
 ) : AuthorizationState() {
     override fun equals(other: Any?): Boolean {

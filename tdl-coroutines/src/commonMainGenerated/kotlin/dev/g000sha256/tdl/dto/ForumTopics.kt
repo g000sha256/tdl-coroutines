@@ -22,6 +22,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes a list of forum topics.
@@ -32,13 +34,20 @@ import kotlin.String
  * @property nextOffsetMessageId Offset message identifier for the next getForumTopics request.
  * @property nextOffsetMessageThreadId Offset message thread identifier for the next getForumTopics request.
  */
+@SerialName(value = "forumTopics")
+@Serializable
 public class ForumTopics public constructor(
+    @SerialName(value = "total_count")
     public val totalCount: Int,
+    @SerialName(value = "topics")
     public val topics: Array<ForumTopic>,
+    @SerialName(value = "next_offset_date")
     public val nextOffsetDate: Int,
+    @SerialName(value = "next_offset_message_id")
     public val nextOffsetMessageId: Long,
+    @SerialName(value = "next_offset_message_thread_id")
     public val nextOffsetMessageThreadId: Long,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

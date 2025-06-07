@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains the description of an error in a Telegram Passport element.
@@ -28,11 +30,16 @@ import kotlin.String
  * @property message Error message.
  * @property source Error source.
  */
+@SerialName(value = "passportElementError")
+@Serializable
 public class PassportElementError public constructor(
+    @SerialName(value = "type")
     public val type: PassportElementType,
+    @SerialName(value = "message")
     public val message: String,
+    @SerialName(value = "source")
     public val source: PassportElementErrorSource,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

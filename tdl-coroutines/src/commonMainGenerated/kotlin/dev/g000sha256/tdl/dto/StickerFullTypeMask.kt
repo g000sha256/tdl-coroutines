@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The sticker is a mask in WEBP format to be placed on photos or videos.
  *
  * @property maskPosition Position where the mask is placed; may be null.
  */
+@SerialName(value = "stickerFullTypeMask")
+@Serializable
 public class StickerFullTypeMask public constructor(
+    @SerialName(value = "mask_position")
     public val maskPosition: MaskPosition?,
 ) : StickerFullType() {
     override fun equals(other: Any?): Boolean {

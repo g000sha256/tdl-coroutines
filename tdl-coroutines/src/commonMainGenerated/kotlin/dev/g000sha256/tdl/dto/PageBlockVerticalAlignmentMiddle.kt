@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The content must be middle-aligned.
  */
+@SerialName(value = "pageBlockVerticalAlignmentMiddle")
+@Serializable
 public class PageBlockVerticalAlignmentMiddle public constructor() : PageBlockVerticalAlignment() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

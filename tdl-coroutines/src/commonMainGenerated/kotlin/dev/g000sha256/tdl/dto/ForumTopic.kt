@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes a forum topic.
@@ -37,19 +39,32 @@ import kotlin.String
  * @property notificationSettings Notification settings for the topic.
  * @property draftMessage A draft of a message in the topic; may be null if none.
  */
+@SerialName(value = "forumTopic")
+@Serializable
 public class ForumTopic public constructor(
+    @SerialName(value = "info")
     public val info: ForumTopicInfo,
+    @SerialName(value = "last_message")
     public val lastMessage: Message?,
+    @SerialName(value = "order")
     public val order: Long,
+    @SerialName(value = "is_pinned")
     public val isPinned: Boolean,
+    @SerialName(value = "unread_count")
     public val unreadCount: Int,
+    @SerialName(value = "last_read_inbox_message_id")
     public val lastReadInboxMessageId: Long,
+    @SerialName(value = "last_read_outbox_message_id")
     public val lastReadOutboxMessageId: Long,
+    @SerialName(value = "unread_mention_count")
     public val unreadMentionCount: Int,
+    @SerialName(value = "unread_reaction_count")
     public val unreadReactionCount: Int,
+    @SerialName(value = "notification_settings")
     public val notificationSettings: ChatNotificationSettings,
+    @SerialName(value = "draft_message")
     public val draftMessage: DraftMessage?,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

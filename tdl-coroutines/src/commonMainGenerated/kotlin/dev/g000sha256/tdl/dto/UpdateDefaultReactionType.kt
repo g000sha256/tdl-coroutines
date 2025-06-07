@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The type of default reaction has changed.
  *
  * @property reactionType The new type of the default reaction.
  */
+@SerialName(value = "updateDefaultReactionType")
+@Serializable
 public class UpdateDefaultReactionType public constructor(
+    @SerialName(value = "reaction_type")
     public val reactionType: ReactionType,
 ) : Update() {
     override fun equals(other: Any?): Boolean {

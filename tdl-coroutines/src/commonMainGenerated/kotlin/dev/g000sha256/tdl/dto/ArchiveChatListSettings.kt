@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains settings for automatic moving of chats to and from the Archive chat lists.
@@ -28,11 +30,16 @@ import kotlin.String
  * @property keepUnmutedChatsArchived True, if unmuted chats will be kept in the Archive chat list when they get a new message.
  * @property keepChatsFromFoldersArchived True, if unmuted chats, that are always included or pinned in a folder, will be kept in the Archive chat list when they get a new message. Ignored if keepUnmutedChatsArchived == true.
  */
+@SerialName(value = "archiveChatListSettings")
+@Serializable
 public class ArchiveChatListSettings public constructor(
+    @SerialName(value = "archive_and_mute_new_chats_from_unknown_users")
     public val archiveAndMuteNewChatsFromUnknownUsers: Boolean,
+    @SerialName(value = "keep_unmuted_chats_archived")
     public val keepUnmutedChatsArchived: Boolean,
+    @SerialName(value = "keep_chats_from_folders_archived")
     public val keepChatsFromFoldersArchived: Boolean,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

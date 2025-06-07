@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The user can't be invited because they were banned by the owner of the call and can be invited back only by the owner of the group call.
  */
+@SerialName(value = "inviteGroupCallParticipantResultUserWasBanned")
+@Serializable
 public class InviteGroupCallParticipantResultUserWasBanned public constructor() : InviteGroupCallParticipantResult() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

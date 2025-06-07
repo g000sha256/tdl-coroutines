@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes a business chat link to create or edit.
@@ -27,10 +29,14 @@ import kotlin.String
  * @property text Message draft text that will be added to the input field.
  * @property title Link title.
  */
+@SerialName(value = "inputBusinessChatLink")
+@Serializable
 public class InputBusinessChatLink public constructor(
+    @SerialName(value = "text")
     public val text: FormattedText,
+    @SerialName(value = "title")
     public val title: String,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

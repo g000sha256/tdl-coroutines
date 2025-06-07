@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Used to search for supergroup or channel members via a (string) query.
  *
  * @property query Query to search for.
  */
+@SerialName(value = "supergroupMembersFilterSearch")
+@Serializable
 public class SupergroupMembersFilterSearch public constructor(
+    @SerialName(value = "query")
     public val query: String,
 ) : SupergroupMembersFilter() {
     override fun equals(other: Any?): Boolean {

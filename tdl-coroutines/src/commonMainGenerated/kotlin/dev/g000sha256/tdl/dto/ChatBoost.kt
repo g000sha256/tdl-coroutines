@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes a boost applied to a chat.
@@ -30,13 +32,20 @@ import kotlin.String
  * @property startDate Point in time (Unix timestamp) when the chat was boosted.
  * @property expirationDate Point in time (Unix timestamp) when the boost will expire.
  */
+@SerialName(value = "chatBoost")
+@Serializable
 public class ChatBoost public constructor(
+    @SerialName(value = "id")
     public val id: String,
+    @SerialName(value = "count")
     public val count: Int,
+    @SerialName(value = "source")
     public val source: ChatBoostSource,
+    @SerialName(value = "start_date")
     public val startDate: Int,
+    @SerialName(value = "expiration_date")
     public val expirationDate: Int,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

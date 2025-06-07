@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The chat is sponsored by the user's MTProxy server.
  */
+@SerialName(value = "chatSourceMtprotoProxy")
+@Serializable
 public class ChatSourceMtprotoProxy public constructor() : ChatSource() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

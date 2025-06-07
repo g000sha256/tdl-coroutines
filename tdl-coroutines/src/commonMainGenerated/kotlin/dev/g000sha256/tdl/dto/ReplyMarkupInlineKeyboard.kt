@@ -21,13 +21,18 @@ import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains an inline keyboard layout.
  *
  * @property rows A list of rows of inline keyboard buttons.
  */
+@SerialName(value = "replyMarkupInlineKeyboard")
+@Serializable
 public class ReplyMarkupInlineKeyboard public constructor(
+    @SerialName(value = "rows")
     public val rows: Array<Array<InlineKeyboardButton>>,
 ) : ReplyMarkup() {
     override fun equals(other: Any?): Boolean {

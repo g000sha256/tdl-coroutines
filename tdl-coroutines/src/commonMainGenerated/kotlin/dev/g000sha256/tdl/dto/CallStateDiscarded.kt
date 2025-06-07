@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The call has ended successfully.
@@ -29,10 +31,16 @@ import kotlin.String
  * @property needDebugInformation True, if the call debug information must be sent to the server.
  * @property needLog True, if the call log must be sent to the server.
  */
+@SerialName(value = "callStateDiscarded")
+@Serializable
 public class CallStateDiscarded public constructor(
+    @SerialName(value = "reason")
     public val reason: CallDiscardReason,
+    @SerialName(value = "need_rating")
     public val needRating: Boolean,
+    @SerialName(value = "need_debug_information")
     public val needDebugInformation: Boolean,
+    @SerialName(value = "need_log")
     public val needLog: Boolean,
 ) : CallState() {
     override fun equals(other: Any?): Boolean {

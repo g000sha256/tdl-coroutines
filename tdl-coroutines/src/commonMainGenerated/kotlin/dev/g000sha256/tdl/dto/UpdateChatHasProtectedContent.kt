@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A chat content was allowed or restricted for saving.
@@ -28,8 +30,12 @@ import kotlin.String
  * @property chatId Chat identifier.
  * @property hasProtectedContent New value of hasProtectedContent.
  */
+@SerialName(value = "updateChatHasProtectedContent")
+@Serializable
 public class UpdateChatHasProtectedContent public constructor(
+    @SerialName(value = "chat_id")
     public val chatId: Long,
+    @SerialName(value = "has_protected_content")
     public val hasProtectedContent: Boolean,
 ) : Update() {
     override fun equals(other: Any?): Boolean {

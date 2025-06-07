@@ -21,6 +21,8 @@ import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Specifies the supported call protocols.
@@ -31,13 +33,20 @@ import kotlin.String
  * @property maxLayer The maximum supported API layer; use 92.
  * @property libraryVersions List of supported tgcalls versions.
  */
+@SerialName(value = "callProtocol")
+@Serializable
 public class CallProtocol public constructor(
+    @SerialName(value = "udp_p2p")
     public val udpP2p: Boolean,
+    @SerialName(value = "udp_reflector")
     public val udpReflector: Boolean,
+    @SerialName(value = "min_layer")
     public val minLayer: Int,
+    @SerialName(value = "max_layer")
     public val maxLayer: Int,
+    @SerialName(value = "library_versions")
     public val libraryVersions: Array<String>,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

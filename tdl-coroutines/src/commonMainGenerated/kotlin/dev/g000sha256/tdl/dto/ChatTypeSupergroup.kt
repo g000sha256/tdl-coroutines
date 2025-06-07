@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A supergroup or channel (with unlimited members).
@@ -28,8 +30,12 @@ import kotlin.String
  * @property supergroupId Supergroup or channel identifier.
  * @property isChannel True, if the supergroup is a channel.
  */
+@SerialName(value = "chatTypeSupergroup")
+@Serializable
 public class ChatTypeSupergroup public constructor(
+    @SerialName(value = "supergroup_id")
     public val supergroupId: Long,
+    @SerialName(value = "is_channel")
     public val isChannel: Boolean,
 ) : ChatType() {
     override fun equals(other: Any?): Boolean {

@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes manually chosen quote from another message.
@@ -27,10 +29,14 @@ import kotlin.String
  * @property text Text of the quote; 0-getOption(&quot;message_reply_quote_length_max&quot;) characters. Only Bold, Italic, Underline, Strikethrough, Spoiler, and CustomEmoji entities are allowed to be kept and must be kept in the quote.
  * @property position Quote position in the original message in UTF-16 code units.
  */
+@SerialName(value = "inputTextQuote")
+@Serializable
 public class InputTextQuote public constructor(
+    @SerialName(value = "text")
     public val text: FormattedText,
+    @SerialName(value = "position")
     public val position: Int,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

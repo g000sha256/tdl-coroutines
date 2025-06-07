@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains information about a Telegram Passport element that was requested by a service.
@@ -29,12 +31,18 @@ import kotlin.String
  * @property isTranslationRequired True, if a certified English translation is required with the document.
  * @property isNativeNameRequired True, if personal details must include the user's name in the language of their country of residence.
  */
+@SerialName(value = "passportSuitableElement")
+@Serializable
 public class PassportSuitableElement public constructor(
+    @SerialName(value = "type")
     public val type: PassportElementType,
+    @SerialName(value = "is_selfie_required")
     public val isSelfieRequired: Boolean,
+    @SerialName(value = "is_translation_required")
     public val isTranslationRequired: Boolean,
+    @SerialName(value = "is_native_name_required")
     public val isNativeNameRequired: Boolean,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

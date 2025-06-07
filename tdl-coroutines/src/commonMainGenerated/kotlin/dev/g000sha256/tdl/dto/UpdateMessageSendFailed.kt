@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A message failed to send. Be aware that some messages being sent can be irrecoverably deleted, in which case updateDeleteMessages will be received instead of this update.
@@ -29,9 +31,14 @@ import kotlin.String
  * @property oldMessageId The previous temporary message identifier.
  * @property error The cause of the message sending failure.
  */
+@SerialName(value = "updateMessageSendFailed")
+@Serializable
 public class UpdateMessageSendFailed public constructor(
+    @SerialName(value = "message")
     public val message: Message,
+    @SerialName(value = "old_message_id")
     public val oldMessageId: Long,
+    @SerialName(value = "error")
     public val error: Error,
 ) : Update() {
     override fun equals(other: Any?): Boolean {

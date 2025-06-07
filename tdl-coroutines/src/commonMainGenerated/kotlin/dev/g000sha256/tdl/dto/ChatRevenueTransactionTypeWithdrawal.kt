@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes a withdrawal of earnings.
@@ -28,9 +30,14 @@ import kotlin.String
  * @property provider Name of the payment provider.
  * @property state State of the withdrawal.
  */
+@SerialName(value = "chatRevenueTransactionTypeWithdrawal")
+@Serializable
 public class ChatRevenueTransactionTypeWithdrawal public constructor(
+    @SerialName(value = "withdrawal_date")
     public val withdrawalDate: Int,
+    @SerialName(value = "provider")
     public val provider: String,
+    @SerialName(value = "state")
     public val state: RevenueWithdrawalState,
 ) : ChatRevenueTransactionType() {
     override fun equals(other: Any?): Boolean {

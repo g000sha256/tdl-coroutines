@@ -21,13 +21,18 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.IntArray
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes a freeform gradient fill of a background.
  *
  * @property colors A list of 3 or 4 colors of the freeform gradient in the RGB format.
  */
+@SerialName(value = "backgroundFillFreeformGradient")
+@Serializable
 public class BackgroundFillFreeformGradient public constructor(
+    @SerialName(value = "colors")
     public val colors: IntArray,
 ) : BackgroundFill() {
     override fun equals(other: Any?): Boolean {

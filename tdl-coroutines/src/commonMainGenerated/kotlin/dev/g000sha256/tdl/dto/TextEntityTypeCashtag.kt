@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A cashtag text, beginning with &quot;$&quot;, consisting of capital English letters (e.g., &quot;$USD&quot;), and optionally containing a chat username at the end.
  */
+@SerialName(value = "textEntityTypeCashtag")
+@Serializable
 public class TextEntityTypeCashtag public constructor() : TextEntityType() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

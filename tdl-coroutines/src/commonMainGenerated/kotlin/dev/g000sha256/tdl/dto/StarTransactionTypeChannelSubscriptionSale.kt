@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The transaction is a sale of a subscription by the channel chat; for channel chats only.
@@ -28,8 +30,12 @@ import kotlin.String
  * @property userId Identifier of the user that bought the subscription.
  * @property subscriptionPeriod The number of seconds between consecutive Telegram Star debitings.
  */
+@SerialName(value = "starTransactionTypeChannelSubscriptionSale")
+@Serializable
 public class StarTransactionTypeChannelSubscriptionSale public constructor(
+    @SerialName(value = "user_id")
     public val userId: Long,
+    @SerialName(value = "subscription_period")
     public val subscriptionPeriod: Int,
 ) : StarTransactionType() {
     override fun equals(other: Any?): Boolean {

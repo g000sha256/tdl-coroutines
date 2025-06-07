@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The user or the chat is not a chat member.
  */
+@SerialName(value = "chatMemberStatusLeft")
+@Serializable
 public class ChatMemberStatusLeft public constructor() : ChatMemberStatus() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

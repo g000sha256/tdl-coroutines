@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes a symbol shown on the pattern of an upgraded gift.
@@ -27,10 +29,14 @@ import kotlin.String
  * @property symbol The symbol.
  * @property totalCount Total number of gifts with the symbol.
  */
+@SerialName(value = "upgradedGiftSymbolCount")
+@Serializable
 public class UpgradedGiftSymbolCount public constructor(
+    @SerialName(value = "symbol")
     public val symbol: UpgradedGiftSymbol,
+    @SerialName(value = "total_count")
     public val totalCount: Int,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

@@ -21,13 +21,18 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A previously used profile photo of the current user.
  *
  * @property chatPhotoId Identifier of the current user's profile photo to reuse.
  */
+@SerialName(value = "inputChatPhotoPrevious")
+@Serializable
 public class InputChatPhotoPrevious public constructor(
+    @SerialName(value = "chat_photo_id")
     public val chatPhotoId: Long,
 ) : InputChatPhoto() {
     override fun equals(other: Any?): Boolean {

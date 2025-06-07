@@ -16,8 +16,11 @@
 
 package dev.g000sha256.tdl.dto
 
+import kotlinx.serialization.Serializable
+
 /**
  * This class is an abstract base class.
  * Describes read date of a recent outgoing message in a private chat.
  */
-public sealed class MessageReadDate protected constructor()
+@Serializable
+public sealed class MessageReadDate protected constructor() : Model()

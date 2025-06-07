@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The list of trending sticker sets was updated or some of them were viewed.
@@ -27,8 +29,12 @@ import kotlin.String
  * @property stickerType Type of the affected stickers.
  * @property stickerSets The prefix of the list of trending sticker sets with the newest trending sticker sets.
  */
+@SerialName(value = "updateTrendingStickerSets")
+@Serializable
 public class UpdateTrendingStickerSets public constructor(
+    @SerialName(value = "sticker_type")
     public val stickerType: StickerType,
+    @SerialName(value = "sticker_sets")
     public val stickerSets: TrendingStickerSets,
 ) : Update() {
     override fun equals(other: Any?): Boolean {

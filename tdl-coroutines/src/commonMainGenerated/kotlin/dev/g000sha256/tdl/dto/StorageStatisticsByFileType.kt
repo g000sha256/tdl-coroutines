@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains the storage usage statistics for a specific file type.
@@ -29,11 +31,16 @@ import kotlin.String
  * @property size Total size of the files, in bytes.
  * @property count Total number of files.
  */
+@SerialName(value = "storageStatisticsByFileType")
+@Serializable
 public class StorageStatisticsByFileType public constructor(
+    @SerialName(value = "file_type")
     public val fileType: FileType,
+    @SerialName(value = "size")
     public val size: Long,
+    @SerialName(value = "count")
     public val count: Int,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

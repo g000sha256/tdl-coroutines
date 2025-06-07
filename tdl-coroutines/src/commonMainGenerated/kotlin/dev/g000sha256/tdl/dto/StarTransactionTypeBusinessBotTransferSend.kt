@@ -21,13 +21,18 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The transaction is a transfer of Telegram Stars to a business bot; for regular users only.
  *
  * @property userId Identifier of the bot that received Telegram Stars.
  */
+@SerialName(value = "starTransactionTypeBusinessBotTransferSend")
+@Serializable
 public class StarTransactionTypeBusinessBotTransferSend public constructor(
+    @SerialName(value = "user_id")
     public val userId: Long,
 ) : StarTransactionType() {
     override fun equals(other: Any?): Boolean {

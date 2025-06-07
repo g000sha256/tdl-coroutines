@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The user is unregistered and need to accept terms of service and enter their first name and last name to finish registration. Call registerUser to accept the terms of service and provide the data.
  *
  * @property termsOfService Telegram terms of service.
  */
+@SerialName(value = "authorizationStateWaitRegistration")
+@Serializable
 public class AuthorizationStateWaitRegistration public constructor(
+    @SerialName(value = "terms_of_service")
     public val termsOfService: TermsOfService,
 ) : AuthorizationState() {
     override fun equals(other: Any?): Boolean {

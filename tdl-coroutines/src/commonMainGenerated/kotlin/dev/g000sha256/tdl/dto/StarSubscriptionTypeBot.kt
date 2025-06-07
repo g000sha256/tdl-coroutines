@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes a subscription in a bot or a business account.
@@ -29,10 +31,16 @@ import kotlin.String
  * @property photo Subscription invoice photo.
  * @property invoiceLink The link to the subscription invoice.
  */
+@SerialName(value = "starSubscriptionTypeBot")
+@Serializable
 public class StarSubscriptionTypeBot public constructor(
+    @SerialName(value = "is_canceled_by_bot")
     public val isCanceledByBot: Boolean,
+    @SerialName(value = "title")
     public val title: String,
+    @SerialName(value = "photo")
     public val photo: Photo,
+    @SerialName(value = "invoice_link")
     public val invoiceLink: String,
 ) : StarSubscriptionType() {
     override fun equals(other: Any?): Boolean {

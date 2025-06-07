@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The ability to show an emoji status along with the user's name.
  */
+@SerialName(value = "premiumFeatureEmojiStatus")
+@Serializable
 public class PremiumFeatureEmojiStatus public constructor() : PremiumFeature() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

@@ -21,13 +21,18 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The affiliate is a bot owned by the current user.
  *
  * @property userId User identifier of the bot.
  */
+@SerialName(value = "affiliateTypeBot")
+@Serializable
 public class AffiliateTypeBot public constructor(
+    @SerialName(value = "user_id")
     public val userId: Long,
 ) : AffiliateType() {
     override fun equals(other: Any?): Boolean {

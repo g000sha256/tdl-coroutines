@@ -16,8 +16,11 @@
 
 package dev.g000sha256.tdl.dto
 
+import kotlinx.serialization.Serializable
+
 /**
  * This class is an abstract base class.
  * Describes actions which must be possible to do through a chat action bar.
  */
-public sealed class ChatActionBar protected constructor()
+@Serializable
+public sealed class ChatActionBar protected constructor() : Model()

@@ -21,6 +21,8 @@ import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains a list of media previews of a bot for the given language and the list of languages for which the bot has dedicated previews.
@@ -28,10 +30,14 @@ import kotlin.String
  * @property previews List of media previews.
  * @property languageCodes List of language codes for which the bot has dedicated previews.
  */
+@SerialName(value = "botMediaPreviewInfo")
+@Serializable
 public class BotMediaPreviewInfo public constructor(
+    @SerialName(value = "previews")
     public val previews: Array<BotMediaPreview>,
+    @SerialName(value = "language_codes")
     public val languageCodes: Array<String>,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

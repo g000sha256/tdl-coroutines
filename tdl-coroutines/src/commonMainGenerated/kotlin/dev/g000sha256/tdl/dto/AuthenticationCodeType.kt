@@ -16,8 +16,11 @@
 
 package dev.g000sha256.tdl.dto
 
+import kotlinx.serialization.Serializable
+
 /**
  * This class is an abstract base class.
  * Provides information about the method by which an authentication code is delivered to the user.
  */
-public sealed class AuthenticationCodeType protected constructor()
+@Serializable
+public sealed class AuthenticationCodeType protected constructor() : Model()

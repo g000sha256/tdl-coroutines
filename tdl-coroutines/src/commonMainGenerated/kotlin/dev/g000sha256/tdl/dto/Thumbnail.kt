@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Represents a thumbnail.
@@ -29,12 +31,18 @@ import kotlin.String
  * @property height Thumbnail height.
  * @property file The thumbnail.
  */
+@SerialName(value = "thumbnail")
+@Serializable
 public class Thumbnail public constructor(
+    @SerialName(value = "format")
     public val format: ThumbnailFormat,
+    @SerialName(value = "width")
     public val width: Int,
+    @SerialName(value = "height")
     public val height: Int,
+    @SerialName(value = "file")
     public val file: File,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

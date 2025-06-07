@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains statistics about number of new members invited by a user.
@@ -28,10 +30,14 @@ import kotlin.String
  * @property userId User identifier.
  * @property addedMemberCount Number of new members invited by the user.
  */
+@SerialName(value = "chatStatisticsInviterInfo")
+@Serializable
 public class ChatStatisticsInviterInfo public constructor(
+    @SerialName(value = "user_id")
     public val userId: Long,
+    @SerialName(value = "added_member_count")
     public val addedMemberCount: Int,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

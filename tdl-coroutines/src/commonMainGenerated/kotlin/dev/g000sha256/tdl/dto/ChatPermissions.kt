@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes actions that a user is allowed to take in a chat.
@@ -39,22 +41,38 @@ import kotlin.String
  * @property canPinMessages True, if the user can pin messages.
  * @property canCreateTopics True, if the user can create topics.
  */
+@SerialName(value = "chatPermissions")
+@Serializable
 public class ChatPermissions public constructor(
+    @SerialName(value = "can_send_basic_messages")
     public val canSendBasicMessages: Boolean,
+    @SerialName(value = "can_send_audios")
     public val canSendAudios: Boolean,
+    @SerialName(value = "can_send_documents")
     public val canSendDocuments: Boolean,
+    @SerialName(value = "can_send_photos")
     public val canSendPhotos: Boolean,
+    @SerialName(value = "can_send_videos")
     public val canSendVideos: Boolean,
+    @SerialName(value = "can_send_video_notes")
     public val canSendVideoNotes: Boolean,
+    @SerialName(value = "can_send_voice_notes")
     public val canSendVoiceNotes: Boolean,
+    @SerialName(value = "can_send_polls")
     public val canSendPolls: Boolean,
+    @SerialName(value = "can_send_other_messages")
     public val canSendOtherMessages: Boolean,
+    @SerialName(value = "can_add_link_previews")
     public val canAddLinkPreviews: Boolean,
+    @SerialName(value = "can_change_info")
     public val canChangeInfo: Boolean,
+    @SerialName(value = "can_invite_users")
     public val canInviteUsers: Boolean,
+    @SerialName(value = "can_pin_messages")
     public val canPinMessages: Boolean,
+    @SerialName(value = "can_create_topics")
     public val canCreateTopics: Boolean,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

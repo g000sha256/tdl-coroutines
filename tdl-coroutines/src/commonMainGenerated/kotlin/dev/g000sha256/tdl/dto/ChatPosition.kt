@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes a position of a chat in a chat list.
@@ -30,12 +32,18 @@ import kotlin.String
  * @property isPinned True, if the chat is pinned in the chat list.
  * @property source Source of the chat in the chat list; may be null.
  */
+@SerialName(value = "chatPosition")
+@Serializable
 public class ChatPosition public constructor(
+    @SerialName(value = "list")
     public val list: ChatList,
+    @SerialName(value = "order")
     public val order: Long,
+    @SerialName(value = "is_pinned")
     public val isPinned: Boolean,
+    @SerialName(value = "source")
     public val source: ChatSource?,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

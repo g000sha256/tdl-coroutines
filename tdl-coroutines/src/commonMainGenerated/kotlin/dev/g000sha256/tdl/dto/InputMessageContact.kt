@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A message containing a user contact.
  *
  * @property contact Contact to send.
  */
+@SerialName(value = "inputMessageContact")
+@Serializable
 public class InputMessageContact public constructor(
+    @SerialName(value = "contact")
     public val contact: Contact,
 ) : InputMessageContent() {
     override fun equals(other: Any?): Boolean {

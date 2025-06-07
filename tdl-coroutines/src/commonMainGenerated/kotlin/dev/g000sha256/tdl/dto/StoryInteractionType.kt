@@ -16,8 +16,11 @@
 
 package dev.g000sha256.tdl.dto
 
+import kotlinx.serialization.Serializable
+
 /**
  * This class is an abstract base class.
  * Describes type of interaction with a story.
  */
-public sealed class StoryInteractionType protected constructor()
+@Serializable
+public sealed class StoryInteractionType protected constructor() : Model()

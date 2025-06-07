@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Represents a link to an opus-encoded audio file within an OGG container, single channel audio.
@@ -31,12 +33,20 @@ import kotlin.String
  * @property replyMarkup The message reply markup; pass null if none. Must be of type replyMarkupInlineKeyboard or null.
  * @property inputMessageContent The content of the message to be sent. Must be one of the following types: inputMessageText, inputMessageVoiceNote, inputMessageInvoice, inputMessageLocation, inputMessageVenue or inputMessageContact.
  */
+@SerialName(value = "inputInlineQueryResultVoiceNote")
+@Serializable
 public class InputInlineQueryResultVoiceNote public constructor(
+    @SerialName(value = "id")
     public val id: String,
+    @SerialName(value = "title")
     public val title: String,
+    @SerialName(value = "voice_note_url")
     public val voiceNoteUrl: String,
+    @SerialName(value = "voice_note_duration")
     public val voiceNoteDuration: Int,
+    @SerialName(value = "reply_markup")
     public val replyMarkup: ReplyMarkup?,
+    @SerialName(value = "input_message_content")
     public val inputMessageContent: InputMessageContent,
 ) : InputInlineQueryResult() {
     override fun equals(other: Any?): Boolean {

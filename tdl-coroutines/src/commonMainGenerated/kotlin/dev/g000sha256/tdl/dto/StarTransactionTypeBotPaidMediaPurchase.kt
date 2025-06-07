@@ -22,6 +22,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The transaction is a purchase of paid media from a bot or a business account by the current user; for regular users only.
@@ -29,8 +31,12 @@ import kotlin.String
  * @property userId Identifier of the bot or the business account user that sent the paid media.
  * @property media The bought media if the transaction wasn't refunded.
  */
+@SerialName(value = "starTransactionTypeBotPaidMediaPurchase")
+@Serializable
 public class StarTransactionTypeBotPaidMediaPurchase public constructor(
+    @SerialName(value = "user_id")
     public val userId: Long,
+    @SerialName(value = "media")
     public val media: Array<PaidMedia>,
 ) : StarTransactionType() {
     override fun equals(other: Any?): Boolean {

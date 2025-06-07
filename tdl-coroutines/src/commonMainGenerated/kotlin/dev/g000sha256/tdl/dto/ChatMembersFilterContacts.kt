@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Returns contacts of the user.
  */
+@SerialName(value = "chatMembersFilterContacts")
+@Serializable
 public class ChatMembersFilterContacts public constructor() : ChatMembersFilter() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

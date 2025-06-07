@@ -21,15 +21,20 @@ import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Represents a list of chat folder invite links.
  *
  * @property inviteLinks List of the invite links.
  */
+@SerialName(value = "chatFolderInviteLinks")
+@Serializable
 public class ChatFolderInviteLinks public constructor(
+    @SerialName(value = "invite_links")
     public val inviteLinks: Array<ChatFolderInviteLink>,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

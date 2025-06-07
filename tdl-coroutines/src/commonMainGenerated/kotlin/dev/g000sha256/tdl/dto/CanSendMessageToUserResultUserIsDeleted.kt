@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The user can't be messaged, because they are deleted or unknown.
  */
+@SerialName(value = "canSendMessageToUserResultUserIsDeleted")
+@Serializable
 public class CanSendMessageToUserResultUserIsDeleted public constructor() : CanSendMessageToUserResult() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

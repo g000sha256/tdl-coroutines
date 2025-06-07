@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The chat theme was changed.
@@ -28,8 +30,12 @@ import kotlin.String
  * @property chatId Chat identifier.
  * @property themeName The new name of the chat theme; may be empty if theme was reset to default.
  */
+@SerialName(value = "updateChatTheme")
+@Serializable
 public class UpdateChatTheme public constructor(
+    @SerialName(value = "chat_id")
     public val chatId: Long,
+    @SerialName(value = "theme_name")
     public val themeName: String,
 ) : Update() {
     override fun equals(other: Any?): Boolean {

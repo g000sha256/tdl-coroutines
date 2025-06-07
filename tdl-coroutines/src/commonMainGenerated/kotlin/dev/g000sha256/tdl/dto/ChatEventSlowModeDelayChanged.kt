@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The slowModeDelay setting of a supergroup was changed.
@@ -27,8 +29,12 @@ import kotlin.String
  * @property oldSlowModeDelay Previous value of slowModeDelay, in seconds.
  * @property newSlowModeDelay New value of slowModeDelay, in seconds.
  */
+@SerialName(value = "chatEventSlowModeDelayChanged")
+@Serializable
 public class ChatEventSlowModeDelayChanged public constructor(
+    @SerialName(value = "old_slow_mode_delay")
     public val oldSlowModeDelay: Int,
+    @SerialName(value = "new_slow_mode_delay")
     public val newSlowModeDelay: Int,
 ) : ChatEventAction() {
     override fun equals(other: Any?): Boolean {

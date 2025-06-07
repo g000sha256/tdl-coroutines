@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Represents a supergroup or channel with zero or more members (subscribers in the case of channels). From the point of view of the system, a channel is a special kind of a supergroup: only administrators can post and see the list of members, and posts from all administrators use the name and photo of the channel instead of individual names and profile photos. Unlike supergroups, channels can have an unlimited number of subscribers.
@@ -49,31 +51,56 @@ import kotlin.String
  * @property hasActiveStories True, if the supergroup or channel has non-expired stories available to the current user.
  * @property hasUnreadActiveStories True, if the supergroup or channel has unread non-expired stories available to the current user.
  */
+@SerialName(value = "supergroup")
+@Serializable
 public class Supergroup public constructor(
+    @SerialName(value = "id")
     public val id: Long,
+    @SerialName(value = "usernames")
     public val usernames: Usernames?,
+    @SerialName(value = "date")
     public val date: Int,
+    @SerialName(value = "status")
     public val status: ChatMemberStatus,
+    @SerialName(value = "member_count")
     public val memberCount: Int,
+    @SerialName(value = "boost_level")
     public val boostLevel: Int,
+    @SerialName(value = "has_automatic_translation")
     public val hasAutomaticTranslation: Boolean,
+    @SerialName(value = "has_linked_chat")
     public val hasLinkedChat: Boolean,
+    @SerialName(value = "has_location")
     public val hasLocation: Boolean,
+    @SerialName(value = "sign_messages")
     public val signMessages: Boolean,
+    @SerialName(value = "show_message_sender")
     public val showMessageSender: Boolean,
+    @SerialName(value = "join_to_send_messages")
     public val joinToSendMessages: Boolean,
+    @SerialName(value = "join_by_request")
     public val joinByRequest: Boolean,
+    @SerialName(value = "is_slow_mode_enabled")
     public val isSlowModeEnabled: Boolean,
+    @SerialName(value = "is_channel")
     public val isChannel: Boolean,
+    @SerialName(value = "is_broadcast_group")
     public val isBroadcastGroup: Boolean,
+    @SerialName(value = "is_forum")
     public val isForum: Boolean,
+    @SerialName(value = "verification_status")
     public val verificationStatus: VerificationStatus?,
+    @SerialName(value = "has_sensitive_content")
     public val hasSensitiveContent: Boolean,
+    @SerialName(value = "restriction_reason")
     public val restrictionReason: String,
+    @SerialName(value = "paid_message_star_count")
     public val paidMessageStarCount: Long,
+    @SerialName(value = "has_active_stories")
     public val hasActiveStories: Boolean,
+    @SerialName(value = "has_unread_active_stories")
     public val hasUnreadActiveStories: Boolean,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

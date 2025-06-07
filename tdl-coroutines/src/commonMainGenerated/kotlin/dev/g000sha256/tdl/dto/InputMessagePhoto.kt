@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.IntArray
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A photo message.
@@ -35,15 +37,26 @@ import kotlin.String
  * @property selfDestructType Photo self-destruct type; pass null if none; private chats only.
  * @property hasSpoiler True, if the photo preview must be covered by a spoiler animation; not supported in secret chats.
  */
+@SerialName(value = "inputMessagePhoto")
+@Serializable
 public class InputMessagePhoto public constructor(
+    @SerialName(value = "photo")
     public val photo: InputFile,
+    @SerialName(value = "thumbnail")
     public val thumbnail: InputThumbnail?,
+    @SerialName(value = "added_sticker_file_ids")
     public val addedStickerFileIds: IntArray,
+    @SerialName(value = "width")
     public val width: Int,
+    @SerialName(value = "height")
     public val height: Int,
+    @SerialName(value = "caption")
     public val caption: FormattedText?,
+    @SerialName(value = "show_caption_above_media")
     public val showCaptionAboveMedia: Boolean,
+    @SerialName(value = "self_destruct_type")
     public val selfDestructType: MessageSelfDestructType?,
+    @SerialName(value = "has_spoiler")
     public val hasSpoiler: Boolean,
 ) : InputMessageContent() {
     override fun equals(other: Any?): Boolean {

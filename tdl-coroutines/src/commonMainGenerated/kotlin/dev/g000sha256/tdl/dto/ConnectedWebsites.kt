@@ -21,15 +21,20 @@ import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains a list of websites the current user is logged in with Telegram.
  *
  * @property websites List of connected websites.
  */
+@SerialName(value = "connectedWebsites")
+@Serializable
 public class ConnectedWebsites public constructor(
+    @SerialName(value = "websites")
     public val websites: Array<ConnectedWebsite>,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

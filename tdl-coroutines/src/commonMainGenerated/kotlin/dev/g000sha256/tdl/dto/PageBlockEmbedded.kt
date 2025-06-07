@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * An embedded web page.
@@ -33,14 +35,24 @@ import kotlin.String
  * @property isFullWidth True, if the block must be full width.
  * @property allowScrolling True, if scrolling needs to be allowed.
  */
+@SerialName(value = "pageBlockEmbedded")
+@Serializable
 public class PageBlockEmbedded public constructor(
+    @SerialName(value = "url")
     public val url: String,
+    @SerialName(value = "html")
     public val html: String,
+    @SerialName(value = "poster_photo")
     public val posterPhoto: Photo?,
+    @SerialName(value = "width")
     public val width: Int,
+    @SerialName(value = "height")
     public val height: Int,
+    @SerialName(value = "caption")
     public val caption: PageBlockCaption,
+    @SerialName(value = "is_full_width")
     public val isFullWidth: Boolean,
+    @SerialName(value = "allow_scrolling")
     public val allowScrolling: Boolean,
 ) : PageBlock() {
     override fun equals(other: Any?): Boolean {

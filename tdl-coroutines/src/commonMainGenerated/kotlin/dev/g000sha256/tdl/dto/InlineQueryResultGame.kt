@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Represents information about a game.
@@ -27,8 +29,12 @@ import kotlin.String
  * @property id Unique identifier of the query result.
  * @property game Game result.
  */
+@SerialName(value = "inlineQueryResultGame")
+@Serializable
 public class InlineQueryResultGame public constructor(
+    @SerialName(value = "id")
     public val id: String,
+    @SerialName(value = "game")
     public val game: Game,
 ) : InlineQueryResult() {
     override fun equals(other: Any?): Boolean {

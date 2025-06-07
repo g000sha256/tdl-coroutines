@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes a promotion animation for a Premium feature.
@@ -27,10 +29,14 @@ import kotlin.String
  * @property feature Premium feature.
  * @property animation Promotion animation for the feature.
  */
+@SerialName(value = "premiumFeaturePromotionAnimation")
+@Serializable
 public class PremiumFeaturePromotionAnimation public constructor(
+    @SerialName(value = "feature")
     public val feature: PremiumFeature,
+    @SerialName(value = "animation")
     public val animation: Animation,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

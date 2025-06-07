@@ -16,8 +16,11 @@
 
 package dev.g000sha256.tdl.dto
 
+import kotlinx.serialization.Serializable
+
 /**
  * This class is an abstract base class.
  * Describes format of a thumbnail.
  */
-public sealed class ThumbnailFormat protected constructor()
+@Serializable
+public sealed class ThumbnailFormat protected constructor() : Model()

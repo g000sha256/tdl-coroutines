@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains information about a message draft.
@@ -30,12 +32,18 @@ import kotlin.String
  * @property inputMessageText Content of the message draft; must be of the type inputMessageText, inputMessageVideoNote, or inputMessageVoiceNote.
  * @property effectId Identifier of the effect to apply to the message when it is sent; 0 if none.
  */
+@SerialName(value = "draftMessage")
+@Serializable
 public class DraftMessage public constructor(
+    @SerialName(value = "reply_to")
     public val replyTo: InputMessageReplyTo?,
+    @SerialName(value = "date")
     public val date: Int,
+    @SerialName(value = "input_message_text")
     public val inputMessageText: InputMessageContent,
+    @SerialName(value = "effect_id")
     public val effectId: Long,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

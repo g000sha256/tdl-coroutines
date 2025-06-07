@@ -22,6 +22,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * User changed its reactions on a message with public reactions; for bots only.
@@ -33,12 +35,20 @@ import kotlin.String
  * @property oldReactionTypes Old list of chosen reactions.
  * @property newReactionTypes New list of chosen reactions.
  */
+@SerialName(value = "updateMessageReaction")
+@Serializable
 public class UpdateMessageReaction public constructor(
+    @SerialName(value = "chat_id")
     public val chatId: Long,
+    @SerialName(value = "message_id")
     public val messageId: Long,
+    @SerialName(value = "actor_id")
     public val actorId: MessageSender,
+    @SerialName(value = "date")
     public val date: Int,
+    @SerialName(value = "old_reaction_types")
     public val oldReactionTypes: Array<ReactionType>,
+    @SerialName(value = "new_reaction_types")
     public val newReactionTypes: Array<ReactionType>,
 ) : Update() {
     override fun equals(other: Any?): Boolean {

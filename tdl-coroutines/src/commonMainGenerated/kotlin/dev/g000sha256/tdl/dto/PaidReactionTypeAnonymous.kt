@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * An anonymous paid reaction.
  */
+@SerialName(value = "paidReactionTypeAnonymous")
+@Serializable
 public class PaidReactionTypeAnonymous public constructor() : PaidReactionType() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

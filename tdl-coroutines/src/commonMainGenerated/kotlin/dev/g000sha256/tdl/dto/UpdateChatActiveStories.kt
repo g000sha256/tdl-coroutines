@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The list of active stories posted by a specific chat has changed.
  *
  * @property activeStories The new list of active stories.
  */
+@SerialName(value = "updateChatActiveStories")
+@Serializable
 public class UpdateChatActiveStories public constructor(
+    @SerialName(value = "active_stories")
     public val activeStories: ChatActiveStories,
 ) : Update() {
     override fun equals(other: Any?): Boolean {

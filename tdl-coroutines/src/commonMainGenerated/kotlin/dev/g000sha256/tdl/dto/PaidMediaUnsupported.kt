@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The media is unsupported.
  */
+@SerialName(value = "paidMediaUnsupported")
+@Serializable
 public class PaidMediaUnsupported public constructor() : PaidMedia() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

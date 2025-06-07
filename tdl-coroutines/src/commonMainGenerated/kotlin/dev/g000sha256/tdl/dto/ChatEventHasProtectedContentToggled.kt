@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The hasProtectedContent setting of a channel was toggled.
  *
  * @property hasProtectedContent New value of hasProtectedContent.
  */
+@SerialName(value = "chatEventHasProtectedContentToggled")
+@Serializable
 public class ChatEventHasProtectedContentToggled public constructor(
+    @SerialName(value = "has_protected_content")
     public val hasProtectedContent: Boolean,
 ) : ChatEventAction() {
     override fun equals(other: Any?): Boolean {

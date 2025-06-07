@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains information about a business chat link.
@@ -29,12 +31,18 @@ import kotlin.String
  * @property title Link title.
  * @property viewCount Number of times the link was used.
  */
+@SerialName(value = "businessChatLink")
+@Serializable
 public class BusinessChatLink public constructor(
+    @SerialName(value = "link")
     public val link: String,
+    @SerialName(value = "text")
     public val text: FormattedText,
+    @SerialName(value = "title")
     public val title: String,
+    @SerialName(value = "view_count")
     public val viewCount: Int,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

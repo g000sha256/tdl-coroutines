@@ -24,4 +24,16 @@ internal class TdlNative {
         return client.nativeClientReceive(clientIds, requestIds, responses, timeoutInSeconds)
     }
 
+    fun _createClientId(): Int {
+        TODO()
+    }
+
+    fun _send(clientId: Int, json: String) {
+        TODO()
+    }
+
+    fun _receive(timeoutInSeconds: Double): String {
+        TODO()
+    }
+
 }

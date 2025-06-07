@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A phone number.
  */
+@SerialName(value = "textEntityTypePhoneNumber")
+@Serializable
 public class TextEntityTypePhoneNumber public constructor() : TextEntityType() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

@@ -22,6 +22,8 @@ import kotlin.Int
 import kotlin.Long
 import kotlin.LongArray
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The user boosting a chat by creating Telegram Premium gift codes for other users.
@@ -33,12 +35,20 @@ import kotlin.String
  * @property monthCount Number of months the Telegram Premium subscription will be active for the users.
  * @property text Text to show along with the gift codes; 0-getOption(&quot;gift_text_length_max&quot;) characters. Only Bold, Italic, Underline, Strikethrough, Spoiler, and CustomEmoji entities are allowed.
  */
+@SerialName(value = "telegramPaymentPurposePremiumGiftCodes")
+@Serializable
 public class TelegramPaymentPurposePremiumGiftCodes public constructor(
+    @SerialName(value = "boosted_chat_id")
     public val boostedChatId: Long,
+    @SerialName(value = "currency")
     public val currency: String,
+    @SerialName(value = "amount")
     public val amount: Long,
+    @SerialName(value = "user_ids")
     public val userIds: LongArray,
+    @SerialName(value = "month_count")
     public val monthCount: Int,
+    @SerialName(value = "text")
     public val text: FormattedText,
 ) : TelegramPaymentPurpose() {
     override fun equals(other: Any?): Boolean {

@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Returns only failed to send messages. This filter can be used only if the message database is used.
  */
+@SerialName(value = "searchMessagesFilterFailedToSend")
+@Serializable
 public class SearchMessagesFilterFailedToSend public constructor() : SearchMessagesFilter() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

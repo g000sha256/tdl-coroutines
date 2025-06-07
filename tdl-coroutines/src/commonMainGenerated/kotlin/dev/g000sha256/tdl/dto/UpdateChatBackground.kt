@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The chat background was changed.
@@ -28,8 +30,12 @@ import kotlin.String
  * @property chatId Chat identifier.
  * @property background The new chat background; may be null if background was reset to default.
  */
+@SerialName(value = "updateChatBackground")
+@Serializable
 public class UpdateChatBackground public constructor(
+    @SerialName(value = "chat_id")
     public val chatId: Long,
+    @SerialName(value = "background")
     public val background: ChatBackground?,
 ) : Update() {
     override fun equals(other: Any?): Boolean {

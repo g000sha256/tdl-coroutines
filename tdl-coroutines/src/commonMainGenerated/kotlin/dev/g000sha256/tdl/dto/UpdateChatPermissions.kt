@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Chat permissions were changed.
@@ -28,8 +30,12 @@ import kotlin.String
  * @property chatId Chat identifier.
  * @property permissions The new chat permissions.
  */
+@SerialName(value = "updateChatPermissions")
+@Serializable
 public class UpdateChatPermissions public constructor(
+    @SerialName(value = "chat_id")
     public val chatId: Long,
+    @SerialName(value = "permissions")
     public val permissions: ChatPermissions,
 ) : Update() {
     override fun equals(other: Any?): Boolean {

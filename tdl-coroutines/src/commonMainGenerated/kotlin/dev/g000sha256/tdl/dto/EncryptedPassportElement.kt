@@ -22,6 +22,8 @@ import kotlin.Boolean
 import kotlin.ByteArray
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains information about an encrypted Telegram Passport element; for bots only.
@@ -36,17 +38,28 @@ import kotlin.String
  * @property value Unencrypted data, phone number or email address.
  * @property hash Hash of the entire element.
  */
+@SerialName(value = "encryptedPassportElement")
+@Serializable
 public class EncryptedPassportElement public constructor(
+    @SerialName(value = "type")
     public val type: PassportElementType,
+    @SerialName(value = "data")
     public val data: ByteArray,
+    @SerialName(value = "front_side")
     public val frontSide: DatedFile,
+    @SerialName(value = "reverse_side")
     public val reverseSide: DatedFile?,
+    @SerialName(value = "selfie")
     public val selfie: DatedFile?,
+    @SerialName(value = "translation")
     public val translation: Array<DatedFile>,
+    @SerialName(value = "files")
     public val files: Array<DatedFile>,
+    @SerialName(value = "value")
     public val value: String,
+    @SerialName(value = "hash")
     public val hash: String,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

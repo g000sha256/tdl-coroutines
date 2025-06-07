@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The read date is unknown due to privacy settings of the current user, but will be known if the user subscribes to Telegram Premium.
  */
+@SerialName(value = "messageReadDateMyPrivacyRestricted")
+@Serializable
 public class MessageReadDateMyPrivacyRestricted public constructor() : MessageReadDate() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

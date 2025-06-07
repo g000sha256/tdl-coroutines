@@ -16,8 +16,11 @@
 
 package dev.g000sha256.tdl.dto
 
+import kotlinx.serialization.Serializable
+
 /**
  * This class is an abstract base class.
  * Contains information about the time when a scheduled message will be sent.
  */
-public sealed class MessageSchedulingState protected constructor()
+@Serializable
+public sealed class MessageSchedulingState protected constructor() : Model()

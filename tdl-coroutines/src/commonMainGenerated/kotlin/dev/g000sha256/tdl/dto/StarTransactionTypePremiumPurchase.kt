@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The transaction is a purchase of Telegram Premium subscription; for regular users and bots only.
@@ -29,9 +31,14 @@ import kotlin.String
  * @property monthCount Number of months the Telegram Premium subscription will be active.
  * @property sticker A sticker to be shown in the transaction information; may be null if unknown.
  */
+@SerialName(value = "starTransactionTypePremiumPurchase")
+@Serializable
 public class StarTransactionTypePremiumPurchase public constructor(
+    @SerialName(value = "user_id")
     public val userId: Long,
+    @SerialName(value = "month_count")
     public val monthCount: Int,
+    @SerialName(value = "sticker")
     public val sticker: Sticker?,
 ) : StarTransactionType() {
     override fun equals(other: Any?): Boolean {

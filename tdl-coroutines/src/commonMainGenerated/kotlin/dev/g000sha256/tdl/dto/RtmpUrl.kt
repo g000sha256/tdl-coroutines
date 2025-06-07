@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Represents an RTMP URL.
@@ -27,10 +29,14 @@ import kotlin.String
  * @property url The URL.
  * @property streamKey Stream key.
  */
+@SerialName(value = "rtmpUrl")
+@Serializable
 public class RtmpUrl public constructor(
+    @SerialName(value = "url")
     public val url: String,
+    @SerialName(value = "stream_key")
     public val streamKey: String,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.LongArray
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A message with information about an invitation to a video chat.
@@ -28,8 +30,12 @@ import kotlin.String
  * @property groupCallId Identifier of the video chat. The video chat can be received through the method getGroupCall.
  * @property userIds Invited user identifiers.
  */
+@SerialName(value = "messageInviteVideoChatParticipants")
+@Serializable
 public class MessageInviteVideoChatParticipants public constructor(
+    @SerialName(value = "group_call_id")
     public val groupCallId: Int,
+    @SerialName(value = "user_ids")
     public val userIds: LongArray,
 ) : MessageContent() {
     override fun equals(other: Any?): Boolean {

@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes a backdrop of an upgraded gift.
@@ -27,10 +29,14 @@ import kotlin.String
  * @property backdrop The backdrop.
  * @property totalCount Total number of gifts with the symbol.
  */
+@SerialName(value = "upgradedGiftBackdropCount")
+@Serializable
 public class UpgradedGiftBackdropCount public constructor(
+    @SerialName(value = "backdrop")
     public val backdrop: UpgradedGiftBackdrop,
+    @SerialName(value = "total_count")
     public val totalCount: Int,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

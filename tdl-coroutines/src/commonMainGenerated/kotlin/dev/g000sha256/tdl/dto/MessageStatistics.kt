@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A detailed statistics about a message.
@@ -27,10 +29,14 @@ import kotlin.String
  * @property messageInteractionGraph A graph containing number of message views and shares.
  * @property messageReactionGraph A graph containing number of message reactions.
  */
+@SerialName(value = "messageStatistics")
+@Serializable
 public class MessageStatistics public constructor(
+    @SerialName(value = "message_interaction_graph")
     public val messageInteractionGraph: StatisticalGraph,
+    @SerialName(value = "message_reaction_graph")
     public val messageReactionGraph: StatisticalGraph,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

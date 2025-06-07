@@ -16,8 +16,11 @@
 
 package dev.g000sha256.tdl.dto
 
+import kotlinx.serialization.Serializable
+
 /**
  * This class is an abstract base class.
  * Describes an in-store transaction.
  */
-public sealed class StoreTransaction protected constructor()
+@Serializable
+public sealed class StoreTransaction protected constructor() : Model()

@@ -21,13 +21,18 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Topic containing messages forwarded from a specific chat.
  *
  * @property chatId Identifier of the chat.
  */
+@SerialName(value = "savedMessagesTopicTypeSavedFromChat")
+@Serializable
 public class SavedMessagesTopicTypeSavedFromChat public constructor(
+    @SerialName(value = "chat_id")
     public val chatId: Long,
 ) : SavedMessagesTopicType() {
     override fun equals(other: Any?): Boolean {

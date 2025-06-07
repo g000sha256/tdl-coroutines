@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes a chat background.
@@ -32,14 +34,22 @@ import kotlin.String
  * @property document Document with the background; may be null. Null only for filled and chat theme backgrounds.
  * @property type Type of the background.
  */
+@SerialName(value = "background")
+@Serializable
 public class Background public constructor(
+    @SerialName(value = "id")
     public val id: Long,
+    @SerialName(value = "is_default")
     public val isDefault: Boolean,
+    @SerialName(value = "is_dark")
     public val isDark: Boolean,
+    @SerialName(value = "name")
     public val name: String,
+    @SerialName(value = "document")
     public val document: Document?,
+    @SerialName(value = "type")
     public val type: BackgroundType,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A forward of the story as a message.
  *
  * @property message The message with story forward.
  */
+@SerialName(value = "storyInteractionTypeForward")
+@Serializable
 public class StoryInteractionTypeForward public constructor(
+    @SerialName(value = "message")
     public val message: Message,
 ) : StoryInteractionType() {
     override fun equals(other: Any?): Boolean {

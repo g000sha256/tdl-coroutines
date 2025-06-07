@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The ability to set a custom emoji as a forum topic icon.
  */
+@SerialName(value = "premiumFeatureForumTopicIcon")
+@Serializable
 public class PremiumFeatureForumTopicIcon public constructor() : PremiumFeature() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

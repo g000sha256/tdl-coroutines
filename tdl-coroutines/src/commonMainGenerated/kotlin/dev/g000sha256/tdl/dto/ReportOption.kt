@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.ByteArray
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes an option to report an entity to Telegram.
@@ -28,10 +30,14 @@ import kotlin.String
  * @property id Unique identifier of the option.
  * @property text Text of the option.
  */
+@SerialName(value = "reportOption")
+@Serializable
 public class ReportOption public constructor(
+    @SerialName(value = "id")
     public val id: ByteArray,
+    @SerialName(value = "text")
     public val text: String,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

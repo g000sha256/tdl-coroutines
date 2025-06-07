@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The ability to use quick replies.
  */
+@SerialName(value = "businessFeatureQuickReplies")
+@Serializable
 public class BusinessFeatureQuickReplies public constructor() : BusinessFeature() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

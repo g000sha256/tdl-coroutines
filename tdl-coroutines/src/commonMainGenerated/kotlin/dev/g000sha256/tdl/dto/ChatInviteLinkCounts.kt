@@ -21,15 +21,20 @@ import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains a list of chat invite link counts.
  *
  * @property inviteLinkCounts List of invite link counts.
  */
+@SerialName(value = "chatInviteLinkCounts")
+@Serializable
 public class ChatInviteLinkCounts public constructor(
+    @SerialName(value = "invite_link_counts")
     public val inviteLinkCounts: Array<ChatInviteLinkCount>,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

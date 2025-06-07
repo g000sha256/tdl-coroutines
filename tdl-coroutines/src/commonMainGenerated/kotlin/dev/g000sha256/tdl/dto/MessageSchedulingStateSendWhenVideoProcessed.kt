@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The message will be sent when the video in the message is converted and optimized; can be used only by the server.
  *
  * @property sendDate Approximate point in time (Unix timestamp) when the message is expected to be sent.
  */
+@SerialName(value = "messageSchedulingStateSendWhenVideoProcessed")
+@Serializable
 public class MessageSchedulingStateSendWhenVideoProcessed public constructor(
+    @SerialName(value = "send_date")
     public val sendDate: Int,
 ) : MessageSchedulingState() {
     override fun equals(other: Any?): Boolean {

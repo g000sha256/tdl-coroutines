@@ -21,13 +21,18 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The affiliate is a channel chat where the current user has canPostMessages administrator right.
  *
  * @property chatId Identifier of the channel chat.
  */
+@SerialName(value = "affiliateTypeChannel")
+@Serializable
 public class AffiliateTypeChannel public constructor(
+    @SerialName(value = "chat_id")
     public val chatId: Long,
 ) : AffiliateType() {
     override fun equals(other: Any?): Boolean {

@@ -21,13 +21,18 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Returns users which can be mentioned in the chat.
  *
  * @property messageThreadId If non-zero, the identifier of the current message thread.
  */
+@SerialName(value = "chatMembersFilterMention")
+@Serializable
 public class ChatMembersFilterMention public constructor(
+    @SerialName(value = "message_thread_id")
     public val messageThreadId: Long,
 ) : ChatMembersFilter() {
     override fun equals(other: Any?): Boolean {

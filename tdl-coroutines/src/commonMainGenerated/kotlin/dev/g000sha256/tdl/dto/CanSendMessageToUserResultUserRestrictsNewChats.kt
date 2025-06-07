@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The user can't be messaged, because they restrict new chats with non-contacts.
  */
+@SerialName(value = "canSendMessageToUserResultUserRestrictsNewChats")
+@Serializable
 public class CanSendMessageToUserResultUserRestrictsNewChats public constructor() : CanSendMessageToUserResult() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

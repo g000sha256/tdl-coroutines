@@ -21,13 +21,18 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A user with Telegram Premium subscription or gifted Telegram Premium boosted the chat.
  *
  * @property userId Identifier of the user.
  */
+@SerialName(value = "chatBoostSourcePremium")
+@Serializable
 public class ChatBoostSourcePremium public constructor(
+    @SerialName(value = "user_id")
     public val userId: Long,
 ) : ChatBoostSource() {
     override fun equals(other: Any?): Boolean {

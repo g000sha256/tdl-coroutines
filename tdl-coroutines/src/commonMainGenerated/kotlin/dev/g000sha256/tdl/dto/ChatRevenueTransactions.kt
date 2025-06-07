@@ -21,6 +21,8 @@ import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains a list of chat revenue transactions.
@@ -28,10 +30,14 @@ import kotlin.String
  * @property totalCount Total number of transactions.
  * @property transactions List of transactions.
  */
+@SerialName(value = "chatRevenueTransactions")
+@Serializable
 public class ChatRevenueTransactions public constructor(
+    @SerialName(value = "total_count")
     public val totalCount: Int,
+    @SerialName(value = "transactions")
     public val transactions: Array<ChatRevenueTransaction>,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

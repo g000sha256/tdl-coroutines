@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains information about one session in a Telegram application used by the current user. Sessions must be shown to the user in the returned order.
@@ -44,26 +46,46 @@ import kotlin.String
  * @property ipAddress IP address from which the session was created, in human-readable format.
  * @property location A human-readable description of the location from which the session was created, based on the IP address.
  */
+@SerialName(value = "session")
+@Serializable
 public class Session public constructor(
+    @SerialName(value = "id")
     public val id: Long,
+    @SerialName(value = "is_current")
     public val isCurrent: Boolean,
+    @SerialName(value = "is_password_pending")
     public val isPasswordPending: Boolean,
+    @SerialName(value = "is_unconfirmed")
     public val isUnconfirmed: Boolean,
+    @SerialName(value = "can_accept_secret_chats")
     public val canAcceptSecretChats: Boolean,
+    @SerialName(value = "can_accept_calls")
     public val canAcceptCalls: Boolean,
+    @SerialName(value = "type")
     public val type: SessionType,
+    @SerialName(value = "api_id")
     public val apiId: Int,
+    @SerialName(value = "application_name")
     public val applicationName: String,
+    @SerialName(value = "application_version")
     public val applicationVersion: String,
+    @SerialName(value = "is_official_application")
     public val isOfficialApplication: Boolean,
+    @SerialName(value = "device_model")
     public val deviceModel: String,
+    @SerialName(value = "platform")
     public val platform: String,
+    @SerialName(value = "system_version")
     public val systemVersion: String,
+    @SerialName(value = "log_in_date")
     public val logInDate: Int,
+    @SerialName(value = "last_active_date")
     public val lastActiveDate: Int,
+    @SerialName(value = "ip_address")
     public val ipAddress: String,
+    @SerialName(value = "location")
     public val location: String,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

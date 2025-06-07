@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A list of chats added to a chat folder.
  *
  * @property chatFolderId Chat folder identifier.
  */
+@SerialName(value = "chatListFolder")
+@Serializable
 public class ChatListFolder public constructor(
+    @SerialName(value = "chat_folder_id")
     public val chatFolderId: Int,
 ) : ChatList() {
     override fun equals(other: Any?): Boolean {

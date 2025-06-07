@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The session can be used.
  */
+@SerialName(value = "canTransferOwnershipResultOk")
+@Serializable
 public class CanTransferOwnershipResultOk public constructor() : CanTransferOwnershipResult() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

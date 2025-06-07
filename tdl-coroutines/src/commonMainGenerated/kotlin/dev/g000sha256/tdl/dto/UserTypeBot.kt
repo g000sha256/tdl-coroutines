@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A bot (see https://core.telegram.org/bots).
@@ -35,16 +37,28 @@ import kotlin.String
  * @property canBeAddedToAttachmentMenu True, if the bot can be added to attachment or side menu.
  * @property activeUserCount The number of recently active users of the bot.
  */
+@SerialName(value = "userTypeBot")
+@Serializable
 public class UserTypeBot public constructor(
+    @SerialName(value = "can_be_edited")
     public val canBeEdited: Boolean,
+    @SerialName(value = "can_join_groups")
     public val canJoinGroups: Boolean,
+    @SerialName(value = "can_read_all_group_messages")
     public val canReadAllGroupMessages: Boolean,
+    @SerialName(value = "has_main_web_app")
     public val hasMainWebApp: Boolean,
+    @SerialName(value = "is_inline")
     public val isInline: Boolean,
+    @SerialName(value = "inline_query_placeholder")
     public val inlineQueryPlaceholder: String,
+    @SerialName(value = "need_location")
     public val needLocation: Boolean,
+    @SerialName(value = "can_connect_to_business")
     public val canConnectToBusiness: Boolean,
+    @SerialName(value = "can_be_added_to_attachment_menu")
     public val canBeAddedToAttachmentMenu: Boolean,
+    @SerialName(value = "active_user_count")
     public val activeUserCount: Int,
 ) : UserType() {
     override fun equals(other: Any?): Boolean {

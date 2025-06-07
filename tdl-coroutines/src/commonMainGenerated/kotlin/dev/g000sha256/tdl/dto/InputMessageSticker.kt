@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A sticker message.
@@ -30,11 +32,18 @@ import kotlin.String
  * @property height Sticker height.
  * @property emoji Emoji used to choose the sticker.
  */
+@SerialName(value = "inputMessageSticker")
+@Serializable
 public class InputMessageSticker public constructor(
+    @SerialName(value = "sticker")
     public val sticker: InputFile,
+    @SerialName(value = "thumbnail")
     public val thumbnail: InputThumbnail?,
+    @SerialName(value = "width")
     public val width: Int,
+    @SerialName(value = "height")
     public val height: Int,
+    @SerialName(value = "emoji")
     public val emoji: String,
 ) : InputMessageContent() {
     override fun equals(other: Any?): Boolean {

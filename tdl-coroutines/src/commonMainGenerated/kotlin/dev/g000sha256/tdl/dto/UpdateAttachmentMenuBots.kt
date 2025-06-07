@@ -21,13 +21,18 @@ import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The list of bots added to attachment or side menu has changed.
  *
  * @property bots The new list of bots. The bots must not be shown on scheduled messages screen.
  */
+@SerialName(value = "updateAttachmentMenuBots")
+@Serializable
 public class UpdateAttachmentMenuBots public constructor(
+    @SerialName(value = "bots")
     public val bots: Array<AttachmentMenuBot>,
 ) : Update() {
     override fun equals(other: Any?): Boolean {

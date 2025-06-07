@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A bot command, beginning with &quot;/&quot;.
  */
+@SerialName(value = "textEntityTypeBotCommand")
+@Serializable
 public class TextEntityTypeBotCommand public constructor() : TextEntityType() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

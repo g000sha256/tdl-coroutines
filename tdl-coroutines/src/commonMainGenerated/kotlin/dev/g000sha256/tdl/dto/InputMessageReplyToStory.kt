@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes a story to be replied.
@@ -28,8 +30,12 @@ import kotlin.String
  * @property storyPosterChatId The identifier of the poster of the story. Currently, stories can be replied only in the chat that posted the story; channel stories can't be replied.
  * @property storyId The identifier of the story.
  */
+@SerialName(value = "inputMessageReplyToStory")
+@Serializable
 public class InputMessageReplyToStory public constructor(
+    @SerialName(value = "story_poster_chat_id")
     public val storyPosterChatId: Long,
+    @SerialName(value = "story_id")
     public val storyId: Int,
 ) : InputMessageReplyTo() {
     override fun equals(other: Any?): Boolean {

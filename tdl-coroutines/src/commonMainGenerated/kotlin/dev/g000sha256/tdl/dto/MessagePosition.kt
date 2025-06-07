@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains information about a message in a specific position.
@@ -29,11 +31,16 @@ import kotlin.String
  * @property messageId Message identifier.
  * @property date Point in time (Unix timestamp) when the message was sent.
  */
+@SerialName(value = "messagePosition")
+@Serializable
 public class MessagePosition public constructor(
+    @SerialName(value = "position")
     public val position: Int,
+    @SerialName(value = "message_id")
     public val messageId: Long,
+    @SerialName(value = "date")
     public val date: Int,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

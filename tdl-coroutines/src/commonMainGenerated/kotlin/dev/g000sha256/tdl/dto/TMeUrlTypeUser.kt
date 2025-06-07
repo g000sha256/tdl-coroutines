@@ -21,13 +21,18 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A URL linking to a user.
  *
  * @property userId Identifier of the user.
  */
+@SerialName(value = "tMeUrlTypeUser")
+@Serializable
 public class TMeUrlTypeUser public constructor(
+    @SerialName(value = "user_id")
     public val userId: Long,
 ) : TMeUrlType() {
     override fun equals(other: Any?): Boolean {

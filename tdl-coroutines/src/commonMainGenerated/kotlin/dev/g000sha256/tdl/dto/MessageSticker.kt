@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A sticker message.
@@ -27,8 +29,12 @@ import kotlin.String
  * @property sticker The sticker description.
  * @property isPremium True, if premium animation of the sticker must be played.
  */
+@SerialName(value = "messageSticker")
+@Serializable
 public class MessageSticker public constructor(
+    @SerialName(value = "sticker")
     public val sticker: Sticker,
+    @SerialName(value = "is_premium")
     public val isPremium: Boolean,
 ) : MessageContent() {
     override fun equals(other: Any?): Boolean {

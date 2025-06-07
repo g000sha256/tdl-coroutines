@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The user connected a website by logging in using Telegram Login Widget on it.
  *
  * @property domainName Domain name of the connected website.
  */
+@SerialName(value = "botWriteAccessAllowReasonConnectedWebsite")
+@Serializable
 public class BotWriteAccessAllowReasonConnectedWebsite public constructor(
+    @SerialName(value = "domain_name")
     public val domainName: String,
 ) : BotWriteAccessAllowReason() {
     override fun equals(other: Any?): Boolean {

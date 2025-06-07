@@ -16,8 +16,11 @@
 
 package dev.g000sha256.tdl.dto
 
+import kotlinx.serialization.Serializable
+
 /**
  * This class is an abstract base class.
  * Describes the different types of activity in a chat.
  */
-public sealed class ChatAction protected constructor()
+@Serializable
+public sealed class ChatAction protected constructor() : Model()

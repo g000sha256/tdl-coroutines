@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The user participates in the giveaway.
  */
+@SerialName(value = "giveawayParticipantStatusParticipating")
+@Serializable
 public class GiveawayParticipantStatusParticipating public constructor() : GiveawayParticipantStatus() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains basic information about a story.
@@ -28,11 +30,16 @@ import kotlin.String
  * @property date Point in time (Unix timestamp) when the story was published.
  * @property isForCloseFriends True, if the story is available only to close friends.
  */
+@SerialName(value = "storyInfo")
+@Serializable
 public class StoryInfo public constructor(
+    @SerialName(value = "story_id")
     public val storyId: Int,
+    @SerialName(value = "date")
     public val date: Int,
+    @SerialName(value = "is_for_close_friends")
     public val isForCloseFriends: Boolean,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

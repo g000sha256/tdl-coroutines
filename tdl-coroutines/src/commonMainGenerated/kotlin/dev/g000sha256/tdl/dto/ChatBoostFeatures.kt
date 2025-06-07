@@ -21,6 +21,8 @@ import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains a list of features available on the first chat boost levels.
@@ -36,18 +38,30 @@ import kotlin.String
  * @property minSpeechRecognitionBoostLevel The minimum boost level allowing to recognize speech in video note and voice note messages for non-Premium users; for supergroup chats only.
  * @property minSponsoredMessageDisableBoostLevel The minimum boost level allowing to disable sponsored messages in the chat; for channel chats only.
  */
+@SerialName(value = "chatBoostFeatures")
+@Serializable
 public class ChatBoostFeatures public constructor(
+    @SerialName(value = "features")
     public val features: Array<ChatBoostLevelFeatures>,
+    @SerialName(value = "min_profile_background_custom_emoji_boost_level")
     public val minProfileBackgroundCustomEmojiBoostLevel: Int,
+    @SerialName(value = "min_background_custom_emoji_boost_level")
     public val minBackgroundCustomEmojiBoostLevel: Int,
+    @SerialName(value = "min_emoji_status_boost_level")
     public val minEmojiStatusBoostLevel: Int,
+    @SerialName(value = "min_chat_theme_background_boost_level")
     public val minChatThemeBackgroundBoostLevel: Int,
+    @SerialName(value = "min_custom_background_boost_level")
     public val minCustomBackgroundBoostLevel: Int,
+    @SerialName(value = "min_custom_emoji_sticker_set_boost_level")
     public val minCustomEmojiStickerSetBoostLevel: Int,
+    @SerialName(value = "min_automatic_translation_boost_level")
     public val minAutomaticTranslationBoostLevel: Int,
+    @SerialName(value = "min_speech_recognition_boost_level")
     public val minSpeechRecognitionBoostLevel: Int,
+    @SerialName(value = "min_sponsored_message_disable_boost_level")
     public val minSponsoredMessageDisableBoostLevel: Int,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

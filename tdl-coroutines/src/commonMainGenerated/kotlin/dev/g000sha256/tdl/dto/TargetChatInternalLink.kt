@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The chat needs to be open with the provided internal link.
  *
  * @property link An internal link pointing to the chat.
  */
+@SerialName(value = "targetChatInternalLink")
+@Serializable
 public class TargetChatInternalLink public constructor(
+    @SerialName(value = "link")
     public val link: InternalLinkType,
 ) : TargetChat() {
     override fun equals(other: Any?): Boolean {

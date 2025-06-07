@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The user can't participate in the giveaway, because they phone number is from a disallowed country.
  *
  * @property userCountryCode A two-letter ISO 3166-1 alpha-2 country code of the user's country.
  */
+@SerialName(value = "giveawayParticipantStatusDisallowedCountry")
+@Serializable
 public class GiveawayParticipantStatusDisallowedCountry public constructor(
+    @SerialName(value = "user_country_code")
     public val userCountryCode: String,
 ) : GiveawayParticipantStatus() {
     override fun equals(other: Any?): Boolean {

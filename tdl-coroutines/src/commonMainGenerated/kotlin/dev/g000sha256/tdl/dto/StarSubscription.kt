@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains information about subscription to a channel chat, a bot, or a business account that was paid in Telegram Stars.
@@ -33,15 +35,24 @@ import kotlin.String
  * @property pricing The subscription plan.
  * @property type Type of the subscription.
  */
+@SerialName(value = "starSubscription")
+@Serializable
 public class StarSubscription public constructor(
+    @SerialName(value = "id")
     public val id: String,
+    @SerialName(value = "chat_id")
     public val chatId: Long,
+    @SerialName(value = "expiration_date")
     public val expirationDate: Int,
+    @SerialName(value = "is_canceled")
     public val isCanceled: Boolean,
+    @SerialName(value = "is_expiring")
     public val isExpiring: Boolean,
+    @SerialName(value = "pricing")
     public val pricing: StarSubscriptionPricing,
+    @SerialName(value = "type")
     public val type: StarSubscriptionType,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

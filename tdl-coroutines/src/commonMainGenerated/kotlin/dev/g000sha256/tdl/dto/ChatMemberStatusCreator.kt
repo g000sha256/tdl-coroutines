@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The user is the owner of the chat and has all the administrator privileges.
@@ -28,9 +30,14 @@ import kotlin.String
  * @property isAnonymous True, if the creator isn't shown in the chat member list and sends messages anonymously; applicable to supergroups only.
  * @property isMember True, if the user is a member of the chat.
  */
+@SerialName(value = "chatMemberStatusCreator")
+@Serializable
 public class ChatMemberStatusCreator public constructor(
+    @SerialName(value = "custom_title")
     public val customTitle: String,
+    @SerialName(value = "is_anonymous")
     public val isAnonymous: Boolean,
+    @SerialName(value = "is_member")
     public val isMember: Boolean,
 ) : ChatMemberStatus() {
     override fun equals(other: Any?): Boolean {

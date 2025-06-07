@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The link is a link to the change phone number section of the application.
  */
+@SerialName(value = "internalLinkTypeChangePhoneNumber")
+@Serializable
 public class InternalLinkTypeChangePhoneNumber public constructor() : InternalLinkType() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains settings for gift receiving for a user.
@@ -27,10 +29,14 @@ import kotlin.String
  * @property showGiftButton True, if a button for sending a gift to the user or by the user must always be shown in the input field.
  * @property acceptedGiftTypes Types of gifts accepted by the user; for Telegram Premium users only.
  */
+@SerialName(value = "giftSettings")
+@Serializable
 public class GiftSettings public constructor(
+    @SerialName(value = "show_gift_button")
     public val showGiftButton: Boolean,
+    @SerialName(value = "accepted_gift_types")
     public val acceptedGiftTypes: AcceptedGiftTypes,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

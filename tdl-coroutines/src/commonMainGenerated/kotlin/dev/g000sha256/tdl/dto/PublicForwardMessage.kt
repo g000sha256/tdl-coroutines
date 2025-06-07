@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains a public forward as a message.
  *
  * @property message Information about the message.
  */
+@SerialName(value = "publicForwardMessage")
+@Serializable
 public class PublicForwardMessage public constructor(
+    @SerialName(value = "message")
     public val message: Message,
 ) : PublicForward() {
     override fun equals(other: Any?): Boolean {

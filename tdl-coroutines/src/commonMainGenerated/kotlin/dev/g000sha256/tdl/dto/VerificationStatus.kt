@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains information about verification status of a chat or a user.
@@ -30,12 +32,18 @@ import kotlin.String
  * @property isFake True, if the chat or the user is marked as fake by Telegram.
  * @property botVerificationIconCustomEmojiId Identifier of the custom emoji to be shown as verification sign provided by a bot for the user; 0 if none.
  */
+@SerialName(value = "verificationStatus")
+@Serializable
 public class VerificationStatus public constructor(
+    @SerialName(value = "is_verified")
     public val isVerified: Boolean,
+    @SerialName(value = "is_scam")
     public val isScam: Boolean,
+    @SerialName(value = "is_fake")
     public val isFake: Boolean,
+    @SerialName(value = "bot_verification_icon_custom_emoji_id")
     public val botVerificationIconCustomEmojiId: Long,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

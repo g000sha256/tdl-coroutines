@@ -22,6 +22,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.IntArray
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The list of supported accent colors for user profiles has changed.
@@ -29,8 +31,12 @@ import kotlin.String
  * @property colors Information about supported colors.
  * @property availableAccentColorIds The list of accent color identifiers, which can be set through setProfileAccentColor and setChatProfileAccentColor. The colors must be shown in the specified order.
  */
+@SerialName(value = "updateProfileAccentColors")
+@Serializable
 public class UpdateProfileAccentColors public constructor(
+    @SerialName(value = "colors")
     public val colors: Array<ProfileAccentColor>,
+    @SerialName(value = "available_accent_color_ids")
     public val availableAccentColorIds: IntArray,
 ) : Update() {
     override fun equals(other: Any?): Boolean {

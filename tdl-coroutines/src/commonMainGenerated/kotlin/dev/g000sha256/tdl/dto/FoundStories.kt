@@ -21,6 +21,8 @@ import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains a list of stories found by a search.
@@ -29,11 +31,16 @@ import kotlin.String
  * @property stories List of stories.
  * @property nextOffset The offset for the next request. If empty, then there are no more results.
  */
+@SerialName(value = "foundStories")
+@Serializable
 public class FoundStories public constructor(
+    @SerialName(value = "total_count")
     public val totalCount: Int,
+    @SerialName(value = "stories")
     public val stories: Array<Story>,
+    @SerialName(value = "next_offset")
     public val nextOffset: String,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

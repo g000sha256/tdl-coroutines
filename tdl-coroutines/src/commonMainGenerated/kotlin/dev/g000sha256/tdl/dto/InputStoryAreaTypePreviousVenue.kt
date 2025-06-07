@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * An area pointing to a venue already added to the story.
@@ -27,8 +29,12 @@ import kotlin.String
  * @property venueProvider Provider of the venue.
  * @property venueId Identifier of the venue in the provider database.
  */
+@SerialName(value = "inputStoryAreaTypePreviousVenue")
+@Serializable
 public class InputStoryAreaTypePreviousVenue public constructor(
+    @SerialName(value = "venue_provider")
     public val venueProvider: String,
+    @SerialName(value = "venue_id")
     public val venueId: String,
 ) : InputStoryAreaType() {
     override fun equals(other: Any?): Boolean {

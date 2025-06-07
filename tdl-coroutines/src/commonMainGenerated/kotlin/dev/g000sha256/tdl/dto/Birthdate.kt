@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Represents a birthdate of a user.
@@ -28,11 +30,16 @@ import kotlin.String
  * @property month Month of the year; 1-12.
  * @property year Birth year; 0 if unknown.
  */
+@SerialName(value = "birthdate")
+@Serializable
 public class Birthdate public constructor(
+    @SerialName(value = "day")
     public val day: Int,
+    @SerialName(value = "month")
     public val month: Int,
+    @SerialName(value = "year")
     public val year: Int,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

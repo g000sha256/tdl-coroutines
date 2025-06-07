@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The user creating a Telegram Premium giveaway.
@@ -29,9 +31,14 @@ import kotlin.String
  * @property currency ISO 4217 currency code of the payment currency.
  * @property amount Paid amount, in the smallest units of the currency.
  */
+@SerialName(value = "storePaymentPurposePremiumGiveaway")
+@Serializable
 public class StorePaymentPurposePremiumGiveaway public constructor(
+    @SerialName(value = "parameters")
     public val parameters: GiveawayParameters,
+    @SerialName(value = "currency")
     public val currency: String,
+    @SerialName(value = "amount")
     public val amount: Long,
 ) : StorePaymentPurpose() {
     override fun equals(other: Any?): Boolean {

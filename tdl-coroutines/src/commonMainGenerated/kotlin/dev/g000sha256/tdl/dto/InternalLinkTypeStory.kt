@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The link is a link to a story. Call searchPublicChat with the given poster username, then call getStory with the received chat identifier and the given story identifier, then show the story if received.
@@ -27,8 +29,12 @@ import kotlin.String
  * @property storyPosterUsername Username of the poster of the story.
  * @property storyId Story identifier.
  */
+@SerialName(value = "internalLinkTypeStory")
+@Serializable
 public class InternalLinkTypeStory public constructor(
+    @SerialName(value = "story_poster_username")
     public val storyPosterUsername: String,
+    @SerialName(value = "story_id")
     public val storyId: Int,
 ) : InternalLinkType() {
     override fun equals(other: Any?): Boolean {

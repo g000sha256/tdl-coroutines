@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The thumbnail is in static GIF format. It will be used only for some bot inline query results.
  */
+@SerialName(value = "thumbnailFormatGif")
+@Serializable
 public class ThumbnailFormatGif public constructor() : ThumbnailFormat() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

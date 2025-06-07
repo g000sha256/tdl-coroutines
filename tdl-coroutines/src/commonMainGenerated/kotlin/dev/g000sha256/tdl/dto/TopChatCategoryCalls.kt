@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A category containing frequently used chats used for calls.
  */
+@SerialName(value = "topChatCategoryCalls")
+@Serializable
 public class TopChatCategoryCalls public constructor() : TopChatCategory() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

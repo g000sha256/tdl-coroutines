@@ -21,13 +21,18 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * File generation is no longer needed.
  *
  * @property generationId Unique identifier for the generation process.
  */
+@SerialName(value = "updateFileGenerationStop")
+@Serializable
 public class UpdateFileGenerationStop public constructor(
+    @SerialName(value = "generation_id")
     public val generationId: Long,
 ) : Update() {
     override fun equals(other: Any?): Boolean {

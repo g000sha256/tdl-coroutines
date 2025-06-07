@@ -23,6 +23,8 @@ import kotlin.Int
 import kotlin.IntArray
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A list of active notifications in a notification group has changed.
@@ -36,14 +38,24 @@ import kotlin.String
  * @property addedNotifications List of added group notifications, sorted by notification identifier.
  * @property removedNotificationIds Identifiers of removed group notifications, sorted by notification identifier.
  */
+@SerialName(value = "updateNotificationGroup")
+@Serializable
 public class UpdateNotificationGroup public constructor(
+    @SerialName(value = "notification_group_id")
     public val notificationGroupId: Int,
+    @SerialName(value = "type")
     public val type: NotificationGroupType,
+    @SerialName(value = "chat_id")
     public val chatId: Long,
+    @SerialName(value = "notification_settings_chat_id")
     public val notificationSettingsChatId: Long,
+    @SerialName(value = "notification_sound_id")
     public val notificationSoundId: Long,
+    @SerialName(value = "total_count")
     public val totalCount: Int,
+    @SerialName(value = "added_notifications")
     public val addedNotifications: Array<Notification>,
+    @SerialName(value = "removed_notification_ids")
     public val removedNotificationIds: IntArray,
 ) : Update() {
     override fun equals(other: Any?): Boolean {

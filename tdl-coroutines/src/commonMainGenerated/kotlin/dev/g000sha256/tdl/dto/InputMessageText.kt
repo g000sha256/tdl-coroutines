@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A text message.
@@ -28,9 +30,14 @@ import kotlin.String
  * @property linkPreviewOptions Options to be used for generation of a link preview; may be null if none; pass null to use default link preview options.
  * @property clearDraft True, if a chat message draft must be deleted.
  */
+@SerialName(value = "inputMessageText")
+@Serializable
 public class InputMessageText public constructor(
+    @SerialName(value = "text")
     public val text: FormattedText,
+    @SerialName(value = "link_preview_options")
     public val linkPreviewOptions: LinkPreviewOptions?,
+    @SerialName(value = "clear_draft")
     public val clearDraft: Boolean,
 ) : InputMessageContent() {
     override fun equals(other: Any?): Boolean {

@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes a recently speaking participant in a group call.
@@ -27,10 +29,14 @@ import kotlin.String
  * @property participantId Group call participant identifier.
  * @property isSpeaking True, is the user has spoken recently.
  */
+@SerialName(value = "groupCallRecentSpeaker")
+@Serializable
 public class GroupCallRecentSpeaker public constructor(
+    @SerialName(value = "participant_id")
     public val participantId: MessageSender,
+    @SerialName(value = "is_speaking")
     public val isSpeaking: Boolean,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The link is an unknown tg: link. Call getDeepLinkInfo to process the link.
  *
  * @property link Link to be passed to getDeepLinkInfo.
  */
+@SerialName(value = "internalLinkTypeUnknownDeepLink")
+@Serializable
 public class InternalLinkTypeUnknownDeepLink public constructor(
+    @SerialName(value = "link")
     public val link: String,
 ) : InternalLinkType() {
     override fun equals(other: Any?): Boolean {

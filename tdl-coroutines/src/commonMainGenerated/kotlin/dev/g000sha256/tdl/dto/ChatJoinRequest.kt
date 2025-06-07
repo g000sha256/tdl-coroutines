@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes a user that sent a join request and waits for administrator approval.
@@ -29,11 +31,16 @@ import kotlin.String
  * @property date Point in time (Unix timestamp) when the user sent the join request.
  * @property bio A short bio of the user.
  */
+@SerialName(value = "chatJoinRequest")
+@Serializable
 public class ChatJoinRequest public constructor(
+    @SerialName(value = "user_id")
     public val userId: Long,
+    @SerialName(value = "date")
     public val date: Int,
+    @SerialName(value = "bio")
     public val bio: String,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

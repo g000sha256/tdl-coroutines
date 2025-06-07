@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Represents an emoji with its keyword.
@@ -27,10 +29,14 @@ import kotlin.String
  * @property emoji The emoji.
  * @property keyword The keyword.
  */
+@SerialName(value = "emojiKeyword")
+@Serializable
 public class EmojiKeyword public constructor(
+    @SerialName(value = "emoji")
     public val emoji: String,
+    @SerialName(value = "keyword")
     public val keyword: String,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

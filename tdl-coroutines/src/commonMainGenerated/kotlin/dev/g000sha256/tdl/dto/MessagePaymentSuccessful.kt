@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A payment has been sent to a bot or a business account.
@@ -34,14 +36,24 @@ import kotlin.String
  * @property isFirstRecurring True, if this is the first recurring payment.
  * @property invoiceName Name of the invoice; may be empty if unknown.
  */
+@SerialName(value = "messagePaymentSuccessful")
+@Serializable
 public class MessagePaymentSuccessful public constructor(
+    @SerialName(value = "invoice_chat_id")
     public val invoiceChatId: Long,
+    @SerialName(value = "invoice_message_id")
     public val invoiceMessageId: Long,
+    @SerialName(value = "currency")
     public val currency: String,
+    @SerialName(value = "total_amount")
     public val totalAmount: Long,
+    @SerialName(value = "subscription_until_date")
     public val subscriptionUntilDate: Int,
+    @SerialName(value = "is_recurring")
     public val isRecurring: Boolean,
+    @SerialName(value = "is_first_recurring")
     public val isFirstRecurring: Boolean,
+    @SerialName(value = "invoice_name")
     public val invoiceName: String,
 ) : MessageContent() {
     override fun equals(other: Any?): Boolean {

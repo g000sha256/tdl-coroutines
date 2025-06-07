@@ -21,13 +21,18 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A message was sent by an opened Web App, so the Web App needs to be closed.
  *
  * @property webAppLaunchId Identifier of Web App launch.
  */
+@SerialName(value = "updateWebAppMessageSent")
+@Serializable
 public class UpdateWebAppMessageSent public constructor(
+    @SerialName(value = "web_app_launch_id")
     public val webAppLaunchId: Long,
 ) : Update() {
     override fun equals(other: Any?): Boolean {

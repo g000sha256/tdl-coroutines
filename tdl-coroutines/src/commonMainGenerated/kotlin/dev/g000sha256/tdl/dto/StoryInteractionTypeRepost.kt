@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A repost of the story as a story.
  *
  * @property story The reposted story.
  */
+@SerialName(value = "storyInteractionTypeRepost")
+@Serializable
 public class StoryInteractionTypeRepost public constructor(
+    @SerialName(value = "story")
     public val story: Story,
 ) : StoryInteractionType() {
     override fun equals(other: Any?): Boolean {

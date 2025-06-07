@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The transaction is a receiving of a paid message; for regular users and supergroup chats only.
@@ -29,10 +31,16 @@ import kotlin.String
  * @property commissionPerMille The number of Telegram Stars received by the Telegram for each 1000 Telegram Stars paid for message sending.
  * @property commissionStarAmount The amount of Telegram Stars that were received by Telegram; can be negative for refunds.
  */
+@SerialName(value = "starTransactionTypePaidMessageReceive")
+@Serializable
 public class StarTransactionTypePaidMessageReceive public constructor(
+    @SerialName(value = "sender_id")
     public val senderId: MessageSender,
+    @SerialName(value = "message_count")
     public val messageCount: Int,
+    @SerialName(value = "commission_per_mille")
     public val commissionPerMille: Int,
+    @SerialName(value = "commission_star_amount")
     public val commissionStarAmount: StarAmount,
 ) : StarTransactionType() {
     override fun equals(other: Any?): Boolean {

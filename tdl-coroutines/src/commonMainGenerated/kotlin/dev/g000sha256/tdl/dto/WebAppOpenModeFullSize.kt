@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The Web App is opened in the full-size mode.
  */
+@SerialName(value = "webAppOpenModeFullSize")
+@Serializable
 public class WebAppOpenModeFullSize public constructor() : WebAppOpenMode() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

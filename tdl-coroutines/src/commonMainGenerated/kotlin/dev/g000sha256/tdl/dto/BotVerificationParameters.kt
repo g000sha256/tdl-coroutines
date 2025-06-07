@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes parameters of verification that is provided by a bot.
@@ -30,12 +32,18 @@ import kotlin.String
  * @property defaultCustomDescription Default custom description of verification reason to be used as placeholder in setMessageSenderBotVerification; may be null if none.
  * @property canSetCustomDescription True, if the bot is allowed to provide custom description for verified entities.
  */
+@SerialName(value = "botVerificationParameters")
+@Serializable
 public class BotVerificationParameters public constructor(
+    @SerialName(value = "icon_custom_emoji_id")
     public val iconCustomEmojiId: Long,
+    @SerialName(value = "organization_name")
     public val organizationName: String,
+    @SerialName(value = "default_custom_description")
     public val defaultCustomDescription: FormattedText?,
+    @SerialName(value = "can_set_custom_description")
     public val canSetCustomDescription: Boolean,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

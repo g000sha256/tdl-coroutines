@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The link is a link to an invoice. Call getPaymentForm with the given invoice name to process the link.
  *
  * @property invoiceName Name of the invoice.
  */
+@SerialName(value = "internalLinkTypeInvoice")
+@Serializable
 public class InternalLinkTypeInvoice public constructor(
+    @SerialName(value = "invoice_name")
     public val invoiceName: String,
 ) : InternalLinkType() {
     override fun equals(other: Any?): Boolean {

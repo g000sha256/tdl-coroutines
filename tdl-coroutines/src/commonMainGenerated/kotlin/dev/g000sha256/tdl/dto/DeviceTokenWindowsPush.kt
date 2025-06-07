@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A token for Windows Push Notification Services.
  *
  * @property accessToken The access token that will be used to send notifications; may be empty to deregister a device.
  */
+@SerialName(value = "deviceTokenWindowsPush")
+@Serializable
 public class DeviceTokenWindowsPush public constructor(
+    @SerialName(value = "access_token")
     public val accessToken: String,
 ) : DeviceToken() {
     override fun equals(other: Any?): Boolean {

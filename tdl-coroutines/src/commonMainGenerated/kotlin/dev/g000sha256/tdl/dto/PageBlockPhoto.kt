@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A photo.
@@ -28,9 +30,14 @@ import kotlin.String
  * @property caption Photo caption.
  * @property url URL that needs to be opened when the photo is clicked.
  */
+@SerialName(value = "pageBlockPhoto")
+@Serializable
 public class PageBlockPhoto public constructor(
+    @SerialName(value = "photo")
     public val photo: Photo?,
+    @SerialName(value = "caption")
     public val caption: PageBlockCaption,
+    @SerialName(value = "url")
     public val url: String,
 ) : PageBlock() {
     override fun equals(other: Any?): Boolean {

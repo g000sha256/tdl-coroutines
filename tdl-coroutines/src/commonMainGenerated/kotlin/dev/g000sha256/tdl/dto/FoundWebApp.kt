@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains information about a Web App found by its short name.
@@ -28,11 +30,16 @@ import kotlin.String
  * @property requestWriteAccess True, if the user must be asked for the permission to the bot to send them messages.
  * @property skipConfirmation True, if there is no need to show an ordinary open URL confirmation before opening the Web App. The field must be ignored and confirmation must be shown anyway if the Web App link was hidden.
  */
+@SerialName(value = "foundWebApp")
+@Serializable
 public class FoundWebApp public constructor(
+    @SerialName(value = "web_app")
     public val webApp: WebApp,
+    @SerialName(value = "request_write_access")
     public val requestWriteAccess: Boolean,
+    @SerialName(value = "skip_confirmation")
     public val skipConfirmation: Boolean,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

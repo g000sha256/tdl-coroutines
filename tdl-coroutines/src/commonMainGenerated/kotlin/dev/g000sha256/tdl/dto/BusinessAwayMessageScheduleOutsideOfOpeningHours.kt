@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Send away messages outside of the business opening hours.
  */
+@SerialName(value = "businessAwayMessageScheduleOutsideOfOpeningHours")
+@Serializable
 public class BusinessAwayMessageScheduleOutsideOfOpeningHours public constructor() : BusinessAwayMessageSchedule() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The link is a link to the screen for gifting Telegram Premium subscriptions to friends via inputInvoiceTelegram with telegramPaymentPurposePremiumGift payments or in-store purchases.
  *
  * @property referrer Referrer specified in the link.
  */
+@SerialName(value = "internalLinkTypePremiumGift")
+@Serializable
 public class InternalLinkTypePremiumGift public constructor(
+    @SerialName(value = "referrer")
     public val referrer: String,
 ) : InternalLinkType() {
     override fun equals(other: Any?): Boolean {

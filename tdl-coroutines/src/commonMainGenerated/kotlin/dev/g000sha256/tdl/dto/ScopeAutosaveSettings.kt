@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains autosave settings for an autosave settings scope.
@@ -29,11 +31,16 @@ import kotlin.String
  * @property autosaveVideos True, if video autosave is enabled.
  * @property maxVideoFileSize The maximum size of a video file to be autosaved, in bytes; 512 KB - 4000 MB.
  */
+@SerialName(value = "scopeAutosaveSettings")
+@Serializable
 public class ScopeAutosaveSettings public constructor(
+    @SerialName(value = "autosave_photos")
     public val autosavePhotos: Boolean,
+    @SerialName(value = "autosave_videos")
     public val autosaveVideos: Boolean,
+    @SerialName(value = "max_video_file_size")
     public val maxVideoFileSize: Long,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

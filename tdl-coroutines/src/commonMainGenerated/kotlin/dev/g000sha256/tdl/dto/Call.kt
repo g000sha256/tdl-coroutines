@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes a call.
@@ -31,13 +33,20 @@ import kotlin.String
  * @property isVideo True, if the call is a video call.
  * @property state Call state.
  */
+@SerialName(value = "call")
+@Serializable
 public class Call public constructor(
+    @SerialName(value = "id")
     public val id: Int,
+    @SerialName(value = "user_id")
     public val userId: Long,
+    @SerialName(value = "is_outgoing")
     public val isOutgoing: Boolean,
+    @SerialName(value = "is_video")
     public val isVideo: Boolean,
+    @SerialName(value = "state")
     public val state: CallState,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

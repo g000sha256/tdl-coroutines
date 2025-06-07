@@ -21,15 +21,20 @@ import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Represents a list of message viewers.
  *
  * @property viewers List of message viewers.
  */
+@SerialName(value = "messageViewers")
+@Serializable
 public class MessageViewers public constructor(
+    @SerialName(value = "viewers")
     public val viewers: Array<MessageViewer>,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

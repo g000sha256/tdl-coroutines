@@ -22,6 +22,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains a list of bot commands.
@@ -29,10 +31,14 @@ import kotlin.String
  * @property botUserId Bot's user identifier.
  * @property commands List of bot commands.
  */
+@SerialName(value = "botCommands")
+@Serializable
 public class BotCommands public constructor(
+    @SerialName(value = "bot_user_id")
     public val botUserId: Long,
+    @SerialName(value = "commands")
     public val commands: Array<BotCommand>,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

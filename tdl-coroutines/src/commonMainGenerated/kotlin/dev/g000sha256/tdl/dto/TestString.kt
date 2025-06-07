@@ -20,15 +20,20 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A simple object containing a string; for testing only.
  *
  * @property value String.
  */
+@SerialName(value = "testString")
+@Serializable
 public class TestString public constructor(
+    @SerialName(value = "value")
     public val value: String,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

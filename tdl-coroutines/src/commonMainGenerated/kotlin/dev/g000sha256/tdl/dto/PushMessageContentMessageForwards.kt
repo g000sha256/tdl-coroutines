@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A forwarded messages.
  *
  * @property totalCount Number of forwarded messages.
  */
+@SerialName(value = "pushMessageContentMessageForwards")
+@Serializable
 public class PushMessageContentMessageForwards public constructor(
+    @SerialName(value = "total_count")
     public val totalCount: Int,
 ) : PushMessageContent() {
     override fun equals(other: Any?): Boolean {

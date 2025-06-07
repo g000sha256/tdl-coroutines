@@ -16,8 +16,11 @@
 
 package dev.g000sha256.tdl.dto
 
+import kotlinx.serialization.Serializable
+
 /**
  * This class is an abstract base class.
  * Describes type of successful payment.
  */
-public sealed class PaymentReceiptType protected constructor()
+@Serializable
+public sealed class PaymentReceiptType protected constructor() : Model()

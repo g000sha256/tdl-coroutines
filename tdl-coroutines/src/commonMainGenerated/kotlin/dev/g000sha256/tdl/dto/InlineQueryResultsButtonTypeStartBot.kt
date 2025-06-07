@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes the button that opens a private chat with the bot and sends a start message to the bot with the given parameter.
  *
  * @property parameter The parameter for the bot start message.
  */
+@SerialName(value = "inlineQueryResultsButtonTypeStartBot")
+@Serializable
 public class InlineQueryResultsButtonTypeStartBot public constructor(
+    @SerialName(value = "parameter")
     public val parameter: String,
 ) : InlineQueryResultsButtonType() {
     override fun equals(other: Any?): Boolean {

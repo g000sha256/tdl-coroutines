@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The messages were exported from a group chat.
  *
  * @property title Title of the group chat; may be empty if unrecognized.
  */
+@SerialName(value = "messageFileTypeGroup")
+@Serializable
 public class MessageFileTypeGroup public constructor(
+    @SerialName(value = "title")
     public val title: String,
 ) : MessageFileType() {
     override fun equals(other: Any?): Boolean {

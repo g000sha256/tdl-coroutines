@@ -16,22 +16,37 @@
 
 package dev.g000sha256.tdl
 
+import dev.g000sha256.tdl.dto.Model
+import dev.g000sha256.tdl.dto.Update
+import dev.g000sha256.tdl.function.Function
 import kotlin.time.Duration.Companion.hours
 import kotlinx.atomicfu.atomic
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.flow.filterIsInstance
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onSubscription
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import kotlinx.serialization.SerializationStrategy
 import org.drinkless.tdlib.TdApi
+import kotlinx.serialization.json.Json as Parser
 
 private const val MAX_SIZE = 100
 
 private val MAX_TIMEOUT = 24.hours.inWholeSeconds.toDouble()
 
-internal class TdlEngine(private val coroutineScope: TdlCoroutineScope, private val native: TdlNative) {
+internal class TdlEngine(
+    private val coroutineDispatcherReceiver: CoroutineDispatcher,
+    private val coroutineDispatcherSender: CoroutineDispatcher,
+    private val coroutineScope: CoroutineScope,
+    private val parser: Parser,
+    private val native: TdlNative,
+) {
 
     private val initialized = atomic(initial = false)
     private val requestIdsCounter = atomic(initial = 0L)
@@ -64,7 +79,7 @@ internal class TdlEngine(private val coroutineScope: TdlCoroutineScope, private 
             return
         }
 
-        coroutineScope.launch {
+        coroutineScope.launch(context = coroutineDispatcherReceiver) {
             val clientIds = IntArray(MAX_SIZE) { -1 }
             val requestIds = LongArray(MAX_SIZE) { -1L }
             val responses = Array<TdApi.Object?>(MAX_SIZE) { null }
@@ -81,6 +96,55 @@ internal class TdlEngine(private val coroutineScope: TdlCoroutineScope, private 
                     } else {
                         responsesMutableSharedFlow.emit(value = requestId to response)
                     }
+                }
+            }
+        }
+    }
+
+    private val _responsesMutableSharedFlow = MutableSharedFlow<Model>()
+    private val _updatesMutableSharedFlow = MutableSharedFlow<Model>(extraBufferCapacity = Int.MAX_VALUE)
+
+    fun _getUpdates(clientId: Int): Flow<Update> {
+        return _updatesMutableSharedFlow
+            .filter { model -> model.clientId == clientId }
+            .filterIsInstance<Update>()
+    }
+
+    fun _createClientId(): Int {
+        return native._createClientId()
+    }
+
+    suspend fun <F : Function> _send(
+        clientId: Int,
+        function: F,
+        serializationStrategy: SerializationStrategy<F>
+    ): Model {
+        _startIfNeeded()
+
+        val requestId = requestIdsCounter.incrementAndGet()
+        function.requestId = requestId
+        return withContext(context = coroutineDispatcherSender) {
+            val json = parser.encodeToString(serializer = serializationStrategy, value = function)
+            return@withContext _responsesMutableSharedFlow
+                .onSubscription { native._send(clientId, json) }
+                .first { model -> model.clientId == clientId && model.requestId == requestId }
+        }
+    }
+
+    private fun _startIfNeeded() {
+        val notInitialized = initialized.compareAndSet(expect = false, update = true)
+        if (!notInitialized) {
+            return
+        }
+
+        coroutineScope.launch(context = coroutineDispatcherReceiver) {
+            while (true) {
+                val json = native._receive(MAX_TIMEOUT)
+                val model = parser.decodeFromString<Model>(string = json)
+                if (model.requestId > 0L) {
+                    _responsesMutableSharedFlow.emit(value = model)
+                } else {
+                    _updatesMutableSharedFlow.emit(value = model)
                 }
             }
         }

@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A new background was set in the chat.
@@ -29,9 +31,14 @@ import kotlin.String
  * @property background The new background.
  * @property onlyForSelf True, if the background was set only for self.
  */
+@SerialName(value = "messageChatSetBackground")
+@Serializable
 public class MessageChatSetBackground public constructor(
+    @SerialName(value = "old_background_message_id")
     public val oldBackgroundMessageId: Long,
+    @SerialName(value = "background")
     public val background: ChatBackground,
+    @SerialName(value = "only_for_self")
     public val onlyForSelf: Boolean,
 ) : MessageContent() {
     override fun equals(other: Any?): Boolean {

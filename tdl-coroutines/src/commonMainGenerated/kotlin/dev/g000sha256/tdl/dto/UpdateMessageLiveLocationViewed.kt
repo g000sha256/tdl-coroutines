@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A message with a live location was viewed. When the update is received, the application is expected to update the live location.
@@ -28,8 +30,12 @@ import kotlin.String
  * @property chatId Identifier of the chat with the live location message.
  * @property messageId Identifier of the message with live location.
  */
+@SerialName(value = "updateMessageLiveLocationViewed")
+@Serializable
 public class UpdateMessageLiveLocationViewed public constructor(
+    @SerialName(value = "chat_id")
     public val chatId: Long,
+    @SerialName(value = "message_id")
     public val messageId: Long,
 ) : Update() {
     override fun equals(other: Any?): Boolean {

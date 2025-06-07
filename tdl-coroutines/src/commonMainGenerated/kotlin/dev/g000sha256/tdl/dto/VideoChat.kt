@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes a video chat, i.e. a group call bound to a chat.
@@ -28,11 +30,16 @@ import kotlin.String
  * @property hasParticipants True, if the video chat has participants.
  * @property defaultParticipantId Default group call participant identifier to join the video chat; may be null.
  */
+@SerialName(value = "videoChat")
+@Serializable
 public class VideoChat public constructor(
+    @SerialName(value = "group_call_id")
     public val groupCallId: Int,
+    @SerialName(value = "has_participants")
     public val hasParticipants: Boolean,
+    @SerialName(value = "default_participant_id")
     public val defaultParticipantId: MessageSender?,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

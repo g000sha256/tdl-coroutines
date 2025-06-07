@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains auto-download settings.
@@ -35,17 +37,28 @@ import kotlin.String
  * @property preloadStories True, if stories needs to be preloaded.
  * @property useLessDataForCalls True, if &quot;use less data for calls&quot; option needs to be enabled.
  */
+@SerialName(value = "autoDownloadSettings")
+@Serializable
 public class AutoDownloadSettings public constructor(
+    @SerialName(value = "is_auto_download_enabled")
     public val isAutoDownloadEnabled: Boolean,
+    @SerialName(value = "max_photo_file_size")
     public val maxPhotoFileSize: Int,
+    @SerialName(value = "max_video_file_size")
     public val maxVideoFileSize: Long,
+    @SerialName(value = "max_other_file_size")
     public val maxOtherFileSize: Long,
+    @SerialName(value = "video_upload_bitrate")
     public val videoUploadBitrate: Int,
+    @SerialName(value = "preload_large_videos")
     public val preloadLargeVideos: Boolean,
+    @SerialName(value = "preload_next_audio")
     public val preloadNextAudio: Boolean,
+    @SerialName(value = "preload_stories")
     public val preloadStories: Boolean,
+    @SerialName(value = "use_less_data_for_calls")
     public val useLessDataForCalls: Boolean,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

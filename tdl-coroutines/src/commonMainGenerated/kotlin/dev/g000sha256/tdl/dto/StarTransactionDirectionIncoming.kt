@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The transaction is incoming and increases the number of owned Telegram Stars.
  */
+@SerialName(value = "starTransactionDirectionIncoming")
+@Serializable
 public class StarTransactionDirectionIncoming public constructor() : StarTransactionDirection() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

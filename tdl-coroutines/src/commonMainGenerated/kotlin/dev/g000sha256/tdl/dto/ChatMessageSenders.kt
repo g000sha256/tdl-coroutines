@@ -21,15 +21,20 @@ import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Represents a list of message senders, which can be used to send messages in a chat.
  *
  * @property senders List of available message senders.
  */
+@SerialName(value = "chatMessageSenders")
+@Serializable
 public class ChatMessageSenders public constructor(
+    @SerialName(value = "senders")
     public val senders: Array<ChatMessageSender>,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

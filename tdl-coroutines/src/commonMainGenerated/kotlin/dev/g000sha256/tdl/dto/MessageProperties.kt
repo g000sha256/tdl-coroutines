@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains properties of a message and describes actions that can be done with the message right now.
@@ -51,34 +53,62 @@ import kotlin.String
  * @property canSetFactCheck True, if fact check for the message can be changed through setMessageFactCheck.
  * @property needShowStatistics True, if message statistics must be available from context menu of the message.
  */
+@SerialName(value = "messageProperties")
+@Serializable
 public class MessageProperties public constructor(
+    @SerialName(value = "can_be_copied_to_secret_chat")
     public val canBeCopiedToSecretChat: Boolean,
+    @SerialName(value = "can_be_deleted_only_for_self")
     public val canBeDeletedOnlyForSelf: Boolean,
+    @SerialName(value = "can_be_deleted_for_all_users")
     public val canBeDeletedForAllUsers: Boolean,
+    @SerialName(value = "can_be_edited")
     public val canBeEdited: Boolean,
+    @SerialName(value = "can_be_forwarded")
     public val canBeForwarded: Boolean,
+    @SerialName(value = "can_be_paid")
     public val canBePaid: Boolean,
+    @SerialName(value = "can_be_pinned")
     public val canBePinned: Boolean,
+    @SerialName(value = "can_be_replied")
     public val canBeReplied: Boolean,
+    @SerialName(value = "can_be_replied_in_another_chat")
     public val canBeRepliedInAnotherChat: Boolean,
+    @SerialName(value = "can_be_saved")
     public val canBeSaved: Boolean,
+    @SerialName(value = "can_be_shared_in_story")
     public val canBeSharedInStory: Boolean,
+    @SerialName(value = "can_edit_media")
     public val canEditMedia: Boolean,
+    @SerialName(value = "can_edit_scheduling_state")
     public val canEditSchedulingState: Boolean,
+    @SerialName(value = "can_get_embedding_code")
     public val canGetEmbeddingCode: Boolean,
+    @SerialName(value = "can_get_link")
     public val canGetLink: Boolean,
+    @SerialName(value = "can_get_media_timestamp_links")
     public val canGetMediaTimestampLinks: Boolean,
+    @SerialName(value = "can_get_message_thread")
     public val canGetMessageThread: Boolean,
+    @SerialName(value = "can_get_read_date")
     public val canGetReadDate: Boolean,
+    @SerialName(value = "can_get_statistics")
     public val canGetStatistics: Boolean,
+    @SerialName(value = "can_get_viewers")
     public val canGetViewers: Boolean,
+    @SerialName(value = "can_recognize_speech")
     public val canRecognizeSpeech: Boolean,
+    @SerialName(value = "can_report_chat")
     public val canReportChat: Boolean,
+    @SerialName(value = "can_report_reactions")
     public val canReportReactions: Boolean,
+    @SerialName(value = "can_report_supergroup_spam")
     public val canReportSupergroupSpam: Boolean,
+    @SerialName(value = "can_set_fact_check")
     public val canSetFactCheck: Boolean,
+    @SerialName(value = "need_show_statistics")
     public val needShowStatistics: Boolean,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

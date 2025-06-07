@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The chat contains a public service announcement.
@@ -27,8 +29,12 @@ import kotlin.String
  * @property type The type of the announcement.
  * @property text The text of the announcement.
  */
+@SerialName(value = "chatSourcePublicServiceAnnouncement")
+@Serializable
 public class ChatSourcePublicServiceAnnouncement public constructor(
+    @SerialName(value = "type")
     public val type: String,
+    @SerialName(value = "text")
     public val text: String,
 ) : ChatSource() {
     override fun equals(other: Any?): Boolean {

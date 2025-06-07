@@ -16,8 +16,11 @@
 
 package dev.g000sha256.tdl.dto
 
+import kotlinx.serialization.Serializable
+
 /**
  * This class is an abstract base class.
  * Contains a description of a custom keyboard and actions that can be done with it to quickly reply to bots.
  */
-public sealed class ReplyMarkup protected constructor()
+@Serializable
+public sealed class ReplyMarkup protected constructor() : Model()

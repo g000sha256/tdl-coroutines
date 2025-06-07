@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Represents a user contact.
@@ -28,9 +30,14 @@ import kotlin.String
  * @property contact A user contact.
  * @property thumbnail Result thumbnail in JPEG format; may be null.
  */
+@SerialName(value = "inlineQueryResultContact")
+@Serializable
 public class InlineQueryResultContact public constructor(
+    @SerialName(value = "id")
     public val id: String,
+    @SerialName(value = "contact")
     public val contact: Contact,
+    @SerialName(value = "thumbnail")
     public val thumbnail: Thumbnail?,
 ) : InlineQueryResult() {
     override fun equals(other: Any?): Boolean {

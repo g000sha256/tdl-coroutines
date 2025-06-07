@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The log is written to a file.
@@ -29,9 +31,14 @@ import kotlin.String
  * @property maxFileSize The maximum size of the file to where the internal TDLib log is written before the file will automatically be rotated, in bytes.
  * @property redirectStderr Pass true to additionally redirect stderr to the log file. Ignored on Windows.
  */
+@SerialName(value = "logStreamFile")
+@Serializable
 public class LogStreamFile public constructor(
+    @SerialName(value = "path")
     public val path: String,
+    @SerialName(value = "max_file_size")
     public val maxFileSize: Long,
+    @SerialName(value = "redirect_stderr")
     public val redirectStderr: Boolean,
 ) : LogStream() {
     override fun equals(other: Any?): Boolean {

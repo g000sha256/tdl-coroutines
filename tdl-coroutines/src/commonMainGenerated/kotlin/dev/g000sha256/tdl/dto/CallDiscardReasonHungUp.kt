@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The call was ended because one of the parties hung up.
  */
+@SerialName(value = "callDiscardReasonHungUp")
+@Serializable
 public class CallDiscardReasonHungUp public constructor() : CallDiscardReason() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

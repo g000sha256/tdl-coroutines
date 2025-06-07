@@ -22,6 +22,8 @@ import kotlin.Double
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains information about the total amount of data that was used for calls.
@@ -31,10 +33,16 @@ import kotlin.String
  * @property receivedBytes Total number of bytes received.
  * @property duration Total call duration, in seconds.
  */
+@SerialName(value = "networkStatisticsEntryCall")
+@Serializable
 public class NetworkStatisticsEntryCall public constructor(
+    @SerialName(value = "network_type")
     public val networkType: NetworkType,
+    @SerialName(value = "sent_bytes")
     public val sentBytes: Long,
+    @SerialName(value = "received_bytes")
     public val receivedBytes: Long,
+    @SerialName(value = "duration")
     public val duration: Double,
 ) : NetworkStatisticsEntry() {
     override fun equals(other: Any?): Boolean {

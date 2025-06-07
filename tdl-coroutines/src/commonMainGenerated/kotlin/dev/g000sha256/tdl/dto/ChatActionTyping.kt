@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The user is typing a message.
  */
+@SerialName(value = "chatActionTyping")
+@Serializable
 public class ChatActionTyping public constructor() : ChatAction() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

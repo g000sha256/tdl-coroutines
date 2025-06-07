@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Text that must be formatted as if inside pre, and code HTML tags.
  *
  * @property language Programming language of the code; as defined by the sender.
  */
+@SerialName(value = "textEntityTypePreCode")
+@Serializable
 public class TextEntityTypePreCode public constructor(
+    @SerialName(value = "language")
     public val language: String,
 ) : TextEntityType() {
     override fun equals(other: Any?): Boolean {

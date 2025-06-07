@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes a Web App. Use getInternalLink with internalLinkTypeWebApp to share the Web App.
@@ -30,13 +32,20 @@ import kotlin.String
  * @property photo Web App photo.
  * @property animation Web App animation; may be null.
  */
+@SerialName(value = "webApp")
+@Serializable
 public class WebApp public constructor(
+    @SerialName(value = "short_name")
     public val shortName: String,
+    @SerialName(value = "title")
     public val title: String,
+    @SerialName(value = "description")
     public val description: String,
+    @SerialName(value = "photo")
     public val photo: Photo,
+    @SerialName(value = "animation")
     public val animation: Animation?,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

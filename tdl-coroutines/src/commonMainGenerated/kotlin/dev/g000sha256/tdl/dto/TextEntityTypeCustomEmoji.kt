@@ -21,13 +21,18 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A custom emoji. The text behind a custom emoji must be an emoji. Only premium users can use premium custom emoji.
  *
  * @property customEmojiId Unique identifier of the custom emoji.
  */
+@SerialName(value = "textEntityTypeCustomEmoji")
+@Serializable
 public class TextEntityTypeCustomEmoji public constructor(
+    @SerialName(value = "custom_emoji_id")
     public val customEmojiId: Long,
 ) : TextEntityType() {
     override fun equals(other: Any?): Boolean {

@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains information about an active affiliate program.
@@ -28,11 +30,16 @@ import kotlin.String
  * @property endDate Point in time (Unix timestamp) when the affiliate program will be closed; 0 if the affiliate program isn't scheduled to be closed. If positive, then the program can't be connected using connectAffiliateProgram, but active connections will work until the date.
  * @property dailyRevenuePerUserAmount The amount of daily revenue per user in Telegram Stars of the bot that created the affiliate program.
  */
+@SerialName(value = "affiliateProgramInfo")
+@Serializable
 public class AffiliateProgramInfo public constructor(
+    @SerialName(value = "parameters")
     public val parameters: AffiliateProgramParameters,
+    @SerialName(value = "end_date")
     public val endDate: Int,
+    @SerialName(value = "daily_revenue_per_user_amount")
     public val dailyRevenuePerUserAmount: StarAmount,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

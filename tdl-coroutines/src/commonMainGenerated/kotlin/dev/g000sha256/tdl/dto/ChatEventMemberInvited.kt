@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A new chat member was invited.
@@ -28,8 +30,12 @@ import kotlin.String
  * @property userId New member user identifier.
  * @property status New member status.
  */
+@SerialName(value = "chatEventMemberInvited")
+@Serializable
 public class ChatEventMemberInvited public constructor(
+    @SerialName(value = "user_id")
     public val userId: Long,
+    @SerialName(value = "status")
     public val status: ChatMemberStatus,
 ) : ChatEventAction() {
     override fun equals(other: Any?): Boolean {

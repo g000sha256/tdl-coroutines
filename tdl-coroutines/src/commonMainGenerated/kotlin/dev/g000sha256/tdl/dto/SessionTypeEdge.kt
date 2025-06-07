@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The session is running on the Edge browser.
  */
+@SerialName(value = "sessionTypeEdge")
+@Serializable
 public class SessionTypeEdge public constructor() : SessionType() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

@@ -16,8 +16,11 @@
 
 package dev.g000sha256.tdl.dto
 
+import kotlinx.serialization.Serializable
+
 /**
  * This class is an abstract base class.
  * Describes result of speech recognition in a voice note.
  */
-public sealed class SpeechRecognitionResult protected constructor()
+@Serializable
+public sealed class SpeechRecognitionResult protected constructor() : Model()

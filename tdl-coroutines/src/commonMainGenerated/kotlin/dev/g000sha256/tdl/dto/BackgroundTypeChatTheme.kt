@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A background from a chat theme; can be used only as a chat background in channels.
  *
  * @property themeName Name of the chat theme.
  */
+@SerialName(value = "backgroundTypeChatTheme")
+@Serializable
 public class BackgroundTypeChatTheme public constructor(
+    @SerialName(value = "theme_name")
     public val themeName: String,
 ) : BackgroundType() {
     override fun equals(other: Any?): Boolean {

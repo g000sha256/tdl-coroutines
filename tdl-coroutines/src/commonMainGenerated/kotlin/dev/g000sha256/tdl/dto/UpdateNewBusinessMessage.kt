@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A new message was added to a business account; for bots only.
@@ -27,8 +29,12 @@ import kotlin.String
  * @property connectionId Unique identifier of the business connection.
  * @property message The new message.
  */
+@SerialName(value = "updateNewBusinessMessage")
+@Serializable
 public class UpdateNewBusinessMessage public constructor(
+    @SerialName(value = "connection_id")
     public val connectionId: String,
+    @SerialName(value = "message")
     public val message: BusinessMessage,
 ) : Update() {
     override fun equals(other: Any?): Boolean {

@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A contact has registered with Telegram.
  */
+@SerialName(value = "pushMessageContentContactRegistered")
+@Serializable
 public class PushMessageContentContactRegistered public constructor() : PushMessageContent() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

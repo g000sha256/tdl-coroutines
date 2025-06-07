@@ -22,6 +22,8 @@ import kotlin.ByteArray
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A payment has been received by the bot or the business account.
@@ -37,16 +39,28 @@ import kotlin.String
  * @property telegramPaymentChargeId Telegram payment identifier.
  * @property providerPaymentChargeId Provider payment identifier.
  */
+@SerialName(value = "messagePaymentSuccessfulBot")
+@Serializable
 public class MessagePaymentSuccessfulBot public constructor(
+    @SerialName(value = "currency")
     public val currency: String,
+    @SerialName(value = "total_amount")
     public val totalAmount: Long,
+    @SerialName(value = "subscription_until_date")
     public val subscriptionUntilDate: Int,
+    @SerialName(value = "is_recurring")
     public val isRecurring: Boolean,
+    @SerialName(value = "is_first_recurring")
     public val isFirstRecurring: Boolean,
+    @SerialName(value = "invoice_payload")
     public val invoicePayload: ByteArray,
+    @SerialName(value = "shipping_option_id")
     public val shippingOptionId: String,
+    @SerialName(value = "order_info")
     public val orderInfo: OrderInfo?,
+    @SerialName(value = "telegram_payment_charge_id")
     public val telegramPaymentChargeId: String,
+    @SerialName(value = "provider_payment_charge_id")
     public val providerPaymentChargeId: String,
 ) : MessageContent() {
     override fun equals(other: Any?): Boolean {

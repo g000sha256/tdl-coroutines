@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * An effect from an emoji reaction.
@@ -27,8 +29,12 @@ import kotlin.String
  * @property selectAnimation Select animation for the effect in TGS format.
  * @property effectAnimation Effect animation for the effect in TGS format.
  */
+@SerialName(value = "messageEffectTypeEmojiReaction")
+@Serializable
 public class MessageEffectTypeEmojiReaction public constructor(
+    @SerialName(value = "select_animation")
     public val selectAnimation: Sticker,
+    @SerialName(value = "effect_animation")
     public val effectAnimation: Sticker,
 ) : MessageEffectType() {
     override fun equals(other: Any?): Boolean {

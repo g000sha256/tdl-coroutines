@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Double
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes position of a clickable rectangle area on a story media.
@@ -32,14 +34,22 @@ import kotlin.String
  * @property rotationAngle Clockwise rotation angle of the rectangle, in degrees; 0-360.
  * @property cornerRadiusPercentage The radius of the rectangle corner rounding, as a percentage of the media width.
  */
+@SerialName(value = "storyAreaPosition")
+@Serializable
 public class StoryAreaPosition public constructor(
+    @SerialName(value = "x_percentage")
     public val xPercentage: Double,
+    @SerialName(value = "y_percentage")
     public val yPercentage: Double,
+    @SerialName(value = "width_percentage")
     public val widthPercentage: Double,
+    @SerialName(value = "height_percentage")
     public val heightPercentage: Double,
+    @SerialName(value = "rotation_angle")
     public val rotationAngle: Double,
+    @SerialName(value = "corner_radius_percentage")
     public val cornerRadiusPercentage: Double,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

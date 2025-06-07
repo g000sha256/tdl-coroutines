@@ -16,8 +16,11 @@
 
 package dev.g000sha256.tdl.dto
 
+import kotlinx.serialization.Serializable
+
 /**
  * This class is an abstract base class.
  * Describes type of limit, increased for Premium users.
  */
-public sealed class PremiumLimitType protected constructor()
+@Serializable
+public sealed class PremiumLimitType protected constructor() : Model()

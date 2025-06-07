@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The story can be viewed by all close friends.
  */
+@SerialName(value = "storyPrivacySettingsCloseFriends")
+@Serializable
 public class StoryPrivacySettingsCloseFriends public constructor() : StoryPrivacySettings() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

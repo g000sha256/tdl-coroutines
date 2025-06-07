@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Number of unread messages in a chat list has changed. This update is sent only if the message database is used.
@@ -28,9 +30,14 @@ import kotlin.String
  * @property unreadCount Total number of unread messages.
  * @property unreadUnmutedCount Total number of unread messages in unmuted chats.
  */
+@SerialName(value = "updateUnreadMessageCount")
+@Serializable
 public class UpdateUnreadMessageCount public constructor(
+    @SerialName(value = "chat_list")
     public val chatList: ChatList,
+    @SerialName(value = "unread_count")
     public val unreadCount: Int,
+    @SerialName(value = "unread_unmuted_count")
     public val unreadUnmutedCount: Int,
 ) : Update() {
     override fun equals(other: Any?): Boolean {

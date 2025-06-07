@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The messages were exported from a private chat.
  *
  * @property name Name of the other party; may be empty if unrecognized.
  */
+@SerialName(value = "messageFileTypePrivate")
+@Serializable
 public class MessageFileTypePrivate public constructor(
+    @SerialName(value = "name")
     public val name: String,
 ) : MessageFileType() {
     override fun equals(other: Any?): Boolean {

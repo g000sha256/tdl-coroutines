@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Initialization parameters are needed. Call setTdlibParameters to provide them.
  */
+@SerialName(value = "authorizationStateWaitTdlibParameters")
+@Serializable
 public class AuthorizationStateWaitTdlibParameters public constructor() : AuthorizationState() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

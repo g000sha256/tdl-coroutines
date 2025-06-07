@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains information about a notification.
@@ -29,12 +31,18 @@ import kotlin.String
  * @property isSilent True, if the notification was explicitly sent without sound.
  * @property type Notification type.
  */
+@SerialName(value = "notification")
+@Serializable
 public class Notification public constructor(
+    @SerialName(value = "id")
     public val id: Int,
+    @SerialName(value = "date")
     public val date: Int,
+    @SerialName(value = "is_silent")
     public val isSilent: Boolean,
+    @SerialName(value = "type")
     public val type: NotificationType,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

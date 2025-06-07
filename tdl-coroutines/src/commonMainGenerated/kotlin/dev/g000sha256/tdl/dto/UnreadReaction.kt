@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains information about an unread reaction to a message.
@@ -28,11 +30,16 @@ import kotlin.String
  * @property senderId Identifier of the sender, added the reaction.
  * @property isBig True, if the reaction was added with a big animation.
  */
+@SerialName(value = "unreadReaction")
+@Serializable
 public class UnreadReaction public constructor(
+    @SerialName(value = "type")
     public val type: ReactionType,
+    @SerialName(value = "sender_id")
     public val senderId: MessageSender,
+    @SerialName(value = "is_big")
     public val isBig: Boolean,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

@@ -21,6 +21,8 @@ import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains a list of reactions added to a message.
@@ -30,12 +32,18 @@ import kotlin.String
  * @property paidReactors Information about top users that added the paid reaction.
  * @property canGetAddedReactions True, if the list of added reactions is available using getMessageAddedReactions.
  */
+@SerialName(value = "messageReactions")
+@Serializable
 public class MessageReactions public constructor(
+    @SerialName(value = "reactions")
     public val reactions: Array<MessageReaction>,
+    @SerialName(value = "are_tags")
     public val areTags: Boolean,
+    @SerialName(value = "paid_reactors")
     public val paidReactors: Array<PaidReactor>,
+    @SerialName(value = "can_get_added_reactions")
     public val canGetAddedReactions: Boolean,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * TDLib is closing, all subsequent queries will be answered with the error 500. Note that closing TDLib can take a while. All resources will be freed only after authorizationStateClosed has been received.
  */
+@SerialName(value = "authorizationStateClosing")
+@Serializable
 public class AuthorizationStateClosing public constructor() : AuthorizationState() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

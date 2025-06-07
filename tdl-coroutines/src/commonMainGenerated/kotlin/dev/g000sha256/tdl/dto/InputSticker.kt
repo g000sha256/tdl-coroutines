@@ -21,6 +21,8 @@ import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A sticker to be added to a sticker set.
@@ -31,13 +33,20 @@ import kotlin.String
  * @property maskPosition Position where the mask is placed; pass null if not specified.
  * @property keywords List of up to 20 keywords with total length up to 64 characters, which can be used to find the sticker.
  */
+@SerialName(value = "inputSticker")
+@Serializable
 public class InputSticker public constructor(
+    @SerialName(value = "sticker")
     public val sticker: InputFile,
+    @SerialName(value = "format")
     public val format: StickerFormat,
+    @SerialName(value = "emojis")
     public val emojis: String,
+    @SerialName(value = "mask_position")
     public val maskPosition: MaskPosition?,
+    @SerialName(value = "keywords")
     public val keywords: Array<String>,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

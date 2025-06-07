@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * An audio file.
@@ -27,8 +29,12 @@ import kotlin.String
  * @property audio Audio file; may be null.
  * @property caption Audio file caption.
  */
+@SerialName(value = "pageBlockAudio")
+@Serializable
 public class PageBlockAudio public constructor(
+    @SerialName(value = "audio")
     public val audio: Audio?,
+    @SerialName(value = "caption")
     public val caption: PageBlockCaption,
 ) : PageBlock() {
     override fun equals(other: Any?): Boolean {

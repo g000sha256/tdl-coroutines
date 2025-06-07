@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The thumbnail is in MPEG4 format. It will be used only for some animations and videos.
  */
+@SerialName(value = "thumbnailFormatMpeg4")
+@Serializable
 public class ThumbnailFormatMpeg4 public constructor() : ThumbnailFormat() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

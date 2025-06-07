@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The user must subscribe to Telegram Premium to be able to post stories.
  */
+@SerialName(value = "canPostStoryResultPremiumNeeded")
+@Serializable
 public class CanPostStoryResultPremiumNeeded public constructor() : CanPostStoryResult() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

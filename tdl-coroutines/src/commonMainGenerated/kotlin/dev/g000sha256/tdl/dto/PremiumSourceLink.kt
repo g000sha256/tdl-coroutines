@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A user opened an internal link of the type internalLinkTypePremiumFeatures.
  *
  * @property referrer The referrer from the link.
  */
+@SerialName(value = "premiumSourceLink")
+@Serializable
 public class PremiumSourceLink public constructor(
+    @SerialName(value = "referrer")
     public val referrer: String,
 ) : PremiumSource() {
     override fun equals(other: Any?): Boolean {

@@ -21,15 +21,20 @@ import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains a list of language pack strings.
  *
  * @property strings A list of language pack strings.
  */
+@SerialName(value = "languagePackStrings")
+@Serializable
 public class LanguagePackStrings public constructor(
+    @SerialName(value = "strings")
     public val strings: Array<LanguagePackString>,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

@@ -16,8 +16,11 @@
 
 package dev.g000sha256.tdl.dto
 
+import kotlinx.serialization.Serializable
+
 /**
  * This class is an abstract base class.
  * Describes a block of an instant view for a web page.
  */
-public sealed class PageBlock protected constructor()
+@Serializable
+public sealed class PageBlock protected constructor() : Model()

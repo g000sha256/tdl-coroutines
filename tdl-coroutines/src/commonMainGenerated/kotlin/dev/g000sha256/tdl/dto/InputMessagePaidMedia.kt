@@ -22,6 +22,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A message with paid media; can be used only in channel chats with supergroupFullInfo.hasPaidMediaAllowed.
@@ -32,11 +34,18 @@ import kotlin.String
  * @property showCaptionAboveMedia True, if the caption must be shown above the media; otherwise, the caption must be shown below the media; not supported in secret chats.
  * @property payload Bot-provided data for the paid media; bots only.
  */
+@SerialName(value = "inputMessagePaidMedia")
+@Serializable
 public class InputMessagePaidMedia public constructor(
+    @SerialName(value = "star_count")
     public val starCount: Long,
+    @SerialName(value = "paid_media")
     public val paidMedia: Array<InputPaidMedia>,
+    @SerialName(value = "caption")
     public val caption: FormattedText?,
+    @SerialName(value = "show_caption_above_media")
     public val showCaptionAboveMedia: Boolean,
+    @SerialName(value = "payload")
     public val payload: String,
 ) : InputMessageContent() {
     override fun equals(other: Any?): Boolean {

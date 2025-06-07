@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A message with a forwarded story. Stories can't be forwarded to secret chats. A story can be forwarded only if story.canBeForwarded.
@@ -28,8 +30,12 @@ import kotlin.String
  * @property storyPosterChatId Identifier of the chat that posted the story.
  * @property storyId Story identifier.
  */
+@SerialName(value = "inputMessageStory")
+@Serializable
 public class InputMessageStory public constructor(
+    @SerialName(value = "story_poster_chat_id")
     public val storyPosterChatId: Long,
+    @SerialName(value = "story_id")
     public val storyId: Int,
 ) : InputMessageContent() {
     override fun equals(other: Any?): Boolean {

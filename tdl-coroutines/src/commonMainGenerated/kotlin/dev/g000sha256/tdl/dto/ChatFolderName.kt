@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes name of a chat folder.
@@ -27,10 +29,14 @@ import kotlin.String
  * @property text The text of the chat folder name; 1-12 characters without line feeds. May contain only CustomEmoji entities.
  * @property animateCustomEmoji True, if custom emoji in the name must be animated.
  */
+@SerialName(value = "chatFolderName")
+@Serializable
 public class ChatFolderName public constructor(
+    @SerialName(value = "text")
     public val text: FormattedText,
+    @SerialName(value = "animate_custom_emoji")
     public val animateCustomEmoji: Boolean,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

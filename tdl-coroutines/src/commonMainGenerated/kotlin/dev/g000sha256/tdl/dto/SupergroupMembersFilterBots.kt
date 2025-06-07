@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Returns bot members of the supergroup or channel.
  */
+@SerialName(value = "supergroupMembersFilterBots")
+@Serializable
 public class SupergroupMembersFilterBots public constructor() : SupergroupMembersFilter() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

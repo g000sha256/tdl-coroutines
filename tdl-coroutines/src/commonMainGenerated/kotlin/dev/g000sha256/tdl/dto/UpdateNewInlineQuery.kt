@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A new incoming inline query; for bots only.
@@ -32,12 +34,20 @@ import kotlin.String
  * @property query Text of the query.
  * @property offset Offset of the first entry to return.
  */
+@SerialName(value = "updateNewInlineQuery")
+@Serializable
 public class UpdateNewInlineQuery public constructor(
+    @SerialName(value = "id")
     public val id: Long,
+    @SerialName(value = "sender_user_id")
     public val senderUserId: Long,
+    @SerialName(value = "user_location")
     public val userLocation: Location?,
+    @SerialName(value = "chat_type")
     public val chatType: ChatType?,
+    @SerialName(value = "query")
     public val query: String,
+    @SerialName(value = "offset")
     public val offset: String,
 ) : Update() {
     override fun equals(other: Any?): Boolean {

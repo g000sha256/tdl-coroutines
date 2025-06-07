@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A new member was accepted to the chat by an administrator.
@@ -28,8 +30,12 @@ import kotlin.String
  * @property approverUserId User identifier of the chat administrator, approved user join request.
  * @property inviteLink Invite link used to join the chat; may be null.
  */
+@SerialName(value = "chatEventMemberJoinedByRequest")
+@Serializable
 public class ChatEventMemberJoinedByRequest public constructor(
+    @SerialName(value = "approver_user_id")
     public val approverUserId: Long,
+    @SerialName(value = "invite_link")
     public val inviteLink: ChatInviteLink?,
 ) : ChatEventAction() {
     override fun equals(other: Any?): Boolean {

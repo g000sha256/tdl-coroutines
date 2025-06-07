@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The message pinned state was changed.
@@ -29,9 +31,14 @@ import kotlin.String
  * @property messageId The message identifier.
  * @property isPinned True, if the message is pinned.
  */
+@SerialName(value = "updateMessageIsPinned")
+@Serializable
 public class UpdateMessageIsPinned public constructor(
+    @SerialName(value = "chat_id")
     public val chatId: Long,
+    @SerialName(value = "message_id")
     public val messageId: Long,
+    @SerialName(value = "is_pinned")
     public val isPinned: Boolean,
 ) : Update() {
     override fun equals(other: Any?): Boolean {

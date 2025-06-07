@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains information about a link to boost a chat.
@@ -28,10 +30,14 @@ import kotlin.String
  * @property isPublic True, if the link will work for non-members of the chat.
  * @property chatId Identifier of the chat to which the link points; 0 if the chat isn't found.
  */
+@SerialName(value = "chatBoostLinkInfo")
+@Serializable
 public class ChatBoostLinkInfo public constructor(
+    @SerialName(value = "is_public")
     public val isPublic: Boolean,
+    @SerialName(value = "chat_id")
     public val chatId: Long,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

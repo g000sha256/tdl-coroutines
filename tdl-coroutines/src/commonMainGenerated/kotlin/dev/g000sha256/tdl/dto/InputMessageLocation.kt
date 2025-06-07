@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A message with a location.
@@ -29,10 +31,16 @@ import kotlin.String
  * @property heading For live locations, a direction in which the location moves, in degrees; 1-360. Pass 0 if unknown.
  * @property proximityAlertRadius For live locations, a maximum distance to another chat member for proximity alerts, in meters (0-100000). Pass 0 if the notification is disabled. Can't be enabled in channels and Saved Messages.
  */
+@SerialName(value = "inputMessageLocation")
+@Serializable
 public class InputMessageLocation public constructor(
+    @SerialName(value = "location")
     public val location: Location,
+    @SerialName(value = "live_period")
     public val livePeriod: Int,
+    @SerialName(value = "heading")
     public val heading: Int,
+    @SerialName(value = "proximity_alert_radius")
     public val proximityAlertRadius: Int,
 ) : InputMessageContent() {
     override fun equals(other: Any?): Boolean {

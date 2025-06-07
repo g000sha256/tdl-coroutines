@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The user is currently logging out.
  */
+@SerialName(value = "authorizationStateLoggingOut")
+@Serializable
 public class AuthorizationStateLoggingOut public constructor() : AuthorizationState() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

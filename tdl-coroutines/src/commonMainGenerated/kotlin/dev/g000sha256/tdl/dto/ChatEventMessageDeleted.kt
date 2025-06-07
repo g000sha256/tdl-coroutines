@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A message was deleted.
@@ -27,8 +29,12 @@ import kotlin.String
  * @property message Deleted message.
  * @property canReportAntiSpamFalsePositive True, if the message deletion can be reported via reportSupergroupAntiSpamFalsePositive.
  */
+@SerialName(value = "chatEventMessageDeleted")
+@Serializable
 public class ChatEventMessageDeleted public constructor(
+    @SerialName(value = "message")
     public val message: Message,
+    @SerialName(value = "can_report_anti_spam_false_positive")
     public val canReportAntiSpamFalsePositive: Boolean,
 ) : ChatEventAction() {
     override fun equals(other: Any?): Boolean {

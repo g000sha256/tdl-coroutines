@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The read date is unknown due to privacy settings of the other user.
  */
+@SerialName(value = "messageReadDateUserPrivacyRestricted")
+@Serializable
 public class MessageReadDateUserPrivacyRestricted public constructor() : MessageReadDate() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

@@ -21,15 +21,20 @@ import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains information about countries.
  *
  * @property countries The list of countries.
  */
+@SerialName(value = "countries")
+@Serializable
 public class Countries public constructor(
+    @SerialName(value = "countries")
     public val countries: Array<CountryInfo>,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

@@ -20,15 +20,20 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Information about the message sent by answerWebAppQuery.
  *
  * @property inlineMessageId Identifier of the sent inline message, if known.
  */
+@SerialName(value = "sentWebAppMessage")
+@Serializable
 public class SentWebAppMessage public constructor(
+    @SerialName(value = "inline_message_id")
     public val inlineMessageId: String,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

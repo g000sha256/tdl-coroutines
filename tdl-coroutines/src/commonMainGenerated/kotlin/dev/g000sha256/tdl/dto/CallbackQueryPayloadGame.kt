@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The payload for a game callback button.
  *
  * @property gameShortName A short name of the game that was attached to the callback button.
  */
+@SerialName(value = "callbackQueryPayloadGame")
+@Serializable
 public class CallbackQueryPayloadGame public constructor(
+    @SerialName(value = "game_short_name")
     public val gameShortName: String,
 ) : CallbackQueryPayload() {
     override fun equals(other: Any?): Boolean {

@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Represents a point on the map.
@@ -29,10 +31,16 @@ import kotlin.String
  * @property title Title of the result.
  * @property thumbnail Result thumbnail in JPEG format; may be null.
  */
+@SerialName(value = "inlineQueryResultLocation")
+@Serializable
 public class InlineQueryResultLocation public constructor(
+    @SerialName(value = "id")
     public val id: String,
+    @SerialName(value = "location")
     public val location: Location,
+    @SerialName(value = "title")
     public val title: String,
+    @SerialName(value = "thumbnail")
     public val thumbnail: Thumbnail?,
 ) : InlineQueryResult() {
     override fun equals(other: Any?): Boolean {

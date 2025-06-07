@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The message will be sent when the other user is online. Applicable to private chats only and when the exact online status of the other user is known.
  */
+@SerialName(value = "messageSchedulingStateSendWhenOnline")
+@Serializable
 public class MessageSchedulingStateSendWhenOnline public constructor() : MessageSchedulingState() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Portion of the price of a product (e.g., &quot;delivery cost&quot;, &quot;tax amount&quot;).
@@ -28,10 +30,14 @@ import kotlin.String
  * @property label Label for this portion of the product price.
  * @property amount Currency amount in the smallest units of the currency.
  */
+@SerialName(value = "labeledPricePart")
+@Serializable
 public class LabeledPricePart public constructor(
+    @SerialName(value = "label")
     public val label: String,
+    @SerialName(value = "amount")
     public val amount: Long,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

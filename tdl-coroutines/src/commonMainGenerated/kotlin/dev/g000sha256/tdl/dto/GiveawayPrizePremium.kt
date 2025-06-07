@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The giveaway sends Telegram Premium subscriptions to the winners.
  *
  * @property monthCount Number of months the Telegram Premium subscription will be active after code activation.
  */
+@SerialName(value = "giveawayPrizePremium")
+@Serializable
 public class GiveawayPrizePremium public constructor(
+    @SerialName(value = "month_count")
     public val monthCount: Int,
 ) : GiveawayPrize() {
     override fun equals(other: Any?): Boolean {

@@ -21,6 +21,8 @@ import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains information about found messages, split by days according to the option &quot;utc_time_offset&quot;.
@@ -28,10 +30,14 @@ import kotlin.String
  * @property totalCount Total number of found messages.
  * @property days Information about messages sent.
  */
+@SerialName(value = "messageCalendar")
+@Serializable
 public class MessageCalendar public constructor(
+    @SerialName(value = "total_count")
     public val totalCount: Int,
+    @SerialName(value = "days")
     public val days: Array<MessageCalendarDay>,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

@@ -21,6 +21,8 @@ import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Represents a list of reactions that can be added to a message.
@@ -32,14 +34,22 @@ import kotlin.String
  * @property areTags True, if the reactions will be tags and the message can be found by them.
  * @property unavailabilityReason The reason why the current user can't add reactions to the message, despite some other users can; may be null if none.
  */
+@SerialName(value = "availableReactions")
+@Serializable
 public class AvailableReactions public constructor(
+    @SerialName(value = "top_reactions")
     public val topReactions: Array<AvailableReaction>,
+    @SerialName(value = "recent_reactions")
     public val recentReactions: Array<AvailableReaction>,
+    @SerialName(value = "popular_reactions")
     public val popularReactions: Array<AvailableReaction>,
+    @SerialName(value = "allow_custom_emoji")
     public val allowCustomEmoji: Boolean,
+    @SerialName(value = "are_tags")
     public val areTags: Boolean,
+    @SerialName(value = "unavailability_reason")
     public val unavailabilityReason: ReactionUnavailabilityReason?,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

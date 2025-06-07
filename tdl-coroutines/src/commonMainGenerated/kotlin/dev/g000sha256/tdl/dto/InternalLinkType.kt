@@ -16,8 +16,11 @@
 
 package dev.g000sha256.tdl.dto
 
+import kotlinx.serialization.Serializable
+
 /**
  * This class is an abstract base class.
  * Describes an internal https://t.me or tg: link, which must be processed by the application in a special way.
  */
-public sealed class InternalLinkType protected constructor()
+@Serializable
+public sealed class InternalLinkType protected constructor() : Model()

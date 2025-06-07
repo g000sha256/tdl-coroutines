@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The chat unreadReactionCount has changed.
@@ -28,8 +30,12 @@ import kotlin.String
  * @property chatId Chat identifier.
  * @property unreadReactionCount The number of messages with unread reactions left in the chat.
  */
+@SerialName(value = "updateChatUnreadReactionCount")
+@Serializable
 public class UpdateChatUnreadReactionCount public constructor(
+    @SerialName(value = "chat_id")
     public val chatId: Long,
+    @SerialName(value = "unread_reaction_count")
     public val unreadReactionCount: Int,
 ) : Update() {
     override fun equals(other: Any?): Boolean {

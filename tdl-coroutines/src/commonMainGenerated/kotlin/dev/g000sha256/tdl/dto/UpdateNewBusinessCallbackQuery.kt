@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A new incoming callback query from a business message; for bots only.
@@ -32,12 +34,20 @@ import kotlin.String
  * @property chatInstance An identifier uniquely corresponding to the chat a message was sent to.
  * @property payload Query payload.
  */
+@SerialName(value = "updateNewBusinessCallbackQuery")
+@Serializable
 public class UpdateNewBusinessCallbackQuery public constructor(
+    @SerialName(value = "id")
     public val id: Long,
+    @SerialName(value = "sender_user_id")
     public val senderUserId: Long,
+    @SerialName(value = "connection_id")
     public val connectionId: String,
+    @SerialName(value = "message")
     public val message: BusinessMessage,
+    @SerialName(value = "chat_instance")
     public val chatInstance: Long,
+    @SerialName(value = "payload")
     public val payload: CallbackQueryPayload,
 ) : Update() {
     override fun equals(other: Any?): Boolean {

@@ -21,6 +21,8 @@ import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Telegram Passport data has been received; for bots only.
@@ -28,8 +30,12 @@ import kotlin.String
  * @property elements List of received Telegram Passport elements.
  * @property credentials Encrypted data credentials.
  */
+@SerialName(value = "messagePassportDataReceived")
+@Serializable
 public class MessagePassportDataReceived public constructor(
+    @SerialName(value = "elements")
     public val elements: Array<EncryptedPassportElement>,
+    @SerialName(value = "credentials")
     public val credentials: EncryptedCredentials,
 ) : MessageContent() {
     override fun equals(other: Any?): Boolean {

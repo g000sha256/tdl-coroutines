@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A message with a location.
@@ -27,8 +29,12 @@ import kotlin.String
  * @property isLive True, if the location is live.
  * @property isPinned True, if the message is a pinned message with the specified content.
  */
+@SerialName(value = "pushMessageContentLocation")
+@Serializable
 public class PushMessageContentLocation public constructor(
+    @SerialName(value = "is_live")
     public val isLive: Boolean,
+    @SerialName(value = "is_pinned")
     public val isPinned: Boolean,
 ) : PushMessageContent() {
     override fun equals(other: Any?): Boolean {

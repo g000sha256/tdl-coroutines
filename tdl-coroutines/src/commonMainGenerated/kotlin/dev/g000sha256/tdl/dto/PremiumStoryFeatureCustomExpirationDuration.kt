@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The ability to set custom expiration duration for stories.
  */
+@SerialName(value = "premiumStoryFeatureCustomExpirationDuration")
+@Serializable
 public class PremiumStoryFeatureCustomExpirationDuration public constructor() : PremiumStoryFeature() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

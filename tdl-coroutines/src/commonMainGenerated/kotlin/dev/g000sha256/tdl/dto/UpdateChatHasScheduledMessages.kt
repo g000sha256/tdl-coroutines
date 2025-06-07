@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A chat's hasScheduledMessages field has changed.
@@ -28,8 +30,12 @@ import kotlin.String
  * @property chatId Chat identifier.
  * @property hasScheduledMessages New value of hasScheduledMessages.
  */
+@SerialName(value = "updateChatHasScheduledMessages")
+@Serializable
 public class UpdateChatHasScheduledMessages public constructor(
+    @SerialName(value = "chat_id")
     public val chatId: Long,
+    @SerialName(value = "has_scheduled_messages")
     public val hasScheduledMessages: Boolean,
 ) : Update() {
     override fun equals(other: Any?): Boolean {

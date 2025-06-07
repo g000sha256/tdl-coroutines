@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A message with an invoice from a bot. Use getInternalLink with internalLinkTypeBotStart to share the invoice.
@@ -35,15 +37,26 @@ import kotlin.String
  * @property paidMedia Extended media attached to the invoice; may be null if none.
  * @property paidMediaCaption Extended media caption; may be null if none.
  */
+@SerialName(value = "messageInvoice")
+@Serializable
 public class MessageInvoice public constructor(
+    @SerialName(value = "product_info")
     public val productInfo: ProductInfo,
+    @SerialName(value = "currency")
     public val currency: String,
+    @SerialName(value = "total_amount")
     public val totalAmount: Long,
+    @SerialName(value = "start_parameter")
     public val startParameter: String,
+    @SerialName(value = "is_test")
     public val isTest: Boolean,
+    @SerialName(value = "need_shipping_address")
     public val needShippingAddress: Boolean,
+    @SerialName(value = "receipt_message_id")
     public val receiptMessageId: Long,
+    @SerialName(value = "paid_media")
     public val paidMedia: PaidMedia?,
+    @SerialName(value = "paid_media_caption")
     public val paidMediaCaption: FormattedText?,
 ) : MessageContent() {
     override fun equals(other: Any?): Boolean {

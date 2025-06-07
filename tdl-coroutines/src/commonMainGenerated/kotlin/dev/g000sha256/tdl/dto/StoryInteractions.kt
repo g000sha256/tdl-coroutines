@@ -21,6 +21,8 @@ import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Represents a list of interactions with a story.
@@ -31,13 +33,20 @@ import kotlin.String
  * @property interactions List of story interactions.
  * @property nextOffset The offset for the next request. If empty, then there are no more results.
  */
+@SerialName(value = "storyInteractions")
+@Serializable
 public class StoryInteractions public constructor(
+    @SerialName(value = "total_count")
     public val totalCount: Int,
+    @SerialName(value = "total_forward_count")
     public val totalForwardCount: Int,
+    @SerialName(value = "total_reaction_count")
     public val totalReactionCount: Int,
+    @SerialName(value = "interactions")
     public val interactions: Array<StoryInteraction>,
+    @SerialName(value = "next_offset")
     public val nextOffset: String,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

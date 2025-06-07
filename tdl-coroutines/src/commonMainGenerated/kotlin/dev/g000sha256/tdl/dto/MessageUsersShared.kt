@@ -21,6 +21,8 @@ import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The current user shared users, which were requested by the bot.
@@ -28,8 +30,12 @@ import kotlin.String
  * @property users The shared users.
  * @property buttonId Identifier of the keyboard button with the request.
  */
+@SerialName(value = "messageUsersShared")
+@Serializable
 public class MessageUsersShared public constructor(
+    @SerialName(value = "users")
     public val users: Array<SharedUser>,
+    @SerialName(value = "button_id")
     public val buttonId: Int,
 ) : MessageContent() {
     override fun equals(other: Any?): Boolean {

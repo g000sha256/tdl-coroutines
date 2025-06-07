@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The message will be sent at the specified date.
  *
  * @property sendDate Point in time (Unix timestamp) when the message will be sent. The date must be within 367 days in the future.
  */
+@SerialName(value = "messageSchedulingStateSendAtDate")
+@Serializable
 public class MessageSchedulingStateSendAtDate public constructor(
+    @SerialName(value = "send_date")
     public val sendDate: Int,
 ) : MessageSchedulingState() {
     override fun equals(other: Any?): Boolean {

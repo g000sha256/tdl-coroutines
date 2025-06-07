@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Some data of a secret chat has changed. This update is guaranteed to come before the secret chat identifier is returned to the application.
  *
  * @property secretChat New data about the secret chat.
  */
+@SerialName(value = "updateSecretChat")
+@Serializable
 public class UpdateSecretChat public constructor(
+    @SerialName(value = "secret_chat")
     public val secretChat: SecretChat,
 ) : Update() {
     override fun equals(other: Any?): Boolean {

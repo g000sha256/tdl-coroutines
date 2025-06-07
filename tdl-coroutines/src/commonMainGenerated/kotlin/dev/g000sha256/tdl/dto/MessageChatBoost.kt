@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The chat was boosted by the sender of the message.
  *
  * @property boostCount Number of times the chat was boosted.
  */
+@SerialName(value = "messageChatBoost")
+@Serializable
 public class MessageChatBoost public constructor(
+    @SerialName(value = "boost_count")
     public val boostCount: Int,
 ) : MessageContent() {
     override fun equals(other: Any?): Boolean {

@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The link forces restore of App Store purchases when opened. For official iOS application only.
  */
+@SerialName(value = "internalLinkTypeRestorePurchases")
+@Serializable
 public class InternalLinkTypeRestorePurchases public constructor() : InternalLinkType() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

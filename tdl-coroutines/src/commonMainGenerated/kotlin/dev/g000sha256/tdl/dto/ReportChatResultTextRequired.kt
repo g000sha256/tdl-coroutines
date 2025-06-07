@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.ByteArray
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The user must add additional text details to the report.
@@ -28,8 +30,12 @@ import kotlin.String
  * @property optionId Option identifier for the next reportChat request.
  * @property isOptional True, if the user can skip text adding.
  */
+@SerialName(value = "reportChatResultTextRequired")
+@Serializable
 public class ReportChatResultTextRequired public constructor(
+    @SerialName(value = "option_id")
     public val optionId: ByteArray,
+    @SerialName(value = "is_optional")
     public val isOptional: Boolean,
 ) : ReportChatResult() {
     override fun equals(other: Any?): Boolean {

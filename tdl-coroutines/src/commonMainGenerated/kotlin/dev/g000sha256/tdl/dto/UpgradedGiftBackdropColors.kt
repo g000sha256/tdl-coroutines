@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes colors of a backdrop of an upgraded gift.
@@ -29,12 +31,18 @@ import kotlin.String
  * @property symbolColor A color to be applied for the symbol in the RGB format.
  * @property textColor A color for the text on the backdrop in the RGB format.
  */
+@SerialName(value = "upgradedGiftBackdropColors")
+@Serializable
 public class UpgradedGiftBackdropColors public constructor(
+    @SerialName(value = "center_color")
     public val centerColor: Int,
+    @SerialName(value = "edge_color")
     public val edgeColor: Int,
+    @SerialName(value = "symbol_color")
     public val symbolColor: Int,
+    @SerialName(value = "text_color")
     public val textColor: Int,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

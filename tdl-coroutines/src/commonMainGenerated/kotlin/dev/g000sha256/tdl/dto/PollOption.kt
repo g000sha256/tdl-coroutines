@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes one answer option of a poll.
@@ -30,13 +32,20 @@ import kotlin.String
  * @property isChosen True, if the option was chosen by the user.
  * @property isBeingChosen True, if the option is being chosen by a pending setPollAnswer request.
  */
+@SerialName(value = "pollOption")
+@Serializable
 public class PollOption public constructor(
+    @SerialName(value = "text")
     public val text: FormattedText,
+    @SerialName(value = "voter_count")
     public val voterCount: Int,
+    @SerialName(value = "vote_percentage")
     public val votePercentage: Int,
+    @SerialName(value = "is_chosen")
     public val isChosen: Boolean,
+    @SerialName(value = "is_being_chosen")
     public val isBeingChosen: Boolean,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

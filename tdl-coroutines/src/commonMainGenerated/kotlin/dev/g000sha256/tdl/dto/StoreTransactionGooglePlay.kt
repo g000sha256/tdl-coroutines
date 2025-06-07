@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A purchase through Google Play.
@@ -28,9 +30,14 @@ import kotlin.String
  * @property storeProductId Identifier of the purchased store product.
  * @property purchaseToken Google Play purchase token.
  */
+@SerialName(value = "storeTransactionGooglePlay")
+@Serializable
 public class StoreTransactionGooglePlay public constructor(
+    @SerialName(value = "package_name")
     public val packageName: String,
+    @SerialName(value = "store_product_id")
     public val storeProductId: String,
+    @SerialName(value = "purchase_token")
     public val purchaseToken: String,
 ) : StoreTransaction() {
     override fun equals(other: Any?): Boolean {

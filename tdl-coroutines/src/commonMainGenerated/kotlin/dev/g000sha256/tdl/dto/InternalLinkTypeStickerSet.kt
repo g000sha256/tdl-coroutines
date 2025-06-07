@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The link is a link to a sticker set. Call searchStickerSet with the given sticker set name to process the link and show the sticker set. If the sticker set is found and the user wants to add it, then call changeStickerSet.
@@ -27,8 +29,12 @@ import kotlin.String
  * @property stickerSetName Name of the sticker set.
  * @property expectCustomEmoji True, if the sticker set is expected to contain custom emoji.
  */
+@SerialName(value = "internalLinkTypeStickerSet")
+@Serializable
 public class InternalLinkTypeStickerSet public constructor(
+    @SerialName(value = "sticker_set_name")
     public val stickerSetName: String,
+    @SerialName(value = "expect_custom_emoji")
     public val expectCustomEmoji: Boolean,
 ) : InternalLinkType() {
     override fun equals(other: Any?): Boolean {

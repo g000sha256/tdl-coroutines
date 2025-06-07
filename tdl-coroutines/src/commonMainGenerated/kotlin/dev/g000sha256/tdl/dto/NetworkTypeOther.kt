@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A different network type (e.g., Ethernet network).
  */
+@SerialName(value = "networkTypeOther")
+@Serializable
 public class NetworkTypeOther public constructor() : NetworkType() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

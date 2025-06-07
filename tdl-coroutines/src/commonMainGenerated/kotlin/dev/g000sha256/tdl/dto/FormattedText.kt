@@ -21,6 +21,8 @@ import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A text with some entities.
@@ -28,10 +30,14 @@ import kotlin.String
  * @property text The text.
  * @property entities Entities contained in the text. Entities can be nested, but must not mutually intersect with each other. Pre, Code and PreCode entities can't contain other entities. BlockQuote entities can't contain other BlockQuote entities. Bold, Italic, Underline, Strikethrough, and Spoiler entities can contain and can be part of any other entities. All other entities can't contain each other.
  */
+@SerialName(value = "formattedText")
+@Serializable
 public class FormattedText public constructor(
+    @SerialName(value = "text")
     public val text: String,
+    @SerialName(value = "entities")
     public val entities: Array<TextEntity>,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

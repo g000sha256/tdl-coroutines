@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * An HTTP URL needs to be open.
@@ -27,8 +29,12 @@ import kotlin.String
  * @property url The URL to open.
  * @property skipConfirmation True, if there is no need to show an ordinary open URL confirmation.
  */
+@SerialName(value = "loginUrlInfoOpen")
+@Serializable
 public class LoginUrlInfoOpen public constructor(
+    @SerialName(value = "url")
     public val url: String,
+    @SerialName(value = "skip_confirmation")
     public val skipConfirmation: Boolean,
 ) : LoginUrlInfo() {
     override fun equals(other: Any?): Boolean {

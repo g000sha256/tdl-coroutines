@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The link is a link to a video player.
@@ -30,11 +32,18 @@ import kotlin.String
  * @property width Expected width of the embedded player.
  * @property height Expected height of the embedded player.
  */
+@SerialName(value = "linkPreviewTypeEmbeddedVideoPlayer")
+@Serializable
 public class LinkPreviewTypeEmbeddedVideoPlayer public constructor(
+    @SerialName(value = "url")
     public val url: String,
+    @SerialName(value = "thumbnail")
     public val thumbnail: Photo?,
+    @SerialName(value = "duration")
     public val duration: Int,
+    @SerialName(value = "width")
     public val width: Int,
+    @SerialName(value = "height")
     public val height: Int,
 ) : LinkPreviewType() {
     override fun equals(other: Any?): Boolean {

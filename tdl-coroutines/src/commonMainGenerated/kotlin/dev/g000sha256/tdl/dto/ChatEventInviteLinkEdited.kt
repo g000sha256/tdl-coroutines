@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A chat invite link was edited.
@@ -27,8 +29,12 @@ import kotlin.String
  * @property oldInviteLink Previous information about the invite link.
  * @property newInviteLink New information about the invite link.
  */
+@SerialName(value = "chatEventInviteLinkEdited")
+@Serializable
 public class ChatEventInviteLinkEdited public constructor(
+    @SerialName(value = "old_invite_link")
     public val oldInviteLink: ChatInviteLink,
+    @SerialName(value = "new_invite_link")
     public val newInviteLink: ChatInviteLink,
 ) : ChatEventAction() {
     override fun equals(other: Any?): Boolean {

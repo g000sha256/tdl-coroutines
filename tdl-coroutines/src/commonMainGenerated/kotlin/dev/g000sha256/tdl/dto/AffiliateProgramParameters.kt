@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes parameters of an affiliate program.
@@ -27,10 +29,14 @@ import kotlin.String
  * @property commissionPerMille The number of Telegram Stars received by the affiliate for each 1000 Telegram Stars received by the program owner; getOption(&quot;affiliate_program_commission_per_mille_min&quot;)-getOption(&quot;affiliate_program_commission_per_mille_max&quot;).
  * @property monthCount Number of months the program will be active; 0-36. If 0, then the program is eternal.
  */
+@SerialName(value = "affiliateProgramParameters")
+@Serializable
 public class AffiliateProgramParameters public constructor(
+    @SerialName(value = "commission_per_mille")
     public val commissionPerMille: Int,
+    @SerialName(value = "month_count")
     public val monthCount: Int,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

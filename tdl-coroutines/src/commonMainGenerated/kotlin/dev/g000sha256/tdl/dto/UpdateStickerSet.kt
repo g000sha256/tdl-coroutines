@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A sticker set has changed.
  *
  * @property stickerSet The sticker set.
  */
+@SerialName(value = "updateStickerSet")
+@Serializable
 public class UpdateStickerSet public constructor(
+    @SerialName(value = "sticker_set")
     public val stickerSet: StickerSet,
 ) : Update() {
     override fun equals(other: Any?): Boolean {

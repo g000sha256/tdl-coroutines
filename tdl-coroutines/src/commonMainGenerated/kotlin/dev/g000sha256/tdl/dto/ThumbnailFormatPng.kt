@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The thumbnail is in PNG format. It will be used only for background patterns.
  */
+@SerialName(value = "thumbnailFormatPng")
+@Serializable
 public class ThumbnailFormatPng public constructor() : ThumbnailFormat() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

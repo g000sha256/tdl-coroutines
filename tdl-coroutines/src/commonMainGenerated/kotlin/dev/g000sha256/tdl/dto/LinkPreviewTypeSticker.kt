@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The link is a link to a sticker.
  *
  * @property sticker The sticker. It can be an arbitrary WEBP image and can have dimensions bigger than 512.
  */
+@SerialName(value = "linkPreviewTypeSticker")
+@Serializable
 public class LinkPreviewTypeSticker public constructor(
+    @SerialName(value = "sticker")
     public val sticker: Sticker,
 ) : LinkPreviewType() {
     override fun equals(other: Any?): Boolean {

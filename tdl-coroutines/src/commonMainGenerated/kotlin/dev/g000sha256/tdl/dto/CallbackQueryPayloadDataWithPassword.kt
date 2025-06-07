@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.ByteArray
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The payload for a callback button requiring password.
@@ -28,8 +30,12 @@ import kotlin.String
  * @property password The 2-step verification password for the current user.
  * @property data Data that was attached to the callback button.
  */
+@SerialName(value = "callbackQueryPayloadDataWithPassword")
+@Serializable
 public class CallbackQueryPayloadDataWithPassword public constructor(
+    @SerialName(value = "password")
     public val password: String,
+    @SerialName(value = "data")
     public val data: ByteArray,
 ) : CallbackQueryPayload() {
     override fun equals(other: Any?): Boolean {

@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * An invitation of participants to a video chat or live stream.
  *
  * @property isCurrentUser True, if the current user was invited to the video chat or the live stream.
  */
+@SerialName(value = "pushMessageContentInviteVideoChatParticipants")
+@Serializable
 public class PushMessageContentInviteVideoChatParticipants public constructor(
+    @SerialName(value = "is_current_user")
     public val isCurrentUser: Boolean,
 ) : PushMessageContent() {
     override fun equals(other: Any?): Boolean {

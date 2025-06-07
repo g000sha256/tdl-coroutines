@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains the result of a payment request.
@@ -27,10 +29,14 @@ import kotlin.String
  * @property success True, if the payment request was successful; otherwise, the verificationUrl will be non-empty.
  * @property verificationUrl URL for additional payment credentials verification.
  */
+@SerialName(value = "paymentResult")
+@Serializable
 public class PaymentResult public constructor(
+    @SerialName(value = "success")
     public val success: Boolean,
+    @SerialName(value = "verification_url")
     public val verificationUrl: String,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

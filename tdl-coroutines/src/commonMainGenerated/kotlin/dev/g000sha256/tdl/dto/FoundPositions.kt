@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.IntArray
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains 0-based positions of matched objects.
@@ -28,10 +30,14 @@ import kotlin.String
  * @property totalCount Total number of matched objects.
  * @property positions The positions of the matched objects.
  */
+@SerialName(value = "foundPositions")
+@Serializable
 public class FoundPositions public constructor(
+    @SerialName(value = "total_count")
     public val totalCount: Int,
+    @SerialName(value = "positions")
     public val positions: IntArray,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

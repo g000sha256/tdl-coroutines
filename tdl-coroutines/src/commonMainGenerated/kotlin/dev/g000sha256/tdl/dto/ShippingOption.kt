@@ -21,6 +21,8 @@ import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * One shipping option.
@@ -29,11 +31,16 @@ import kotlin.String
  * @property title Option title.
  * @property priceParts A list of objects used to calculate the total shipping costs.
  */
+@SerialName(value = "shippingOption")
+@Serializable
 public class ShippingOption public constructor(
+    @SerialName(value = "id")
     public val id: String,
+    @SerialName(value = "title")
     public val title: String,
+    @SerialName(value = "price_parts")
     public val priceParts: Array<LabeledPricePart>,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The payment was done using Telegram Stars.
@@ -28,8 +30,12 @@ import kotlin.String
  * @property starCount Number of Telegram Stars that were paid.
  * @property transactionId Unique identifier of the transaction that can be used to dispute it.
  */
+@SerialName(value = "paymentReceiptTypeStars")
+@Serializable
 public class PaymentReceiptTypeStars public constructor(
+    @SerialName(value = "star_count")
     public val starCount: Long,
+    @SerialName(value = "transaction_id")
     public val transactionId: String,
 ) : PaymentReceiptType() {
     override fun equals(other: Any?): Boolean {

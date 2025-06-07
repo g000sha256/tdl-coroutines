@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The link is a link to a background. Link preview title and description are available only for filled backgrounds.
@@ -27,8 +29,12 @@ import kotlin.String
  * @property document Document with the background; may be null for filled backgrounds.
  * @property backgroundType Type of the background; may be null if unknown.
  */
+@SerialName(value = "linkPreviewTypeBackground")
+@Serializable
 public class LinkPreviewTypeBackground public constructor(
+    @SerialName(value = "document")
     public val document: Document?,
+    @SerialName(value = "background_type")
     public val backgroundType: BackgroundType?,
 ) : LinkPreviewType() {
     override fun equals(other: Any?): Boolean {

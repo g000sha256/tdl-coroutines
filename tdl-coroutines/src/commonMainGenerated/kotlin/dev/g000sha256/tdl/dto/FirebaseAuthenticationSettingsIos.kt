@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Settings for Firebase Authentication in the official iOS application.
@@ -27,8 +29,12 @@ import kotlin.String
  * @property deviceToken Device token from Apple Push Notification service.
  * @property isAppSandbox True, if App Sandbox is enabled.
  */
+@SerialName(value = "firebaseAuthenticationSettingsIos")
+@Serializable
 public class FirebaseAuthenticationSettingsIos public constructor(
+    @SerialName(value = "device_token")
     public val deviceToken: String,
+    @SerialName(value = "is_app_sandbox")
     public val isAppSandbox: Boolean,
 ) : FirebaseAuthenticationSettings() {
     override fun equals(other: Any?): Boolean {

@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains information about a Web App.
@@ -28,10 +30,14 @@ import kotlin.String
  * @property launchId Unique identifier for the Web App launch.
  * @property url A Web App URL to open in a web view.
  */
+@SerialName(value = "webAppInfo")
+@Serializable
 public class WebAppInfo public constructor(
+    @SerialName(value = "launch_id")
     public val launchId: Long,
+    @SerialName(value = "url")
     public val url: String,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

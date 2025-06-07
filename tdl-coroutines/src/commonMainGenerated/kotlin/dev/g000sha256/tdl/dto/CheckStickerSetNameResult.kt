@@ -16,8 +16,11 @@
 
 package dev.g000sha256.tdl.dto
 
+import kotlinx.serialization.Serializable
+
 /**
  * This class is an abstract base class.
  * Represents result of checking whether a name can be used for a new sticker set.
  */
-public sealed class CheckStickerSetNameResult protected constructor()
+@Serializable
+public sealed class CheckStickerSetNameResult protected constructor() : Model()

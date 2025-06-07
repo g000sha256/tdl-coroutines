@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The ability to boost chats.
  */
+@SerialName(value = "premiumFeatureChatBoost")
+@Serializable
 public class PremiumFeatureChatBoost public constructor() : PremiumFeature() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

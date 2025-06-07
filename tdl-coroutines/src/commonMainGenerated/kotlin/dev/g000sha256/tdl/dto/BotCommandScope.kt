@@ -16,8 +16,11 @@
 
 package dev.g000sha256.tdl.dto
 
+import kotlinx.serialization.Serializable
+
 /**
  * This class is an abstract base class.
  * Represents the scope to which bot commands are relevant.
  */
-public sealed class BotCommandScope protected constructor()
+@Serializable
+public sealed class BotCommandScope protected constructor() : Model()

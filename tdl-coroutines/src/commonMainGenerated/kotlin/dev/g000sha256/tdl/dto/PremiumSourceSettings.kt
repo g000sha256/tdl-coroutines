@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A user opened the Premium features screen from settings.
  */
+@SerialName(value = "premiumSourceSettings")
+@Serializable
 public class PremiumSourceSettings public constructor() : PremiumSource() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

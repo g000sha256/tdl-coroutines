@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes a chat administrator with a number of active and revoked chat invite links.
@@ -29,11 +31,16 @@ import kotlin.String
  * @property inviteLinkCount Number of active invite links.
  * @property revokedInviteLinkCount Number of revoked invite links.
  */
+@SerialName(value = "chatInviteLinkCount")
+@Serializable
 public class ChatInviteLinkCount public constructor(
+    @SerialName(value = "user_id")
     public val userId: Long,
+    @SerialName(value = "invite_link_count")
     public val inviteLinkCount: Int,
+    @SerialName(value = "revoked_invite_link_count")
     public val revokedInviteLinkCount: Int,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

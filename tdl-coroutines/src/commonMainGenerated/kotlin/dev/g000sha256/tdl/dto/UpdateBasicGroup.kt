@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Some data of a basic group has changed. This update is guaranteed to come before the basic group identifier is returned to the application.
  *
  * @property basicGroup New data about the group.
  */
+@SerialName(value = "updateBasicGroup")
+@Serializable
 public class UpdateBasicGroup public constructor(
+    @SerialName(value = "basic_group")
     public val basicGroup: BasicGroup,
 ) : Update() {
     override fun equals(other: Any?): Boolean {

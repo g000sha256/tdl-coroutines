@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A preformatted text paragraph.
@@ -27,8 +29,12 @@ import kotlin.String
  * @property text Paragraph text.
  * @property language Programming language for which the text needs to be formatted.
  */
+@SerialName(value = "pageBlockPreformatted")
+@Serializable
 public class PageBlockPreformatted public constructor(
+    @SerialName(value = "text")
     public val text: RichText,
+    @SerialName(value = "language")
     public val language: String,
 ) : PageBlock() {
     override fun equals(other: Any?): Boolean {

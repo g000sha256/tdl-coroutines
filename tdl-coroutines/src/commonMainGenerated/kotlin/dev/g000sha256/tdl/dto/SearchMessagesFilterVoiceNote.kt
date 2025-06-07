@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Returns only voice note messages.
  */
+@SerialName(value = "searchMessagesFilterVoiceNote")
+@Serializable
 public class SearchMessagesFilterVoiceNote public constructor() : SearchMessagesFilter() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

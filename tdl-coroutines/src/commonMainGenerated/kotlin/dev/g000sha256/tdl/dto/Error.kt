@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * An object of this type can be returned on every function call, in case of an error.
@@ -27,10 +29,14 @@ import kotlin.String
  * @property code Error code; subject to future changes. If the error code is 406, the error message must not be processed in any way and must not be displayed to the user.
  * @property message Error message; subject to future changes.
  */
+@SerialName(value = "error")
+@Serializable
 public class Error public constructor(
+    @SerialName(value = "code")
     public val code: Int,
+    @SerialName(value = "message")
     public val message: String,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

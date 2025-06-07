@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A privacy setting for managing whether peer-to-peer connections can be used for calls.
  */
+@SerialName(value = "userPrivacySettingAllowPeerToPeerCalls")
+@Serializable
 public class UserPrivacySettingAllowPeerToPeerCalls public constructor() : UserPrivacySetting() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

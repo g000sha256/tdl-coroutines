@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The file is a thumbnail of another file.
  */
+@SerialName(value = "fileTypeThumbnail")
+@Serializable
 public class FileTypeThumbnail public constructor() : FileType() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

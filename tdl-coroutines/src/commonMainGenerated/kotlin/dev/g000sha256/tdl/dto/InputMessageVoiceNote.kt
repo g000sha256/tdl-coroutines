@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.ByteArray
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A voice note message.
@@ -31,11 +33,18 @@ import kotlin.String
  * @property caption Voice note caption; may be null if empty; pass null to use an empty caption; 0-getOption(&quot;message_caption_length_max&quot;) characters.
  * @property selfDestructType Voice note self-destruct type; may be null if none; pass null if none; private chats only.
  */
+@SerialName(value = "inputMessageVoiceNote")
+@Serializable
 public class InputMessageVoiceNote public constructor(
+    @SerialName(value = "voice_note")
     public val voiceNote: InputFile,
+    @SerialName(value = "duration")
     public val duration: Int,
+    @SerialName(value = "waveform")
     public val waveform: ByteArray,
+    @SerialName(value = "caption")
     public val caption: FormattedText?,
+    @SerialName(value = "self_destruct_type")
     public val selfDestructType: MessageSelfDestructType?,
 ) : InputMessageContent() {
     override fun equals(other: Any?): Boolean {

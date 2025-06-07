@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * New message was received.
@@ -27,8 +29,12 @@ import kotlin.String
  * @property message The message.
  * @property showPreview True, if message content must be displayed in notifications.
  */
+@SerialName(value = "notificationTypeNewMessage")
+@Serializable
 public class NotificationTypeNewMessage public constructor(
+    @SerialName(value = "message")
     public val message: Message,
+    @SerialName(value = "show_preview")
     public val showPreview: Boolean,
 ) : NotificationType() {
     override fun equals(other: Any?): Boolean {

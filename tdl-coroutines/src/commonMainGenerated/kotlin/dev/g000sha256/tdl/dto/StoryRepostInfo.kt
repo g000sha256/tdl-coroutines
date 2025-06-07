@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains information about original story that was reposted.
@@ -27,10 +29,14 @@ import kotlin.String
  * @property origin Origin of the story that was reposted.
  * @property isContentModified True, if story content was modified during reposting; otherwise, story wasn't modified.
  */
+@SerialName(value = "storyRepostInfo")
+@Serializable
 public class StoryRepostInfo public constructor(
+    @SerialName(value = "origin")
     public val origin: StoryOrigin,
+    @SerialName(value = "is_content_modified")
     public val isContentModified: Boolean,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

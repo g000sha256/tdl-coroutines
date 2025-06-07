@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The transaction is a deposit of Telegram Stars from a giveaway; for regular users only.
@@ -28,8 +30,12 @@ import kotlin.String
  * @property chatId Identifier of a supergroup or a channel chat that created the giveaway.
  * @property giveawayMessageId Identifier of the message with the giveaway; can be 0 or an identifier of a deleted message.
  */
+@SerialName(value = "starTransactionTypeGiveawayDeposit")
+@Serializable
 public class StarTransactionTypeGiveawayDeposit public constructor(
+    @SerialName(value = "chat_id")
     public val chatId: Long,
+    @SerialName(value = "giveaway_message_id")
     public val giveawayMessageId: Long,
 ) : StarTransactionType() {
     override fun equals(other: Any?): Boolean {

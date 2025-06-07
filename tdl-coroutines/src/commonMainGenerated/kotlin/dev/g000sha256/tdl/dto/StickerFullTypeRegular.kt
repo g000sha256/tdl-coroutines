@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The sticker is a regular sticker.
  *
  * @property premiumAnimation Premium animation of the sticker; may be null. If present, only Telegram Premium users can use the sticker.
  */
+@SerialName(value = "stickerFullTypeRegular")
+@Serializable
 public class StickerFullTypeRegular public constructor(
+    @SerialName(value = "premium_animation")
     public val premiumAnimation: File?,
 ) : StickerFullType() {
     override fun equals(other: Any?): Boolean {

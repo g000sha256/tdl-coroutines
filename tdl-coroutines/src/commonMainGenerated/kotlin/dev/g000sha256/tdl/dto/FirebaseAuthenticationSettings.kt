@@ -16,8 +16,11 @@
 
 package dev.g000sha256.tdl.dto
 
+import kotlinx.serialization.Serializable
+
 /**
  * This class is an abstract base class.
  * Contains settings for Firebase Authentication in the official applications.
  */
-public sealed class FirebaseAuthenticationSettings protected constructor()
+@Serializable
+public sealed class FirebaseAuthenticationSettings protected constructor() : Model()

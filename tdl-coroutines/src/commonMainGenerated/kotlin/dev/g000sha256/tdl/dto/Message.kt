@@ -23,6 +23,8 @@ import kotlin.Double
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes a message.
@@ -65,45 +67,84 @@ import kotlin.String
  * @property content Content of the message.
  * @property replyMarkup Reply markup for the message; may be null if none.
  */
+@SerialName(value = "message")
+@Serializable
 public class Message public constructor(
+    @SerialName(value = "id")
     public val id: Long,
+    @SerialName(value = "sender_id")
     public val senderId: MessageSender,
+    @SerialName(value = "chat_id")
     public val chatId: Long,
+    @SerialName(value = "sending_state")
     public val sendingState: MessageSendingState?,
+    @SerialName(value = "scheduling_state")
     public val schedulingState: MessageSchedulingState?,
+    @SerialName(value = "is_outgoing")
     public val isOutgoing: Boolean,
+    @SerialName(value = "is_pinned")
     public val isPinned: Boolean,
+    @SerialName(value = "is_from_offline")
     public val isFromOffline: Boolean,
+    @SerialName(value = "can_be_saved")
     public val canBeSaved: Boolean,
+    @SerialName(value = "has_timestamped_media")
     public val hasTimestampedMedia: Boolean,
+    @SerialName(value = "is_channel_post")
     public val isChannelPost: Boolean,
+    @SerialName(value = "is_topic_message")
     public val isTopicMessage: Boolean,
+    @SerialName(value = "contains_unread_mention")
     public val containsUnreadMention: Boolean,
+    @SerialName(value = "date")
     public val date: Int,
+    @SerialName(value = "edit_date")
     public val editDate: Int,
+    @SerialName(value = "forward_info")
     public val forwardInfo: MessageForwardInfo?,
+    @SerialName(value = "import_info")
     public val importInfo: MessageImportInfo?,
+    @SerialName(value = "interaction_info")
     public val interactionInfo: MessageInteractionInfo?,
+    @SerialName(value = "unread_reactions")
     public val unreadReactions: Array<UnreadReaction>,
+    @SerialName(value = "fact_check")
     public val factCheck: FactCheck?,
+    @SerialName(value = "reply_to")
     public val replyTo: MessageReplyTo?,
+    @SerialName(value = "message_thread_id")
     public val messageThreadId: Long,
+    @SerialName(value = "saved_messages_topic_id")
     public val savedMessagesTopicId: Long,
+    @SerialName(value = "self_destruct_type")
     public val selfDestructType: MessageSelfDestructType?,
+    @SerialName(value = "self_destruct_in")
     public val selfDestructIn: Double,
+    @SerialName(value = "auto_delete_in")
     public val autoDeleteIn: Double,
+    @SerialName(value = "via_bot_user_id")
     public val viaBotUserId: Long,
+    @SerialName(value = "sender_business_bot_user_id")
     public val senderBusinessBotUserId: Long,
+    @SerialName(value = "sender_boost_count")
     public val senderBoostCount: Int,
+    @SerialName(value = "paid_message_star_count")
     public val paidMessageStarCount: Long,
+    @SerialName(value = "author_signature")
     public val authorSignature: String,
+    @SerialName(value = "media_album_id")
     public val mediaAlbumId: Long,
+    @SerialName(value = "effect_id")
     public val effectId: Long,
+    @SerialName(value = "has_sensitive_content")
     public val hasSensitiveContent: Boolean,
+    @SerialName(value = "restriction_reason")
     public val restrictionReason: String,
+    @SerialName(value = "content")
     public val content: MessageContent,
+    @SerialName(value = "reply_markup")
     public val replyMarkup: ReplyMarkup?,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

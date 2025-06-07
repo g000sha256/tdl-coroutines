@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Some data in supergroupFullInfo has been changed.
@@ -28,8 +30,12 @@ import kotlin.String
  * @property supergroupId Identifier of the supergroup or channel.
  * @property supergroupFullInfo New full information about the supergroup.
  */
+@SerialName(value = "updateSupergroupFullInfo")
+@Serializable
 public class UpdateSupergroupFullInfo public constructor(
+    @SerialName(value = "supergroup_id")
     public val supergroupId: Long,
+    @SerialName(value = "supergroup_full_info")
     public val supergroupFullInfo: SupergroupFullInfo,
 ) : Update() {
     override fun equals(other: Any?): Boolean {

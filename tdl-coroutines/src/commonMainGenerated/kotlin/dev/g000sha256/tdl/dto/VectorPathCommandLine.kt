@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A straight line to a given point.
  *
  * @property endPoint The end point of the straight line.
  */
+@SerialName(value = "vectorPathCommandLine")
+@Serializable
 public class VectorPathCommandLine public constructor(
+    @SerialName(value = "end_point")
     public val endPoint: Point,
 ) : VectorPathCommand() {
     override fun equals(other: Any?): Boolean {

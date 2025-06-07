@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * An authorization confirmation dialog needs to be shown to the user.
@@ -30,10 +32,16 @@ import kotlin.String
  * @property botUserId User identifier of a bot linked with the website.
  * @property requestWriteAccess True, if the user must be asked for the permission to the bot to send them messages.
  */
+@SerialName(value = "loginUrlInfoRequestConfirmation")
+@Serializable
 public class LoginUrlInfoRequestConfirmation public constructor(
+    @SerialName(value = "url")
     public val url: String,
+    @SerialName(value = "domain")
     public val domain: String,
+    @SerialName(value = "bot_user_id")
     public val botUserId: Long,
+    @SerialName(value = "request_write_access")
     public val requestWriteAccess: Boolean,
 ) : LoginUrlInfo() {
     override fun equals(other: Any?): Boolean {

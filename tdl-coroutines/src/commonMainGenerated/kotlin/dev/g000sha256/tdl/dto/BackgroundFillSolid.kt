@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes a solid fill of a background.
  *
  * @property color A color of the background in the RGB format.
  */
+@SerialName(value = "backgroundFillSolid")
+@Serializable
 public class BackgroundFillSolid public constructor(
+    @SerialName(value = "color")
     public val color: Int,
 ) : BackgroundFill() {
     override fun equals(other: Any?): Boolean {

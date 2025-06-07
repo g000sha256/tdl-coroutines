@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * An invisible anchor on a page, which can be used in a URL to open the page from the specified anchor.
  *
  * @property name Name of the anchor.
  */
+@SerialName(value = "pageBlockAnchor")
+@Serializable
 public class PageBlockAnchor public constructor(
+    @SerialName(value = "name")
     public val name: String,
 ) : PageBlock() {
     override fun equals(other: Any?): Boolean {

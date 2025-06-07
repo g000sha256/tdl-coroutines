@@ -22,6 +22,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains the exact storage usage statistics split by chats and file type.
@@ -30,11 +32,16 @@ import kotlin.String
  * @property count Total number of files.
  * @property byChat Statistics split by chats.
  */
+@SerialName(value = "storageStatistics")
+@Serializable
 public class StorageStatistics public constructor(
+    @SerialName(value = "size")
     public val size: Long,
+    @SerialName(value = "count")
     public val count: Int,
+    @SerialName(value = "by_chat")
     public val byChat: Array<StorageStatisticsByChat>,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

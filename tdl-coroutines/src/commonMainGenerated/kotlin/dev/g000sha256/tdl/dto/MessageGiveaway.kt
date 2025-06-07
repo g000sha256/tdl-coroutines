@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A giveaway.
@@ -29,10 +31,16 @@ import kotlin.String
  * @property prize Prize of the giveaway.
  * @property sticker A sticker to be shown in the message; may be null if unknown.
  */
+@SerialName(value = "messageGiveaway")
+@Serializable
 public class MessageGiveaway public constructor(
+    @SerialName(value = "parameters")
     public val parameters: GiveawayParameters,
+    @SerialName(value = "winner_count")
     public val winnerCount: Int,
+    @SerialName(value = "prize")
     public val prize: GiveawayPrize,
+    @SerialName(value = "sticker")
     public val sticker: Sticker?,
 ) : MessageContent() {
     override fun equals(other: Any?): Boolean {

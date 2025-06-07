@@ -20,15 +20,20 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains the group call identifier.
  *
  * @property id Group call identifier.
  */
+@SerialName(value = "groupCallId")
+@Serializable
 public class GroupCallId public constructor(
+    @SerialName(value = "id")
     public val id: Int,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

@@ -21,13 +21,18 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A URL linking to a public supergroup or channel.
  *
  * @property supergroupId Identifier of the supergroup or channel.
  */
+@SerialName(value = "tMeUrlTypeSupergroup")
+@Serializable
 public class TMeUrlTypeSupergroup public constructor(
+    @SerialName(value = "supergroup_id")
     public val supergroupId: Long,
 ) : TMeUrlType() {
     override fun equals(other: Any?): Boolean {

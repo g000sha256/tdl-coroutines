@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains information about a user that has failed to be added to a chat.
@@ -29,11 +31,16 @@ import kotlin.String
  * @property premiumWouldAllowInvite True, if subscription to Telegram Premium would have allowed to add the user to the chat.
  * @property premiumRequiredToSendMessages True, if subscription to Telegram Premium is required to send the user chat invite link.
  */
+@SerialName(value = "failedToAddMember")
+@Serializable
 public class FailedToAddMember public constructor(
+    @SerialName(value = "user_id")
     public val userId: Long,
+    @SerialName(value = "premium_would_allow_invite")
     public val premiumWouldAllowInvite: Boolean,
+    @SerialName(value = "premium_required_to_send_messages")
     public val premiumRequiredToSendMessages: Boolean,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

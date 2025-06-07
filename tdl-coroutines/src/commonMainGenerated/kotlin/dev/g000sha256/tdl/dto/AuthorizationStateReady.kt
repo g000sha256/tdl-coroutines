@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The user has been successfully authorized. TDLib is now ready to answer general requests.
  */
+@SerialName(value = "authorizationStateReady")
+@Serializable
 public class AuthorizationStateReady public constructor() : AuthorizationState() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Returns contacts of the user, which are members of the supergroup or channel.
  *
  * @property query Query to search for.
  */
+@SerialName(value = "supergroupMembersFilterContacts")
+@Serializable
 public class SupergroupMembersFilterContacts public constructor(
+    @SerialName(value = "query")
     public val query: String,
 ) : SupergroupMembersFilter() {
     override fun equals(other: Any?): Boolean {

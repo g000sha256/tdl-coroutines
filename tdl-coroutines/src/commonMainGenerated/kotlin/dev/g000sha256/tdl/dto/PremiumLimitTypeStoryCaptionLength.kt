@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The maximum length of captions of posted stories.
  */
+@SerialName(value = "premiumLimitTypeStoryCaptionLength")
+@Serializable
 public class PremiumLimitTypeStoryCaptionLength public constructor() : PremiumLimitType() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

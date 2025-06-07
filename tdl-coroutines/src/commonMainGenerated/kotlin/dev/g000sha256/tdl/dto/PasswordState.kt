@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Represents the current state of 2-step verification.
@@ -32,15 +34,24 @@ import kotlin.String
  * @property loginEmailAddressPattern Pattern of the email address set up for logging in.
  * @property pendingResetDate If not 0, point in time (Unix timestamp) after which the 2-step verification password can be reset immediately using resetPassword.
  */
+@SerialName(value = "passwordState")
+@Serializable
 public class PasswordState public constructor(
+    @SerialName(value = "has_password")
     public val hasPassword: Boolean,
+    @SerialName(value = "password_hint")
     public val passwordHint: String,
+    @SerialName(value = "has_recovery_email_address")
     public val hasRecoveryEmailAddress: Boolean,
+    @SerialName(value = "has_passport_data")
     public val hasPassportData: Boolean,
+    @SerialName(value = "recovery_email_address_code_info")
     public val recoveryEmailAddressCodeInfo: EmailAddressAuthenticationCodeInfo?,
+    @SerialName(value = "login_email_address_pattern")
     public val loginEmailAddressPattern: String,
+    @SerialName(value = "pending_reset_date")
     public val pendingResetDate: Int,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The chat created a Telegram Premium gift code for a user.
@@ -28,8 +30,12 @@ import kotlin.String
  * @property userId Identifier of a user, for which the gift code was created.
  * @property giftCode The created Telegram Premium gift code, which is known only if this is a gift code for the current user, or it has already been claimed.
  */
+@SerialName(value = "chatBoostSourceGiftCode")
+@Serializable
 public class ChatBoostSourceGiftCode public constructor(
+    @SerialName(value = "user_id")
     public val userId: Long,
+    @SerialName(value = "gift_code")
     public val giftCode: String,
 ) : ChatBoostSource() {
     override fun equals(other: Any?): Boolean {

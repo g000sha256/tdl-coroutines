@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The user or the chat was banned (and hence is not a member of the chat). Implies the user can't return to the chat, view messages, or be used as a participant identifier to join a video chat of the chat.
  *
  * @property bannedUntilDate Point in time (Unix timestamp) when the user will be unbanned; 0 if never. If the user is banned for more than 366 days or for less than 30 seconds from the current time, the user is considered to be banned forever. Always 0 in basic groups.
  */
+@SerialName(value = "chatMemberStatusBanned")
+@Serializable
 public class ChatMemberStatusBanned public constructor(
+    @SerialName(value = "banned_until_date")
     public val bannedUntilDate: Int,
 ) : ChatMemberStatus() {
     override fun equals(other: Any?): Boolean {

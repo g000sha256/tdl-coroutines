@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains a caption of another block.
@@ -27,10 +29,14 @@ import kotlin.String
  * @property text Content of the caption.
  * @property credit Block credit (like HTML tag &lt;cite&gt;).
  */
+@SerialName(value = "pageBlockCaption")
+@Serializable
 public class PageBlockCaption public constructor(
+    @SerialName(value = "text")
     public val text: RichText,
+    @SerialName(value = "credit")
     public val credit: RichText,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The block list that disallows viewing of stories of the current user.
  */
+@SerialName(value = "blockListStories")
+@Serializable
 public class BlockListStories public constructor() : BlockList() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

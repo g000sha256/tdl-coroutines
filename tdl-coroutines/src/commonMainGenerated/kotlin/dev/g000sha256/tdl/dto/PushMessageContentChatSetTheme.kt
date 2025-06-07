@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A chat theme was edited.
  *
  * @property themeName If non-empty, name of a new theme, set for the chat. Otherwise, the chat theme was reset to the default one.
  */
+@SerialName(value = "pushMessageContentChatSetTheme")
+@Serializable
 public class PushMessageContentChatSetTheme public constructor(
+    @SerialName(value = "theme_name")
     public val themeName: String,
 ) : PushMessageContent() {
     override fun equals(other: Any?): Boolean {

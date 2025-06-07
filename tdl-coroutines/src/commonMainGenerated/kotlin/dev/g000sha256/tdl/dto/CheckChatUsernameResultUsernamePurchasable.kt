@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The username can be purchased at https://fragment.com. Information about the username can be received using getCollectibleItemInfo.
  */
+@SerialName(value = "checkChatUsernameResultUsernamePurchasable")
+@Serializable
 public class CheckChatUsernameResultUsernamePurchasable public constructor() : CheckChatUsernameResult() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

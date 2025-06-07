@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes an animated or custom representation of an emoji.
@@ -30,13 +32,20 @@ import kotlin.String
  * @property fitzpatrickType Emoji modifier fitzpatrick type; 0-6; 0 if none.
  * @property sound File containing the sound to be played when the sticker is clicked; may be null. The sound is encoded with the Opus codec, and stored inside an OGG container.
  */
+@SerialName(value = "animatedEmoji")
+@Serializable
 public class AnimatedEmoji public constructor(
+    @SerialName(value = "sticker")
     public val sticker: Sticker?,
+    @SerialName(value = "sticker_width")
     public val stickerWidth: Int,
+    @SerialName(value = "sticker_height")
     public val stickerHeight: Int,
+    @SerialName(value = "fitzpatrick_type")
     public val fitzpatrickType: Int,
+    @SerialName(value = "sound")
     public val sound: File?,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

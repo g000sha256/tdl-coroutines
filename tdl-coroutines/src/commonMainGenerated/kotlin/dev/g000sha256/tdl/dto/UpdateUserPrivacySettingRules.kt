@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Some privacy setting rules have been changed.
@@ -27,8 +29,12 @@ import kotlin.String
  * @property setting The privacy setting.
  * @property rules New privacy rules.
  */
+@SerialName(value = "updateUserPrivacySettingRules")
+@Serializable
 public class UpdateUserPrivacySettingRules public constructor(
+    @SerialName(value = "setting")
     public val setting: UserPrivacySetting,
+    @SerialName(value = "rules")
     public val rules: UserPrivacySettingRules,
 ) : Update() {
     override fun equals(other: Any?): Boolean {

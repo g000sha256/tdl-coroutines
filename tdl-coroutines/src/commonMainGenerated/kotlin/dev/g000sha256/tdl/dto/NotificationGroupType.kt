@@ -16,8 +16,11 @@
 
 package dev.g000sha256.tdl.dto
 
+import kotlinx.serialization.Serializable
+
 /**
  * This class is an abstract base class.
  * Describes the type of notifications in a notification group.
  */
-public sealed class NotificationGroupType protected constructor()
+@Serializable
+public sealed class NotificationGroupType protected constructor() : Model()

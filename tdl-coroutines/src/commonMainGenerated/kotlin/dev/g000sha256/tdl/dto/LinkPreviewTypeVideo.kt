@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The link is a link to a video.
@@ -28,9 +30,14 @@ import kotlin.String
  * @property cover Cover of the video; may be null if none.
  * @property startTimestamp Timestamp from which the video playing must start, in seconds.
  */
+@SerialName(value = "linkPreviewTypeVideo")
+@Serializable
 public class LinkPreviewTypeVideo public constructor(
+    @SerialName(value = "video")
     public val video: Video,
+    @SerialName(value = "cover")
     public val cover: Photo?,
+    @SerialName(value = "start_timestamp")
     public val startTimestamp: Int,
 ) : LinkPreviewType() {
     override fun equals(other: Any?): Boolean {

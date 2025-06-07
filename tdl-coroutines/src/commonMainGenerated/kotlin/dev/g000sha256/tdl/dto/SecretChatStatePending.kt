@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The secret chat is not yet created; waiting for the other user to get online.
  */
+@SerialName(value = "secretChatStatePending")
+@Serializable
 public class SecretChatStatePending public constructor() : SecretChatState() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

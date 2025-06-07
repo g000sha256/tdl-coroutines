@@ -21,13 +21,18 @@ import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The link is a link to a sticker set.
  *
  * @property stickers Up to 4 stickers from the sticker set.
  */
+@SerialName(value = "linkPreviewTypeStickerSet")
+@Serializable
 public class LinkPreviewTypeStickerSet public constructor(
+    @SerialName(value = "stickers")
     public val stickers: Array<Sticker>,
 ) : LinkPreviewType() {
     override fun equals(other: Any?): Boolean {

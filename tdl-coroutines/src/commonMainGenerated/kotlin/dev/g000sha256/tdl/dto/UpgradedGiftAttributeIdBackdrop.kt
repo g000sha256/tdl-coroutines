@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Identifier of a gift backdrop.
  *
  * @property backdropId Identifier of the backdrop.
  */
+@SerialName(value = "upgradedGiftAttributeIdBackdrop")
+@Serializable
 public class UpgradedGiftAttributeIdBackdrop public constructor(
+    @SerialName(value = "backdrop_id")
     public val backdropId: Int,
 ) : UpgradedGiftAttributeId() {
     override fun equals(other: Any?): Boolean {

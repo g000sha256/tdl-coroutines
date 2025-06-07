@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A new incoming shipping query; for bots only. Only for invoices with flexible price.
@@ -30,10 +32,16 @@ import kotlin.String
  * @property invoicePayload Invoice payload.
  * @property shippingAddress User shipping address.
  */
+@SerialName(value = "updateNewShippingQuery")
+@Serializable
 public class UpdateNewShippingQuery public constructor(
+    @SerialName(value = "id")
     public val id: Long,
+    @SerialName(value = "sender_user_id")
     public val senderUserId: Long,
+    @SerialName(value = "invoice_payload")
     public val invoicePayload: String,
+    @SerialName(value = "shipping_address")
     public val shippingAddress: Address,
 ) : Update() {
     override fun equals(other: Any?): Boolean {

@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Notification settings applied to all private and secret chats when the corresponding chat setting has a default value.
  */
+@SerialName(value = "notificationSettingsScopePrivateChats")
+@Serializable
 public class NotificationSettingsScopePrivateChats public constructor() : NotificationSettingsScope() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

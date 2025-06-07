@@ -21,13 +21,18 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.LongArray
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A rule to restrict all members of specified basic groups and supergroups from doing something.
  *
  * @property chatIds The chat identifiers, total number of chats in all rules must not exceed 20.
  */
+@SerialName(value = "userPrivacySettingRuleRestrictChatMembers")
+@Serializable
 public class UserPrivacySettingRuleRestrictChatMembers public constructor(
+    @SerialName(value = "chat_ids")
     public val chatIds: LongArray,
 ) : UserPrivacySettingRule() {
     override fun equals(other: Any?): Boolean {

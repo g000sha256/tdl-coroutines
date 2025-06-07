@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The link is a link to the main Web App of a bot. Call searchPublicChat with the given bot username, check that the user is a bot and has the main Web App. If the bot can be added to attachment menu, then use getAttachmentMenuBot to receive information about the bot, then if the bot isn't added to side menu, show a disclaimer about Mini Apps being third-party applications, ask the user to accept their Terms of service and confirm adding the bot to side and attachment menu, then if the user accepts the terms and confirms adding, use toggleBotIsAddedToAttachmentMenu to add the bot. Then, use getMainWebApp with the given start parameter and mode and open the returned URL as a Web App.
@@ -28,9 +30,14 @@ import kotlin.String
  * @property startParameter Start parameter to be passed to getMainWebApp.
  * @property mode The mode to be passed to getMainWebApp.
  */
+@SerialName(value = "internalLinkTypeMainWebApp")
+@Serializable
 public class InternalLinkTypeMainWebApp public constructor(
+    @SerialName(value = "bot_username")
     public val botUsername: String,
+    @SerialName(value = "start_parameter")
     public val startParameter: String,
+    @SerialName(value = "mode")
     public val mode: WebAppOpenMode,
 ) : InternalLinkType() {
     override fun equals(other: Any?): Boolean {

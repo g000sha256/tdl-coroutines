@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Email address reset has already been requested. Call resetAuthenticationEmailAddress to check whether immediate reset is possible.
  *
  * @property resetIn Left time before the email address will be reset, in seconds. updateAuthorizationState is not sent when this field changes.
  */
+@SerialName(value = "emailAddressResetStatePending")
+@Serializable
 public class EmailAddressResetStatePending public constructor(
+    @SerialName(value = "reset_in")
     public val resetIn: Int,
 ) : EmailAddressResetState() {
     override fun equals(other: Any?): Boolean {

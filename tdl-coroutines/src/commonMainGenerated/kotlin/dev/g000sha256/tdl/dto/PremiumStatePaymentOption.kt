@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes an option for buying or upgrading Telegram Premium for self.
@@ -29,12 +31,18 @@ import kotlin.String
  * @property isUpgrade True, if the payment option can be used to upgrade the existing Telegram Premium subscription.
  * @property lastTransactionId Identifier of the last in-store transaction for the currently used option.
  */
+@SerialName(value = "premiumStatePaymentOption")
+@Serializable
 public class PremiumStatePaymentOption public constructor(
+    @SerialName(value = "payment_option")
     public val paymentOption: PremiumPaymentOption,
+    @SerialName(value = "is_current")
     public val isCurrent: Boolean,
+    @SerialName(value = "is_upgrade")
     public val isUpgrade: Boolean,
+    @SerialName(value = "last_transaction_id")
     public val lastTransactionId: String,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

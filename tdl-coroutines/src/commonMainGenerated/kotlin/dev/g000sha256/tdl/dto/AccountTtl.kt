@@ -20,15 +20,20 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains information about the period of inactivity after which the current user's account will automatically be deleted.
  *
  * @property days Number of days of inactivity before the account will be flagged for deletion; 30-730 days.
  */
+@SerialName(value = "accountTtl")
+@Serializable
 public class AccountTtl public constructor(
+    @SerialName(value = "days")
     public val days: Int,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

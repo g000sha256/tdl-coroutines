@@ -16,8 +16,11 @@
 
 package dev.g000sha256.tdl.dto
 
+import kotlinx.serialization.Serializable
+
 /**
  * This class is an abstract base class.
  * Describes conditions for sending of away messages by a Telegram Business account.
  */
-public sealed class BusinessAwayMessageSchedule protected constructor()
+@Serializable
+public sealed class BusinessAwayMessageSchedule protected constructor() : Model()

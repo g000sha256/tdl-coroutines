@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * One of the data fields contains an error. The error will be considered resolved when the value of the field changes.
  *
  * @property fieldName Field name.
  */
+@SerialName(value = "passportElementErrorSourceDataField")
+@Serializable
 public class PassportElementErrorSourceDataField public constructor(
+    @SerialName(value = "field_name")
     public val fieldName: String,
 ) : PassportElementErrorSource() {
     override fun equals(other: Any?): Boolean {

@@ -16,8 +16,11 @@
 
 package dev.g000sha256.tdl.dto
 
+import kotlinx.serialization.Serializable
+
 /**
  * This class is an abstract base class.
  * Represents the current authorization state of the TDLib client.
  */
-public sealed class AuthorizationState protected constructor()
+@Serializable
+public sealed class AuthorizationState protected constructor() : Model()

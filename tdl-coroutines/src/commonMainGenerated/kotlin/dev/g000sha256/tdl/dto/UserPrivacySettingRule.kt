@@ -16,8 +16,11 @@
 
 package dev.g000sha256.tdl.dto
 
+import kotlinx.serialization.Serializable
+
 /**
  * This class is an abstract base class.
  * Represents a single rule for managing user privacy settings.
  */
-public sealed class UserPrivacySettingRule protected constructor()
+@Serializable
+public sealed class UserPrivacySettingRule protected constructor() : Model()

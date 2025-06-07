@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A text message.
@@ -27,8 +29,12 @@ import kotlin.String
  * @property text Message text.
  * @property isPinned True, if the message is a pinned message with the specified content.
  */
+@SerialName(value = "pushMessageContentText")
+@Serializable
 public class PushMessageContentText public constructor(
+    @SerialName(value = "text")
     public val text: String,
+    @SerialName(value = "is_pinned")
     public val isPinned: Boolean,
 ) : PushMessageContent() {
     override fun equals(other: Any?): Boolean {

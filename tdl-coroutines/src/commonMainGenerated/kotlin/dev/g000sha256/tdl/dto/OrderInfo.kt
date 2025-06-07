@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Order information.
@@ -29,12 +31,18 @@ import kotlin.String
  * @property emailAddress Email address of the user.
  * @property shippingAddress Shipping address for this order; may be null.
  */
+@SerialName(value = "orderInfo")
+@Serializable
 public class OrderInfo public constructor(
+    @SerialName(value = "name")
     public val name: String,
+    @SerialName(value = "phone_number")
     public val phoneNumber: String,
+    @SerialName(value = "email_address")
     public val emailAddress: String,
+    @SerialName(value = "shipping_address")
     public val shippingAddress: Address?,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

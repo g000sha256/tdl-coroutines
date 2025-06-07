@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Stories of the current user are displayed before stories of non-Premium contacts, supergroups, and channels.
  */
+@SerialName(value = "premiumStoryFeaturePriorityOrder")
+@Serializable
 public class PremiumStoryFeaturePriorityOrder public constructor() : PremiumStoryFeature() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

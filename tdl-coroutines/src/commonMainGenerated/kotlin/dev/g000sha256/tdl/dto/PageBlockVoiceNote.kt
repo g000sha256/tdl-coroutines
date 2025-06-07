@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A voice note.
@@ -27,8 +29,12 @@ import kotlin.String
  * @property voiceNote Voice note; may be null.
  * @property caption Voice note caption.
  */
+@SerialName(value = "pageBlockVoiceNote")
+@Serializable
 public class PageBlockVoiceNote public constructor(
+    @SerialName(value = "voice_note")
     public val voiceNote: VoiceNote?,
+    @SerialName(value = "caption")
     public val caption: PageBlockCaption,
 ) : PageBlock() {
     override fun equals(other: Any?): Boolean {

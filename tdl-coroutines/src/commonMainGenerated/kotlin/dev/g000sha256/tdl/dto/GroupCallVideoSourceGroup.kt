@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.IntArray
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes a group of video synchronization source identifiers.
@@ -28,10 +30,14 @@ import kotlin.String
  * @property semantics The semantics of sources, one of &quot;SIM&quot; or &quot;FID&quot;.
  * @property sourceIds The list of synchronization source identifiers.
  */
+@SerialName(value = "groupCallVideoSourceGroup")
+@Serializable
 public class GroupCallVideoSourceGroup public constructor(
+    @SerialName(value = "semantics")
     public val semantics: String,
+    @SerialName(value = "source_ids")
     public val sourceIds: IntArray,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A chat invite link.
  *
  * @property info Information about the chat invite link.
  */
+@SerialName(value = "tMeUrlTypeChatInvite")
+@Serializable
 public class TMeUrlTypeChatInvite public constructor(
+    @SerialName(value = "info")
     public val info: ChatInviteLinkInfo,
 ) : TMeUrlType() {
     override fun equals(other: Any?): Boolean {

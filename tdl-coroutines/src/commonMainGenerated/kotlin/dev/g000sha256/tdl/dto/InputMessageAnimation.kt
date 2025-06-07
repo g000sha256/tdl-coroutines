@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.IntArray
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * An animation message (GIF-style).
@@ -35,15 +37,26 @@ import kotlin.String
  * @property showCaptionAboveMedia True, if the caption must be shown above the animation; otherwise, the caption must be shown below the animation; not supported in secret chats.
  * @property hasSpoiler True, if the animation preview must be covered by a spoiler animation; not supported in secret chats.
  */
+@SerialName(value = "inputMessageAnimation")
+@Serializable
 public class InputMessageAnimation public constructor(
+    @SerialName(value = "animation")
     public val animation: InputFile,
+    @SerialName(value = "thumbnail")
     public val thumbnail: InputThumbnail?,
+    @SerialName(value = "added_sticker_file_ids")
     public val addedStickerFileIds: IntArray,
+    @SerialName(value = "duration")
     public val duration: Int,
+    @SerialName(value = "width")
     public val width: Int,
+    @SerialName(value = "height")
     public val height: Int,
+    @SerialName(value = "caption")
     public val caption: FormattedText?,
+    @SerialName(value = "show_caption_above_media")
     public val showCaptionAboveMedia: Boolean,
+    @SerialName(value = "has_spoiler")
     public val hasSpoiler: Boolean,
 ) : InputMessageContent() {
     override fun equals(other: Any?): Boolean {

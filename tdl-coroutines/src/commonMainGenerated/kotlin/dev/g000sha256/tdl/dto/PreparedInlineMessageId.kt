@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Represents an inline message that can be sent via the bot.
@@ -27,10 +29,14 @@ import kotlin.String
  * @property id Unique identifier for the message.
  * @property expirationDate Point in time (Unix timestamp) when the message can't be used anymore.
  */
+@SerialName(value = "preparedInlineMessageId")
+@Serializable
 public class PreparedInlineMessageId public constructor(
+    @SerialName(value = "id")
     public val id: String,
+    @SerialName(value = "expiration_date")
     public val expirationDate: Int,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

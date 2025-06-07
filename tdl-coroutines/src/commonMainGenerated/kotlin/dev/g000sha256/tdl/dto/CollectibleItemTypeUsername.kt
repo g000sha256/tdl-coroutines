@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A username.
  *
  * @property username The username.
  */
+@SerialName(value = "collectibleItemTypeUsername")
+@Serializable
 public class CollectibleItemTypeUsername public constructor(
+    @SerialName(value = "username")
     public val username: String,
 ) : CollectibleItemType() {
     override fun equals(other: Any?): Boolean {

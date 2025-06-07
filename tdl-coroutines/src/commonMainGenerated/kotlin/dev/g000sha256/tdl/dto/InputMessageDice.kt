@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A dice message.
@@ -27,8 +29,12 @@ import kotlin.String
  * @property emoji Emoji on which the dice throw animation is based.
  * @property clearDraft True, if the chat message draft must be deleted.
  */
+@SerialName(value = "inputMessageDice")
+@Serializable
 public class InputMessageDice public constructor(
+    @SerialName(value = "emoji")
     public val emoji: String,
+    @SerialName(value = "clear_draft")
     public val clearDraft: Boolean,
 ) : InputMessageContent() {
     override fun equals(other: Any?): Boolean {

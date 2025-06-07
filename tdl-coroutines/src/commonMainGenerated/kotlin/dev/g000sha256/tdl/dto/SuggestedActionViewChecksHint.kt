@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Suggests the user to view a hint about the meaning of one and two check marks on sent messages.
  */
+@SerialName(value = "suggestedActionViewChecksHint")
+@Serializable
 public class SuggestedActionViewChecksHint public constructor() : SuggestedAction() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

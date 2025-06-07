@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The link is a link to a group call that isn't bound to a chat. Call joinGroupCall with the given inviteLink.
  *
  * @property inviteLink Internal representation of the invite link.
  */
+@SerialName(value = "internalLinkTypeGroupCall")
+@Serializable
 public class InternalLinkTypeGroupCall public constructor(
+    @SerialName(value = "invite_link")
     public val inviteLink: String,
 ) : InternalLinkType() {
     override fun equals(other: Any?): Boolean {

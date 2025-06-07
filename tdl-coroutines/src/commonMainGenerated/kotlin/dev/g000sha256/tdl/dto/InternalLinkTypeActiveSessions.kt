@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The link is a link to the Devices section of the application. Use getActiveSessions to get the list of active sessions and show them to the user.
  */
+@SerialName(value = "internalLinkTypeActiveSessions")
+@Serializable
 public class InternalLinkTypeActiveSessions public constructor() : InternalLinkType() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

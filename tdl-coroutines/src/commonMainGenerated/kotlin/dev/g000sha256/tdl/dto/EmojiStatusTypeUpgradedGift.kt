@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * An upgraded gift set as emoji status.
@@ -32,12 +34,20 @@ import kotlin.String
  * @property symbolCustomEmojiId Custom emoji identifier of the symbol of the upgraded gift.
  * @property backdropColors Colors of the backdrop of the upgraded gift.
  */
+@SerialName(value = "emojiStatusTypeUpgradedGift")
+@Serializable
 public class EmojiStatusTypeUpgradedGift public constructor(
+    @SerialName(value = "upgraded_gift_id")
     public val upgradedGiftId: Long,
+    @SerialName(value = "gift_title")
     public val giftTitle: String,
+    @SerialName(value = "gift_name")
     public val giftName: String,
+    @SerialName(value = "model_custom_emoji_id")
     public val modelCustomEmojiId: Long,
+    @SerialName(value = "symbol_custom_emoji_id")
     public val symbolCustomEmojiId: Long,
+    @SerialName(value = "backdrop_colors")
     public val backdropColors: UpgradedGiftBackdropColors,
 ) : EmojiStatusType() {
     override fun equals(other: Any?): Boolean {

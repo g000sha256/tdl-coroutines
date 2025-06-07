@@ -16,8 +16,11 @@
 
 package dev.g000sha256.tdl.dto
 
+import kotlinx.serialization.Serializable
+
 /**
  * This class is an abstract base class.
  * Represents result of 2-step verification password reset.
  */
-public sealed class ResetPasswordResult protected constructor()
+@Serializable
+public sealed class ResetPasswordResult protected constructor() : Model()

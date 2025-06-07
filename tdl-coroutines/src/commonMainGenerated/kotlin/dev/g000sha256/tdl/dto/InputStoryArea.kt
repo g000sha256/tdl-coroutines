@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes a clickable rectangle area on a story media to be added.
@@ -27,10 +29,14 @@ import kotlin.String
  * @property position Position of the area.
  * @property type Type of the area.
  */
+@SerialName(value = "inputStoryArea")
+@Serializable
 public class InputStoryArea public constructor(
+    @SerialName(value = "position")
     public val position: StoryAreaPosition,
+    @SerialName(value = "type")
     public val type: InputStoryAreaType,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

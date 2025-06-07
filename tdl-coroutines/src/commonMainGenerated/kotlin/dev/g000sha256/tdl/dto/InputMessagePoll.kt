@@ -21,6 +21,8 @@ import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A message with a poll. Polls can't be sent to secret chats. Polls can be sent only to a private chat with a bot.
@@ -33,13 +35,22 @@ import kotlin.String
  * @property closeDate Point in time (Unix timestamp) when the poll will automatically be closed; for bots only.
  * @property isClosed True, if the poll needs to be sent already closed; for bots only.
  */
+@SerialName(value = "inputMessagePoll")
+@Serializable
 public class InputMessagePoll public constructor(
+    @SerialName(value = "question")
     public val question: FormattedText,
+    @SerialName(value = "options")
     public val options: Array<FormattedText>,
+    @SerialName(value = "is_anonymous")
     public val isAnonymous: Boolean,
+    @SerialName(value = "type")
     public val type: PollType,
+    @SerialName(value = "open_period")
     public val openPeriod: Int,
+    @SerialName(value = "close_date")
     public val closeDate: Int,
+    @SerialName(value = "is_closed")
     public val isClosed: Boolean,
 ) : InputMessageContent() {
     override fun equals(other: Any?): Boolean {

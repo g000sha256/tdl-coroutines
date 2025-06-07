@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The canInviteUsers permission of a supergroup chat was toggled.
  *
  * @property canInviteUsers New value of canInviteUsers permission.
  */
+@SerialName(value = "chatEventInvitesToggled")
+@Serializable
 public class ChatEventInvitesToggled public constructor(
+    @SerialName(value = "can_invite_users")
     public val canInviteUsers: Boolean,
 ) : ChatEventAction() {
     override fun equals(other: Any?): Boolean {

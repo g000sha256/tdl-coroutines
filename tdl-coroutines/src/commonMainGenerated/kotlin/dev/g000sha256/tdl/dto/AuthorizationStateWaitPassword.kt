@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The user has been authorized, but needs to enter a 2-step verification password to start using the application. Call checkAuthenticationPassword to provide the password, or requestAuthenticationPasswordRecovery to recover the password, or deleteAccount to delete the account after a week.
@@ -29,10 +31,16 @@ import kotlin.String
  * @property hasPassportData True, if some Telegram Passport elements were saved.
  * @property recoveryEmailAddressPattern Pattern of the email address to which the recovery email was sent; empty until a recovery email has been sent.
  */
+@SerialName(value = "authorizationStateWaitPassword")
+@Serializable
 public class AuthorizationStateWaitPassword public constructor(
+    @SerialName(value = "password_hint")
     public val passwordHint: String,
+    @SerialName(value = "has_recovery_email_address")
     public val hasRecoveryEmailAddress: Boolean,
+    @SerialName(value = "has_passport_data")
     public val hasPassportData: Boolean,
+    @SerialName(value = "recovery_email_address_pattern")
     public val recoveryEmailAddressPattern: String,
 ) : AuthorizationState() {
     override fun equals(other: Any?): Boolean {

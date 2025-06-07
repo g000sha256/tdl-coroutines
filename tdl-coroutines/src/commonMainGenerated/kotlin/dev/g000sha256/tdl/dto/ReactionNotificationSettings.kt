@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains information about notification settings for reactions.
@@ -30,12 +32,18 @@ import kotlin.String
  * @property soundId Identifier of the notification sound to be played; 0 if sound is disabled.
  * @property showPreview True, if reaction sender and emoji must be displayed in notifications.
  */
+@SerialName(value = "reactionNotificationSettings")
+@Serializable
 public class ReactionNotificationSettings public constructor(
+    @SerialName(value = "message_reaction_source")
     public val messageReactionSource: ReactionNotificationSource,
+    @SerialName(value = "story_reaction_source")
     public val storyReactionSource: ReactionNotificationSource,
+    @SerialName(value = "sound_id")
     public val soundId: Long,
+    @SerialName(value = "show_preview")
     public val showPreview: Boolean,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

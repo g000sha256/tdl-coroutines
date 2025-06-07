@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The secret chat is ready to use.
  */
+@SerialName(value = "secretChatStateReady")
+@Serializable
 public class SecretChatStateReady public constructor() : SecretChatState() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

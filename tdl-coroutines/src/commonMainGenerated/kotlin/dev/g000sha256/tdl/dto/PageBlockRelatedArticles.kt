@@ -21,6 +21,8 @@ import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Related articles.
@@ -28,8 +30,12 @@ import kotlin.String
  * @property header Block header.
  * @property articles List of related articles.
  */
+@SerialName(value = "pageBlockRelatedArticles")
+@Serializable
 public class PageBlockRelatedArticles public constructor(
+    @SerialName(value = "header")
     public val header: RichText,
+    @SerialName(value = "articles")
     public val articles: Array<PageBlockRelatedArticle>,
 ) : PageBlock() {
     override fun equals(other: Any?): Boolean {

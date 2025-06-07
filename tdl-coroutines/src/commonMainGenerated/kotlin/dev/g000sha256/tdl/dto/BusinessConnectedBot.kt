@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes a bot connected to a business account.
@@ -29,11 +31,16 @@ import kotlin.String
  * @property recipients Private chats that will be accessible to the bot.
  * @property rights Rights of the bot.
  */
+@SerialName(value = "businessConnectedBot")
+@Serializable
 public class BusinessConnectedBot public constructor(
+    @SerialName(value = "bot_user_id")
     public val botUserId: Long,
+    @SerialName(value = "recipients")
     public val recipients: BusinessRecipients,
+    @SerialName(value = "rights")
     public val rights: BusinessBotRights,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

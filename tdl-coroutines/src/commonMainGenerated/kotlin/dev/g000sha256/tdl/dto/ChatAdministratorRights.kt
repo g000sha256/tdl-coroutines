@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes rights of the administrator.
@@ -40,23 +42,40 @@ import kotlin.String
  * @property canDeleteStories True, if the administrator can delete stories posted by other users; applicable to supergroups and channels only.
  * @property isAnonymous True, if the administrator isn't shown in the chat member list and sends messages anonymously; applicable to supergroups only.
  */
+@SerialName(value = "chatAdministratorRights")
+@Serializable
 public class ChatAdministratorRights public constructor(
+    @SerialName(value = "can_manage_chat")
     public val canManageChat: Boolean,
+    @SerialName(value = "can_change_info")
     public val canChangeInfo: Boolean,
+    @SerialName(value = "can_post_messages")
     public val canPostMessages: Boolean,
+    @SerialName(value = "can_edit_messages")
     public val canEditMessages: Boolean,
+    @SerialName(value = "can_delete_messages")
     public val canDeleteMessages: Boolean,
+    @SerialName(value = "can_invite_users")
     public val canInviteUsers: Boolean,
+    @SerialName(value = "can_restrict_members")
     public val canRestrictMembers: Boolean,
+    @SerialName(value = "can_pin_messages")
     public val canPinMessages: Boolean,
+    @SerialName(value = "can_manage_topics")
     public val canManageTopics: Boolean,
+    @SerialName(value = "can_promote_members")
     public val canPromoteMembers: Boolean,
+    @SerialName(value = "can_manage_video_chats")
     public val canManageVideoChats: Boolean,
+    @SerialName(value = "can_post_stories")
     public val canPostStories: Boolean,
+    @SerialName(value = "can_edit_stories")
     public val canEditStories: Boolean,
+    @SerialName(value = "can_delete_stories")
     public val canDeleteStories: Boolean,
+    @SerialName(value = "is_anonymous")
     public val isAnonymous: Boolean,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

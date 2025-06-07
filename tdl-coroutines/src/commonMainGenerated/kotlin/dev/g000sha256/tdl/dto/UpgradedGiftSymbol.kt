@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes a symbol shown on the pattern of an upgraded gift.
@@ -28,11 +30,16 @@ import kotlin.String
  * @property sticker The sticker representing the symbol.
  * @property rarityPerMille The number of upgraded gifts that receive this symbol for each 1000 gifts upgraded.
  */
+@SerialName(value = "upgradedGiftSymbol")
+@Serializable
 public class UpgradedGiftSymbol public constructor(
+    @SerialName(value = "name")
     public val name: String,
+    @SerialName(value = "sticker")
     public val sticker: Sticker,
+    @SerialName(value = "rarity_per_mille")
     public val rarityPerMille: Int,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

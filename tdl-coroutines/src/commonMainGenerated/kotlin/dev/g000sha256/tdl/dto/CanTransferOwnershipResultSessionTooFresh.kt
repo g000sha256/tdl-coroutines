@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The session was created recently, user needs to wait.
  *
  * @property retryAfter Time left before the session can be used to transfer ownership of a chat, in seconds.
  */
+@SerialName(value = "canTransferOwnershipResultSessionTooFresh")
+@Serializable
 public class CanTransferOwnershipResultSessionTooFresh public constructor(
+    @SerialName(value = "retry_after")
     public val retryAfter: Int,
 ) : CanTransferOwnershipResult() {
     override fun equals(other: Any?): Boolean {

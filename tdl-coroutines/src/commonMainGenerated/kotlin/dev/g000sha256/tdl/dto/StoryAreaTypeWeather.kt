@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Double
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * An area with information about weather.
@@ -29,9 +31,14 @@ import kotlin.String
  * @property emoji Emoji representing the weather.
  * @property backgroundColor A color of the area background in the ARGB format.
  */
+@SerialName(value = "storyAreaTypeWeather")
+@Serializable
 public class StoryAreaTypeWeather public constructor(
+    @SerialName(value = "temperature")
     public val temperature: Double,
+    @SerialName(value = "emoji")
     public val emoji: String,
+    @SerialName(value = "background_color")
     public val backgroundColor: Int,
 ) : StoryAreaType() {
     override fun equals(other: Any?): Boolean {

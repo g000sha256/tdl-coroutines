@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Represents a date range.
@@ -27,10 +29,14 @@ import kotlin.String
  * @property startDate Point in time (Unix timestamp) at which the date range begins.
  * @property endDate Point in time (Unix timestamp) at which the date range ends.
  */
+@SerialName(value = "dateRange")
+@Serializable
 public class DateRange public constructor(
+    @SerialName(value = "start_date")
     public val startDate: Int,
+    @SerialName(value = "end_date")
     public val endDate: Int,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

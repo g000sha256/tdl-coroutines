@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A new message was received; can also be an outgoing message.
  *
  * @property message The new message.
  */
+@SerialName(value = "updateNewMessage")
+@Serializable
 public class UpdateNewMessage public constructor(
+    @SerialName(value = "message")
     public val message: Message,
 ) : Update() {
     override fun equals(other: Any?): Boolean {

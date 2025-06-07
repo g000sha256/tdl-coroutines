@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes a file added to file download list.
@@ -30,13 +32,20 @@ import kotlin.String
  * @property completeDate Point in time (Unix timestamp) when the file downloading was completed; 0 if the file downloading isn't completed.
  * @property isPaused True, if downloading of the file is paused.
  */
+@SerialName(value = "fileDownload")
+@Serializable
 public class FileDownload public constructor(
+    @SerialName(value = "file_id")
     public val fileId: Int,
+    @SerialName(value = "message")
     public val message: Message,
+    @SerialName(value = "add_date")
     public val addDate: Int,
+    @SerialName(value = "complete_date")
     public val completeDate: Int,
+    @SerialName(value = "is_paused")
     public val isPaused: Boolean,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

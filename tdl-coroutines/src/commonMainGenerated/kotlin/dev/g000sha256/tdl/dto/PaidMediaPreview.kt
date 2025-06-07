@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The media is hidden until the invoice is paid.
@@ -29,10 +31,16 @@ import kotlin.String
  * @property duration Media duration, in seconds; 0 if unknown.
  * @property minithumbnail Media minithumbnail; may be null.
  */
+@SerialName(value = "paidMediaPreview")
+@Serializable
 public class PaidMediaPreview public constructor(
+    @SerialName(value = "width")
     public val width: Int,
+    @SerialName(value = "height")
     public val height: Int,
+    @SerialName(value = "duration")
     public val duration: Int,
+    @SerialName(value = "minithumbnail")
     public val minithumbnail: Minithumbnail?,
 ) : PaidMedia() {
     override fun equals(other: Any?): Boolean {

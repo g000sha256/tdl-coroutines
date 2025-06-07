@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Represents a single button in a bot keyboard.
@@ -27,10 +29,14 @@ import kotlin.String
  * @property text Text of the button.
  * @property type Type of the button.
  */
+@SerialName(value = "keyboardButton")
+@Serializable
 public class KeyboardButton public constructor(
+    @SerialName(value = "text")
     public val text: String,
+    @SerialName(value = "type")
     public val type: KeyboardButtonType,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

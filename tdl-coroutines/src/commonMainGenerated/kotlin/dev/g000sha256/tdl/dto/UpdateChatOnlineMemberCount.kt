@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The number of online group members has changed. This update with non-zero number of online group members is sent only for currently opened chats. There is no guarantee that it is sent just after the number of online users has changed.
@@ -28,8 +30,12 @@ import kotlin.String
  * @property chatId Identifier of the chat.
  * @property onlineMemberCount New number of online members in the chat, or 0 if unknown.
  */
+@SerialName(value = "updateChatOnlineMemberCount")
+@Serializable
 public class UpdateChatOnlineMemberCount public constructor(
+    @SerialName(value = "chat_id")
     public val chatId: Long,
+    @SerialName(value = "online_member_count")
     public val onlineMemberCount: Int,
 ) : Update() {
     override fun equals(other: Any?): Boolean {

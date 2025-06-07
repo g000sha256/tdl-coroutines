@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A Telegram Stars were received by the current user from a giveaway.
@@ -32,12 +34,20 @@ import kotlin.String
  * @property isUnclaimed True, if the corresponding winner wasn't chosen and the Telegram Stars were received by the owner of the boosted chat.
  * @property sticker A sticker to be shown in the message; may be null if unknown.
  */
+@SerialName(value = "messageGiveawayPrizeStars")
+@Serializable
 public class MessageGiveawayPrizeStars public constructor(
+    @SerialName(value = "star_count")
     public val starCount: Long,
+    @SerialName(value = "transaction_id")
     public val transactionId: String,
+    @SerialName(value = "boosted_chat_id")
     public val boostedChatId: Long,
+    @SerialName(value = "giveaway_message_id")
     public val giveawayMessageId: Long,
+    @SerialName(value = "is_unclaimed")
     public val isUnclaimed: Boolean,
+    @SerialName(value = "sticker")
     public val sticker: Sticker?,
 ) : MessageContent() {
     override fun equals(other: Any?): Boolean {

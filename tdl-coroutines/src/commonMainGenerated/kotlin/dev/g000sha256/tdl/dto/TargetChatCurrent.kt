@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The currently opened chat and forum topic must be kept.
  */
+@SerialName(value = "targetChatCurrent")
+@Serializable
 public class TargetChatCurrent public constructor() : TargetChat() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes a message that can be used for quick reply.
@@ -34,16 +36,26 @@ import kotlin.String
  * @property content Content of the message.
  * @property replyMarkup Inline keyboard reply markup for the message; may be null if none.
  */
+@SerialName(value = "quickReplyMessage")
+@Serializable
 public class QuickReplyMessage public constructor(
+    @SerialName(value = "id")
     public val id: Long,
+    @SerialName(value = "sending_state")
     public val sendingState: MessageSendingState?,
+    @SerialName(value = "can_be_edited")
     public val canBeEdited: Boolean,
+    @SerialName(value = "reply_to_message_id")
     public val replyToMessageId: Long,
+    @SerialName(value = "via_bot_user_id")
     public val viaBotUserId: Long,
+    @SerialName(value = "media_album_id")
     public val mediaAlbumId: Long,
+    @SerialName(value = "content")
     public val content: MessageContent,
+    @SerialName(value = "reply_markup")
     public val replyMarkup: ReplyMarkup?,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

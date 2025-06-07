@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A message with a Telegram Premium gift code created for the user.
  *
  * @property monthCount Number of months the Telegram Premium subscription will be active after code activation.
  */
+@SerialName(value = "pushMessageContentPremiumGiftCode")
+@Serializable
 public class PushMessageContentPremiumGiftCode public constructor(
+    @SerialName(value = "month_count")
     public val monthCount: Int,
 ) : PushMessageContent() {
     override fun equals(other: Any?): Boolean {

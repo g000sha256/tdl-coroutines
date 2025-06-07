@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The supergroup location was changed.
@@ -27,8 +29,12 @@ import kotlin.String
  * @property oldLocation Previous location; may be null.
  * @property newLocation New location; may be null.
  */
+@SerialName(value = "chatEventLocationChanged")
+@Serializable
 public class ChatEventLocationChanged public constructor(
+    @SerialName(value = "old_location")
     public val oldLocation: ChatLocation?,
+    @SerialName(value = "new_location")
     public val newLocation: ChatLocation?,
 ) : ChatEventAction() {
     override fun equals(other: Any?): Boolean {

@@ -21,6 +21,8 @@ import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains information about a group call participant's video channel.
@@ -29,11 +31,16 @@ import kotlin.String
  * @property endpointId Video channel endpoint identifier.
  * @property isPaused True, if the video is paused. This flag needs to be ignored, if new video frames are received.
  */
+@SerialName(value = "groupCallParticipantVideoInfo")
+@Serializable
 public class GroupCallParticipantVideoInfo public constructor(
+    @SerialName(value = "source_groups")
     public val sourceGroups: Array<GroupCallVideoSourceGroup>,
+    @SerialName(value = "endpoint_id")
     public val endpointId: String,
+    @SerialName(value = "is_paused")
     public val isPaused: Boolean,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

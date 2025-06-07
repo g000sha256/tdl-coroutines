@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Represents a video.
@@ -29,10 +31,16 @@ import kotlin.String
  * @property title Title of the video.
  * @property description Description of the video.
  */
+@SerialName(value = "inlineQueryResultVideo")
+@Serializable
 public class InlineQueryResultVideo public constructor(
+    @SerialName(value = "id")
     public val id: String,
+    @SerialName(value = "video")
     public val video: Video,
+    @SerialName(value = "title")
     public val title: String,
+    @SerialName(value = "description")
     public val description: String,
 ) : InlineQueryResult() {
     override fun equals(other: Any?): Boolean {

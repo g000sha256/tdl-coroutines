@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The user buying Telegram Stars.
@@ -29,9 +31,14 @@ import kotlin.String
  * @property amount Paid amount, in the smallest units of the currency.
  * @property starCount Number of bought Telegram Stars.
  */
+@SerialName(value = "storePaymentPurposeStars")
+@Serializable
 public class StorePaymentPurposeStars public constructor(
+    @SerialName(value = "currency")
     public val currency: String,
+    @SerialName(value = "amount")
     public val amount: Long,
+    @SerialName(value = "star_count")
     public val starCount: Long,
 ) : StorePaymentPurpose() {
     override fun equals(other: Any?): Boolean {

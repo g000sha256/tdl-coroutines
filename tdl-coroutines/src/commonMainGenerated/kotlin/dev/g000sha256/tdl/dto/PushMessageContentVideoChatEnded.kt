@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A video chat or live stream has ended.
  */
+@SerialName(value = "pushMessageContentVideoChatEnded")
+@Serializable
 public class PushMessageContentVideoChatEnded public constructor() : PushMessageContent() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

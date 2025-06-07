@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains information about a successful payment.
@@ -30,12 +32,18 @@ import kotlin.String
  * @property sellerBotUserId User identifier of the seller bot.
  * @property type Type of the payment receipt.
  */
+@SerialName(value = "paymentReceipt")
+@Serializable
 public class PaymentReceipt public constructor(
+    @SerialName(value = "product_info")
     public val productInfo: ProductInfo,
+    @SerialName(value = "date")
     public val date: Int,
+    @SerialName(value = "seller_bot_user_id")
     public val sellerBotUserId: Long,
+    @SerialName(value = "type")
     public val type: PaymentReceiptType,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

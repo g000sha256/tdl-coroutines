@@ -21,13 +21,18 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.IntArray
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The list of favorite stickers was updated.
  *
  * @property stickerIds The new list of file identifiers of favorite stickers.
  */
+@SerialName(value = "updateFavoriteStickers")
+@Serializable
 public class UpdateFavoriteStickers public constructor(
+    @SerialName(value = "sticker_ids")
     public val stickerIds: IntArray,
 ) : Update() {
     override fun equals(other: Any?): Boolean {

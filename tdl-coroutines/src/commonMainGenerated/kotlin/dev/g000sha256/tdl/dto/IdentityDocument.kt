@@ -21,6 +21,8 @@ import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * An identity document.
@@ -32,14 +34,22 @@ import kotlin.String
  * @property selfie Selfie with the document; may be null.
  * @property translation List of files containing a certified English translation of the document.
  */
+@SerialName(value = "identityDocument")
+@Serializable
 public class IdentityDocument public constructor(
+    @SerialName(value = "number")
     public val number: String,
+    @SerialName(value = "expiration_date")
     public val expirationDate: Date?,
+    @SerialName(value = "front_side")
     public val frontSide: DatedFile,
+    @SerialName(value = "reverse_side")
     public val reverseSide: DatedFile?,
+    @SerialName(value = "selfie")
     public val selfie: DatedFile?,
+    @SerialName(value = "translation")
     public val translation: Array<DatedFile>,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

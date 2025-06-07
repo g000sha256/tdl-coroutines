@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Applies if a user enters new credentials on a payment provider website.
@@ -27,8 +29,12 @@ import kotlin.String
  * @property data JSON-encoded data with the credential identifier from the payment provider.
  * @property allowSave True, if the credential identifier can be saved on the server side.
  */
+@SerialName(value = "inputCredentialsNew")
+@Serializable
 public class InputCredentialsNew public constructor(
+    @SerialName(value = "data")
     public val data: String,
+    @SerialName(value = "allow_save")
     public val allowSave: Boolean,
 ) : InputCredentials() {
     override fun equals(other: Any?): Boolean {

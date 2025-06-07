@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The user needs to confirm authorization on another logged in device by scanning a QR code with the provided link.
  *
  * @property link A tg:// URL for the QR code. The link will be updated frequently.
  */
+@SerialName(value = "authorizationStateWaitOtherDeviceConfirmation")
+@Serializable
 public class AuthorizationStateWaitOtherDeviceConfirmation public constructor(
+    @SerialName(value = "link")
     public val link: String,
 ) : AuthorizationState() {
     override fun equals(other: Any?): Boolean {

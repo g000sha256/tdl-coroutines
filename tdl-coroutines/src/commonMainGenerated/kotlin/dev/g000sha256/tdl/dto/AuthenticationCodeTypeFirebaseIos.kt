@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A digit-only authentication code is delivered via Firebase Authentication to the official iOS application.
@@ -28,9 +30,14 @@ import kotlin.String
  * @property pushTimeout Time after the next authentication method is expected to be used if verification push notification isn't received, in seconds.
  * @property length Length of the code.
  */
+@SerialName(value = "authenticationCodeTypeFirebaseIos")
+@Serializable
 public class AuthenticationCodeTypeFirebaseIos public constructor(
+    @SerialName(value = "receipt")
     public val receipt: String,
+    @SerialName(value = "push_timeout")
     public val pushTimeout: Int,
+    @SerialName(value = "length")
     public val length: Int,
 ) : AuthenticationCodeType() {
     override fun equals(other: Any?): Boolean {

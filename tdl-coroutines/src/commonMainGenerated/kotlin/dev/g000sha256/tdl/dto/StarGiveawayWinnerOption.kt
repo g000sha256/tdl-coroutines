@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes an option for the number of winners of a Telegram Star giveaway.
@@ -29,11 +31,16 @@ import kotlin.String
  * @property wonStarCount The number of Telegram Stars that will be won by the winners of the giveaway.
  * @property isDefault True, if the option must be chosen by default.
  */
+@SerialName(value = "starGiveawayWinnerOption")
+@Serializable
 public class StarGiveawayWinnerOption public constructor(
+    @SerialName(value = "winner_count")
     public val winnerCount: Int,
+    @SerialName(value = "won_star_count")
     public val wonStarCount: Long,
+    @SerialName(value = "is_default")
     public val isDefault: Boolean,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

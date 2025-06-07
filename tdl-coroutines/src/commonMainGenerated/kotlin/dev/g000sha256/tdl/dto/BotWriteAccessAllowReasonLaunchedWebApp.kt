@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The user launched a Web App using getWebAppLinkUrl.
  *
  * @property webApp Information about the Web App.
  */
+@SerialName(value = "botWriteAccessAllowReasonLaunchedWebApp")
+@Serializable
 public class BotWriteAccessAllowReasonLaunchedWebApp public constructor(
+    @SerialName(value = "web_app")
     public val webApp: WebApp,
 ) : BotWriteAccessAllowReason() {
     override fun equals(other: Any?): Boolean {

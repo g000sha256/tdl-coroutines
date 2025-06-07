@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Topic containing messages forwarded from a user with hidden privacy.
  */
+@SerialName(value = "savedMessagesTopicTypeAuthorHidden")
+@Serializable
 public class SavedMessagesTopicTypeAuthorHidden public constructor() : SavedMessagesTopicType() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

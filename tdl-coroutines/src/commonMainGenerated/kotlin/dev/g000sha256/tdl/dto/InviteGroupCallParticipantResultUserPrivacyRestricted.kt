@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The user can't be invited due to their privacy settings.
  */
+@SerialName(value = "inviteGroupCallParticipantResultUserPrivacyRestricted")
+@Serializable
 public class InviteGroupCallParticipantResultUserPrivacyRestricted public constructor() : InviteGroupCallParticipantResult() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

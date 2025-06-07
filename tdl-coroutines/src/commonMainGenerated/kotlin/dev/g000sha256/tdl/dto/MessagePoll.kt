@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A message with a poll.
  *
  * @property poll The poll description.
  */
+@SerialName(value = "messagePoll")
+@Serializable
 public class MessagePoll public constructor(
+    @SerialName(value = "poll")
     public val poll: Poll,
 ) : MessageContent() {
     override fun equals(other: Any?): Boolean {

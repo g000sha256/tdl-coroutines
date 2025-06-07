@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A rich text URL link.
@@ -28,9 +30,14 @@ import kotlin.String
  * @property url URL.
  * @property isCached True, if the URL has cached instant view server-side.
  */
+@SerialName(value = "richTextUrl")
+@Serializable
 public class RichTextUrl public constructor(
+    @SerialName(value = "text")
     public val text: RichText,
+    @SerialName(value = "url")
     public val url: String,
+    @SerialName(value = "is_cached")
     public val isCached: Boolean,
 ) : RichText() {
     override fun equals(other: Any?): Boolean {

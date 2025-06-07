@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A video note message.
@@ -28,9 +30,14 @@ import kotlin.String
  * @property isViewed True, if at least one of the recipients has viewed the video note.
  * @property isSecret True, if the video note thumbnail must be blurred and the video note must be shown only while tapped.
  */
+@SerialName(value = "messageVideoNote")
+@Serializable
 public class MessageVideoNote public constructor(
+    @SerialName(value = "video_note")
     public val videoNote: VideoNote,
+    @SerialName(value = "is_viewed")
     public val isViewed: Boolean,
+    @SerialName(value = "is_secret")
     public val isSecret: Boolean,
 ) : MessageContent() {
     override fun equals(other: Any?): Boolean {

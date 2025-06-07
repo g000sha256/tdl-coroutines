@@ -16,8 +16,11 @@
 
 package dev.g000sha256.tdl.dto
 
+import kotlinx.serialization.Serializable
+
 /**
  * This class is an abstract base class.
  * Describes the type of URL linking to an internal Telegram entity.
  */
-public sealed class TMeUrlType protected constructor()
+@Serializable
+public sealed class TMeUrlType protected constructor() : Model()

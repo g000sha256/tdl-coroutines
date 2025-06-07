@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The message is from a chat list or a forum topic list.
  */
+@SerialName(value = "messageSourceChatList")
+@Serializable
 public class MessageSourceChatList public constructor() : MessageSource() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

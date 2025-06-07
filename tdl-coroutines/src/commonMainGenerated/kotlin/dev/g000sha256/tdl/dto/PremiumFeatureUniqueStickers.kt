@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Allowed to use premium stickers with unique effects.
  */
+@SerialName(value = "premiumFeatureUniqueStickers")
+@Serializable
 public class PremiumFeatureUniqueStickers public constructor() : PremiumFeature() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

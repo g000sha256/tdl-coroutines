@@ -16,8 +16,11 @@
 
 package dev.g000sha256.tdl.dto
 
+import kotlinx.serialization.Serializable
+
 /**
  * This class is an abstract base class.
  * Describes the target chat to be opened.
  */
-public sealed class TargetChat protected constructor()
+@Serializable
+public sealed class TargetChat protected constructor() : Model()

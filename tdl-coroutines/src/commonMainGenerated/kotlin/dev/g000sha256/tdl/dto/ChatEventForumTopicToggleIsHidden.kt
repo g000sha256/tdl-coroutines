@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The General forum topic was hidden or unhidden.
  *
  * @property topicInfo New information about the topic.
  */
+@SerialName(value = "chatEventForumTopicToggleIsHidden")
+@Serializable
 public class ChatEventForumTopicToggleIsHidden public constructor(
+    @SerialName(value = "topic_info")
     public val topicInfo: ForumTopicInfo,
 ) : ChatEventAction() {
     override fun equals(other: Any?): Boolean {

@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A quick reply shortcut and all its messages were deleted.
  *
  * @property shortcutId The identifier of the deleted shortcut.
  */
+@SerialName(value = "updateQuickReplyShortcutDeleted")
+@Serializable
 public class UpdateQuickReplyShortcutDeleted public constructor(
+    @SerialName(value = "shortcut_id")
     public val shortcutId: Int,
 ) : Update() {
     override fun equals(other: Any?): Boolean {

@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A new chat has been loaded/created. This update is guaranteed to come before the chat identifier is returned to the application. The chat field changes will be reported through separate updates.
  *
  * @property chat The chat.
  */
+@SerialName(value = "updateNewChat")
+@Serializable
 public class UpdateNewChat public constructor(
+    @SerialName(value = "chat")
     public val chat: Chat,
 ) : Update() {
     override fun equals(other: Any?): Boolean {

@@ -21,13 +21,18 @@ import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The list of supported dice emojis has changed.
  *
  * @property emojis The new list of supported dice emojis.
  */
+@SerialName(value = "updateDiceEmojis")
+@Serializable
 public class UpdateDiceEmojis public constructor(
+    @SerialName(value = "emojis")
     public val emojis: Array<String>,
 ) : Update() {
     override fun equals(other: Any?): Boolean {

@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The affiliate programs must be sorted by the profitability.
  */
+@SerialName(value = "affiliateProgramSortOrderProfitability")
+@Serializable
 public class AffiliateProgramSortOrderProfitability public constructor() : AffiliateProgramSortOrder() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

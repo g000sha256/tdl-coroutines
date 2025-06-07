@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A button that opens a Web App by calling openWebApp.
  *
  * @property url An HTTP URL to pass to openWebApp.
  */
+@SerialName(value = "inlineKeyboardButtonTypeWebApp")
+@Serializable
 public class InlineKeyboardButtonTypeWebApp public constructor(
+    @SerialName(value = "url")
     public val url: String,
 ) : InlineKeyboardButtonType() {
     override fun equals(other: Any?): Boolean {

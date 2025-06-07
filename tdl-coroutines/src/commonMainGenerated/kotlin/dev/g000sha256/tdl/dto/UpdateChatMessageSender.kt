@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The message sender that is selected to send messages in a chat has changed.
@@ -28,8 +30,12 @@ import kotlin.String
  * @property chatId Chat identifier.
  * @property messageSenderId New value of messageSenderId; may be null if the user can't change message sender.
  */
+@SerialName(value = "updateChatMessageSender")
+@Serializable
 public class UpdateChatMessageSender public constructor(
+    @SerialName(value = "chat_id")
     public val chatId: Long,
+    @SerialName(value = "message_sender_id")
     public val messageSenderId: MessageSender?,
 ) : Update() {
     override fun equals(other: Any?): Boolean {

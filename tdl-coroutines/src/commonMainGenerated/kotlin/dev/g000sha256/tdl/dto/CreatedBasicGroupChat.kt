@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains information about a newly created basic group chat.
@@ -28,10 +30,14 @@ import kotlin.String
  * @property chatId Chat identifier.
  * @property failedToAddMembers Information about failed to add members.
  */
+@SerialName(value = "createdBasicGroupChat")
+@Serializable
 public class CreatedBasicGroupChat public constructor(
+    @SerialName(value = "chat_id")
     public val chatId: Long,
+    @SerialName(value = "failed_to_add_members")
     public val failedToAddMembers: FailedToAddMembers,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

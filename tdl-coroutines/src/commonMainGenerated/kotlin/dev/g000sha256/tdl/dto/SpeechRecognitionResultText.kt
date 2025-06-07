@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The speech recognition successfully finished.
  *
  * @property text Recognized text.
  */
+@SerialName(value = "speechRecognitionResultText")
+@Serializable
 public class SpeechRecognitionResultText public constructor(
+    @SerialName(value = "text")
     public val text: String,
 ) : SpeechRecognitionResult() {
     override fun equals(other: Any?): Boolean {

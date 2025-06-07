@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Options to be used when a Web App is opened.
@@ -28,11 +30,16 @@ import kotlin.String
  * @property applicationName Short name of the current application; 0-64 English letters, digits, and underscores.
  * @property mode The mode in which the Web App is opened; pass null to open in webAppOpenModeFullSize.
  */
+@SerialName(value = "webAppOpenParameters")
+@Serializable
 public class WebAppOpenParameters public constructor(
+    @SerialName(value = "theme")
     public val theme: ThemeParameters?,
+    @SerialName(value = "application_name")
     public val applicationName: String,
+    @SerialName(value = "mode")
     public val mode: WebAppOpenMode?,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

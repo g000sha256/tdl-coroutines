@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * An updated chat photo.
  *
  * @property photo New chat photo.
  */
+@SerialName(value = "messageChatChangePhoto")
+@Serializable
 public class MessageChatChangePhoto public constructor(
+    @SerialName(value = "photo")
     public val photo: ChatPhoto,
 ) : MessageContent() {
     override fun equals(other: Any?): Boolean {

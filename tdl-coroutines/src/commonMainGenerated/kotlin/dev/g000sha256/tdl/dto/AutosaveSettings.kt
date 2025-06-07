@@ -21,6 +21,8 @@ import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes autosave settings.
@@ -30,12 +32,18 @@ import kotlin.String
  * @property channelSettings Default autosave settings for channel chats.
  * @property exceptions Autosave settings for specific chats.
  */
+@SerialName(value = "autosaveSettings")
+@Serializable
 public class AutosaveSettings public constructor(
+    @SerialName(value = "private_chat_settings")
     public val privateChatSettings: ScopeAutosaveSettings,
+    @SerialName(value = "group_settings")
     public val groupSettings: ScopeAutosaveSettings,
+    @SerialName(value = "channel_settings")
     public val channelSettings: ScopeAutosaveSettings,
+    @SerialName(value = "exceptions")
     public val exceptions: Array<AutosaveSettingsException>,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

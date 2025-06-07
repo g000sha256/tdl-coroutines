@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes gift types that are accepted by a user.
@@ -29,12 +31,18 @@ import kotlin.String
  * @property upgradedGifts True, if upgraded gifts and regular gifts that can be upgraded for free are accepted.
  * @property premiumSubscription True, if Telegram Premium subscription is accepted.
  */
+@SerialName(value = "acceptedGiftTypes")
+@Serializable
 public class AcceptedGiftTypes public constructor(
+    @SerialName(value = "unlimited_gifts")
     public val unlimitedGifts: Boolean,
+    @SerialName(value = "limited_gifts")
     public val limitedGifts: Boolean,
+    @SerialName(value = "upgraded_gifts")
     public val upgradedGifts: Boolean,
+    @SerialName(value = "premium_subscription")
     public val premiumSubscription: Boolean,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

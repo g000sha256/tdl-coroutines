@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains information about a business bot that manages the chat.
@@ -30,12 +32,18 @@ import kotlin.String
  * @property isBotPaused True, if the bot is paused. Use toggleBusinessConnectedBotChatIsPaused to change the value of the field.
  * @property canBotReply True, if the bot can reply.
  */
+@SerialName(value = "businessBotManageBar")
+@Serializable
 public class BusinessBotManageBar public constructor(
+    @SerialName(value = "bot_user_id")
     public val botUserId: Long,
+    @SerialName(value = "manage_url")
     public val manageUrl: String,
+    @SerialName(value = "is_bot_paused")
     public val isBotPaused: Boolean,
+    @SerialName(value = "can_bot_reply")
     public val canBotReply: Boolean,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

@@ -28,5 +28,6 @@ dependencies {
 
     implementation(catalog.libs.javaParser.core)
     implementation(catalog.libs.javaParser.symbolSolverCore)
+    implementation(catalog.libs.jetBrains.kotlinSerialization)
     implementation(catalog.libs.squareUp.kotlinPoet)
 }

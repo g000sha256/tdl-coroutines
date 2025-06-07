@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes settings for greeting messages that are automatically sent by a Telegram Business account as response to incoming messages in an inactive private chat.
@@ -28,11 +30,16 @@ import kotlin.String
  * @property recipients Chosen recipients of the greeting messages.
  * @property inactivityDays The number of days after which a chat will be considered as inactive; currently, must be on of 7, 14, 21, or 28.
  */
+@SerialName(value = "businessGreetingMessageSettings")
+@Serializable
 public class BusinessGreetingMessageSettings public constructor(
+    @SerialName(value = "shortcut_id")
     public val shortcutId: Int,
+    @SerialName(value = "recipients")
     public val recipients: BusinessRecipients,
+    @SerialName(value = "inactivity_days")
     public val inactivityDays: Int,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes a link preview.
@@ -38,21 +40,36 @@ import kotlin.String
  * @property showAboveText True, if the link preview must be shown above message text; otherwise, the link preview must be shown below the message text.
  * @property instantViewVersion Version of instant view (currently, can be 1 or 2) for the web page; 0 if none.
  */
+@SerialName(value = "linkPreview")
+@Serializable
 public class LinkPreview public constructor(
+    @SerialName(value = "url")
     public val url: String,
+    @SerialName(value = "display_url")
     public val displayUrl: String,
+    @SerialName(value = "site_name")
     public val siteName: String,
+    @SerialName(value = "title")
     public val title: String,
+    @SerialName(value = "description")
     public val description: FormattedText,
+    @SerialName(value = "author")
     public val author: String,
+    @SerialName(value = "type")
     public val type: LinkPreviewType,
+    @SerialName(value = "has_large_media")
     public val hasLargeMedia: Boolean,
+    @SerialName(value = "show_large_media")
     public val showLargeMedia: Boolean,
+    @SerialName(value = "show_media_above_description")
     public val showMediaAboveDescription: Boolean,
+    @SerialName(value = "skip_confirmation")
     public val skipConfirmation: Boolean,
+    @SerialName(value = "show_above_text")
     public val showAboveText: Boolean,
+    @SerialName(value = "instant_view_version")
     public val instantViewVersion: Int,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

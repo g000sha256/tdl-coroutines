@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * TDLib needs the user's authentication code sent to an email address to authorize. Call checkAuthenticationEmailCode to provide the code.
@@ -29,10 +31,16 @@ import kotlin.String
  * @property codeInfo Information about the sent authentication code.
  * @property emailAddressResetState Reset state of the email address; may be null if the email address can't be reset.
  */
+@SerialName(value = "authorizationStateWaitEmailCode")
+@Serializable
 public class AuthorizationStateWaitEmailCode public constructor(
+    @SerialName(value = "allow_apple_id")
     public val allowAppleId: Boolean,
+    @SerialName(value = "allow_google_id")
     public val allowGoogleId: Boolean,
+    @SerialName(value = "code_info")
     public val codeInfo: EmailAddressAuthenticationCodeInfo,
+    @SerialName(value = "email_address_reset_state")
     public val emailAddressResetState: EmailAddressResetState?,
 ) : AuthorizationState() {
     override fun equals(other: Any?): Boolean {

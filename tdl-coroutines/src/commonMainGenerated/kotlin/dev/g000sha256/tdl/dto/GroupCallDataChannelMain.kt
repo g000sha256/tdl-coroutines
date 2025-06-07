@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The main data channel for audio and video data.
  */
+@SerialName(value = "groupCallDataChannelMain")
+@Serializable
 public class GroupCallDataChannelMain public constructor() : GroupCallDataChannel() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

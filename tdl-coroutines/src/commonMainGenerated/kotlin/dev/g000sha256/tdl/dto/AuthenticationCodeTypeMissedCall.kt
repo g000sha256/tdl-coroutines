@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * An authentication code is delivered by an immediately canceled call to the specified phone number. The last digits of the phone number that calls are the code that must be entered manually by the user.
@@ -27,8 +29,12 @@ import kotlin.String
  * @property phoneNumberPrefix Prefix of the phone number from which the call will be made.
  * @property length Number of digits in the code, excluding the prefix.
  */
+@SerialName(value = "authenticationCodeTypeMissedCall")
+@Serializable
 public class AuthenticationCodeTypeMissedCall public constructor(
+    @SerialName(value = "phone_number_prefix")
     public val phoneNumberPrefix: String,
+    @SerialName(value = "length")
     public val length: Int,
 ) : AuthenticationCodeType() {
     override fun equals(other: Any?): Boolean {

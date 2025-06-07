@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains information about a chat shared with a bot.
@@ -30,12 +32,18 @@ import kotlin.String
  * @property username Username of the chat; for bots only.
  * @property photo Photo of the chat; for bots only; may be null.
  */
+@SerialName(value = "sharedChat")
+@Serializable
 public class SharedChat public constructor(
+    @SerialName(value = "chat_id")
     public val chatId: Long,
+    @SerialName(value = "title")
     public val title: String,
+    @SerialName(value = "username")
     public val username: String,
+    @SerialName(value = "photo")
     public val photo: Photo?,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A poll in quiz mode, which has exactly one correct answer option and can be answered only once.
@@ -27,8 +29,12 @@ import kotlin.String
  * @property correctOptionId 0-based identifier of the correct answer option; -1 for a yet unanswered poll.
  * @property explanation Text that is shown when the user chooses an incorrect answer or taps on the lamp icon; 0-200 characters with at most 2 line feeds; empty for a yet unanswered poll.
  */
+@SerialName(value = "pollTypeQuiz")
+@Serializable
 public class PollTypeQuiz public constructor(
+    @SerialName(value = "correct_option_id")
     public val correctOptionId: Int,
+    @SerialName(value = "explanation")
     public val explanation: FormattedText,
 ) : PollType() {
     override fun equals(other: Any?): Boolean {

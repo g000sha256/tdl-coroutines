@@ -21,15 +21,20 @@ import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains information about features, available to Business user accounts.
  *
  * @property features The list of available business features.
  */
+@SerialName(value = "businessFeatures")
+@Serializable
 public class BusinessFeatures public constructor(
+    @SerialName(value = "features")
     public val features: Array<BusinessFeature>,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

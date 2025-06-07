@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes a user or a chat as a member of another chat.
@@ -30,12 +32,18 @@ import kotlin.String
  * @property joinedChatDate Point in time (Unix timestamp) when the user joined/was promoted/was banned in the chat.
  * @property status Status of the member in the chat.
  */
+@SerialName(value = "chatMember")
+@Serializable
 public class ChatMember public constructor(
+    @SerialName(value = "member_id")
     public val memberId: MessageSender,
+    @SerialName(value = "inviter_user_id")
     public val inviterUserId: Long,
+    @SerialName(value = "joined_chat_date")
     public val joinedChatDate: Int,
+    @SerialName(value = "status")
     public val status: ChatMemberStatus,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * An option changed its value.
@@ -27,8 +29,12 @@ import kotlin.String
  * @property name The option name.
  * @property value The new option value.
  */
+@SerialName(value = "updateOption")
+@Serializable
 public class UpdateOption public constructor(
+    @SerialName(value = "name")
     public val name: String,
+    @SerialName(value = "value")
     public val value: OptionValue,
 ) : Update() {
     override fun equals(other: Any?): Boolean {

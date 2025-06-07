@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.LongArray
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Represents a folder for user chats.
@@ -41,23 +43,40 @@ import kotlin.String
  * @property includeGroups True, if basic groups and supergroups need to be included.
  * @property includeChannels True, if channels need to be included.
  */
+@SerialName(value = "chatFolder")
+@Serializable
 public class ChatFolder public constructor(
+    @SerialName(value = "name")
     public val name: ChatFolderName,
+    @SerialName(value = "icon")
     public val icon: ChatFolderIcon?,
+    @SerialName(value = "color_id")
     public val colorId: Int,
+    @SerialName(value = "is_shareable")
     public val isShareable: Boolean,
+    @SerialName(value = "pinned_chat_ids")
     public val pinnedChatIds: LongArray,
+    @SerialName(value = "included_chat_ids")
     public val includedChatIds: LongArray,
+    @SerialName(value = "excluded_chat_ids")
     public val excludedChatIds: LongArray,
+    @SerialName(value = "exclude_muted")
     public val excludeMuted: Boolean,
+    @SerialName(value = "exclude_read")
     public val excludeRead: Boolean,
+    @SerialName(value = "exclude_archived")
     public val excludeArchived: Boolean,
+    @SerialName(value = "include_contacts")
     public val includeContacts: Boolean,
+    @SerialName(value = "include_non_contacts")
     public val includeNonContacts: Boolean,
+    @SerialName(value = "include_bots")
     public val includeBots: Boolean,
+    @SerialName(value = "include_groups")
     public val includeGroups: Boolean,
+    @SerialName(value = "include_channels")
     public val includeChannels: Boolean,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

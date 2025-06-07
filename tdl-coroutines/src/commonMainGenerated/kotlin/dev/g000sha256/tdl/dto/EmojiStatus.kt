@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes an emoji to be shown instead of the Telegram Premium badge.
@@ -27,10 +29,14 @@ import kotlin.String
  * @property type Type of the emoji status.
  * @property expirationDate Point in time (Unix timestamp) when the status will expire; 0 if never.
  */
+@SerialName(value = "emojiStatus")
+@Serializable
 public class EmojiStatus public constructor(
+    @SerialName(value = "type")
     public val type: EmojiStatusType,
+    @SerialName(value = "expiration_date")
     public val expirationDate: Int,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

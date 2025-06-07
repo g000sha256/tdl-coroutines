@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Information about a group call participant was changed. The updates are sent only after the group call is received through getGroupCall and only if the call is joined or being joined.
@@ -27,8 +29,12 @@ import kotlin.String
  * @property groupCallId Identifier of the group call.
  * @property participant New data about the participant.
  */
+@SerialName(value = "updateGroupCallParticipant")
+@Serializable
 public class UpdateGroupCallParticipant public constructor(
+    @SerialName(value = "group_call_id")
     public val groupCallId: Int,
+    @SerialName(value = "participant")
     public val participant: GroupCallParticipant,
 ) : Update() {
     override fun equals(other: Any?): Boolean {

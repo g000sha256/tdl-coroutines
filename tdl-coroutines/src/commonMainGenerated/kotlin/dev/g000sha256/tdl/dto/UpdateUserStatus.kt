@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The user went online or offline.
@@ -28,8 +30,12 @@ import kotlin.String
  * @property userId User identifier.
  * @property status New status of the user.
  */
+@SerialName(value = "updateUserStatus")
+@Serializable
 public class UpdateUserStatus public constructor(
+    @SerialName(value = "user_id")
     public val userId: Long,
+    @SerialName(value = "status")
     public val status: UserStatus,
 ) : Update() {
     override fun equals(other: Any?): Boolean {

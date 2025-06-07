@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains read date of the message.
  *
  * @property readDate Point in time (Unix timestamp) when the message was read by the other user.
  */
+@SerialName(value = "messageReadDateRead")
+@Serializable
 public class MessageReadDateRead public constructor(
+    @SerialName(value = "read_date")
     public val readDate: Int,
 ) : MessageReadDate() {
     override fun equals(other: Any?): Boolean {

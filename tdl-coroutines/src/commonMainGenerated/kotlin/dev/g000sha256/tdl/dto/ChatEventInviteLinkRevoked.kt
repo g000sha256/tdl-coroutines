@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A chat invite link was revoked.
  *
  * @property inviteLink The invite link.
  */
+@SerialName(value = "chatEventInviteLinkRevoked")
+@Serializable
 public class ChatEventInviteLinkRevoked public constructor(
+    @SerialName(value = "invite_link")
     public val inviteLink: ChatInviteLink,
 ) : ChatEventAction() {
     override fun equals(other: Any?): Boolean {

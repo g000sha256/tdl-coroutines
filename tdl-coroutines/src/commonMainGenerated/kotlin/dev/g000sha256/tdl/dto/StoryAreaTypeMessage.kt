@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * An area pointing to a message.
@@ -28,8 +30,12 @@ import kotlin.String
  * @property chatId Identifier of the chat with the message.
  * @property messageId Identifier of the message.
  */
+@SerialName(value = "storyAreaTypeMessage")
+@Serializable
 public class StoryAreaTypeMessage public constructor(
+    @SerialName(value = "chat_id")
     public val chatId: Long,
+    @SerialName(value = "message_id")
     public val messageId: Long,
 ) : StoryAreaType() {
     override fun equals(other: Any?): Boolean {

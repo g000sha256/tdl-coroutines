@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Sponsored messages were hidden for the user in all chats.
  */
+@SerialName(value = "reportSponsoredResultAdsHidden")
+@Serializable
 public class ReportSponsoredResultAdsHidden public constructor() : ReportSponsoredResult() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

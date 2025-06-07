@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Waiting for the network to become available. Use setNetworkType to change the available network type.
  */
+@SerialName(value = "connectionStateWaitingForNetwork")
+@Serializable
 public class ConnectionStateWaitingForNetwork public constructor() : ConnectionState() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

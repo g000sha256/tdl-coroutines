@@ -20,15 +20,20 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains the result of a custom request.
  *
  * @property result A JSON-serialized result.
  */
+@SerialName(value = "customRequestResult")
+@Serializable
 public class CustomRequestResult public constructor(
+    @SerialName(value = "result")
     public val result: String,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The front side of the document contains an error. The error will be considered resolved when the file with the front side changes.
  */
+@SerialName(value = "passportElementErrorSourceFrontSide")
+@Serializable
 public class PassportElementErrorSourceFrontSide public constructor() : PassportElementErrorSource() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

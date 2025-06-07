@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes a recommended chat folder.
@@ -27,10 +29,14 @@ import kotlin.String
  * @property folder The chat folder.
  * @property description Chat folder description.
  */
+@SerialName(value = "recommendedChatFolder")
+@Serializable
 public class RecommendedChatFolder public constructor(
+    @SerialName(value = "folder")
     public val folder: ChatFolder,
+    @SerialName(value = "description")
     public val description: String,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

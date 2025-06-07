@@ -23,6 +23,8 @@ import kotlin.Int
 import kotlin.Long
 import kotlin.LongArray
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes parameters of a giveaway.
@@ -35,15 +37,24 @@ import kotlin.String
  * @property countryCodes The list of two-letter ISO 3166-1 alpha-2 codes of countries, users from which will be eligible for the giveaway. If empty, then all users can participate in the giveaway. There can be up to getOption(&quot;giveaway_country_count_max&quot;) chosen countries. Users with phone number that was bought at https://fragment.com can participate in any giveaway and the country code &quot;FT&quot; must not be specified in the list.
  * @property prizeDescription Additional description of the giveaway prize; 0-128 characters.
  */
+@SerialName(value = "giveawayParameters")
+@Serializable
 public class GiveawayParameters public constructor(
+    @SerialName(value = "boosted_chat_id")
     public val boostedChatId: Long,
+    @SerialName(value = "additional_chat_ids")
     public val additionalChatIds: LongArray,
+    @SerialName(value = "winners_selection_date")
     public val winnersSelectionDate: Int,
+    @SerialName(value = "only_new_members")
     public val onlyNewMembers: Boolean,
+    @SerialName(value = "has_public_winners")
     public val hasPublicWinners: Boolean,
+    @SerialName(value = "country_codes")
     public val countryCodes: Array<String>,
+    @SerialName(value = "prize_description")
     public val prizeDescription: String,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

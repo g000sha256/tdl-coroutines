@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A digit-only authentication code is delivered via a private Telegram message, which can be viewed from another active session.
  *
  * @property length Length of the code.
  */
+@SerialName(value = "authenticationCodeTypeTelegramMessage")
+@Serializable
 public class AuthenticationCodeTypeTelegramMessage public constructor(
+    @SerialName(value = "length")
     public val length: Int,
 ) : AuthenticationCodeType() {
     override fun equals(other: Any?): Boolean {

@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The footer of a page.
  *
  * @property footer Footer.
  */
+@SerialName(value = "pageBlockFooter")
+@Serializable
 public class PageBlockFooter public constructor(
+    @SerialName(value = "footer")
     public val footer: RichText,
 ) : PageBlock() {
     override fun equals(other: Any?): Boolean {

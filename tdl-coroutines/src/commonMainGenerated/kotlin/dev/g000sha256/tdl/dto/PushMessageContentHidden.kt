@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A general message with hidden content.
  *
  * @property isPinned True, if the message is a pinned message with the specified content.
  */
+@SerialName(value = "pushMessageContentHidden")
+@Serializable
 public class PushMessageContentHidden public constructor(
+    @SerialName(value = "is_pinned")
     public val isPinned: Boolean,
 ) : PushMessageContent() {
     override fun equals(other: Any?): Boolean {

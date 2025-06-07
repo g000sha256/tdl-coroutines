@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * An animation.
@@ -28,9 +30,14 @@ import kotlin.String
  * @property caption Animation caption.
  * @property needAutoplay True, if the animation must be played automatically.
  */
+@SerialName(value = "pageBlockAnimation")
+@Serializable
 public class PageBlockAnimation public constructor(
+    @SerialName(value = "animation")
     public val animation: Animation?,
+    @SerialName(value = "caption")
     public val caption: PageBlockCaption,
+    @SerialName(value = "need_autoplay")
     public val needAutoplay: Boolean,
 ) : PageBlock() {
     override fun equals(other: Any?): Boolean {

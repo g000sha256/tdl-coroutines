@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains information about a product that can be paid with invoice.
@@ -28,11 +30,16 @@ import kotlin.String
  * @property description Product description.
  * @property photo Product photo; may be null.
  */
+@SerialName(value = "productInfo")
+@Serializable
 public class ProductInfo public constructor(
+    @SerialName(value = "title")
     public val title: String,
+    @SerialName(value = "description")
     public val description: FormattedText,
+    @SerialName(value = "photo")
     public val photo: Photo?,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

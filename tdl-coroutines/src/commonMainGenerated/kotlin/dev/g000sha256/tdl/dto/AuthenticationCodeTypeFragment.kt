@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A digit-only authentication code is delivered to https://fragment.com. The user must be logged in there via a wallet owning the phone number's NFT.
@@ -27,8 +29,12 @@ import kotlin.String
  * @property url URL to open to receive the code.
  * @property length Length of the code.
  */
+@SerialName(value = "authenticationCodeTypeFragment")
+@Serializable
 public class AuthenticationCodeTypeFragment public constructor(
+    @SerialName(value = "url")
     public val url: String,
+    @SerialName(value = "length")
     public val length: Int,
 ) : AuthenticationCodeType() {
     override fun equals(other: Any?): Boolean {

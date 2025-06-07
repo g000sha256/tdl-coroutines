@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The message is too old to get read date.
  */
+@SerialName(value = "messageReadDateTooOld")
+@Serializable
 public class MessageReadDateTooOld public constructor() : MessageReadDate() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Double
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes a location on planet Earth.
@@ -29,11 +31,16 @@ import kotlin.String
  * @property longitude Longitude of the location, in degrees; as defined by the sender.
  * @property horizontalAccuracy The estimated horizontal accuracy of the location, in meters; as defined by the sender. 0 if unknown.
  */
+@SerialName(value = "location")
+@Serializable
 public class Location public constructor(
+    @SerialName(value = "latitude")
     public val latitude: Double,
+    @SerialName(value = "longitude")
     public val longitude: Double,
+    @SerialName(value = "horizontal_accuracy")
     public val horizontalAccuracy: Double,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

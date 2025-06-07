@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Represents a boolean option.
  *
  * @property value The value of the option.
  */
+@SerialName(value = "optionValueBoolean")
+@Serializable
 public class OptionValueBoolean public constructor(
+    @SerialName(value = "value")
     public val value: Boolean,
 ) : OptionValue() {
     override fun equals(other: Any?): Boolean {

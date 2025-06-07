@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The graph data to be asynchronously loaded through getStatisticalGraph.
  *
  * @property token The token to use for data loading.
  */
+@SerialName(value = "statisticalGraphAsync")
+@Serializable
 public class StatisticalGraphAsync public constructor(
+    @SerialName(value = "token")
     public val token: String,
 ) : StatisticalGraph() {
     override fun equals(other: Any?): Boolean {

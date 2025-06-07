@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * An MTProto proxy server.
  *
  * @property secret The proxy's secret in hexadecimal encoding.
  */
+@SerialName(value = "proxyTypeMtproto")
+@Serializable
 public class ProxyTypeMtproto public constructor(
+    @SerialName(value = "secret")
     public val secret: String,
 ) : ProxyType() {
     override fun equals(other: Any?): Boolean {

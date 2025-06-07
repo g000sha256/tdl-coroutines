@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes a connection of the bot with a business account.
@@ -32,14 +34,22 @@ import kotlin.String
  * @property rights Rights of the bot; may be null if the connection was disabled.
  * @property isEnabled True, if the connection is enabled; false otherwise.
  */
+@SerialName(value = "businessConnection")
+@Serializable
 public class BusinessConnection public constructor(
+    @SerialName(value = "id")
     public val id: String,
+    @SerialName(value = "user_id")
     public val userId: Long,
+    @SerialName(value = "user_chat_id")
     public val userChatId: Long,
+    @SerialName(value = "date")
     public val date: Int,
+    @SerialName(value = "rights")
     public val rights: BusinessBotRights?,
+    @SerialName(value = "is_enabled")
     public val isEnabled: Boolean,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

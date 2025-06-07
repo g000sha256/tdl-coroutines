@@ -22,6 +22,8 @@ import kotlin.ByteArray
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Represents a secret chat.
@@ -33,14 +35,22 @@ import kotlin.String
  * @property keyHash Hash of the currently used key for comparison with the hash of the chat partner's key. This is a string of 36 little-endian bytes, which must be split into groups of 2 bits, each denoting a pixel of one of 4 colors FFFFFF, D5E6F3, 2D5775, and 2F99C9. The pixels must be used to make a 12x12 square image filled from left to right, top to bottom. Alternatively, the first 32 bytes of the hash can be converted to the hexadecimal format and printed as 32 2-digit hex numbers.
  * @property layer Secret chat layer; determines features supported by the chat partner's application. Nested text entities and underline and strikethrough entities are supported if the layer &gt;= 101, files bigger than 2000MB are supported if the layer &gt;= 143, spoiler and custom emoji text entities are supported if the layer &gt;= 144.
  */
+@SerialName(value = "secretChat")
+@Serializable
 public class SecretChat public constructor(
+    @SerialName(value = "id")
     public val id: Int,
+    @SerialName(value = "user_id")
     public val userId: Long,
+    @SerialName(value = "state")
     public val state: SecretChatState,
+    @SerialName(value = "is_outbound")
     public val isOutbound: Boolean,
+    @SerialName(value = "key_hash")
     public val keyHash: ByteArray,
+    @SerialName(value = "layer")
     public val layer: Int,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

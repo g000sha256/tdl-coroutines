@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * New call was created or information about a call was updated.
  *
  * @property call New data about a call.
  */
+@SerialName(value = "updateCall")
+@Serializable
 public class UpdateCall public constructor(
+    @SerialName(value = "call")
     public val call: Call,
 ) : Update() {
     override fun equals(other: Any?): Boolean {

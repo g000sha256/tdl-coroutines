@@ -16,8 +16,11 @@
 
 package dev.g000sha256.tdl.dto
 
+import kotlinx.serialization.Serializable
+
 /**
  * This class is an abstract base class.
  * Describes the type of proxy server.
  */
-public sealed class ProxyType protected constructor()
+@Serializable
+public sealed class ProxyType protected constructor() : Model()

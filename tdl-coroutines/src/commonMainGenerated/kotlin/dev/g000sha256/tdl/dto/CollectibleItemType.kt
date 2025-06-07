@@ -16,8 +16,11 @@
 
 package dev.g000sha256.tdl.dto
 
+import kotlinx.serialization.Serializable
+
 /**
  * This class is an abstract base class.
  * Describes a collectible item that can be purchased at https://fragment.com.
  */
-public sealed class CollectibleItemType protected constructor()
+@Serializable
+public sealed class CollectibleItemType protected constructor() : Model()

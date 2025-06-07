@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The group call is accessible through a link.
  *
  * @property link The link for the group call.
  */
+@SerialName(value = "inputGroupCallLink")
+@Serializable
 public class InputGroupCallLink public constructor(
+    @SerialName(value = "link")
     public val link: String,
 ) : InputGroupCall() {
     override fun equals(other: Any?): Boolean {

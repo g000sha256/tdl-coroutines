@@ -21,13 +21,18 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.LongArray
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A rule to restrict all specified users from doing something.
  *
  * @property userIds The user identifiers, total number of users in all rules must not exceed 1000.
  */
+@SerialName(value = "userPrivacySettingRuleRestrictUsers")
+@Serializable
 public class UserPrivacySettingRuleRestrictUsers public constructor(
+    @SerialName(value = "user_ids")
     public val userIds: LongArray,
 ) : UserPrivacySettingRule() {
     override fun equals(other: Any?): Boolean {

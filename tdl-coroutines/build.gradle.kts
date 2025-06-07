@@ -9,6 +9,7 @@ plugins {
     alias(catalog.plugins.jetBrains.binaryCompatibilityValidator)
     alias(catalog.plugins.jetBrains.dokka)
     alias(catalog.plugins.jetBrains.kotlin.multiplatform)
+    alias(catalog.plugins.jetBrains.kotlinSerialization)
     id("org.gradle.maven-publish")
     id("org.gradle.signing")
 }
@@ -68,6 +69,7 @@ kotlin {
 
                 implementation(catalog.libs.jetBrains.atomic)
                 implementation(catalog.libs.jetBrains.coroutinesCore)
+                implementation(catalog.libs.jetBrains.kotlinSerialization)
             }
         }
 

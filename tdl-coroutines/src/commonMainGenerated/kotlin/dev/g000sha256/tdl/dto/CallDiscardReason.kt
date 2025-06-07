@@ -16,8 +16,11 @@
 
 package dev.g000sha256.tdl.dto
 
+import kotlinx.serialization.Serializable
+
 /**
  * This class is an abstract base class.
  * Describes the reason why a call was discarded.
  */
-public sealed class CallDiscardReason protected constructor()
+@Serializable
+public sealed class CallDiscardReason protected constructor() : Model()

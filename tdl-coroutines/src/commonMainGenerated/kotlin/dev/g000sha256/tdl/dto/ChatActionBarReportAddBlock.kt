@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The chat is a private or secret chat, which can be reported using the method reportChat, or the other user can be blocked using the method setMessageSenderBlockList, or the other user can be added to the contact list using the method addContact. If the chat is a private chat with a user with an emoji status, then a notice about emoji status usage must be shown.
@@ -27,8 +29,12 @@ import kotlin.String
  * @property canUnarchive If true, the chat was automatically archived and can be moved back to the main chat list using addChatToList simultaneously with setting chat notification settings to default using setChatNotificationSettings.
  * @property accountInfo Basic information about the other user in the chat; may be null if unknown.
  */
+@SerialName(value = "chatActionBarReportAddBlock")
+@Serializable
 public class ChatActionBarReportAddBlock public constructor(
+    @SerialName(value = "can_unarchive")
     public val canUnarchive: Boolean,
+    @SerialName(value = "account_info")
     public val accountInfo: AccountInfo?,
 ) : ChatActionBar() {
     override fun equals(other: Any?): Boolean {

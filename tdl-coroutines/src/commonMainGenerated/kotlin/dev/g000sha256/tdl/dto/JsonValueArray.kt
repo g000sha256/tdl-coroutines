@@ -21,13 +21,18 @@ import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Represents a JSON array.
  *
  * @property values The list of array elements.
  */
+@SerialName(value = "jsonValueArray")
+@Serializable
 public class JsonValueArray public constructor(
+    @SerialName(value = "values")
     public val values: Array<JsonValue>,
 ) : JsonValue() {
     override fun equals(other: Any?): Boolean {

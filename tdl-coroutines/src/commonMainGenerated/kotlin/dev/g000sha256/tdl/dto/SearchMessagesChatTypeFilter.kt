@@ -16,8 +16,11 @@
 
 package dev.g000sha256.tdl.dto
 
+import kotlinx.serialization.Serializable
+
 /**
  * This class is an abstract base class.
  * Represents a filter for type of the chats in which to search messages.
  */
-public sealed class SearchMessagesChatTypeFilter protected constructor()
+@Serializable
+public sealed class SearchMessagesChatTypeFilter protected constructor() : Model()

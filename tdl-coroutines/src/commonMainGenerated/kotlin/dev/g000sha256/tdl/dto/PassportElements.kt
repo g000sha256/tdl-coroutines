@@ -21,15 +21,20 @@ import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains information about saved Telegram Passport elements.
  *
  * @property elements Telegram Passport elements.
  */
+@SerialName(value = "passportElements")
+@Serializable
 public class PassportElements public constructor(
+    @SerialName(value = "elements")
     public val elements: Array<PassportElement>,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

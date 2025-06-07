@@ -22,6 +22,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Represents a sticker set.
@@ -42,23 +44,40 @@ import kotlin.String
  * @property stickers List of stickers in this set.
  * @property emojis A list of emojis corresponding to the stickers in the same order. The list is only for informational purposes, because a sticker is always sent with a fixed emoji from the corresponding Sticker object.
  */
+@SerialName(value = "stickerSet")
+@Serializable
 public class StickerSet public constructor(
+    @SerialName(value = "id")
     public val id: Long,
+    @SerialName(value = "title")
     public val title: String,
+    @SerialName(value = "name")
     public val name: String,
+    @SerialName(value = "thumbnail")
     public val thumbnail: Thumbnail?,
+    @SerialName(value = "thumbnail_outline")
     public val thumbnailOutline: Outline?,
+    @SerialName(value = "is_owned")
     public val isOwned: Boolean,
+    @SerialName(value = "is_installed")
     public val isInstalled: Boolean,
+    @SerialName(value = "is_archived")
     public val isArchived: Boolean,
+    @SerialName(value = "is_official")
     public val isOfficial: Boolean,
+    @SerialName(value = "sticker_type")
     public val stickerType: StickerType,
+    @SerialName(value = "needs_repainting")
     public val needsRepainting: Boolean,
+    @SerialName(value = "is_allowed_as_chat_emoji_status")
     public val isAllowedAsChatEmojiStatus: Boolean,
+    @SerialName(value = "is_viewed")
     public val isViewed: Boolean,
+    @SerialName(value = "stickers")
     public val stickers: Array<Sticker>,
+    @SerialName(value = "emojis")
     public val emojis: Array<Emojis>,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

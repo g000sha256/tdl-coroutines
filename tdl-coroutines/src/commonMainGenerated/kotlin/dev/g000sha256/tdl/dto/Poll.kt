@@ -22,6 +22,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes a poll.
@@ -37,18 +39,30 @@ import kotlin.String
  * @property closeDate Point in time (Unix timestamp) when the poll will automatically be closed.
  * @property isClosed True, if the poll is closed.
  */
+@SerialName(value = "poll")
+@Serializable
 public class Poll public constructor(
+    @SerialName(value = "id")
     public val id: Long,
+    @SerialName(value = "question")
     public val question: FormattedText,
+    @SerialName(value = "options")
     public val options: Array<PollOption>,
+    @SerialName(value = "total_voter_count")
     public val totalVoterCount: Int,
+    @SerialName(value = "recent_voter_ids")
     public val recentVoterIds: Array<MessageSender>,
+    @SerialName(value = "is_anonymous")
     public val isAnonymous: Boolean,
+    @SerialName(value = "type")
     public val type: PollType,
+    @SerialName(value = "open_period")
     public val openPeriod: Int,
+    @SerialName(value = "close_date")
     public val closeDate: Int,
+    @SerialName(value = "is_closed")
     public val isClosed: Boolean,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes a chat member joined a chat via an invite link.
@@ -30,12 +32,18 @@ import kotlin.String
  * @property viaChatFolderInviteLink True, if the user has joined the chat using an invite link for a chat folder.
  * @property approverUserId User identifier of the chat administrator, approved user join request.
  */
+@SerialName(value = "chatInviteLinkMember")
+@Serializable
 public class ChatInviteLinkMember public constructor(
+    @SerialName(value = "user_id")
     public val userId: Long,
+    @SerialName(value = "joined_chat_date")
     public val joinedChatDate: Int,
+    @SerialName(value = "via_chat_folder_invite_link")
     public val viaChatFolderInviteLink: Boolean,
+    @SerialName(value = "approver_user_id")
     public val approverUserId: Long,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

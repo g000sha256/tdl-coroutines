@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains basic information about the photo of a chat.
@@ -30,13 +32,20 @@ import kotlin.String
  * @property hasAnimation True, if the photo has animated variant.
  * @property isPersonal True, if the photo is visible only for the current user.
  */
+@SerialName(value = "chatPhotoInfo")
+@Serializable
 public class ChatPhotoInfo public constructor(
+    @SerialName(value = "small")
     public val small: File,
+    @SerialName(value = "big")
     public val big: File,
+    @SerialName(value = "minithumbnail")
     public val minithumbnail: Minithumbnail?,
+    @SerialName(value = "has_animation")
     public val hasAnimation: Boolean,
+    @SerialName(value = "is_personal")
     public val isPersonal: Boolean,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

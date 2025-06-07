@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains information about supported accent color for user profile photo background.
@@ -30,13 +32,20 @@ import kotlin.String
  * @property minSupergroupChatBoostLevel The minimum chat boost level required to use the color in a supergroup chat.
  * @property minChannelChatBoostLevel The minimum chat boost level required to use the color in a channel chat.
  */
+@SerialName(value = "profileAccentColor")
+@Serializable
 public class ProfileAccentColor public constructor(
+    @SerialName(value = "id")
     public val id: Int,
+    @SerialName(value = "light_theme_colors")
     public val lightThemeColors: ProfileAccentColors,
+    @SerialName(value = "dark_theme_colors")
     public val darkThemeColors: ProfileAccentColors,
+    @SerialName(value = "min_supergroup_chat_boost_level")
     public val minSupergroupChatBoostLevel: Int,
+    @SerialName(value = "min_channel_chat_boost_level")
     public val minChannelChatBoostLevel: Int,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

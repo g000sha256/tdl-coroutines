@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Represents a basic group of 0-200 users (must be upgraded to a supergroup to accommodate more than 200 users).
@@ -31,13 +33,20 @@ import kotlin.String
  * @property isActive True, if the group is active.
  * @property upgradedToSupergroupId Identifier of the supergroup to which this group was upgraded; 0 if none.
  */
+@SerialName(value = "basicGroup")
+@Serializable
 public class BasicGroup public constructor(
+    @SerialName(value = "id")
     public val id: Long,
+    @SerialName(value = "member_count")
     public val memberCount: Int,
+    @SerialName(value = "status")
     public val status: ChatMemberStatus,
+    @SerialName(value = "is_active")
     public val isActive: Boolean,
+    @SerialName(value = "upgraded_to_supergroup_id")
     public val upgradedToSupergroupId: Long,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

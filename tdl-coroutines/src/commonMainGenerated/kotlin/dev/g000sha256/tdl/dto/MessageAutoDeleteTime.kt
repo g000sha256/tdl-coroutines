@@ -20,15 +20,20 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains default auto-delete timer setting for new chats.
  *
  * @property time Message auto-delete time, in seconds. If 0, then messages aren't deleted automatically.
  */
+@SerialName(value = "messageAutoDeleteTime")
+@Serializable
 public class MessageAutoDeleteTime public constructor(
+    @SerialName(value = "time")
     public val time: Int,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

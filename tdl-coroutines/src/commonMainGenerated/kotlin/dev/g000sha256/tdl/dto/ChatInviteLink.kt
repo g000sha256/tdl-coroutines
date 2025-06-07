@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains a chat invite link.
@@ -40,22 +42,38 @@ import kotlin.String
  * @property isPrimary True, if the link is primary. Primary invite link can't have name, expiration date, or usage limit. There is exactly one primary invite link for each administrator with canInviteUsers right at a given time.
  * @property isRevoked True, if the link was revoked.
  */
+@SerialName(value = "chatInviteLink")
+@Serializable
 public class ChatInviteLink public constructor(
+    @SerialName(value = "invite_link")
     public val inviteLink: String,
+    @SerialName(value = "name")
     public val name: String,
+    @SerialName(value = "creator_user_id")
     public val creatorUserId: Long,
+    @SerialName(value = "date")
     public val date: Int,
+    @SerialName(value = "edit_date")
     public val editDate: Int,
+    @SerialName(value = "expiration_date")
     public val expirationDate: Int,
+    @SerialName(value = "subscription_pricing")
     public val subscriptionPricing: StarSubscriptionPricing?,
+    @SerialName(value = "member_limit")
     public val memberLimit: Int,
+    @SerialName(value = "member_count")
     public val memberCount: Int,
+    @SerialName(value = "expired_member_count")
     public val expiredMemberCount: Int,
+    @SerialName(value = "pending_join_request_count")
     public val pendingJoinRequestCount: Int,
+    @SerialName(value = "creates_join_request")
     public val createsJoinRequest: Boolean,
+    @SerialName(value = "is_primary")
     public val isPrimary: Boolean,
+    @SerialName(value = "is_revoked")
     public val isRevoked: Boolean,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

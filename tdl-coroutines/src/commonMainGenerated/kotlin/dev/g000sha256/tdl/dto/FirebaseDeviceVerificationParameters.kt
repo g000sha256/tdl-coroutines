@@ -16,8 +16,11 @@
 
 package dev.g000sha256.tdl.dto
 
+import kotlinx.serialization.Serializable
+
 /**
  * This class is an abstract base class.
  * Describes parameters to be used for device verification.
  */
-public sealed class FirebaseDeviceVerificationParameters protected constructor()
+@Serializable
+public sealed class FirebaseDeviceVerificationParameters protected constructor() : Model()

@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A static photo in JPEG format.
  *
  * @property photo Photo to be set as profile photo. Only inputFileLocal and inputFileGenerated are allowed.
  */
+@SerialName(value = "inputChatPhotoStatic")
+@Serializable
 public class InputChatPhotoStatic public constructor(
+    @SerialName(value = "photo")
     public val photo: InputFile,
 ) : InputChatPhoto() {
     override fun equals(other: Any?): Boolean {

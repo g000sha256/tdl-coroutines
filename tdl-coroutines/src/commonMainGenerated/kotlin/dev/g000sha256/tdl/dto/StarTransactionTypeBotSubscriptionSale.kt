@@ -22,6 +22,8 @@ import kotlin.ByteArray
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The transaction is a sale of a subscription by the bot; for bots only.
@@ -32,11 +34,18 @@ import kotlin.String
  * @property invoicePayload Invoice payload.
  * @property affiliate Information about the affiliate which received commission from the transaction; may be null if none.
  */
+@SerialName(value = "starTransactionTypeBotSubscriptionSale")
+@Serializable
 public class StarTransactionTypeBotSubscriptionSale public constructor(
+    @SerialName(value = "user_id")
     public val userId: Long,
+    @SerialName(value = "subscription_period")
     public val subscriptionPeriod: Int,
+    @SerialName(value = "product_info")
     public val productInfo: ProductInfo,
+    @SerialName(value = "invoice_payload")
     public val invoicePayload: ByteArray,
+    @SerialName(value = "affiliate")
     public val affiliate: AffiliateInfo?,
 ) : StarTransactionType() {
     override fun equals(other: Any?): Boolean {

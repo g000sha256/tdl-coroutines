@@ -21,15 +21,20 @@ import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains a list of media previews of a bot.
  *
  * @property previews List of media previews.
  */
+@SerialName(value = "botMediaPreviews")
+@Serializable
 public class BotMediaPreviews public constructor(
+    @SerialName(value = "previews")
     public val previews: Array<BotMediaPreview>,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

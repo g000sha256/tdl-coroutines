@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A scope covering a member of a chat.
@@ -28,8 +30,12 @@ import kotlin.String
  * @property chatId Chat identifier.
  * @property userId User identifier.
  */
+@SerialName(value = "botCommandScopeChatMember")
+@Serializable
 public class BotCommandScopeChatMember public constructor(
+    @SerialName(value = "chat_id")
     public val chatId: Long,
+    @SerialName(value = "user_id")
     public val userId: Long,
 ) : BotCommandScope() {
     override fun equals(other: Any?): Boolean {

@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The sticker is a video in WEBM format.
  */
+@SerialName(value = "stickerFormatWebm")
+@Serializable
 public class StickerFormatWebm public constructor() : StickerFormat() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

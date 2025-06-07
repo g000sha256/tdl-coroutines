@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * An authentication code delivered to a user's email address.
  *
  * @property code The code.
  */
+@SerialName(value = "emailAddressAuthenticationCode")
+@Serializable
 public class EmailAddressAuthenticationCode public constructor(
+    @SerialName(value = "code")
     public val code: String,
 ) : EmailAddressAuthentication() {
     override fun equals(other: Any?): Boolean {

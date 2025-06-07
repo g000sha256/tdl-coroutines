@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Represents an animation file.
@@ -28,9 +30,14 @@ import kotlin.String
  * @property animation Animation file.
  * @property title Animation title.
  */
+@SerialName(value = "inlineQueryResultAnimation")
+@Serializable
 public class InlineQueryResultAnimation public constructor(
+    @SerialName(value = "id")
     public val id: String,
+    @SerialName(value = "animation")
     public val animation: Animation,
+    @SerialName(value = "title")
     public val title: String,
 ) : InlineQueryResult() {
     override fun equals(other: Any?): Boolean {

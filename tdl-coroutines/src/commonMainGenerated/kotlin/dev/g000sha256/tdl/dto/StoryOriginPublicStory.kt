@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The original story was a public story that was posted by a known chat.
@@ -28,8 +30,12 @@ import kotlin.String
  * @property chatId Identifier of the chat that posted original story.
  * @property storyId Story identifier of the original story.
  */
+@SerialName(value = "storyOriginPublicStory")
+@Serializable
 public class StoryOriginPublicStory public constructor(
+    @SerialName(value = "chat_id")
     public val chatId: Long,
+    @SerialName(value = "story_id")
     public val storyId: Int,
 ) : StoryOrigin() {
     override fun equals(other: Any?): Boolean {

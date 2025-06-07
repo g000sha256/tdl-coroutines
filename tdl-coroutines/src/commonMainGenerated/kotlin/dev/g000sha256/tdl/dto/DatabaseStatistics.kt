@@ -20,15 +20,20 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains database statistics.
  *
  * @property statistics Database statistics in an unspecified human-readable format.
  */
+@SerialName(value = "databaseStatistics")
+@Serializable
 public class DatabaseStatistics public constructor(
+    @SerialName(value = "statistics")
     public val statistics: String,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

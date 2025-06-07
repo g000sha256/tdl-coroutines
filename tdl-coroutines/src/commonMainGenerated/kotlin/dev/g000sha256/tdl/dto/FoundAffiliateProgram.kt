@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes a found affiliate program.
@@ -28,10 +30,14 @@ import kotlin.String
  * @property botUserId User identifier of the bot created the program.
  * @property info Information about the affiliate program.
  */
+@SerialName(value = "foundAffiliateProgram")
+@Serializable
 public class FoundAffiliateProgram public constructor(
+    @SerialName(value = "bot_user_id")
     public val botUserId: Long,
+    @SerialName(value = "info")
     public val info: AffiliateProgramInfo,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

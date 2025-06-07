@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The sticker is a regular sticker.
  */
+@SerialName(value = "stickerTypeRegular")
+@Serializable
 public class StickerTypeRegular public constructor() : StickerType() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

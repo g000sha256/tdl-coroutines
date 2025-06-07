@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Represents an unknown option or an option which has a default value.
  */
+@SerialName(value = "optionValueEmpty")
+@Serializable
 public class OptionValueEmpty public constructor() : OptionValue() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

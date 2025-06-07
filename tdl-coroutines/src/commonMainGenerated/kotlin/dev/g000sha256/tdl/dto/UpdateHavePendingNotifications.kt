@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes whether there are some pending notification updates. Can be used to prevent application from killing, while there are some pending notifications.
@@ -27,8 +29,12 @@ import kotlin.String
  * @property haveDelayedNotifications True, if there are some delayed notification updates, which will be sent soon.
  * @property haveUnreceivedNotifications True, if there can be some yet unreceived notifications, which are being fetched from the server.
  */
+@SerialName(value = "updateHavePendingNotifications")
+@Serializable
 public class UpdateHavePendingNotifications public constructor(
+    @SerialName(value = "have_delayed_notifications")
     public val haveDelayedNotifications: Boolean,
+    @SerialName(value = "have_unreceived_notifications")
     public val haveUnreceivedNotifications: Boolean,
 ) : Update() {
     override fun equals(other: Any?): Boolean {

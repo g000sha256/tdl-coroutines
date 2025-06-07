@@ -16,8 +16,11 @@
 
 package dev.g000sha256.tdl.dto
 
+import kotlinx.serialization.Serializable
+
 /**
  * This class is an abstract base class.
  * Describes the types of chats to which notification settings are relevant.
  */
-public sealed class NotificationSettingsScope protected constructor()
+@Serializable
+public sealed class NotificationSettingsScope protected constructor() : Model()

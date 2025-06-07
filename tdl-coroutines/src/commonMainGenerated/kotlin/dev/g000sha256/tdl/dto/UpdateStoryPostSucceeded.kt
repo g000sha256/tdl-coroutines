@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A story has been successfully posted.
@@ -27,8 +29,12 @@ import kotlin.String
  * @property story The posted story.
  * @property oldStoryId The previous temporary story identifier.
  */
+@SerialName(value = "updateStoryPostSucceeded")
+@Serializable
 public class UpdateStoryPostSucceeded public constructor(
+    @SerialName(value = "story")
     public val story: Story,
+    @SerialName(value = "old_story_id")
     public val oldStoryId: Int,
 ) : Update() {
     override fun equals(other: Any?): Boolean {

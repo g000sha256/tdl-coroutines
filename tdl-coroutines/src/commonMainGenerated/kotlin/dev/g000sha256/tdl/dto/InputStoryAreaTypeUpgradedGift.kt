@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * An area with an upgraded gift.
  *
  * @property giftName Unique name of the upgraded gift.
  */
+@SerialName(value = "inputStoryAreaTypeUpgradedGift")
+@Serializable
 public class InputStoryAreaTypeUpgradedGift public constructor(
+    @SerialName(value = "gift_name")
     public val giftName: String,
 ) : InputStoryAreaType() {
     override fun equals(other: Any?): Boolean {

@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The category must be used for chat photo emoji selection.
  */
+@SerialName(value = "emojiCategoryTypeChatPhoto")
+@Serializable
 public class EmojiCategoryTypeChatPhoto public constructor() : EmojiCategoryType() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

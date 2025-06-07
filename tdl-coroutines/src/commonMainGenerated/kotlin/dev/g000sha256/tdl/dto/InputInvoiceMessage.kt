@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * An invoice from a message of the type messageInvoice or paid media purchase from messagePaidMedia.
@@ -28,8 +30,12 @@ import kotlin.String
  * @property chatId Chat identifier of the message.
  * @property messageId Message identifier. Use messageProperties.canBePaid to check whether the message can be used in the method.
  */
+@SerialName(value = "inputInvoiceMessage")
+@Serializable
 public class InputInvoiceMessage public constructor(
+    @SerialName(value = "chat_id")
     public val chatId: Long,
+    @SerialName(value = "message_id")
     public val messageId: Long,
 ) : InputInvoice() {
     override fun equals(other: Any?): Boolean {

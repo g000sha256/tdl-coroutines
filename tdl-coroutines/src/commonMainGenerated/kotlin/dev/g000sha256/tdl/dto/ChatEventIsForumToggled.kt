@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The isForum setting of a channel was toggled.
  *
  * @property isForum New value of isForum.
  */
+@SerialName(value = "chatEventIsForumToggled")
+@Serializable
 public class ChatEventIsForumToggled public constructor(
+    @SerialName(value = "is_forum")
     public val isForum: Boolean,
 ) : ChatEventAction() {
     override fun equals(other: Any?): Boolean {

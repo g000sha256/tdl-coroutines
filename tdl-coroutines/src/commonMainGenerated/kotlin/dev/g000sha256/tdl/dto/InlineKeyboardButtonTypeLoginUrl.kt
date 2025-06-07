@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A button that opens a specified URL and automatically authorize the current user by calling getLoginUrlInfo.
@@ -29,9 +31,14 @@ import kotlin.String
  * @property id Unique button identifier.
  * @property forwardText If non-empty, new text of the button in forwarded messages.
  */
+@SerialName(value = "inlineKeyboardButtonTypeLoginUrl")
+@Serializable
 public class InlineKeyboardButtonTypeLoginUrl public constructor(
+    @SerialName(value = "url")
     public val url: String,
+    @SerialName(value = "id")
     public val id: Long,
+    @SerialName(value = "forward_text")
     public val forwardText: String,
 ) : InlineKeyboardButtonType() {
     override fun equals(other: Any?): Boolean {

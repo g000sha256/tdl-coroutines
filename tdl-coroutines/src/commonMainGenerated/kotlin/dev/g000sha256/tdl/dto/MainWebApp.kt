@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains information about the main Web App of a bot.
@@ -27,10 +29,14 @@ import kotlin.String
  * @property url URL of the Web App to open.
  * @property mode The mode in which the Web App must be opened.
  */
+@SerialName(value = "mainWebApp")
+@Serializable
 public class MainWebApp public constructor(
+    @SerialName(value = "url")
     public val url: String,
+    @SerialName(value = "mode")
     public val mode: WebAppOpenMode,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A new member joined the chat via an invite link.
@@ -27,8 +29,12 @@ import kotlin.String
  * @property inviteLink Invite link used to join the chat.
  * @property viaChatFolderInviteLink True, if the user has joined the chat using an invite link for a chat folder.
  */
+@SerialName(value = "chatEventMemberJoinedByInviteLink")
+@Serializable
 public class ChatEventMemberJoinedByInviteLink public constructor(
+    @SerialName(value = "invite_link")
     public val inviteLink: ChatInviteLink,
+    @SerialName(value = "via_chat_folder_invite_link")
     public val viaChatFolderInviteLink: Boolean,
 ) : ChatEventAction() {
     override fun equals(other: Any?): Boolean {

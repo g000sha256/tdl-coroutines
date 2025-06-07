@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The link is a link to an upgraded gift.
  *
  * @property gift The gift.
  */
+@SerialName(value = "linkPreviewTypeUpgradedGift")
+@Serializable
 public class LinkPreviewTypeUpgradedGift public constructor(
+    @SerialName(value = "gift")
     public val gift: UpgradedGift,
 ) : LinkPreviewType() {
     override fun equals(other: Any?): Boolean {

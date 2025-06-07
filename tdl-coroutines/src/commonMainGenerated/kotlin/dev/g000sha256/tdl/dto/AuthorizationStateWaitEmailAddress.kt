@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * TDLib needs the user's email address to authorize. Call setAuthenticationEmailAddress to provide the email address, or directly call checkAuthenticationEmailCode with Apple ID/Google ID token if allowed.
@@ -27,8 +29,12 @@ import kotlin.String
  * @property allowAppleId True, if authorization through Apple ID is allowed.
  * @property allowGoogleId True, if authorization through Google ID is allowed.
  */
+@SerialName(value = "authorizationStateWaitEmailAddress")
+@Serializable
 public class AuthorizationStateWaitEmailAddress public constructor(
+    @SerialName(value = "allow_apple_id")
     public val allowAppleId: Boolean,
+    @SerialName(value = "allow_google_id")
     public val allowGoogleId: Boolean,
 ) : AuthorizationState() {
     override fun equals(other: Any?): Boolean {

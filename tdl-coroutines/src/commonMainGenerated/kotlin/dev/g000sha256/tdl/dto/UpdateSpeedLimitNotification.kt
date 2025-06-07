@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Download or upload file speed for the user was limited, but it can be restored by subscription to Telegram Premium. The notification can be postponed until a being downloaded or uploaded file is visible to the user. Use getOption(&quot;premium_download_speedup&quot;) or getOption(&quot;premium_upload_speedup&quot;) to get expected speedup after subscription to Telegram Premium.
  *
  * @property isUpload True, if upload speed was limited; false, if download speed was limited.
  */
+@SerialName(value = "updateSpeedLimitNotification")
+@Serializable
 public class UpdateSpeedLimitNotification public constructor(
+    @SerialName(value = "is_upload")
     public val isUpload: Boolean,
 ) : Update() {
     override fun equals(other: Any?): Boolean {

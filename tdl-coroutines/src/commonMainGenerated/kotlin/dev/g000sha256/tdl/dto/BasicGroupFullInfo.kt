@@ -22,6 +22,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains full information about a basic group.
@@ -35,16 +37,26 @@ import kotlin.String
  * @property inviteLink Primary invite link for this group; may be null. For chat administrators with canInviteUsers right only. Updated only after the basic group is opened.
  * @property botCommands List of commands of bots in the group.
  */
+@SerialName(value = "basicGroupFullInfo")
+@Serializable
 public class BasicGroupFullInfo public constructor(
+    @SerialName(value = "photo")
     public val photo: ChatPhoto?,
+    @SerialName(value = "description")
     public val description: String,
+    @SerialName(value = "creator_user_id")
     public val creatorUserId: Long,
+    @SerialName(value = "members")
     public val members: Array<ChatMember>,
+    @SerialName(value = "can_hide_members")
     public val canHideMembers: Boolean,
+    @SerialName(value = "can_toggle_aggressive_anti_spam")
     public val canToggleAggressiveAntiSpam: Boolean,
+    @SerialName(value = "invite_link")
     public val inviteLink: ChatInviteLink?,
+    @SerialName(value = "bot_commands")
     public val botCommands: Array<BotCommands>,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

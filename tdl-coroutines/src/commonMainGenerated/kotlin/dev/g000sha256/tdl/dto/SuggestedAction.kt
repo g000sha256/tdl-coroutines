@@ -16,8 +16,11 @@
 
 package dev.g000sha256.tdl.dto
 
+import kotlinx.serialization.Serializable
+
 /**
  * This class is an abstract base class.
  * Describes an action suggested to the current user.
  */
-public sealed class SuggestedAction protected constructor()
+@Serializable
+public sealed class SuggestedAction protected constructor() : Model()

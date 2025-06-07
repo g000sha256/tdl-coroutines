@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * An animation message (GIF-style).
@@ -28,9 +30,14 @@ import kotlin.String
  * @property caption Animation caption.
  * @property isPinned True, if the message is a pinned message with the specified content.
  */
+@SerialName(value = "pushMessageContentAnimation")
+@Serializable
 public class PushMessageContentAnimation public constructor(
+    @SerialName(value = "animation")
     public val animation: Animation?,
+    @SerialName(value = "caption")
     public val caption: String,
+    @SerialName(value = "is_pinned")
     public val isPinned: Boolean,
 ) : PushMessageContent() {
     override fun equals(other: Any?): Boolean {

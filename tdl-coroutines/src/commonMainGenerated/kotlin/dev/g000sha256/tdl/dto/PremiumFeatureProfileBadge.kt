@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A badge in the user's profile.
  */
+@SerialName(value = "premiumFeatureProfileBadge")
+@Serializable
 public class PremiumFeatureProfileBadge public constructor() : PremiumFeature() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

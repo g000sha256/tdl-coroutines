@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A page cover.
  *
  * @property cover Cover.
  */
+@SerialName(value = "pageBlockCover")
+@Serializable
 public class PageBlockCover public constructor(
+    @SerialName(value = "cover")
     public val cover: PageBlock,
 ) : PageBlock() {
     override fun equals(other: Any?): Boolean {

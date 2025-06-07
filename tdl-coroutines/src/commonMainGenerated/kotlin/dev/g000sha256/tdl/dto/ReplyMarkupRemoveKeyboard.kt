@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Instructs application to remove the keyboard once this message has been received. This kind of keyboard can't be received in an incoming message; instead, updateChatReplyMarkup with messageId == 0 will be sent.
  *
  * @property isPersonal True, if the keyboard is removed only for the mentioned users or the target user of a reply.
  */
+@SerialName(value = "replyMarkupRemoveKeyboard")
+@Serializable
 public class ReplyMarkupRemoveKeyboard public constructor(
+    @SerialName(value = "is_personal")
     public val isPersonal: Boolean,
 ) : ReplyMarkup() {
     override fun equals(other: Any?): Boolean {

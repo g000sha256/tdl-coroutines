@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The call has been answered and encryption keys are being exchanged.
  */
+@SerialName(value = "callStateExchangingKeys")
+@Serializable
 public class CallStateExchangingKeys public constructor() : CallState() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

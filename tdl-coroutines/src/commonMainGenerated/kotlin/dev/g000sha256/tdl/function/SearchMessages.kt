@@ -1,0 +1,46 @@
+/*
+ * Copyright 2025 Georgii Ippolitov (g000sha256)
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package dev.g000sha256.tdl.function
+
+import dev.g000sha256.tdl.dto.ChatList
+import dev.g000sha256.tdl.dto.SearchMessagesChatTypeFilter
+import dev.g000sha256.tdl.dto.SearchMessagesFilter
+import kotlin.Int
+import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
+
+@SerialName(value = "searchMessages")
+@Serializable
+internal class SearchMessages internal constructor(
+    @SerialName(value = "chat_list")
+    internal val chatList: ChatList?,
+    @SerialName(value = "query")
+    internal val query: String,
+    @SerialName(value = "offset")
+    internal val offset: String,
+    @SerialName(value = "limit")
+    internal val limit: Int,
+    @SerialName(value = "filter")
+    internal val filter: SearchMessagesFilter?,
+    @SerialName(value = "chat_type_filter")
+    internal val chatTypeFilter: SearchMessagesChatTypeFilter?,
+    @SerialName(value = "min_date")
+    internal val minDate: Int,
+    @SerialName(value = "max_date")
+    internal val maxDate: Int,
+) : Function()

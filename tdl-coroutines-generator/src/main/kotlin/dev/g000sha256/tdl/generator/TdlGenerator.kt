@@ -32,6 +32,7 @@ import com.github.javaparser.symbolsolver.JavaSymbolSolver
 import com.github.javaparser.symbolsolver.resolution.typesolvers.ReflectionTypeSolver
 import com.squareup.kotlinpoet.ANY
 import com.squareup.kotlinpoet.ARRAY
+import com.squareup.kotlinpoet.AnnotationSpec
 import com.squareup.kotlinpoet.BOOLEAN
 import com.squareup.kotlinpoet.BOOLEAN_ARRAY
 import com.squareup.kotlinpoet.BYTE
@@ -66,6 +67,8 @@ import kotlin.io.path.pathString
 import kotlin.io.path.readLines
 import kotlin.io.path.writeLines
 import kotlin.jvm.optionals.getOrNull
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 public fun main() {
     val text = readAndFixText()
@@ -99,6 +102,8 @@ public fun main() {
     writeClassElements(classElements)
 
     writeDtoCommonElements(dtoCommonElements)
+
+    writeFunctionCommonElements(functionCommonElements)
 
     writeClientInterface(functionCommonElements, updateDtoCommonElements)
 
@@ -164,7 +169,7 @@ private fun toCommonElement(matchResult: MatchResult): CommonElement {
         ),
         name = name,
         properties = parseProperties(text = properties),
-        returns = returns
+        returns = returns,
     )
 }
 
@@ -212,7 +217,7 @@ private class CommonElement(
     val description: Description,
     val name: String,
     val properties: List<Property>,
-    val returns: String
+    val returns: String,
 ) {
 
     class Description(val text: String, val fields: List<Field>) {
@@ -240,6 +245,7 @@ private fun writeClassElements(classElements: List<ClassElement>) {
                     .classBuilder(name = className)
                     .addKdoc(format = "This class is an abstract base class.\n")
                     .addKdoc(format = classElement.description.withDotIfNeeded)
+                    .addAnnotation(annotation = Serializable::class)
                     .addModifier(modifier = KModifier.PUBLIC)
                     .addModifier(modifier = KModifier.SEALED)
                     .primaryConstructor(
@@ -247,6 +253,9 @@ private fun writeClassElements(classElements: List<ClassElement>) {
                             .constructorBuilder()
                             .addModifier(modifier = KModifier.PROTECTED)
                             .build()
+                    )
+                    .superclass(
+                        superclass = TypeName(packageName = PACKAGE_DTO, simpleName = "Model")
                     )
                     .build()
             )
@@ -282,6 +291,13 @@ private fun writeDtoCommonElements(dtoCommonElements: List<CommonElement>) {
                             }
                         }
                     }
+                    .addAnnotation(
+                        annotationSpec = AnnotationSpec
+                            .builder(type = SerialName::class)
+                            .addMember(format = "value = \"%L\"", commonElement.name)
+                            .build()
+                    )
+                    .addAnnotation(annotation = Serializable::class)
                     .addModifier(modifier = KModifier.PUBLIC)
                     .primaryConstructor(
                         primaryConstructor = FunSpec
@@ -290,29 +306,39 @@ private fun writeDtoCommonElements(dtoCommonElements: List<CommonElement>) {
                             .addParameters(
                                 parameterSpecs = properties.map { property ->
                                     return@map ParameterSpec
-                                        .builder(name = property.name, type = property.type)
+                                        .builder(name = property._name.withReplacedSnakeCases1, type = property.type)
                                         .build()
                                 }
                             )
                             .build()
                     )
-                    .addProperties(
-                        propertySpecs = properties.map { property ->
-                            return@map PropertySpec
-                                .builder(name = property.name, type = property.type)
-                                .addModifier(modifier = KModifier.PUBLIC)
-                                .initializer(format = property.name)
-                                .build()
-                        }
-                    )
                     .apply {
-                        val equals = commonElement.returns.equals(other = commonElement.name, ignoreCase = true)
-                        if (!equals) {
+                        if (commonElement.returns == className) {
+                            superclass(
+                                superclass = TypeName(packageName = PACKAGE_DTO, simpleName = "Model")
+                            )
+                        } else {
                             superclass(
                                 superclass = dtoTypeName(simpleName = commonElement.returns)
                             )
                         }
                     }
+                    .addProperties(
+                        propertySpecs = properties.map { property ->
+                            val name = property._name.withReplacedSnakeCases1
+                            return@map PropertySpec
+                                .builder(name = name, type = property.type)
+                                .addAnnotation(
+                                    annotationSpec = AnnotationSpec
+                                        .builder(type = SerialName::class)
+                                        .addMember(format = "value = \"%L\"", property._name)
+                                        .build()
+                                )
+                                .addModifier(modifier = KModifier.PUBLIC)
+                                .initializer(format = name)
+                                .build()
+                        }
+                    )
                     .addFunction(
                         funSpec = buildEqualsFunSpec(className = className, properties = properties)
                     )
@@ -321,6 +347,65 @@ private fun writeDtoCommonElements(dtoCommonElements: List<CommonElement>) {
                     )
                     .addFunction(
                         funSpec = buildToStringFunSpec(className = className, properties = properties)
+                    )
+                    .build()
+            )
+            .setIndent()
+            .build()
+            .writeAndFixContent(folderName = "commonMainGenerated")
+    }
+}
+
+private fun writeFunctionCommonElements(functionCommonElements: List<CommonElement>) {
+    functionCommonElements.forEach { commonElement ->
+        val className = commonElement.name.capitalized
+
+        val properties = createProperties(properties = commonElement.properties, fields = commonElement.description.fields)
+
+        FileSpec
+            .builder(packageName = PACKAGE_FUNCTION, fileName = className)
+            .addType(
+                typeSpec = TypeSpec
+                    .classBuilder(name = className)
+                    .addAnnotation(
+                        annotationSpec = AnnotationSpec
+                            .builder(type = SerialName::class)
+                            .addMember(format = "value = \"%L\"", commonElement.name)
+                            .build()
+                    )
+                    .addAnnotation(annotation = Serializable::class)
+                    .addModifier(modifier = KModifier.INTERNAL)
+                    .primaryConstructor(
+                        primaryConstructor = FunSpec
+                            .constructorBuilder()
+                            .addModifier(modifier = KModifier.INTERNAL)
+                            .addParameters(
+                                parameterSpecs = properties.map { property ->
+                                    return@map ParameterSpec
+                                        .builder(name = property._name.withReplacedSnakeCases1, type = property.type)
+                                        .build()
+                                }
+                            )
+                            .build()
+                    )
+                    .superclass(
+                        superclass = TypeName(packageName = PACKAGE_FUNCTION, simpleName = "Function")
+                    )
+                    .addProperties(
+                        propertySpecs = properties.map { property ->
+                            val name = property._name.withReplacedSnakeCases1
+                            return@map PropertySpec
+                                .builder(name = name, type = property.type)
+                                .addAnnotation(
+                                    annotationSpec = AnnotationSpec
+                                        .builder(type = SerialName::class)
+                                        .addMember(format = "value = \"%L\"", property._name)
+                                        .build()
+                                )
+                                .addModifier(modifier = KModifier.INTERNAL)
+                                .initializer(format = name)
+                                .build()
+                        }
                     )
                     .build()
             )
@@ -375,7 +460,7 @@ private fun writeClientInterface(functionCommonElements: List<CommonElement>, up
 
                         val properties = createProperties(
                             properties = commonElement.properties,
-                            fields = commonElement.description.fields
+                            fields = commonElement.description.fields,
                         )
 
                         return@map FunSpec
@@ -405,7 +490,7 @@ private fun writeClientInterface(functionCommonElements: List<CommonElement>, up
                             .addParameters(
                                 parameterSpecs = properties.map mapProperty@{ property ->
                                     return@mapProperty ParameterSpec
-                                        .builder(name = property.name, type = property.type)
+                                        .builder(name = property._name.withReplacedSnakeCases1, type = property.type)
                                         .apply {
                                             if (property.type.isNullable) {
                                                 defaultValue(format = "null")
@@ -432,6 +517,7 @@ private fun writeClientInterface(functionCommonElements: List<CommonElement>, up
                             propertySpec = PropertySpec
                                 .builder(name = "TDL_GIT_COMMIT_HASH", type = STRING)
                                 .addKdoc(format = "The Git commit hash of the TDLib.")
+                                .addModifier(modifier = KModifier.PUBLIC)
                                 .addModifier(modifier = KModifier.CONST)
                                 .initializer(format = "TdlEngine.GIT_COMMIT_HASH")
                                 .build()
@@ -440,6 +526,7 @@ private fun writeClientInterface(functionCommonElements: List<CommonElement>, up
                             propertySpec = PropertySpec
                                 .builder(name = "TDL_VERSION", type = STRING)
                                 .addKdoc(format = "The version of the TDLib.")
+                                .addModifier(modifier = KModifier.PUBLIC)
                                 .addModifier(modifier = KModifier.CONST)
                                 .initializer(format = "TdlEngine.VERSION")
                                 .build()
@@ -536,7 +623,8 @@ private fun createProperties(
 ): List<Property> {
     return properties.map { property ->
         return@map Property(
-            name = property.name.withReplacedSnakeCases1,
+            _name = property.name, // TODO Rename parameter
+            name = property.name.withReplacedSnakeCases1, // TODO Remove parameter
             type = property
                 .type
                 .let(::createTypeName)
@@ -545,8 +633,8 @@ private fun createProperties(
                         .firstOrNull { it.name == property.name }
                         .let { it?.isNullable == true }
                 ),
-            javaDoc = "", // TODO remove parameter
-            originalType = STRING // TODO remove parameter
+            javaDoc = "", // TODO Remove parameter
+            originalType = STRING, // TODO Remove parameter
         )
     }
 }
@@ -644,6 +732,7 @@ private const val LICENCE = """/*
 
 private const val PACKAGE = "dev.g000sha256.tdl"
 private const val PACKAGE_DTO = "$PACKAGE.dto"
+private const val PACKAGE_FUNCTION = "$PACKAGE.function"
 
 private val currentPath = System
     .getProperty("user.dir")
@@ -968,7 +1057,7 @@ private fun copyFiles(fromDirectory: File, toDirectory: File) {
     files.forEach {
         it.copyRecursively(
             target = File(toDirectory, it.name),
-            overwrite = true
+            overwrite = true,
         )
     }
 }
@@ -1234,13 +1323,13 @@ private fun writeTdlMapper(classDeclarations: List<ClassOrInterfaceDeclaration>)
                                                                     addStatement(
                                                                         format = "    %L = dto.%L?.mapArrayOfArrays { map(it) },",
                                                                         name,
-                                                                        name
+                                                                        name,
                                                                     )
                                                                 } else {
                                                                     addStatement(
                                                                         format = "    %L = dto.%L.mapArrayOfArrays { map(it) },",
                                                                         name,
-                                                                        name
+                                                                        name,
                                                                     )
                                                                 }
                                                             } else if (type is ClassName && type.packageName.startsWith(prefix = PACKAGE_DTO)) {
@@ -1248,13 +1337,13 @@ private fun writeTdlMapper(classDeclarations: List<ClassOrInterfaceDeclaration>)
                                                                     addStatement(
                                                                         format = "    %L = dto.%L?.mapArray { map(it) },",
                                                                         name,
-                                                                        name
+                                                                        name,
                                                                     )
                                                                 } else {
                                                                     addStatement(
                                                                         format = "    %L = dto.%L.mapArray { map(it) },",
                                                                         name,
-                                                                        name
+                                                                        name,
                                                                     )
                                                                 }
                                                             } else {
@@ -1267,7 +1356,7 @@ private fun writeTdlMapper(classDeclarations: List<ClassOrInterfaceDeclaration>)
                                                                     addStatement(
                                                                         format = "    %L = dto.%L?.let { map(it) },",
                                                                         name,
-                                                                        name
+                                                                        name,
                                                                     )
                                                                 } else {
                                                                     addStatement(format = "    %L = map(dto.%L),", name, name)
@@ -1342,30 +1431,30 @@ private fun writeTdlMapper(classDeclarations: List<ClassOrInterfaceDeclaration>)
                                                                     addStatement(
                                                                         format = "    %L = dto.%L?.mapArrayOfArrays { map(it) },",
                                                                         name,
-                                                                        name
+                                                                        name,
                                                                     )
                                                                 } else {
                                                                     addStatement(
                                                                         format = "    %L = dto.%L.mapArrayOfArrays { map(it) },",
                                                                         name,
-                                                                        name
+                                                                        name,
                                                                     )
                                                                 }
                                                             } else if (type is ClassName && type.packageName.startsWith(
-                                                                    prefix = PACKAGE_DTO
+                                                                    prefix = PACKAGE_DTO,
                                                                 )
                                                             ) {
                                                                 if (typeName.isNullable) {
                                                                     addStatement(
                                                                         format = "    %L = dto.%L?.mapArray { map(it) },",
                                                                         name,
-                                                                        name
+                                                                        name,
                                                                     )
                                                                 } else {
                                                                     addStatement(
                                                                         format = "    %L = dto.%L.mapArray { map(it) },",
                                                                         name,
-                                                                        name
+                                                                        name,
                                                                     )
                                                                 }
                                                             } else {
@@ -1378,13 +1467,13 @@ private fun writeTdlMapper(classDeclarations: List<ClassOrInterfaceDeclaration>)
                                                                     addStatement(
                                                                         format = "    %L = dto.%L?.let { map(it) },",
                                                                         name,
-                                                                        name
+                                                                        name,
                                                                     )
                                                                 } else {
                                                                     addStatement(
                                                                         format = "    %L = map(dto.%L),",
                                                                         name,
-                                                                        name
+                                                                        name,
                                                                     )
                                                                 }
                                                             } else {
@@ -1431,30 +1520,30 @@ private fun writeTdlMapper(classDeclarations: List<ClassOrInterfaceDeclaration>)
                                                                 addStatement(
                                                                     format = "    %L = dto.%L?.mapArrayOfArrays { map(it) },",
                                                                     name,
-                                                                    name
+                                                                    name,
                                                                 )
                                                             } else {
                                                                 addStatement(
                                                                     format = "    %L = dto.%L.mapArrayOfArrays { map(it) },",
                                                                     name,
-                                                                    name
+                                                                    name,
                                                                 )
                                                             }
                                                         } else if (type is ClassName && type.packageName.startsWith(
-                                                                prefix = PACKAGE_DTO
+                                                                prefix = PACKAGE_DTO,
                                                             )
                                                         ) {
                                                             if (typeName.isNullable) {
                                                                 addStatement(
                                                                     format = "    %L = dto.%L?.mapArray { map(it) },",
                                                                     name,
-                                                                    name
+                                                                    name,
                                                                 )
                                                             } else {
                                                                 addStatement(
                                                                     format = "    %L = dto.%L.mapArray { map(it) },",
                                                                     name,
-                                                                    name
+                                                                    name,
                                                                 )
                                                             }
                                                         } else {
@@ -1467,13 +1556,13 @@ private fun writeTdlMapper(classDeclarations: List<ClassOrInterfaceDeclaration>)
                                                                 addStatement(
                                                                     format = "    %L = dto.%L?.let { map(it) },",
                                                                     name,
-                                                                    name
+                                                                    name,
                                                                 )
                                                             } else {
                                                                 addStatement(
                                                                     format = "    %L = map(dto.%L),",
                                                                     name,
-                                                                    name
+                                                                    name,
                                                                 )
                                                             }
                                                         } else {
@@ -1517,30 +1606,30 @@ private fun writeTdlMapper(classDeclarations: List<ClassOrInterfaceDeclaration>)
                                                                 addStatement(
                                                                     format = "    %L = dto.%L?.mapArrayOfArrays { map(it) },",
                                                                     name,
-                                                                    name
+                                                                    name,
                                                                 )
                                                             } else {
                                                                 addStatement(
                                                                     format = "    %L = dto.%L.mapArrayOfArrays { map(it) },",
                                                                     name,
-                                                                    name
+                                                                    name,
                                                                 )
                                                             }
                                                         } else if (type is ClassName && type.packageName.startsWith(
-                                                                prefix = PACKAGE_DTO
+                                                                prefix = PACKAGE_DTO,
                                                             )
                                                         ) {
                                                             if (typeName.isNullable) {
                                                                 addStatement(
                                                                     format = "    %L = dto.%L?.mapArray { map(it) },",
                                                                     name,
-                                                                    name
+                                                                    name,
                                                                 )
                                                             } else {
                                                                 addStatement(
                                                                     format = "    %L = dto.%L.mapArray { map(it) },",
                                                                     name,
-                                                                    name
+                                                                    name,
                                                                 )
                                                             }
                                                         } else {
@@ -1553,13 +1642,13 @@ private fun writeTdlMapper(classDeclarations: List<ClassOrInterfaceDeclaration>)
                                                                 addStatement(
                                                                     format = "    %L = dto.%L?.let { map(it) },",
                                                                     name,
-                                                                    name
+                                                                    name,
                                                                 )
                                                             } else {
                                                                 addStatement(
                                                                     format = "    %L = map(dto.%L),",
                                                                     name,
-                                                                    name
+                                                                    name,
                                                                 )
                                                             }
                                                         } else {
@@ -1787,6 +1876,7 @@ private fun ClassOrInterfaceDeclaration.createProperties(): List<Property> {
 
                 val type = variableDeclarator.type
                 return@mapNotNull Property(
+                    _name = "",
                     name = name,
                     type = type
                         .toTypeName(replace = true)
@@ -1804,7 +1894,7 @@ private fun ClassOrInterfaceDeclaration.createProperties(): List<Property> {
 private fun FileSpec.writeAndFixContent(
     folderName: String,
     addLicence: Boolean = true,
-    removeAllPublic: Boolean = false
+    removeAllPublic: Boolean = false,
 ) {
     val path = Paths
         .get("$currentPath/tdl-coroutines/src/$folderName/kotlin")
@@ -1846,10 +1936,11 @@ private fun TypeSpec.Builder.addModifier(modifier: KModifier): TypeSpec.Builder 
 }
 
 private class Property(
+    val _name: String,
     val name: String,
     val type: TypeName,
     val javaDoc: String,
-    val originalType: TypeName
+    val originalType: TypeName,
 )
 
 private fun dtoTypeName(simpleName: String): TypeName {

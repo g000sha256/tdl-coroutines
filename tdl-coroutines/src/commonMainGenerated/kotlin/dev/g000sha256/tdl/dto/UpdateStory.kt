@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A story was changed.
  *
  * @property story The new information about the story.
  */
+@SerialName(value = "updateStory")
+@Serializable
 public class UpdateStory public constructor(
+    @SerialName(value = "story")
     public val story: Story,
 ) : Update() {
     override fun equals(other: Any?): Boolean {

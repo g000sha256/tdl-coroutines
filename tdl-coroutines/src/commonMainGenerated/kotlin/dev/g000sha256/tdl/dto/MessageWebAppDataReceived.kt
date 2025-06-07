@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Data from a Web App has been received; for bots only.
@@ -27,8 +29,12 @@ import kotlin.String
  * @property buttonText Text of the keyboardButtonTypeWebApp button, which opened the Web App.
  * @property data The data.
  */
+@SerialName(value = "messageWebAppDataReceived")
+@Serializable
 public class MessageWebAppDataReceived public constructor(
+    @SerialName(value = "button_text")
     public val buttonText: String,
+    @SerialName(value = "data")
     public val data: String,
 ) : MessageContent() {
     override fun equals(other: Any?): Boolean {

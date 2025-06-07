@@ -21,13 +21,18 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.LongArray
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The list of saved notification sounds was updated. This update may not be sent until information about a notification sound was requested for the first time.
  *
  * @property notificationSoundIds The new list of identifiers of saved notification sounds.
  */
+@SerialName(value = "updateSavedNotificationSounds")
+@Serializable
 public class UpdateSavedNotificationSounds public constructor(
+    @SerialName(value = "notification_sound_ids")
     public val notificationSoundIds: LongArray,
 ) : Update() {
     override fun equals(other: Any?): Boolean {

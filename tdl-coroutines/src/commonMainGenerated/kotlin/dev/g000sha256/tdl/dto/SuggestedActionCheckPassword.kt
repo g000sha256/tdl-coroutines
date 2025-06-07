@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Suggests the user to check whether they still remember their 2-step verification password.
  */
+@SerialName(value = "suggestedActionCheckPassword")
+@Serializable
 public class SuggestedActionCheckPassword public constructor() : SuggestedAction() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

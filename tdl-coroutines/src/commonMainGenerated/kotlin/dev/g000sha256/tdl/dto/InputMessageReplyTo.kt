@@ -16,8 +16,11 @@
 
 package dev.g000sha256.tdl.dto
 
+import kotlinx.serialization.Serializable
+
 /**
  * This class is an abstract base class.
  * Contains information about the message or the story to be replied.
  */
-public sealed class InputMessageReplyTo protected constructor()
+@Serializable
+public sealed class InputMessageReplyTo protected constructor() : Model()

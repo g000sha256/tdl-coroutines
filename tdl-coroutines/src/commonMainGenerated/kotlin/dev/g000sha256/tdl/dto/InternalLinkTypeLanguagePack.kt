@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The link is a link to a language pack. Call getLanguagePackInfo with the given language pack identifier to process the link. If the language pack is found and the user wants to apply it, then call setOption for the option &quot;language_pack_id&quot;.
  *
  * @property languagePackId Language pack identifier.
  */
+@SerialName(value = "internalLinkTypeLanguagePack")
+@Serializable
 public class InternalLinkTypeLanguagePack public constructor(
+    @SerialName(value = "language_pack_id")
     public val languagePackId: String,
 ) : InternalLinkType() {
     override fun equals(other: Any?): Boolean {

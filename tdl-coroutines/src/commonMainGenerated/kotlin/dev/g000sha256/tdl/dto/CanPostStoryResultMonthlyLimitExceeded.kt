@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The monthly limit for the number of posted stories exceeded. The user needs to buy Telegram Premium or wait specified time.
  *
  * @property retryAfter Time left before the user can post the next story.
  */
+@SerialName(value = "canPostStoryResultMonthlyLimitExceeded")
+@Serializable
 public class CanPostStoryResultMonthlyLimitExceeded public constructor(
+    @SerialName(value = "retry_after")
     public val retryAfter: Int,
 ) : CanPostStoryResult() {
     override fun equals(other: Any?): Boolean {

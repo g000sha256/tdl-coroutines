@@ -21,6 +21,8 @@ import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Represents a list of gifts received by a user or a chat.
@@ -30,12 +32,18 @@ import kotlin.String
  * @property areNotificationsEnabled True, if notifications about new gifts of the owner are enabled.
  * @property nextOffset The offset for the next request. If empty, then there are no more results.
  */
+@SerialName(value = "receivedGifts")
+@Serializable
 public class ReceivedGifts public constructor(
+    @SerialName(value = "total_count")
     public val totalCount: Int,
+    @SerialName(value = "gifts")
     public val gifts: Array<ReceivedGift>,
+    @SerialName(value = "are_notifications_enabled")
     public val areNotificationsEnabled: Boolean,
+    @SerialName(value = "next_offset")
     public val nextOffset: String,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

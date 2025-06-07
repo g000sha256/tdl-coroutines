@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The chat can be reported as spam using the method reportChat with an empty optionId and messageIds. If the chat is a private chat with a user with an emoji status, then a notice about emoji status usage must be shown.
  *
  * @property canUnarchive If true, the chat was automatically archived and can be moved back to the main chat list using addChatToList simultaneously with setting chat notification settings to default using setChatNotificationSettings.
  */
+@SerialName(value = "chatActionBarReportSpam")
+@Serializable
 public class ChatActionBarReportSpam public constructor(
+    @SerialName(value = "can_unarchive")
     public val canUnarchive: Boolean,
 ) : ChatActionBar() {
     override fun equals(other: Any?): Boolean {

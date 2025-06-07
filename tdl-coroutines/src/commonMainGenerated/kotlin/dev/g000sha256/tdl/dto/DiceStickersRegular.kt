@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A regular animated sticker.
  *
  * @property sticker The animated sticker with the dice animation.
  */
+@SerialName(value = "diceStickersRegular")
+@Serializable
 public class DiceStickersRegular public constructor(
+    @SerialName(value = "sticker")
     public val sticker: Sticker,
 ) : DiceStickers() {
     override fun equals(other: Any?): Boolean {

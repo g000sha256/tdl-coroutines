@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Some data of a supergroup or a channel has changed. This update is guaranteed to come before the supergroup identifier is returned to the application.
  *
  * @property supergroup New data about the supergroup.
  */
+@SerialName(value = "updateSupergroup")
+@Serializable
 public class UpdateSupergroup public constructor(
+    @SerialName(value = "supergroup")
     public val supergroup: Supergroup,
 ) : Update() {
     override fun equals(other: Any?): Boolean {

@@ -21,6 +21,8 @@ import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains information about a country.
@@ -31,13 +33,20 @@ import kotlin.String
  * @property isHidden True, if the country must be hidden from the list of all countries.
  * @property callingCodes List of country calling codes.
  */
+@SerialName(value = "countryInfo")
+@Serializable
 public class CountryInfo public constructor(
+    @SerialName(value = "country_code")
     public val countryCode: String,
+    @SerialName(value = "name")
     public val name: String,
+    @SerialName(value = "english_name")
     public val englishName: String,
+    @SerialName(value = "is_hidden")
     public val isHidden: Boolean,
+    @SerialName(value = "calling_codes")
     public val callingCodes: Array<String>,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

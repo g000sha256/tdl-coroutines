@@ -16,8 +16,11 @@
 
 package dev.g000sha256.tdl.dto
 
+import kotlinx.serialization.Serializable
+
 /**
  * This class is an abstract base class.
  * Describes reactions available in the chat.
  */
-public sealed class ChatAvailableReactions protected constructor()
+@Serializable
+public sealed class ChatAvailableReactions protected constructor() : Model()

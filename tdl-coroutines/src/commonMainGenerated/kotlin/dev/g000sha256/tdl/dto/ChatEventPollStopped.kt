@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A poll in a message was stopped.
  *
  * @property message The message with the poll.
  */
+@SerialName(value = "chatEventPollStopped")
+@Serializable
 public class ChatEventPollStopped public constructor(
+    @SerialName(value = "message")
     public val message: Message,
 ) : ChatEventAction() {
     override fun equals(other: Any?): Boolean {

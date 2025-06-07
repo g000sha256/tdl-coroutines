@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains information about a phone number.
@@ -29,12 +31,18 @@ import kotlin.String
  * @property formattedPhoneNumber The phone number without country calling code formatted accordingly to local rules. Expected digits are returned as '-', but even more digits might be entered by the user.
  * @property isAnonymous True, if the phone number was bought at https://fragment.com and isn't tied to a SIM card. Information about the phone number can be received using getCollectibleItemInfo.
  */
+@SerialName(value = "phoneNumberInfo")
+@Serializable
 public class PhoneNumberInfo public constructor(
+    @SerialName(value = "country")
     public val country: CountryInfo?,
+    @SerialName(value = "country_calling_code")
     public val countryCallingCode: String,
+    @SerialName(value = "formatted_phone_number")
     public val formattedPhoneNumber: String,
+    @SerialName(value = "is_anonymous")
     public val isAnonymous: Boolean,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

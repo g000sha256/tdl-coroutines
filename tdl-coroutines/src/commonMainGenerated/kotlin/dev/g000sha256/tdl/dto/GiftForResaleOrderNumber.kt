@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The gifts will be sorted by their number from the smallest to the largest.
  */
+@SerialName(value = "giftForResaleOrderNumber")
+@Serializable
 public class GiftForResaleOrderNumber public constructor() : GiftForResaleOrder() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

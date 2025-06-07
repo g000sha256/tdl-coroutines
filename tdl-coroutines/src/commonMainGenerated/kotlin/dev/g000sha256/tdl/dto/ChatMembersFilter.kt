@@ -16,8 +16,11 @@
 
 package dev.g000sha256.tdl.dto
 
+import kotlinx.serialization.Serializable
+
 /**
  * This class is an abstract base class.
  * Specifies the kind of chat members to return in searchChatMembers.
  */
-public sealed class ChatMembersFilter protected constructor()
+@Serializable
+public sealed class ChatMembersFilter protected constructor() : Model()

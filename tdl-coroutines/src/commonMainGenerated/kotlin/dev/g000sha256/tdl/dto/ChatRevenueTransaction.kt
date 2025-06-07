@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains a chat revenue transactions.
@@ -29,11 +31,16 @@ import kotlin.String
  * @property cryptocurrencyAmount The withdrawn amount, in the smallest units of the cryptocurrency.
  * @property type Type of the transaction.
  */
+@SerialName(value = "chatRevenueTransaction")
+@Serializable
 public class ChatRevenueTransaction public constructor(
+    @SerialName(value = "cryptocurrency")
     public val cryptocurrency: String,
+    @SerialName(value = "cryptocurrency_amount")
     public val cryptocurrencyAmount: Long,
+    @SerialName(value = "type")
     public val type: ChatRevenueTransactionType,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

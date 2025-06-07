@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A HTTP transparent proxy server.
@@ -28,9 +30,14 @@ import kotlin.String
  * @property password Password for logging in; may be empty.
  * @property httpOnly Pass true if the proxy supports only HTTP requests and doesn't support transparent TCP connections via HTTP CONNECT method.
  */
+@SerialName(value = "proxyTypeHttp")
+@Serializable
 public class ProxyTypeHttp public constructor(
+    @SerialName(value = "username")
     public val username: String,
+    @SerialName(value = "password")
     public val password: String,
+    @SerialName(value = "http_only")
     public val httpOnly: Boolean,
 ) : ProxyType() {
     override fun equals(other: Any?): Boolean {

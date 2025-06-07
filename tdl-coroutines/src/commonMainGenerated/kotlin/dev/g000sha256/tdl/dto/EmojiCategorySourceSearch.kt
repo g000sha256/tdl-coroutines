@@ -21,13 +21,18 @@ import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The category contains a list of similar emoji to search for in getStickers and searchStickers for stickers, or getInlineQueryResults with the bot getOption(&quot;animation_search_bot_username&quot;) for animations.
  *
  * @property emojis List of emojis to search for.
  */
+@SerialName(value = "emojiCategorySourceSearch")
+@Serializable
 public class EmojiCategorySourceSearch public constructor(
+    @SerialName(value = "emojis")
     public val emojis: Array<String>,
 ) : EmojiCategorySource() {
     override fun equals(other: Any?): Boolean {

@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * An authentication token received through Google ID.
  *
  * @property token The token.
  */
+@SerialName(value = "emailAddressAuthenticationGoogleId")
+@Serializable
 public class EmailAddressAuthenticationGoogleId public constructor(
+    @SerialName(value = "token")
     public val token: String,
 ) : EmailAddressAuthentication() {
     override fun equals(other: Any?): Boolean {

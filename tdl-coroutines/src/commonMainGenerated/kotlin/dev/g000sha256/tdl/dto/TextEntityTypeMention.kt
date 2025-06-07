@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A mention of a user, a supergroup, or a channel by their username.
  */
+@SerialName(value = "textEntityTypeMention")
+@Serializable
 public class TextEntityTypeMention public constructor() : TextEntityType() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

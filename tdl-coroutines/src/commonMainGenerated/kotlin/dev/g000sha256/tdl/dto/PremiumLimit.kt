@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains information about a limit, increased for Premium users.
@@ -28,11 +30,16 @@ import kotlin.String
  * @property defaultValue Default value of the limit.
  * @property premiumValue Value of the limit for Premium users.
  */
+@SerialName(value = "premiumLimit")
+@Serializable
 public class PremiumLimit public constructor(
+    @SerialName(value = "type")
     public val type: PremiumLimitType,
+    @SerialName(value = "default_value")
     public val defaultValue: Int,
+    @SerialName(value = "premium_value")
     public val premiumValue: Int,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

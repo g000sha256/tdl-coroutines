@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The chat's profile accent color or profile background custom emoji were changed.
@@ -30,10 +32,16 @@ import kotlin.String
  * @property newProfileAccentColorId New identifier of chat's profile accent color; -1 if none.
  * @property newProfileBackgroundCustomEmojiId New identifier of the custom emoji; 0 if none.
  */
+@SerialName(value = "chatEventProfileAccentColorChanged")
+@Serializable
 public class ChatEventProfileAccentColorChanged public constructor(
+    @SerialName(value = "old_profile_accent_color_id")
     public val oldProfileAccentColorId: Int,
+    @SerialName(value = "old_profile_background_custom_emoji_id")
     public val oldProfileBackgroundCustomEmojiId: Long,
+    @SerialName(value = "new_profile_accent_color_id")
     public val newProfileAccentColorId: Int,
+    @SerialName(value = "new_profile_background_custom_emoji_id")
     public val newProfileBackgroundCustomEmojiId: Long,
 ) : ChatEventAction() {
     override fun equals(other: Any?): Boolean {

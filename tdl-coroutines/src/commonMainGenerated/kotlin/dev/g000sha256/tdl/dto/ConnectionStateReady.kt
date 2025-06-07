@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * There is a working connection to the Telegram servers.
  */
+@SerialName(value = "connectionStateReady")
+@Serializable
 public class ConnectionStateReady public constructor() : ConnectionState() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

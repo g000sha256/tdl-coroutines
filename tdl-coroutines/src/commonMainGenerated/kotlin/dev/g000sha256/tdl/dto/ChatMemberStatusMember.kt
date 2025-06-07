@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The user is a member of the chat, without any additional privileges or restrictions.
  *
  * @property memberUntilDate Point in time (Unix timestamp) when the user will be removed from the chat because of the expired subscription; 0 if never. Ignored in setChatMemberStatus.
  */
+@SerialName(value = "chatMemberStatusMember")
+@Serializable
 public class ChatMemberStatusMember public constructor(
+    @SerialName(value = "member_until_date")
     public val memberUntilDate: Int,
 ) : ChatMemberStatus() {
     override fun equals(other: Any?): Boolean {

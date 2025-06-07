@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * An anchor.
  *
  * @property name Anchor name.
  */
+@SerialName(value = "richTextAnchor")
+@Serializable
 public class RichTextAnchor public constructor(
+    @SerialName(value = "name")
     public val name: String,
 ) : RichText() {
     override fun equals(other: Any?): Boolean {

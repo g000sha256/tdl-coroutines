@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains information about one website the current user is logged in with Telegram.
@@ -35,17 +37,28 @@ import kotlin.String
  * @property ipAddress IP address from which the user was logged in, in human-readable format.
  * @property location Human-readable description of a country and a region from which the user was logged in, based on the IP address.
  */
+@SerialName(value = "connectedWebsite")
+@Serializable
 public class ConnectedWebsite public constructor(
+    @SerialName(value = "id")
     public val id: Long,
+    @SerialName(value = "domain_name")
     public val domainName: String,
+    @SerialName(value = "bot_user_id")
     public val botUserId: Long,
+    @SerialName(value = "browser")
     public val browser: String,
+    @SerialName(value = "platform")
     public val platform: String,
+    @SerialName(value = "log_in_date")
     public val logInDate: Int,
+    @SerialName(value = "last_active_date")
     public val lastActiveDate: Int,
+    @SerialName(value = "ip_address")
     public val ipAddress: String,
+    @SerialName(value = "location")
     public val location: String,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

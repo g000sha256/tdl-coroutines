@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes a venue.
@@ -31,14 +33,22 @@ import kotlin.String
  * @property id Identifier of the venue in the provider database; as defined by the sender.
  * @property type Type of the venue in the provider database; as defined by the sender.
  */
+@SerialName(value = "venue")
+@Serializable
 public class Venue public constructor(
+    @SerialName(value = "location")
     public val location: Location,
+    @SerialName(value = "title")
     public val title: String,
+    @SerialName(value = "address")
     public val address: String,
+    @SerialName(value = "provider")
     public val provider: String,
+    @SerialName(value = "id")
     public val id: String,
+    @SerialName(value = "type")
     public val type: String,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

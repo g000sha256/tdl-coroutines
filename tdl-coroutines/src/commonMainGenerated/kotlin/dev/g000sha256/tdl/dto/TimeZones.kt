@@ -21,15 +21,20 @@ import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains a list of time zones.
  *
  * @property timeZones A list of time zones.
  */
+@SerialName(value = "timeZones")
+@Serializable
 public class TimeZones public constructor(
+    @SerialName(value = "time_zones")
     public val timeZones: Array<TimeZone>,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

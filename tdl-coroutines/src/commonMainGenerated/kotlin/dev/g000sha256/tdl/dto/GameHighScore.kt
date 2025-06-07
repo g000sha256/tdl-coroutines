@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains one row of the game high score table.
@@ -29,11 +31,16 @@ import kotlin.String
  * @property userId User identifier.
  * @property score User score.
  */
+@SerialName(value = "gameHighScore")
+@Serializable
 public class GameHighScore public constructor(
+    @SerialName(value = "position")
     public val position: Int,
+    @SerialName(value = "user_id")
     public val userId: Long,
+    @SerialName(value = "score")
     public val score: Int,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

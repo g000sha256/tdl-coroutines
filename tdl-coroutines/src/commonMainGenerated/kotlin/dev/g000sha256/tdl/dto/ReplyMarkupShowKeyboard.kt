@@ -21,6 +21,8 @@ import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains a custom keyboard layout to quickly reply to bots.
@@ -32,12 +34,20 @@ import kotlin.String
  * @property isPersonal True, if the keyboard must automatically be shown to the current user. For outgoing messages, specify true to show the keyboard only for the mentioned users and for the target user of a reply.
  * @property inputFieldPlaceholder If non-empty, the placeholder to be shown in the input field when the keyboard is active; 0-64 characters.
  */
+@SerialName(value = "replyMarkupShowKeyboard")
+@Serializable
 public class ReplyMarkupShowKeyboard public constructor(
+    @SerialName(value = "rows")
     public val rows: Array<Array<KeyboardButton>>,
+    @SerialName(value = "is_persistent")
     public val isPersistent: Boolean,
+    @SerialName(value = "resize_keyboard")
     public val resizeKeyboard: Boolean,
+    @SerialName(value = "one_time")
     public val oneTime: Boolean,
+    @SerialName(value = "is_personal")
     public val isPersonal: Boolean,
+    @SerialName(value = "input_field_placeholder")
     public val inputFieldPlaceholder: String,
 ) : ReplyMarkup() {
     override fun equals(other: Any?): Boolean {

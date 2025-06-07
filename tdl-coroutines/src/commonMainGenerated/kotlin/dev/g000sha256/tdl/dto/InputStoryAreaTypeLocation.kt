@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * An area pointing to a location.
@@ -27,8 +29,12 @@ import kotlin.String
  * @property location The location.
  * @property address Address of the location; pass null if unknown.
  */
+@SerialName(value = "inputStoryAreaTypeLocation")
+@Serializable
 public class InputStoryAreaTypeLocation public constructor(
+    @SerialName(value = "location")
     public val location: Location,
+    @SerialName(value = "address")
     public val address: LocationAddress?,
 ) : InputStoryAreaType() {
     override fun equals(other: Any?): Boolean {

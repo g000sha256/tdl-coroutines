@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A privacy setting for managing whether received gifts are automatically shown on the user's profile page.
  */
+@SerialName(value = "userPrivacySettingAutosaveGifts")
+@Serializable
 public class UserPrivacySettingAutosaveGifts public constructor() : UserPrivacySetting() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

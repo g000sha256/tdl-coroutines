@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Translation of chat messages was enabled or disabled.
@@ -28,8 +30,12 @@ import kotlin.String
  * @property chatId Chat identifier.
  * @property isTranslatable New value of isTranslatable.
  */
+@SerialName(value = "updateChatIsTranslatable")
+@Serializable
 public class UpdateChatIsTranslatable public constructor(
+    @SerialName(value = "chat_id")
     public val chatId: Long,
+    @SerialName(value = "is_translatable")
     public val isTranslatable: Boolean,
 ) : Update() {
     override fun equals(other: Any?): Boolean {

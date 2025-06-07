@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The text uses Markdown-style formatting.
  *
  * @property version Version of the parser: 0 or 1 - Telegram Bot API &quot;Markdown&quot; parse mode, 2 - Telegram Bot API &quot;MarkdownV2&quot; parse mode.
  */
+@SerialName(value = "textParseModeMarkdown")
+@Serializable
 public class TextParseModeMarkdown public constructor(
+    @SerialName(value = "version")
     public val version: Int,
 ) : TextParseMode() {
     override fun equals(other: Any?): Boolean {

@@ -21,15 +21,20 @@ import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains a list of text entities.
  *
  * @property entities List of text entities.
  */
+@SerialName(value = "textEntities")
+@Serializable
 public class TextEntities public constructor(
+    @SerialName(value = "entities")
     public val entities: Array<TextEntity>,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

@@ -22,6 +22,8 @@ import kotlin.ByteArray
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A new incoming pre-checkout query; for bots only. Contains full information about a checkout.
@@ -34,13 +36,22 @@ import kotlin.String
  * @property shippingOptionId Identifier of a shipping option chosen by the user; may be empty if not applicable.
  * @property orderInfo Information about the order; may be null.
  */
+@SerialName(value = "updateNewPreCheckoutQuery")
+@Serializable
 public class UpdateNewPreCheckoutQuery public constructor(
+    @SerialName(value = "id")
     public val id: Long,
+    @SerialName(value = "sender_user_id")
     public val senderUserId: Long,
+    @SerialName(value = "currency")
     public val currency: String,
+    @SerialName(value = "total_amount")
     public val totalAmount: Long,
+    @SerialName(value = "invoice_payload")
     public val invoicePayload: ByteArray,
+    @SerialName(value = "shipping_option_id")
     public val shippingOptionId: String,
+    @SerialName(value = "order_info")
     public val orderInfo: OrderInfo?,
 ) : Update() {
     override fun equals(other: Any?): Boolean {

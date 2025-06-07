@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A custom suggestion to be shown at the top of the chat list.
@@ -29,10 +31,16 @@ import kotlin.String
  * @property description Description of the suggestion.
  * @property url The link to open when the suggestion is clicked.
  */
+@SerialName(value = "suggestedActionCustom")
+@Serializable
 public class SuggestedActionCustom public constructor(
+    @SerialName(value = "name")
     public val name: String,
+    @SerialName(value = "title")
     public val title: FormattedText,
+    @SerialName(value = "description")
     public val description: FormattedText,
+    @SerialName(value = "url")
     public val url: String,
 ) : SuggestedAction() {
     override fun equals(other: Any?): Boolean {

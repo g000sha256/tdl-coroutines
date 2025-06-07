@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Text that must be formatted as if inside a blockquote HTML tag and collapsed by default to 3 lines with the ability to show full text; not supported in secret chats.
  */
+@SerialName(value = "textEntityTypeExpandableBlockQuote")
+@Serializable
 public class TextEntityTypeExpandableBlockQuote public constructor() : TextEntityType() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

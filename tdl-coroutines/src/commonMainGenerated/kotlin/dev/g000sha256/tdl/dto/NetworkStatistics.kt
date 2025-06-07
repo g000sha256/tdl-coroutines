@@ -21,6 +21,8 @@ import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A full list of available network statistic entries.
@@ -28,10 +30,14 @@ import kotlin.String
  * @property sinceDate Point in time (Unix timestamp) from which the statistics are collected.
  * @property entries Network statistics entries.
  */
+@SerialName(value = "networkStatistics")
+@Serializable
 public class NetworkStatistics public constructor(
+    @SerialName(value = "since_date")
     public val sinceDate: Int,
+    @SerialName(value = "entries")
     public val entries: Array<NetworkStatisticsEntry>,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

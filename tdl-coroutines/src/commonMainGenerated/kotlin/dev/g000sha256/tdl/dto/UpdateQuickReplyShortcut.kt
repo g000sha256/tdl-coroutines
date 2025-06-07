@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Basic information about a quick reply shortcut has changed. This update is guaranteed to come before the quick shortcut name is returned to the application.
  *
  * @property shortcut New data about the shortcut.
  */
+@SerialName(value = "updateQuickReplyShortcut")
+@Serializable
 public class UpdateQuickReplyShortcut public constructor(
+    @SerialName(value = "shortcut")
     public val shortcut: QuickReplyShortcut,
 ) : Update() {
     override fun equals(other: Any?): Boolean {

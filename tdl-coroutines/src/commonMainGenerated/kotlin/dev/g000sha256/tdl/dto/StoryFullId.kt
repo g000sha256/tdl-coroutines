@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains identifier of a story along with identifier of the chat that posted it.
@@ -28,10 +30,14 @@ import kotlin.String
  * @property posterChatId Identifier of the chat that posted the story.
  * @property storyId Unique story identifier among stories of the chat.
  */
+@SerialName(value = "storyFullId")
+@Serializable
 public class StoryFullId public constructor(
+    @SerialName(value = "poster_chat_id")
     public val posterChatId: Long,
+    @SerialName(value = "story_id")
     public val storyId: Int,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

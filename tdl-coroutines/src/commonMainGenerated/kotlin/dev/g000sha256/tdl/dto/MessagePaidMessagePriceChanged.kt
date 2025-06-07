@@ -21,13 +21,18 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A price for paid messages was changed in the supergroup chat.
  *
  * @property paidMessageStarCount The new number of Telegram Stars that must be paid by non-administrator users of the supergroup chat for each sent message.
  */
+@SerialName(value = "messagePaidMessagePriceChanged")
+@Serializable
 public class MessagePaidMessagePriceChanged public constructor(
+    @SerialName(value = "paid_message_star_count")
     public val paidMessageStarCount: Long,
 ) : MessageContent() {
     override fun equals(other: Any?): Boolean {

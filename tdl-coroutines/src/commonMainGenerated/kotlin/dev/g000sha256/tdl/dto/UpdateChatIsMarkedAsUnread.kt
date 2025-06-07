@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A chat was marked as unread or was read.
@@ -28,8 +30,12 @@ import kotlin.String
  * @property chatId Chat identifier.
  * @property isMarkedAsUnread New value of isMarkedAsUnread.
  */
+@SerialName(value = "updateChatIsMarkedAsUnread")
+@Serializable
 public class UpdateChatIsMarkedAsUnread public constructor(
+    @SerialName(value = "chat_id")
     public val chatId: Long,
+    @SerialName(value = "is_marked_as_unread")
     public val isMarkedAsUnread: Boolean,
 ) : Update() {
     override fun equals(other: Any?): Boolean {

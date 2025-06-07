@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A Telegram Passport element containing the user's passport.
  *
  * @property passport Passport.
  */
+@SerialName(value = "passportElementPassport")
+@Serializable
 public class PassportElementPassport public constructor(
+    @SerialName(value = "passport")
     public val passport: IdentityDocument,
 ) : PassportElement() {
     override fun equals(other: Any?): Boolean {

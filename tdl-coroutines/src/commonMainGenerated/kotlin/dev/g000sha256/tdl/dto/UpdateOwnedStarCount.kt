@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The number of Telegram Stars owned by the current user has changed.
  *
  * @property starAmount The new amount of owned Telegram Stars.
  */
+@SerialName(value = "updateOwnedStarCount")
+@Serializable
 public class UpdateOwnedStarCount public constructor(
+    @SerialName(value = "star_amount")
     public val starAmount: StarAmount,
 ) : Update() {
     override fun equals(other: Any?): Boolean {

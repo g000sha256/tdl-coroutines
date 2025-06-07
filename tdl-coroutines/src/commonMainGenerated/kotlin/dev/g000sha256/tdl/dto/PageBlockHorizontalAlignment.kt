@@ -16,8 +16,11 @@
 
 package dev.g000sha256.tdl.dto
 
+import kotlinx.serialization.Serializable
+
 /**
  * This class is an abstract base class.
  * Describes a horizontal alignment of a table cell content.
  */
-public sealed class PageBlockHorizontalAlignment protected constructor()
+@Serializable
+public sealed class PageBlockHorizontalAlignment protected constructor() : Model()

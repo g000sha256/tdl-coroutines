@@ -22,6 +22,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains a list of messages found by a search in a given chat.
@@ -30,11 +32,16 @@ import kotlin.String
  * @property messages List of messages.
  * @property nextFromMessageId The offset for the next request. If 0, there are no more results.
  */
+@SerialName(value = "foundChatMessages")
+@Serializable
 public class FoundChatMessages public constructor(
+    @SerialName(value = "total_count")
     public val totalCount: Int,
+    @SerialName(value = "messages")
     public val messages: Array<Message>,
+    @SerialName(value = "next_from_message_id")
     public val nextFromMessageId: Long,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

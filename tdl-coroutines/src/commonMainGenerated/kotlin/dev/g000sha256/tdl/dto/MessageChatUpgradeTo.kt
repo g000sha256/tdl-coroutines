@@ -21,13 +21,18 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A basic group was upgraded to a supergroup and was deactivated as the result.
  *
  * @property supergroupId Identifier of the supergroup to which the basic group was upgraded.
  */
+@SerialName(value = "messageChatUpgradeTo")
+@Serializable
 public class MessageChatUpgradeTo public constructor(
+    @SerialName(value = "supergroup_id")
     public val supergroupId: Long,
 ) : MessageContent() {
     override fun equals(other: Any?): Boolean {

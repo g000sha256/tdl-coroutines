@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Verifies ownership of a phone number to be added to the user's Telegram Passport.
  */
+@SerialName(value = "phoneNumberCodeTypeVerify")
+@Serializable
 public class PhoneNumberCodeTypeVerify public constructor() : PhoneNumberCodeType() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

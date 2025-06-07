@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The other side couldn't hear the user.
  */
+@SerialName(value = "callProblemSilentRemote")
+@Serializable
 public class CallProblemSilentRemote public constructor() : CallProblem() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

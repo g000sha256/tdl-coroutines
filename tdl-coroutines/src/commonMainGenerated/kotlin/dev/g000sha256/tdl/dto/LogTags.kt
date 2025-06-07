@@ -21,15 +21,20 @@ import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains a list of available TDLib internal log tags.
  *
  * @property tags List of log tags.
  */
+@SerialName(value = "logTags")
+@Serializable
 public class LogTags public constructor(
+    @SerialName(value = "tags")
     public val tags: Array<String>,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

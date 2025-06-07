@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes a gradient fill of a background.
@@ -28,9 +30,14 @@ import kotlin.String
  * @property bottomColor A bottom color of the background in the RGB format.
  * @property rotationAngle Clockwise rotation angle of the gradient, in degrees; 0-359. Must always be divisible by 45.
  */
+@SerialName(value = "backgroundFillGradient")
+@Serializable
 public class BackgroundFillGradient public constructor(
+    @SerialName(value = "top_color")
     public val topColor: Int,
+    @SerialName(value = "bottom_color")
     public val bottomColor: Int,
+    @SerialName(value = "rotation_angle")
     public val rotationAngle: Int,
 ) : BackgroundFill() {
     override fun equals(other: Any?): Boolean {

@@ -21,6 +21,8 @@ import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The parameters of animation search through getOption(&quot;animation_search_bot_username&quot;) bot has changed.
@@ -28,8 +30,12 @@ import kotlin.String
  * @property provider Name of the animation search provider.
  * @property emojis The new list of emojis suggested for searching.
  */
+@SerialName(value = "updateAnimationSearchParameters")
+@Serializable
 public class UpdateAnimationSearchParameters public constructor(
+    @SerialName(value = "provider")
     public val provider: String,
+    @SerialName(value = "emojis")
     public val emojis: Array<String>,
 ) : Update() {
     override fun equals(other: Any?): Boolean {

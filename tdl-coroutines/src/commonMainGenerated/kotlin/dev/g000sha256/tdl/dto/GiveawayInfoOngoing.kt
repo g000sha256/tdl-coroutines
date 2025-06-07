@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes an ongoing giveaway.
@@ -28,9 +30,14 @@ import kotlin.String
  * @property status Status of the current user in the giveaway.
  * @property isEnded True, if the giveaway has ended and results are being prepared.
  */
+@SerialName(value = "giveawayInfoOngoing")
+@Serializable
 public class GiveawayInfoOngoing public constructor(
+    @SerialName(value = "creation_date")
     public val creationDate: Int,
+    @SerialName(value = "status")
     public val status: GiveawayParticipantStatus,
+    @SerialName(value = "is_ended")
     public val isEnded: Boolean,
 ) : GiveawayInfo() {
     override fun equals(other: Any?): Boolean {

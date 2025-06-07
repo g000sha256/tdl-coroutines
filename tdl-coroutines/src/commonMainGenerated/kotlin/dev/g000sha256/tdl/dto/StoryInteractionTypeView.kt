@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A view of the story.
  *
  * @property chosenReactionType Type of the reaction that was chosen by the viewer; may be null if none.
  */
+@SerialName(value = "storyInteractionTypeView")
+@Serializable
 public class StoryInteractionTypeView public constructor(
+    @SerialName(value = "chosen_reaction_type")
     public val chosenReactionType: ReactionType?,
 ) : StoryInteractionType() {
     override fun equals(other: Any?): Boolean {

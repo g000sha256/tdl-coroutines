@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes a video file.
@@ -35,18 +37,30 @@ import kotlin.String
  * @property thumbnail Video thumbnail in JPEG or MPEG4 format; as defined by the sender; may be null.
  * @property video File containing the video.
  */
+@SerialName(value = "video")
+@Serializable
 public class Video public constructor(
+    @SerialName(value = "duration")
     public val duration: Int,
+    @SerialName(value = "width")
     public val width: Int,
+    @SerialName(value = "height")
     public val height: Int,
+    @SerialName(value = "file_name")
     public val fileName: String,
+    @SerialName(value = "mime_type")
     public val mimeType: String,
+    @SerialName(value = "has_stickers")
     public val hasStickers: Boolean,
+    @SerialName(value = "supports_streaming")
     public val supportsStreaming: Boolean,
+    @SerialName(value = "minithumbnail")
     public val minithumbnail: Minithumbnail?,
+    @SerialName(value = "thumbnail")
     public val thumbnail: Thumbnail?,
+    @SerialName(value = "video")
     public val video: File,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

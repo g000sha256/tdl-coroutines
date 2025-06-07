@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Returns only messages in private chats.
  */
+@SerialName(value = "searchMessagesChatTypeFilterPrivate")
+@Serializable
 public class SearchMessagesChatTypeFilterPrivate public constructor() : SearchMessagesChatTypeFilter() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

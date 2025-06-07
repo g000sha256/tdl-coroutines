@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Applies if a user enters new credentials using Apple Pay.
  *
  * @property data JSON-encoded data with the credential identifier.
  */
+@SerialName(value = "inputCredentialsApplePay")
+@Serializable
 public class InputCredentialsApplePay public constructor(
+    @SerialName(value = "data")
     public val data: String,
 ) : InputCredentials() {
     override fun equals(other: Any?): Boolean {

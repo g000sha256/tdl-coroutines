@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The transaction is a deposit of Telegram Stars by another user; for regular users only.
@@ -28,8 +30,12 @@ import kotlin.String
  * @property userId Identifier of the user that gifted Telegram Stars; 0 if the user was anonymous.
  * @property sticker The sticker to be shown in the transaction information; may be null if unknown.
  */
+@SerialName(value = "starTransactionTypeUserDeposit")
+@Serializable
 public class StarTransactionTypeUserDeposit public constructor(
+    @SerialName(value = "user_id")
     public val userId: Long,
+    @SerialName(value = "sticker")
     public val sticker: Sticker?,
 ) : StarTransactionType() {
     override fun equals(other: Any?): Boolean {

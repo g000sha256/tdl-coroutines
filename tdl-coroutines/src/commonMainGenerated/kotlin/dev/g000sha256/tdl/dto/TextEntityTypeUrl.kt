@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * An HTTP URL.
  */
+@SerialName(value = "textEntityTypeUrl")
+@Serializable
 public class TextEntityTypeUrl public constructor() : TextEntityType() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

@@ -21,15 +21,20 @@ import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Represents a list of proxy servers.
  *
  * @property proxies List of proxy servers.
  */
+@SerialName(value = "proxies")
+@Serializable
 public class Proxies public constructor(
+    @SerialName(value = "proxies")
     public val proxies: Array<Proxy>,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

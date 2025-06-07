@@ -16,8 +16,11 @@
 
 package dev.g000sha256.tdl.dto
 
+import kotlinx.serialization.Serializable
+
 /**
  * This class is an abstract base class.
  * Represents a single result of an inline query.
  */
-public sealed class InlineQueryResult protected constructor()
+@Serializable
+public sealed class InlineQueryResult protected constructor() : Model()

@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes a background set for a specific chat.
@@ -27,10 +29,14 @@ import kotlin.String
  * @property background The background.
  * @property darkThemeDimming Dimming of the background in dark themes, as a percentage; 0-100. Applied only to Wallpaper and Fill types of background.
  */
+@SerialName(value = "chatBackground")
+@Serializable
 public class ChatBackground public constructor(
+    @SerialName(value = "background")
     public val background: Background,
+    @SerialName(value = "dark_theme_dimming")
     public val darkThemeDimming: Int,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

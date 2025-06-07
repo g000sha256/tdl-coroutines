@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains information about a user that added paid reactions.
@@ -30,13 +32,20 @@ import kotlin.String
  * @property isMe True, if the paid reaction was added by the current user.
  * @property isAnonymous True, if the reactor is anonymous.
  */
+@SerialName(value = "paidReactor")
+@Serializable
 public class PaidReactor public constructor(
+    @SerialName(value = "sender_id")
     public val senderId: MessageSender?,
+    @SerialName(value = "star_count")
     public val starCount: Int,
+    @SerialName(value = "is_top")
     public val isTop: Boolean,
+    @SerialName(value = "is_me")
     public val isMe: Boolean,
+    @SerialName(value = "is_anonymous")
     public val isAnonymous: Boolean,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

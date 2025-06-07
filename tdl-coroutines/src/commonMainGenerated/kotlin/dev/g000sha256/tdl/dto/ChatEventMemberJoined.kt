@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A new member joined the chat.
  */
+@SerialName(value = "chatEventMemberJoined")
+@Serializable
 public class ChatEventMemberJoined public constructor() : ChatEventAction() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

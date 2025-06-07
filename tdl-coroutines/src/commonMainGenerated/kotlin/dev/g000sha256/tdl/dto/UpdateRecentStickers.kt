@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.IntArray
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The list of recently used stickers was updated.
@@ -28,8 +30,12 @@ import kotlin.String
  * @property isAttached True, if the list of stickers attached to photo or video files was updated; otherwise, the list of sent stickers is updated.
  * @property stickerIds The new list of file identifiers of recently used stickers.
  */
+@SerialName(value = "updateRecentStickers")
+@Serializable
 public class UpdateRecentStickers public constructor(
+    @SerialName(value = "is_attached")
     public val isAttached: Boolean,
+    @SerialName(value = "sticker_ids")
     public val stickerIds: IntArray,
 ) : Update() {
     override fun equals(other: Any?): Boolean {

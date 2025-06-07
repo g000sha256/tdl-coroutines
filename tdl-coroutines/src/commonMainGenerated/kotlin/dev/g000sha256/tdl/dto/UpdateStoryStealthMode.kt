@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Story stealth mode settings have changed.
@@ -27,8 +29,12 @@ import kotlin.String
  * @property activeUntilDate Point in time (Unix timestamp) until stealth mode is active; 0 if it is disabled.
  * @property cooldownUntilDate Point in time (Unix timestamp) when stealth mode can be enabled again; 0 if there is no active cooldown.
  */
+@SerialName(value = "updateStoryStealthMode")
+@Serializable
 public class UpdateStoryStealthMode public constructor(
+    @SerialName(value = "active_until_date")
     public val activeUntilDate: Int,
+    @SerialName(value = "cooldown_until_date")
     public val cooldownUntilDate: Int,
 ) : Update() {
     override fun equals(other: Any?): Boolean {

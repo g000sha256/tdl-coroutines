@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains information about saved payment credentials.
@@ -27,10 +29,14 @@ import kotlin.String
  * @property id Unique identifier of the saved credentials.
  * @property title Title of the saved credentials.
  */
+@SerialName(value = "savedCredentials")
+@Serializable
 public class SavedCredentials public constructor(
+    @SerialName(value = "id")
     public val id: String,
+    @SerialName(value = "title")
     public val title: String,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

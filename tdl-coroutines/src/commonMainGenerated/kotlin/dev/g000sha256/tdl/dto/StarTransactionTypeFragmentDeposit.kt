@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The transaction is a deposit of Telegram Stars from Fragment; for regular users and bots only.
  */
+@SerialName(value = "starTransactionTypeFragmentDeposit")
+@Serializable
 public class StarTransactionTypeFragmentDeposit public constructor() : StarTransactionType() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

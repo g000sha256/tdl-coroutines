@@ -22,6 +22,8 @@ import kotlin.Boolean
 import kotlin.Double
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A detailed statistics about a channel chat.
@@ -49,28 +51,52 @@ import kotlin.String
  * @property instantViewInteractionGraph A graph containing number of views of associated with the chat instant views.
  * @property recentInteractions Detailed statistics about number of views and shares of recently sent messages and posted stories.
  */
+@SerialName(value = "chatStatisticsChannel")
+@Serializable
 public class ChatStatisticsChannel public constructor(
+    @SerialName(value = "period")
     public val period: DateRange,
+    @SerialName(value = "member_count")
     public val memberCount: StatisticalValue,
+    @SerialName(value = "mean_message_view_count")
     public val meanMessageViewCount: StatisticalValue,
+    @SerialName(value = "mean_message_share_count")
     public val meanMessageShareCount: StatisticalValue,
+    @SerialName(value = "mean_message_reaction_count")
     public val meanMessageReactionCount: StatisticalValue,
+    @SerialName(value = "mean_story_view_count")
     public val meanStoryViewCount: StatisticalValue,
+    @SerialName(value = "mean_story_share_count")
     public val meanStoryShareCount: StatisticalValue,
+    @SerialName(value = "mean_story_reaction_count")
     public val meanStoryReactionCount: StatisticalValue,
+    @SerialName(value = "enabled_notifications_percentage")
     public val enabledNotificationsPercentage: Double,
+    @SerialName(value = "member_count_graph")
     public val memberCountGraph: StatisticalGraph,
+    @SerialName(value = "join_graph")
     public val joinGraph: StatisticalGraph,
+    @SerialName(value = "mute_graph")
     public val muteGraph: StatisticalGraph,
+    @SerialName(value = "view_count_by_hour_graph")
     public val viewCountByHourGraph: StatisticalGraph,
+    @SerialName(value = "view_count_by_source_graph")
     public val viewCountBySourceGraph: StatisticalGraph,
+    @SerialName(value = "join_by_source_graph")
     public val joinBySourceGraph: StatisticalGraph,
+    @SerialName(value = "language_graph")
     public val languageGraph: StatisticalGraph,
+    @SerialName(value = "message_interaction_graph")
     public val messageInteractionGraph: StatisticalGraph,
+    @SerialName(value = "message_reaction_graph")
     public val messageReactionGraph: StatisticalGraph,
+    @SerialName(value = "story_interaction_graph")
     public val storyInteractionGraph: StatisticalGraph,
+    @SerialName(value = "story_reaction_graph")
     public val storyReactionGraph: StatisticalGraph,
+    @SerialName(value = "instant_view_interaction_graph")
     public val instantViewInteractionGraph: StatisticalGraph,
+    @SerialName(value = "recent_interactions")
     public val recentInteractions: Array<ChatStatisticsInteractionInfo>,
 ) : ChatStatistics() {
     override fun equals(other: Any?): Boolean {

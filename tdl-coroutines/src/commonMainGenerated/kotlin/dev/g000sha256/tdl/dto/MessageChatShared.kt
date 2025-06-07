@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The current user shared a chat, which was requested by the bot.
@@ -27,8 +29,12 @@ import kotlin.String
  * @property chat The shared chat.
  * @property buttonId Identifier of the keyboard button with the request.
  */
+@SerialName(value = "messageChatShared")
+@Serializable
 public class MessageChatShared public constructor(
+    @SerialName(value = "chat")
     public val chat: SharedChat,
+    @SerialName(value = "button_id")
     public val buttonId: Int,
 ) : MessageContent() {
     override fun equals(other: Any?): Boolean {

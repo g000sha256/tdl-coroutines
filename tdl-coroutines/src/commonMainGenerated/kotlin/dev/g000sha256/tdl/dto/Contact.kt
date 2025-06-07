@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes a user contact.
@@ -31,13 +33,20 @@ import kotlin.String
  * @property vcard Additional data about the user in a form of vCard; 0-2048 bytes in length.
  * @property userId Identifier of the user, if known; 0 otherwise.
  */
+@SerialName(value = "contact")
+@Serializable
 public class Contact public constructor(
+    @SerialName(value = "phone_number")
     public val phoneNumber: String,
+    @SerialName(value = "first_name")
     public val firstName: String,
+    @SerialName(value = "last_name")
     public val lastName: String,
+    @SerialName(value = "vcard")
     public val vcard: String,
+    @SerialName(value = "user_id")
     public val userId: Long,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

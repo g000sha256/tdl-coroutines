@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A document message (general file).
@@ -27,8 +29,12 @@ import kotlin.String
  * @property document The document description.
  * @property caption Document caption.
  */
+@SerialName(value = "messageDocument")
+@Serializable
 public class MessageDocument public constructor(
+    @SerialName(value = "document")
     public val document: Document,
+    @SerialName(value = "caption")
     public val caption: FormattedText,
 ) : MessageContent() {
     override fun equals(other: Any?): Boolean {

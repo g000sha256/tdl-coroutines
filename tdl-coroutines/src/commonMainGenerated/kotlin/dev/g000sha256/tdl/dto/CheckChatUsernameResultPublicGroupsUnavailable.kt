@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The user can't be a member of a public supergroup.
  */
+@SerialName(value = "checkChatUsernameResultPublicGroupsUnavailable")
+@Serializable
 public class CheckChatUsernameResultPublicGroupsUnavailable public constructor() : CheckChatUsernameResult() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Paid media were purchased by a user; for bots only.
@@ -28,8 +30,12 @@ import kotlin.String
  * @property userId User identifier.
  * @property payload Bot-specified payload for the paid media.
  */
+@SerialName(value = "updatePaidMediaPurchased")
+@Serializable
 public class UpdatePaidMediaPurchased public constructor(
+    @SerialName(value = "user_id")
     public val userId: Long,
+    @SerialName(value = "payload")
     public val payload: String,
 ) : Update() {
     override fun equals(other: Any?): Boolean {

@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains information about a forwarded message.
@@ -29,12 +31,18 @@ import kotlin.String
  * @property source For messages forwarded to the chat with the current user (Saved Messages), to the Replies bot chat, or to the channel's discussion group, information about the source message from which the message was forwarded last time; may be null for other forwards or if unknown.
  * @property publicServiceAnnouncementType The type of public service announcement for the forwarded message.
  */
+@SerialName(value = "messageForwardInfo")
+@Serializable
 public class MessageForwardInfo public constructor(
+    @SerialName(value = "origin")
     public val origin: MessageOrigin,
+    @SerialName(value = "date")
     public val date: Int,
+    @SerialName(value = "source")
     public val source: ForwardSource?,
+    @SerialName(value = "public_service_announcement_type")
     public val publicServiceAnnouncementType: String,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

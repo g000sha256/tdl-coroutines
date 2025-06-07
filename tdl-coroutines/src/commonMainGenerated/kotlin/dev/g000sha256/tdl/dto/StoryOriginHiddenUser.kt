@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The original story was posted by an unknown user.
  *
  * @property posterName Name of the user or the chat that posted the story.
  */
+@SerialName(value = "storyOriginHiddenUser")
+@Serializable
 public class StoryOriginHiddenUser public constructor(
+    @SerialName(value = "poster_name")
     public val posterName: String,
 ) : StoryOrigin() {
     override fun equals(other: Any?): Boolean {

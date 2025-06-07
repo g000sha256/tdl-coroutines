@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Checks ownership of a new phone number to change the user's authentication phone number; for official Android and iOS applications only.
  */
+@SerialName(value = "phoneNumberCodeTypeChange")
+@Serializable
 public class PhoneNumberCodeTypeChange public constructor() : PhoneNumberCodeType() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

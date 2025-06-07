@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.IntArray
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes an image in JPEG format.
@@ -31,13 +33,20 @@ import kotlin.String
  * @property height Image height.
  * @property progressiveSizes Sizes of progressive JPEG file prefixes, which can be used to preliminarily show the image; in bytes.
  */
+@SerialName(value = "photoSize")
+@Serializable
 public class PhotoSize public constructor(
+    @SerialName(value = "type")
     public val type: String,
+    @SerialName(value = "photo")
     public val photo: File,
+    @SerialName(value = "width")
     public val width: Int,
+    @SerialName(value = "height")
     public val height: Int,
+    @SerialName(value = "progressive_sizes")
     public val progressiveSizes: IntArray,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

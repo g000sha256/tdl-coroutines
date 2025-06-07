@@ -21,15 +21,20 @@ import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A simple object containing a vector of objects that hold a number; for testing only.
  *
  * @property value Vector of objects.
  */
+@SerialName(value = "testVectorIntObject")
+@Serializable
 public class TestVectorIntObject public constructor(
+    @SerialName(value = "value")
     public val value: Array<TestInt>,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

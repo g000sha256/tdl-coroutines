@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The chat is a recently created group chat to which new members can be invited.
  */
+@SerialName(value = "chatActionBarInviteMembers")
+@Serializable
 public class ChatActionBarInviteMembers public constructor() : ChatActionBar() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

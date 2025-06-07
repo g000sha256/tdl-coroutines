@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Double
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A detailed statistics about revenue earned from sponsored messages in a chat.
@@ -30,12 +32,18 @@ import kotlin.String
  * @property revenueAmount Amount of earned revenue.
  * @property usdRate Current conversion rate of the cryptocurrency in which revenue is calculated to USD.
  */
+@SerialName(value = "chatRevenueStatistics")
+@Serializable
 public class ChatRevenueStatistics public constructor(
+    @SerialName(value = "revenue_by_hour_graph")
     public val revenueByHourGraph: StatisticalGraph,
+    @SerialName(value = "revenue_graph")
     public val revenueGraph: StatisticalGraph,
+    @SerialName(value = "revenue_amount")
     public val revenueAmount: ChatRevenueAmount,
+    @SerialName(value = "usd_rate")
     public val usdRate: Double,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

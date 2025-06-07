@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains information about a message created with importMessages.
@@ -27,10 +29,14 @@ import kotlin.String
  * @property senderName Name of the original sender.
  * @property date Point in time (Unix timestamp) when the message was originally sent.
  */
+@SerialName(value = "messageImportInfo")
+@Serializable
 public class MessageImportInfo public constructor(
+    @SerialName(value = "sender_name")
     public val senderName: String,
+    @SerialName(value = "date")
     public val date: Int,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

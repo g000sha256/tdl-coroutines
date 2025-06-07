@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains statistics about messages sent by a user.
@@ -29,11 +31,16 @@ import kotlin.String
  * @property sentMessageCount Number of sent messages.
  * @property averageCharacterCount Average number of characters in sent messages; 0 if unknown.
  */
+@SerialName(value = "chatStatisticsMessageSenderInfo")
+@Serializable
 public class ChatStatisticsMessageSenderInfo public constructor(
+    @SerialName(value = "user_id")
     public val userId: Long,
+    @SerialName(value = "sent_message_count")
     public val sentMessageCount: Int,
+    @SerialName(value = "average_character_count")
     public val averageCharacterCount: Int,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

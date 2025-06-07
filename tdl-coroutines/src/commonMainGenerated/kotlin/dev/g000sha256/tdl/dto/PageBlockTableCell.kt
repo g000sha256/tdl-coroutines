@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Represents a cell of a table.
@@ -31,14 +33,22 @@ import kotlin.String
  * @property align Horizontal cell content alignment.
  * @property valign Vertical cell content alignment.
  */
+@SerialName(value = "pageBlockTableCell")
+@Serializable
 public class PageBlockTableCell public constructor(
+    @SerialName(value = "text")
     public val text: RichText?,
+    @SerialName(value = "is_header")
     public val isHeader: Boolean,
+    @SerialName(value = "colspan")
     public val colspan: Int,
+    @SerialName(value = "rowspan")
     public val rowspan: Int,
+    @SerialName(value = "align")
     public val align: PageBlockHorizontalAlignment,
+    @SerialName(value = "valign")
     public val valign: PageBlockVerticalAlignment,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

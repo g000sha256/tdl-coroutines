@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains information about a collectible item and its last purchase.
@@ -32,14 +34,22 @@ import kotlin.String
  * @property cryptocurrencyAmount The paid amount, in the smallest units of the cryptocurrency.
  * @property url Individual URL for the item on https://fragment.com.
  */
+@SerialName(value = "collectibleItemInfo")
+@Serializable
 public class CollectibleItemInfo public constructor(
+    @SerialName(value = "purchase_date")
     public val purchaseDate: Int,
+    @SerialName(value = "currency")
     public val currency: String,
+    @SerialName(value = "amount")
     public val amount: Long,
+    @SerialName(value = "cryptocurrency")
     public val cryptocurrency: String,
+    @SerialName(value = "cryptocurrency_amount")
     public val cryptocurrencyAmount: Long,
+    @SerialName(value = "url")
     public val url: String,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

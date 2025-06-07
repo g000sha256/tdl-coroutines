@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A new high score was achieved in a game.
@@ -29,9 +31,14 @@ import kotlin.String
  * @property gameId Identifier of the game; may be different from the games presented in the message with the game.
  * @property score New score.
  */
+@SerialName(value = "messageGameScore")
+@Serializable
 public class MessageGameScore public constructor(
+    @SerialName(value = "game_message_id")
     public val gameMessageId: Long,
+    @SerialName(value = "game_id")
     public val gameId: Long,
+    @SerialName(value = "score")
     public val score: Int,
 ) : MessageContent() {
     override fun equals(other: Any?): Boolean {

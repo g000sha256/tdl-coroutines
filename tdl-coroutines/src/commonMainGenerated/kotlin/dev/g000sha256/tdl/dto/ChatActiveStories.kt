@@ -22,6 +22,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes active stories posted by a chat.
@@ -32,13 +34,20 @@ import kotlin.String
  * @property maxReadStoryId Identifier of the last read active story.
  * @property stories Basic information about the stories; use getStory to get full information about the stories. The stories are in chronological order (i.e., in order of increasing story identifiers).
  */
+@SerialName(value = "chatActiveStories")
+@Serializable
 public class ChatActiveStories public constructor(
+    @SerialName(value = "chat_id")
     public val chatId: Long,
+    @SerialName(value = "list")
     public val list: StoryList?,
+    @SerialName(value = "order")
     public val order: Long,
+    @SerialName(value = "max_read_story_id")
     public val maxReadStoryId: Int,
+    @SerialName(value = "stories")
     public val stories: Array<StoryInfo>,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

@@ -22,6 +22,8 @@ import kotlin.Int
 import kotlin.Long
 import kotlin.LongArray
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains information about a chat invite link.
@@ -40,21 +42,36 @@ import kotlin.String
  * @property isPublic True, if the chat is a public supergroup or channel, i.e. it has a username or it is a location-based supergroup.
  * @property verificationStatus Information about verification status of the chat; may be null if none.
  */
+@SerialName(value = "chatInviteLinkInfo")
+@Serializable
 public class ChatInviteLinkInfo public constructor(
+    @SerialName(value = "chat_id")
     public val chatId: Long,
+    @SerialName(value = "accessible_for")
     public val accessibleFor: Int,
+    @SerialName(value = "type")
     public val type: InviteLinkChatType,
+    @SerialName(value = "title")
     public val title: String,
+    @SerialName(value = "photo")
     public val photo: ChatPhotoInfo?,
+    @SerialName(value = "accent_color_id")
     public val accentColorId: Int,
+    @SerialName(value = "description")
     public val description: String,
+    @SerialName(value = "member_count")
     public val memberCount: Int,
+    @SerialName(value = "member_user_ids")
     public val memberUserIds: LongArray,
+    @SerialName(value = "subscription_info")
     public val subscriptionInfo: ChatInviteLinkSubscriptionInfo?,
+    @SerialName(value = "creates_join_request")
     public val createsJoinRequest: Boolean,
+    @SerialName(value = "is_public")
     public val isPublic: Boolean,
+    @SerialName(value = "verification_status")
     public val verificationStatus: VerificationStatus?,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

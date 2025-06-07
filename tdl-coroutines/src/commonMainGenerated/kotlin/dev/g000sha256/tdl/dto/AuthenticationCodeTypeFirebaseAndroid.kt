@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A digit-only authentication code is delivered via Firebase Authentication to the official Android application.
@@ -27,8 +29,12 @@ import kotlin.String
  * @property deviceVerificationParameters Parameters to be used for device verification.
  * @property length Length of the code.
  */
+@SerialName(value = "authenticationCodeTypeFirebaseAndroid")
+@Serializable
 public class AuthenticationCodeTypeFirebaseAndroid public constructor(
+    @SerialName(value = "device_verification_parameters")
     public val deviceVerificationParameters: FirebaseDeviceVerificationParameters,
+    @SerialName(value = "length")
     public val length: Int,
 ) : AuthenticationCodeType() {
     override fun equals(other: Any?): Boolean {

@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The file is a file from Secure storage used for storing Telegram Passport files.
  */
+@SerialName(value = "fileTypeSecure")
+@Serializable
 public class FileTypeSecure public constructor() : FileType() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

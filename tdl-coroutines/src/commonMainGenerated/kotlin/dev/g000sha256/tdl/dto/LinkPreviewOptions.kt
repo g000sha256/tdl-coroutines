@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Options to be used for generation of a link preview.
@@ -30,13 +32,20 @@ import kotlin.String
  * @property forceLargeMedia True, if shown media preview must be large; ignored in secret chats or if the URL isn't explicitly specified.
  * @property showAboveText True, if link preview must be shown above message text; otherwise, the link preview will be shown below the message text; ignored in secret chats.
  */
+@SerialName(value = "linkPreviewOptions")
+@Serializable
 public class LinkPreviewOptions public constructor(
+    @SerialName(value = "is_disabled")
     public val isDisabled: Boolean,
+    @SerialName(value = "url")
     public val url: String,
+    @SerialName(value = "force_small_media")
     public val forceSmallMedia: Boolean,
+    @SerialName(value = "force_large_media")
     public val forceLargeMedia: Boolean,
+    @SerialName(value = "show_above_text")
     public val showAboveText: Boolean,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

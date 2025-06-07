@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes settings for messages that are automatically sent by a Telegram Business account when it is away.
@@ -29,12 +31,18 @@ import kotlin.String
  * @property schedule Settings used to check whether the current user is away.
  * @property offlineOnly True, if the messages must not be sent if the account was online in the last 10 minutes.
  */
+@SerialName(value = "businessAwayMessageSettings")
+@Serializable
 public class BusinessAwayMessageSettings public constructor(
+    @SerialName(value = "shortcut_id")
     public val shortcutId: Int,
+    @SerialName(value = "recipients")
     public val recipients: BusinessRecipients,
+    @SerialName(value = "schedule")
     public val schedule: BusinessAwayMessageSchedule,
+    @SerialName(value = "offline_only")
     public val offlineOnly: Boolean,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

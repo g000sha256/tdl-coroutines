@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Represents a chat event.
@@ -30,12 +32,18 @@ import kotlin.String
  * @property memberId Identifier of the user or chat who performed the action.
  * @property action The action.
  */
+@SerialName(value = "chatEvent")
+@Serializable
 public class ChatEvent public constructor(
+    @SerialName(value = "id")
     public val id: Long,
+    @SerialName(value = "date")
     public val date: Int,
+    @SerialName(value = "member_id")
     public val memberId: MessageSender,
+    @SerialName(value = "action")
     public val action: ChatEventAction,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

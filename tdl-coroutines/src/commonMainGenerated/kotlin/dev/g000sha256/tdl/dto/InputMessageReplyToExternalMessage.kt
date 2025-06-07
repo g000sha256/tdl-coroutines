@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes a message to be replied that is from a different chat or a forum topic; not supported in secret chats.
@@ -29,9 +31,14 @@ import kotlin.String
  * @property messageId The identifier of the message to be replied in the specified chat. A message can be replied in another chat or forum topic only if messageProperties.canBeRepliedInAnotherChat.
  * @property quote Quote from the message to be replied; pass null if none.
  */
+@SerialName(value = "inputMessageReplyToExternalMessage")
+@Serializable
 public class InputMessageReplyToExternalMessage public constructor(
+    @SerialName(value = "chat_id")
     public val chatId: Long,
+    @SerialName(value = "message_id")
     public val messageId: Long,
+    @SerialName(value = "quote")
     public val quote: InputTextQuote?,
 ) : InputMessageReplyTo() {
     override fun equals(other: Any?): Boolean {

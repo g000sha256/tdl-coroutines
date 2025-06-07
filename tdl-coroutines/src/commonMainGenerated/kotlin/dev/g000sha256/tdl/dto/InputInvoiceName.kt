@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * An invoice from a link of the type internalLinkTypeInvoice.
  *
  * @property name Name of the invoice.
  */
+@SerialName(value = "inputInvoiceName")
+@Serializable
 public class InputInvoiceName public constructor(
+    @SerialName(value = "name")
     public val name: String,
 ) : InputInvoice() {
     override fun equals(other: Any?): Boolean {

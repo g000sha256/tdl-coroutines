@@ -21,13 +21,18 @@ import kotlin.Boolean
 import kotlin.ByteArray
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Device verification must be performed with the SafetyNet Attestation API.
  *
  * @property nonce Nonce to pass to the SafetyNet Attestation API.
  */
+@SerialName(value = "firebaseDeviceVerificationParametersSafetyNet")
+@Serializable
 public class FirebaseDeviceVerificationParametersSafetyNet public constructor(
+    @SerialName(value = "nonce")
     public val nonce: ByteArray,
 ) : FirebaseDeviceVerificationParameters() {
     override fun equals(other: Any?): Boolean {

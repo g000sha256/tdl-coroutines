@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes the original details about the gift.
@@ -29,12 +31,18 @@ import kotlin.String
  * @property text Message added to the gift.
  * @property date Point in time (Unix timestamp) when the gift was sent.
  */
+@SerialName(value = "upgradedGiftOriginalDetails")
+@Serializable
 public class UpgradedGiftOriginalDetails public constructor(
+    @SerialName(value = "sender_id")
     public val senderId: MessageSender?,
+    @SerialName(value = "receiver_id")
     public val receiverId: MessageSender,
+    @SerialName(value = "text")
     public val text: FormattedText,
+    @SerialName(value = "date")
     public val date: Int,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

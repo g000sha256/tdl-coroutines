@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The default background has changed.
@@ -27,8 +29,12 @@ import kotlin.String
  * @property forDarkTheme True, if default background for dark theme has changed.
  * @property background The new default background; may be null.
  */
+@SerialName(value = "updateDefaultBackground")
+@Serializable
 public class UpdateDefaultBackground public constructor(
+    @SerialName(value = "for_dark_theme")
     public val forDarkTheme: Boolean,
+    @SerialName(value = "background")
     public val background: Background?,
 ) : Update() {
     override fun equals(other: Any?): Boolean {

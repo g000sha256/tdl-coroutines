@@ -21,6 +21,8 @@ import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Represents a list of found affiliate programs.
@@ -29,11 +31,16 @@ import kotlin.String
  * @property programs The list of affiliate programs.
  * @property nextOffset The offset for the next request. If empty, then there are no more results.
  */
+@SerialName(value = "foundAffiliatePrograms")
+@Serializable
 public class FoundAffiliatePrograms public constructor(
+    @SerialName(value = "total_count")
     public val totalCount: Int,
+    @SerialName(value = "programs")
     public val programs: Array<FoundAffiliateProgram>,
+    @SerialName(value = "next_offset")
     public val nextOffset: String,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

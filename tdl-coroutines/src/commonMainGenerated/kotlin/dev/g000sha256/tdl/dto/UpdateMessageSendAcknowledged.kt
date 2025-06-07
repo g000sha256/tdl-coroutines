@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A request to send a message has reached the Telegram server. This doesn't mean that the message will be sent successfully. This update is sent only if the option &quot;use_quick_ack&quot; is set to true. This update may be sent multiple times for the same message.
@@ -28,8 +30,12 @@ import kotlin.String
  * @property chatId The chat identifier of the sent message.
  * @property messageId A temporary message identifier.
  */
+@SerialName(value = "updateMessageSendAcknowledged")
+@Serializable
 public class UpdateMessageSendAcknowledged public constructor(
+    @SerialName(value = "chat_id")
     public val chatId: Long,
+    @SerialName(value = "message_id")
     public val messageId: Long,
 ) : Update() {
     override fun equals(other: Any?): Boolean {

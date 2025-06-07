@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Double
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes the current weather.
@@ -28,10 +30,14 @@ import kotlin.String
  * @property temperature Temperature, in degree Celsius.
  * @property emoji Emoji representing the weather.
  */
+@SerialName(value = "currentWeather")
+@Serializable
 public class CurrentWeather public constructor(
+    @SerialName(value = "temperature")
     public val temperature: Double,
+    @SerialName(value = "emoji")
     public val emoji: String,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

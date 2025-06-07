@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A video chat was ended.
  *
  * @property groupCallId Identifier of the video chat. The video chat can be received through the method getGroupCall.
  */
+@SerialName(value = "chatEventVideoChatEnded")
+@Serializable
 public class ChatEventVideoChatEnded public constructor(
+    @SerialName(value = "group_call_id")
     public val groupCallId: Int,
 ) : ChatEventAction() {
     override fun equals(other: Any?): Boolean {

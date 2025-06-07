@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * An error message to be shown to the user instead of the graph.
  *
  * @property errorMessage The error message.
  */
+@SerialName(value = "statisticalGraphError")
+@Serializable
 public class StatisticalGraphError public constructor(
+    @SerialName(value = "error_message")
     public val errorMessage: String,
 ) : StatisticalGraph() {
     override fun equals(other: Any?): Boolean {

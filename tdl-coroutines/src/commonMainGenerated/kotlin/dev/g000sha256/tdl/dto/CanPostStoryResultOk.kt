@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A story can be sent.
  *
  * @property storyCount Number of stories that can be posted by the user.
  */
+@SerialName(value = "canPostStoryResultOk")
+@Serializable
 public class CanPostStoryResultOk public constructor(
+    @SerialName(value = "story_count")
     public val storyCount: Int,
 ) : CanPostStoryResult() {
     override fun equals(other: Any?): Boolean {

@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes a game. Use getInternalLink with internalLinkTypeGame to share the game.
@@ -33,15 +35,24 @@ import kotlin.String
  * @property photo Game photo.
  * @property animation Game animation; may be null.
  */
+@SerialName(value = "game")
+@Serializable
 public class Game public constructor(
+    @SerialName(value = "id")
     public val id: Long,
+    @SerialName(value = "short_name")
     public val shortName: String,
+    @SerialName(value = "title")
     public val title: String,
+    @SerialName(value = "text")
     public val text: FormattedText,
+    @SerialName(value = "description")
     public val description: String,
+    @SerialName(value = "photo")
     public val photo: Photo,
+    @SerialName(value = "animation")
     public val animation: Animation?,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

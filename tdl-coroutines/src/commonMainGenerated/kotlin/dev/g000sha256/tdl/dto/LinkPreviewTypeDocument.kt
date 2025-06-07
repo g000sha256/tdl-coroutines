@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The link is a link to a general file.
  *
  * @property document The document description.
  */
+@SerialName(value = "linkPreviewTypeDocument")
+@Serializable
 public class LinkPreviewTypeDocument public constructor(
+    @SerialName(value = "document")
     public val document: Document,
 ) : LinkPreviewType() {
     override fun equals(other: Any?): Boolean {

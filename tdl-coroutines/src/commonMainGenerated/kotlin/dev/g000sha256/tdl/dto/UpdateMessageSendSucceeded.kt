@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A message has been successfully sent.
@@ -28,8 +30,12 @@ import kotlin.String
  * @property message The sent message. Almost any field of the new message can be different from the corresponding field of the original message. For example, the field schedulingState may change, making the message scheduled, or non-scheduled.
  * @property oldMessageId The previous temporary message identifier.
  */
+@SerialName(value = "updateMessageSendSucceeded")
+@Serializable
 public class UpdateMessageSendSucceeded public constructor(
+    @SerialName(value = "message")
     public val message: Message,
+    @SerialName(value = "old_message_id")
     public val oldMessageId: Long,
 ) : Update() {
     override fun equals(other: Any?): Boolean {

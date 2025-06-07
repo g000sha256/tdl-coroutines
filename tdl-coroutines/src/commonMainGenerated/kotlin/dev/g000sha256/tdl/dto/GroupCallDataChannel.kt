@@ -16,8 +16,11 @@
 
 package dev.g000sha256.tdl.dto
 
+import kotlinx.serialization.Serializable
+
 /**
  * This class is an abstract base class.
  * Describes data channel for a group call.
  */
-public sealed class GroupCallDataChannel protected constructor()
+@Serializable
+public sealed class GroupCallDataChannel protected constructor() : Model()

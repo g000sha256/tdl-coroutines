@@ -21,15 +21,20 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains size of downloaded prefix of a file.
  *
  * @property size The prefix size, in bytes.
  */
+@SerialName(value = "fileDownloadedPrefixSize")
+@Serializable
 public class FileDownloadedPrefixSize public constructor(
+    @SerialName(value = "size")
     public val size: Long,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

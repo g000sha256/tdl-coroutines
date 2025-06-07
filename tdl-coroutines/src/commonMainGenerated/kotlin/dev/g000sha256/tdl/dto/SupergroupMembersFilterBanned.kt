@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Returns users banned from the supergroup or channel; can be used only by administrators.
  *
  * @property query Query to search for.
  */
+@SerialName(value = "supergroupMembersFilterBanned")
+@Serializable
 public class SupergroupMembersFilterBanned public constructor(
+    @SerialName(value = "query")
     public val query: String,
 ) : SupergroupMembersFilter() {
     override fun equals(other: Any?): Boolean {

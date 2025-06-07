@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The user is uploading a video note.
  *
  * @property progress Upload progress, as a percentage.
  */
+@SerialName(value = "chatActionUploadingVideoNote")
+@Serializable
 public class ChatActionUploadingVideoNote public constructor(
+    @SerialName(value = "progress")
     public val progress: Int,
 ) : ChatAction() {
     override fun equals(other: Any?): Boolean {

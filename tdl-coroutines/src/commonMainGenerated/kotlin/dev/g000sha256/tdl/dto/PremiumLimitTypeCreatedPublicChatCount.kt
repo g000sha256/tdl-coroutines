@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The maximum number of created public chats.
  */
+@SerialName(value = "premiumLimitTypeCreatedPublicChatCount")
+@Serializable
 public class PremiumLimitTypeCreatedPublicChatCount public constructor() : PremiumLimitType() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

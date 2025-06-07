@@ -16,8 +16,11 @@
 
 package dev.g000sha256.tdl.dto
 
+import kotlinx.serialization.Serializable
+
 /**
  * This class is an abstract base class.
  * Describes source of a chat boost.
  */
-public sealed class ChatBoostSource protected constructor()
+@Serializable
+public sealed class ChatBoostSource protected constructor() : Model()

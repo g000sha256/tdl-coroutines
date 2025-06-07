@@ -21,15 +21,20 @@ import kotlin.Boolean
 import kotlin.ByteArray
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains some binary data.
  *
  * @property data Data.
  */
+@SerialName(value = "data")
+@Serializable
 public class Data public constructor(
+    @SerialName(value = "data")
     public val data: ByteArray,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

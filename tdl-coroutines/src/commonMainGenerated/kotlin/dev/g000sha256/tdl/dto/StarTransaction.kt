@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Represents a transaction changing the amount of owned Telegram Stars.
@@ -30,13 +32,20 @@ import kotlin.String
  * @property date Point in time (Unix timestamp) when the transaction was completed.
  * @property type Type of the transaction.
  */
+@SerialName(value = "starTransaction")
+@Serializable
 public class StarTransaction public constructor(
+    @SerialName(value = "id")
     public val id: String,
+    @SerialName(value = "star_amount")
     public val starAmount: StarAmount,
+    @SerialName(value = "is_refund")
     public val isRefund: Boolean,
+    @SerialName(value = "date")
     public val date: Int,
+    @SerialName(value = "type")
     public val type: StarTransactionType,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

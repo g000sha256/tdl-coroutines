@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Notifications for reactions are shown only for reactions from contacts.
  */
+@SerialName(value = "reactionNotificationSourceContacts")
+@Serializable
 public class ReactionNotificationSourceContacts public constructor() : ReactionNotificationSource() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

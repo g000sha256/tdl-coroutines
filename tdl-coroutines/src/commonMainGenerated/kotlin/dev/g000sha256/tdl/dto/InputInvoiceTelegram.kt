@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * An invoice for a payment toward Telegram; must not be used in the in-store apps.
  *
  * @property purpose Transaction purpose.
  */
+@SerialName(value = "inputInvoiceTelegram")
+@Serializable
 public class InputInvoiceTelegram public constructor(
+    @SerialName(value = "purpose")
     public val purpose: TelegramPaymentPurpose,
 ) : InputInvoice() {
     override fun equals(other: Any?): Boolean {

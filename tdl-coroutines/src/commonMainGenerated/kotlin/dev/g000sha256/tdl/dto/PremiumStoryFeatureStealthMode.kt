@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The ability to hide the fact that the user viewed other's stories.
  */
+@SerialName(value = "premiumStoryFeatureStealthMode")
+@Serializable
 public class PremiumStoryFeatureStealthMode public constructor() : PremiumStoryFeature() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

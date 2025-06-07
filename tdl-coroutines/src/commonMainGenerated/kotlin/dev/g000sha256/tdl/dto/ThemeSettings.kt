@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes theme settings.
@@ -30,13 +32,20 @@ import kotlin.String
  * @property animateOutgoingMessageFill If true, the freeform gradient fill needs to be animated on every sent message.
  * @property outgoingMessageAccentColor Accent color of outgoing messages in ARGB format.
  */
+@SerialName(value = "themeSettings")
+@Serializable
 public class ThemeSettings public constructor(
+    @SerialName(value = "accent_color")
     public val accentColor: Int,
+    @SerialName(value = "background")
     public val background: Background?,
+    @SerialName(value = "outgoing_message_fill")
     public val outgoingMessageFill: BackgroundFill,
+    @SerialName(value = "animate_outgoing_message_fill")
     public val animateOutgoingMessageFill: Boolean,
+    @SerialName(value = "outgoing_message_accent_color")
     public val outgoingMessageAccentColor: Int,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

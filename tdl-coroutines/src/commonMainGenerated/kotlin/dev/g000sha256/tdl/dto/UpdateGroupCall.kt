@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Information about a group call was updated.
  *
  * @property groupCall New data about the group call.
  */
+@SerialName(value = "updateGroupCall")
+@Serializable
 public class UpdateGroupCall public constructor(
+    @SerialName(value = "group_call")
     public val groupCall: GroupCall,
 ) : Update() {
     override fun equals(other: Any?): Boolean {

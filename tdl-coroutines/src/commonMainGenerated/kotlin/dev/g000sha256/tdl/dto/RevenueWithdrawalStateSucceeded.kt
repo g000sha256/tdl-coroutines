@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Withdrawal succeeded.
@@ -27,8 +29,12 @@ import kotlin.String
  * @property date Point in time (Unix timestamp) when the withdrawal was completed.
  * @property url The URL where the withdrawal transaction can be viewed.
  */
+@SerialName(value = "revenueWithdrawalStateSucceeded")
+@Serializable
 public class RevenueWithdrawalStateSucceeded public constructor(
+    @SerialName(value = "date")
     public val date: Int,
+    @SerialName(value = "url")
     public val url: String,
 ) : RevenueWithdrawalState() {
     override fun equals(other: Any?): Boolean {

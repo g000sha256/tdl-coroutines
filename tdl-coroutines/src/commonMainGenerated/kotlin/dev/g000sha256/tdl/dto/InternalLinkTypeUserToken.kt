@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The link is a link to a user by a temporary token. Call searchUserByToken with the given token to process the link. If the user is found, then call createPrivateChat and open the chat.
  *
  * @property token The token.
  */
+@SerialName(value = "internalLinkTypeUserToken")
+@Serializable
 public class InternalLinkTypeUserToken public constructor(
+    @SerialName(value = "token")
     public val token: String,
 ) : InternalLinkType() {
     override fun equals(other: Any?): Boolean {

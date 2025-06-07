@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A rich text phone number.
@@ -27,8 +29,12 @@ import kotlin.String
  * @property text Text.
  * @property phoneNumber Phone number.
  */
+@SerialName(value = "richTextPhoneNumber")
+@Serializable
 public class RichTextPhoneNumber public constructor(
+    @SerialName(value = "text")
     public val text: RichText,
+    @SerialName(value = "phone_number")
     public val phoneNumber: String,
 ) : RichText() {
     override fun equals(other: Any?): Boolean {

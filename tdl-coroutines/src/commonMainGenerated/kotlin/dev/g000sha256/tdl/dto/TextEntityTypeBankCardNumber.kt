@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A bank card number. The getBankCardInfo method can be used to get information about the bank card.
  */
+@SerialName(value = "textEntityTypeBankCardNumber")
+@Serializable
 public class TextEntityTypeBankCardNumber public constructor() : TextEntityType() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

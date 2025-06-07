@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes a user that had or will have a birthday soon.
@@ -28,10 +30,14 @@ import kotlin.String
  * @property userId User identifier.
  * @property birthdate Birthdate of the user.
  */
+@SerialName(value = "closeBirthdayUser")
+@Serializable
 public class CloseBirthdayUser public constructor(
+    @SerialName(value = "user_id")
     public val userId: Long,
+    @SerialName(value = "birthdate")
     public val birthdate: Birthdate,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

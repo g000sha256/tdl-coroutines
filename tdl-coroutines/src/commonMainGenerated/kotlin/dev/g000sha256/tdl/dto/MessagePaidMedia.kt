@@ -22,6 +22,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A message with paid media.
@@ -31,10 +33,16 @@ import kotlin.String
  * @property caption Media caption.
  * @property showCaptionAboveMedia True, if the caption must be shown above the media; otherwise, the caption must be shown below the media.
  */
+@SerialName(value = "messagePaidMedia")
+@Serializable
 public class MessagePaidMedia public constructor(
+    @SerialName(value = "star_count")
     public val starCount: Long,
+    @SerialName(value = "media")
     public val media: Array<PaidMedia>,
+    @SerialName(value = "caption")
     public val caption: FormattedText,
+    @SerialName(value = "show_caption_above_media")
     public val showCaptionAboveMedia: Boolean,
 ) : MessageContent() {
     override fun equals(other: Any?): Boolean {

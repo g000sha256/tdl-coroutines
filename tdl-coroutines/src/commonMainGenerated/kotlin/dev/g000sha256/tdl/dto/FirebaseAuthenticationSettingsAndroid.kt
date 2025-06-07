@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Settings for Firebase Authentication in the official Android application.
  */
+@SerialName(value = "firebaseAuthenticationSettingsAndroid")
+@Serializable
 public class FirebaseAuthenticationSettingsAndroid public constructor() : FirebaseAuthenticationSettings() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

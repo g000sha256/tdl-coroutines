@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes an available stream in a video chat.
@@ -29,11 +31,16 @@ import kotlin.String
  * @property scale Scale of segment durations in the stream. The duration is 1000/(2**scale) milliseconds.
  * @property timeOffset Point in time when the stream currently ends; Unix timestamp in milliseconds.
  */
+@SerialName(value = "videoChatStream")
+@Serializable
 public class VideoChatStream public constructor(
+    @SerialName(value = "channel_id")
     public val channelId: Int,
+    @SerialName(value = "scale")
     public val scale: Int,
+    @SerialName(value = "time_offset")
     public val timeOffset: Long,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

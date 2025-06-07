@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains information about an effect added to a message.
@@ -31,13 +33,20 @@ import kotlin.String
  * @property isPremium True, if Telegram Premium subscription is required to use the effect.
  * @property type Type of the effect.
  */
+@SerialName(value = "messageEffect")
+@Serializable
 public class MessageEffect public constructor(
+    @SerialName(value = "id")
     public val id: Long,
+    @SerialName(value = "static_icon")
     public val staticIcon: Sticker?,
+    @SerialName(value = "emoji")
     public val emoji: String,
+    @SerialName(value = "is_premium")
     public val isPremium: Boolean,
+    @SerialName(value = "type")
     public val type: MessageEffectType,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

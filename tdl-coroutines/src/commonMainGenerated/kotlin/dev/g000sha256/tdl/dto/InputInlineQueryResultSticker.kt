@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Represents a link to a WEBP, TGS, or WEBM sticker.
@@ -32,13 +34,22 @@ import kotlin.String
  * @property replyMarkup The message reply markup; pass null if none. Must be of type replyMarkupInlineKeyboard or null.
  * @property inputMessageContent The content of the message to be sent. Must be one of the following types: inputMessageText, inputMessageSticker, inputMessageInvoice, inputMessageLocation, inputMessageVenue or inputMessageContact.
  */
+@SerialName(value = "inputInlineQueryResultSticker")
+@Serializable
 public class InputInlineQueryResultSticker public constructor(
+    @SerialName(value = "id")
     public val id: String,
+    @SerialName(value = "thumbnail_url")
     public val thumbnailUrl: String,
+    @SerialName(value = "sticker_url")
     public val stickerUrl: String,
+    @SerialName(value = "sticker_width")
     public val stickerWidth: Int,
+    @SerialName(value = "sticker_height")
     public val stickerHeight: Int,
+    @SerialName(value = "reply_markup")
     public val replyMarkup: ReplyMarkup?,
+    @SerialName(value = "input_message_content")
     public val inputMessageContent: InputMessageContent,
 ) : InputInlineQueryResult() {
     override fun equals(other: Any?): Boolean {

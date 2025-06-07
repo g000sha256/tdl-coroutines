@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains Telegram terms of service.
@@ -28,11 +30,16 @@ import kotlin.String
  * @property minUserAge The minimum age of a user to be able to accept the terms; 0 if age isn't restricted.
  * @property showPopup True, if a blocking popup with terms of service must be shown to the user.
  */
+@SerialName(value = "termsOfService")
+@Serializable
 public class TermsOfService public constructor(
+    @SerialName(value = "text")
     public val text: FormattedText,
+    @SerialName(value = "min_user_age")
     public val minUserAge: Int,
+    @SerialName(value = "show_popup")
     public val showPopup: Boolean,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

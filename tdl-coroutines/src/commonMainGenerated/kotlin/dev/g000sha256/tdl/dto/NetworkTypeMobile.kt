@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A mobile network.
  */
+@SerialName(value = "networkTypeMobile")
+@Serializable
 public class NetworkTypeMobile public constructor() : NetworkType() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The payment was done using a third-party payment provider.
@@ -32,12 +34,20 @@ import kotlin.String
  * @property credentialsTitle Title of the saved credentials chosen by the buyer.
  * @property tipAmount The amount of tip chosen by the buyer in the smallest units of the currency.
  */
+@SerialName(value = "paymentReceiptTypeRegular")
+@Serializable
 public class PaymentReceiptTypeRegular public constructor(
+    @SerialName(value = "payment_provider_user_id")
     public val paymentProviderUserId: Long,
+    @SerialName(value = "invoice")
     public val invoice: Invoice,
+    @SerialName(value = "order_info")
     public val orderInfo: OrderInfo?,
+    @SerialName(value = "shipping_option")
     public val shippingOption: ShippingOption?,
+    @SerialName(value = "credentials_title")
     public val credentialsTitle: String,
+    @SerialName(value = "tip_amount")
     public val tipAmount: Long,
 ) : PaymentReceiptType() {
     override fun equals(other: Any?): Boolean {

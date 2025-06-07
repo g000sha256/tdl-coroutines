@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The link is a link to boost a channel chat.
  *
  * @property photo Photo of the chat; may be null.
  */
+@SerialName(value = "linkPreviewTypeChannelBoost")
+@Serializable
 public class LinkPreviewTypeChannelBoost public constructor(
+    @SerialName(value = "photo")
     public val photo: ChatPhoto?,
 ) : LinkPreviewType() {
     override fun equals(other: Any?): Boolean {

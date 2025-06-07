@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * TDLib needs the user's phone number to authorize. Call setAuthenticationPhoneNumber to provide the phone number, or use requestQrCodeAuthentication or checkAuthenticationBotToken for other authentication options.
  */
+@SerialName(value = "authorizationStateWaitPhoneNumber")
+@Serializable
 public class AuthorizationStateWaitPhoneNumber public constructor() : AuthorizationState() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

@@ -16,8 +16,11 @@
 
 package dev.g000sha256.tdl.dto
 
+import kotlinx.serialization.Serializable
+
 /**
  * This class is an abstract base class.
  * Represents the type of session.
  */
-public sealed class SessionType protected constructor()
+@Serializable
+public sealed class SessionType protected constructor() : Model()

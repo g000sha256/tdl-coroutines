@@ -20,15 +20,20 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains some text.
  *
  * @property text Text.
  */
+@SerialName(value = "text")
+@Serializable
 public class Text public constructor(
+    @SerialName(value = "text")
     public val text: String,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The chat title was changed.
@@ -27,8 +29,12 @@ import kotlin.String
  * @property oldTitle Previous chat title.
  * @property newTitle New chat title.
  */
+@SerialName(value = "chatEventTitleChanged")
+@Serializable
 public class ChatEventTitleChanged public constructor(
+    @SerialName(value = "old_title")
     public val oldTitle: String,
+    @SerialName(value = "new_title")
     public val newTitle: String,
 ) : ChatEventAction() {
     override fun equals(other: Any?): Boolean {

@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * An area pointing to a venue found by the bot getOption(&quot;venue_search_bot_username&quot;).
@@ -28,8 +30,12 @@ import kotlin.String
  * @property queryId Identifier of the inline query, used to found the venue.
  * @property resultId Identifier of the inline query result.
  */
+@SerialName(value = "inputStoryAreaTypeFoundVenue")
+@Serializable
 public class InputStoryAreaTypeFoundVenue public constructor(
+    @SerialName(value = "query_id")
     public val queryId: Long,
+    @SerialName(value = "result_id")
     public val resultId: String,
 ) : InputStoryAreaType() {
     override fun equals(other: Any?): Boolean {

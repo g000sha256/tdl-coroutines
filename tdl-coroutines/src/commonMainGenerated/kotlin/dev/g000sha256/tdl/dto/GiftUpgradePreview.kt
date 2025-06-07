@@ -21,6 +21,8 @@ import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains examples of possible upgraded gifts for the given regular gift.
@@ -29,11 +31,16 @@ import kotlin.String
  * @property symbols Examples of possible symbols that can be chosen for the gift after upgrade.
  * @property backdrops Examples of possible backdrops that can be chosen for the gift after upgrade.
  */
+@SerialName(value = "giftUpgradePreview")
+@Serializable
 public class GiftUpgradePreview public constructor(
+    @SerialName(value = "models")
     public val models: Array<UpgradedGiftModel>,
+    @SerialName(value = "symbols")
     public val symbols: Array<UpgradedGiftSymbol>,
+    @SerialName(value = "backdrops")
     public val backdrops: Array<UpgradedGiftBackdrop>,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

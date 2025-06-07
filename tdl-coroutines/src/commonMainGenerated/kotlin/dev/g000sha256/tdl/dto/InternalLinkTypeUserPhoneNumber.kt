@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The link is a link to a user by its phone number. Call searchUserByPhoneNumber with the given phone number to process the link. If the user is found, then call createPrivateChat and open user's profile information screen or the chat itself. If draft text isn't empty, then put the draft text in the input field.
@@ -28,9 +30,14 @@ import kotlin.String
  * @property draftText Draft text for message to send in the chat.
  * @property openProfile True, if user's profile information screen must be opened; otherwise, the chat itself must be opened.
  */
+@SerialName(value = "internalLinkTypeUserPhoneNumber")
+@Serializable
 public class InternalLinkTypeUserPhoneNumber public constructor(
+    @SerialName(value = "phone_number")
     public val phoneNumber: String,
+    @SerialName(value = "draft_text")
     public val draftText: String,
+    @SerialName(value = "open_profile")
     public val openProfile: Boolean,
 ) : InternalLinkType() {
     override fun equals(other: Any?): Boolean {

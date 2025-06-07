@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The transaction is a purchase of a product from a bot or a business account by the current user; for regular users only.
@@ -28,8 +30,12 @@ import kotlin.String
  * @property userId Identifier of the bot or the business account user that created the invoice.
  * @property productInfo Information about the bought product.
  */
+@SerialName(value = "starTransactionTypeBotInvoicePurchase")
+@Serializable
 public class StarTransactionTypeBotInvoicePurchase public constructor(
+    @SerialName(value = "user_id")
     public val userId: Long,
+    @SerialName(value = "product_info")
     public val productInfo: ProductInfo,
 ) : StarTransactionType() {
     override fun equals(other: Any?): Boolean {

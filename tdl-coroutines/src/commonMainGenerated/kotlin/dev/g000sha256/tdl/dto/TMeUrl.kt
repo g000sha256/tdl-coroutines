@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Represents a URL linking to an internal Telegram entity.
@@ -27,10 +29,14 @@ import kotlin.String
  * @property url URL.
  * @property type Type of the URL.
  */
+@SerialName(value = "tMeUrl")
+@Serializable
 public class TMeUrl public constructor(
+    @SerialName(value = "url")
     public val url: String,
+    @SerialName(value = "type")
     public val type: TMeUrlType,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

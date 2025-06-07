@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The first unconfirmed session has changed.
  *
  * @property session The unconfirmed session; may be null if none.
  */
+@SerialName(value = "updateUnconfirmedSession")
+@Serializable
 public class UpdateUnconfirmedSession public constructor(
+    @SerialName(value = "session")
     public val session: UnconfirmedSession?,
 ) : Update() {
     override fun equals(other: Any?): Boolean {

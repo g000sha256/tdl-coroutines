@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Autosave settings for some type of chats were updated.
@@ -27,8 +29,12 @@ import kotlin.String
  * @property scope Type of chats for which autosave settings were updated.
  * @property settings The new autosave settings; may be null if the settings are reset to default.
  */
+@SerialName(value = "updateAutosaveSettings")
+@Serializable
 public class UpdateAutosaveSettings public constructor(
+    @SerialName(value = "scope")
     public val scope: AutosaveSettingsScope,
+    @SerialName(value = "settings")
     public val settings: ScopeAutosaveSettings?,
 ) : Update() {
     override fun equals(other: Any?): Boolean {

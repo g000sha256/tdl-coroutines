@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The link contains a message draft text. A share screen needs to be shown to the user, then the chosen chat must be opened and the text is added to the input field.
@@ -27,8 +29,12 @@ import kotlin.String
  * @property text Message draft text.
  * @property containsLink True, if the first line of the text contains a link. If true, the input field needs to be focused and the text after the link must be selected.
  */
+@SerialName(value = "internalLinkTypeMessageDraft")
+@Serializable
 public class InternalLinkTypeMessageDraft public constructor(
+    @SerialName(value = "text")
     public val text: FormattedText,
+    @SerialName(value = "contains_link")
     public val containsLink: Boolean,
 ) : InternalLinkType() {
     override fun equals(other: Any?): Boolean {

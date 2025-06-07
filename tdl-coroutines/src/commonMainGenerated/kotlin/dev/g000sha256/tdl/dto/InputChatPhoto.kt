@@ -16,8 +16,11 @@
 
 package dev.g000sha256.tdl.dto
 
+import kotlinx.serialization.Serializable
+
 /**
  * This class is an abstract base class.
  * Describes a photo to be set as a user profile or chat photo.
  */
-public sealed class InputChatPhoto protected constructor()
+@Serializable
+public sealed class InputChatPhoto protected constructor() : Model()

@@ -22,6 +22,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Reactions added to a message with anonymous reactions have changed; for bots only.
@@ -31,10 +33,16 @@ import kotlin.String
  * @property date Point in time (Unix timestamp) when the reactions were changed.
  * @property reactions The list of reactions added to the message.
  */
+@SerialName(value = "updateMessageReactions")
+@Serializable
 public class UpdateMessageReactions public constructor(
+    @SerialName(value = "chat_id")
     public val chatId: Long,
+    @SerialName(value = "message_id")
     public val messageId: Long,
+    @SerialName(value = "date")
     public val date: Int,
+    @SerialName(value = "reactions")
     public val reactions: Array<MessageReaction>,
 ) : Update() {
     override fun equals(other: Any?): Boolean {

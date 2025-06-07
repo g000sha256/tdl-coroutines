@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Suggests the user to set a 2-step verification password to be able to log in again.
  *
  * @property authorizationDelay The number of days to pass between consecutive authorizations if the user declines to set password; if 0, then the user is advised to set the password for security reasons.
  */
+@SerialName(value = "suggestedActionSetPassword")
+@Serializable
 public class SuggestedActionSetPassword public constructor(
+    @SerialName(value = "authorization_delay")
     public val authorizationDelay: Int,
 ) : SuggestedAction() {
     override fun equals(other: Any?): Boolean {

@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Email address can be reset after the given period. Call resetAuthenticationEmailAddress to reset it and allow the user to authorize with a code sent to the user's phone number.
  *
  * @property waitPeriod Time required to wait before the email address can be reset; 0 if the user is subscribed to Telegram Premium.
  */
+@SerialName(value = "emailAddressResetStateAvailable")
+@Serializable
 public class EmailAddressResetStateAvailable public constructor(
+    @SerialName(value = "wait_period")
     public val waitPeriod: Int,
 ) : EmailAddressResetState() {
     override fun equals(other: Any?): Boolean {

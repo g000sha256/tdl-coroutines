@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.LongArray
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains information about interactions with a story.
@@ -30,12 +32,18 @@ import kotlin.String
  * @property reactionCount Number of reactions added to the story; 0 if none or unknown.
  * @property recentViewerUserIds Identifiers of at most 3 recent viewers of the story.
  */
+@SerialName(value = "storyInteractionInfo")
+@Serializable
 public class StoryInteractionInfo public constructor(
+    @SerialName(value = "view_count")
     public val viewCount: Int,
+    @SerialName(value = "forward_count")
     public val forwardCount: Int,
+    @SerialName(value = "reaction_count")
     public val reactionCount: Int,
+    @SerialName(value = "recent_viewer_user_ids")
     public val recentViewerUserIds: LongArray,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

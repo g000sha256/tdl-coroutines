@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The supergroup sticker set with allowed custom emoji was changed.
@@ -28,8 +30,12 @@ import kotlin.String
  * @property oldStickerSetId Previous identifier of the chat sticker set; 0 if none.
  * @property newStickerSetId New identifier of the chat sticker set; 0 if none.
  */
+@SerialName(value = "chatEventCustomEmojiStickerSetChanged")
+@Serializable
 public class ChatEventCustomEmojiStickerSetChanged public constructor(
+    @SerialName(value = "old_sticker_set_id")
     public val oldStickerSetId: Long,
+    @SerialName(value = "new_sticker_set_id")
     public val newStickerSetId: Long,
 ) : ChatEventAction() {
     override fun equals(other: Any?): Boolean {

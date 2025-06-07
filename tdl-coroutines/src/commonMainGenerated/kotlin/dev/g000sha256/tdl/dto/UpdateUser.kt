@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Some data of a user has changed. This update is guaranteed to come before the user identifier is returned to the application.
  *
  * @property user New data about the user.
  */
+@SerialName(value = "updateUser")
+@Serializable
 public class UpdateUser public constructor(
+    @SerialName(value = "user")
     public val user: User,
 ) : Update() {
     override fun equals(other: Any?): Boolean {

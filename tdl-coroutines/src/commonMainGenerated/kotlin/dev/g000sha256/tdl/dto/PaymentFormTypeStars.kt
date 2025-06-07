@@ -21,13 +21,18 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The payment form is for a payment in Telegram Stars.
  *
  * @property starCount Number of Telegram Stars that will be paid.
  */
+@SerialName(value = "paymentFormTypeStars")
+@Serializable
 public class PaymentFormTypeStars public constructor(
+    @SerialName(value = "star_count")
     public val starCount: Long,
 ) : PaymentFormType() {
     override fun equals(other: Any?): Boolean {

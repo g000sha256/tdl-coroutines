@@ -16,8 +16,11 @@
 
 package dev.g000sha256.tdl.dto
 
+import kotlinx.serialization.Serializable
+
 /**
  * This class is an abstract base class.
  * Represents type of button in results of inline query.
  */
-public sealed class InlineQueryResultsButtonType protected constructor()
+@Serializable
+public sealed class InlineQueryResultsButtonType protected constructor() : Model()

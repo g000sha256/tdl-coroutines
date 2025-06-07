@@ -21,15 +21,20 @@ import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains a list of emoji statuses.
  *
  * @property emojiStatuses The list of emoji statuses identifiers.
  */
+@SerialName(value = "emojiStatuses")
+@Serializable
 public class EmojiStatuses public constructor(
+    @SerialName(value = "emoji_statuses")
     public val emojiStatuses: Array<EmojiStatus>,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

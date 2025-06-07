@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Returns bot members of the chat.
  */
+@SerialName(value = "chatMembersFilterBots")
+@Serializable
 public class ChatMembersFilterBots public constructor() : ChatMembersFilter() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains information about a tg: deep link.
@@ -27,10 +29,14 @@ import kotlin.String
  * @property text Text to be shown to the user.
  * @property needUpdateApplication True, if the user must be asked to update the application.
  */
+@SerialName(value = "deepLinkInfo")
+@Serializable
 public class DeepLinkInfo public constructor(
+    @SerialName(value = "text")
     public val text: FormattedText,
+    @SerialName(value = "need_update_application")
     public val needUpdateApplication: Boolean,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The link is a link to a Web App. Call searchPublicChat with the given bot username, check that the user is a bot. If the bot is restricted for the current user, then show an error message. Otherwise, call searchWebApp with the received bot and the given webAppShortName. Process received foundWebApp by showing a confirmation dialog if needed. If the bot can be added to attachment or side menu, but isn't added yet, then show a disclaimer about Mini Apps being third-party applications instead of the dialog and ask the user to accept their Terms of service. If the user accept the terms and confirms adding, then use toggleBotIsAddedToAttachmentMenu to add the bot. Then, call getWebAppLinkUrl and open the returned URL as a Web App.
@@ -29,10 +31,16 @@ import kotlin.String
  * @property startParameter Start parameter to be passed to getWebAppLinkUrl.
  * @property mode The mode in which the Web App must be opened.
  */
+@SerialName(value = "internalLinkTypeWebApp")
+@Serializable
 public class InternalLinkTypeWebApp public constructor(
+    @SerialName(value = "bot_username")
     public val botUsername: String,
+    @SerialName(value = "web_app_short_name")
     public val webAppShortName: String,
+    @SerialName(value = "start_parameter")
     public val startParameter: String,
+    @SerialName(value = "mode")
     public val mode: WebAppOpenMode,
 ) : InternalLinkType() {
     override fun equals(other: Any?): Boolean {

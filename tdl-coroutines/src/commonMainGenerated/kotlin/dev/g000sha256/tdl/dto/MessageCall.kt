@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A message with information about an ended call.
@@ -28,9 +30,14 @@ import kotlin.String
  * @property discardReason Reason why the call was discarded.
  * @property duration Call duration, in seconds.
  */
+@SerialName(value = "messageCall")
+@Serializable
 public class MessageCall public constructor(
+    @SerialName(value = "is_video")
     public val isVideo: Boolean,
+    @SerialName(value = "discard_reason")
     public val discardReason: CallDiscardReason,
+    @SerialName(value = "duration")
     public val duration: Int,
 ) : MessageContent() {
     override fun equals(other: Any?): Boolean {

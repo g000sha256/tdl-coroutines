@@ -21,13 +21,18 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The message was sent by a known user.
  *
  * @property userId Identifier of the user that sent the message.
  */
+@SerialName(value = "messageSenderUser")
+@Serializable
 public class MessageSenderUser public constructor(
+    @SerialName(value = "user_id")
     public val userId: Long,
 ) : MessageSender() {
     override fun equals(other: Any?): Boolean {

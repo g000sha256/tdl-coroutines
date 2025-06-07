@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains information about revenue earned from sponsored messages in a chat.
@@ -31,13 +33,20 @@ import kotlin.String
  * @property availableAmount Amount of the cryptocurrency available for withdrawal, in the smallest units of the cryptocurrency.
  * @property withdrawalEnabled True, if Telegram Stars can be withdrawn now or later.
  */
+@SerialName(value = "chatRevenueAmount")
+@Serializable
 public class ChatRevenueAmount public constructor(
+    @SerialName(value = "cryptocurrency")
     public val cryptocurrency: String,
+    @SerialName(value = "total_amount")
     public val totalAmount: Long,
+    @SerialName(value = "balance_amount")
     public val balanceAmount: Long,
+    @SerialName(value = "available_amount")
     public val availableAmount: Long,
+    @SerialName(value = "withdrawal_enabled")
     public val withdrawalEnabled: Boolean,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

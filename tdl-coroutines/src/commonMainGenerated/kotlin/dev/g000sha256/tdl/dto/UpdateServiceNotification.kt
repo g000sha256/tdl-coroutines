@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A service notification from the server was received. Upon receiving this the application must show a popup with the content of the notification.
@@ -27,8 +29,12 @@ import kotlin.String
  * @property type Notification type. If type begins with &quot;AUTH_KEY_DROP_&quot;, then two buttons &quot;Cancel&quot; and &quot;Log out&quot; must be shown under notification; if user presses the second, all local data must be destroyed using Destroy method.
  * @property content Notification content.
  */
+@SerialName(value = "updateServiceNotification")
+@Serializable
 public class UpdateServiceNotification public constructor(
+    @SerialName(value = "type")
     public val type: String,
+    @SerialName(value = "content")
     public val content: MessageContent,
 ) : Update() {
     override fun equals(other: Any?): Boolean {

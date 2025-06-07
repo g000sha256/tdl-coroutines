@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The user can't be invited because they are already a participant of the call.
  */
+@SerialName(value = "inviteGroupCallParticipantResultUserAlreadyParticipant")
+@Serializable
 public class InviteGroupCallParticipantResultUserAlreadyParticipant public constructor() : InviteGroupCallParticipantResult() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

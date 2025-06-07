@@ -16,8 +16,11 @@
 
 package dev.g000sha256.tdl.dto
 
+import kotlinx.serialization.Serializable
+
 /**
  * This class is an abstract base class.
  * Describes a purpose of an in-store payment.
  */
-public sealed class StorePaymentPurpose protected constructor()
+@Serializable
+public sealed class StorePaymentPurpose protected constructor() : Model()

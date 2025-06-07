@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The session is running on an Android device.
  */
+@SerialName(value = "sessionTypeAndroid")
+@Serializable
 public class SessionTypeAndroid public constructor() : SessionType() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

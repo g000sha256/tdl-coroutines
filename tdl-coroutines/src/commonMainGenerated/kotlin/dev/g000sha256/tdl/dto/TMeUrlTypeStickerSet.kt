@@ -21,13 +21,18 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A URL linking to a sticker set.
  *
  * @property stickerSetId Identifier of the sticker set.
  */
+@SerialName(value = "tMeUrlTypeStickerSet")
+@Serializable
 public class TMeUrlTypeStickerSet public constructor(
+    @SerialName(value = "sticker_set_id")
     public val stickerSetId: Long,
 ) : TMeUrlType() {
     override fun equals(other: Any?): Boolean {

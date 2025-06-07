@@ -16,8 +16,11 @@
 
 package dev.g000sha256.tdl.dto
 
+import kotlinx.serialization.Serializable
+
 /**
  * This class is an abstract base class.
  * Describes a non-joined group call that isn't bound to a chat.
  */
-public sealed class InputGroupCall protected constructor()
+@Serializable
+public sealed class InputGroupCall protected constructor() : Model()

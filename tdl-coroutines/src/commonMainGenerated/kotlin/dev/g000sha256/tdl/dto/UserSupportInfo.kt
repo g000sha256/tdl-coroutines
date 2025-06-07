@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains custom information about the user.
@@ -28,11 +30,16 @@ import kotlin.String
  * @property author Information author.
  * @property date Information change date.
  */
+@SerialName(value = "userSupportInfo")
+@Serializable
 public class UserSupportInfo public constructor(
+    @SerialName(value = "message")
     public val message: FormattedText,
+    @SerialName(value = "author")
     public val author: String,
+    @SerialName(value = "date")
     public val date: Int,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Represents a voice note.
@@ -28,9 +30,14 @@ import kotlin.String
  * @property voiceNote Voice note.
  * @property title Title of the voice note.
  */
+@SerialName(value = "inlineQueryResultVoiceNote")
+@Serializable
 public class InlineQueryResultVoiceNote public constructor(
+    @SerialName(value = "id")
     public val id: String,
+    @SerialName(value = "voice_note")
     public val voiceNote: VoiceNote,
+    @SerialName(value = "title")
     public val title: String,
 ) : InlineQueryResult() {
     override fun equals(other: Any?): Boolean {

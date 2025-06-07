@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes manually or automatically chosen quote from another message.
@@ -28,11 +30,16 @@ import kotlin.String
  * @property position Approximate quote position in the original message in UTF-16 code units as specified by the message sender.
  * @property isManual True, if the quote was manually chosen by the message sender.
  */
+@SerialName(value = "textQuote")
+@Serializable
 public class TextQuote public constructor(
+    @SerialName(value = "text")
     public val text: FormattedText,
+    @SerialName(value = "position")
     public val position: Int,
+    @SerialName(value = "is_manual")
     public val isManual: Boolean,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

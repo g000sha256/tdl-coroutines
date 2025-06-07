@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A detailed statistics about a story.
@@ -27,10 +29,14 @@ import kotlin.String
  * @property storyInteractionGraph A graph containing number of story views and shares.
  * @property storyReactionGraph A graph containing number of story reactions.
  */
+@SerialName(value = "storyStatistics")
+@Serializable
 public class StoryStatistics public constructor(
+    @SerialName(value = "story_interaction_graph")
     public val storyInteractionGraph: StatisticalGraph,
+    @SerialName(value = "story_reaction_graph")
     public val storyReactionGraph: StatisticalGraph,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

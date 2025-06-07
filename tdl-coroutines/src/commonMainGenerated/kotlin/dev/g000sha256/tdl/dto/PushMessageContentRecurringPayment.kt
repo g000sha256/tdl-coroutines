@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A new recurring payment was made by the current user.
  *
  * @property amount The paid amount.
  */
+@SerialName(value = "pushMessageContentRecurringPayment")
+@Serializable
 public class PushMessageContentRecurringPayment public constructor(
+    @SerialName(value = "amount")
     public val amount: String,
 ) : PushMessageContent() {
     override fun equals(other: Any?): Boolean {

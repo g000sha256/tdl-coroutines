@@ -22,6 +22,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The transaction is a sale of paid media by the bot or a business account managed by the bot; for bots only.
@@ -31,10 +33,16 @@ import kotlin.String
  * @property payload Bot-provided payload.
  * @property affiliate Information about the affiliate which received commission from the transaction; may be null if none.
  */
+@SerialName(value = "starTransactionTypeBotPaidMediaSale")
+@Serializable
 public class StarTransactionTypeBotPaidMediaSale public constructor(
+    @SerialName(value = "user_id")
     public val userId: Long,
+    @SerialName(value = "media")
     public val media: Array<PaidMedia>,
+    @SerialName(value = "payload")
     public val payload: String,
+    @SerialName(value = "affiliate")
     public val affiliate: AffiliateInfo?,
 ) : StarTransactionType() {
     override fun equals(other: Any?): Boolean {

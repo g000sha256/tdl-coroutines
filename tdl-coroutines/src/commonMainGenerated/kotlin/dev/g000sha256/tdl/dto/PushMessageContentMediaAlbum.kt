@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A media album.
@@ -30,11 +32,18 @@ import kotlin.String
  * @property hasAudios True, if the album has at least one audio file.
  * @property hasDocuments True, if the album has at least one document.
  */
+@SerialName(value = "pushMessageContentMediaAlbum")
+@Serializable
 public class PushMessageContentMediaAlbum public constructor(
+    @SerialName(value = "total_count")
     public val totalCount: Int,
+    @SerialName(value = "has_photos")
     public val hasPhotos: Boolean,
+    @SerialName(value = "has_videos")
     public val hasVideos: Boolean,
+    @SerialName(value = "has_audios")
     public val hasAudios: Boolean,
+    @SerialName(value = "has_documents")
     public val hasDocuments: Boolean,
 ) : PushMessageContent() {
     override fun equals(other: Any?): Boolean {

@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A message with a game.
  *
  * @property game The game description.
  */
+@SerialName(value = "messageGame")
+@Serializable
 public class MessageGame public constructor(
+    @SerialName(value = "game")
     public val game: Game,
 ) : MessageContent() {
     override fun equals(other: Any?): Boolean {

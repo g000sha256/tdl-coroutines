@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains information about an affiliate that received commission from a Telegram Star transaction.
@@ -29,11 +31,16 @@ import kotlin.String
  * @property affiliateChatId Identifier of the chat which received the commission.
  * @property starAmount The amount of Telegram Stars that were received by the affiliate; can be negative for refunds.
  */
+@SerialName(value = "affiliateInfo")
+@Serializable
 public class AffiliateInfo public constructor(
+    @SerialName(value = "commission_per_mille")
     public val commissionPerMille: Int,
+    @SerialName(value = "affiliate_chat_id")
     public val affiliateChatId: Long,
+    @SerialName(value = "star_amount")
     public val starAmount: StarAmount,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

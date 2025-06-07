@@ -22,6 +22,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes a chat or user profile photo.
@@ -34,15 +36,24 @@ import kotlin.String
  * @property smallAnimation A small (160x160) animated variant of the photo in MPEG4 format; may be null even the big animation is available.
  * @property sticker Sticker-based version of the chat photo; may be null.
  */
+@SerialName(value = "chatPhoto")
+@Serializable
 public class ChatPhoto public constructor(
+    @SerialName(value = "id")
     public val id: Long,
+    @SerialName(value = "added_date")
     public val addedDate: Int,
+    @SerialName(value = "minithumbnail")
     public val minithumbnail: Minithumbnail?,
+    @SerialName(value = "sizes")
     public val sizes: Array<PhotoSize>,
+    @SerialName(value = "animation")
     public val animation: AnimatedChatPhoto?,
+    @SerialName(value = "small_animation")
     public val smallAnimation: AnimatedChatPhoto?,
+    @SerialName(value = "sticker")
     public val sticker: ChatPhotoSticker?,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

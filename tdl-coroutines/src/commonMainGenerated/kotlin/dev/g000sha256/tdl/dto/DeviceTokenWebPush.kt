@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A token for web Push API.
@@ -28,9 +30,14 @@ import kotlin.String
  * @property p256dhBase64url Base64url-encoded P-256 elliptic curve Diffie-Hellman public key.
  * @property authBase64url Base64url-encoded authentication secret.
  */
+@SerialName(value = "deviceTokenWebPush")
+@Serializable
 public class DeviceTokenWebPush public constructor(
+    @SerialName(value = "endpoint")
     public val endpoint: String,
+    @SerialName(value = "p256dh_base64url")
     public val p256dhBase64url: String,
+    @SerialName(value = "auth_base64url")
     public val authBase64url: String,
 ) : DeviceToken() {
     override fun equals(other: Any?): Boolean {

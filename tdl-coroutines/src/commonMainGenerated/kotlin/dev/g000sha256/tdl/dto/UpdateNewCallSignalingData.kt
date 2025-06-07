@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.ByteArray
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * New call signaling data arrived.
@@ -28,8 +30,12 @@ import kotlin.String
  * @property callId The call identifier.
  * @property data The data.
  */
+@SerialName(value = "updateNewCallSignalingData")
+@Serializable
 public class UpdateNewCallSignalingData public constructor(
+    @SerialName(value = "call_id")
     public val callId: Int,
+    @SerialName(value = "data")
     public val data: ByteArray,
 ) : Update() {
     override fun equals(other: Any?): Boolean {

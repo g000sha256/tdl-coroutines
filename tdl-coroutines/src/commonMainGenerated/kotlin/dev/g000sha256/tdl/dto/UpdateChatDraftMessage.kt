@@ -22,6 +22,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A chat draft has changed. Be aware that the update may come in the currently opened chat but with old content of the draft. If the user has changed the content of the draft, this update mustn't be applied.
@@ -30,9 +32,14 @@ import kotlin.String
  * @property draftMessage The new draft message; may be null if none.
  * @property positions The new chat positions in the chat lists.
  */
+@SerialName(value = "updateChatDraftMessage")
+@Serializable
 public class UpdateChatDraftMessage public constructor(
+    @SerialName(value = "chat_id")
     public val chatId: Long,
+    @SerialName(value = "draft_message")
     public val draftMessage: DraftMessage?,
+    @SerialName(value = "positions")
     public val positions: Array<ChatPosition>,
 ) : Update() {
     override fun equals(other: Any?): Boolean {

@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Suggests the user to set birthdate.
  */
+@SerialName(value = "suggestedActionSetBirthdate")
+@Serializable
 public class SuggestedActionSetBirthdate public constructor() : SuggestedAction() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

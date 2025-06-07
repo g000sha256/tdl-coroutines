@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Increased limits.
  */
+@SerialName(value = "premiumFeatureIncreasedLimits")
+@Serializable
 public class PremiumFeatureIncreasedLimits public constructor() : PremiumFeature() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

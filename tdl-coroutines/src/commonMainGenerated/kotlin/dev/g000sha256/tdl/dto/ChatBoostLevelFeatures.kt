@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains a list of features available on a specific chat boost level.
@@ -40,23 +42,40 @@ import kotlin.String
  * @property canRecognizeSpeech True, if speech recognition can be used for video note and voice note messages by all users.
  * @property canDisableSponsoredMessages True, if sponsored messages can be disabled in the chat.
  */
+@SerialName(value = "chatBoostLevelFeatures")
+@Serializable
 public class ChatBoostLevelFeatures public constructor(
+    @SerialName(value = "level")
     public val level: Int,
+    @SerialName(value = "story_per_day_count")
     public val storyPerDayCount: Int,
+    @SerialName(value = "custom_emoji_reaction_count")
     public val customEmojiReactionCount: Int,
+    @SerialName(value = "title_color_count")
     public val titleColorCount: Int,
+    @SerialName(value = "profile_accent_color_count")
     public val profileAccentColorCount: Int,
+    @SerialName(value = "can_set_profile_background_custom_emoji")
     public val canSetProfileBackgroundCustomEmoji: Boolean,
+    @SerialName(value = "accent_color_count")
     public val accentColorCount: Int,
+    @SerialName(value = "can_set_background_custom_emoji")
     public val canSetBackgroundCustomEmoji: Boolean,
+    @SerialName(value = "can_set_emoji_status")
     public val canSetEmojiStatus: Boolean,
+    @SerialName(value = "chat_theme_background_count")
     public val chatThemeBackgroundCount: Int,
+    @SerialName(value = "can_set_custom_background")
     public val canSetCustomBackground: Boolean,
+    @SerialName(value = "can_set_custom_emoji_sticker_set")
     public val canSetCustomEmojiStickerSet: Boolean,
+    @SerialName(value = "can_enable_automatic_translation")
     public val canEnableAutomaticTranslation: Boolean,
+    @SerialName(value = "can_recognize_speech")
     public val canRecognizeSpeech: Boolean,
+    @SerialName(value = "can_disable_sponsored_messages")
     public val canDisableSponsoredMessages: Boolean,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

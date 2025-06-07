@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The call is pending, waiting to be accepted by a user.
@@ -27,8 +29,12 @@ import kotlin.String
  * @property isCreated True, if the call has already been created by the server.
  * @property isReceived True, if the call has already been received by the other party.
  */
+@SerialName(value = "callStatePending")
+@Serializable
 public class CallStatePending public constructor(
+    @SerialName(value = "is_created")
     public val isCreated: Boolean,
+    @SerialName(value = "is_received")
     public val isReceived: Boolean,
 ) : CallState() {
     override fun equals(other: Any?): Boolean {

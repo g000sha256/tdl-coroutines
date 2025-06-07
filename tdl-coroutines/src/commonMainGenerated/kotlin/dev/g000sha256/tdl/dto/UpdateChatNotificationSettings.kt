@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Notification settings for a chat were changed.
@@ -28,8 +30,12 @@ import kotlin.String
  * @property chatId Chat identifier.
  * @property notificationSettings The new notification settings.
  */
+@SerialName(value = "updateChatNotificationSettings")
+@Serializable
 public class UpdateChatNotificationSettings public constructor(
+    @SerialName(value = "chat_id")
     public val chatId: Long,
+    @SerialName(value = "notification_settings")
     public val notificationSettings: ChatNotificationSettings,
 ) : Update() {
     override fun equals(other: Any?): Boolean {

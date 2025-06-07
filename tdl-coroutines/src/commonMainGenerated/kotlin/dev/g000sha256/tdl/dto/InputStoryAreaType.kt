@@ -16,8 +16,11 @@
 
 package dev.g000sha256.tdl.dto
 
+import kotlinx.serialization.Serializable
+
 /**
  * This class is an abstract base class.
  * Describes type of clickable area on a story media to be added.
  */
-public sealed class InputStoryAreaType protected constructor()
+@Serializable
+public sealed class InputStoryAreaType protected constructor() : Model()

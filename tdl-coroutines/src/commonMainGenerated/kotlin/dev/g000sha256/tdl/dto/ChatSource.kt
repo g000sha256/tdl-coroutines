@@ -16,8 +16,11 @@
 
 package dev.g000sha256.tdl.dto
 
+import kotlinx.serialization.Serializable
+
 /**
  * This class is an abstract base class.
  * Describes a reason why an external chat is shown in a chat list.
  */
-public sealed class ChatSource protected constructor()
+@Serializable
+public sealed class ChatSource protected constructor() : Model()

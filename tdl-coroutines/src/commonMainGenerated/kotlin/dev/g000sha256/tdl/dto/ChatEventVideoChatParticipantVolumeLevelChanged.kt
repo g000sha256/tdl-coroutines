@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A video chat participant volume level was changed.
@@ -27,8 +29,12 @@ import kotlin.String
  * @property participantId Identifier of the affected group call participant.
  * @property volumeLevel New value of volumeLevel; 1-20000 in hundreds of percents.
  */
+@SerialName(value = "chatEventVideoChatParticipantVolumeLevelChanged")
+@Serializable
 public class ChatEventVideoChatParticipantVolumeLevelChanged public constructor(
+    @SerialName(value = "participant_id")
     public val participantId: MessageSender,
+    @SerialName(value = "volume_level")
     public val volumeLevel: Int,
 ) : ChatEventAction() {
     override fun equals(other: Any?): Boolean {

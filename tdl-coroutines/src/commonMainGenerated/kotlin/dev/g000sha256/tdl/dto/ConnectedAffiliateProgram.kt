@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes an affiliate program that was connected to an affiliate.
@@ -33,15 +35,24 @@ import kotlin.String
  * @property userCount The number of users that used the affiliate program.
  * @property revenueStarCount The number of Telegram Stars that were earned by the affiliate program.
  */
+@SerialName(value = "connectedAffiliateProgram")
+@Serializable
 public class ConnectedAffiliateProgram public constructor(
+    @SerialName(value = "url")
     public val url: String,
+    @SerialName(value = "bot_user_id")
     public val botUserId: Long,
+    @SerialName(value = "parameters")
     public val parameters: AffiliateProgramParameters,
+    @SerialName(value = "connection_date")
     public val connectionDate: Int,
+    @SerialName(value = "is_disconnected")
     public val isDisconnected: Boolean,
+    @SerialName(value = "user_count")
     public val userCount: Long,
+    @SerialName(value = "revenue_star_count")
     public val revenueStarCount: Long,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

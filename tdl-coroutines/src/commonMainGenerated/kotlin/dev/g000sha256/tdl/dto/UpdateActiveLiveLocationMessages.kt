@@ -21,13 +21,18 @@ import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The list of messages with active live location that need to be updated by the application has changed. The list is persistent across application restarts only if the message database is used.
  *
  * @property messages The list of messages with active live locations.
  */
+@SerialName(value = "updateActiveLiveLocationMessages")
+@Serializable
 public class UpdateActiveLiveLocationMessages public constructor(
+    @SerialName(value = "messages")
     public val messages: Array<Message>,
 ) : Update() {
     override fun equals(other: Any?): Boolean {

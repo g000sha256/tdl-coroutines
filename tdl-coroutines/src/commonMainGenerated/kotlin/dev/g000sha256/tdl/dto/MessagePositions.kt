@@ -21,6 +21,8 @@ import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains a list of message positions.
@@ -28,10 +30,14 @@ import kotlin.String
  * @property totalCount Total number of messages found.
  * @property positions List of message positions.
  */
+@SerialName(value = "messagePositions")
+@Serializable
 public class MessagePositions public constructor(
+    @SerialName(value = "total_count")
     public val totalCount: Int,
+    @SerialName(value = "positions")
     public val positions: Array<MessagePosition>,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

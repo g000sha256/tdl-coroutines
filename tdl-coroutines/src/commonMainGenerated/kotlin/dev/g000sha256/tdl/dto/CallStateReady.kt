@@ -22,6 +22,8 @@ import kotlin.Boolean
 import kotlin.ByteArray
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The call is ready to use.
@@ -35,14 +37,24 @@ import kotlin.String
  * @property isGroupCallSupported True, if the other party supports upgrading of the call to a group call.
  * @property customParameters Custom JSON-encoded call parameters to be passed to tgcalls.
  */
+@SerialName(value = "callStateReady")
+@Serializable
 public class CallStateReady public constructor(
+    @SerialName(value = "protocol")
     public val protocol: CallProtocol,
+    @SerialName(value = "servers")
     public val servers: Array<CallServer>,
+    @SerialName(value = "config")
     public val config: String,
+    @SerialName(value = "encryption_key")
     public val encryptionKey: ByteArray,
+    @SerialName(value = "emojis")
     public val emojis: Array<String>,
+    @SerialName(value = "allow_p2p")
     public val allowP2p: Boolean,
+    @SerialName(value = "is_group_call_supported")
     public val isGroupCallSupported: Boolean,
+    @SerialName(value = "custom_parameters")
     public val customParameters: String,
 ) : CallState() {
     override fun equals(other: Any?): Boolean {

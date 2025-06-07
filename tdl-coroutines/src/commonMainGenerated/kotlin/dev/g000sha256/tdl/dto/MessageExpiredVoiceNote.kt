@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A self-destructed voice note message.
  */
+@SerialName(value = "messageExpiredVoiceNote")
+@Serializable
 public class MessageExpiredVoiceNote public constructor() : MessageContent() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

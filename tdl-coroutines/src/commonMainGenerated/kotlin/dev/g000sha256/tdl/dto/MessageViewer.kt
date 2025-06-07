@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Represents a viewer of a message.
@@ -28,10 +30,14 @@ import kotlin.String
  * @property userId User identifier of the viewer.
  * @property viewDate Approximate point in time (Unix timestamp) when the message was viewed.
  */
+@SerialName(value = "messageViewer")
+@Serializable
 public class MessageViewer public constructor(
+    @SerialName(value = "user_id")
     public val userId: Long,
+    @SerialName(value = "view_date")
     public val viewDate: Int,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

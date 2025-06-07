@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Information about the sponsor of a message.
@@ -28,11 +30,16 @@ import kotlin.String
  * @property photo Photo of the sponsor; may be null if must not be shown.
  * @property info Additional optional information about the sponsor to be shown along with the message.
  */
+@SerialName(value = "messageSponsor")
+@Serializable
 public class MessageSponsor public constructor(
+    @SerialName(value = "url")
     public val url: String,
+    @SerialName(value = "photo")
     public val photo: Photo?,
+    @SerialName(value = "info")
     public val info: String,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

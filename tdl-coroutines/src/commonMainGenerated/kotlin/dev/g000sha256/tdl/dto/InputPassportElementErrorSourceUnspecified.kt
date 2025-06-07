@@ -21,13 +21,18 @@ import kotlin.Boolean
 import kotlin.ByteArray
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The element contains an error in an unspecified place. The error will be considered resolved when new data is added.
  *
  * @property elementHash Current hash of the entire element.
  */
+@SerialName(value = "inputPassportElementErrorSourceUnspecified")
+@Serializable
 public class InputPassportElementErrorSourceUnspecified public constructor(
+    @SerialName(value = "element_hash")
     public val elementHash: ByteArray,
 ) : InputPassportElementErrorSource() {
     override fun equals(other: Any?): Boolean {

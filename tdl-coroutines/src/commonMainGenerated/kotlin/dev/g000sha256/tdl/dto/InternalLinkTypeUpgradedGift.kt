@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The link is a link to an upgraded gift. Call getUpgradedGift with the given name to process the link.
  *
  * @property name Name of the unique gift.
  */
+@SerialName(value = "internalLinkTypeUpgradedGift")
+@Serializable
 public class InternalLinkTypeUpgradedGift public constructor(
+    @SerialName(value = "name")
     public val name: String,
 ) : InternalLinkType() {
     override fun equals(other: Any?): Boolean {

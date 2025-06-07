@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The chat represents a fake account.
  */
+@SerialName(value = "reportReasonFake")
+@Serializable
 public class ReportReasonFake public constructor() : ReportReason() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

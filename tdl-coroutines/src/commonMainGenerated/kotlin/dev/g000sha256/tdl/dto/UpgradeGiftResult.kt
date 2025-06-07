@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains result of gift upgrading.
@@ -34,16 +36,26 @@ import kotlin.String
  * @property nextResaleDate Point in time (Unix timestamp) when the gift can be resold to another user; 0 if the gift can't be resold; only for the receiver of the gift.
  * @property exportDate Point in time (Unix timestamp) when the gift can be transferred to the TON blockchain as an NFT.
  */
+@SerialName(value = "upgradeGiftResult")
+@Serializable
 public class UpgradeGiftResult public constructor(
+    @SerialName(value = "gift")
     public val gift: UpgradedGift,
+    @SerialName(value = "received_gift_id")
     public val receivedGiftId: String,
+    @SerialName(value = "is_saved")
     public val isSaved: Boolean,
+    @SerialName(value = "can_be_transferred")
     public val canBeTransferred: Boolean,
+    @SerialName(value = "transfer_star_count")
     public val transferStarCount: Long,
+    @SerialName(value = "next_transfer_date")
     public val nextTransferDate: Int,
+    @SerialName(value = "next_resale_date")
     public val nextResaleDate: Int,
+    @SerialName(value = "export_date")
     public val exportDate: Int,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

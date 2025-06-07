@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A secret chat with a user.
@@ -28,8 +30,12 @@ import kotlin.String
  * @property secretChatId Secret chat identifier.
  * @property userId User identifier of the other user in the secret chat.
  */
+@SerialName(value = "chatTypeSecret")
+@Serializable
 public class ChatTypeSecret public constructor(
+    @SerialName(value = "secret_chat_id")
     public val secretChatId: Int,
+    @SerialName(value = "user_id")
     public val userId: Long,
 ) : ChatType() {
     override fun equals(other: Any?): Boolean {

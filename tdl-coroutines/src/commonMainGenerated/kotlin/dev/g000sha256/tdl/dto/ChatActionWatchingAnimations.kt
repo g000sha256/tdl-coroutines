@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The user is watching animations sent by the other party by clicking on an animated emoji.
  *
  * @property emoji The animated emoji.
  */
+@SerialName(value = "chatActionWatchingAnimations")
+@Serializable
 public class ChatActionWatchingAnimations public constructor(
+    @SerialName(value = "emoji")
     public val emoji: String,
 ) : ChatAction() {
     override fun equals(other: Any?): Boolean {

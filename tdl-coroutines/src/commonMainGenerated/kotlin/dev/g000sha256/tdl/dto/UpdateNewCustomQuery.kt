@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A new incoming query; for bots only.
@@ -29,9 +31,14 @@ import kotlin.String
  * @property data JSON-serialized query data.
  * @property timeout Query timeout.
  */
+@SerialName(value = "updateNewCustomQuery")
+@Serializable
 public class UpdateNewCustomQuery public constructor(
+    @SerialName(value = "id")
     public val id: Long,
+    @SerialName(value = "data")
     public val data: String,
+    @SerialName(value = "timeout")
     public val timeout: Int,
 ) : Update() {
     override fun equals(other: Any?): Boolean {

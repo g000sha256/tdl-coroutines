@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Number of Saved Messages topics has changed.
  *
  * @property topicCount Approximate total number of Saved Messages topics.
  */
+@SerialName(value = "updateSavedMessagesTopicCount")
+@Serializable
 public class UpdateSavedMessagesTopicCount public constructor(
+    @SerialName(value = "topic_count")
     public val topicCount: Int,
 ) : Update() {
     override fun equals(other: Any?): Boolean {

@@ -21,13 +21,18 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.LongArray
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The story can be viewed by certain specified users.
  *
  * @property userIds Identifiers of the users; always unknown and empty for non-owned stories.
  */
+@SerialName(value = "storyPrivacySettingsSelectedUsers")
+@Serializable
 public class StoryPrivacySettingsSelectedUsers public constructor(
+    @SerialName(value = "user_ids")
     public val userIds: LongArray,
 ) : StoryPrivacySettings() {
     override fun equals(other: Any?): Boolean {

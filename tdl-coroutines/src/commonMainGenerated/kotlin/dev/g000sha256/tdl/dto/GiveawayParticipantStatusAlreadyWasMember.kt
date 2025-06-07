@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The user can't participate in the giveaway, because they have already been member of the chat.
  *
  * @property joinedChatDate Point in time (Unix timestamp) when the user joined the chat.
  */
+@SerialName(value = "giveawayParticipantStatusAlreadyWasMember")
+@Serializable
 public class GiveawayParticipantStatusAlreadyWasMember public constructor(
+    @SerialName(value = "joined_chat_date")
     public val joinedChatDate: Int,
 ) : GiveawayParticipantStatus() {
     override fun equals(other: Any?): Boolean {

@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes a user profile photo.
@@ -32,14 +34,22 @@ import kotlin.String
  * @property hasAnimation True, if the photo has animated variant.
  * @property isPersonal True, if the photo is visible only for the current user.
  */
+@SerialName(value = "profilePhoto")
+@Serializable
 public class ProfilePhoto public constructor(
+    @SerialName(value = "id")
     public val id: Long,
+    @SerialName(value = "small")
     public val small: File,
+    @SerialName(value = "big")
     public val big: File,
+    @SerialName(value = "minithumbnail")
     public val minithumbnail: Minithumbnail?,
+    @SerialName(value = "has_animation")
     public val hasAnimation: Boolean,
+    @SerialName(value = "is_personal")
     public val isPersonal: Boolean,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

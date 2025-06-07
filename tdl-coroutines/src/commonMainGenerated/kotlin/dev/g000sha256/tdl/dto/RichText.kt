@@ -16,8 +16,11 @@
 
 package dev.g000sha256.tdl.dto
 
+import kotlinx.serialization.Serializable
+
 /**
  * This class is an abstract base class.
  * Describes a formatted text object.
  */
-public sealed class RichText protected constructor()
+@Serializable
+public sealed class RichText protected constructor() : Model()

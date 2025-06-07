@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The hasAutomaticTranslation setting of a channel was toggled.
  *
  * @property hasAutomaticTranslation New value of hasAutomaticTranslation.
  */
+@SerialName(value = "chatEventAutomaticTranslationToggled")
+@Serializable
 public class ChatEventAutomaticTranslationToggled public constructor(
+    @SerialName(value = "has_automatic_translation")
     public val hasAutomaticTranslation: Boolean,
 ) : ChatEventAction() {
     override fun equals(other: Any?): Boolean {

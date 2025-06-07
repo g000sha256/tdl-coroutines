@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes a document of any type.
@@ -30,13 +32,20 @@ import kotlin.String
  * @property thumbnail Document thumbnail in JPEG or PNG format (PNG will be used only for background patterns); as defined by the sender; may be null.
  * @property document File containing the document.
  */
+@SerialName(value = "document")
+@Serializable
 public class Document public constructor(
+    @SerialName(value = "file_name")
     public val fileName: String,
+    @SerialName(value = "mime_type")
     public val mimeType: String,
+    @SerialName(value = "minithumbnail")
     public val minithumbnail: Minithumbnail?,
+    @SerialName(value = "thumbnail")
     public val thumbnail: Thumbnail?,
+    @SerialName(value = "document")
     public val document: File,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

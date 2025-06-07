@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The link is a link to a user.
@@ -27,8 +29,12 @@ import kotlin.String
  * @property photo Photo of the user; may be null if none.
  * @property isBot True, if the user is a bot.
  */
+@SerialName(value = "linkPreviewTypeUser")
+@Serializable
 public class LinkPreviewTypeUser public constructor(
+    @SerialName(value = "photo")
     public val photo: ChatPhoto?,
+    @SerialName(value = "is_bot")
     public val isBot: Boolean,
 ) : LinkPreviewType() {
     override fun equals(other: Any?): Boolean {

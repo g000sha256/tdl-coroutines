@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A reference to a richTexts object on the same page.
@@ -28,9 +30,14 @@ import kotlin.String
  * @property anchorName The name of a richTextAnchor object, which is the first element of the target richTexts object.
  * @property url An HTTP URL, opening the reference.
  */
+@SerialName(value = "richTextReference")
+@Serializable
 public class RichTextReference public constructor(
+    @SerialName(value = "text")
     public val text: RichText,
+    @SerialName(value = "anchor_name")
     public val anchorName: String,
+    @SerialName(value = "url")
     public val url: String,
 ) : RichText() {
     override fun equals(other: Any?): Boolean {

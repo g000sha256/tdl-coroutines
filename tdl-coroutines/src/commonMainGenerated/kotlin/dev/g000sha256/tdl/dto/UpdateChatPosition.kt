@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The position of a chat in a chat list has changed. An updateChatLastMessage or updateChatDraftMessage update might be sent instead of the update.
@@ -28,8 +30,12 @@ import kotlin.String
  * @property chatId Chat identifier.
  * @property position New chat position. If new order is 0, then the chat needs to be removed from the list.
  */
+@SerialName(value = "updateChatPosition")
+@Serializable
 public class UpdateChatPosition public constructor(
+    @SerialName(value = "chat_id")
     public val chatId: Long,
+    @SerialName(value = "position")
     public val position: ChatPosition,
 ) : Update() {
     override fun equals(other: Any?): Boolean {

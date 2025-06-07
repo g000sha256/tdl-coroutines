@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A poll was updated; for bots only.
  *
  * @property poll New data about the poll.
  */
+@SerialName(value = "updatePoll")
+@Serializable
 public class UpdatePoll public constructor(
+    @SerialName(value = "poll")
     public val poll: Poll,
 ) : Update() {
     override fun equals(other: Any?): Boolean {

@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The chat pending join requests were changed.
@@ -28,8 +30,12 @@ import kotlin.String
  * @property chatId Chat identifier.
  * @property pendingJoinRequests The new data about pending join requests; may be null.
  */
+@SerialName(value = "updateChatPendingJoinRequests")
+@Serializable
 public class UpdateChatPendingJoinRequests public constructor(
+    @SerialName(value = "chat_id")
     public val chatId: Long,
+    @SerialName(value = "pending_join_requests")
     public val pendingJoinRequests: ChatJoinRequestsInfo?,
 ) : Update() {
     override fun equals(other: Any?): Boolean {

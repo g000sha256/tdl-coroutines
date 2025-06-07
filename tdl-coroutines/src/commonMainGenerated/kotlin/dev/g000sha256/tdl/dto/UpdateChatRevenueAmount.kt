@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The revenue earned from sponsored messages in a chat has changed. If chat revenue screen is opened, then getChatRevenueTransactions may be called to fetch new transactions.
@@ -28,8 +30,12 @@ import kotlin.String
  * @property chatId Identifier of the chat.
  * @property revenueAmount New amount of earned revenue.
  */
+@SerialName(value = "updateChatRevenueAmount")
+@Serializable
 public class UpdateChatRevenueAmount public constructor(
+    @SerialName(value = "chat_id")
     public val chatId: Long,
+    @SerialName(value = "revenue_amount")
     public val revenueAmount: ChatRevenueAmount,
 ) : Update() {
     override fun equals(other: Any?): Boolean {

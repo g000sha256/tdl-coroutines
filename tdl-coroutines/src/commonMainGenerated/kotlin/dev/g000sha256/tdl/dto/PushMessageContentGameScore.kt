@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A new high score was achieved in a game.
@@ -28,9 +30,14 @@ import kotlin.String
  * @property score New score, 0 for pinned message.
  * @property isPinned True, if the message is a pinned message with the specified content.
  */
+@SerialName(value = "pushMessageContentGameScore")
+@Serializable
 public class PushMessageContentGameScore public constructor(
+    @SerialName(value = "title")
     public val title: String,
+    @SerialName(value = "score")
     public val score: Int,
+    @SerialName(value = "is_pinned")
     public val isPinned: Boolean,
 ) : PushMessageContent() {
     override fun equals(other: Any?): Boolean {

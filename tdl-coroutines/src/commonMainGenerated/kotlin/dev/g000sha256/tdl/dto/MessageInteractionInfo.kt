@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains information about interactions with a message.
@@ -29,12 +31,18 @@ import kotlin.String
  * @property replyInfo Information about direct or indirect replies to the message; may be null. Currently, available only in channels with a discussion supergroup and discussion supergroups for messages, which are not replies itself.
  * @property reactions The list of reactions or tags added to the message; may be null.
  */
+@SerialName(value = "messageInteractionInfo")
+@Serializable
 public class MessageInteractionInfo public constructor(
+    @SerialName(value = "view_count")
     public val viewCount: Int,
+    @SerialName(value = "forward_count")
     public val forwardCount: Int,
+    @SerialName(value = "reply_info")
     public val replyInfo: MessageReplyInfo?,
+    @SerialName(value = "reactions")
     public val reactions: MessageReactions?,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

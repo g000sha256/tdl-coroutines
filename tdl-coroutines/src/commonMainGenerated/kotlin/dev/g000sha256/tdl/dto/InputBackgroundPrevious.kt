@@ -21,13 +21,18 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A background previously set in the chat; for chat backgrounds only.
  *
  * @property messageId Identifier of the message with the background.
  */
+@SerialName(value = "inputBackgroundPrevious")
+@Serializable
 public class InputBackgroundPrevious public constructor(
+    @SerialName(value = "message_id")
     public val messageId: Long,
 ) : InputBackground() {
     override fun equals(other: Any?): Boolean {

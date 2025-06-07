@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A message with paid media.
@@ -28,8 +30,12 @@ import kotlin.String
  * @property starCount Number of Telegram Stars needed to buy access to the media in the message; 0 for pinned message.
  * @property isPinned True, if the message is a pinned message with the specified content.
  */
+@SerialName(value = "pushMessageContentPaidMedia")
+@Serializable
 public class PushMessageContentPaidMedia public constructor(
+    @SerialName(value = "star_count")
     public val starCount: Long,
+    @SerialName(value = "is_pinned")
     public val isPinned: Boolean,
 ) : PushMessageContent() {
     override fun equals(other: Any?): Boolean {

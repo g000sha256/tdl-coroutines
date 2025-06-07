@@ -21,6 +21,8 @@ import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains information about a bot.
@@ -48,30 +50,54 @@ import kotlin.String
  * @property editDescriptionMediaLink The internal link, which can be used to edit the photo or animation shown in the chat with the bot if the chat is empty; may be null.
  * @property editSettingsLink The internal link, which can be used to edit bot settings; may be null.
  */
+@SerialName(value = "botInfo")
+@Serializable
 public class BotInfo public constructor(
+    @SerialName(value = "short_description")
     public val shortDescription: String,
+    @SerialName(value = "description")
     public val description: String,
+    @SerialName(value = "photo")
     public val photo: Photo?,
+    @SerialName(value = "animation")
     public val animation: Animation?,
+    @SerialName(value = "menu_button")
     public val menuButton: BotMenuButton?,
+    @SerialName(value = "commands")
     public val commands: Array<BotCommand>,
+    @SerialName(value = "privacy_policy_url")
     public val privacyPolicyUrl: String,
+    @SerialName(value = "default_group_administrator_rights")
     public val defaultGroupAdministratorRights: ChatAdministratorRights?,
+    @SerialName(value = "default_channel_administrator_rights")
     public val defaultChannelAdministratorRights: ChatAdministratorRights?,
+    @SerialName(value = "affiliate_program")
     public val affiliateProgram: AffiliateProgramInfo?,
+    @SerialName(value = "web_app_background_light_color")
     public val webAppBackgroundLightColor: Int,
+    @SerialName(value = "web_app_background_dark_color")
     public val webAppBackgroundDarkColor: Int,
+    @SerialName(value = "web_app_header_light_color")
     public val webAppHeaderLightColor: Int,
+    @SerialName(value = "web_app_header_dark_color")
     public val webAppHeaderDarkColor: Int,
+    @SerialName(value = "verification_parameters")
     public val verificationParameters: BotVerificationParameters?,
+    @SerialName(value = "can_get_revenue_statistics")
     public val canGetRevenueStatistics: Boolean,
+    @SerialName(value = "can_manage_emoji_status")
     public val canManageEmojiStatus: Boolean,
+    @SerialName(value = "has_media_previews")
     public val hasMediaPreviews: Boolean,
+    @SerialName(value = "edit_commands_link")
     public val editCommandsLink: InternalLinkType?,
+    @SerialName(value = "edit_description_link")
     public val editDescriptionLink: InternalLinkType?,
+    @SerialName(value = "edit_description_media_link")
     public val editDescriptionMediaLink: InternalLinkType?,
+    @SerialName(value = "edit_settings_link")
     public val editSettingsLink: InternalLinkType?,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

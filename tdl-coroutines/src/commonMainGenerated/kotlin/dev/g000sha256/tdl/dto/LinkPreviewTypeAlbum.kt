@@ -21,6 +21,8 @@ import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The link is a link to a media album consisting of photos and videos.
@@ -28,8 +30,12 @@ import kotlin.String
  * @property media The list of album media.
  * @property caption Album caption.
  */
+@SerialName(value = "linkPreviewTypeAlbum")
+@Serializable
 public class LinkPreviewTypeAlbum public constructor(
+    @SerialName(value = "media")
     public val media: Array<LinkPreviewAlbumMedia>,
+    @SerialName(value = "caption")
     public val caption: String,
 ) : LinkPreviewType() {
     override fun equals(other: Any?): Boolean {

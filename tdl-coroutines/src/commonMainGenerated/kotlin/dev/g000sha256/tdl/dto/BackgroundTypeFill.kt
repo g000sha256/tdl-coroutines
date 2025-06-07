@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A filled background.
  *
  * @property fill The background fill.
  */
+@SerialName(value = "backgroundTypeFill")
+@Serializable
 public class BackgroundTypeFill public constructor(
+    @SerialName(value = "fill")
     public val fill: BackgroundFill,
 ) : BackgroundType() {
     override fun equals(other: Any?): Boolean {

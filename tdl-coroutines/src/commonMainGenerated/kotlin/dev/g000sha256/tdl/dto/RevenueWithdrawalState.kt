@@ -16,8 +16,11 @@
 
 package dev.g000sha256.tdl.dto
 
+import kotlinx.serialization.Serializable
+
 /**
  * This class is an abstract base class.
  * Describes state of a revenue withdrawal.
  */
-public sealed class RevenueWithdrawalState protected constructor()
+@Serializable
+public sealed class RevenueWithdrawalState protected constructor() : Model()

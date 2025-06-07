@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.LongArray
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains information about an invite link to a chat folder.
@@ -29,11 +31,16 @@ import kotlin.String
  * @property missingChatIds Identifiers of the chats from the link, which aren't added to the folder yet.
  * @property addedChatIds Identifiers of the chats from the link, which are added to the folder already.
  */
+@SerialName(value = "chatFolderInviteLinkInfo")
+@Serializable
 public class ChatFolderInviteLinkInfo public constructor(
+    @SerialName(value = "chat_folder_info")
     public val chatFolderInfo: ChatFolderInfo,
+    @SerialName(value = "missing_chat_ids")
     public val missingChatIds: LongArray,
+    @SerialName(value = "added_chat_ids")
     public val addedChatIds: LongArray,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

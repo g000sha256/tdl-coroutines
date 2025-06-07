@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The transaction is an upgrade of a gift; for regular users only.
@@ -28,8 +30,12 @@ import kotlin.String
  * @property userId Identifier of the user that initially sent the gift.
  * @property gift The upgraded gift.
  */
+@SerialName(value = "starTransactionTypeGiftUpgrade")
+@Serializable
 public class StarTransactionTypeGiftUpgrade public constructor(
+    @SerialName(value = "user_id")
     public val userId: Long,
+    @SerialName(value = "gift")
     public val gift: UpgradedGift,
 ) : StarTransactionType() {
     override fun equals(other: Any?): Boolean {

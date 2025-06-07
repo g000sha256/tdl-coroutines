@@ -21,15 +21,20 @@ import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains a list of options for buying Telegram Stars.
  *
  * @property options The list of options.
  */
+@SerialName(value = "starPaymentOptions")
+@Serializable
 public class StarPaymentOptions public constructor(
+    @SerialName(value = "options")
     public val options: Array<StarPaymentOption>,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Represents a user.
@@ -53,35 +55,64 @@ import kotlin.String
  * @property languageCode IETF language tag of the user's language; only available to bots.
  * @property addedToAttachmentMenu True, if the user added the current bot to attachment menu; only available to bots.
  */
+@SerialName(value = "user")
+@Serializable
 public class User public constructor(
+    @SerialName(value = "id")
     public val id: Long,
+    @SerialName(value = "first_name")
     public val firstName: String,
+    @SerialName(value = "last_name")
     public val lastName: String,
+    @SerialName(value = "usernames")
     public val usernames: Usernames?,
+    @SerialName(value = "phone_number")
     public val phoneNumber: String,
+    @SerialName(value = "status")
     public val status: UserStatus,
+    @SerialName(value = "profile_photo")
     public val profilePhoto: ProfilePhoto?,
+    @SerialName(value = "accent_color_id")
     public val accentColorId: Int,
+    @SerialName(value = "background_custom_emoji_id")
     public val backgroundCustomEmojiId: Long,
+    @SerialName(value = "profile_accent_color_id")
     public val profileAccentColorId: Int,
+    @SerialName(value = "profile_background_custom_emoji_id")
     public val profileBackgroundCustomEmojiId: Long,
+    @SerialName(value = "emoji_status")
     public val emojiStatus: EmojiStatus?,
+    @SerialName(value = "is_contact")
     public val isContact: Boolean,
+    @SerialName(value = "is_mutual_contact")
     public val isMutualContact: Boolean,
+    @SerialName(value = "is_close_friend")
     public val isCloseFriend: Boolean,
+    @SerialName(value = "verification_status")
     public val verificationStatus: VerificationStatus?,
+    @SerialName(value = "is_premium")
     public val isPremium: Boolean,
+    @SerialName(value = "is_support")
     public val isSupport: Boolean,
+    @SerialName(value = "restriction_reason")
     public val restrictionReason: String,
+    @SerialName(value = "has_active_stories")
     public val hasActiveStories: Boolean,
+    @SerialName(value = "has_unread_active_stories")
     public val hasUnreadActiveStories: Boolean,
+    @SerialName(value = "restricts_new_chats")
     public val restrictsNewChats: Boolean,
+    @SerialName(value = "paid_message_star_count")
     public val paidMessageStarCount: Long,
+    @SerialName(value = "have_access")
     public val haveAccess: Boolean,
+    @SerialName(value = "type")
     public val type: UserType,
+    @SerialName(value = "language_code")
     public val languageCode: String,
+    @SerialName(value = "added_to_attachment_menu")
     public val addedToAttachmentMenu: Boolean,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

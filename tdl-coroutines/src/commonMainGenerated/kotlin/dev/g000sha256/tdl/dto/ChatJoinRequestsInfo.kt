@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.LongArray
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains information about pending join requests for a chat.
@@ -28,10 +30,14 @@ import kotlin.String
  * @property totalCount Total number of pending join requests.
  * @property userIds Identifiers of at most 3 users sent the newest pending join requests.
  */
+@SerialName(value = "chatJoinRequestsInfo")
+@Serializable
 public class ChatJoinRequestsInfo public constructor(
+    @SerialName(value = "total_count")
     public val totalCount: Int,
+    @SerialName(value = "user_ids")
     public val userIds: LongArray,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

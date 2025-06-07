@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The parameters of speech recognition without Telegram Premium subscription has changed.
@@ -29,10 +31,16 @@ import kotlin.String
  * @property leftCount Number of left speech recognition attempts this week.
  * @property nextResetDate Point in time (Unix timestamp) when the weekly number of tries will reset; 0 if unknown.
  */
+@SerialName(value = "updateSpeechRecognitionTrial")
+@Serializable
 public class UpdateSpeechRecognitionTrial public constructor(
+    @SerialName(value = "max_media_duration")
     public val maxMediaDuration: Int,
+    @SerialName(value = "weekly_count")
     public val weeklyCount: Int,
+    @SerialName(value = "left_count")
     public val leftCount: Int,
+    @SerialName(value = "next_reset_date")
     public val nextResetDate: Int,
 ) : Update() {
     override fun equals(other: Any?): Boolean {

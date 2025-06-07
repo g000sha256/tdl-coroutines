@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The connection state has changed. This update must be used only to show a human-readable description of the connection state.
  *
  * @property state The new connection state.
  */
+@SerialName(value = "updateConnectionState")
+@Serializable
 public class UpdateConnectionState public constructor(
+    @SerialName(value = "state")
     public val state: ConnectionState,
 ) : Update() {
     override fun equals(other: Any?): Boolean {

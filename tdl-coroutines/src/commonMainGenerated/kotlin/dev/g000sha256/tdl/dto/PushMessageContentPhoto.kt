@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A photo message.
@@ -29,10 +31,16 @@ import kotlin.String
  * @property isSecret True, if the photo is secret.
  * @property isPinned True, if the message is a pinned message with the specified content.
  */
+@SerialName(value = "pushMessageContentPhoto")
+@Serializable
 public class PushMessageContentPhoto public constructor(
+    @SerialName(value = "photo")
     public val photo: Photo?,
+    @SerialName(value = "caption")
     public val caption: String,
+    @SerialName(value = "is_secret")
     public val isSecret: Boolean,
+    @SerialName(value = "is_pinned")
     public val isPinned: Boolean,
 ) : PushMessageContent() {
     override fun equals(other: Any?): Boolean {

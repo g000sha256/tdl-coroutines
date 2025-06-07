@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Suggests the user to restore a recently expired Premium subscription.
  */
+@SerialName(value = "suggestedActionRestorePremium")
+@Serializable
 public class SuggestedActionRestorePremium public constructor() : SuggestedAction() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A limit was exceeded.
  *
  * @property limitType Type of the exceeded limit.
  */
+@SerialName(value = "premiumSourceLimitExceeded")
+@Serializable
 public class PremiumSourceLimitExceeded public constructor(
+    @SerialName(value = "limit_type")
     public val limitType: PremiumLimitType,
 ) : PremiumSource() {
     override fun equals(other: Any?): Boolean {

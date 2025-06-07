@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The 2-step verification was enabled recently, user needs to wait.
  *
  * @property retryAfter Time left before the session can be used to transfer ownership of a chat, in seconds.
  */
+@SerialName(value = "canTransferOwnershipResultPasswordTooFresh")
+@Serializable
 public class CanTransferOwnershipResultPasswordTooFresh public constructor(
+    @SerialName(value = "retry_after")
     public val retryAfter: Int,
 ) : CanTransferOwnershipResult() {
     override fun equals(other: Any?): Boolean {

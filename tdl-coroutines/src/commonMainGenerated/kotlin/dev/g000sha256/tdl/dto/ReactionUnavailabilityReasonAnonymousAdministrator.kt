@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The user is an anonymous administrator in the supergroup, but isn't a creator of it, so they can't vote on behalf of the supergroup.
  */
+@SerialName(value = "reactionUnavailabilityReasonAnonymousAdministrator")
+@Serializable
 public class ReactionUnavailabilityReasonAnonymousAdministrator public constructor() : ReactionUnavailabilityReason() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

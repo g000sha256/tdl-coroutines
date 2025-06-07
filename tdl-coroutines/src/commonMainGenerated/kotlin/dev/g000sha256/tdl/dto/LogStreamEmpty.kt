@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The log is written nowhere.
  */
+@SerialName(value = "logStreamEmpty")
+@Serializable
 public class LogStreamEmpty public constructor() : LogStream() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

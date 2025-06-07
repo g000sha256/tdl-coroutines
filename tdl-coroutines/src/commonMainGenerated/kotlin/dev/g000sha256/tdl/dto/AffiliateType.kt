@@ -16,8 +16,11 @@
 
 package dev.g000sha256.tdl.dto
 
+import kotlinx.serialization.Serializable
+
 /**
  * This class is an abstract base class.
  * Describes type of affiliate for an affiliate program.
  */
-public sealed class AffiliateType protected constructor()
+@Serializable
+public sealed class AffiliateType protected constructor() : Model()

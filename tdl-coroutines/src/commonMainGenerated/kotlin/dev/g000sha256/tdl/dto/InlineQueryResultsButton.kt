@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Represents a button to be shown above inline query results.
@@ -27,10 +29,14 @@ import kotlin.String
  * @property text The text of the button.
  * @property type Type of the button.
  */
+@SerialName(value = "inlineQueryResultsButton")
+@Serializable
 public class InlineQueryResultsButton public constructor(
+    @SerialName(value = "text")
     public val text: String,
+    @SerialName(value = "type")
     public val type: InlineQueryResultsButtonType,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

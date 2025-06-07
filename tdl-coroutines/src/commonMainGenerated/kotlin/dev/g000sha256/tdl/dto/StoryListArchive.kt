@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The list of stories, shown in the Arvhive chat list.
  */
+@SerialName(value = "storyListArchive")
+@Serializable
 public class StoryListArchive public constructor() : StoryList() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

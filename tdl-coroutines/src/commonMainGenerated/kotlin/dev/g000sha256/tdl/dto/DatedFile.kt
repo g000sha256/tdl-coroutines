@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * File with the date it was uploaded.
@@ -27,10 +29,14 @@ import kotlin.String
  * @property file The file.
  * @property date Point in time (Unix timestamp) when the file was uploaded.
  */
+@SerialName(value = "datedFile")
+@Serializable
 public class DatedFile public constructor(
+    @SerialName(value = "file")
     public val file: File,
+    @SerialName(value = "date")
     public val date: Int,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Represents an audio file.
@@ -27,8 +29,12 @@ import kotlin.String
  * @property id Unique identifier of the query result.
  * @property audio Audio file.
  */
+@SerialName(value = "inlineQueryResultAudio")
+@Serializable
 public class InlineQueryResultAudio public constructor(
+    @SerialName(value = "id")
     public val id: String,
+    @SerialName(value = "audio")
     public val audio: Audio,
 ) : InlineQueryResult() {
     override fun equals(other: Any?): Boolean {

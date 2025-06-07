@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Represents a tag used in Saved Messages or a Saved Messages topic.
@@ -28,11 +30,16 @@ import kotlin.String
  * @property label Label of the tag; 0-12 characters. Always empty if the tag is returned for a Saved Messages topic.
  * @property count Number of times the tag was used; may be 0 if the tag has non-empty label.
  */
+@SerialName(value = "savedMessagesTag")
+@Serializable
 public class SavedMessagesTag public constructor(
+    @SerialName(value = "tag")
     public val tag: ReactionType,
+    @SerialName(value = "label")
     public val label: String,
+    @SerialName(value = "count")
     public val count: Int,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

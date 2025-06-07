@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The message was originally a post in a channel.
@@ -29,9 +31,14 @@ import kotlin.String
  * @property messageId Message identifier of the original message.
  * @property authorSignature Original post author signature.
  */
+@SerialName(value = "messageOriginChannel")
+@Serializable
 public class MessageOriginChannel public constructor(
+    @SerialName(value = "chat_id")
     public val chatId: Long,
+    @SerialName(value = "message_id")
     public val messageId: Long,
+    @SerialName(value = "author_signature")
     public val authorSignature: String,
 ) : MessageOrigin() {
     override fun equals(other: Any?): Boolean {

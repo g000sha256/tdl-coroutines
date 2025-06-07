@@ -21,13 +21,18 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes a message sent in the chat.
  *
  * @property messageId Message identifier.
  */
+@SerialName(value = "chatStatisticsObjectTypeMessage")
+@Serializable
 public class ChatStatisticsObjectTypeMessage public constructor(
+    @SerialName(value = "message_id")
     public val messageId: Long,
 ) : ChatStatisticsObjectType() {
     override fun equals(other: Any?): Boolean {

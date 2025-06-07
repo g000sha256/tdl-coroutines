@@ -21,13 +21,18 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A button with a user reference to be handled in the same way as textEntityTypeMentionName entities.
  *
  * @property userId User identifier.
  */
+@SerialName(value = "inlineKeyboardButtonTypeUser")
+@Serializable
 public class InlineKeyboardButtonTypeUser public constructor(
+    @SerialName(value = "user_id")
     public val userId: Long,
 ) : InlineKeyboardButtonType() {
     override fun equals(other: Any?): Boolean {

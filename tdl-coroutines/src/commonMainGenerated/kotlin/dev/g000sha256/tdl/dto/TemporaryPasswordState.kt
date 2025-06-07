@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Returns information about the availability of a temporary password, which can be used for payments.
@@ -27,10 +29,14 @@ import kotlin.String
  * @property hasPassword True, if a temporary password is available.
  * @property validFor Time left before the temporary password expires, in seconds.
  */
+@SerialName(value = "temporaryPasswordState")
+@Serializable
 public class TemporaryPasswordState public constructor(
+    @SerialName(value = "has_password")
     public val hasPassword: Boolean,
+    @SerialName(value = "valid_for")
     public val validFor: Int,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

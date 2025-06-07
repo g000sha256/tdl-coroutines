@@ -16,8 +16,11 @@
 
 package dev.g000sha256.tdl.dto
 
+import kotlinx.serialization.Serializable
+
 /**
  * This class is an abstract base class.
  * Represents result of checking whether the current user can post a story on behalf of the specific chat.
  */
-public sealed class CanPostStoryResult protected constructor()
+@Serializable
+public sealed class CanPostStoryResult protected constructor() : Model()

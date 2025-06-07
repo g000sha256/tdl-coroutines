@@ -21,6 +21,8 @@ import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A table.
@@ -30,10 +32,16 @@ import kotlin.String
  * @property isBordered True, if the table is bordered.
  * @property isStriped True, if the table is striped.
  */
+@SerialName(value = "pageBlockTable")
+@Serializable
 public class PageBlockTable public constructor(
+    @SerialName(value = "caption")
     public val caption: RichText,
+    @SerialName(value = "cells")
     public val cells: Array<Array<PageBlockTableCell>>,
+    @SerialName(value = "is_bordered")
     public val isBordered: Boolean,
+    @SerialName(value = "is_striped")
     public val isStriped: Boolean,
 ) : PageBlock() {
     override fun equals(other: Any?): Boolean {

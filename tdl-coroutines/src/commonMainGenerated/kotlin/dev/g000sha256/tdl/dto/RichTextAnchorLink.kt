@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A link to an anchor on the same page.
@@ -28,9 +30,14 @@ import kotlin.String
  * @property anchorName The anchor name. If the name is empty, the link must bring back to top.
  * @property url An HTTP URL, opening the anchor.
  */
+@SerialName(value = "richTextAnchorLink")
+@Serializable
 public class RichTextAnchorLink public constructor(
+    @SerialName(value = "text")
     public val text: RichText,
+    @SerialName(value = "anchor_name")
     public val anchorName: String,
+    @SerialName(value = "url")
     public val url: String,
 ) : RichText() {
     override fun equals(other: Any?): Boolean {

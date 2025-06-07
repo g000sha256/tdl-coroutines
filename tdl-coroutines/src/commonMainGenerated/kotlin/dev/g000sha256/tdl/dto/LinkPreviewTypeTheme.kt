@@ -21,6 +21,8 @@ import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The link is a link to a cloud theme. TDLib has no theme support yet.
@@ -28,8 +30,12 @@ import kotlin.String
  * @property documents The list of files with theme description.
  * @property settings Settings for the cloud theme; may be null if unknown.
  */
+@SerialName(value = "linkPreviewTypeTheme")
+@Serializable
 public class LinkPreviewTypeTheme public constructor(
+    @SerialName(value = "documents")
     public val documents: Array<Document>,
+    @SerialName(value = "settings")
     public val settings: ThemeSettings?,
 ) : LinkPreviewType() {
     override fun equals(other: Any?): Boolean {

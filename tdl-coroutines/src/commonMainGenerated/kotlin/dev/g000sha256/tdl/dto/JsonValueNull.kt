@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Represents a null JSON value.
  */
+@SerialName(value = "jsonValueNull")
+@Serializable
 public class JsonValueNull public constructor() : JsonValue() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

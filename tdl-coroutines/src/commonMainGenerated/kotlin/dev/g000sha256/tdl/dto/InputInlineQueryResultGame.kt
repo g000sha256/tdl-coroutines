@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Represents a game.
@@ -28,9 +30,14 @@ import kotlin.String
  * @property gameShortName Short name of the game.
  * @property replyMarkup The message reply markup; pass null if none. Must be of type replyMarkupInlineKeyboard or null.
  */
+@SerialName(value = "inputInlineQueryResultGame")
+@Serializable
 public class InputInlineQueryResultGame public constructor(
+    @SerialName(value = "id")
     public val id: String,
+    @SerialName(value = "game_short_name")
     public val gameShortName: String,
+    @SerialName(value = "reply_markup")
     public val replyMarkup: ReplyMarkup?,
 ) : InputInlineQueryResult() {
     override fun equals(other: Any?): Boolean {

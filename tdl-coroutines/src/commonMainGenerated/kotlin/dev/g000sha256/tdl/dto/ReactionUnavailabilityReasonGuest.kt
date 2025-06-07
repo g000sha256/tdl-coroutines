@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The user isn't a member of the supergroup and can't send messages and reactions there without joining.
  */
+@SerialName(value = "reactionUnavailabilityReasonGuest")
+@Serializable
 public class ReactionUnavailabilityReasonGuest public constructor() : ReactionUnavailabilityReason() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

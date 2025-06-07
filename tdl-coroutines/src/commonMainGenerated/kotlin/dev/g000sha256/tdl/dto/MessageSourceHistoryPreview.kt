@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The message is from chat, message thread or forum topic history preview.
  */
+@SerialName(value = "messageSourceHistoryPreview")
+@Serializable
 public class MessageSourceHistoryPreview public constructor() : MessageSource() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

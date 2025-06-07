@@ -21,13 +21,18 @@ import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A concatenation of rich texts.
  *
  * @property texts Texts.
  */
+@SerialName(value = "richTexts")
+@Serializable
 public class RichTexts public constructor(
+    @SerialName(value = "texts")
     public val texts: Array<RichText>,
 ) : RichText() {
     override fun equals(other: Any?): Boolean {

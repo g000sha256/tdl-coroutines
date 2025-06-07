@@ -21,6 +21,8 @@ import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes a group call.
@@ -50,32 +52,58 @@ import kotlin.String
  * @property isVideoRecorded True, if a video file is being recorded for the call.
  * @property duration Call duration, in seconds; for ended calls only.
  */
+@SerialName(value = "groupCall")
+@Serializable
 public class GroupCall public constructor(
+    @SerialName(value = "id")
     public val id: Int,
+    @SerialName(value = "title")
     public val title: String,
+    @SerialName(value = "invite_link")
     public val inviteLink: String,
+    @SerialName(value = "scheduled_start_date")
     public val scheduledStartDate: Int,
+    @SerialName(value = "enabled_start_notification")
     public val enabledStartNotification: Boolean,
+    @SerialName(value = "is_active")
     public val isActive: Boolean,
+    @SerialName(value = "is_video_chat")
     public val isVideoChat: Boolean,
+    @SerialName(value = "is_rtmp_stream")
     public val isRtmpStream: Boolean,
+    @SerialName(value = "is_joined")
     public val isJoined: Boolean,
+    @SerialName(value = "need_rejoin")
     public val needRejoin: Boolean,
+    @SerialName(value = "is_owned")
     public val isOwned: Boolean,
+    @SerialName(value = "can_be_managed")
     public val canBeManaged: Boolean,
+    @SerialName(value = "participant_count")
     public val participantCount: Int,
+    @SerialName(value = "has_hidden_listeners")
     public val hasHiddenListeners: Boolean,
+    @SerialName(value = "loaded_all_participants")
     public val loadedAllParticipants: Boolean,
+    @SerialName(value = "recent_speakers")
     public val recentSpeakers: Array<GroupCallRecentSpeaker>,
+    @SerialName(value = "is_my_video_enabled")
     public val isMyVideoEnabled: Boolean,
+    @SerialName(value = "is_my_video_paused")
     public val isMyVideoPaused: Boolean,
+    @SerialName(value = "can_enable_video")
     public val canEnableVideo: Boolean,
+    @SerialName(value = "mute_new_participants")
     public val muteNewParticipants: Boolean,
+    @SerialName(value = "can_toggle_mute_new_participants")
     public val canToggleMuteNewParticipants: Boolean,
+    @SerialName(value = "record_duration")
     public val recordDuration: Int,
+    @SerialName(value = "is_video_recorded")
     public val isVideoRecorded: Boolean,
+    @SerialName(value = "duration")
     public val duration: Int,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

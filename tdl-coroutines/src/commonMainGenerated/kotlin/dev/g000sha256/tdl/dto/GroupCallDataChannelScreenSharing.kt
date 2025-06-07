@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The data channel for screen sharing.
  */
+@SerialName(value = "groupCallDataChannelScreenSharing")
+@Serializable
 public class GroupCallDataChannelScreenSharing public constructor() : GroupCallDataChannel() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

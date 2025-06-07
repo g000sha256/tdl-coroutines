@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A kicker.
  *
  * @property kicker Kicker.
  */
+@SerialName(value = "pageBlockKicker")
+@Serializable
 public class PageBlockKicker public constructor(
+    @SerialName(value = "kicker")
     public val kicker: RichText,
 ) : PageBlock() {
     override fun equals(other: Any?): Boolean {

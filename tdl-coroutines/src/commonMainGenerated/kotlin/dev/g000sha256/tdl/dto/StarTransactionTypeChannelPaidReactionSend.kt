@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The transaction is a sending of a paid reaction to a message in a channel chat by the current user; for regular users only.
@@ -28,8 +30,12 @@ import kotlin.String
  * @property chatId Identifier of the channel chat.
  * @property messageId Identifier of the reacted message; can be 0 or an identifier of a deleted message.
  */
+@SerialName(value = "starTransactionTypeChannelPaidReactionSend")
+@Serializable
 public class StarTransactionTypeChannelPaidReactionSend public constructor(
+    @SerialName(value = "chat_id")
     public val chatId: Long,
+    @SerialName(value = "message_id")
     public val messageId: Long,
 ) : StarTransactionType() {
     override fun equals(other: Any?): Boolean {

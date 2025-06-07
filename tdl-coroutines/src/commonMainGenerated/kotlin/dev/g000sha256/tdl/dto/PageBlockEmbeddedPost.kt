@@ -21,6 +21,8 @@ import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * An embedded post.
@@ -32,12 +34,20 @@ import kotlin.String
  * @property pageBlocks Post content.
  * @property caption Post caption.
  */
+@SerialName(value = "pageBlockEmbeddedPost")
+@Serializable
 public class PageBlockEmbeddedPost public constructor(
+    @SerialName(value = "url")
     public val url: String,
+    @SerialName(value = "author")
     public val author: String,
+    @SerialName(value = "author_photo")
     public val authorPhoto: Photo?,
+    @SerialName(value = "date")
     public val date: Int,
+    @SerialName(value = "page_blocks")
     public val pageBlocks: Array<PageBlock>,
+    @SerialName(value = "caption")
     public val caption: PageBlockCaption,
 ) : PageBlock() {
     override fun equals(other: Any?): Boolean {

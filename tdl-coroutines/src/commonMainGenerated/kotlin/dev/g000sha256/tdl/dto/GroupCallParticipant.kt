@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Represents a group call participant.
@@ -43,26 +45,46 @@ import kotlin.String
  * @property volumeLevel Participant's volume level; 1-20000 in hundreds of percents.
  * @property order User's order in the group call participant list. Orders must be compared lexicographically. The bigger is order, the higher is user in the list. If order is empty, the user must be removed from the participant list.
  */
+@SerialName(value = "groupCallParticipant")
+@Serializable
 public class GroupCallParticipant public constructor(
+    @SerialName(value = "participant_id")
     public val participantId: MessageSender,
+    @SerialName(value = "audio_source_id")
     public val audioSourceId: Int,
+    @SerialName(value = "screen_sharing_audio_source_id")
     public val screenSharingAudioSourceId: Int,
+    @SerialName(value = "video_info")
     public val videoInfo: GroupCallParticipantVideoInfo?,
+    @SerialName(value = "screen_sharing_video_info")
     public val screenSharingVideoInfo: GroupCallParticipantVideoInfo?,
+    @SerialName(value = "bio")
     public val bio: String,
+    @SerialName(value = "is_current_user")
     public val isCurrentUser: Boolean,
+    @SerialName(value = "is_speaking")
     public val isSpeaking: Boolean,
+    @SerialName(value = "is_hand_raised")
     public val isHandRaised: Boolean,
+    @SerialName(value = "can_be_muted_for_all_users")
     public val canBeMutedForAllUsers: Boolean,
+    @SerialName(value = "can_be_unmuted_for_all_users")
     public val canBeUnmutedForAllUsers: Boolean,
+    @SerialName(value = "can_be_muted_for_current_user")
     public val canBeMutedForCurrentUser: Boolean,
+    @SerialName(value = "can_be_unmuted_for_current_user")
     public val canBeUnmutedForCurrentUser: Boolean,
+    @SerialName(value = "is_muted_for_all_users")
     public val isMutedForAllUsers: Boolean,
+    @SerialName(value = "is_muted_for_current_user")
     public val isMutedForCurrentUser: Boolean,
+    @SerialName(value = "can_unmute_self")
     public val canUnmuteSelf: Boolean,
+    @SerialName(value = "volume_level")
     public val volumeLevel: Int,
+    @SerialName(value = "order")
     public val order: String,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

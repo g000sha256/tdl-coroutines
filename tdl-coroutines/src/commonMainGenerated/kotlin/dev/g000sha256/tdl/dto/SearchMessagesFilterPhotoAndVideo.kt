@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Returns only photo and video messages.
  */
+@SerialName(value = "searchMessagesFilterPhotoAndVideo")
+@Serializable
 public class SearchMessagesFilterPhotoAndVideo public constructor() : SearchMessagesFilter() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

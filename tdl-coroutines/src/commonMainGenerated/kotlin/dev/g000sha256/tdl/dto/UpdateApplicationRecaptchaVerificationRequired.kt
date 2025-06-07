@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A request can't be completed unless reCAPTCHA verification is performed; for official mobile applications only. The method setApplicationVerificationToken must be called once the verification is completed or failed.
@@ -29,9 +31,14 @@ import kotlin.String
  * @property action The action for the check.
  * @property recaptchaKeyId Identifier of the reCAPTCHA key.
  */
+@SerialName(value = "updateApplicationRecaptchaVerificationRequired")
+@Serializable
 public class UpdateApplicationRecaptchaVerificationRequired public constructor(
+    @SerialName(value = "verification_id")
     public val verificationId: Long,
+    @SerialName(value = "action")
     public val action: String,
+    @SerialName(value = "recaptcha_key_id")
     public val recaptchaKeyId: String,
 ) : Update() {
     override fun equals(other: Any?): Boolean {

@@ -16,8 +16,11 @@
 
 package dev.g000sha256.tdl.dto
 
+import kotlinx.serialization.Serializable
+
 /**
  * This class is an abstract base class.
  * Contains information about a giveaway prize.
  */
-public sealed class GiveawayPrize protected constructor()
+@Serializable
+public sealed class GiveawayPrize protected constructor() : Model()

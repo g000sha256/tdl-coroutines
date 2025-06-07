@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Double
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A value with information about its recent changes.
@@ -29,11 +31,16 @@ import kotlin.String
  * @property previousValue The value for the previous day.
  * @property growthRatePercentage The growth rate of the value, as a percentage.
  */
+@SerialName(value = "statisticalValue")
+@Serializable
 public class StatisticalValue public constructor(
+    @SerialName(value = "value")
     public val value: Double,
+    @SerialName(value = "previous_value")
     public val previousValue: Double,
+    @SerialName(value = "growth_rate_percentage")
     public val growthRatePercentage: Double,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

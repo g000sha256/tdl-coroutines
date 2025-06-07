@@ -16,8 +16,11 @@
 
 package dev.g000sha256.tdl.dto
 
+import kotlinx.serialization.Serializable
+
 /**
  * This class is an abstract base class.
  * Contains information about the origin of a message.
  */
-public sealed class MessageOrigin protected constructor()
+@Serializable
+public sealed class MessageOrigin protected constructor() : Model()

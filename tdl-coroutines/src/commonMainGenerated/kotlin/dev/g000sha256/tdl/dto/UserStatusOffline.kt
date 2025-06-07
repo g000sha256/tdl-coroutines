@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The user is offline.
  *
  * @property wasOnline Point in time (Unix timestamp) when the user was last online.
  */
+@SerialName(value = "userStatusOffline")
+@Serializable
 public class UserStatusOffline public constructor(
+    @SerialName(value = "was_online")
     public val wasOnline: Int,
 ) : UserStatus() {
     override fun equals(other: Any?): Boolean {

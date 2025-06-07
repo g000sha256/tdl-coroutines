@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains information about a link to a message or a forum topic in a chat.
@@ -32,14 +34,22 @@ import kotlin.String
  * @property mediaTimestamp Timestamp from which the video/audio/video note/voice note/story playing must start, in seconds; 0 if not specified. The media can be in the message content or in its link preview.
  * @property forAlbum True, if the whole media album to which the message belongs is linked.
  */
+@SerialName(value = "messageLinkInfo")
+@Serializable
 public class MessageLinkInfo public constructor(
+    @SerialName(value = "is_public")
     public val isPublic: Boolean,
+    @SerialName(value = "chat_id")
     public val chatId: Long,
+    @SerialName(value = "message_thread_id")
     public val messageThreadId: Long,
+    @SerialName(value = "message")
     public val message: Message?,
+    @SerialName(value = "media_timestamp")
     public val mediaTimestamp: Int,
+    @SerialName(value = "for_album")
     public val forAlbum: Boolean,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

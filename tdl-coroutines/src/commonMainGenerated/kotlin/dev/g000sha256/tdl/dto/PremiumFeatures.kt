@@ -21,6 +21,8 @@ import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains information about features, available to Premium users.
@@ -29,11 +31,16 @@ import kotlin.String
  * @property limits The list of limits, increased for Premium users.
  * @property paymentLink An internal link to be opened to pay for Telegram Premium if store payment isn't possible; may be null if direct payment isn't available.
  */
+@SerialName(value = "premiumFeatures")
+@Serializable
 public class PremiumFeatures public constructor(
+    @SerialName(value = "features")
     public val features: Array<PremiumFeature>,
+    @SerialName(value = "limits")
     public val limits: Array<PremiumLimit>,
+    @SerialName(value = "payment_link")
     public val paymentLink: InternalLinkType?,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

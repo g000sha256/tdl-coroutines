@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A notification was changed.
@@ -27,8 +29,12 @@ import kotlin.String
  * @property notificationGroupId Unique notification group identifier.
  * @property notification Changed notification.
  */
+@SerialName(value = "updateNotification")
+@Serializable
 public class UpdateNotification public constructor(
+    @SerialName(value = "notification_group_id")
     public val notificationGroupId: Int,
+    @SerialName(value = "notification")
     public val notification: Notification,
 ) : Update() {
     override fun equals(other: Any?): Boolean {

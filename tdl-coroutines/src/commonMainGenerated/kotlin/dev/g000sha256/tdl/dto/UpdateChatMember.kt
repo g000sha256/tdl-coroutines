@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * User rights changed in a chat; for bots only.
@@ -34,14 +36,24 @@ import kotlin.String
  * @property oldChatMember Previous chat member.
  * @property newChatMember New chat member.
  */
+@SerialName(value = "updateChatMember")
+@Serializable
 public class UpdateChatMember public constructor(
+    @SerialName(value = "chat_id")
     public val chatId: Long,
+    @SerialName(value = "actor_user_id")
     public val actorUserId: Long,
+    @SerialName(value = "date")
     public val date: Int,
+    @SerialName(value = "invite_link")
     public val inviteLink: ChatInviteLink?,
+    @SerialName(value = "via_join_request")
     public val viaJoinRequest: Boolean,
+    @SerialName(value = "via_chat_folder_invite_link")
     public val viaChatFolderInviteLink: Boolean,
+    @SerialName(value = "old_chat_member")
     public val oldChatMember: ChatMember,
+    @SerialName(value = "new_chat_member")
     public val newChatMember: ChatMember,
 ) : Update() {
     override fun equals(other: Any?): Boolean {

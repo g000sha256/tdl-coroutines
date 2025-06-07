@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A gift which purchase, upgrade or transfer were refunded.
@@ -28,9 +30,14 @@ import kotlin.String
  * @property senderId Sender of the gift.
  * @property isUpgrade True, if the gift was obtained by upgrading of a previously received gift; otherwise, this is a transferred or resold gift.
  */
+@SerialName(value = "messageRefundedUpgradedGift")
+@Serializable
 public class MessageRefundedUpgradedGift public constructor(
+    @SerialName(value = "gift")
     public val gift: Gift,
+    @SerialName(value = "sender_id")
     public val senderId: MessageSender,
+    @SerialName(value = "is_upgrade")
     public val isUpgrade: Boolean,
 ) : MessageContent() {
     override fun equals(other: Any?): Boolean {

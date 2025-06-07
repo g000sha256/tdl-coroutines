@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The message is from some other source.
  */
+@SerialName(value = "messageSourceOther")
+@Serializable
 public class MessageSourceOther public constructor() : MessageSource() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

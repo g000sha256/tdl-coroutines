@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The best available video quality.
  */
+@SerialName(value = "groupCallVideoQualityFull")
+@Serializable
 public class GroupCallVideoQualityFull public constructor() : GroupCallVideoQuality() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

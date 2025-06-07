@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The muteNewParticipants setting of a video chat was toggled.
  *
  * @property muteNewParticipants New value of the muteNewParticipants setting.
  */
+@SerialName(value = "chatEventVideoChatMuteNewParticipantsToggled")
+@Serializable
 public class ChatEventVideoChatMuteNewParticipantsToggled public constructor(
+    @SerialName(value = "mute_new_participants")
     public val muteNewParticipants: Boolean,
 ) : ChatEventAction() {
     override fun equals(other: Any?): Boolean {

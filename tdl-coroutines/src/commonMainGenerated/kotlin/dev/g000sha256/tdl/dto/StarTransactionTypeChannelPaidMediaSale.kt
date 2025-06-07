@@ -22,6 +22,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The transaction is a sale of paid media by the channel chat; for channel chats only.
@@ -30,9 +32,14 @@ import kotlin.String
  * @property messageId Identifier of the corresponding message with paid media; can be 0 or an identifier of a deleted message.
  * @property media The bought media.
  */
+@SerialName(value = "starTransactionTypeChannelPaidMediaSale")
+@Serializable
 public class StarTransactionTypeChannelPaidMediaSale public constructor(
+    @SerialName(value = "user_id")
     public val userId: Long,
+    @SerialName(value = "message_id")
     public val messageId: Long,
+    @SerialName(value = "media")
     public val media: Array<PaidMedia>,
 ) : StarTransactionType() {
     override fun equals(other: Any?): Boolean {

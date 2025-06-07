@@ -21,6 +21,8 @@ import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes opening hours of a business.
@@ -28,10 +30,14 @@ import kotlin.String
  * @property timeZoneId Unique time zone identifier.
  * @property openingHours Intervals of the time when the business is open.
  */
+@SerialName(value = "businessOpeningHours")
+@Serializable
 public class BusinessOpeningHours public constructor(
+    @SerialName(value = "time_zone_id")
     public val timeZoneId: String,
+    @SerialName(value = "opening_hours")
     public val openingHours: Array<BusinessOpeningHoursInterval>,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

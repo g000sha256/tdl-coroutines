@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains information about a proxy server.
@@ -31,14 +33,22 @@ import kotlin.String
  * @property isEnabled True, if the proxy is enabled now.
  * @property type Type of the proxy.
  */
+@SerialName(value = "proxy")
+@Serializable
 public class Proxy public constructor(
+    @SerialName(value = "id")
     public val id: Int,
+    @SerialName(value = "server")
     public val server: String,
+    @SerialName(value = "port")
     public val port: Int,
+    @SerialName(value = "last_used_date")
     public val lastUsedDate: Int,
+    @SerialName(value = "is_enabled")
     public val isEnabled: Boolean,
+    @SerialName(value = "type")
     public val type: ProxyType,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

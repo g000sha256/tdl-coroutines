@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes a message to be replied in the same chat and forum topic.
@@ -28,8 +30,12 @@ import kotlin.String
  * @property messageId The identifier of the message to be replied in the same chat and forum topic. A message can be replied in the same chat and forum topic only if messageProperties.canBeReplied.
  * @property quote Quote from the message to be replied; pass null if none. Must always be null for replies in secret chats.
  */
+@SerialName(value = "inputMessageReplyToMessage")
+@Serializable
 public class InputMessageReplyToMessage public constructor(
+    @SerialName(value = "message_id")
     public val messageId: Long,
+    @SerialName(value = "quote")
     public val quote: InputTextQuote?,
 ) : InputMessageReplyTo() {
     override fun equals(other: Any?): Boolean {

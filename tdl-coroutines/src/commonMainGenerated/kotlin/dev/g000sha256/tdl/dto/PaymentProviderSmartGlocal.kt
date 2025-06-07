@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Smart Glocal payment provider.
@@ -27,8 +29,12 @@ import kotlin.String
  * @property publicToken Public payment token.
  * @property tokenizeUrl URL for sending card tokenization requests.
  */
+@SerialName(value = "paymentProviderSmartGlocal")
+@Serializable
 public class PaymentProviderSmartGlocal public constructor(
+    @SerialName(value = "public_token")
     public val publicToken: String,
+    @SerialName(value = "tokenize_url")
     public val tokenizeUrl: String,
 ) : PaymentProvider() {
     override fun equals(other: Any?): Boolean {

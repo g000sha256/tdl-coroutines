@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The state of the file download list has changed.
@@ -29,9 +31,14 @@ import kotlin.String
  * @property totalCount Total number of files in the file download list.
  * @property downloadedSize Total downloaded size of files in the file download list, in bytes.
  */
+@SerialName(value = "updateFileDownloads")
+@Serializable
 public class UpdateFileDownloads public constructor(
+    @SerialName(value = "total_size")
     public val totalSize: Long,
+    @SerialName(value = "total_count")
     public val totalCount: Int,
+    @SerialName(value = "downloaded_size")
     public val downloadedSize: Long,
 ) : Update() {
     override fun equals(other: Any?): Boolean {

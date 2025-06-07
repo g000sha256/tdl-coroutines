@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * An ordinary language pack string.
  *
  * @property value String value.
  */
+@SerialName(value = "languagePackStringValueOrdinary")
+@Serializable
 public class LanguagePackStringValueOrdinary public constructor(
+    @SerialName(value = "value")
     public val value: String,
 ) : LanguagePackStringValue() {
     override fun equals(other: Any?): Boolean {

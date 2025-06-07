@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Tags used in Saved Messages or a Saved Messages topic have changed.
@@ -28,8 +30,12 @@ import kotlin.String
  * @property savedMessagesTopicId Identifier of Saved Messages topic which tags were changed; 0 if tags for the whole chat has changed.
  * @property tags The new tags.
  */
+@SerialName(value = "updateSavedMessagesTags")
+@Serializable
 public class UpdateSavedMessagesTags public constructor(
+    @SerialName(value = "saved_messages_topic_id")
     public val savedMessagesTopicId: Long,
+    @SerialName(value = "tags")
     public val tags: SavedMessagesTags,
 ) : Update() {
     override fun equals(other: Any?): Boolean {

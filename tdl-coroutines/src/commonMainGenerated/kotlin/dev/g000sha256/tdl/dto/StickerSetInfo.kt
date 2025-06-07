@@ -22,6 +22,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Represents short information about a sticker set.
@@ -42,23 +44,40 @@ import kotlin.String
  * @property size Total number of stickers in the set.
  * @property covers Up to the first 5 stickers from the set, depending on the context. If the application needs more stickers the full sticker set needs to be requested.
  */
+@SerialName(value = "stickerSetInfo")
+@Serializable
 public class StickerSetInfo public constructor(
+    @SerialName(value = "id")
     public val id: Long,
+    @SerialName(value = "title")
     public val title: String,
+    @SerialName(value = "name")
     public val name: String,
+    @SerialName(value = "thumbnail")
     public val thumbnail: Thumbnail?,
+    @SerialName(value = "thumbnail_outline")
     public val thumbnailOutline: Outline?,
+    @SerialName(value = "is_owned")
     public val isOwned: Boolean,
+    @SerialName(value = "is_installed")
     public val isInstalled: Boolean,
+    @SerialName(value = "is_archived")
     public val isArchived: Boolean,
+    @SerialName(value = "is_official")
     public val isOfficial: Boolean,
+    @SerialName(value = "sticker_type")
     public val stickerType: StickerType,
+    @SerialName(value = "needs_repainting")
     public val needsRepainting: Boolean,
+    @SerialName(value = "is_allowed_as_chat_emoji_status")
     public val isAllowedAsChatEmojiStatus: Boolean,
+    @SerialName(value = "is_viewed")
     public val isViewed: Boolean,
+    @SerialName(value = "size")
     public val size: Int,
+    @SerialName(value = "covers")
     public val covers: Array<Sticker>,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

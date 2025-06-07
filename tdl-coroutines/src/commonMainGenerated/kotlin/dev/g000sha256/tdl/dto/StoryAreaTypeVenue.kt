@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * An area pointing to a venue.
  *
  * @property venue Information about the venue.
  */
+@SerialName(value = "storyAreaTypeVenue")
+@Serializable
 public class StoryAreaTypeVenue public constructor(
+    @SerialName(value = "venue")
     public val venue: Venue,
 ) : StoryAreaType() {
     override fun equals(other: Any?): Boolean {

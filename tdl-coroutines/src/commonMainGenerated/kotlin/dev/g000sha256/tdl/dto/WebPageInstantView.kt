@@ -21,6 +21,8 @@ import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes an instant view page for a web page.
@@ -32,14 +34,22 @@ import kotlin.String
  * @property isFull True, if the instant view contains the full page. A network request might be needed to get the full instant view.
  * @property feedbackLink An internal link to be opened to leave feedback about the instant view.
  */
+@SerialName(value = "webPageInstantView")
+@Serializable
 public class WebPageInstantView public constructor(
+    @SerialName(value = "page_blocks")
     public val pageBlocks: Array<PageBlock>,
+    @SerialName(value = "view_count")
     public val viewCount: Int,
+    @SerialName(value = "version")
     public val version: Int,
+    @SerialName(value = "is_rtl")
     public val isRtl: Boolean,
+    @SerialName(value = "is_full")
     public val isFull: Boolean,
+    @SerialName(value = "feedback_link")
     public val feedbackLink: InternalLinkType,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

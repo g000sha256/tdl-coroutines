@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A message with an upgraded gift.
  *
  * @property isUpgrade True, if the gift was obtained by upgrading of a previously received gift; otherwise, this is a transferred or resold gift.
  */
+@SerialName(value = "pushMessageContentUpgradedGift")
+@Serializable
 public class PushMessageContentUpgradedGift public constructor(
+    @SerialName(value = "is_upgrade")
     public val isUpgrade: Boolean,
 ) : PushMessageContent() {
     override fun equals(other: Any?): Boolean {

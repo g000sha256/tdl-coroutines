@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The content must be top-aligned.
  */
+@SerialName(value = "pageBlockVerticalAlignmentTop")
+@Serializable
 public class PageBlockVerticalAlignmentTop public constructor() : PageBlockVerticalAlignment() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

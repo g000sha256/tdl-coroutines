@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A privacy setting for managing whether the user can be found by their phone number. Checked only if the phone number is not known to the other user. Can be set only to &quot;Allow contacts&quot; or &quot;Allow all&quot;.
  */
+@SerialName(value = "userPrivacySettingAllowFindingByPhoneNumber")
+@Serializable
 public class UserPrivacySettingAllowFindingByPhoneNumber public constructor() : UserPrivacySetting() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

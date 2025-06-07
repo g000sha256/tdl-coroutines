@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A group containing notifications of type notificationTypeNewCall.
  */
+@SerialName(value = "notificationGroupTypeCalls")
+@Serializable
 public class NotificationGroupTypeCalls public constructor() : NotificationGroupType() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

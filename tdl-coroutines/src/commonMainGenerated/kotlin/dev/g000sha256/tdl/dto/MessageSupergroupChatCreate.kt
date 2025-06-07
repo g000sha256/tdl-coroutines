@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A newly created supergroup or channel.
  *
  * @property title Title of the supergroup or channel.
  */
+@SerialName(value = "messageSupergroupChatCreate")
+@Serializable
 public class MessageSupergroupChatCreate public constructor(
+    @SerialName(value = "title")
     public val title: String,
 ) : MessageContent() {
     override fun equals(other: Any?): Boolean {

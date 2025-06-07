@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Represents a remote file.
@@ -31,13 +33,20 @@ import kotlin.String
  * @property isUploadingCompleted True, if a remote copy is fully available.
  * @property uploadedSize Size of the remote available part of the file, in bytes; 0 if unknown.
  */
+@SerialName(value = "remoteFile")
+@Serializable
 public class RemoteFile public constructor(
+    @SerialName(value = "id")
     public val id: String,
+    @SerialName(value = "unique_id")
     public val uniqueId: String,
+    @SerialName(value = "is_uploading_active")
     public val isUploadingActive: Boolean,
+    @SerialName(value = "is_uploading_completed")
     public val isUploadingCompleted: Boolean,
+    @SerialName(value = "uploaded_size")
     public val uploadedSize: Long,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

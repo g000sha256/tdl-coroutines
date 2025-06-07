@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * An effect from a premium sticker.
  *
  * @property sticker The premium sticker. The effect can be found at sticker.fullType.premiumAnimation.
  */
+@SerialName(value = "messageEffectTypePremiumSticker")
+@Serializable
 public class MessageEffectTypePremiumSticker public constructor(
+    @SerialName(value = "sticker")
     public val sticker: Sticker,
 ) : MessageEffectType() {
     override fun equals(other: Any?): Boolean {

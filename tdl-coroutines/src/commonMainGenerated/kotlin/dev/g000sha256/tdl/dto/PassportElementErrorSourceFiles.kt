@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The list of attached files contains an error. The error will be considered resolved when the list of files changes.
  */
+@SerialName(value = "passportElementErrorSourceFiles")
+@Serializable
 public class PassportElementErrorSourceFiles public constructor() : PassportElementErrorSource() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

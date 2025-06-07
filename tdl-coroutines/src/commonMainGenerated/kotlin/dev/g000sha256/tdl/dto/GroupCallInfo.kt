@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains information about a just created or just joined group call.
@@ -27,10 +29,14 @@ import kotlin.String
  * @property groupCallId Identifier of the group call.
  * @property joinPayload Join response payload for tgcalls; empty if the call isn't joined.
  */
+@SerialName(value = "groupCallInfo")
+@Serializable
 public class GroupCallInfo public constructor(
+    @SerialName(value = "group_call_id")
     public val groupCallId: Int,
+    @SerialName(value = "join_payload")
     public val joinPayload: String,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

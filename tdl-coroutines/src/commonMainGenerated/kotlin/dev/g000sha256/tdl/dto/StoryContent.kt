@@ -16,8 +16,11 @@
 
 package dev.g000sha256.tdl.dto
 
+import kotlinx.serialization.Serializable
+
 /**
  * This class is an abstract base class.
  * Contains the content of a story.
  */
-public sealed class StoryContent protected constructor()
+@Serializable
+public sealed class StoryContent protected constructor() : Model()

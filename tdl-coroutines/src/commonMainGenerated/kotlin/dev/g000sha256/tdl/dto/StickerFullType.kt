@@ -16,8 +16,11 @@
 
 package dev.g000sha256.tdl.dto
 
+import kotlinx.serialization.Serializable
+
 /**
  * This class is an abstract base class.
  * Contains full information about sticker type.
  */
-public sealed class StickerFullType protected constructor()
+@Serializable
+public sealed class StickerFullType protected constructor() : Model()

@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Some data in basicGroupFullInfo has been changed.
@@ -28,8 +30,12 @@ import kotlin.String
  * @property basicGroupId Identifier of a basic group.
  * @property basicGroupFullInfo New full information about the group.
  */
+@SerialName(value = "updateBasicGroupFullInfo")
+@Serializable
 public class UpdateBasicGroupFullInfo public constructor(
+    @SerialName(value = "basic_group_id")
     public val basicGroupId: Long,
+    @SerialName(value = "basic_group_full_info")
     public val basicGroupFullInfo: BasicGroupFullInfo,
 ) : Update() {
     override fun equals(other: Any?): Boolean {

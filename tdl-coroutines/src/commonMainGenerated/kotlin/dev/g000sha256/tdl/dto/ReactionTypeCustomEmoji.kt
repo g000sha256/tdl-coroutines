@@ -21,13 +21,18 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A reaction with a custom emoji.
  *
  * @property customEmojiId Unique identifier of the custom emoji.
  */
+@SerialName(value = "reactionTypeCustomEmoji")
+@Serializable
 public class ReactionTypeCustomEmoji public constructor(
+    @SerialName(value = "custom_emoji_id")
     public val customEmojiId: Long,
 ) : ReactionType() {
     override fun equals(other: Any?): Boolean {

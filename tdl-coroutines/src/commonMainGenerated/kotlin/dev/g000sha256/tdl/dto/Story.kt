@@ -22,6 +22,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Represents a story.
@@ -51,32 +53,58 @@ import kotlin.String
  * @property areas Clickable areas to be shown on the story content.
  * @property caption Caption of the story.
  */
+@SerialName(value = "story")
+@Serializable
 public class Story public constructor(
+    @SerialName(value = "id")
     public val id: Int,
+    @SerialName(value = "poster_chat_id")
     public val posterChatId: Long,
+    @SerialName(value = "poster_id")
     public val posterId: MessageSender?,
+    @SerialName(value = "date")
     public val date: Int,
+    @SerialName(value = "is_being_posted")
     public val isBeingPosted: Boolean,
+    @SerialName(value = "is_being_edited")
     public val isBeingEdited: Boolean,
+    @SerialName(value = "is_edited")
     public val isEdited: Boolean,
+    @SerialName(value = "is_posted_to_chat_page")
     public val isPostedToChatPage: Boolean,
+    @SerialName(value = "is_visible_only_for_self")
     public val isVisibleOnlyForSelf: Boolean,
+    @SerialName(value = "can_be_deleted")
     public val canBeDeleted: Boolean,
+    @SerialName(value = "can_be_edited")
     public val canBeEdited: Boolean,
+    @SerialName(value = "can_be_forwarded")
     public val canBeForwarded: Boolean,
+    @SerialName(value = "can_be_replied")
     public val canBeReplied: Boolean,
+    @SerialName(value = "can_toggle_is_posted_to_chat_page")
     public val canToggleIsPostedToChatPage: Boolean,
+    @SerialName(value = "can_get_statistics")
     public val canGetStatistics: Boolean,
+    @SerialName(value = "can_get_interactions")
     public val canGetInteractions: Boolean,
+    @SerialName(value = "has_expired_viewers")
     public val hasExpiredViewers: Boolean,
+    @SerialName(value = "repost_info")
     public val repostInfo: StoryRepostInfo?,
+    @SerialName(value = "interaction_info")
     public val interactionInfo: StoryInteractionInfo?,
+    @SerialName(value = "chosen_reaction_type")
     public val chosenReactionType: ReactionType?,
+    @SerialName(value = "privacy_settings")
     public val privacySettings: StoryPrivacySettings,
+    @SerialName(value = "content")
     public val content: StoryContent,
+    @SerialName(value = "areas")
     public val areas: Array<StoryArea>,
+    @SerialName(value = "caption")
     public val caption: FormattedText,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

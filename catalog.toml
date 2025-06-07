@@ -14,6 +14,7 @@ libs-jetBrains-atomic = { module = "org.jetbrains.kotlinx:atomicfu", version = "
 libs-jetBrains-coroutinesAndroid = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutines" }
 libs-jetBrains-coroutinesCore = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
 libs-jetBrains-kotlin = { module = "org.jetbrains.kotlin:kotlin-stdlib", version.ref = "kotlin" }
+libs-jetBrains-kotlinSerialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version = "1.8.1" }
 libs-squareUp-kotlinPoet = { module = "com.squareup:kotlinpoet", version = "2.2.0" }
 
 [plugins]
@@ -25,3 +26,4 @@ jetBrains-dokka = { id = "org.jetbrains.dokka", version = "2.0.0" }
 jetBrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 jetBrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 jetBrains-kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
+jetBrains-kotlinSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }

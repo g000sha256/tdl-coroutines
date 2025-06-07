@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The chat was reported successfully.
  */
+@SerialName(value = "reportChatResultOk")
+@Serializable
 public class ReportChatResultOk public constructor() : ReportChatResult() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

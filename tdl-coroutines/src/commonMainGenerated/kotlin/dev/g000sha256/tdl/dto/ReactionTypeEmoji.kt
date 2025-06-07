@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A reaction with an emoji.
  *
  * @property emoji Text representation of the reaction.
  */
+@SerialName(value = "reactionTypeEmoji")
+@Serializable
 public class ReactionTypeEmoji public constructor(
+    @SerialName(value = "emoji")
     public val emoji: String,
 ) : ReactionType() {
     override fun equals(other: Any?): Boolean {

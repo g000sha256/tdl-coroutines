@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A message content that is not supported in the current TDLib version.
  */
+@SerialName(value = "messageUnsupported")
+@Serializable
 public class MessageUnsupported public constructor() : MessageContent() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

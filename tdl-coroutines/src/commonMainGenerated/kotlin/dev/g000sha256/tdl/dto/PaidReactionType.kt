@@ -16,8 +16,11 @@
 
 package dev.g000sha256.tdl.dto
 
+import kotlinx.serialization.Serializable
+
 /**
  * This class is an abstract base class.
  * Describes type of paid message reaction.
  */
-public sealed class PaidReactionType protected constructor()
+@Serializable
+public sealed class PaidReactionType protected constructor() : Model()

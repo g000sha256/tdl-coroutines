@@ -21,6 +21,8 @@ import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains settings for the authentication of the user's phone number.
@@ -33,15 +35,24 @@ import kotlin.String
  * @property firebaseAuthenticationSettings For official Android and iOS applications only; pass null otherwise. Settings for Firebase Authentication.
  * @property authenticationTokens List of up to 20 authentication tokens, recently received in updateOption(&quot;authentication_token&quot;) in previously logged out sessions; for setAuthenticationPhoneNumber only.
  */
+@SerialName(value = "phoneNumberAuthenticationSettings")
+@Serializable
 public class PhoneNumberAuthenticationSettings public constructor(
+    @SerialName(value = "allow_flash_call")
     public val allowFlashCall: Boolean,
+    @SerialName(value = "allow_missed_call")
     public val allowMissedCall: Boolean,
+    @SerialName(value = "is_current_phone_number")
     public val isCurrentPhoneNumber: Boolean,
+    @SerialName(value = "has_unknown_phone_number")
     public val hasUnknownPhoneNumber: Boolean,
+    @SerialName(value = "allow_sms_retriever_api")
     public val allowSmsRetrieverApi: Boolean,
+    @SerialName(value = "firebase_authentication_settings")
     public val firebaseAuthenticationSettings: FirebaseAuthenticationSettings?,
+    @SerialName(value = "authentication_tokens")
     public val authenticationTokens: Array<String>,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

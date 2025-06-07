@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A simple button, with text that must be sent when the button is pressed.
  */
+@SerialName(value = "keyboardButtonTypeText")
+@Serializable
 public class KeyboardButtonTypeText public constructor() : KeyboardButtonType() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

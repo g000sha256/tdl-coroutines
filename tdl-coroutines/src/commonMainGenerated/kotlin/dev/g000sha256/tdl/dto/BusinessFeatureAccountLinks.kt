@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The ability to create links to the business account with predefined message text.
  */
+@SerialName(value = "businessFeatureAccountLinks")
+@Serializable
 public class BusinessFeatureAccountLinks public constructor() : BusinessFeature() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

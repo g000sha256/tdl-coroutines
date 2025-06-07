@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A user tried to use a Premium feature.
  *
  * @property feature The used feature.
  */
+@SerialName(value = "premiumSourceFeature")
+@Serializable
 public class PremiumSourceFeature public constructor(
+    @SerialName(value = "feature")
     public val feature: PremiumFeature,
 ) : PremiumSource() {
     override fun equals(other: Any?): Boolean {

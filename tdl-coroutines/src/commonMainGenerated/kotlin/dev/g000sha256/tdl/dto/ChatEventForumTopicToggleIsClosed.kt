@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A forum topic was closed or reopened.
  *
  * @property topicInfo New information about the topic.
  */
+@SerialName(value = "chatEventForumTopicToggleIsClosed")
+@Serializable
 public class ChatEventForumTopicToggleIsClosed public constructor(
+    @SerialName(value = "topic_info")
     public val topicInfo: ForumTopicInfo,
 ) : ChatEventAction() {
     override fun equals(other: Any?): Boolean {

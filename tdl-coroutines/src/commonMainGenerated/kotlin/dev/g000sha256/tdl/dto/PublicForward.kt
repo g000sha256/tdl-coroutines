@@ -16,8 +16,11 @@
 
 package dev.g000sha256.tdl.dto
 
+import kotlinx.serialization.Serializable
+
 /**
  * This class is an abstract base class.
  * Describes a public forward or repost of a story.
  */
-public sealed class PublicForward protected constructor()
+@Serializable
+public sealed class PublicForward protected constructor() : Model()

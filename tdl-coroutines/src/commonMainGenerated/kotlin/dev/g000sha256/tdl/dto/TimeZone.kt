@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes a time zone.
@@ -28,11 +30,16 @@ import kotlin.String
  * @property name Time zone name.
  * @property utcTimeOffset Current UTC time offset for the time zone.
  */
+@SerialName(value = "timeZone")
+@Serializable
 public class TimeZone public constructor(
+    @SerialName(value = "id")
     public val id: String,
+    @SerialName(value = "name")
     public val name: String,
+    @SerialName(value = "utc_time_offset")
     public val utcTimeOffset: Int,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

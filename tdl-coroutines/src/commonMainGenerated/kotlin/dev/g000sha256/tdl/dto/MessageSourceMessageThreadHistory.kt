@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The message is from a message thread history.
  */
+@SerialName(value = "messageSourceMessageThreadHistory")
+@Serializable
 public class MessageSourceMessageThreadHistory public constructor() : MessageSource() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

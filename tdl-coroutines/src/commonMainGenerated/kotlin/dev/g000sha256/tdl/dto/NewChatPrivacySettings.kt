@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains privacy settings for chats with non-contacts.
@@ -28,10 +30,14 @@ import kotlin.String
  * @property allowNewChatsFromUnknownUsers True, if non-contacts users are able to write first to the current user. Telegram Premium subscribers are able to write first regardless of this setting.
  * @property incomingPaidMessageStarCount Number of Telegram Stars that must be paid for every incoming private message by non-contacts; 0-getOption(&quot;paid_message_star_count_max&quot;). If positive, then allowNewChatsFromUnknownUsers must be true. The current user will receive getOption(&quot;paid_message_earnings_per_mille&quot;) Telegram Stars for each 1000 Telegram Stars paid for message sending. Can be positive, only if getOption(&quot;can_enable_paid_messages&quot;) is true.
  */
+@SerialName(value = "newChatPrivacySettings")
+@Serializable
 public class NewChatPrivacySettings public constructor(
+    @SerialName(value = "allow_new_chats_from_unknown_users")
     public val allowNewChatsFromUnknownUsers: Boolean,
+    @SerialName(value = "incoming_paid_message_star_count")
     public val incomingPaidMessageStarCount: Long,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

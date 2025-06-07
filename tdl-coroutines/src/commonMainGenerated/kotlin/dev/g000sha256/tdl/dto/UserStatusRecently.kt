@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The user was online recently.
  *
  * @property byMyPrivacySettings Exact user's status is hidden because the current user enabled userPrivacySettingShowStatus privacy setting for the user and has no Telegram Premium.
  */
+@SerialName(value = "userStatusRecently")
+@Serializable
 public class UserStatusRecently public constructor(
+    @SerialName(value = "by_my_privacy_settings")
     public val byMyPrivacySettings: Boolean,
 ) : UserStatus() {
     override fun equals(other: Any?): Boolean {

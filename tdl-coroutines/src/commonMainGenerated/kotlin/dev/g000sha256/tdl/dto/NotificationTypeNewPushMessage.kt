@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * New message was received through a push notification.
@@ -31,11 +33,18 @@ import kotlin.String
  * @property isOutgoing True, if the message is outgoing.
  * @property content Push message content.
  */
+@SerialName(value = "notificationTypeNewPushMessage")
+@Serializable
 public class NotificationTypeNewPushMessage public constructor(
+    @SerialName(value = "message_id")
     public val messageId: Long,
+    @SerialName(value = "sender_id")
     public val senderId: MessageSender,
+    @SerialName(value = "sender_name")
     public val senderName: String,
+    @SerialName(value = "is_outgoing")
     public val isOutgoing: Boolean,
+    @SerialName(value = "content")
     public val content: PushMessageContent,
 ) : NotificationType() {
     override fun equals(other: Any?): Boolean {

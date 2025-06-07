@@ -16,8 +16,11 @@
 
 package dev.g000sha256.tdl.dto
 
+import kotlinx.serialization.Serializable
+
 /**
  * This class is an abstract base class.
  * Describes why the current user can't add reactions to the message, despite some other users can.
  */
-public sealed class ReactionUnavailabilityReason protected constructor()
+@Serializable
+public sealed class ReactionUnavailabilityReason protected constructor() : Model()

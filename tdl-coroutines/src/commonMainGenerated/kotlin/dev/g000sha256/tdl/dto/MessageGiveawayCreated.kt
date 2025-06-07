@@ -21,13 +21,18 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A giveaway was created for the chat. Use telegramPaymentPurposePremiumGiveaway, storePaymentPurposePremiumGiveaway, telegramPaymentPurposeStarGiveaway, or storePaymentPurposeStarGiveaway to create a giveaway.
  *
  * @property starCount Number of Telegram Stars that will be shared by winners of the giveaway; 0 for Telegram Premium giveaways.
  */
+@SerialName(value = "messageGiveawayCreated")
+@Serializable
 public class MessageGiveawayCreated public constructor(
+    @SerialName(value = "star_count")
     public val starCount: Long,
 ) : MessageContent() {
     override fun equals(other: Any?): Boolean {

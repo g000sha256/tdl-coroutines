@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A rich text email link.
@@ -27,8 +29,12 @@ import kotlin.String
  * @property text Text.
  * @property emailAddress Email address.
  */
+@SerialName(value = "richTextEmailAddress")
+@Serializable
 public class RichTextEmailAddress public constructor(
+    @SerialName(value = "text")
     public val text: RichText,
+    @SerialName(value = "email_address")
     public val emailAddress: String,
 ) : RichText() {
     override fun equals(other: Any?): Boolean {

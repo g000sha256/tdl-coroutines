@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Suggests the user to extend their expiring Telegram Star subscriptions. Call getStarSubscriptions with onlyExpiring == true to get the number of expiring subscriptions and the number of required to buy Telegram Stars.
  */
+@SerialName(value = "suggestedActionExtendStarSubscriptions")
+@Serializable
 public class SuggestedActionExtendStarSubscriptions public constructor() : SuggestedAction() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

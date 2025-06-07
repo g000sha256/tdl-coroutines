@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A screenshot of a message in the chat has been taken.
  */
+@SerialName(value = "pushMessageContentScreenshotTaken")
+@Serializable
 public class PushMessageContentScreenshotTaken public constructor() : PushMessageContent() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

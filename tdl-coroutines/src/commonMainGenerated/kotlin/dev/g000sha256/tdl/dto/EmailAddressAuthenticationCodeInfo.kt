@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Information about the email address authentication code that was sent.
@@ -27,10 +29,14 @@ import kotlin.String
  * @property emailAddressPattern Pattern of the email address to which an authentication code was sent.
  * @property length Length of the code; 0 if unknown.
  */
+@SerialName(value = "emailAddressAuthenticationCodeInfo")
+@Serializable
 public class EmailAddressAuthenticationCodeInfo public constructor(
+    @SerialName(value = "email_address_pattern")
     public val emailAddressPattern: String,
+    @SerialName(value = "length")
     public val length: Int,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

@@ -16,8 +16,11 @@
 
 package dev.g000sha256.tdl.dto
 
+import kotlinx.serialization.Serializable
+
 /**
  * This class is an abstract base class.
  * Describes a paid media.
  */
-public sealed class PaidMedia protected constructor()
+@Serializable
+public sealed class PaidMedia protected constructor() : Model()

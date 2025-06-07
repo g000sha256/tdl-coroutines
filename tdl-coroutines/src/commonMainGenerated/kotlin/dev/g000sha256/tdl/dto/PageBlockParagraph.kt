@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A text paragraph.
  *
  * @property text Paragraph text.
  */
+@SerialName(value = "pageBlockParagraph")
+@Serializable
 public class PageBlockParagraph public constructor(
+    @SerialName(value = "text")
     public val text: RichText,
 ) : PageBlock() {
     override fun equals(other: Any?): Boolean {

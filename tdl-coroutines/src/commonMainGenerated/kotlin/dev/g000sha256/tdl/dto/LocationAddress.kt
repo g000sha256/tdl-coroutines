@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes an address of a location.
@@ -29,12 +31,18 @@ import kotlin.String
  * @property city City; empty if unknown.
  * @property street The address; empty if unknown.
  */
+@SerialName(value = "locationAddress")
+@Serializable
 public class LocationAddress public constructor(
+    @SerialName(value = "country_code")
     public val countryCode: String,
+    @SerialName(value = "state")
     public val state: String,
+    @SerialName(value = "city")
     public val city: String,
+    @SerialName(value = "street")
     public val street: String,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

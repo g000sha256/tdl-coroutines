@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Send away messages only in the specified time span.
@@ -27,8 +29,12 @@ import kotlin.String
  * @property startDate Point in time (Unix timestamp) when the away messages will start to be sent.
  * @property endDate Point in time (Unix timestamp) when the away messages will stop to be sent.
  */
+@SerialName(value = "businessAwayMessageScheduleCustom")
+@Serializable
 public class BusinessAwayMessageScheduleCustom public constructor(
+    @SerialName(value = "start_date")
     public val startDate: Int,
+    @SerialName(value = "end_date")
     public val endDate: Int,
 ) : BusinessAwayMessageSchedule() {
     override fun equals(other: Any?): Boolean {

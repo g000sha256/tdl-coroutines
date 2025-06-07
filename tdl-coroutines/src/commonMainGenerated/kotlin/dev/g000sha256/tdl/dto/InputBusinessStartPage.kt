@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes settings for a business account start page to set.
@@ -28,11 +30,16 @@ import kotlin.String
  * @property message Message text of the start page; 0-getOption(&quot;business_start_page_message_length_max&quot;) characters.
  * @property sticker Greeting sticker of the start page; pass null if none. The sticker must belong to a sticker set and must not be a custom emoji.
  */
+@SerialName(value = "inputBusinessStartPage")
+@Serializable
 public class InputBusinessStartPage public constructor(
+    @SerialName(value = "title")
     public val title: String,
+    @SerialName(value = "message")
     public val message: String,
+    @SerialName(value = "sticker")
     public val sticker: InputFile?,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

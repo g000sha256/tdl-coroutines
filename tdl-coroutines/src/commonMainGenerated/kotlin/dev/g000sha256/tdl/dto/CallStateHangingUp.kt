@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The call is hanging up after discardCall has been called.
  */
+@SerialName(value = "callStateHangingUp")
+@Serializable
 public class CallStateHangingUp public constructor() : CallState() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

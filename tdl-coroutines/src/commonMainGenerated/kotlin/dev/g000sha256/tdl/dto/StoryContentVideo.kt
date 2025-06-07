@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A video story.
@@ -27,8 +29,12 @@ import kotlin.String
  * @property video The video in MPEG4 format.
  * @property alternativeVideo Alternative version of the video in MPEG4 format, encoded with H.264 codec; may be null.
  */
+@SerialName(value = "storyContentVideo")
+@Serializable
 public class StoryContentVideo public constructor(
+    @SerialName(value = "video")
     public val video: StoryVideo,
+    @SerialName(value = "alternative_video")
     public val alternativeVideo: StoryVideo?,
 ) : StoryContent() {
     override fun equals(other: Any?): Boolean {

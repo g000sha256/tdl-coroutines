@@ -21,15 +21,20 @@ import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Represents a list of chat administrators.
  *
  * @property administrators A list of chat administrators.
  */
+@SerialName(value = "chatAdministrators")
+@Serializable
 public class ChatAdministrators public constructor(
+    @SerialName(value = "administrators")
     public val administrators: Array<ChatAdministrator>,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A request can't be completed unless application verification is performed; for official mobile applications only. The method setApplicationVerificationToken must be called once the verification is completed or failed.
@@ -29,9 +31,14 @@ import kotlin.String
  * @property nonce Unique base64url-encoded nonce for the classic Play Integrity verification (https://developer.android.com/google/play/integrity/classic) for Android, or a unique string to compare with verifyNonce field from a push notification for iOS.
  * @property cloudProjectNumber Cloud project number to pass to the Play Integrity API on Android.
  */
+@SerialName(value = "updateApplicationVerificationRequired")
+@Serializable
 public class UpdateApplicationVerificationRequired public constructor(
+    @SerialName(value = "verification_id")
     public val verificationId: Long,
+    @SerialName(value = "nonce")
     public val nonce: String,
+    @SerialName(value = "cloud_project_number")
     public val cloudProjectNumber: Long,
 ) : Update() {
     override fun equals(other: Any?): Boolean {

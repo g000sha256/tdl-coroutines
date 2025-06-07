@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A privacy setting for managing whether the user's profile photo is visible.
  */
+@SerialName(value = "userPrivacySettingShowProfilePhoto")
+@Serializable
 public class UserPrivacySettingShowProfilePhoto public constructor() : UserPrivacySetting() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

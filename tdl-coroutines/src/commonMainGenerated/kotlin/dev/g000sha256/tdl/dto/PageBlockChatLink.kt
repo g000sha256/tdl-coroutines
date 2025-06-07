@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A link to a chat.
@@ -29,10 +31,16 @@ import kotlin.String
  * @property accentColorId Identifier of the accent color for chat title and background of chat photo.
  * @property username Chat username by which all other information about the chat can be resolved.
  */
+@SerialName(value = "pageBlockChatLink")
+@Serializable
 public class PageBlockChatLink public constructor(
+    @SerialName(value = "title")
     public val title: String,
+    @SerialName(value = "photo")
     public val photo: ChatPhotoInfo?,
+    @SerialName(value = "accent_color_id")
     public val accentColorId: Int,
+    @SerialName(value = "username")
     public val username: String,
 ) : PageBlock() {
     override fun equals(other: Any?): Boolean {

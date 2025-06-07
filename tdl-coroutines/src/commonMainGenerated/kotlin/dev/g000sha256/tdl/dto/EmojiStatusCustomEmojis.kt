@@ -21,15 +21,20 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.LongArray
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains a list of custom emoji identifiers for emoji statuses.
  *
  * @property customEmojiIds The list of custom emoji identifiers.
  */
+@SerialName(value = "emojiStatusCustomEmojis")
+@Serializable
 public class EmojiStatusCustomEmojis public constructor(
+    @SerialName(value = "custom_emoji_ids")
     public val customEmojiIds: LongArray,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

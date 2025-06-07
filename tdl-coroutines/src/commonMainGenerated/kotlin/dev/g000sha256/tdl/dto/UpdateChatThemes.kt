@@ -21,13 +21,18 @@ import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The list of available chat themes has changed.
  *
  * @property chatThemes The new list of chat themes.
  */
+@SerialName(value = "updateChatThemes")
+@Serializable
 public class UpdateChatThemes public constructor(
+    @SerialName(value = "chat_themes")
     public val chatThemes: Array<ChatTheme>,
 ) : Update() {
     override fun equals(other: Any?): Boolean {

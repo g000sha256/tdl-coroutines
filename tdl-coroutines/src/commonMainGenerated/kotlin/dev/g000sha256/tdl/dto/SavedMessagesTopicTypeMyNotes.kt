@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Topic containing messages sent by the current user of forwarded from an unknown chat.
  */
+@SerialName(value = "savedMessagesTopicTypeMyNotes")
+@Serializable
 public class SavedMessagesTopicTypeMyNotes public constructor() : SavedMessagesTopicType() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

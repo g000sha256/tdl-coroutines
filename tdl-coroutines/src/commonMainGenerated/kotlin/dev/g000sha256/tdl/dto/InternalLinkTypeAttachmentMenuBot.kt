@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The link is a link to an attachment menu bot to be opened in the specified or a chosen chat. Process given targetChat to open the chat. Then, call searchPublicChat with the given bot username, check that the user is a bot and can be added to attachment menu. Then, use getAttachmentMenuBot to receive information about the bot. If the bot isn't added to attachment menu, then show a disclaimer about Mini Apps being third-party applications, ask the user to accept their Terms of service and confirm adding the bot to side and attachment menu. If the user accept the terms and confirms adding, then use toggleBotIsAddedToAttachmentMenu to add the bot. If the attachment menu bot can't be used in the opened chat, show an error to the user. If the bot is added to attachment menu and can be used in the chat, then use openWebApp with the given URL.
@@ -28,9 +30,14 @@ import kotlin.String
  * @property botUsername Username of the bot.
  * @property url URL to be passed to openWebApp.
  */
+@SerialName(value = "internalLinkTypeAttachmentMenuBot")
+@Serializable
 public class InternalLinkTypeAttachmentMenuBot public constructor(
+    @SerialName(value = "target_chat")
     public val targetChat: TargetChat,
+    @SerialName(value = "bot_username")
     public val botUsername: String,
+    @SerialName(value = "url")
     public val url: String,
 ) : InternalLinkType() {
     override fun equals(other: Any?): Boolean {

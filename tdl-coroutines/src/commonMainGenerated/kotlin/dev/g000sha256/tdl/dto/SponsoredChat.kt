@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes a sponsored chat.
@@ -30,12 +32,18 @@ import kotlin.String
  * @property sponsorInfo Additional optional information about the sponsor to be shown along with the chat.
  * @property additionalInfo If non-empty, additional information about the sponsored chat to be shown along with the chat.
  */
+@SerialName(value = "sponsoredChat")
+@Serializable
 public class SponsoredChat public constructor(
+    @SerialName(value = "unique_id")
     public val uniqueId: Long,
+    @SerialName(value = "chat_id")
     public val chatId: Long,
+    @SerialName(value = "sponsor_info")
     public val sponsorInfo: String,
+    @SerialName(value = "additional_info")
     public val additionalInfo: String,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

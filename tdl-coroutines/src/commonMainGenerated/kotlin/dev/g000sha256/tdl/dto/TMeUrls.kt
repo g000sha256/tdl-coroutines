@@ -21,15 +21,20 @@ import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains a list of t.me URLs.
  *
  * @property urls List of URLs.
  */
+@SerialName(value = "tMeUrls")
+@Serializable
 public class TMeUrls public constructor(
+    @SerialName(value = "urls")
     public val urls: Array<TMeUrl>,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

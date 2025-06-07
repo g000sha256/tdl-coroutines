@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A token for Apple Push Notification service VoIP notifications.
@@ -28,9 +30,14 @@ import kotlin.String
  * @property isAppSandbox True, if App Sandbox is enabled.
  * @property encrypt True, if push notifications must be additionally encrypted.
  */
+@SerialName(value = "deviceTokenApplePushVoIP")
+@Serializable
 public class DeviceTokenApplePushVoIP public constructor(
+    @SerialName(value = "device_token")
     public val deviceToken: String,
+    @SerialName(value = "is_app_sandbox")
     public val isAppSandbox: Boolean,
+    @SerialName(value = "encrypt")
     public val encrypt: Boolean,
 ) : DeviceToken() {
     override fun equals(other: Any?): Boolean {

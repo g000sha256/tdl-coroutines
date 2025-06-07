@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The user is online.
  *
  * @property expires Point in time (Unix timestamp) when the user's online status will expire.
  */
+@SerialName(value = "userStatusOnline")
+@Serializable
 public class UserStatusOnline public constructor(
+    @SerialName(value = "expires")
     public val expires: Int,
 ) : UserStatus() {
     override fun equals(other: Any?): Boolean {

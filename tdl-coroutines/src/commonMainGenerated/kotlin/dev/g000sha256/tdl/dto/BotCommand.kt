@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Represents a command supported by a bot.
@@ -27,10 +29,14 @@ import kotlin.String
  * @property command Text of the bot command.
  * @property description Description of the bot command.
  */
+@SerialName(value = "botCommand")
+@Serializable
 public class BotCommand public constructor(
+    @SerialName(value = "command")
     public val command: String,
+    @SerialName(value = "description")
     public val description: String,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

@@ -21,15 +21,20 @@ import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains a list of updates.
  *
  * @property updates List of updates.
  */
+@SerialName(value = "updates")
+@Serializable
 public class Updates public constructor(
+    @SerialName(value = "updates")
     public val updates: Array<Update>,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

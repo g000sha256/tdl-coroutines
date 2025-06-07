@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes a gift that is available for purchase.
@@ -30,12 +32,18 @@ import kotlin.String
  * @property minResaleStarCount The minimum price for the gifts available for resale; 0 if there are no such gifts.
  * @property title The title of the upgraded gift; empty if the gift isn't available for resale.
  */
+@SerialName(value = "availableGift")
+@Serializable
 public class AvailableGift public constructor(
+    @SerialName(value = "gift")
     public val gift: Gift,
+    @SerialName(value = "resale_count")
     public val resaleCount: Int,
+    @SerialName(value = "min_resale_star_count")
     public val minResaleStarCount: Long,
+    @SerialName(value = "title")
     public val title: String,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

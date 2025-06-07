@@ -16,8 +16,11 @@
 
 package dev.g000sha256.tdl.dto
 
+import kotlinx.serialization.Serializable
+
 /**
  * This class is an abstract base class.
  * Contains content of a push message notification.
  */
-public sealed class PushMessageContent protected constructor()
+@Serializable
+public sealed class PushMessageContent protected constructor() : Model()

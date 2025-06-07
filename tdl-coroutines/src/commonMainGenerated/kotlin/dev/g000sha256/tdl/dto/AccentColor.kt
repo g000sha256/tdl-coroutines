@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.IntArray
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains information about supported accent color for user/chat name, background of empty chat photo, replies to messages and link previews.
@@ -31,13 +33,20 @@ import kotlin.String
  * @property darkThemeColors The list of 1-3 colors in RGB format, describing the accent color, as expected to be shown in dark themes.
  * @property minChannelChatBoostLevel The minimum chat boost level required to use the color in a channel chat.
  */
+@SerialName(value = "accentColor")
+@Serializable
 public class AccentColor public constructor(
+    @SerialName(value = "id")
     public val id: Int,
+    @SerialName(value = "built_in_accent_color_id")
     public val builtInAccentColorId: Int,
+    @SerialName(value = "light_theme_colors")
     public val lightThemeColors: IntArray,
+    @SerialName(value = "dark_theme_colors")
     public val darkThemeColors: IntArray,
+    @SerialName(value = "min_channel_chat_boost_level")
     public val minChannelChatBoostLevel: Int,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

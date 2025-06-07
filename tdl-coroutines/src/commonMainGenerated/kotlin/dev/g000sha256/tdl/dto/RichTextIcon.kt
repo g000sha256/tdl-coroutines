@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A small image inside the text.
@@ -28,9 +30,14 @@ import kotlin.String
  * @property width Width of a bounding box in which the image must be shown; 0 if unknown.
  * @property height Height of a bounding box in which the image must be shown; 0 if unknown.
  */
+@SerialName(value = "richTextIcon")
+@Serializable
 public class RichTextIcon public constructor(
+    @SerialName(value = "document")
     public val document: Document,
+    @SerialName(value = "width")
     public val width: Int,
+    @SerialName(value = "height")
     public val height: Int,
 ) : RichText() {
     override fun equals(other: Any?): Boolean {

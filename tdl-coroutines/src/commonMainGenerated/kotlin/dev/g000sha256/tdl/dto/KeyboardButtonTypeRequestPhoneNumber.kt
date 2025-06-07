@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A button that sends the user's phone number when pressed; available only in private chats.
  */
+@SerialName(value = "keyboardButtonTypeRequestPhoneNumber")
+@Serializable
 public class KeyboardButtonTypeRequestPhoneNumber public constructor() : KeyboardButtonType() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

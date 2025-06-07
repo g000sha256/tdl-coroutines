@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes an address.
@@ -31,14 +33,22 @@ import kotlin.String
  * @property streetLine2 Second line of the address.
  * @property postalCode Address postal code.
  */
+@SerialName(value = "address")
+@Serializable
 public class Address public constructor(
+    @SerialName(value = "country_code")
     public val countryCode: String,
+    @SerialName(value = "state")
     public val state: String,
+    @SerialName(value = "city")
     public val city: String,
+    @SerialName(value = "street_line1")
     public val streetLine1: String,
+    @SerialName(value = "street_line2")
     public val streetLine2: String,
+    @SerialName(value = "postal_code")
     public val postalCode: String,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

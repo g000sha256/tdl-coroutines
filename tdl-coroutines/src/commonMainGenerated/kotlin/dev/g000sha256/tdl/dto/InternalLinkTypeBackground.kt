@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The link is a link to a background. Call searchBackground with the given background name to process the link. If background is found and the user wants to apply it, then call setDefaultBackground.
  *
  * @property backgroundName Name of the background.
  */
+@SerialName(value = "internalLinkTypeBackground")
+@Serializable
 public class InternalLinkTypeBackground public constructor(
+    @SerialName(value = "background_name")
     public val backgroundName: String,
 ) : InternalLinkType() {
     override fun equals(other: Any?): Boolean {

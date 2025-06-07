@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A message was pinned.
  *
  * @property message Pinned message.
  */
+@SerialName(value = "chatEventMessagePinned")
+@Serializable
 public class ChatEventMessagePinned public constructor(
+    @SerialName(value = "message")
     public val message: Message,
 ) : ChatEventAction() {
     override fun equals(other: Any?): Boolean {

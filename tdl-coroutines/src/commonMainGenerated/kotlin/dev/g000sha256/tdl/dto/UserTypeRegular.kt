@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A regular user.
  */
+@SerialName(value = "userTypeRegular")
+@Serializable
 public class UserTypeRegular public constructor() : UserType() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

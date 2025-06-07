@@ -21,13 +21,18 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A message has been pinned.
  *
  * @property messageId Identifier of the pinned message, can be an identifier of a deleted message or 0.
  */
+@SerialName(value = "messagePinMessage")
+@Serializable
 public class MessagePinMessage public constructor(
+    @SerialName(value = "message_id")
     public val messageId: Long,
 ) : MessageContent() {
     override fun equals(other: Any?): Boolean {

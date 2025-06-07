@@ -21,6 +21,8 @@ import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A detailed statistics about a supergroup chat.
@@ -42,22 +44,40 @@ import kotlin.String
  * @property topAdministrators List of most active administrators in the last week.
  * @property topInviters List of most active inviters of new members in the last week.
  */
+@SerialName(value = "chatStatisticsSupergroup")
+@Serializable
 public class ChatStatisticsSupergroup public constructor(
+    @SerialName(value = "period")
     public val period: DateRange,
+    @SerialName(value = "member_count")
     public val memberCount: StatisticalValue,
+    @SerialName(value = "message_count")
     public val messageCount: StatisticalValue,
+    @SerialName(value = "viewer_count")
     public val viewerCount: StatisticalValue,
+    @SerialName(value = "sender_count")
     public val senderCount: StatisticalValue,
+    @SerialName(value = "member_count_graph")
     public val memberCountGraph: StatisticalGraph,
+    @SerialName(value = "join_graph")
     public val joinGraph: StatisticalGraph,
+    @SerialName(value = "join_by_source_graph")
     public val joinBySourceGraph: StatisticalGraph,
+    @SerialName(value = "language_graph")
     public val languageGraph: StatisticalGraph,
+    @SerialName(value = "message_content_graph")
     public val messageContentGraph: StatisticalGraph,
+    @SerialName(value = "action_graph")
     public val actionGraph: StatisticalGraph,
+    @SerialName(value = "day_graph")
     public val dayGraph: StatisticalGraph,
+    @SerialName(value = "week_graph")
     public val weekGraph: StatisticalGraph,
+    @SerialName(value = "top_senders")
     public val topSenders: Array<ChatStatisticsMessageSenderInfo>,
+    @SerialName(value = "top_administrators")
     public val topAdministrators: Array<ChatStatisticsAdministratorActionsInfo>,
+    @SerialName(value = "top_inviters")
     public val topInviters: Array<ChatStatisticsInviterInfo>,
 ) : ChatStatistics() {
     override fun equals(other: Any?): Boolean {

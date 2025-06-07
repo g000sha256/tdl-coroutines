@@ -22,6 +22,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The last message of a chat was changed.
@@ -30,9 +32,14 @@ import kotlin.String
  * @property lastMessage The new last message in the chat; may be null if the last message became unknown. While the last message is unknown, new messages can be added to the chat without corresponding updateNewMessage update.
  * @property positions The new chat positions in the chat lists.
  */
+@SerialName(value = "updateChatLastMessage")
+@Serializable
 public class UpdateChatLastMessage public constructor(
+    @SerialName(value = "chat_id")
     public val chatId: Long,
+    @SerialName(value = "last_message")
     public val lastMessage: Message?,
+    @SerialName(value = "positions")
     public val positions: Array<ChatPosition>,
 ) : Update() {
     override fun equals(other: Any?): Boolean {

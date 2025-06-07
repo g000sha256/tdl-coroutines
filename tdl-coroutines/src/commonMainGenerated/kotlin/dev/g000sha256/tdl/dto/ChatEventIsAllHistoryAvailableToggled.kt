@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The isAllHistoryAvailable setting of a supergroup was toggled.
  *
  * @property isAllHistoryAvailable New value of isAllHistoryAvailable.
  */
+@SerialName(value = "chatEventIsAllHistoryAvailableToggled")
+@Serializable
 public class ChatEventIsAllHistoryAvailableToggled public constructor(
+    @SerialName(value = "is_all_history_available")
     public val isAllHistoryAvailable: Boolean,
 ) : ChatEventAction() {
     override fun equals(other: Any?): Boolean {

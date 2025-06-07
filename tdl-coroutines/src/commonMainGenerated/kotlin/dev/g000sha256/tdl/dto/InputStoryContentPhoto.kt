@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.IntArray
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A photo story.
@@ -28,8 +30,12 @@ import kotlin.String
  * @property photo Photo to send. The photo must be at most 10 MB in size. The photo size must be 1080x1920.
  * @property addedStickerFileIds File identifiers of the stickers added to the photo, if applicable.
  */
+@SerialName(value = "inputStoryContentPhoto")
+@Serializable
 public class InputStoryContentPhoto public constructor(
+    @SerialName(value = "photo")
     public val photo: InputFile,
+    @SerialName(value = "added_sticker_file_ids")
     public val addedStickerFileIds: IntArray,
 ) : InputStoryContent() {
     override fun equals(other: Any?): Boolean {

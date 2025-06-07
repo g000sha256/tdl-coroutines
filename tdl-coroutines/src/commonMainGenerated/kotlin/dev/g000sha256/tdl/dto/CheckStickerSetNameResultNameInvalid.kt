@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The name is invalid.
  */
+@SerialName(value = "checkStickerSetNameResultNameInvalid")
+@Serializable
 public class CheckStickerSetNameResultNameInvalid public constructor() : CheckStickerSetNameResult() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

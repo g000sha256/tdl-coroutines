@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains a public repost to a story.
  *
  * @property story Information about the story.
  */
+@SerialName(value = "publicForwardStory")
+@Serializable
 public class PublicForwardStory public constructor(
+    @SerialName(value = "story")
     public val story: Story,
 ) : PublicForward() {
     override fun equals(other: Any?): Boolean {

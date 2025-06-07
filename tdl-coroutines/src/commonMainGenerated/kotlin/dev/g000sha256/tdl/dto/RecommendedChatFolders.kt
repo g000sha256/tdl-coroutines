@@ -21,15 +21,20 @@ import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains a list of recommended chat folders.
  *
  * @property chatFolders List of recommended chat folders.
  */
+@SerialName(value = "recommendedChatFolders")
+@Serializable
 public class RecommendedChatFolders public constructor(
+    @SerialName(value = "chat_folders")
     public val chatFolders: Array<RecommendedChatFolder>,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

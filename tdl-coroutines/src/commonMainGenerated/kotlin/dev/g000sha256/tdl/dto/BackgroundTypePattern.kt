@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A PNG or TGV (gzipped subset of SVG with MIME type &quot;application/x-tgwallpattern&quot;) pattern to be combined with the background fill chosen by the user.
@@ -29,10 +31,16 @@ import kotlin.String
  * @property isInverted True, if the background fill must be applied only to the pattern itself. All other pixels are black in this case. For dark themes only.
  * @property isMoving True, if the background needs to be slightly moved when device is tilted.
  */
+@SerialName(value = "backgroundTypePattern")
+@Serializable
 public class BackgroundTypePattern public constructor(
+    @SerialName(value = "fill")
     public val fill: BackgroundFill,
+    @SerialName(value = "intensity")
     public val intensity: Int,
+    @SerialName(value = "is_inverted")
     public val isInverted: Boolean,
+    @SerialName(value = "is_moving")
     public val isMoving: Boolean,
 ) : BackgroundType() {
     override fun equals(other: Any?): Boolean {

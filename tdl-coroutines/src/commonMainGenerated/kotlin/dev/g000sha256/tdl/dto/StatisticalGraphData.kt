@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A graph data.
@@ -27,8 +29,12 @@ import kotlin.String
  * @property jsonData Graph data in JSON format.
  * @property zoomToken If non-empty, a token which can be used to receive a zoomed in graph.
  */
+@SerialName(value = "statisticalGraphData")
+@Serializable
 public class StatisticalGraphData public constructor(
+    @SerialName(value = "json_data")
     public val jsonData: String,
+    @SerialName(value = "zoom_token")
     public val zoomToken: String,
 ) : StatisticalGraph() {
     override fun equals(other: Any?): Boolean {

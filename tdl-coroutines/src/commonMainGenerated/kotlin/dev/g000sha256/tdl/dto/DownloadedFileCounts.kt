@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains number of being downloaded and recently downloaded files found.
@@ -28,11 +30,16 @@ import kotlin.String
  * @property pausedCount Number of paused file downloads found.
  * @property completedCount Number of completed file downloads found.
  */
+@SerialName(value = "downloadedFileCounts")
+@Serializable
 public class DownloadedFileCounts public constructor(
+    @SerialName(value = "active_count")
     public val activeCount: Int,
+    @SerialName(value = "paused_count")
     public val pausedCount: Int,
+    @SerialName(value = "completed_count")
     public val completedCount: Int,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

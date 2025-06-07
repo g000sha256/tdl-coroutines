@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * An audio message.
@@ -31,12 +33,20 @@ import kotlin.String
  * @property performer Performer of the audio; 0-64 characters, may be replaced by the server.
  * @property caption Audio caption; pass null to use an empty caption; 0-getOption(&quot;message_caption_length_max&quot;) characters.
  */
+@SerialName(value = "inputMessageAudio")
+@Serializable
 public class InputMessageAudio public constructor(
+    @SerialName(value = "audio")
     public val audio: InputFile,
+    @SerialName(value = "album_cover_thumbnail")
     public val albumCoverThumbnail: InputThumbnail?,
+    @SerialName(value = "duration")
     public val duration: Int,
+    @SerialName(value = "title")
     public val title: String,
+    @SerialName(value = "performer")
     public val performer: String,
+    @SerialName(value = "caption")
     public val caption: FormattedText?,
 ) : InputMessageContent() {
     override fun equals(other: Any?): Boolean {

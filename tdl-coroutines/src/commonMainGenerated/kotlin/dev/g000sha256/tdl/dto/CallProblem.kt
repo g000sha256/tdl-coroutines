@@ -16,8 +16,11 @@
 
 package dev.g000sha256.tdl.dto
 
+import kotlinx.serialization.Serializable
+
 /**
  * This class is an abstract base class.
  * Describes the exact type of problem with a call.
  */
-public sealed class CallProblem protected constructor()
+@Serializable
+public sealed class CallProblem protected constructor() : Model()

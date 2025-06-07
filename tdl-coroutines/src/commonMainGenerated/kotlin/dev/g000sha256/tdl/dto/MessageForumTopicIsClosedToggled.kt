@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A forum topic has been closed or opened.
  *
  * @property isClosed True, if the topic was closed; otherwise, the topic was reopened.
  */
+@SerialName(value = "messageForumTopicIsClosedToggled")
+@Serializable
 public class MessageForumTopicIsClosedToggled public constructor(
+    @SerialName(value = "is_closed")
     public val isClosed: Boolean,
 ) : MessageContent() {
     override fun equals(other: Any?): Boolean {

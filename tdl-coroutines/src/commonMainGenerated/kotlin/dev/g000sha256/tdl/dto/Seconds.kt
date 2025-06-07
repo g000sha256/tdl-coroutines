@@ -21,15 +21,20 @@ import kotlin.Boolean
 import kotlin.Double
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains a value representing a number of seconds.
  *
  * @property seconds Number of seconds.
  */
+@SerialName(value = "seconds")
+@Serializable
 public class Seconds public constructor(
+    @SerialName(value = "seconds")
     public val seconds: Double,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

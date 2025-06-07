@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The session is running on the Brave browser.
  */
+@SerialName(value = "sessionTypeBrave")
+@Serializable
 public class SessionTypeBrave public constructor() : SessionType() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

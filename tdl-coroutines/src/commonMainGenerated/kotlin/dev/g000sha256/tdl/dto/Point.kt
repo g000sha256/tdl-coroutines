@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Double
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A point on a Cartesian plane.
@@ -28,10 +30,14 @@ import kotlin.String
  * @property x The point's first coordinate.
  * @property y The point's second coordinate.
  */
+@SerialName(value = "point")
+@Serializable
 public class Point public constructor(
+    @SerialName(value = "x")
     public val x: Double,
+    @SerialName(value = "y")
     public val y: Double,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

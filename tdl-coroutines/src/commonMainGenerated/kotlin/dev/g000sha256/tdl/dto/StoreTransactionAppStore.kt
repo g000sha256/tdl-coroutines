@@ -21,13 +21,18 @@ import kotlin.Boolean
 import kotlin.ByteArray
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A purchase through App Store.
  *
  * @property receipt App Store receipt.
  */
+@SerialName(value = "storeTransactionAppStore")
+@Serializable
 public class StoreTransactionAppStore public constructor(
+    @SerialName(value = "receipt")
     public val receipt: ByteArray,
 ) : StoreTransaction() {
     override fun equals(other: Any?): Boolean {

@@ -22,6 +22,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Represents a list of Telegram Star subscriptions.
@@ -31,12 +33,18 @@ import kotlin.String
  * @property requiredStarCount The number of Telegram Stars required to buy to extend subscriptions expiring soon.
  * @property nextOffset The offset for the next request. If empty, then there are no more results.
  */
+@SerialName(value = "starSubscriptions")
+@Serializable
 public class StarSubscriptions public constructor(
+    @SerialName(value = "star_amount")
     public val starAmount: StarAmount,
+    @SerialName(value = "subscriptions")
     public val subscriptions: Array<StarSubscription>,
+    @SerialName(value = "required_star_count")
     public val requiredStarCount: Long,
+    @SerialName(value = "next_offset")
     public val nextOffset: String,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains basic information about another user that started a chat with the current user.
@@ -30,13 +32,20 @@ import kotlin.String
  * @property lastNameChangeDate Point in time (Unix timestamp) when the user changed name last time; 0 if unknown.
  * @property lastPhotoChangeDate Point in time (Unix timestamp) when the user changed photo last time; 0 if unknown.
  */
+@SerialName(value = "accountInfo")
+@Serializable
 public class AccountInfo public constructor(
+    @SerialName(value = "registration_month")
     public val registrationMonth: Int,
+    @SerialName(value = "registration_year")
     public val registrationYear: Int,
+    @SerialName(value = "phone_number_country_code")
     public val phoneNumberCountryCode: String,
+    @SerialName(value = "last_name_change_date")
     public val lastNameChangeDate: Int,
+    @SerialName(value = "last_photo_change_date")
     public val lastPhotoChangeDate: Int,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

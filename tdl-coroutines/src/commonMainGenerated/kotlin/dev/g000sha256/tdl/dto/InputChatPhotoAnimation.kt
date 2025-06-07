@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Double
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * An animation in MPEG4 format; must be square, at most 10 seconds long, have width between 160 and 1280 and be at most 2MB in size.
@@ -28,8 +30,12 @@ import kotlin.String
  * @property animation Animation to be set as profile photo. Only inputFileLocal and inputFileGenerated are allowed.
  * @property mainFrameTimestamp Timestamp of the frame, which will be used as static chat photo.
  */
+@SerialName(value = "inputChatPhotoAnimation")
+@Serializable
 public class InputChatPhotoAnimation public constructor(
+    @SerialName(value = "animation")
     public val animation: InputFile,
+    @SerialName(value = "main_frame_timestamp")
     public val mainFrameTimestamp: Double,
 ) : InputChatPhoto() {
     override fun equals(other: Any?): Boolean {

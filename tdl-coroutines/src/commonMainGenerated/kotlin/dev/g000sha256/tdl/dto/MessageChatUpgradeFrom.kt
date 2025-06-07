@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A supergroup has been created from a basic group.
@@ -28,8 +30,12 @@ import kotlin.String
  * @property title Title of the newly created supergroup.
  * @property basicGroupId The identifier of the original basic group.
  */
+@SerialName(value = "messageChatUpgradeFrom")
+@Serializable
 public class MessageChatUpgradeFrom public constructor(
+    @SerialName(value = "title")
     public val title: String,
+    @SerialName(value = "basic_group_id")
     public val basicGroupId: Long,
 ) : MessageContent() {
     override fun equals(other: Any?): Boolean {

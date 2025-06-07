@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The user is under certain restrictions in the chat. Not supported in basic groups and channels.
@@ -28,9 +30,14 @@ import kotlin.String
  * @property restrictedUntilDate Point in time (Unix timestamp) when restrictions will be lifted from the user; 0 if never. If the user is restricted for more than 366 days or for less than 30 seconds from the current time, the user is considered to be restricted forever.
  * @property permissions User permissions in the chat.
  */
+@SerialName(value = "chatMemberStatusRestricted")
+@Serializable
 public class ChatMemberStatusRestricted public constructor(
+    @SerialName(value = "is_member")
     public val isMember: Boolean,
+    @SerialName(value = "restricted_until_date")
     public val restrictedUntilDate: Int,
+    @SerialName(value = "permissions")
     public val permissions: ChatPermissions,
 ) : ChatMemberStatus() {
     override fun equals(other: Any?): Boolean {

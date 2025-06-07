@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Represents a string JSON value.
  *
  * @property value The value.
  */
+@SerialName(value = "jsonValueString")
+@Serializable
 public class JsonValueString public constructor(
+    @SerialName(value = "value")
     public val value: String,
 ) : JsonValue() {
     override fun equals(other: Any?): Boolean {

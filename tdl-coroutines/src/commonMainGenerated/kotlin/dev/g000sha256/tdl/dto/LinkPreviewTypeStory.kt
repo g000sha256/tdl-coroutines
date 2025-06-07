@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The link is a link to a story. Link preview description is unavailable.
@@ -28,8 +30,12 @@ import kotlin.String
  * @property storyPosterChatId The identifier of the chat that posted the story.
  * @property storyId Story identifier.
  */
+@SerialName(value = "linkPreviewTypeStory")
+@Serializable
 public class LinkPreviewTypeStory public constructor(
+    @SerialName(value = "story_poster_chat_id")
     public val storyPosterChatId: Long,
+    @SerialName(value = "story_id")
     public val storyId: Int,
 ) : LinkPreviewType() {
     override fun equals(other: Any?): Boolean {

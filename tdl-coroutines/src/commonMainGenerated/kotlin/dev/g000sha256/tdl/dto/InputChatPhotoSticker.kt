@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A sticker on a custom background.
  *
  * @property sticker Information about the sticker.
  */
+@SerialName(value = "inputChatPhotoSticker")
+@Serializable
 public class InputChatPhotoSticker public constructor(
+    @SerialName(value = "sticker")
     public val sticker: ChatPhotoSticker,
 ) : InputChatPhoto() {
     override fun equals(other: Any?): Boolean {

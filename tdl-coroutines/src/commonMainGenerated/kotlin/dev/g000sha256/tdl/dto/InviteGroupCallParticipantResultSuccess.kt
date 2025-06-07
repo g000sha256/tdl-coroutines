@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The user was invited and a service message of the type messageGroupCall was sent which can be used in declineGroupCallInvitation to cancel the invitation.
@@ -28,8 +30,12 @@ import kotlin.String
  * @property chatId Identifier of the chat with the invitation message.
  * @property messageId Identifier of the message.
  */
+@SerialName(value = "inviteGroupCallParticipantResultSuccess")
+@Serializable
 public class InviteGroupCallParticipantResultSuccess public constructor(
+    @SerialName(value = "chat_id")
     public val chatId: Long,
+    @SerialName(value = "message_id")
     public val messageId: Long,
 ) : InviteGroupCallParticipantResult() {
     override fun equals(other: Any?): Boolean {

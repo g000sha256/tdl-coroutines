@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A subheader.
  *
  * @property subheader Subheader.
  */
+@SerialName(value = "pageBlockSubheader")
+@Serializable
 public class PageBlockSubheader public constructor(
+    @SerialName(value = "subheader")
     public val subheader: RichText,
 ) : PageBlock() {
     override fun equals(other: Any?): Boolean {

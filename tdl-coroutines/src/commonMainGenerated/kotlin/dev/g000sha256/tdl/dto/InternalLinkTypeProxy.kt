@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The link is a link to a proxy. Call addProxy with the given parameters to process the link and add the proxy.
@@ -28,9 +30,14 @@ import kotlin.String
  * @property port Proxy server port.
  * @property type Type of the proxy.
  */
+@SerialName(value = "internalLinkTypeProxy")
+@Serializable
 public class InternalLinkTypeProxy public constructor(
+    @SerialName(value = "server")
     public val server: String,
+    @SerialName(value = "port")
     public val port: Int,
+    @SerialName(value = "type")
     public val type: ProxyType,
 ) : InternalLinkType() {
     override fun equals(other: Any?): Boolean {

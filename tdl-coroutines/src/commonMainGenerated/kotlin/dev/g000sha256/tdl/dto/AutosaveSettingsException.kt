@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains autosave settings for a chat, which overrides default settings for the corresponding scope.
@@ -28,10 +30,14 @@ import kotlin.String
  * @property chatId Chat identifier.
  * @property settings Autosave settings for the chat.
  */
+@SerialName(value = "autosaveSettingsException")
+@Serializable
 public class AutosaveSettingsException public constructor(
+    @SerialName(value = "chat_id")
     public val chatId: Long,
+    @SerialName(value = "settings")
     public val settings: ScopeAutosaveSettings,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Represents one member of a JSON object.
@@ -27,10 +29,14 @@ import kotlin.String
  * @property key Member's key.
  * @property value Member's value.
  */
+@SerialName(value = "jsonObjectMember")
+@Serializable
 public class JsonObjectMember public constructor(
+    @SerialName(value = "key")
     public val key: String,
+    @SerialName(value = "value")
     public val value: JsonValue,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

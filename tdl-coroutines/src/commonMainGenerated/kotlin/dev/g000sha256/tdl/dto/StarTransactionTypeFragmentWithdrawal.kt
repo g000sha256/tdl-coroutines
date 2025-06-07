@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The transaction is a withdrawal of earned Telegram Stars to Fragment; for regular users, bots, supergroup and channel chats only.
  *
  * @property withdrawalState State of the withdrawal; may be null for refunds from Fragment.
  */
+@SerialName(value = "starTransactionTypeFragmentWithdrawal")
+@Serializable
 public class StarTransactionTypeFragmentWithdrawal public constructor(
+    @SerialName(value = "withdrawal_state")
     public val withdrawalState: RevenueWithdrawalState?,
 ) : StarTransactionType() {
     override fun equals(other: Any?): Boolean {

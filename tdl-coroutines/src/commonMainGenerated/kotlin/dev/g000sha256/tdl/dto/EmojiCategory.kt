@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes an emoji category.
@@ -29,12 +31,18 @@ import kotlin.String
  * @property source Source of stickers for the emoji category.
  * @property isGreeting True, if the category must be shown first when choosing a sticker for the start page.
  */
+@SerialName(value = "emojiCategory")
+@Serializable
 public class EmojiCategory public constructor(
+    @SerialName(value = "name")
     public val name: String,
+    @SerialName(value = "icon")
     public val icon: Sticker,
+    @SerialName(value = "source")
     public val source: EmojiCategorySource,
+    @SerialName(value = "is_greeting")
     public val isGreeting: Boolean,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

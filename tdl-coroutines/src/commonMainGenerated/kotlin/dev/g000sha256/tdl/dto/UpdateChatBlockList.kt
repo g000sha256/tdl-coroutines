@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A chat was blocked or unblocked.
@@ -28,8 +30,12 @@ import kotlin.String
  * @property chatId Chat identifier.
  * @property blockList Block list to which the chat is added; may be null if none.
  */
+@SerialName(value = "updateChatBlockList")
+@Serializable
 public class UpdateChatBlockList public constructor(
+    @SerialName(value = "chat_id")
     public val chatId: Long,
+    @SerialName(value = "block_list")
     public val blockList: BlockList?,
 ) : Update() {
     override fun equals(other: Any?): Boolean {

@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A message with a story.
@@ -27,8 +29,12 @@ import kotlin.String
  * @property isMention True, if the user was mentioned in the story.
  * @property isPinned True, if the message is a pinned message with the specified content.
  */
+@SerialName(value = "pushMessageContentStory")
+@Serializable
 public class PushMessageContentStory public constructor(
+    @SerialName(value = "is_mention")
     public val isMention: Boolean,
+    @SerialName(value = "is_pinned")
     public val isPinned: Boolean,
 ) : PushMessageContent() {
     override fun equals(other: Any?): Boolean {

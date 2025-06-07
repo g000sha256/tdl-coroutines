@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The 2-step verification needs to be enabled first.
  */
+@SerialName(value = "canTransferOwnershipResultPasswordNeeded")
+@Serializable
 public class CanTransferOwnershipResultPasswordNeeded public constructor() : CanTransferOwnershipResult() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

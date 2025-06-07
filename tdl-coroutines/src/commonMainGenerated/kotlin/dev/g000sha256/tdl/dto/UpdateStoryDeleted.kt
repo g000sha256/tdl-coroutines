@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A story became inaccessible.
@@ -28,8 +30,12 @@ import kotlin.String
  * @property storyPosterChatId Identifier of the chat that posted the story.
  * @property storyId Story identifier.
  */
+@SerialName(value = "updateStoryDeleted")
+@Serializable
 public class UpdateStoryDeleted public constructor(
+    @SerialName(value = "story_poster_chat_id")
     public val storyPosterChatId: Long,
+    @SerialName(value = "story_id")
     public val storyId: Int,
 ) : Update() {
     override fun equals(other: Any?): Boolean {

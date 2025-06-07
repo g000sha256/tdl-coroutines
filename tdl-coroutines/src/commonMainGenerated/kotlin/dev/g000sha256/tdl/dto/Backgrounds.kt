@@ -21,15 +21,20 @@ import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains a list of backgrounds.
  *
  * @property backgrounds A list of backgrounds.
  */
+@SerialName(value = "backgrounds")
+@Serializable
 public class Backgrounds public constructor(
+    @SerialName(value = "backgrounds")
     public val backgrounds: Array<Background>,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

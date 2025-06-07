@@ -21,13 +21,18 @@ import kotlin.Boolean
 import kotlin.ByteArray
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The payload for a general callback button.
  *
  * @property data Data that was attached to the callback button.
  */
+@SerialName(value = "callbackQueryPayloadData")
+@Serializable
 public class CallbackQueryPayloadData public constructor(
+    @SerialName(value = "data")
     public val data: ByteArray,
 ) : CallbackQueryPayload() {
     override fun equals(other: Any?): Boolean {

@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The category must be used by default (e.g., for custom emoji or animation search).
  */
+@SerialName(value = "emojiCategoryTypeDefault")
+@Serializable
 public class EmojiCategoryTypeDefault public constructor() : EmojiCategoryType() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

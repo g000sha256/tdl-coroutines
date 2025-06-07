@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The link is a link to an animation.
  *
  * @property animation The animation.
  */
+@SerialName(value = "linkPreviewTypeAnimation")
+@Serializable
 public class LinkPreviewTypeAnimation public constructor(
+    @SerialName(value = "animation")
     public val animation: Animation,
 ) : LinkPreviewType() {
     override fun equals(other: Any?): Boolean {

@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Information about the sticker, which was used to create the chat photo. The sticker is shown at the center of the photo and occupies at most 67% of it.
@@ -27,10 +29,14 @@ import kotlin.String
  * @property type Type of the sticker.
  * @property backgroundFill The fill to be used as background for the sticker; rotation angle in backgroundFillGradient isn't supported.
  */
+@SerialName(value = "chatPhotoSticker")
+@Serializable
 public class ChatPhotoSticker public constructor(
+    @SerialName(value = "type")
     public val type: ChatPhotoStickerType,
+    @SerialName(value = "background_fill")
     public val backgroundFill: BackgroundFill,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

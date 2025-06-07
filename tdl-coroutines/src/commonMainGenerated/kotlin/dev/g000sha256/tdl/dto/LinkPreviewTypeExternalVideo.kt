@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The link is a link to a video file.
@@ -30,11 +32,18 @@ import kotlin.String
  * @property height Expected height of the video preview; 0 if unknown.
  * @property duration Duration of the video, in seconds; 0 if unknown.
  */
+@SerialName(value = "linkPreviewTypeExternalVideo")
+@Serializable
 public class LinkPreviewTypeExternalVideo public constructor(
+    @SerialName(value = "url")
     public val url: String,
+    @SerialName(value = "mime_type")
     public val mimeType: String,
+    @SerialName(value = "width")
     public val width: Int,
+    @SerialName(value = "height")
     public val height: Int,
+    @SerialName(value = "duration")
     public val duration: Int,
 ) : LinkPreviewType() {
     override fun equals(other: Any?): Boolean {

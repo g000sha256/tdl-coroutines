@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The user is picking a sticker to send.
  */
+@SerialName(value = "chatActionChoosingSticker")
+@Serializable
 public class ChatActionChoosingSticker public constructor() : ChatAction() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

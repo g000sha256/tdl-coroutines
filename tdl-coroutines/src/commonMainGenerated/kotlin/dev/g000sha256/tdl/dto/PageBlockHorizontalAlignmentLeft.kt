@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The content must be left-aligned.
  */
+@SerialName(value = "pageBlockHorizontalAlignmentLeft")
+@Serializable
 public class PageBlockHorizontalAlignmentLeft public constructor() : PageBlockHorizontalAlignment() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

@@ -21,15 +21,20 @@ import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Represents outline of an image.
  *
  * @property paths The list of closed vector paths.
  */
+@SerialName(value = "outline")
+@Serializable
 public class Outline public constructor(
+    @SerialName(value = "paths")
     public val paths: Array<ClosedVectorPath>,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

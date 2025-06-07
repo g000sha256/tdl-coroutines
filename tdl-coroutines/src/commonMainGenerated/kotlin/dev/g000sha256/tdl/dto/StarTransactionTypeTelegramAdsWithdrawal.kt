@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The transaction is a withdrawal of earned Telegram Stars to Telegram Ad platform; for bots and channel chats only.
  */
+@SerialName(value = "starTransactionTypeTelegramAdsWithdrawal")
+@Serializable
 public class StarTransactionTypeTelegramAdsWithdrawal public constructor() : StarTransactionType() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

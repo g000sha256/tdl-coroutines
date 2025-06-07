@@ -21,6 +21,8 @@ import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The user must choose an option to report the message and repeat request with the chosen option.
@@ -28,8 +30,12 @@ import kotlin.String
  * @property title Title for the option choice.
  * @property options List of available options.
  */
+@SerialName(value = "reportSponsoredResultOptionRequired")
+@Serializable
 public class ReportSponsoredResultOptionRequired public constructor(
+    @SerialName(value = "title")
     public val title: String,
+    @SerialName(value = "options")
     public val options: Array<ReportOption>,
 ) : ReportSponsoredResult() {
     override fun equals(other: Any?): Boolean {

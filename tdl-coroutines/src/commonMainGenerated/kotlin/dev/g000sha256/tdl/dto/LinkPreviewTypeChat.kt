@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The link is a link to a chat.
@@ -28,9 +30,14 @@ import kotlin.String
  * @property photo Photo of the chat; may be null.
  * @property createsJoinRequest True, if the link only creates join request.
  */
+@SerialName(value = "linkPreviewTypeChat")
+@Serializable
 public class LinkPreviewTypeChat public constructor(
+    @SerialName(value = "type")
     public val type: InviteLinkChatType,
+    @SerialName(value = "photo")
     public val photo: ChatPhoto?,
+    @SerialName(value = "creates_join_request")
     public val createsJoinRequest: Boolean,
 ) : LinkPreviewType() {
     override fun equals(other: Any?): Boolean {

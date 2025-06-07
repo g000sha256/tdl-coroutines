@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Animated stickers to be combined into a slot machine.
@@ -30,11 +32,18 @@ import kotlin.String
  * @property centerReel The animated sticker with the center reel.
  * @property rightReel The animated sticker with the right reel.
  */
+@SerialName(value = "diceStickersSlotMachine")
+@Serializable
 public class DiceStickersSlotMachine public constructor(
+    @SerialName(value = "background")
     public val background: Sticker,
+    @SerialName(value = "lever")
     public val lever: Sticker,
+    @SerialName(value = "left_reel")
     public val leftReel: Sticker,
+    @SerialName(value = "center_reel")
     public val centerReel: Sticker,
+    @SerialName(value = "right_reel")
     public val rightReel: Sticker,
 ) : DiceStickers() {
     override fun equals(other: Any?): Boolean {

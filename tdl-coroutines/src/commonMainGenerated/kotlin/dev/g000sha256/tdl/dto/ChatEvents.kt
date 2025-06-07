@@ -21,15 +21,20 @@ import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains a list of chat events.
  *
  * @property events List of events.
  */
+@SerialName(value = "chatEvents")
+@Serializable
 public class ChatEvents public constructor(
+    @SerialName(value = "events")
     public val events: Array<ChatEvent>,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

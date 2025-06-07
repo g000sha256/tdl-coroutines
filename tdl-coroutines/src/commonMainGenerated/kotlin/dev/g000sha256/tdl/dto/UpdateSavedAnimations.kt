@@ -21,13 +21,18 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.IntArray
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The list of saved animations was updated.
  *
  * @property animationIds The new list of file identifiers of saved animations.
  */
+@SerialName(value = "updateSavedAnimations")
+@Serializable
 public class UpdateSavedAnimations public constructor(
+    @SerialName(value = "animation_ids")
     public val animationIds: IntArray,
 ) : Update() {
     override fun equals(other: Any?): Boolean {

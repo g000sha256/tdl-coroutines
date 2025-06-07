@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Represents a reaction applied to a message.
@@ -29,12 +31,18 @@ import kotlin.String
  * @property isOutgoing True, if the reaction was added by the current user.
  * @property date Point in time (Unix timestamp) when the reaction was added.
  */
+@SerialName(value = "addedReaction")
+@Serializable
 public class AddedReaction public constructor(
+    @SerialName(value = "type")
     public val type: ReactionType,
+    @SerialName(value = "sender_id")
     public val senderId: MessageSender,
+    @SerialName(value = "is_outgoing")
     public val isOutgoing: Boolean,
+    @SerialName(value = "date")
     public val date: Int,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

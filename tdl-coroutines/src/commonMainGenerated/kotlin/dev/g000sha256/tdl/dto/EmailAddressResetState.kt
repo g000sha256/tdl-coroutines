@@ -16,8 +16,11 @@
 
 package dev.g000sha256.tdl.dto
 
+import kotlinx.serialization.Serializable
+
 /**
  * This class is an abstract base class.
  * Describes reset state of an email address.
  */
-public sealed class EmailAddressResetState protected constructor()
+@Serializable
+public sealed class EmailAddressResetState protected constructor() : Model()

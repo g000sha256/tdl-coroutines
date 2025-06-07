@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The maximum number of active stories.
  */
+@SerialName(value = "premiumLimitTypeActiveStoryCount")
+@Serializable
 public class PremiumLimitTypeActiveStoryCount public constructor() : PremiumLimitType() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

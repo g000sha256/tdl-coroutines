@@ -21,6 +21,8 @@ import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains a list of chat or user profile photos.
@@ -28,10 +30,14 @@ import kotlin.String
  * @property totalCount Total number of photos.
  * @property photos List of photos.
  */
+@SerialName(value = "chatPhotos")
+@Serializable
 public class ChatPhotos public constructor(
+    @SerialName(value = "total_count")
     public val totalCount: Int,
+    @SerialName(value = "photos")
     public val photos: Array<ChatPhoto>,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

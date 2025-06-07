@@ -16,8 +16,11 @@
 
 package dev.g000sha256.tdl.dto
 
+import kotlinx.serialization.Serializable
+
 /**
  * This class is an abstract base class.
  * Contains information about a file with messages exported from another app.
  */
-public sealed class MessageFileType protected constructor()
+@Serializable
+public sealed class MessageFileType protected constructor() : Model()

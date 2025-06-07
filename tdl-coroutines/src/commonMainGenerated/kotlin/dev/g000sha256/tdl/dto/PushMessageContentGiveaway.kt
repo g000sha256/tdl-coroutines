@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A message with a giveaway.
@@ -28,9 +30,14 @@ import kotlin.String
  * @property prize Prize of the giveaway; may be null for pinned message.
  * @property isPinned True, if the message is a pinned message with the specified content.
  */
+@SerialName(value = "pushMessageContentGiveaway")
+@Serializable
 public class PushMessageContentGiveaway public constructor(
+    @SerialName(value = "winner_count")
     public val winnerCount: Int,
+    @SerialName(value = "prize")
     public val prize: GiveawayPrize?,
+    @SerialName(value = "is_pinned")
     public val isPinned: Boolean,
 ) : PushMessageContent() {
     override fun equals(other: Any?): Boolean {

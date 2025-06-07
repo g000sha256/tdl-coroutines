@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A document message (general file).
@@ -29,10 +31,16 @@ import kotlin.String
  * @property disableContentTypeDetection Pass true to disable automatic file type detection and send the document as a file. Always true for files sent to secret chats.
  * @property caption Document caption; pass null to use an empty caption; 0-getOption(&quot;message_caption_length_max&quot;) characters.
  */
+@SerialName(value = "inputMessageDocument")
+@Serializable
 public class InputMessageDocument public constructor(
+    @SerialName(value = "document")
     public val document: InputFile,
+    @SerialName(value = "thumbnail")
     public val thumbnail: InputThumbnail?,
+    @SerialName(value = "disable_content_type_detection")
     public val disableContentTypeDetection: Boolean,
+    @SerialName(value = "caption")
     public val caption: FormattedText?,
 ) : InputMessageContent() {
     override fun equals(other: Any?): Boolean {

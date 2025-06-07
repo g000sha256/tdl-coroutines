@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Represents an available reaction.
@@ -27,10 +29,14 @@ import kotlin.String
  * @property type Type of the reaction.
  * @property needsPremium True, if Telegram Premium is needed to send the reaction.
  */
+@SerialName(value = "availableReaction")
+@Serializable
 public class AvailableReaction public constructor(
+    @SerialName(value = "type")
     public val type: ReactionType,
+    @SerialName(value = "needs_premium")
     public val needsPremium: Boolean,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

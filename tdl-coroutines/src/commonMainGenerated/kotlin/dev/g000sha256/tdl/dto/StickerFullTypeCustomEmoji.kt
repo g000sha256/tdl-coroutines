@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The sticker is a custom emoji to be used inside message text and caption. Currently, only Telegram Premium users can use custom emoji.
@@ -28,8 +30,12 @@ import kotlin.String
  * @property customEmojiId Identifier of the custom emoji.
  * @property needsRepainting True, if the sticker must be repainted to a text color in messages, the color of the Telegram Premium badge in emoji status, white color on chat photos, or another appropriate color in other places.
  */
+@SerialName(value = "stickerFullTypeCustomEmoji")
+@Serializable
 public class StickerFullTypeCustomEmoji public constructor(
+    @SerialName(value = "custom_emoji_id")
     public val customEmojiId: Long,
+    @SerialName(value = "needs_repainting")
     public val needsRepainting: Boolean,
 ) : StickerFullType() {
     override fun equals(other: Any?): Boolean {

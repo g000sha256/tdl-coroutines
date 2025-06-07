@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains information about Telegram Stars earned by a bot or a chat.
@@ -30,13 +32,20 @@ import kotlin.String
  * @property withdrawalEnabled True, if Telegram Stars can be withdrawn now or later.
  * @property nextWithdrawalIn Time left before the next withdrawal can be started, in seconds; 0 if withdrawal can be started now.
  */
+@SerialName(value = "starRevenueStatus")
+@Serializable
 public class StarRevenueStatus public constructor(
+    @SerialName(value = "total_amount")
     public val totalAmount: StarAmount,
+    @SerialName(value = "current_amount")
     public val currentAmount: StarAmount,
+    @SerialName(value = "available_amount")
     public val availableAmount: StarAmount,
+    @SerialName(value = "withdrawal_enabled")
     public val withdrawalEnabled: Boolean,
+    @SerialName(value = "next_withdrawal_in")
     public val nextWithdrawalIn: Int,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

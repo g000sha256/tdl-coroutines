@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A SOCKS5 proxy server.
@@ -27,8 +29,12 @@ import kotlin.String
  * @property username Username for logging in; may be empty.
  * @property password Password for logging in; may be empty.
  */
+@SerialName(value = "proxyTypeSocks5")
+@Serializable
 public class ProxyTypeSocks5 public constructor(
+    @SerialName(value = "username")
     public val username: String,
+    @SerialName(value = "password")
     public val password: String,
 ) : ProxyType() {
     override fun equals(other: Any?): Boolean {

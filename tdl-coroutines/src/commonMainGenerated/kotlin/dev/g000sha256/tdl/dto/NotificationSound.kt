@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes a notification sound in MP3 format.
@@ -32,14 +34,22 @@ import kotlin.String
  * @property data Arbitrary data, defined while the sound was uploaded.
  * @property sound File containing the sound.
  */
+@SerialName(value = "notificationSound")
+@Serializable
 public class NotificationSound public constructor(
+    @SerialName(value = "id")
     public val id: Long,
+    @SerialName(value = "duration")
     public val duration: Int,
+    @SerialName(value = "date")
     public val date: Int,
+    @SerialName(value = "title")
     public val title: String,
+    @SerialName(value = "data")
     public val data: String,
+    @SerialName(value = "sound")
     public val sound: File,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.LongArray
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Represents a list of found users.
@@ -28,10 +30,14 @@ import kotlin.String
  * @property userIds Identifiers of the found users.
  * @property nextOffset The offset for the next request. If empty, then there are no more results.
  */
+@SerialName(value = "foundUsers")
+@Serializable
 public class FoundUsers public constructor(
+    @SerialName(value = "user_ids")
     public val userIds: LongArray,
+    @SerialName(value = "next_offset")
     public val nextOffset: String,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

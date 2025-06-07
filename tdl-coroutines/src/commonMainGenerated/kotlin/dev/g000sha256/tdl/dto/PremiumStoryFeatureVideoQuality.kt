@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The ability to choose better quality for viewed stories.
  */
+@SerialName(value = "premiumStoryFeatureVideoQuality")
+@Serializable
 public class PremiumStoryFeatureVideoQuality public constructor() : PremiumStoryFeature() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

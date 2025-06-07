@@ -21,13 +21,18 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The user can't participate in the giveaway, because they are an administrator in one of the chats that created the giveaway.
  *
  * @property chatId Identifier of the chat administered by the user.
  */
+@SerialName(value = "giveawayParticipantStatusAdministrator")
+@Serializable
 public class GiveawayParticipantStatusAdministrator public constructor(
+    @SerialName(value = "chat_id")
     public val chatId: Long,
 ) : GiveawayParticipantStatus() {
     override fun equals(other: Any?): Boolean {

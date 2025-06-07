@@ -16,8 +16,11 @@
 
 package dev.g000sha256.tdl.dto
 
+import kotlinx.serialization.Serializable
+
 /**
  * This class is an abstract base class.
  * Represents a vector path command.
  */
-public sealed class VectorPathCommand protected constructor()
+@Serializable
+public sealed class VectorPathCommand protected constructor() : Model()

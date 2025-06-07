@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * An audio message.
@@ -27,8 +29,12 @@ import kotlin.String
  * @property audio The audio description.
  * @property caption Audio caption.
  */
+@SerialName(value = "messageAudio")
+@Serializable
 public class MessageAudio public constructor(
+    @SerialName(value = "audio")
     public val audio: Audio,
+    @SerialName(value = "caption")
     public val caption: FormattedText,
 ) : MessageContent() {
     override fun equals(other: Any?): Boolean {

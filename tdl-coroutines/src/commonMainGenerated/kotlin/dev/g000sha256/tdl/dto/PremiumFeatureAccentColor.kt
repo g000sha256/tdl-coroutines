@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The ability to choose accent color for replies and user profile.
  */
+@SerialName(value = "premiumFeatureAccentColor")
+@Serializable
 public class PremiumFeatureAccentColor public constructor() : PremiumFeature() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

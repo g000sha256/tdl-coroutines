@@ -21,13 +21,18 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A basic group (a chat with 0-200 other users).
  *
  * @property basicGroupId Basic group identifier.
  */
+@SerialName(value = "chatTypeBasicGroup")
+@Serializable
 public class ChatTypeBasicGroup public constructor(
+    @SerialName(value = "basic_group_id")
     public val basicGroupId: Long,
 ) : ChatType() {
     override fun equals(other: Any?): Boolean {

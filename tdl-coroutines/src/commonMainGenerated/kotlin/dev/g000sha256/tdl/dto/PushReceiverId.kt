@@ -21,15 +21,20 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains a globally unique push receiver identifier, which can be used to identify which account has received a push notification.
  *
  * @property id The globally unique identifier of push notification subscription.
  */
+@SerialName(value = "pushReceiverId")
+@Serializable
 public class PushReceiverId public constructor(
+    @SerialName(value = "id")
     public val id: Long,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

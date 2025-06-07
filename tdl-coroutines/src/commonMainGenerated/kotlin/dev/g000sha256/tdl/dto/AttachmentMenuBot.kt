@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Represents a bot, which can be added to attachment or side menu.
@@ -49,31 +51,56 @@ import kotlin.String
  * @property iconColor Color to highlight selected icon of the bot if appropriate; may be null.
  * @property webAppPlaceholder Default placeholder for opened Web Apps in SVG format; may be null.
  */
+@SerialName(value = "attachmentMenuBot")
+@Serializable
 public class AttachmentMenuBot public constructor(
+    @SerialName(value = "bot_user_id")
     public val botUserId: Long,
+    @SerialName(value = "supports_self_chat")
     public val supportsSelfChat: Boolean,
+    @SerialName(value = "supports_user_chats")
     public val supportsUserChats: Boolean,
+    @SerialName(value = "supports_bot_chats")
     public val supportsBotChats: Boolean,
+    @SerialName(value = "supports_group_chats")
     public val supportsGroupChats: Boolean,
+    @SerialName(value = "supports_channel_chats")
     public val supportsChannelChats: Boolean,
+    @SerialName(value = "request_write_access")
     public val requestWriteAccess: Boolean,
+    @SerialName(value = "is_added")
     public val isAdded: Boolean,
+    @SerialName(value = "show_in_attachment_menu")
     public val showInAttachmentMenu: Boolean,
+    @SerialName(value = "show_in_side_menu")
     public val showInSideMenu: Boolean,
+    @SerialName(value = "show_disclaimer_in_side_menu")
     public val showDisclaimerInSideMenu: Boolean,
+    @SerialName(value = "name")
     public val name: String,
+    @SerialName(value = "name_color")
     public val nameColor: AttachmentMenuBotColor?,
+    @SerialName(value = "default_icon")
     public val defaultIcon: File?,
+    @SerialName(value = "ios_static_icon")
     public val iosStaticIcon: File?,
+    @SerialName(value = "ios_animated_icon")
     public val iosAnimatedIcon: File?,
+    @SerialName(value = "ios_side_menu_icon")
     public val iosSideMenuIcon: File?,
+    @SerialName(value = "android_icon")
     public val androidIcon: File?,
+    @SerialName(value = "android_side_menu_icon")
     public val androidSideMenuIcon: File?,
+    @SerialName(value = "macos_icon")
     public val macosIcon: File?,
+    @SerialName(value = "macos_side_menu_icon")
     public val macosSideMenuIcon: File?,
+    @SerialName(value = "icon_color")
     public val iconColor: AttachmentMenuBotColor?,
+    @SerialName(value = "web_app_placeholder")
     public val webAppPlaceholder: File?,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

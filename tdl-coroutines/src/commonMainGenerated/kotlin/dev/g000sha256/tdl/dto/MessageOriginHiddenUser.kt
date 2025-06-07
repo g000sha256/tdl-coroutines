@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The message was originally sent by a user, which is hidden by their privacy settings.
  *
  * @property senderName Name of the sender.
  */
+@SerialName(value = "messageOriginHiddenUser")
+@Serializable
 public class MessageOriginHiddenUser public constructor(
+    @SerialName(value = "sender_name")
     public val senderName: String,
 ) : MessageOrigin() {
     override fun equals(other: Any?): Boolean {

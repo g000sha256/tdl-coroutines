@@ -21,15 +21,20 @@ import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains a list of quick reply messages.
  *
  * @property messages List of quick reply messages; messages may be null.
  */
+@SerialName(value = "quickReplyMessages")
+@Serializable
 public class QuickReplyMessages public constructor(
+    @SerialName(value = "messages")
     public val messages: Array<QuickReplyMessage>?,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

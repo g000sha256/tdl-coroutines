@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Returns only messages with mentions of the current user, or messages that are replies to their messages.
  */
+@SerialName(value = "searchMessagesFilterMention")
+@Serializable
 public class SearchMessagesFilterMention public constructor() : SearchMessagesFilter() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

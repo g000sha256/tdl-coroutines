@@ -21,13 +21,18 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.LongArray
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The story can be viewed by all contacts except chosen users.
  *
  * @property exceptUserIds User identifiers of the contacts that can't see the story; always unknown and empty for non-owned stories.
  */
+@SerialName(value = "storyPrivacySettingsContacts")
+@Serializable
 public class StoryPrivacySettingsContacts public constructor(
+    @SerialName(value = "except_user_ids")
     public val exceptUserIds: LongArray,
 ) : StoryPrivacySettings() {
     override fun equals(other: Any?): Boolean {

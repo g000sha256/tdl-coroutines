@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The text uses HTML-style formatting. The same as Telegram Bot API &quot;HTML&quot; parse mode.
  */
+@SerialName(value = "textParseModeHTML")
+@Serializable
 public class TextParseModeHTML public constructor() : TextParseMode() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

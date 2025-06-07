@@ -20,15 +20,20 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains an HTTP URL.
  *
  * @property url The URL.
  */
+@SerialName(value = "httpUrl")
+@Serializable
 public class HttpUrl public constructor(
+    @SerialName(value = "url")
     public val url: String,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

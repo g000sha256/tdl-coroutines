@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.ByteArray
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes a voice note.
@@ -31,13 +33,20 @@ import kotlin.String
  * @property speechRecognitionResult Result of speech recognition in the voice note; may be null.
  * @property voice File containing the voice note.
  */
+@SerialName(value = "voiceNote")
+@Serializable
 public class VoiceNote public constructor(
+    @SerialName(value = "duration")
     public val duration: Int,
+    @SerialName(value = "waveform")
     public val waveform: ByteArray,
+    @SerialName(value = "mime_type")
     public val mimeType: String,
+    @SerialName(value = "speech_recognition_result")
     public val speechRecognitionResult: SpeechRecognitionResult?,
+    @SerialName(value = "voice")
     public val voice: File,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

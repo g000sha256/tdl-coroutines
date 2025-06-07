@@ -16,6 +16,10 @@
 
 package dev.g000sha256.tdl
 
+import dev.g000sha256.tdl.dto.Error
+import dev.g000sha256.tdl.dto.Model
+import dev.g000sha256.tdl.dto.Update
+import dev.g000sha256.tdl.function.Function
 import kotlin.reflect.KClass
 import kotlinx.atomicfu.atomic
 import kotlinx.atomicfu.updateAndGet
@@ -27,6 +31,7 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.takeWhile
 import kotlinx.coroutines.flow.transform
+import kotlinx.serialization.SerializationStrategy
 import org.drinkless.tdlib.TdApi
 
 internal class TdlRepository(private val engine: TdlEngine) {
@@ -60,6 +65,17 @@ internal class TdlRepository(private val engine: TdlEngine) {
                 val transformed = transform.invoke(result as T1)
                 return TdlResult.Success(transformed)
             }
+        }
+    }
+
+    val _updates = updatesFlow.filterIsInstance<Update>() // TODO
+
+    @Suppress("UNCHECKED_CAST")
+    suspend fun <F : Function, M : Model> _send(function: F, serializationStrategy: SerializationStrategy<F>): TdlResult<M> {
+        val model = engine._send(clientId, function, serializationStrategy)
+        when {
+            model is Error -> return TdlResult.Failure(code = model.code, message = model.message)
+            else -> return TdlResult.Success(result = model as M)
         }
     }
 

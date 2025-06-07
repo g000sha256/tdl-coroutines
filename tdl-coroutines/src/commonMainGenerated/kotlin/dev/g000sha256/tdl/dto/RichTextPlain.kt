@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A plain text.
  *
  * @property text Text.
  */
+@SerialName(value = "richTextPlain")
+@Serializable
 public class RichTextPlain public constructor(
+    @SerialName(value = "text")
     public val text: String,
 ) : RichText() {
     override fun equals(other: Any?): Boolean {

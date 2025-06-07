@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The value of the default disableNotification parameter, used when a message is sent to the chat, was changed.
@@ -28,8 +30,12 @@ import kotlin.String
  * @property chatId Chat identifier.
  * @property defaultDisableNotification The new defaultDisableNotification value.
  */
+@SerialName(value = "updateChatDefaultDisableNotification")
+@Serializable
 public class UpdateChatDefaultDisableNotification public constructor(
+    @SerialName(value = "chat_id")
     public val chatId: Long,
+    @SerialName(value = "default_disable_notification")
     public val defaultDisableNotification: Boolean,
 ) : Update() {
     override fun equals(other: Any?): Boolean {

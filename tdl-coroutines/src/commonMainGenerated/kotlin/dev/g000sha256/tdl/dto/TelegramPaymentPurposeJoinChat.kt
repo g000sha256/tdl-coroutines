@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The user joins a chat and subscribes to regular payments in Telegram Stars.
  *
  * @property inviteLink Invite link to use.
  */
+@SerialName(value = "telegramPaymentPurposeJoinChat")
+@Serializable
 public class TelegramPaymentPurposeJoinChat public constructor(
+    @SerialName(value = "invite_link")
     public val inviteLink: String,
 ) : TelegramPaymentPurpose() {
     override fun equals(other: Any?): Boolean {

@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains the user's personal details.
@@ -35,18 +37,30 @@ import kotlin.String
  * @property countryCode A two-letter ISO 3166-1 alpha-2 country code of the user's country.
  * @property residenceCountryCode A two-letter ISO 3166-1 alpha-2 country code of the user's residence country.
  */
+@SerialName(value = "personalDetails")
+@Serializable
 public class PersonalDetails public constructor(
+    @SerialName(value = "first_name")
     public val firstName: String,
+    @SerialName(value = "middle_name")
     public val middleName: String,
+    @SerialName(value = "last_name")
     public val lastName: String,
+    @SerialName(value = "native_first_name")
     public val nativeFirstName: String,
+    @SerialName(value = "native_middle_name")
     public val nativeMiddleName: String,
+    @SerialName(value = "native_last_name")
     public val nativeLastName: String,
+    @SerialName(value = "birthdate")
     public val birthdate: Date,
+    @SerialName(value = "gender")
     public val gender: String,
+    @SerialName(value = "country_code")
     public val countryCode: String,
+    @SerialName(value = "residence_country_code")
     public val residenceCountryCode: String,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

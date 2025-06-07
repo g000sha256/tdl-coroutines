@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The link is a link to a chat with a Telegram bot. Call searchPublicChat with the given bot username, check that the user is a bot, show START button in the chat with the bot, and then call sendBotStartMessage with the given start parameter after the button is pressed.
@@ -28,9 +30,14 @@ import kotlin.String
  * @property startParameter The parameter to be passed to sendBotStartMessage.
  * @property autostart True, if sendBotStartMessage must be called automatically without showing the START button.
  */
+@SerialName(value = "internalLinkTypeBotStart")
+@Serializable
 public class InternalLinkTypeBotStart public constructor(
+    @SerialName(value = "bot_username")
     public val botUsername: String,
+    @SerialName(value = "start_parameter")
     public val startParameter: String,
+    @SerialName(value = "autostart")
     public val autostart: Boolean,
 ) : InternalLinkType() {
     override fun equals(other: Any?): Boolean {

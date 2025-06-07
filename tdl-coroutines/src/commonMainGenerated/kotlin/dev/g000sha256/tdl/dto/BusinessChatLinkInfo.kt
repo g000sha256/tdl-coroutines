@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains information about a business chat link.
@@ -28,10 +30,14 @@ import kotlin.String
  * @property chatId Identifier of the private chat that created the link.
  * @property text Message draft text that must be added to the input field.
  */
+@SerialName(value = "businessChatLinkInfo")
+@Serializable
 public class BusinessChatLinkInfo public constructor(
+    @SerialName(value = "chat_id")
     public val chatId: Long,
+    @SerialName(value = "text")
     public val text: FormattedText,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

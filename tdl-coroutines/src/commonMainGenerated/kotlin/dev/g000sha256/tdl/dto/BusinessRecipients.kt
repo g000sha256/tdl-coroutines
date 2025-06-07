@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.LongArray
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes private chats chosen for automatic interaction with a business.
@@ -33,15 +35,24 @@ import kotlin.String
  * @property selectNonContacts True, if all private chats with non-contacts are selected.
  * @property excludeSelected If true, then all private chats except the selected are chosen. Otherwise, only the selected chats are chosen.
  */
+@SerialName(value = "businessRecipients")
+@Serializable
 public class BusinessRecipients public constructor(
+    @SerialName(value = "chat_ids")
     public val chatIds: LongArray,
+    @SerialName(value = "excluded_chat_ids")
     public val excludedChatIds: LongArray,
+    @SerialName(value = "select_existing_chats")
     public val selectExistingChats: Boolean,
+    @SerialName(value = "select_new_chats")
     public val selectNewChats: Boolean,
+    @SerialName(value = "select_contacts")
     public val selectContacts: Boolean,
+    @SerialName(value = "select_non_contacts")
     public val selectNonContacts: Boolean,
+    @SerialName(value = "exclude_selected")
     public val excludeSelected: Boolean,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

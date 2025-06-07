@@ -21,13 +21,18 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The user can be messaged, but the messages are paid.
  *
  * @property outgoingPaidMessageStarCount Number of Telegram Stars that must be paid by the current user for each sent message to the user.
  */
+@SerialName(value = "canSendMessageToUserResultUserHasPaidMessages")
+@Serializable
 public class CanSendMessageToUserResultUserHasPaidMessages public constructor(
+    @SerialName(value = "outgoing_paid_message_star_count")
     public val outgoingPaidMessageStarCount: Long,
 ) : CanSendMessageToUserResult() {
     override fun equals(other: Any?): Boolean {

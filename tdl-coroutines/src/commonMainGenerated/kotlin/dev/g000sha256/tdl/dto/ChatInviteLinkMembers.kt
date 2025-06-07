@@ -21,6 +21,8 @@ import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains a list of chat members joined a chat via an invite link.
@@ -28,10 +30,14 @@ import kotlin.String
  * @property totalCount Approximate total number of chat members found.
  * @property members List of chat members, joined a chat via an invite link.
  */
+@SerialName(value = "chatInviteLinkMembers")
+@Serializable
 public class ChatInviteLinkMembers public constructor(
+    @SerialName(value = "total_count")
     public val totalCount: Int,
+    @SerialName(value = "members")
     public val members: Array<ChatInviteLinkMember>,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

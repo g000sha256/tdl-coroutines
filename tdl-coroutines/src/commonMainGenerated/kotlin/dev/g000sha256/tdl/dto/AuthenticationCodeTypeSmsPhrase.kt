@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * An authentication code is a phrase from multiple words delivered via an SMS message to the specified phone number; non-official applications may not receive this type of code.
  *
  * @property firstWord The first word of the phrase if known.
  */
+@SerialName(value = "authenticationCodeTypeSmsPhrase")
+@Serializable
 public class AuthenticationCodeTypeSmsPhrase public constructor(
+    @SerialName(value = "first_word")
     public val firstWord: String,
 ) : AuthenticationCodeType() {
     override fun equals(other: Any?): Boolean {

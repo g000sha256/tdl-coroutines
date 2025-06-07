@@ -21,13 +21,18 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Autosave settings applied to a chat.
  *
  * @property chatId Chat identifier.
  */
+@SerialName(value = "autosaveSettingsScopeChat")
+@Serializable
 public class AutosaveSettingsScopeChat public constructor(
+    @SerialName(value = "chat_id")
     public val chatId: Long,
 ) : AutosaveSettingsScope() {
     override fun equals(other: Any?): Boolean {

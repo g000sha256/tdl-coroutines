@@ -22,6 +22,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains information about replies to a message.
@@ -32,13 +34,20 @@ import kotlin.String
  * @property lastReadOutboxMessageId Identifier of the last read outgoing reply to the message.
  * @property lastMessageId Identifier of the last reply to the message.
  */
+@SerialName(value = "messageReplyInfo")
+@Serializable
 public class MessageReplyInfo public constructor(
+    @SerialName(value = "reply_count")
     public val replyCount: Int,
+    @SerialName(value = "recent_replier_ids")
     public val recentReplierIds: Array<MessageSender>,
+    @SerialName(value = "last_read_inbox_message_id")
     public val lastReadInboxMessageId: Long,
+    @SerialName(value = "last_read_outbox_message_id")
     public val lastReadOutboxMessageId: Long,
+    @SerialName(value = "last_message_id")
     public val lastMessageId: Long,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

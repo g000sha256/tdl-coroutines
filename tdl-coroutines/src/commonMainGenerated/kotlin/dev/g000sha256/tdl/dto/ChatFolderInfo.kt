@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains basic information about a chat folder.
@@ -31,14 +33,22 @@ import kotlin.String
  * @property isShareable True, if at least one link has been created for the folder.
  * @property hasMyInviteLinks True, if the chat folder has invite links created by the current user.
  */
+@SerialName(value = "chatFolderInfo")
+@Serializable
 public class ChatFolderInfo public constructor(
+    @SerialName(value = "id")
     public val id: Int,
+    @SerialName(value = "name")
     public val name: ChatFolderName,
+    @SerialName(value = "icon")
     public val icon: ChatFolderIcon,
+    @SerialName(value = "color_id")
     public val colorId: Int,
+    @SerialName(value = "is_shareable")
     public val isShareable: Boolean,
+    @SerialName(value = "has_my_invite_links")
     public val hasMyInviteLinks: Boolean,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

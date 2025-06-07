@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A chat title was edited.
  *
  * @property title New chat title.
  */
+@SerialName(value = "pushMessageContentChatChangeTitle")
+@Serializable
 public class PushMessageContentChatChangeTitle public constructor(
+    @SerialName(value = "title")
     public val title: String,
 ) : PushMessageContent() {
     override fun equals(other: Any?): Boolean {

@@ -22,6 +22,8 @@ import kotlin.Double
 import kotlin.Int
 import kotlin.IntArray
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A video story.
@@ -32,11 +34,18 @@ import kotlin.String
  * @property coverFrameTimestamp Timestamp of the frame, which will be used as video thumbnail.
  * @property isAnimation True, if the video has no sound.
  */
+@SerialName(value = "inputStoryContentVideo")
+@Serializable
 public class InputStoryContentVideo public constructor(
+    @SerialName(value = "video")
     public val video: InputFile,
+    @SerialName(value = "added_sticker_file_ids")
     public val addedStickerFileIds: IntArray,
+    @SerialName(value = "duration")
     public val duration: Double,
+    @SerialName(value = "cover_frame_timestamp")
     public val coverFrameTimestamp: Double,
+    @SerialName(value = "is_animation")
     public val isAnimation: Boolean,
 ) : InputStoryContent() {
     override fun equals(other: Any?): Boolean {

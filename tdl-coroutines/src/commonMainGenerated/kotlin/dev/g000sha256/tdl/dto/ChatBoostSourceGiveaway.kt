@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The chat created a giveaway.
@@ -31,11 +33,18 @@ import kotlin.String
  * @property giveawayMessageId Identifier of the corresponding giveaway message; can be an identifier of a deleted message.
  * @property isUnclaimed True, if the winner for the corresponding giveaway prize wasn't chosen, because there were not enough participants.
  */
+@SerialName(value = "chatBoostSourceGiveaway")
+@Serializable
 public class ChatBoostSourceGiveaway public constructor(
+    @SerialName(value = "user_id")
     public val userId: Long,
+    @SerialName(value = "gift_code")
     public val giftCode: String,
+    @SerialName(value = "star_count")
     public val starCount: Long,
+    @SerialName(value = "giveaway_message_id")
     public val giveawayMessageId: Long,
+    @SerialName(value = "is_unclaimed")
     public val isUnclaimed: Boolean,
 ) : ChatBoostSource() {
     override fun equals(other: Any?): Boolean {

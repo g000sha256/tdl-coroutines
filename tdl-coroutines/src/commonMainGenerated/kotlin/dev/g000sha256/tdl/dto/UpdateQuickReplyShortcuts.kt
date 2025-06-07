@@ -21,13 +21,18 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.IntArray
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The list of quick reply shortcuts has changed.
  *
  * @property shortcutIds The new list of identifiers of quick reply shortcuts.
  */
+@SerialName(value = "updateQuickReplyShortcuts")
+@Serializable
 public class UpdateQuickReplyShortcuts public constructor(
+    @SerialName(value = "shortcut_ids")
     public val shortcutIds: IntArray,
 ) : Update() {
     override fun equals(other: Any?): Boolean {

@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The user allowed the bot to send messages.
  *
  * @property reason The reason why the bot was allowed to write messages.
  */
+@SerialName(value = "messageBotWriteAccessAllowed")
+@Serializable
 public class MessageBotWriteAccessAllowed public constructor(
+    @SerialName(value = "reason")
     public val reason: BotWriteAccessAllowReason,
 ) : MessageContent() {
     override fun equals(other: Any?): Boolean {

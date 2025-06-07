@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Outgoing messages were read.
@@ -28,8 +30,12 @@ import kotlin.String
  * @property chatId Chat identifier.
  * @property lastReadOutboxMessageId Identifier of last read outgoing message.
  */
+@SerialName(value = "updateChatReadOutbox")
+@Serializable
 public class UpdateChatReadOutbox public constructor(
+    @SerialName(value = "chat_id")
     public val chatId: Long,
+    @SerialName(value = "last_read_outbox_message_id")
     public val lastReadOutboxMessageId: Long,
 ) : Update() {
     override fun equals(other: Any?): Boolean {

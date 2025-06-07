@@ -16,8 +16,11 @@
 
 package dev.g000sha256.tdl.dto
 
+import kotlinx.serialization.Serializable
+
 /**
  * This class is an abstract base class.
  * Represents a payload of a callback query.
  */
-public sealed class CallbackQueryPayload protected constructor()
+@Serializable
+public sealed class CallbackQueryPayload protected constructor() : Model()

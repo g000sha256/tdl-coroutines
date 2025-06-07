@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The transaction is a payment for Telegram API usage; for bots only.
  *
  * @property requestCount The number of billed requests.
  */
+@SerialName(value = "starTransactionTypeTelegramApiUsage")
+@Serializable
 public class StarTransactionTypeTelegramApiUsage public constructor(
+    @SerialName(value = "request_count")
     public val requestCount: Int,
 ) : StarTransactionType() {
     override fun equals(other: Any?): Boolean {

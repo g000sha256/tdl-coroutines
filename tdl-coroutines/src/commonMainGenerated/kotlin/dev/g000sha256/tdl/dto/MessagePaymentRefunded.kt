@@ -22,6 +22,8 @@ import kotlin.ByteArray
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A payment has been refunded.
@@ -33,12 +35,20 @@ import kotlin.String
  * @property telegramPaymentChargeId Telegram payment identifier.
  * @property providerPaymentChargeId Provider payment identifier.
  */
+@SerialName(value = "messagePaymentRefunded")
+@Serializable
 public class MessagePaymentRefunded public constructor(
+    @SerialName(value = "owner_id")
     public val ownerId: MessageSender,
+    @SerialName(value = "currency")
     public val currency: String,
+    @SerialName(value = "total_amount")
     public val totalAmount: Long,
+    @SerialName(value = "invoice_payload")
     public val invoicePayload: ByteArray,
+    @SerialName(value = "telegram_payment_charge_id")
     public val telegramPaymentChargeId: String,
+    @SerialName(value = "provider_payment_charge_id")
     public val providerPaymentChargeId: String,
 ) : MessageContent() {
     override fun equals(other: Any?): Boolean {

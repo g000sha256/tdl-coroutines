@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes media previews of a bot.
@@ -27,10 +29,14 @@ import kotlin.String
  * @property date Point in time (Unix timestamp) when the preview was added or changed last time.
  * @property content Content of the preview.
  */
+@SerialName(value = "botMediaPreview")
+@Serializable
 public class BotMediaPreview public constructor(
+    @SerialName(value = "date")
     public val date: Int,
+    @SerialName(value = "content")
     public val content: StoryContent,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The link is a link to a text or a poll Telegram message.
  */
+@SerialName(value = "linkPreviewTypeMessage")
+@Serializable
 public class LinkPreviewTypeMessage public constructor() : LinkPreviewType() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

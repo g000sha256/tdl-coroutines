@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A story content that is not supported in the current TDLib version.
  */
+@SerialName(value = "storyContentUnsupported")
+@Serializable
 public class StoryContentUnsupported public constructor() : StoryContent() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A token for Simple Push API for Firefox OS.
  *
  * @property endpoint Absolute URL exposed by the push service where the application server can send push messages; may be empty to deregister a device.
  */
+@SerialName(value = "deviceTokenSimplePush")
+@Serializable
 public class DeviceTokenSimplePush public constructor(
+    @SerialName(value = "endpoint")
     public val endpoint: String,
 ) : DeviceToken() {
     override fun equals(other: Any?): Boolean {

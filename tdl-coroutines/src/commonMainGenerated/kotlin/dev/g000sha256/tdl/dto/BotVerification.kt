@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes verification status provided by a bot.
@@ -29,11 +31,16 @@ import kotlin.String
  * @property iconCustomEmojiId Identifier of the custom emoji that is used as the verification sign.
  * @property customDescription Custom description of verification reason set by the bot. Can contain only Mention, Hashtag, Cashtag, PhoneNumber, BankCardNumber, Url, and EmailAddress entities.
  */
+@SerialName(value = "botVerification")
+@Serializable
 public class BotVerification public constructor(
+    @SerialName(value = "bot_user_id")
     public val botUserId: Long,
+    @SerialName(value = "icon_custom_emoji_id")
     public val iconCustomEmojiId: Long,
+    @SerialName(value = "custom_description")
     public val customDescription: FormattedText,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

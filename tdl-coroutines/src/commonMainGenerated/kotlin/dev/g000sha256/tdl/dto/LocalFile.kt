@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Represents a local file.
@@ -34,16 +36,26 @@ import kotlin.String
  * @property downloadedPrefixSize If isDownloadingCompleted is false, then only some prefix of the file starting from downloadOffset is ready to be read. downloadedPrefixSize is the size of that prefix in bytes.
  * @property downloadedSize Total downloaded file size, in bytes. Can be used only for calculating download progress. The actual file size may be bigger, and some parts of it may contain garbage.
  */
+@SerialName(value = "localFile")
+@Serializable
 public class LocalFile public constructor(
+    @SerialName(value = "path")
     public val path: String,
+    @SerialName(value = "can_be_downloaded")
     public val canBeDownloaded: Boolean,
+    @SerialName(value = "can_be_deleted")
     public val canBeDeleted: Boolean,
+    @SerialName(value = "is_downloading_active")
     public val isDownloadingActive: Boolean,
+    @SerialName(value = "is_downloading_completed")
     public val isDownloadingCompleted: Boolean,
+    @SerialName(value = "download_offset")
     public val downloadOffset: Long,
+    @SerialName(value = "downloaded_prefix_size")
     public val downloadedPrefixSize: Long,
+    @SerialName(value = "downloaded_size")
     public val downloadedSize: Long,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

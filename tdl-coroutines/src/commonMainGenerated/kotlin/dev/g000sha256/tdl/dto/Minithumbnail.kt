@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.ByteArray
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Thumbnail image of a very poor quality and low resolution.
@@ -29,11 +31,16 @@ import kotlin.String
  * @property height Thumbnail height, usually doesn't exceed 40.
  * @property data The thumbnail in JPEG format.
  */
+@SerialName(value = "minithumbnail")
+@Serializable
 public class Minithumbnail public constructor(
+    @SerialName(value = "width")
     public val width: Int,
+    @SerialName(value = "height")
     public val height: Int,
+    @SerialName(value = "data")
     public val data: ByteArray,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

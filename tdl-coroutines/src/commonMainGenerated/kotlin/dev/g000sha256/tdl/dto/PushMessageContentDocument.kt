@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A document message (a general file).
@@ -27,8 +29,12 @@ import kotlin.String
  * @property document Message content; may be null.
  * @property isPinned True, if the message is a pinned message with the specified content.
  */
+@SerialName(value = "pushMessageContentDocument")
+@Serializable
 public class PushMessageContentDocument public constructor(
+    @SerialName(value = "document")
     public val document: Document?,
+    @SerialName(value = "is_pinned")
     public val isPinned: Boolean,
 ) : PushMessageContent() {
     override fun equals(other: Any?): Boolean {

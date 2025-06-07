@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The link is a link to the language section of the application settings.
  */
+@SerialName(value = "internalLinkTypeLanguageSettings")
+@Serializable
 public class InternalLinkTypeLanguageSettings public constructor() : InternalLinkType() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Some data in userFullInfo has been changed.
@@ -28,8 +30,12 @@ import kotlin.String
  * @property userId User identifier.
  * @property userFullInfo New full information about the user.
  */
+@SerialName(value = "updateUserFullInfo")
+@Serializable
 public class UpdateUserFullInfo public constructor(
+    @SerialName(value = "user_id")
     public val userId: Long,
+    @SerialName(value = "user_full_info")
     public val userFullInfo: UserFullInfo,
 ) : Update() {
     override fun equals(other: Any?): Boolean {

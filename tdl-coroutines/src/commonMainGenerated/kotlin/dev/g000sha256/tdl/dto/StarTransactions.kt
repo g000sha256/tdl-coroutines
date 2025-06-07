@@ -21,6 +21,8 @@ import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Represents a list of Telegram Star transactions.
@@ -29,11 +31,16 @@ import kotlin.String
  * @property transactions List of transactions with Telegram Stars.
  * @property nextOffset The offset for the next request. If empty, then there are no more results.
  */
+@SerialName(value = "starTransactions")
+@Serializable
 public class StarTransactions public constructor(
+    @SerialName(value = "star_amount")
     public val starAmount: StarAmount,
+    @SerialName(value = "transactions")
     public val transactions: Array<StarTransaction>,
+    @SerialName(value = "next_offset")
     public val nextOffset: String,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

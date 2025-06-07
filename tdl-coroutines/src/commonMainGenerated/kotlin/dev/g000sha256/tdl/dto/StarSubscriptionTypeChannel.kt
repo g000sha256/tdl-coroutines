@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes a subscription to a channel chat.
@@ -27,8 +29,12 @@ import kotlin.String
  * @property canReuse True, if the subscription is active and the user can use the method reuseStarSubscription to join the subscribed chat again.
  * @property inviteLink The invite link that can be used to renew the subscription if it has been expired; may be empty, if the link isn't available anymore.
  */
+@SerialName(value = "starSubscriptionTypeChannel")
+@Serializable
 public class StarSubscriptionTypeChannel public constructor(
+    @SerialName(value = "can_reuse")
     public val canReuse: Boolean,
+    @SerialName(value = "invite_link")
     public val inviteLink: String,
 ) : StarSubscriptionType() {
     override fun equals(other: Any?): Boolean {

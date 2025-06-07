@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.ByteArray
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A Telegram call reflector.
@@ -28,8 +30,12 @@ import kotlin.String
  * @property peerTag A peer tag to be used with the reflector.
  * @property isTcp True, if the server uses TCP instead of UDP.
  */
+@SerialName(value = "callServerTypeTelegramReflector")
+@Serializable
 public class CallServerTypeTelegramReflector public constructor(
+    @SerialName(value = "peer_tag")
     public val peerTag: ByteArray,
+    @SerialName(value = "is_tcp")
     public val isTcp: Boolean,
 ) : CallServerType() {
     override fun equals(other: Any?): Boolean {

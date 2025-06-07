@@ -16,8 +16,11 @@
 
 package dev.g000sha256.tdl.dto
 
+import kotlinx.serialization.Serializable
+
 /**
  * This class is an abstract base class.
  * Describes the order of the found affiliate programs.
  */
-public sealed class AffiliateProgramSortOrder protected constructor()
+@Serializable
+public sealed class AffiliateProgramSortOrder protected constructor() : Model()

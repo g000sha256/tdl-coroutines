@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes a chat theme.
@@ -28,11 +30,16 @@ import kotlin.String
  * @property lightSettings Theme settings for a light chat theme.
  * @property darkSettings Theme settings for a dark chat theme.
  */
+@SerialName(value = "chatTheme")
+@Serializable
 public class ChatTheme public constructor(
+    @SerialName(value = "name")
     public val name: String,
+    @SerialName(value = "light_settings")
     public val lightSettings: ThemeSettings,
+    @SerialName(value = "dark_settings")
     public val darkSettings: ThemeSettings,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes a shortcut that can be used for a quick reply.
@@ -29,12 +31,18 @@ import kotlin.String
  * @property firstMessage The first shortcut message.
  * @property messageCount The total number of messages in the shortcut.
  */
+@SerialName(value = "quickReplyShortcut")
+@Serializable
 public class QuickReplyShortcut public constructor(
+    @SerialName(value = "id")
     public val id: Int,
+    @SerialName(value = "name")
     public val name: String,
+    @SerialName(value = "first_message")
     public val firstMessage: QuickReplyMessage,
+    @SerialName(value = "message_count")
     public val messageCount: Int,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

@@ -22,6 +22,8 @@ import kotlin.Int
 import kotlin.Long
 import kotlin.LongArray
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Messages in a business account were deleted; for bots only.
@@ -30,9 +32,14 @@ import kotlin.String
  * @property chatId Identifier of a chat in the business account in which messages were deleted.
  * @property messageIds Unique message identifiers of the deleted messages.
  */
+@SerialName(value = "updateBusinessMessagesDeleted")
+@Serializable
 public class UpdateBusinessMessagesDeleted public constructor(
+    @SerialName(value = "connection_id")
     public val connectionId: String,
+    @SerialName(value = "chat_id")
     public val chatId: Long,
+    @SerialName(value = "message_ids")
     public val messageIds: LongArray,
 ) : Update() {
     override fun equals(other: Any?): Boolean {

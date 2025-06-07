@@ -21,6 +21,8 @@ import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains information about a Telegram Passport authorization form that was requested.
@@ -29,11 +31,16 @@ import kotlin.String
  * @property requiredElements Telegram Passport elements that must be provided to complete the form.
  * @property privacyPolicyUrl URL for the privacy policy of the service; may be empty.
  */
+@SerialName(value = "passportAuthorizationForm")
+@Serializable
 public class PassportAuthorizationForm public constructor(
+    @SerialName(value = "id")
     public val id: Int,
+    @SerialName(value = "required_elements")
     public val requiredElements: Array<PassportRequiredElement>,
+    @SerialName(value = "privacy_policy_url")
     public val privacyPolicyUrl: String,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

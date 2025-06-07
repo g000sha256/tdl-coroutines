@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The sticker is a mask in WEBP format to be placed on photos or videos.
  */
+@SerialName(value = "stickerTypeMask")
+@Serializable
 public class StickerTypeMask public constructor() : StickerType() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

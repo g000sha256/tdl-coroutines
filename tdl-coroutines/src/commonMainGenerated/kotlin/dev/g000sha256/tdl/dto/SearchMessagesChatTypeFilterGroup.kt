@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Returns only messages in basic group and supergroup chats.
  */
+@SerialName(value = "searchMessagesChatTypeFilterGroup")
+@Serializable
 public class SearchMessagesChatTypeFilterGroup public constructor() : SearchMessagesChatTypeFilter() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

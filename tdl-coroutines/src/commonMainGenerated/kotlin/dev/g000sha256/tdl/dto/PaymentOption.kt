@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes an additional payment option.
@@ -27,10 +29,14 @@ import kotlin.String
  * @property title Title for the payment option.
  * @property url Payment form URL to be opened in a web view.
  */
+@SerialName(value = "paymentOption")
+@Serializable
 public class PaymentOption public constructor(
+    @SerialName(value = "title")
     public val title: String,
+    @SerialName(value = "url")
     public val url: String,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

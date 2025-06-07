@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A chat was removed from a chat list.
@@ -28,8 +30,12 @@ import kotlin.String
  * @property chatId Chat identifier.
  * @property chatList The chat list from which the chat was removed.
  */
+@SerialName(value = "updateChatRemovedFromList")
+@Serializable
 public class UpdateChatRemovedFromList public constructor(
+    @SerialName(value = "chat_id")
     public val chatId: Long,
+    @SerialName(value = "chat_list")
     public val chatList: ChatList,
 ) : Update() {
     override fun equals(other: Any?): Boolean {

@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A message with an unread mention was read.
@@ -29,9 +31,14 @@ import kotlin.String
  * @property messageId Message identifier.
  * @property unreadMentionCount The new number of unread mention messages left in the chat.
  */
+@SerialName(value = "updateMessageMentionRead")
+@Serializable
 public class UpdateMessageMentionRead public constructor(
+    @SerialName(value = "chat_id")
     public val chatId: Long,
+    @SerialName(value = "message_id")
     public val messageId: Long,
+    @SerialName(value = "unread_mention_count")
     public val unreadMentionCount: Int,
 ) : Update() {
     override fun equals(other: Any?): Boolean {

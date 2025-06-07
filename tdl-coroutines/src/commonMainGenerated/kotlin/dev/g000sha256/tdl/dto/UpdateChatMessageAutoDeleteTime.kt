@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The message auto-delete or self-destruct timer setting for a chat was changed.
@@ -28,8 +30,12 @@ import kotlin.String
  * @property chatId Chat identifier.
  * @property messageAutoDeleteTime New value of messageAutoDeleteTime.
  */
+@SerialName(value = "updateChatMessageAutoDeleteTime")
+@Serializable
 public class UpdateChatMessageAutoDeleteTime public constructor(
+    @SerialName(value = "chat_id")
     public val chatId: Long,
+    @SerialName(value = "message_auto_delete_time")
     public val messageAutoDeleteTime: Int,
 ) : Update() {
     override fun equals(other: Any?): Boolean {

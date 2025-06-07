@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Some animated emoji message was clicked and a big animated sticker must be played if the message is visible on the screen. chatActionWatchingAnimations with the text of the message needs to be sent if the sticker is played.
@@ -29,9 +31,14 @@ import kotlin.String
  * @property messageId Message identifier.
  * @property sticker The animated sticker to be played.
  */
+@SerialName(value = "updateAnimatedEmojiMessageClicked")
+@Serializable
 public class UpdateAnimatedEmojiMessageClicked public constructor(
+    @SerialName(value = "chat_id")
     public val chatId: Long,
+    @SerialName(value = "message_id")
     public val messageId: Long,
+    @SerialName(value = "sticker")
     public val sticker: Sticker,
 ) : Update() {
     override fun equals(other: Any?): Boolean {

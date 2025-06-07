@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.IntArray
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes a paid media to be sent.
@@ -32,14 +34,22 @@ import kotlin.String
  * @property width Media width.
  * @property height Media height.
  */
+@SerialName(value = "inputPaidMedia")
+@Serializable
 public class InputPaidMedia public constructor(
+    @SerialName(value = "type")
     public val type: InputPaidMediaType,
+    @SerialName(value = "media")
     public val media: InputFile,
+    @SerialName(value = "thumbnail")
     public val thumbnail: InputThumbnail?,
+    @SerialName(value = "added_sticker_file_ids")
     public val addedStickerFileIds: IntArray,
+    @SerialName(value = "width")
     public val width: Int,
+    @SerialName(value = "height")
     public val height: Int,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

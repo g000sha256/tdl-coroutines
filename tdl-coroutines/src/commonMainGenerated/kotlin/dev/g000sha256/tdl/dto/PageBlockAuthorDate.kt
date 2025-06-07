@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The author and publishing date of a page.
@@ -27,8 +29,12 @@ import kotlin.String
  * @property author Author.
  * @property publishDate Point in time (Unix timestamp) when the article was published; 0 if unknown.
  */
+@SerialName(value = "pageBlockAuthorDate")
+@Serializable
 public class PageBlockAuthorDate public constructor(
+    @SerialName(value = "author")
     public val author: RichText,
+    @SerialName(value = "publish_date")
     public val publishDate: Int,
 ) : PageBlock() {
     override fun equals(other: Any?): Boolean {

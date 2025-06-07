@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.LongArray
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Represents a list of users.
@@ -28,10 +30,14 @@ import kotlin.String
  * @property totalCount Approximate total number of users found.
  * @property userIds A list of user identifiers.
  */
+@SerialName(value = "users")
+@Serializable
 public class Users public constructor(
+    @SerialName(value = "total_count")
     public val totalCount: Int,
+    @SerialName(value = "user_ids")
     public val userIds: LongArray,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

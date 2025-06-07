@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The message was screenshotted; the source must be used only if the message content was visible during the screenshot.
  */
+@SerialName(value = "messageSourceScreenshot")
+@Serializable
 public class MessageSourceScreenshot public constructor() : MessageSource() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

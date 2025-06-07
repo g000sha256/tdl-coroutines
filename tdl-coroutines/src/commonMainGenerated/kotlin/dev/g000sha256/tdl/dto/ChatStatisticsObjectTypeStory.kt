@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes a story posted on behalf of the chat.
  *
  * @property storyId Story identifier.
  */
+@SerialName(value = "chatStatisticsObjectTypeStory")
+@Serializable
 public class ChatStatisticsObjectTypeStory public constructor(
+    @SerialName(value = "story_id")
     public val storyId: Int,
 ) : ChatStatisticsObjectType() {
     override fun equals(other: Any?): Boolean {

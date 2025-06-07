@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The log is written to stderr or an OS specific log.
  */
+@SerialName(value = "logStreamDefault")
+@Serializable
 public class LogStreamDefault public constructor() : LogStream() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

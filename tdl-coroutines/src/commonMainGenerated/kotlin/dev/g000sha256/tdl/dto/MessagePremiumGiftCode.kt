@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A Telegram Premium gift code was created for the user.
@@ -37,17 +39,30 @@ import kotlin.String
  * @property sticker A sticker to be shown in the message; may be null if unknown.
  * @property code The gift code.
  */
+@SerialName(value = "messagePremiumGiftCode")
+@Serializable
 public class MessagePremiumGiftCode public constructor(
+    @SerialName(value = "creator_id")
     public val creatorId: MessageSender?,
+    @SerialName(value = "text")
     public val text: FormattedText,
+    @SerialName(value = "is_from_giveaway")
     public val isFromGiveaway: Boolean,
+    @SerialName(value = "is_unclaimed")
     public val isUnclaimed: Boolean,
+    @SerialName(value = "currency")
     public val currency: String,
+    @SerialName(value = "amount")
     public val amount: Long,
+    @SerialName(value = "cryptocurrency")
     public val cryptocurrency: String,
+    @SerialName(value = "cryptocurrency_amount")
     public val cryptocurrencyAmount: Long,
+    @SerialName(value = "month_count")
     public val monthCount: Int,
+    @SerialName(value = "sticker")
     public val sticker: Sticker?,
+    @SerialName(value = "code")
     public val code: String,
 ) : MessageContent() {
     override fun equals(other: Any?): Boolean {

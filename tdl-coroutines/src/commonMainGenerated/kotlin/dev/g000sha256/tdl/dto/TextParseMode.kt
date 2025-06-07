@@ -16,8 +16,11 @@
 
 package dev.g000sha256.tdl.dto
 
+import kotlinx.serialization.Serializable
+
 /**
  * This class is an abstract base class.
  * Describes the way the text needs to be parsed for text entities.
  */
-public sealed class TextParseMode protected constructor()
+@Serializable
+public sealed class TextParseMode protected constructor() : Model()

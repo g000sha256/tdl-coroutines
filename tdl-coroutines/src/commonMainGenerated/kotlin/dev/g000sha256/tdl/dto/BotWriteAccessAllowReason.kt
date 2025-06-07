@@ -16,8 +16,11 @@
 
 package dev.g000sha256.tdl.dto
 
+import kotlinx.serialization.Serializable
+
 /**
  * This class is an abstract base class.
  * Describes a reason why a bot was allowed to write messages to the current user.
  */
-public sealed class BotWriteAccessAllowReason protected constructor()
+@Serializable
+public sealed class BotWriteAccessAllowReason protected constructor() : Model()

@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Basic information about a Saved Messages topic has changed. This update is guaranteed to come before the topic identifier is returned to the application.
  *
  * @property topic New data about the topic.
  */
+@SerialName(value = "updateSavedMessagesTopic")
+@Serializable
 public class UpdateSavedMessagesTopic public constructor(
+    @SerialName(value = "topic")
     public val topic: SavedMessagesTopic,
 ) : Update() {
     override fun equals(other: Any?): Boolean {

@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A chat background was edited.
  *
  * @property isSame True, if the set background is the same as the background of the current user.
  */
+@SerialName(value = "pushMessageContentChatSetBackground")
+@Serializable
 public class PushMessageContentChatSetBackground public constructor(
+    @SerialName(value = "is_same")
     public val isSame: Boolean,
 ) : PushMessageContent() {
     override fun equals(other: Any?): Boolean {

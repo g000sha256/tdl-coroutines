@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes a backdrop of an upgraded gift.
@@ -29,12 +31,18 @@ import kotlin.String
  * @property colors Colors of the backdrop.
  * @property rarityPerMille The number of upgraded gifts that receive this backdrop for each 1000 gifts upgraded.
  */
+@SerialName(value = "upgradedGiftBackdrop")
+@Serializable
 public class UpgradedGiftBackdrop public constructor(
+    @SerialName(value = "id")
     public val id: Int,
+    @SerialName(value = "name")
     public val name: String,
+    @SerialName(value = "colors")
     public val colors: UpgradedGiftBackdropColors,
+    @SerialName(value = "rarity_per_mille")
     public val rarityPerMille: Int,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

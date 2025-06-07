@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The category must be used by default for regular sticker selection. It may contain greeting emoji category and premium stickers.
  */
+@SerialName(value = "emojiCategoryTypeRegularStickers")
+@Serializable
 public class EmojiCategoryTypeRegularStickers public constructor() : EmojiCategoryType() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

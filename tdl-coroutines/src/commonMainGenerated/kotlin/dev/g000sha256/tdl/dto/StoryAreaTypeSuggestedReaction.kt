@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * An area pointing to a suggested reaction. App needs to show a clickable reaction on the area and call setStoryReaction when the are is clicked.
@@ -29,10 +31,16 @@ import kotlin.String
  * @property isDark True, if reaction has a dark background.
  * @property isFlipped True, if reaction corner is flipped.
  */
+@SerialName(value = "storyAreaTypeSuggestedReaction")
+@Serializable
 public class StoryAreaTypeSuggestedReaction public constructor(
+    @SerialName(value = "reaction_type")
     public val reactionType: ReactionType,
+    @SerialName(value = "total_count")
     public val totalCount: Int,
+    @SerialName(value = "is_dark")
     public val isDark: Boolean,
+    @SerialName(value = "is_flipped")
     public val isFlipped: Boolean,
 ) : StoryAreaType() {
     override fun equals(other: Any?): Boolean {

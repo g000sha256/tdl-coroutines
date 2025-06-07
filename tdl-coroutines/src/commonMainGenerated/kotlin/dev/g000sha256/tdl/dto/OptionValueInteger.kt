@@ -21,13 +21,18 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Represents an integer option.
  *
  * @property value The value of the option.
  */
+@SerialName(value = "optionValueInteger")
+@Serializable
 public class OptionValueInteger public constructor(
+    @SerialName(value = "value")
     public val value: Long,
 ) : OptionValue() {
     override fun equals(other: Any?): Boolean {

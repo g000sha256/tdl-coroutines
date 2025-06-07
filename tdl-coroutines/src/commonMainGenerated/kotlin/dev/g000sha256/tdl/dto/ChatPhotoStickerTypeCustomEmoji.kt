@@ -21,13 +21,18 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Information about the custom emoji, which was used to create the chat photo.
  *
  * @property customEmojiId Identifier of the custom emoji.
  */
+@SerialName(value = "chatPhotoStickerTypeCustomEmoji")
+@Serializable
 public class ChatPhotoStickerTypeCustomEmoji public constructor(
+    @SerialName(value = "custom_emoji_id")
     public val customEmojiId: Long,
 ) : ChatPhotoStickerType() {
     override fun equals(other: Any?): Boolean {

@@ -22,6 +22,8 @@ import kotlin.Double
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The message failed to be sent.
@@ -34,13 +36,22 @@ import kotlin.String
  * @property requiredPaidMessageStarCount The number of Telegram Stars that must be paid to send the message; 0 if the current amount is correct.
  * @property retryAfter Time left before the message can be re-sent, in seconds. No update is sent when this field changes.
  */
+@SerialName(value = "messageSendingStateFailed")
+@Serializable
 public class MessageSendingStateFailed public constructor(
+    @SerialName(value = "error")
     public val error: Error,
+    @SerialName(value = "can_retry")
     public val canRetry: Boolean,
+    @SerialName(value = "need_another_sender")
     public val needAnotherSender: Boolean,
+    @SerialName(value = "need_another_reply_quote")
     public val needAnotherReplyQuote: Boolean,
+    @SerialName(value = "need_drop_reply")
     public val needDropReply: Boolean,
+    @SerialName(value = "required_paid_message_star_count")
     public val requiredPaidMessageStarCount: Long,
+    @SerialName(value = "retry_after")
     public val retryAfter: Double,
 ) : MessageSendingState() {
     override fun equals(other: Any?): Boolean {

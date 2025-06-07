@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A rule to allow all bots to do something.
  */
+@SerialName(value = "userPrivacySettingRuleAllowBots")
+@Serializable
 public class UserPrivacySettingRuleAllowBots public constructor() : UserPrivacySettingRule() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

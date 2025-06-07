@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The user requested to resend the code.
  */
+@SerialName(value = "resendCodeReasonUserRequest")
+@Serializable
 public class ResendCodeReasonUserRequest public constructor() : ResendCodeReason() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

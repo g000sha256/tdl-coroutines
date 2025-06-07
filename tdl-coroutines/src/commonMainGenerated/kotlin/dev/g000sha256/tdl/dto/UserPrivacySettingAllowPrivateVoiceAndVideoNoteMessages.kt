@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A privacy setting for managing whether the user can receive voice and video messages in private chats; for Telegram Premium users only.
  */
+@SerialName(value = "userPrivacySettingAllowPrivateVoiceAndVideoNoteMessages")
+@Serializable
 public class UserPrivacySettingAllowPrivateVoiceAndVideoNoteMessages public constructor() : UserPrivacySetting() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

@@ -16,8 +16,11 @@
 
 package dev.g000sha256.tdl.dto
 
+import kotlinx.serialization.Serializable
+
 /**
  * This class is an abstract base class.
  * Describes sources of reactions for which notifications will be shown.
  */
-public sealed class ReactionNotificationSource protected constructor()
+@Serializable
+public sealed class ReactionNotificationSource protected constructor() : Model()

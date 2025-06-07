@@ -21,15 +21,20 @@ import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Represents a list of users that has failed to be added to a chat.
  *
  * @property failedToAddMembers Information about users that weren't added to the chat.
  */
+@SerialName(value = "failedToAddMembers")
+@Serializable
 public class FailedToAddMembers public constructor(
+    @SerialName(value = "failed_to_add_members")
     public val failedToAddMembers: Array<FailedToAddMember>,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

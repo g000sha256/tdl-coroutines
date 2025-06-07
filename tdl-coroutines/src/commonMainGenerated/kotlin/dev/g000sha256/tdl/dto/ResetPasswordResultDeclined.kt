@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The password reset request was declined.
  *
  * @property retryDate Point in time (Unix timestamp) when the password reset can be retried.
  */
+@SerialName(value = "resetPasswordResultDeclined")
+@Serializable
 public class ResetPasswordResultDeclined public constructor(
+    @SerialName(value = "retry_date")
     public val retryDate: Int,
 ) : ResetPasswordResult() {
     override fun equals(other: Any?): Boolean {

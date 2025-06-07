@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes settings for a business account start page.
@@ -28,11 +30,16 @@ import kotlin.String
  * @property message Message text of the start page.
  * @property sticker Greeting sticker of the start page; may be null if none.
  */
+@SerialName(value = "businessStartPage")
+@Serializable
 public class BusinessStartPage public constructor(
+    @SerialName(value = "title")
     public val title: String,
+    @SerialName(value = "message")
     public val message: String,
+    @SerialName(value = "sticker")
     public val sticker: Sticker?,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

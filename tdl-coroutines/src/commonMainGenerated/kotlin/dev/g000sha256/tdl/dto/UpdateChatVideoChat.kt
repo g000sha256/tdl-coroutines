@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A chat video chat state has changed.
@@ -28,8 +30,12 @@ import kotlin.String
  * @property chatId Chat identifier.
  * @property videoChat New value of videoChat.
  */
+@SerialName(value = "updateChatVideoChat")
+@Serializable
 public class UpdateChatVideoChat public constructor(
+    @SerialName(value = "chat_id")
     public val chatId: Long,
+    @SerialName(value = "video_chat")
     public val videoChat: VideoChat,
 ) : Update() {
     override fun equals(other: Any?): Boolean {

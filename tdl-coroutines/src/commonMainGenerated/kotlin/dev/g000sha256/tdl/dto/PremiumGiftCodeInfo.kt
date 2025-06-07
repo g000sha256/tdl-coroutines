@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains information about a Telegram Premium gift code.
@@ -33,15 +35,24 @@ import kotlin.String
  * @property userId Identifier of a user for which the code was created; 0 if none.
  * @property useDate Point in time (Unix timestamp) when the code was activated; 0 if none.
  */
+@SerialName(value = "premiumGiftCodeInfo")
+@Serializable
 public class PremiumGiftCodeInfo public constructor(
+    @SerialName(value = "creator_id")
     public val creatorId: MessageSender?,
+    @SerialName(value = "creation_date")
     public val creationDate: Int,
+    @SerialName(value = "is_from_giveaway")
     public val isFromGiveaway: Boolean,
+    @SerialName(value = "giveaway_message_id")
     public val giveawayMessageId: Long,
+    @SerialName(value = "month_count")
     public val monthCount: Int,
+    @SerialName(value = "user_id")
     public val userId: Long,
+    @SerialName(value = "use_date")
     public val useDate: Int,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

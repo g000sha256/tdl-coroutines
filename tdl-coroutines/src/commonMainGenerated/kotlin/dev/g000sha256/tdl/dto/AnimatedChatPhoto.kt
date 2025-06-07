@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Double
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Animated variant of a chat photo in MPEG4 format.
@@ -29,11 +31,16 @@ import kotlin.String
  * @property file Information about the animation file.
  * @property mainFrameTimestamp Timestamp of the frame, used as a static chat photo.
  */
+@SerialName(value = "animatedChatPhoto")
+@Serializable
 public class AnimatedChatPhoto public constructor(
+    @SerialName(value = "length")
     public val length: Int,
+    @SerialName(value = "file")
     public val file: File,
+    @SerialName(value = "main_frame_timestamp")
     public val mainFrameTimestamp: Double,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A button to buy something. This button must be in the first column and row of the keyboard and can be attached only to a message with content of the type messageInvoice.
  */
+@SerialName(value = "inlineKeyboardButtonTypeBuy")
+@Serializable
 public class InlineKeyboardButtonTypeBuy public constructor() : InlineKeyboardButtonType() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

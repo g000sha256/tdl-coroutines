@@ -16,8 +16,11 @@
 
 package dev.g000sha256.tdl.dto
 
+import kotlinx.serialization.Serializable
+
 /**
  * This class is an abstract base class.
  * Represents the categories of chats for which a list of frequently used chats can be retrieved.
  */
-public sealed class TopChatCategory protected constructor()
+@Serializable
+public sealed class TopChatCategory protected constructor() : Model()

@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The auto-delete or self-destruct timer for messages in the chat has been changed.
@@ -28,8 +30,12 @@ import kotlin.String
  * @property messageAutoDeleteTime New value auto-delete or self-destruct time, in seconds; 0 if disabled.
  * @property fromUserId If not 0, a user identifier, which default setting was automatically applied.
  */
+@SerialName(value = "messageChatSetMessageAutoDeleteTime")
+@Serializable
 public class MessageChatSetMessageAutoDeleteTime public constructor(
+    @SerialName(value = "message_auto_delete_time")
     public val messageAutoDeleteTime: Int,
+    @SerialName(value = "from_user_id")
     public val fromUserId: Long,
 ) : MessageContent() {
     override fun equals(other: Any?): Boolean {

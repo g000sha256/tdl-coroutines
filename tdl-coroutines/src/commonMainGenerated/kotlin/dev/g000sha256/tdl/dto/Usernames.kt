@@ -21,6 +21,8 @@ import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes usernames assigned to a user, a supergroup, or a channel.
@@ -29,11 +31,16 @@ import kotlin.String
  * @property disabledUsernames List of currently disabled usernames; the username can be activated with toggleUsernameIsActive, toggleBotUsernameIsActive, or toggleSupergroupUsernameIsActive.
  * @property editableUsername The active username, which can be changed with setUsername or setSupergroupUsername. Information about other active usernames can be received using getCollectibleItemInfo.
  */
+@SerialName(value = "usernames")
+@Serializable
 public class Usernames public constructor(
+    @SerialName(value = "active_usernames")
     public val activeUsernames: Array<String>,
+    @SerialName(value = "disabled_usernames")
     public val disabledUsernames: Array<String>,
+    @SerialName(value = "editable_username")
     public val editableUsername: String,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

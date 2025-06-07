@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A rule to restrict all users from doing something.
  */
+@SerialName(value = "userPrivacySettingRuleRestrictAll")
+@Serializable
 public class UserPrivacySettingRuleRestrictAll public constructor() : UserPrivacySettingRule() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

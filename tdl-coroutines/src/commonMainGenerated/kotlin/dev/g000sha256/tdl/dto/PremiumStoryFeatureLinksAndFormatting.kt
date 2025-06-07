@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The ability to use links and formatting in story caption, and use inputStoryAreaTypeLink areas.
  */
+@SerialName(value = "premiumStoryFeatureLinksAndFormatting")
+@Serializable
 public class PremiumStoryFeatureLinksAndFormatting public constructor() : PremiumStoryFeature() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

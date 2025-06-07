@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A button that forces an inline query to the bot to be inserted in the input field.
@@ -27,8 +29,12 @@ import kotlin.String
  * @property query Inline query to be sent to the bot.
  * @property targetChat Target chat from which to send the inline query.
  */
+@SerialName(value = "inlineKeyboardButtonTypeSwitchInline")
+@Serializable
 public class InlineKeyboardButtonTypeSwitchInline public constructor(
+    @SerialName(value = "query")
     public val query: String,
+    @SerialName(value = "target_chat")
     public val targetChat: TargetChat,
 ) : InlineKeyboardButtonType() {
     override fun equals(other: Any?): Boolean {

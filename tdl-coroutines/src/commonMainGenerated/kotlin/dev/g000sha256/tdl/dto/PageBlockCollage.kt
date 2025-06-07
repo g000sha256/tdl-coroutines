@@ -21,6 +21,8 @@ import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A collage.
@@ -28,8 +30,12 @@ import kotlin.String
  * @property pageBlocks Collage item contents.
  * @property caption Block caption.
  */
+@SerialName(value = "pageBlockCollage")
+@Serializable
 public class PageBlockCollage public constructor(
+    @SerialName(value = "page_blocks")
     public val pageBlocks: Array<PageBlock>,
+    @SerialName(value = "caption")
     public val caption: PageBlockCaption,
 ) : PageBlock() {
     override fun equals(other: Any?): Boolean {

@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A message was edited. Changes in the message content will come in a separate updateMessageContent.
@@ -30,10 +32,16 @@ import kotlin.String
  * @property editDate Point in time (Unix timestamp) when the message was edited.
  * @property replyMarkup New message reply markup; may be null.
  */
+@SerialName(value = "updateMessageEdited")
+@Serializable
 public class UpdateMessageEdited public constructor(
+    @SerialName(value = "chat_id")
     public val chatId: Long,
+    @SerialName(value = "message_id")
     public val messageId: Long,
+    @SerialName(value = "edit_date")
     public val editDate: Int,
+    @SerialName(value = "reply_markup")
     public val replyMarkup: ReplyMarkup?,
 ) : Update() {
     override fun equals(other: Any?): Boolean {

@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains information about a Telegram Business account.
@@ -33,16 +35,26 @@ import kotlin.String
  * @property awayMessageSettings The away message; may be null if none or the Business account is not of the current user.
  * @property startPage Information about start page of the account; may be null if none.
  */
+@SerialName(value = "businessInfo")
+@Serializable
 public class BusinessInfo public constructor(
+    @SerialName(value = "location")
     public val location: BusinessLocation?,
+    @SerialName(value = "opening_hours")
     public val openingHours: BusinessOpeningHours?,
+    @SerialName(value = "local_opening_hours")
     public val localOpeningHours: BusinessOpeningHours?,
+    @SerialName(value = "next_open_in")
     public val nextOpenIn: Int,
+    @SerialName(value = "next_close_in")
     public val nextCloseIn: Int,
+    @SerialName(value = "greeting_message_settings")
     public val greetingMessageSettings: BusinessGreetingMessageSettings?,
+    @SerialName(value = "away_message_settings")
     public val awayMessageSettings: BusinessAwayMessageSettings?,
+    @SerialName(value = "start_page")
     public val startPage: BusinessStartPage?,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

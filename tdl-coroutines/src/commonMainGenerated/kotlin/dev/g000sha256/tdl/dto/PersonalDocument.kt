@@ -21,6 +21,8 @@ import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A personal document, containing some information about a user.
@@ -28,10 +30,14 @@ import kotlin.String
  * @property files List of files containing the pages of the document.
  * @property translation List of files containing a certified English translation of the document.
  */
+@SerialName(value = "personalDocument")
+@Serializable
 public class PersonalDocument public constructor(
+    @SerialName(value = "files")
     public val files: Array<DatedFile>,
+    @SerialName(value = "translation")
     public val translation: Array<DatedFile>,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

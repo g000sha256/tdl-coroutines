@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The thumbnail is in WEBP format. It will be used only for some stickers and sticker sets.
  */
+@SerialName(value = "thumbnailFormatWebp")
+@Serializable
 public class ThumbnailFormatWebp public constructor() : ThumbnailFormat() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

@@ -20,15 +20,20 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains information about the current recovery email address.
  *
  * @property recoveryEmailAddress Recovery email address.
  */
+@SerialName(value = "recoveryEmailAddress")
+@Serializable
 public class RecoveryEmailAddress public constructor(
+    @SerialName(value = "recovery_email_address")
     public val recoveryEmailAddress: String,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

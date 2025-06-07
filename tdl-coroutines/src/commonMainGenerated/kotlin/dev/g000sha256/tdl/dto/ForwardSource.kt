@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains information about the last message from which a new message was forwarded last time.
@@ -32,14 +34,22 @@ import kotlin.String
  * @property date Point in time (Unix timestamp) when the message is sent; 0 if unknown.
  * @property isOutgoing True, if the message that was forwarded is outgoing; always false if sender is unknown.
  */
+@SerialName(value = "forwardSource")
+@Serializable
 public class ForwardSource public constructor(
+    @SerialName(value = "chat_id")
     public val chatId: Long,
+    @SerialName(value = "message_id")
     public val messageId: Long,
+    @SerialName(value = "sender_id")
     public val senderId: MessageSender?,
+    @SerialName(value = "sender_name")
     public val senderName: String,
+    @SerialName(value = "date")
     public val date: Int,
+    @SerialName(value = "is_outgoing")
     public val isOutgoing: Boolean,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

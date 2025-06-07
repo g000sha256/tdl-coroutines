@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The message is being sent now, but has not yet been delivered to the server.
  *
  * @property sendingId Non-persistent message sending identifier, specified by the application.
  */
+@SerialName(value = "messageSendingStatePending")
+@Serializable
 public class MessageSendingStatePending public constructor(
+    @SerialName(value = "sending_id")
     public val sendingId: Int,
 ) : MessageSendingState() {
     override fun equals(other: Any?): Boolean {

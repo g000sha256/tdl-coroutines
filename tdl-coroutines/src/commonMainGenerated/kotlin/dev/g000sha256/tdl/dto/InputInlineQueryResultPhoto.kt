@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Represents link to a JPEG image.
@@ -34,15 +36,26 @@ import kotlin.String
  * @property replyMarkup The message reply markup; pass null if none. Must be of type replyMarkupInlineKeyboard or null.
  * @property inputMessageContent The content of the message to be sent. Must be one of the following types: inputMessageText, inputMessagePhoto, inputMessageInvoice, inputMessageLocation, inputMessageVenue or inputMessageContact.
  */
+@SerialName(value = "inputInlineQueryResultPhoto")
+@Serializable
 public class InputInlineQueryResultPhoto public constructor(
+    @SerialName(value = "id")
     public val id: String,
+    @SerialName(value = "title")
     public val title: String,
+    @SerialName(value = "description")
     public val description: String,
+    @SerialName(value = "thumbnail_url")
     public val thumbnailUrl: String,
+    @SerialName(value = "photo_url")
     public val photoUrl: String,
+    @SerialName(value = "photo_width")
     public val photoWidth: Int,
+    @SerialName(value = "photo_height")
     public val photoHeight: Int,
+    @SerialName(value = "reply_markup")
     public val replyMarkup: ReplyMarkup?,
+    @SerialName(value = "input_message_content")
     public val inputMessageContent: InputMessageContent,
 ) : InputInlineQueryResult() {
     override fun equals(other: Any?): Boolean {

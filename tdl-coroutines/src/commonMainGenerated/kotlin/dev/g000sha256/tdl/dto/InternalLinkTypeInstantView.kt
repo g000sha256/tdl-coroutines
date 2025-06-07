@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The link must be opened in an Instant View. Call getWebPageInstantView with the given URL to process the link. If Instant View is found, then show it, otherwise, open the fallback URL in an external browser.
@@ -27,8 +29,12 @@ import kotlin.String
  * @property url URL to be passed to getWebPageInstantView.
  * @property fallbackUrl An URL to open if getWebPageInstantView fails.
  */
+@SerialName(value = "internalLinkTypeInstantView")
+@Serializable
 public class InternalLinkTypeInstantView public constructor(
+    @SerialName(value = "url")
     public val url: String,
+    @SerialName(value = "fallback_url")
     public val fallbackUrl: String,
 ) : InternalLinkType() {
     override fun equals(other: Any?): Boolean {

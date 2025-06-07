@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The main block list that disallows writing messages to the current user, receiving their status and photo, viewing of stories, and some other actions.
  */
+@SerialName(value = "blockListMain")
+@Serializable
 public class BlockListMain public constructor() : BlockList() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

@@ -21,6 +21,8 @@ import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains a temporary identifier of validated order information, which is stored for one hour, and the available shipping options.
@@ -28,10 +30,14 @@ import kotlin.String
  * @property orderInfoId Temporary identifier of the order information.
  * @property shippingOptions Available shipping options.
  */
+@SerialName(value = "validatedOrderInfo")
+@Serializable
 public class ValidatedOrderInfo public constructor(
+    @SerialName(value = "order_info_id")
     public val orderInfoId: String,
+    @SerialName(value = "shipping_options")
     public val shippingOptions: Array<ShippingOption>,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

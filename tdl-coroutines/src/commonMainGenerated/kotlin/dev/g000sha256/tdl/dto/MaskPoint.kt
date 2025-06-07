@@ -16,8 +16,11 @@
 
 package dev.g000sha256.tdl.dto
 
+import kotlinx.serialization.Serializable
+
 /**
  * This class is an abstract base class.
  * Part of the face, relative to which a mask is placed.
  */
-public sealed class MaskPoint protected constructor()
+@Serializable
+public sealed class MaskPoint protected constructor() : Model()

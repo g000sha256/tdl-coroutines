@@ -16,8 +16,11 @@
 
 package dev.g000sha256.tdl.dto
 
+import kotlinx.serialization.Serializable
+
 /**
  * This class is an abstract base class.
  * Describes the reason why a code needs to be re-sent.
  */
-public sealed class ResendCodeReason protected constructor()
+@Serializable
+public sealed class ResendCodeReason protected constructor() : Model()

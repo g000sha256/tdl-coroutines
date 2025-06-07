@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The information about interactions with a message has changed.
@@ -29,9 +31,14 @@ import kotlin.String
  * @property messageId Message identifier.
  * @property interactionInfo New information about interactions with the message; may be null.
  */
+@SerialName(value = "updateMessageInteractionInfo")
+@Serializable
 public class UpdateMessageInteractionInfo public constructor(
+    @SerialName(value = "chat_id")
     public val chatId: Long,
+    @SerialName(value = "message_id")
     public val messageId: Long,
+    @SerialName(value = "interaction_info")
     public val interactionInfo: MessageInteractionInfo?,
 ) : Update() {
     override fun equals(other: Any?): Boolean {

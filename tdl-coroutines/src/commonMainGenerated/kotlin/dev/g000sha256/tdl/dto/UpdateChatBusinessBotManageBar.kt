@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The bar for managing business bot was changed in a chat.
@@ -28,8 +30,12 @@ import kotlin.String
  * @property chatId Chat identifier.
  * @property businessBotManageBar The new value of the business bot manage bar; may be null.
  */
+@SerialName(value = "updateChatBusinessBotManageBar")
+@Serializable
 public class UpdateChatBusinessBotManageBar public constructor(
+    @SerialName(value = "chat_id")
     public val chatId: Long,
+    @SerialName(value = "business_bot_manage_bar")
     public val businessBotManageBar: BusinessBotManageBar?,
 ) : Update() {
     override fun equals(other: Any?): Boolean {

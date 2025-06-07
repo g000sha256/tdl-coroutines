@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes a refund for failed withdrawal of earnings.
@@ -27,8 +29,12 @@ import kotlin.String
  * @property refundDate Point in time (Unix timestamp) when the transaction was refunded.
  * @property provider Name of the payment provider.
  */
+@SerialName(value = "chatRevenueTransactionTypeRefund")
+@Serializable
 public class ChatRevenueTransactionTypeRefund public constructor(
+    @SerialName(value = "refund_date")
     public val refundDate: Int,
+    @SerialName(value = "provider")
     public val provider: String,
 ) : ChatRevenueTransactionType() {
     override fun equals(other: Any?): Boolean {

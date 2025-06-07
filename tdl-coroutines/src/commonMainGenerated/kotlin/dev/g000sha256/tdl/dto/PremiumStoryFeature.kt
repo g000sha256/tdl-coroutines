@@ -16,8 +16,11 @@
 
 package dev.g000sha256.tdl.dto
 
+import kotlinx.serialization.Serializable
+
 /**
  * This class is an abstract base class.
  * Describes a story feature available to Premium users.
  */
-public sealed class PremiumStoryFeature protected constructor()
+@Serializable
+public sealed class PremiumStoryFeature protected constructor() : Model()

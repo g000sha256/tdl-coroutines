@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Double
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes a video file posted as a story.
@@ -36,18 +38,30 @@ import kotlin.String
  * @property coverFrameTimestamp Timestamp of the frame used as video thumbnail.
  * @property video File containing the video.
  */
+@SerialName(value = "storyVideo")
+@Serializable
 public class StoryVideo public constructor(
+    @SerialName(value = "duration")
     public val duration: Double,
+    @SerialName(value = "width")
     public val width: Int,
+    @SerialName(value = "height")
     public val height: Int,
+    @SerialName(value = "has_stickers")
     public val hasStickers: Boolean,
+    @SerialName(value = "is_animation")
     public val isAnimation: Boolean,
+    @SerialName(value = "minithumbnail")
     public val minithumbnail: Minithumbnail?,
+    @SerialName(value = "thumbnail")
     public val thumbnail: Thumbnail?,
+    @SerialName(value = "preload_prefix_size")
     public val preloadPrefixSize: Int,
+    @SerialName(value = "cover_frame_timestamp")
     public val coverFrameTimestamp: Double,
+    @SerialName(value = "video")
     public val video: File,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

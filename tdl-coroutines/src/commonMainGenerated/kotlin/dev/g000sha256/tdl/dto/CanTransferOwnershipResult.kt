@@ -16,8 +16,11 @@
 
 package dev.g000sha256.tdl.dto
 
+import kotlinx.serialization.Serializable
+
 /**
  * This class is an abstract base class.
  * Represents result of checking whether the current session can be used to transfer a chat ownership to another user.
  */
-public sealed class CanTransferOwnershipResult protected constructor()
+@Serializable
+public sealed class CanTransferOwnershipResult protected constructor() : Model()

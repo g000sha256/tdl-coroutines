@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains a bot's answer to a callback query.
@@ -28,11 +30,16 @@ import kotlin.String
  * @property showAlert True, if an alert must be shown to the user instead of a toast notification.
  * @property url URL to be opened.
  */
+@SerialName(value = "callbackQueryAnswer")
+@Serializable
 public class CallbackQueryAnswer public constructor(
+    @SerialName(value = "text")
     public val text: String,
+    @SerialName(value = "show_alert")
     public val showAlert: Boolean,
+    @SerialName(value = "url")
     public val url: String,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

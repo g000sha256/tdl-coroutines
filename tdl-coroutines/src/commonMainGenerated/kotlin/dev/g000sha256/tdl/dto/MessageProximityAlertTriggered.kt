@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A user in the chat came within proximity alert range.
@@ -28,9 +30,14 @@ import kotlin.String
  * @property watcherId The identifier of a user or chat that subscribed for the proximity alert.
  * @property distance The distance between the users.
  */
+@SerialName(value = "messageProximityAlertTriggered")
+@Serializable
 public class MessageProximityAlertTriggered public constructor(
+    @SerialName(value = "traveler_id")
     public val travelerId: MessageSender,
+    @SerialName(value = "watcher_id")
     public val watcherId: MessageSender,
+    @SerialName(value = "distance")
     public val distance: Int,
 ) : MessageContent() {
     override fun equals(other: Any?): Boolean {

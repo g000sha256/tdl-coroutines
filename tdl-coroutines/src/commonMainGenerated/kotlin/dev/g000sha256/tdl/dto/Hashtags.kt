@@ -21,15 +21,20 @@ import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains a list of hashtags.
  *
  * @property hashtags A list of hashtags.
  */
+@SerialName(value = "hashtags")
+@Serializable
 public class Hashtags public constructor(
+    @SerialName(value = "hashtags")
     public val hashtags: Array<String>,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

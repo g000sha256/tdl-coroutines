@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Number of chats in a story list has changed.
@@ -27,8 +29,12 @@ import kotlin.String
  * @property storyList The story list.
  * @property chatCount Approximate total number of chats with active stories in the list.
  */
+@SerialName(value = "updateStoryListChatCount")
+@Serializable
 public class UpdateStoryListChatCount public constructor(
+    @SerialName(value = "story_list")
     public val storyList: StoryList,
+    @SerialName(value = "chat_count")
     public val chatCount: Int,
 ) : Update() {
     override fun equals(other: Any?): Boolean {

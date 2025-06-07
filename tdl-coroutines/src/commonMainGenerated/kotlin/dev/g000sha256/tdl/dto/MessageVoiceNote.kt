@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A voice note message.
@@ -28,9 +30,14 @@ import kotlin.String
  * @property caption Voice note caption.
  * @property isListened True, if at least one of the recipients has listened to the voice note.
  */
+@SerialName(value = "messageVoiceNote")
+@Serializable
 public class MessageVoiceNote public constructor(
+    @SerialName(value = "voice_note")
     public val voiceNote: VoiceNote,
+    @SerialName(value = "caption")
     public val caption: FormattedText,
+    @SerialName(value = "is_listened")
     public val isListened: Boolean,
 ) : MessageContent() {
     override fun equals(other: Any?): Boolean {

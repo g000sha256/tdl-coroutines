@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The freeze state of the current user's account has changed.
@@ -29,10 +31,16 @@ import kotlin.String
  * @property deletionDate Point in time (Unix timestamp) when the account will be deleted and can't be unfrozen; 0 if the account isn't frozen.
  * @property appealLink The link to open to send an appeal to unfreeze the account.
  */
+@SerialName(value = "updateFreezeState")
+@Serializable
 public class UpdateFreezeState public constructor(
+    @SerialName(value = "is_frozen")
     public val isFrozen: Boolean,
+    @SerialName(value = "freezing_date")
     public val freezingDate: Int,
+    @SerialName(value = "deletion_date")
     public val deletionDate: Int,
+    @SerialName(value = "appeal_link")
     public val appealLink: String,
 ) : Update() {
     override fun equals(other: Any?): Boolean {

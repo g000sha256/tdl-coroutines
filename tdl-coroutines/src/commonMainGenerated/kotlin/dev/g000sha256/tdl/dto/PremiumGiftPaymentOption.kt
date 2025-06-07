@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes an option for gifting Telegram Premium to a user. Use telegramPaymentPurposePremiumGift for out-of-store payments or payments in Telegram Stars.
@@ -33,15 +35,24 @@ import kotlin.String
  * @property storeProductId Identifier of the store product associated with the option.
  * @property sticker A sticker to be shown along with the option; may be null if unknown.
  */
+@SerialName(value = "premiumGiftPaymentOption")
+@Serializable
 public class PremiumGiftPaymentOption public constructor(
+    @SerialName(value = "currency")
     public val currency: String,
+    @SerialName(value = "amount")
     public val amount: Long,
+    @SerialName(value = "star_count")
     public val starCount: Long,
+    @SerialName(value = "discount_percentage")
     public val discountPercentage: Int,
+    @SerialName(value = "month_count")
     public val monthCount: Int,
+    @SerialName(value = "store_product_id")
     public val storeProductId: String,
+    @SerialName(value = "sticker")
     public val sticker: Sticker?,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

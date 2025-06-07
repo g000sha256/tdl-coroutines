@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The media is a photo.
  *
  * @property photo The photo.
  */
+@SerialName(value = "paidMediaPhoto")
+@Serializable
 public class PaidMediaPhoto public constructor(
+    @SerialName(value = "photo")
     public val photo: Photo,
 ) : PaidMedia() {
     override fun equals(other: Any?): Boolean {

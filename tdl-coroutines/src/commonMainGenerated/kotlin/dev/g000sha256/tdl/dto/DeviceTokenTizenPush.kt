@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A token for Tizen Push Service.
  *
  * @property regId Push service registration identifier; may be empty to deregister a device.
  */
+@SerialName(value = "deviceTokenTizenPush")
+@Serializable
 public class DeviceTokenTizenPush public constructor(
+    @SerialName(value = "reg_id")
     public val regId: String,
 ) : DeviceToken() {
     override fun equals(other: Any?): Boolean {

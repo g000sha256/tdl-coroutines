@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A message with a game; not supported for channels or secret chats.
@@ -28,8 +30,12 @@ import kotlin.String
  * @property botUserId User identifier of the bot that owns the game.
  * @property gameShortName Short name of the game.
  */
+@SerialName(value = "inputMessageGame")
+@Serializable
 public class InputMessageGame public constructor(
+    @SerialName(value = "bot_user_id")
     public val botUserId: Long,
+    @SerialName(value = "game_short_name")
     public val gameShortName: String,
 ) : InputMessageContent() {
     override fun equals(other: Any?): Boolean {

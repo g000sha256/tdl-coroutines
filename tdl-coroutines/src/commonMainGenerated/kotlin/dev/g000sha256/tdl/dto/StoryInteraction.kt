@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Represents interaction with a story.
@@ -29,12 +31,18 @@ import kotlin.String
  * @property blockList Block list to which the actor is added; may be null if none or for chat stories.
  * @property type Type of the interaction.
  */
+@SerialName(value = "storyInteraction")
+@Serializable
 public class StoryInteraction public constructor(
+    @SerialName(value = "actor_id")
     public val actorId: MessageSender,
+    @SerialName(value = "interaction_date")
     public val interactionDate: Int,
+    @SerialName(value = "block_list")
     public val blockList: BlockList?,
+    @SerialName(value = "type")
     public val type: StoryInteractionType,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

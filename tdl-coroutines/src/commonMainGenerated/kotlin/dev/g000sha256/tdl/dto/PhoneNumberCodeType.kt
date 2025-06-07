@@ -16,8 +16,11 @@
 
 package dev.g000sha256.tdl.dto
 
+import kotlinx.serialization.Serializable
+
 /**
  * This class is an abstract base class.
  * Describes type of the request for which a code is sent to a phone number.
  */
-public sealed class PhoneNumberCodeType protected constructor()
+@Serializable
+public sealed class PhoneNumberCodeType protected constructor() : Model()

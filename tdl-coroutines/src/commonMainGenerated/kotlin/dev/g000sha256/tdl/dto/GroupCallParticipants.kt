@@ -21,6 +21,8 @@ import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains identifiers of group call participants.
@@ -28,10 +30,14 @@ import kotlin.String
  * @property totalCount Total number of group call participants.
  * @property participantIds Identifiers of the participants.
  */
+@SerialName(value = "groupCallParticipants")
+@Serializable
 public class GroupCallParticipants public constructor(
+    @SerialName(value = "total_count")
     public val totalCount: Int,
+    @SerialName(value = "participant_ids")
     public val participantIds: Array<MessageSender>,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

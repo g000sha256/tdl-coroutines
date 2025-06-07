@@ -16,8 +16,11 @@
 
 package dev.g000sha256.tdl.dto
 
+import kotlinx.serialization.Serializable
+
 /**
  * This class is an abstract base class.
  * Represents the value of a string in a language pack.
  */
-public sealed class LanguagePackStringValue protected constructor()
+@Serializable
+public sealed class LanguagePackStringValue protected constructor() : Model()

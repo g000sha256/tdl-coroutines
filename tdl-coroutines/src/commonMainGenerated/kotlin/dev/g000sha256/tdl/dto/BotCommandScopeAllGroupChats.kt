@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A scope covering all group and supergroup chats.
  */
+@SerialName(value = "botCommandScopeAllGroupChats")
+@Serializable
 public class BotCommandScopeAllGroupChats public constructor() : BotCommandScope() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

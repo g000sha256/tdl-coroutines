@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The user has canceled the previous action.
  */
+@SerialName(value = "chatActionCancel")
+@Serializable
 public class ChatActionCancel public constructor() : ChatAction() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

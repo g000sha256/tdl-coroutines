@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Represents a location to which a chat is connected.
@@ -27,10 +29,14 @@ import kotlin.String
  * @property location The location.
  * @property address Location address; 1-64 characters, as defined by the chat owner.
  */
+@SerialName(value = "chatLocation")
+@Serializable
 public class ChatLocation public constructor(
+    @SerialName(value = "location")
     public val location: Location,
+    @SerialName(value = "address")
     public val address: String,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

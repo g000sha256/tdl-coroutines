@@ -21,6 +21,8 @@ import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes a photo.
@@ -29,11 +31,16 @@ import kotlin.String
  * @property minithumbnail Photo minithumbnail; may be null.
  * @property sizes Available variants of the photo, in different sizes.
  */
+@SerialName(value = "photo")
+@Serializable
 public class Photo public constructor(
+    @SerialName(value = "has_stickers")
     public val hasStickers: Boolean,
+    @SerialName(value = "minithumbnail")
     public val minithumbnail: Minithumbnail?,
+    @SerialName(value = "sizes")
     public val sizes: Array<PhotoSize>,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

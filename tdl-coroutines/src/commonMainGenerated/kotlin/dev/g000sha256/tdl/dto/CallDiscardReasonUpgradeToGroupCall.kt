@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The call was ended because it has been upgraded to a group call.
  *
  * @property inviteLink Invite link for the group call.
  */
+@SerialName(value = "callDiscardReasonUpgradeToGroupCall")
+@Serializable
 public class CallDiscardReasonUpgradeToGroupCall public constructor(
+    @SerialName(value = "invite_link")
     public val inviteLink: String,
 ) : CallDiscardReason() {
     override fun equals(other: Any?): Boolean {

@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes rights of a business bot.
@@ -39,22 +41,38 @@ import kotlin.String
  * @property canTransferStars True, if the bot can transfer Telegram Stars received by the business account to account of the bot, or use them to upgrade and transfer gifts.
  * @property canManageStories True, if the bot can post, edit and delete stories.
  */
+@SerialName(value = "businessBotRights")
+@Serializable
 public class BusinessBotRights public constructor(
+    @SerialName(value = "can_reply")
     public val canReply: Boolean,
+    @SerialName(value = "can_read_messages")
     public val canReadMessages: Boolean,
+    @SerialName(value = "can_delete_sent_messages")
     public val canDeleteSentMessages: Boolean,
+    @SerialName(value = "can_delete_all_messages")
     public val canDeleteAllMessages: Boolean,
+    @SerialName(value = "can_edit_name")
     public val canEditName: Boolean,
+    @SerialName(value = "can_edit_bio")
     public val canEditBio: Boolean,
+    @SerialName(value = "can_edit_profile_photo")
     public val canEditProfilePhoto: Boolean,
+    @SerialName(value = "can_edit_username")
     public val canEditUsername: Boolean,
+    @SerialName(value = "can_view_gifts_and_stars")
     public val canViewGiftsAndStars: Boolean,
+    @SerialName(value = "can_sell_gifts")
     public val canSellGifts: Boolean,
+    @SerialName(value = "can_change_gift_settings")
     public val canChangeGiftSettings: Boolean,
+    @SerialName(value = "can_transfer_and_upgrade_gifts")
     public val canTransferAndUpgradeGifts: Boolean,
+    @SerialName(value = "can_transfer_stars")
     public val canTransferStars: Boolean,
+    @SerialName(value = "can_manage_stories")
     public val canManageStories: Boolean,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

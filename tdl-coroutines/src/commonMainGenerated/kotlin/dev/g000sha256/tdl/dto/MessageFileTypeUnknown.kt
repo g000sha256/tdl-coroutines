@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The messages were exported from a chat of unknown type.
  */
+@SerialName(value = "messageFileTypeUnknown")
+@Serializable
 public class MessageFileTypeUnknown public constructor() : MessageFileType() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

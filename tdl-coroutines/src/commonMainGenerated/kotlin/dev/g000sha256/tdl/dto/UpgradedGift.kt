@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes an upgraded gift that can be transferred to another owner or transferred to the TON blockchain as an NFT.
@@ -41,23 +43,40 @@ import kotlin.String
  * @property originalDetails Information about the originally sent gift; may be null if unknown.
  * @property resaleStarCount Number of Telegram Stars that must be paid to buy the gift and send it to someone else; 0 if resale isn't possible.
  */
+@SerialName(value = "upgradedGift")
+@Serializable
 public class UpgradedGift public constructor(
+    @SerialName(value = "id")
     public val id: Long,
+    @SerialName(value = "title")
     public val title: String,
+    @SerialName(value = "name")
     public val name: String,
+    @SerialName(value = "number")
     public val number: Int,
+    @SerialName(value = "total_upgraded_count")
     public val totalUpgradedCount: Int,
+    @SerialName(value = "max_upgraded_count")
     public val maxUpgradedCount: Int,
+    @SerialName(value = "owner_id")
     public val ownerId: MessageSender?,
+    @SerialName(value = "owner_address")
     public val ownerAddress: String,
+    @SerialName(value = "owner_name")
     public val ownerName: String,
+    @SerialName(value = "gift_address")
     public val giftAddress: String,
+    @SerialName(value = "model")
     public val model: UpgradedGiftModel,
+    @SerialName(value = "symbol")
     public val symbol: UpgradedGiftSymbol,
+    @SerialName(value = "backdrop")
     public val backdrop: UpgradedGiftBackdrop,
+    @SerialName(value = "original_details")
     public val originalDetails: UpgradedGiftOriginalDetails?,
+    @SerialName(value = "resale_star_count")
     public val resaleStarCount: Long,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

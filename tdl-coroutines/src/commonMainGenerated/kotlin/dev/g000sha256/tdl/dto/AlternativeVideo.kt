@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes an alternative re-encoded quality of a video file.
@@ -32,14 +34,22 @@ import kotlin.String
  * @property hlsFile HLS file describing the video.
  * @property video File containing the video.
  */
+@SerialName(value = "alternativeVideo")
+@Serializable
 public class AlternativeVideo public constructor(
+    @SerialName(value = "id")
     public val id: Long,
+    @SerialName(value = "width")
     public val width: Int,
+    @SerialName(value = "height")
     public val height: Int,
+    @SerialName(value = "codec")
     public val codec: String,
+    @SerialName(value = "hls_file")
     public val hlsFile: File,
+    @SerialName(value = "video")
     public val video: File,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

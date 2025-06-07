@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The speech recognition failed.
  *
  * @property error Recognition error. An error with a message &quot;MSG_VOICE_TOO_LONG&quot; is returned when media duration is too big to be recognized.
  */
+@SerialName(value = "speechRecognitionResultError")
+@Serializable
 public class SpeechRecognitionResultError public constructor(
+    @SerialName(value = "error")
     public val error: Error,
 ) : SpeechRecognitionResult() {
     override fun equals(other: Any?): Boolean {

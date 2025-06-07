@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A regular gift was received or sent by the current user, or the current user was notified about a channel gift.
@@ -39,19 +41,34 @@ import kotlin.String
  * @property wasRefunded True, if the gift was refunded and isn't available anymore.
  * @property upgradedReceivedGiftId Identifier of the corresponding upgraded gift; may be empty if unknown. Use getReceivedGift to get information about the gift.
  */
+@SerialName(value = "messageGift")
+@Serializable
 public class MessageGift public constructor(
+    @SerialName(value = "gift")
     public val gift: Gift,
+    @SerialName(value = "sender_id")
     public val senderId: MessageSender,
+    @SerialName(value = "received_gift_id")
     public val receivedGiftId: String,
+    @SerialName(value = "text")
     public val text: FormattedText,
+    @SerialName(value = "sell_star_count")
     public val sellStarCount: Long,
+    @SerialName(value = "prepaid_upgrade_star_count")
     public val prepaidUpgradeStarCount: Long,
+    @SerialName(value = "is_private")
     public val isPrivate: Boolean,
+    @SerialName(value = "is_saved")
     public val isSaved: Boolean,
+    @SerialName(value = "can_be_upgraded")
     public val canBeUpgraded: Boolean,
+    @SerialName(value = "was_converted")
     public val wasConverted: Boolean,
+    @SerialName(value = "was_upgraded")
     public val wasUpgraded: Boolean,
+    @SerialName(value = "was_refunded")
     public val wasRefunded: Boolean,
+    @SerialName(value = "upgraded_received_gift_id")
     public val upgradedReceivedGiftId: String,
 ) : MessageContent() {
     override fun equals(other: Any?): Boolean {

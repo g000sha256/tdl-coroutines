@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The video was distorted.
  */
+@SerialName(value = "callProblemDistortedVideo")
+@Serializable
 public class CallProblemDistortedVideo public constructor() : CallProblem() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

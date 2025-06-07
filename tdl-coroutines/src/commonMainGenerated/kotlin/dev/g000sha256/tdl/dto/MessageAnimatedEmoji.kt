@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A message with an animated emoji.
@@ -27,8 +29,12 @@ import kotlin.String
  * @property animatedEmoji The animated emoji.
  * @property emoji The corresponding emoji.
  */
+@SerialName(value = "messageAnimatedEmoji")
+@Serializable
 public class MessageAnimatedEmoji public constructor(
+    @SerialName(value = "animated_emoji")
     public val animatedEmoji: AnimatedEmoji,
+    @SerialName(value = "emoji")
     public val emoji: String,
 ) : MessageContent() {
     override fun equals(other: Any?): Boolean {

@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The chat needs to be chosen by the user among chats of the specified types.
  *
  * @property types Allowed types for the chat.
  */
+@SerialName(value = "targetChatChosen")
+@Serializable
 public class TargetChatChosen public constructor(
+    @SerialName(value = "types")
     public val types: TargetChatTypes,
 ) : TargetChat() {
     override fun equals(other: Any?): Boolean {

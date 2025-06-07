@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes an interval of time when the business is open.
@@ -27,10 +29,14 @@ import kotlin.String
  * @property startMinute The minute's sequence number in a week, starting on Monday, marking the start of the time interval during which the business is open; 0-7*24*60.
  * @property endMinute The minute's sequence number in a week, starting on Monday, marking the end of the time interval during which the business is open; 1-8*24*60.
  */
+@SerialName(value = "businessOpeningHoursInterval")
+@Serializable
 public class BusinessOpeningHoursInterval public constructor(
+    @SerialName(value = "start_minute")
     public val startMinute: Int,
+    @SerialName(value = "end_minute")
     public val endMinute: Int,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

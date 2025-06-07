@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The link is a link to a video chat.
@@ -27,8 +29,12 @@ import kotlin.String
  * @property photo Photo of the chat with the video chat; may be null if none.
  * @property isLiveStream True, if the video chat is expected to be a live stream in a channel or a broadcast group.
  */
+@SerialName(value = "linkPreviewTypeVideoChat")
+@Serializable
 public class LinkPreviewTypeVideoChat public constructor(
+    @SerialName(value = "photo")
     public val photo: ChatPhoto?,
+    @SerialName(value = "is_live_stream")
     public val isLiveStream: Boolean,
 ) : LinkPreviewType() {
     override fun equals(other: Any?): Boolean {

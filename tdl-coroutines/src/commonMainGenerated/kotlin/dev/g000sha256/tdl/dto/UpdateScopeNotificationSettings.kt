@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Notification settings for some type of chats were updated.
@@ -27,8 +29,12 @@ import kotlin.String
  * @property scope Types of chats for which notification settings were updated.
  * @property notificationSettings The new notification settings.
  */
+@SerialName(value = "updateScopeNotificationSettings")
+@Serializable
 public class UpdateScopeNotificationSettings public constructor(
+    @SerialName(value = "scope")
     public val scope: NotificationSettingsScope,
+    @SerialName(value = "notification_settings")
     public val notificationSettings: ScopeNotificationSettings,
 ) : Update() {
     override fun equals(other: Any?): Boolean {

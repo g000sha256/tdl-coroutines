@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The chat emoji status was changed.
@@ -27,8 +29,12 @@ import kotlin.String
  * @property oldEmojiStatus Previous emoji status; may be null if none.
  * @property newEmojiStatus New emoji status; may be null if none.
  */
+@SerialName(value = "chatEventEmojiStatusChanged")
+@Serializable
 public class ChatEventEmojiStatusChanged public constructor(
+    @SerialName(value = "old_emoji_status")
     public val oldEmojiStatus: EmojiStatus?,
+    @SerialName(value = "new_emoji_status")
     public val newEmojiStatus: EmojiStatus?,
 ) : ChatEventAction() {
     override fun equals(other: Any?): Boolean {

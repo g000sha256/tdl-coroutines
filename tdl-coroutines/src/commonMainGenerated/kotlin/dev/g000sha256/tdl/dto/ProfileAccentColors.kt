@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.IntArray
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains information about supported accent colors for user profile photo background in RGB format.
@@ -29,11 +31,16 @@ import kotlin.String
  * @property backgroundColors The list of 1-2 colors in RGB format, describing the colors, as expected to be used for the profile photo background.
  * @property storyColors The list of 2 colors in RGB format, describing the colors of the gradient to be used for the unread active story indicator around profile photo.
  */
+@SerialName(value = "profileAccentColors")
+@Serializable
 public class ProfileAccentColors public constructor(
+    @SerialName(value = "palette_colors")
     public val paletteColors: IntArray,
+    @SerialName(value = "background_colors")
     public val backgroundColors: IntArray,
+    @SerialName(value = "story_colors")
     public val storyColors: IntArray,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

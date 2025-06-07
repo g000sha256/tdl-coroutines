@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains information about a language pack.
@@ -38,21 +40,36 @@ import kotlin.String
  * @property localStringCount Total number of non-deleted strings from the language pack available locally.
  * @property translationUrl Link to language translation interface; empty for custom local language packs.
  */
+@SerialName(value = "languagePackInfo")
+@Serializable
 public class LanguagePackInfo public constructor(
+    @SerialName(value = "id")
     public val id: String,
+    @SerialName(value = "base_language_pack_id")
     public val baseLanguagePackId: String,
+    @SerialName(value = "name")
     public val name: String,
+    @SerialName(value = "native_name")
     public val nativeName: String,
+    @SerialName(value = "plural_code")
     public val pluralCode: String,
+    @SerialName(value = "is_official")
     public val isOfficial: Boolean,
+    @SerialName(value = "is_rtl")
     public val isRtl: Boolean,
+    @SerialName(value = "is_beta")
     public val isBeta: Boolean,
+    @SerialName(value = "is_installed")
     public val isInstalled: Boolean,
+    @SerialName(value = "total_string_count")
     public val totalStringCount: Int,
+    @SerialName(value = "translated_string_count")
     public val translatedStringCount: Int,
+    @SerialName(value = "local_string_count")
     public val localStringCount: Int,
+    @SerialName(value = "translation_url")
     public val translationUrl: String,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

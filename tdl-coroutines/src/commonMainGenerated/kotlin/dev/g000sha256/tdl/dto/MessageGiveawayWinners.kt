@@ -22,6 +22,8 @@ import kotlin.Int
 import kotlin.Long
 import kotlin.LongArray
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A giveaway with public winners has been completed for the chat.
@@ -38,17 +40,30 @@ import kotlin.String
  * @property winnerUserIds Up to 100 user identifiers of the winners of the giveaway.
  * @property unclaimedPrizeCount Number of undistributed prizes; for Telegram Premium giveaways only.
  */
+@SerialName(value = "messageGiveawayWinners")
+@Serializable
 public class MessageGiveawayWinners public constructor(
+    @SerialName(value = "boosted_chat_id")
     public val boostedChatId: Long,
+    @SerialName(value = "giveaway_message_id")
     public val giveawayMessageId: Long,
+    @SerialName(value = "additional_chat_count")
     public val additionalChatCount: Int,
+    @SerialName(value = "actual_winners_selection_date")
     public val actualWinnersSelectionDate: Int,
+    @SerialName(value = "only_new_members")
     public val onlyNewMembers: Boolean,
+    @SerialName(value = "was_refunded")
     public val wasRefunded: Boolean,
+    @SerialName(value = "prize")
     public val prize: GiveawayPrize,
+    @SerialName(value = "prize_description")
     public val prizeDescription: String,
+    @SerialName(value = "winner_count")
     public val winnerCount: Int,
+    @SerialName(value = "winner_user_ids")
     public val winnerUserIds: LongArray,
+    @SerialName(value = "unclaimed_prize_count")
     public val unclaimedPrizeCount: Int,
 ) : MessageContent() {
     override fun equals(other: Any?): Boolean {

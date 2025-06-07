@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes a sticker.
@@ -35,17 +37,28 @@ import kotlin.String
  * @property thumbnail Sticker thumbnail in WEBP or JPEG format; may be null.
  * @property sticker File containing the sticker.
  */
+@SerialName(value = "sticker")
+@Serializable
 public class Sticker public constructor(
+    @SerialName(value = "id")
     public val id: Long,
+    @SerialName(value = "set_id")
     public val setId: Long,
+    @SerialName(value = "width")
     public val width: Int,
+    @SerialName(value = "height")
     public val height: Int,
+    @SerialName(value = "emoji")
     public val emoji: String,
+    @SerialName(value = "format")
     public val format: StickerFormat,
+    @SerialName(value = "full_type")
     public val fullType: StickerFullType,
+    @SerialName(value = "thumbnail")
     public val thumbnail: Thumbnail?,
+    @SerialName(value = "sticker")
     public val sticker: File,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

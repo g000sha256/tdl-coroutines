@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes an option for buying Telegram Stars. Use telegramPaymentPurposeStars for out-of-store payments.
@@ -31,13 +33,20 @@ import kotlin.String
  * @property storeProductId Identifier of the store product associated with the option; may be empty if none.
  * @property isAdditional True, if the option must be shown only in the full list of payment options.
  */
+@SerialName(value = "starPaymentOption")
+@Serializable
 public class StarPaymentOption public constructor(
+    @SerialName(value = "currency")
     public val currency: String,
+    @SerialName(value = "amount")
     public val amount: Long,
+    @SerialName(value = "star_count")
     public val starCount: Long,
+    @SerialName(value = "store_product_id")
     public val storeProductId: String,
+    @SerialName(value = "is_additional")
     public val isAdditional: Boolean,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

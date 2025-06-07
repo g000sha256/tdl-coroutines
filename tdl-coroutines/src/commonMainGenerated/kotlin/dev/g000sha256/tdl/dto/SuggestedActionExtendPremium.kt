@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Suggests the user to extend their expiring Telegram Premium subscription.
  *
  * @property managePremiumSubscriptionUrl A URL for managing Telegram Premium subscription.
  */
+@SerialName(value = "suggestedActionExtendPremium")
+@Serializable
 public class SuggestedActionExtendPremium public constructor(
+    @SerialName(value = "manage_premium_subscription_url")
     public val managePremiumSubscriptionUrl: String,
 ) : SuggestedAction() {
     override fun equals(other: Any?): Boolean {

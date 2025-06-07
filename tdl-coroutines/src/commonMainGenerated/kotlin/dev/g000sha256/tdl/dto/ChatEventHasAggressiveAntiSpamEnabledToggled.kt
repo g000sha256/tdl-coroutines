@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The hasAggressiveAntiSpamEnabled setting of a supergroup was toggled.
  *
  * @property hasAggressiveAntiSpamEnabled New value of hasAggressiveAntiSpamEnabled.
  */
+@SerialName(value = "chatEventHasAggressiveAntiSpamEnabledToggled")
+@Serializable
 public class ChatEventHasAggressiveAntiSpamEnabledToggled public constructor(
+    @SerialName(value = "has_aggressive_anti_spam_enabled")
     public val hasAggressiveAntiSpamEnabled: Boolean,
 ) : ChatEventAction() {
     override fun equals(other: Any?): Boolean {

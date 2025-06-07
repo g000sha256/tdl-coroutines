@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains information about a user shared with a bot.
@@ -31,13 +33,20 @@ import kotlin.String
  * @property username Username of the user; for bots only.
  * @property photo Profile photo of the user; for bots only; may be null.
  */
+@SerialName(value = "sharedUser")
+@Serializable
 public class SharedUser public constructor(
+    @SerialName(value = "user_id")
     public val userId: Long,
+    @SerialName(value = "first_name")
     public val firstName: String,
+    @SerialName(value = "last_name")
     public val lastName: String,
+    @SerialName(value = "username")
     public val username: String,
+    @SerialName(value = "photo")
     public val photo: Photo?,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

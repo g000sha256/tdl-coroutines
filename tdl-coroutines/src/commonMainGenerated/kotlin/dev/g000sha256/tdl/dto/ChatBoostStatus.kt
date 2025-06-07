@@ -23,6 +23,8 @@ import kotlin.Double
 import kotlin.Int
 import kotlin.IntArray
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes current boost status of a chat.
@@ -38,18 +40,30 @@ import kotlin.String
  * @property premiumMemberPercentage A percentage of Telegram Premium subscribers joined the chat; always 0 if the current user isn't an administrator in the chat.
  * @property prepaidGiveaways The list of prepaid giveaways available for the chat; only for chat administrators.
  */
+@SerialName(value = "chatBoostStatus")
+@Serializable
 public class ChatBoostStatus public constructor(
+    @SerialName(value = "boost_url")
     public val boostUrl: String,
+    @SerialName(value = "applied_slot_ids")
     public val appliedSlotIds: IntArray,
+    @SerialName(value = "level")
     public val level: Int,
+    @SerialName(value = "gift_code_boost_count")
     public val giftCodeBoostCount: Int,
+    @SerialName(value = "boost_count")
     public val boostCount: Int,
+    @SerialName(value = "current_level_boost_count")
     public val currentLevelBoostCount: Int,
+    @SerialName(value = "next_level_boost_count")
     public val nextLevelBoostCount: Int,
+    @SerialName(value = "premium_member_count")
     public val premiumMemberCount: Int,
+    @SerialName(value = "premium_member_percentage")
     public val premiumMemberPercentage: Double,
+    @SerialName(value = "prepaid_giveaways")
     public val prepaidGiveaways: Array<PrepaidGiveaway>,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

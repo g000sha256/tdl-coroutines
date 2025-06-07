@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Represents a part of the text that needs to be formatted in some unusual way.
@@ -28,11 +30,16 @@ import kotlin.String
  * @property length Length of the entity, in UTF-16 code units.
  * @property type Type of the entity.
  */
+@SerialName(value = "textEntity")
+@Serializable
 public class TextEntity public constructor(
+    @SerialName(value = "offset")
     public val offset: Int,
+    @SerialName(value = "length")
     public val length: Int,
+    @SerialName(value = "type")
     public val type: TextEntityType,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

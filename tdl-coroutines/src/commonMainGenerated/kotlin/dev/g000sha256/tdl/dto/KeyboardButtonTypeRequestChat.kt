@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A button that requests a chat to be shared by the current user; available only in private chats. Use the method shareChatWithBot to complete the request.
@@ -38,19 +40,34 @@ import kotlin.String
  * @property requestUsername Pass true to request username of the chat; bots only.
  * @property requestPhoto Pass true to request photo of the chat; bots only.
  */
+@SerialName(value = "keyboardButtonTypeRequestChat")
+@Serializable
 public class KeyboardButtonTypeRequestChat public constructor(
+    @SerialName(value = "id")
     public val id: Int,
+    @SerialName(value = "chat_is_channel")
     public val chatIsChannel: Boolean,
+    @SerialName(value = "restrict_chat_is_forum")
     public val restrictChatIsForum: Boolean,
+    @SerialName(value = "chat_is_forum")
     public val chatIsForum: Boolean,
+    @SerialName(value = "restrict_chat_has_username")
     public val restrictChatHasUsername: Boolean,
+    @SerialName(value = "chat_has_username")
     public val chatHasUsername: Boolean,
+    @SerialName(value = "chat_is_created")
     public val chatIsCreated: Boolean,
+    @SerialName(value = "user_administrator_rights")
     public val userAdministratorRights: ChatAdministratorRights?,
+    @SerialName(value = "bot_administrator_rights")
     public val botAdministratorRights: ChatAdministratorRights?,
+    @SerialName(value = "bot_is_member")
     public val botIsMember: Boolean,
+    @SerialName(value = "request_title")
     public val requestTitle: Boolean,
+    @SerialName(value = "request_username")
     public val requestUsername: Boolean,
+    @SerialName(value = "request_photo")
     public val requestPhoto: Boolean,
 ) : KeyboardButtonType() {
     override fun equals(other: Any?): Boolean {

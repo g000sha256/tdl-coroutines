@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The signMessages setting of a channel was toggled.
  *
  * @property signMessages New value of signMessages.
  */
+@SerialName(value = "chatEventSignMessagesToggled")
+@Serializable
 public class ChatEventSignMessagesToggled public constructor(
+    @SerialName(value = "sign_messages")
     public val signMessages: Boolean,
 ) : ChatEventAction() {
     override fun equals(other: Any?): Boolean {

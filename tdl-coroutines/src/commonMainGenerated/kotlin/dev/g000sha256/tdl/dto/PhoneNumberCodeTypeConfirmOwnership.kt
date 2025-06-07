@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Confirms ownership of a phone number to prevent account deletion while handling links of the type internalLinkTypePhoneNumberConfirmation.
  *
  * @property hash Hash value from the link.
  */
+@SerialName(value = "phoneNumberCodeTypeConfirmOwnership")
+@Serializable
 public class PhoneNumberCodeTypeConfirmOwnership public constructor(
+    @SerialName(value = "hash")
     public val hash: String,
 ) : PhoneNumberCodeType() {
     override fun equals(other: Any?): Boolean {

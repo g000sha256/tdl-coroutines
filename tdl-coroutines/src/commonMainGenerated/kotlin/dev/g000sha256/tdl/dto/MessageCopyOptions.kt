@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Options to be used when a message content is copied without reference to the original sender. Service messages, messages with messageInvoice, messagePaidMedia, messageGiveaway, or messageGiveawayWinners content can't be copied.
@@ -29,12 +31,18 @@ import kotlin.String
  * @property newCaption New message caption; pass null to copy message without caption. Ignored if replaceCaption is false.
  * @property newShowCaptionAboveMedia True, if new caption must be shown above the media; otherwise, new caption must be shown below the media; not supported in secret chats. Ignored if replaceCaption is false.
  */
+@SerialName(value = "messageCopyOptions")
+@Serializable
 public class MessageCopyOptions public constructor(
+    @SerialName(value = "send_copy")
     public val sendCopy: Boolean,
+    @SerialName(value = "replace_caption")
     public val replaceCaption: Boolean,
+    @SerialName(value = "new_caption")
     public val newCaption: FormattedText?,
+    @SerialName(value = "new_show_caption_above_media")
     public val newShowCaptionAboveMedia: Boolean,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

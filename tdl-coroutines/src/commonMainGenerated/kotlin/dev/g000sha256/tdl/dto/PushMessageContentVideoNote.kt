@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A video note message.
@@ -27,8 +29,12 @@ import kotlin.String
  * @property videoNote Message content; may be null.
  * @property isPinned True, if the message is a pinned message with the specified content.
  */
+@SerialName(value = "pushMessageContentVideoNote")
+@Serializable
 public class PushMessageContentVideoNote public constructor(
+    @SerialName(value = "video_note")
     public val videoNote: VideoNote?,
+    @SerialName(value = "is_pinned")
     public val isPinned: Boolean,
 ) : PushMessageContent() {
     override fun equals(other: Any?): Boolean {

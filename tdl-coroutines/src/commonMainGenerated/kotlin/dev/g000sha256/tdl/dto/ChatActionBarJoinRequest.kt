@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The chat is a private chat with an administrator of a chat to which the user sent join request.
@@ -28,9 +30,14 @@ import kotlin.String
  * @property isChannel True, if the join request was sent to a channel chat.
  * @property requestDate Point in time (Unix timestamp) when the join request was sent.
  */
+@SerialName(value = "chatActionBarJoinRequest")
+@Serializable
 public class ChatActionBarJoinRequest public constructor(
+    @SerialName(value = "title")
     public val title: String,
+    @SerialName(value = "is_channel")
     public val isChannel: Boolean,
+    @SerialName(value = "request_date")
     public val requestDate: Int,
 ) : ChatActionBar() {
     override fun equals(other: Any?): Boolean {

@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A message sender activity in the chat has changed.
@@ -30,10 +32,16 @@ import kotlin.String
  * @property senderId Identifier of a message sender performing the action.
  * @property action The action.
  */
+@SerialName(value = "updateChatAction")
+@Serializable
 public class UpdateChatAction public constructor(
+    @SerialName(value = "chat_id")
     public val chatId: Long,
+    @SerialName(value = "message_thread_id")
     public val messageThreadId: Long,
+    @SerialName(value = "sender_id")
     public val senderId: MessageSender,
+    @SerialName(value = "action")
     public val action: ChatAction,
 ) : Update() {
     override fun equals(other: Any?): Boolean {

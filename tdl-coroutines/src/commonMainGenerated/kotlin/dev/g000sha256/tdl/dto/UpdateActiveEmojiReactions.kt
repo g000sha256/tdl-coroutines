@@ -21,13 +21,18 @@ import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The list of active emoji reactions has changed.
  *
  * @property emojis The new list of active emoji reactions.
  */
+@SerialName(value = "updateActiveEmojiReactions")
+@Serializable
 public class UpdateActiveEmojiReactions public constructor(
+    @SerialName(value = "emojis")
     public val emojis: Array<String>,
 ) : Update() {
     override fun equals(other: Any?): Boolean {

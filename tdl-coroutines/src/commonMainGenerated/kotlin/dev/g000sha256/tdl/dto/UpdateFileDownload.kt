@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A file download was changed. This update is sent only after file download list is loaded for the first time.
@@ -29,10 +31,16 @@ import kotlin.String
  * @property isPaused True, if downloading of the file is paused.
  * @property counts New number of being downloaded and recently downloaded files found.
  */
+@SerialName(value = "updateFileDownload")
+@Serializable
 public class UpdateFileDownload public constructor(
+    @SerialName(value = "file_id")
     public val fileId: Int,
+    @SerialName(value = "complete_date")
     public val completeDate: Int,
+    @SerialName(value = "is_paused")
     public val isPaused: Boolean,
+    @SerialName(value = "counts")
     public val counts: DownloadedFileCounts,
 ) : Update() {
     override fun equals(other: Any?): Boolean {

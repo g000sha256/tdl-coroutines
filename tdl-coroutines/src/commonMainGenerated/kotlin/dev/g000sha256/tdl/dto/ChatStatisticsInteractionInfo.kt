@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains statistics about interactions with a message sent in the chat or a story posted on behalf of the chat.
@@ -29,12 +31,18 @@ import kotlin.String
  * @property forwardCount Number of times the object was forwarded.
  * @property reactionCount Number of times reactions were added to the object.
  */
+@SerialName(value = "chatStatisticsInteractionInfo")
+@Serializable
 public class ChatStatisticsInteractionInfo public constructor(
+    @SerialName(value = "object_type")
     public val objectType: ChatStatisticsObjectType,
+    @SerialName(value = "view_count")
     public val viewCount: Int,
+    @SerialName(value = "forward_count")
     public val forwardCount: Int,
+    @SerialName(value = "reaction_count")
     public val reactionCount: Int,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

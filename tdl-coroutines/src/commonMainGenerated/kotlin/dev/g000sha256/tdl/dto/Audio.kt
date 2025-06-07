@@ -21,6 +21,8 @@ import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes an audio file. Audio is usually in MP3 or M4A format.
@@ -35,17 +37,28 @@ import kotlin.String
  * @property externalAlbumCovers Album cover variants to use if the downloaded audio file contains no album cover. Provided thumbnail dimensions are approximate.
  * @property audio File containing the audio.
  */
+@SerialName(value = "audio")
+@Serializable
 public class Audio public constructor(
+    @SerialName(value = "duration")
     public val duration: Int,
+    @SerialName(value = "title")
     public val title: String,
+    @SerialName(value = "performer")
     public val performer: String,
+    @SerialName(value = "file_name")
     public val fileName: String,
+    @SerialName(value = "mime_type")
     public val mimeType: String,
+    @SerialName(value = "album_cover_minithumbnail")
     public val albumCoverMinithumbnail: Minithumbnail?,
+    @SerialName(value = "album_cover_thumbnail")
     public val albumCoverThumbnail: Thumbnail?,
+    @SerialName(value = "external_album_covers")
     public val externalAlbumCovers: Array<Thumbnail>,
+    @SerialName(value = "audio")
     public val audio: File,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

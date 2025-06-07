@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The link is a link to a Telegram bot, which is expected to be added to a channel chat as an administrator. Call searchPublicChat with the given bot username and check that the user is a bot, ask the current user to select a channel chat to add the bot to as an administrator. Then, call getChatMember to receive the current bot rights in the chat and if the bot already is an administrator, check that the current user can edit its administrator rights and combine received rights with the requested administrator rights. Then, show confirmation box to the user, and call setChatMemberStatus with the chosen chat and confirmed rights.
@@ -27,8 +29,12 @@ import kotlin.String
  * @property botUsername Username of the bot.
  * @property administratorRights Expected administrator rights for the bot.
  */
+@SerialName(value = "internalLinkTypeBotAddToChannel")
+@Serializable
 public class InternalLinkTypeBotAddToChannel public constructor(
+    @SerialName(value = "bot_username")
     public val botUsername: String,
+    @SerialName(value = "administrator_rights")
     public val administratorRights: ChatAdministratorRights,
 ) : InternalLinkType() {
     override fun equals(other: Any?): Boolean {

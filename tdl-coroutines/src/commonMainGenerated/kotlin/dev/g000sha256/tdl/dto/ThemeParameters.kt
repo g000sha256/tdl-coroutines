@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains parameters of the application theme.
@@ -40,23 +42,40 @@ import kotlin.String
  * @property buttonColor A color of the buttons in the RGB format.
  * @property buttonTextColor A color of text on the buttons in the RGB format.
  */
+@SerialName(value = "themeParameters")
+@Serializable
 public class ThemeParameters public constructor(
+    @SerialName(value = "background_color")
     public val backgroundColor: Int,
+    @SerialName(value = "secondary_background_color")
     public val secondaryBackgroundColor: Int,
+    @SerialName(value = "header_background_color")
     public val headerBackgroundColor: Int,
+    @SerialName(value = "bottom_bar_background_color")
     public val bottomBarBackgroundColor: Int,
+    @SerialName(value = "section_background_color")
     public val sectionBackgroundColor: Int,
+    @SerialName(value = "section_separator_color")
     public val sectionSeparatorColor: Int,
+    @SerialName(value = "text_color")
     public val textColor: Int,
+    @SerialName(value = "accent_text_color")
     public val accentTextColor: Int,
+    @SerialName(value = "section_header_text_color")
     public val sectionHeaderTextColor: Int,
+    @SerialName(value = "subtitle_text_color")
     public val subtitleTextColor: Int,
+    @SerialName(value = "destructive_text_color")
     public val destructiveTextColor: Int,
+    @SerialName(value = "hint_color")
     public val hintColor: Int,
+    @SerialName(value = "link_color")
     public val linkColor: Int,
+    @SerialName(value = "button_color")
     public val buttonColor: Int,
+    @SerialName(value = "button_text_color")
     public val buttonTextColor: Int,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

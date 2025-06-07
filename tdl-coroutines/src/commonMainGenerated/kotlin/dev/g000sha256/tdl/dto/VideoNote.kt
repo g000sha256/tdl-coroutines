@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.ByteArray
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes a video note. The video must be equal in width and height, cropped to a circle, and stored in MPEG4 format.
@@ -33,15 +35,24 @@ import kotlin.String
  * @property speechRecognitionResult Result of speech recognition in the video note; may be null.
  * @property video File containing the video.
  */
+@SerialName(value = "videoNote")
+@Serializable
 public class VideoNote public constructor(
+    @SerialName(value = "duration")
     public val duration: Int,
+    @SerialName(value = "waveform")
     public val waveform: ByteArray,
+    @SerialName(value = "length")
     public val length: Int,
+    @SerialName(value = "minithumbnail")
     public val minithumbnail: Minithumbnail?,
+    @SerialName(value = "thumbnail")
     public val thumbnail: Thumbnail?,
+    @SerialName(value = "speech_recognition_result")
     public val speechRecognitionResult: SpeechRecognitionResult?,
+    @SerialName(value = "video")
     public val video: File,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * An area pointing to a message.
@@ -28,8 +30,12 @@ import kotlin.String
  * @property chatId Identifier of the chat with the message. Currently, the chat must be a supergroup or a channel chat.
  * @property messageId Identifier of the message. Use messageProperties.canBeSharedInStory to check whether the message is suitable.
  */
+@SerialName(value = "inputStoryAreaTypeMessage")
+@Serializable
 public class InputStoryAreaTypeMessage public constructor(
+    @SerialName(value = "chat_id")
     public val chatId: Long,
+    @SerialName(value = "message_id")
     public val messageId: Long,
 ) : InputStoryAreaType() {
     override fun equals(other: Any?): Boolean {

@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A file defined by a local path.
  *
  * @property path Local path to the file.
  */
+@SerialName(value = "inputFileLocal")
+@Serializable
 public class InputFileLocal public constructor(
+    @SerialName(value = "path")
     public val path: String,
 ) : InputFile() {
     override fun equals(other: Any?): Boolean {

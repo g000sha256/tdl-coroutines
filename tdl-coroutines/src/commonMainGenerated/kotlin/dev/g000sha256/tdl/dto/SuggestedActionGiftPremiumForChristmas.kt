@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Suggests the user to gift Telegram Premium to friends for Christmas.
  */
+@SerialName(value = "suggestedActionGiftPremiumForChristmas")
+@Serializable
 public class SuggestedActionGiftPremiumForChristmas public constructor() : SuggestedAction() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

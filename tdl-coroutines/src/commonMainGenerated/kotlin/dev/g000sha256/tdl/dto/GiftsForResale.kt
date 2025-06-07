@@ -21,6 +21,8 @@ import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes gifts available for resale.
@@ -32,14 +34,22 @@ import kotlin.String
  * @property backdrops Available backdrops; for searchGiftsForResale requests without offset and attributes only.
  * @property nextOffset The offset for the next request. If empty, then there are no more results.
  */
+@SerialName(value = "giftsForResale")
+@Serializable
 public class GiftsForResale public constructor(
+    @SerialName(value = "total_count")
     public val totalCount: Int,
+    @SerialName(value = "gifts")
     public val gifts: Array<GiftForResale>,
+    @SerialName(value = "models")
     public val models: Array<UpgradedGiftModelCount>,
+    @SerialName(value = "symbols")
     public val symbols: Array<UpgradedGiftSymbolCount>,
+    @SerialName(value = "backdrops")
     public val backdrops: Array<UpgradedGiftBackdropCount>,
+    @SerialName(value = "next_offset")
     public val nextOffset: String,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

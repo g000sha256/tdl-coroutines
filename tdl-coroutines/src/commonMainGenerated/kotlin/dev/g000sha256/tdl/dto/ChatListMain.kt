@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A main list of chats.
  */
+@SerialName(value = "chatListMain")
+@Serializable
 public class ChatListMain public constructor() : ChatList() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

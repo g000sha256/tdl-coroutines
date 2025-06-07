@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Withdrawal is pending.
  */
+@SerialName(value = "revenueWithdrawalStatePending")
+@Serializable
 public class RevenueWithdrawalStatePending public constructor() : RevenueWithdrawalState() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

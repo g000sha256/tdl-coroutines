@@ -21,6 +21,8 @@ import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Represents a list of public forwards and reposts as a story of a message or a story.
@@ -29,11 +31,16 @@ import kotlin.String
  * @property forwards List of found public forwards and reposts.
  * @property nextOffset The offset for the next request. If empty, then there are no more results.
  */
+@SerialName(value = "publicForwards")
+@Serializable
 public class PublicForwards public constructor(
+    @SerialName(value = "total_count")
     public val totalCount: Int,
+    @SerialName(value = "forwards")
     public val forwards: Array<PublicForward>,
+    @SerialName(value = "next_offset")
     public val nextOffset: String,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

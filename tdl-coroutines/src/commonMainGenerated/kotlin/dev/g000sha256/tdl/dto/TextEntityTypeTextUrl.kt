@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A text description shown instead of a raw URL.
  *
  * @property url HTTP or tg:// URL to be opened when the link is clicked.
  */
+@SerialName(value = "textEntityTypeTextUrl")
+@Serializable
 public class TextEntityTypeTextUrl public constructor(
+    @SerialName(value = "url")
     public val url: String,
 ) : TextEntityType() {
     override fun equals(other: Any?): Boolean {

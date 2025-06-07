@@ -21,13 +21,18 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A paid reaction on behalf of an owned chat.
  *
  * @property chatId Identifier of the chat.
  */
+@SerialName(value = "paidReactionTypeChat")
+@Serializable
 public class PaidReactionTypeChat public constructor(
+    @SerialName(value = "chat_id")
     public val chatId: Long,
 ) : PaidReactionType() {
     override fun equals(other: Any?): Boolean {

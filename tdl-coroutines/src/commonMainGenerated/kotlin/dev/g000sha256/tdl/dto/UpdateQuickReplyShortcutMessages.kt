@@ -21,6 +21,8 @@ import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The list of quick reply shortcut messages has changed.
@@ -28,8 +30,12 @@ import kotlin.String
  * @property shortcutId The identifier of the shortcut.
  * @property messages The new list of quick reply messages for the shortcut in order from the first to the last sent.
  */
+@SerialName(value = "updateQuickReplyShortcutMessages")
+@Serializable
 public class UpdateQuickReplyShortcutMessages public constructor(
+    @SerialName(value = "shortcut_id")
     public val shortcutId: Int,
+    @SerialName(value = "messages")
     public val messages: Array<QuickReplyMessage>,
 ) : Update() {
     override fun equals(other: Any?): Boolean {

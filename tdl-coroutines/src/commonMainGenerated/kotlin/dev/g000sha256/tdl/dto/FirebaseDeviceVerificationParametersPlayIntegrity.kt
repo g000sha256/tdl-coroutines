@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Device verification must be performed with the classic Play Integrity verification (https://developer.android.com/google/play/integrity/classic).
@@ -28,8 +30,12 @@ import kotlin.String
  * @property nonce Base64url-encoded nonce to pass to the Play Integrity API.
  * @property cloudProjectNumber Cloud project number to pass to the Play Integrity API.
  */
+@SerialName(value = "firebaseDeviceVerificationParametersPlayIntegrity")
+@Serializable
 public class FirebaseDeviceVerificationParametersPlayIntegrity public constructor(
+    @SerialName(value = "nonce")
     public val nonce: String,
+    @SerialName(value = "cloud_project_number")
     public val cloudProjectNumber: Long,
 ) : FirebaseDeviceVerificationParameters() {
     override fun equals(other: Any?): Boolean {

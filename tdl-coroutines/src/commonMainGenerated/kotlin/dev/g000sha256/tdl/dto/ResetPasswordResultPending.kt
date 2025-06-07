@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The password reset request is pending.
  *
  * @property pendingResetDate Point in time (Unix timestamp) after which the password can be reset immediately using resetPassword.
  */
+@SerialName(value = "resetPasswordResultPending")
+@Serializable
 public class ResetPasswordResultPending public constructor(
+    @SerialName(value = "pending_reset_date")
     public val pendingResetDate: Int,
 ) : ResetPasswordResult() {
     override fun equals(other: Any?): Boolean {

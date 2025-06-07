@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The media is a video.
@@ -29,10 +31,16 @@ import kotlin.String
  * @property duration Duration of the video, in seconds.
  * @property supportsStreaming True, if the video is expected to be streamed.
  */
+@SerialName(value = "inputPaidMediaTypeVideo")
+@Serializable
 public class InputPaidMediaTypeVideo public constructor(
+    @SerialName(value = "cover")
     public val cover: InputFile?,
+    @SerialName(value = "start_timestamp")
     public val startTimestamp: Int,
+    @SerialName(value = "duration")
     public val duration: Int,
+    @SerialName(value = "supports_streaming")
     public val supportsStreaming: Boolean,
 ) : InputPaidMediaType() {
     override fun equals(other: Any?): Boolean {

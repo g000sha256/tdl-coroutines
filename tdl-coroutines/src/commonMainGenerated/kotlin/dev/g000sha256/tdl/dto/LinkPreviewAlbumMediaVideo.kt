@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The media is a video.
  *
  * @property video Video description.
  */
+@SerialName(value = "linkPreviewAlbumMediaVideo")
+@Serializable
 public class LinkPreviewAlbumMediaVideo public constructor(
+    @SerialName(value = "video")
     public val video: Video,
 ) : LinkPreviewAlbumMedia() {
     override fun equals(other: Any?): Boolean {

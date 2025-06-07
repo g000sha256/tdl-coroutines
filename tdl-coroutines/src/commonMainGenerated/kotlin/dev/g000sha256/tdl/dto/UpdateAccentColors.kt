@@ -22,6 +22,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.IntArray
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The list of supported accent colors has changed.
@@ -29,8 +31,12 @@ import kotlin.String
  * @property colors Information about supported colors; colors with identifiers 0 (red), 1 (orange), 2 (purple/violet), 3 (green), 4 (cyan), 5 (blue), 6 (pink) must always be supported and aren't included in the list. The exact colors for the accent colors with identifiers 0-6 must be taken from the app theme.
  * @property availableAccentColorIds The list of accent color identifiers, which can be set through setAccentColor and setChatAccentColor. The colors must be shown in the specified order.
  */
+@SerialName(value = "updateAccentColors")
+@Serializable
 public class UpdateAccentColors public constructor(
+    @SerialName(value = "colors")
     public val colors: Array<AccentColor>,
+    @SerialName(value = "available_accent_color_ids")
     public val availableAccentColorIds: IntArray,
 ) : Update() {
     override fun equals(other: Any?): Boolean {

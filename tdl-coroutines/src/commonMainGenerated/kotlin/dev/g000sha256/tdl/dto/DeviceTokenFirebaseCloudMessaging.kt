@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A token for Firebase Cloud Messaging.
@@ -27,8 +29,12 @@ import kotlin.String
  * @property token Device registration token; may be empty to deregister a device.
  * @property encrypt True, if push notifications must be additionally encrypted.
  */
+@SerialName(value = "deviceTokenFirebaseCloudMessaging")
+@Serializable
 public class DeviceTokenFirebaseCloudMessaging public constructor(
+    @SerialName(value = "token")
     public val token: String,
+    @SerialName(value = "encrypt")
     public val encrypt: Boolean,
 ) : DeviceToken() {
     override fun equals(other: Any?): Boolean {

@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes a server for relaying call data.
@@ -31,13 +33,20 @@ import kotlin.String
  * @property port Server port number.
  * @property type Server type.
  */
+@SerialName(value = "callServer")
+@Serializable
 public class CallServer public constructor(
+    @SerialName(value = "id")
     public val id: Long,
+    @SerialName(value = "ip_address")
     public val ipAddress: String,
+    @SerialName(value = "ipv6_address")
     public val ipv6Address: String,
+    @SerialName(value = "port")
     public val port: Int,
+    @SerialName(value = "type")
     public val type: CallServerType,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

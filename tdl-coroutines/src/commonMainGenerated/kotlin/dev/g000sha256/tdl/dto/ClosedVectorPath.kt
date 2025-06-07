@@ -21,15 +21,20 @@ import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Represents a closed vector path. The path begins at the end point of the last command. The coordinate system origin is in the upper-left corner.
  *
  * @property commands List of vector path commands.
  */
+@SerialName(value = "closedVectorPath")
+@Serializable
 public class ClosedVectorPath public constructor(
+    @SerialName(value = "commands")
     public val commands: Array<VectorPathCommand>,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

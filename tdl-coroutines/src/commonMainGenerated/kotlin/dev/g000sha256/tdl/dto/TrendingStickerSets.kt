@@ -21,6 +21,8 @@ import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Represents a list of trending sticker sets.
@@ -29,11 +31,16 @@ import kotlin.String
  * @property sets List of trending sticker sets.
  * @property isPremium True, if the list contains sticker sets with premium stickers.
  */
+@SerialName(value = "trendingStickerSets")
+@Serializable
 public class TrendingStickerSets public constructor(
+    @SerialName(value = "total_count")
     public val totalCount: Int,
+    @SerialName(value = "sets")
     public val sets: Array<StickerSetInfo>,
+    @SerialName(value = "is_premium")
     public val isPremium: Boolean,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

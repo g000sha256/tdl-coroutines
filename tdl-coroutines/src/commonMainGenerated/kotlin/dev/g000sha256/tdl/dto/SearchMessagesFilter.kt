@@ -16,8 +16,11 @@
 
 package dev.g000sha256.tdl.dto
 
+import kotlinx.serialization.Serializable
+
 /**
  * This class is an abstract base class.
  * Represents a filter for message search results.
  */
-public sealed class SearchMessagesFilter protected constructor()
+@Serializable
+public sealed class SearchMessagesFilter protected constructor() : Model()

@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Profile photo animation on message and chat screens.
  */
+@SerialName(value = "premiumFeatureAnimatedProfilePhoto")
+@Serializable
 public class PremiumFeatureAnimatedProfilePhoto public constructor() : PremiumFeature() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

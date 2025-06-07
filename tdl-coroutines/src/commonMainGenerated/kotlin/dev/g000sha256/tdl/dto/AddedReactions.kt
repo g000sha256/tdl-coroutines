@@ -21,6 +21,8 @@ import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Represents a list of reactions added to a message.
@@ -29,11 +31,16 @@ import kotlin.String
  * @property reactions The list of added reactions.
  * @property nextOffset The offset for the next request. If empty, then there are no more results.
  */
+@SerialName(value = "addedReactions")
+@Serializable
 public class AddedReactions public constructor(
+    @SerialName(value = "total_count")
     public val totalCount: Int,
+    @SerialName(value = "reactions")
     public val reactions: Array<AddedReaction>,
+    @SerialName(value = "next_offset")
     public val nextOffset: String,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

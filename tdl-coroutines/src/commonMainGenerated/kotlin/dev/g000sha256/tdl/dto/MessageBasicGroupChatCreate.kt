@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.LongArray
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A newly created basic group.
@@ -28,8 +30,12 @@ import kotlin.String
  * @property title Title of the basic group.
  * @property memberUserIds User identifiers of members in the basic group.
  */
+@SerialName(value = "messageBasicGroupChatCreate")
+@Serializable
 public class MessageBasicGroupChatCreate public constructor(
+    @SerialName(value = "title")
     public val title: String,
+    @SerialName(value = "member_user_ids")
     public val memberUserIds: LongArray,
 ) : MessageContent() {
     override fun equals(other: Any?): Boolean {

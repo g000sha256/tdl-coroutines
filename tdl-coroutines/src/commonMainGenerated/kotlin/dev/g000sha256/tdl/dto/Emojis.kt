@@ -21,15 +21,20 @@ import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Represents a list of emojis.
  *
  * @property emojis List of emojis.
  */
+@SerialName(value = "emojis")
+@Serializable
 public class Emojis public constructor(
+    @SerialName(value = "emojis")
     public val emojis: Array<String>,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

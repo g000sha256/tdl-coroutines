@@ -21,13 +21,18 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A custom emoji set as emoji status.
  *
  * @property customEmojiId Identifier of the custom emoji in stickerFormatTgs format.
  */
+@SerialName(value = "emojiStatusTypeCustomEmoji")
+@Serializable
 public class EmojiStatusTypeCustomEmoji public constructor(
+    @SerialName(value = "custom_emoji_id")
     public val customEmojiId: Long,
 ) : EmojiStatusType() {
     override fun equals(other: Any?): Boolean {

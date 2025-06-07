@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Data from a Web App has been sent to a bot.
  *
  * @property buttonText Text of the keyboardButtonTypeWebApp button, which opened the Web App.
  */
+@SerialName(value = "messageWebAppDataSent")
+@Serializable
 public class MessageWebAppDataSent public constructor(
+    @SerialName(value = "button_text")
     public val buttonText: String,
 ) : MessageContent() {
     override fun equals(other: Any?): Boolean {

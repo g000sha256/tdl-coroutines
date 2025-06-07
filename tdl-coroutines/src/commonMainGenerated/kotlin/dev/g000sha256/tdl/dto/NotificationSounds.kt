@@ -21,15 +21,20 @@ import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains a list of notification sounds.
  *
  * @property notificationSounds A list of notification sounds.
  */
+@SerialName(value = "notificationSounds")
+@Serializable
 public class NotificationSounds public constructor(
+    @SerialName(value = "notification_sounds")
     public val notificationSounds: Array<NotificationSound>,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

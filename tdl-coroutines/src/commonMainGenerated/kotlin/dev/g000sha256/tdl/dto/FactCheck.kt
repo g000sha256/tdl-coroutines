@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes a fact-check added to the message by an independent checker.
@@ -27,10 +29,14 @@ import kotlin.String
  * @property text Text of the fact-check.
  * @property countryCode A two-letter ISO 3166-1 alpha-2 country code of the country for which the fact-check is shown.
  */
+@SerialName(value = "factCheck")
+@Serializable
 public class FactCheck public constructor(
+    @SerialName(value = "text")
     public val text: FormattedText,
+    @SerialName(value = "country_code")
     public val countryCode: String,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

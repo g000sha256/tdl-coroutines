@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A rule to allow all contacts of the user to do something.
  */
+@SerialName(value = "userPrivacySettingRuleAllowContacts")
+@Serializable
 public class UserPrivacySettingRuleAllowContacts public constructor() : UserPrivacySettingRule() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * An area pointing to a suggested reaction.
@@ -28,9 +30,14 @@ import kotlin.String
  * @property isDark True, if reaction has a dark background.
  * @property isFlipped True, if reaction corner is flipped.
  */
+@SerialName(value = "inputStoryAreaTypeSuggestedReaction")
+@Serializable
 public class InputStoryAreaTypeSuggestedReaction public constructor(
+    @SerialName(value = "reaction_type")
     public val reactionType: ReactionType,
+    @SerialName(value = "is_dark")
     public val isDark: Boolean,
+    @SerialName(value = "is_flipped")
     public val isFlipped: Boolean,
 ) : InputStoryAreaType() {
     override fun equals(other: Any?): Boolean {

@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes an animation file. The animation must be encoded in GIF or MPEG4 format.
@@ -34,17 +36,28 @@ import kotlin.String
  * @property thumbnail Animation thumbnail in JPEG or MPEG4 format; may be null.
  * @property animation File containing the animation.
  */
+@SerialName(value = "animation")
+@Serializable
 public class Animation public constructor(
+    @SerialName(value = "duration")
     public val duration: Int,
+    @SerialName(value = "width")
     public val width: Int,
+    @SerialName(value = "height")
     public val height: Int,
+    @SerialName(value = "file_name")
     public val fileName: String,
+    @SerialName(value = "mime_type")
     public val mimeType: String,
+    @SerialName(value = "has_stickers")
     public val hasStickers: Boolean,
+    @SerialName(value = "minithumbnail")
     public val minithumbnail: Minithumbnail?,
+    @SerialName(value = "thumbnail")
     public val thumbnail: Thumbnail?,
+    @SerialName(value = "animation")
     public val animation: File,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

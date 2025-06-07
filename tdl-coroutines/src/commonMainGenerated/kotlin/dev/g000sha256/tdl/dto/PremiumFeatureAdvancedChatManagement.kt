@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Ability to change position of the main chat list, archive and mute all new chats from non-contacts, and completely disable notifications about the user's contacts joined Telegram.
  */
+@SerialName(value = "premiumFeatureAdvancedChatManagement")
+@Serializable
 public class PremiumFeatureAdvancedChatManagement public constructor() : PremiumFeature() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

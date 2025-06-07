@@ -21,6 +21,8 @@ import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains information about a reaction to a message.
@@ -31,13 +33,20 @@ import kotlin.String
  * @property usedSenderId Identifier of the message sender used by the current user to add the reaction; may be null if unknown or the reaction isn't chosen.
  * @property recentSenderIds Identifiers of at most 3 recent message senders, added the reaction; available in private, basic group and supergroup chats.
  */
+@SerialName(value = "messageReaction")
+@Serializable
 public class MessageReaction public constructor(
+    @SerialName(value = "type")
     public val type: ReactionType,
+    @SerialName(value = "total_count")
     public val totalCount: Int,
+    @SerialName(value = "is_chosen")
     public val isChosen: Boolean,
+    @SerialName(value = "used_sender_id")
     public val usedSenderId: MessageSender?,
+    @SerialName(value = "recent_sender_ids")
     public val recentSenderIds: Array<MessageSender>,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

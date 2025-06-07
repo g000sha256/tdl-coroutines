@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Incoming messages were read or the number of unread messages has been changed.
@@ -29,9 +31,14 @@ import kotlin.String
  * @property lastReadInboxMessageId Identifier of the last read incoming message.
  * @property unreadCount The number of unread messages left in the chat.
  */
+@SerialName(value = "updateChatReadInbox")
+@Serializable
 public class UpdateChatReadInbox public constructor(
+    @SerialName(value = "chat_id")
     public val chatId: Long,
+    @SerialName(value = "last_read_inbox_message_id")
     public val lastReadInboxMessageId: Long,
+    @SerialName(value = "unread_count")
     public val unreadCount: Int,
 ) : Update() {
     override fun equals(other: Any?): Boolean {

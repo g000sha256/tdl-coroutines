@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains full information about a user.
@@ -50,32 +52,58 @@ import kotlin.String
  * @property businessInfo Information about business settings for Telegram Business accounts; may be null if none.
  * @property botInfo For bots, information about the bot; may be null if the user isn't a bot.
  */
+@SerialName(value = "userFullInfo")
+@Serializable
 public class UserFullInfo public constructor(
+    @SerialName(value = "personal_photo")
     public val personalPhoto: ChatPhoto?,
+    @SerialName(value = "photo")
     public val photo: ChatPhoto?,
+    @SerialName(value = "public_photo")
     public val publicPhoto: ChatPhoto?,
+    @SerialName(value = "block_list")
     public val blockList: BlockList?,
+    @SerialName(value = "can_be_called")
     public val canBeCalled: Boolean,
+    @SerialName(value = "supports_video_calls")
     public val supportsVideoCalls: Boolean,
+    @SerialName(value = "has_private_calls")
     public val hasPrivateCalls: Boolean,
+    @SerialName(value = "has_private_forwards")
     public val hasPrivateForwards: Boolean,
+    @SerialName(value = "has_restricted_voice_and_video_note_messages")
     public val hasRestrictedVoiceAndVideoNoteMessages: Boolean,
+    @SerialName(value = "has_posted_to_profile_stories")
     public val hasPostedToProfileStories: Boolean,
+    @SerialName(value = "has_sponsored_messages_enabled")
     public val hasSponsoredMessagesEnabled: Boolean,
+    @SerialName(value = "need_phone_number_privacy_exception")
     public val needPhoneNumberPrivacyException: Boolean,
+    @SerialName(value = "set_chat_background")
     public val setChatBackground: Boolean,
+    @SerialName(value = "bio")
     public val bio: FormattedText?,
+    @SerialName(value = "birthdate")
     public val birthdate: Birthdate?,
+    @SerialName(value = "personal_chat_id")
     public val personalChatId: Long,
+    @SerialName(value = "gift_count")
     public val giftCount: Int,
+    @SerialName(value = "group_in_common_count")
     public val groupInCommonCount: Int,
+    @SerialName(value = "incoming_paid_message_star_count")
     public val incomingPaidMessageStarCount: Long,
+    @SerialName(value = "outgoing_paid_message_star_count")
     public val outgoingPaidMessageStarCount: Long,
+    @SerialName(value = "gift_settings")
     public val giftSettings: GiftSettings,
+    @SerialName(value = "bot_verification")
     public val botVerification: BotVerification?,
+    @SerialName(value = "business_info")
     public val businessInfo: BusinessInfo?,
+    @SerialName(value = "bot_info")
     public val botInfo: BotInfo?,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

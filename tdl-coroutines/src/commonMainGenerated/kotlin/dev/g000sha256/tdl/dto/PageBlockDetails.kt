@@ -21,6 +21,8 @@ import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A collapsible block.
@@ -29,9 +31,14 @@ import kotlin.String
  * @property pageBlocks Block contents.
  * @property isOpen True, if the block is open by default.
  */
+@SerialName(value = "pageBlockDetails")
+@Serializable
 public class PageBlockDetails public constructor(
+    @SerialName(value = "header")
     public val header: RichText,
+    @SerialName(value = "page_blocks")
     public val pageBlocks: Array<PageBlock>,
+    @SerialName(value = "is_open")
     public val isOpen: Boolean,
 ) : PageBlock() {
     override fun equals(other: Any?): Boolean {

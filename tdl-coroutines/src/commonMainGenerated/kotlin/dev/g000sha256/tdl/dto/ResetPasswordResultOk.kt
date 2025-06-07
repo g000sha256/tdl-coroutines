@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The password was reset.
  */
+@SerialName(value = "resetPasswordResultOk")
+@Serializable
 public class ResetPasswordResultOk public constructor() : ResetPasswordResult() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

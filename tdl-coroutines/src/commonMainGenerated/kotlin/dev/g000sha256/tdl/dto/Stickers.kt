@@ -21,15 +21,20 @@ import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Represents a list of stickers.
  *
  * @property stickers List of stickers.
  */
+@SerialName(value = "stickers")
+@Serializable
 public class Stickers public constructor(
+    @SerialName(value = "stickers")
     public val stickers: Array<Sticker>,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

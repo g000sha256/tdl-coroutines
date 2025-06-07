@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A profile photo was suggested to a user in a private chat.
  *
  * @property photo The suggested chat photo. Use the method setProfilePhoto with inputChatPhotoPrevious to apply the photo.
  */
+@SerialName(value = "messageSuggestProfilePhoto")
+@Serializable
 public class MessageSuggestProfilePhoto public constructor(
+    @SerialName(value = "photo")
     public val photo: ChatPhoto,
 ) : MessageContent() {
     override fun equals(other: Any?): Boolean {

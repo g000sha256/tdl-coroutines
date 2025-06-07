@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Represents a message sender, which can be used to send messages in a chat.
@@ -27,10 +29,14 @@ import kotlin.String
  * @property sender The message sender.
  * @property needsPremium True, if Telegram Premium is needed to use the message sender.
  */
+@SerialName(value = "chatMessageSender")
+@Serializable
 public class ChatMessageSender public constructor(
+    @SerialName(value = "sender")
     public val sender: MessageSender,
+    @SerialName(value = "needs_premium")
     public val needsPremium: Boolean,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

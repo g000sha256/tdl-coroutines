@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The user gifting Telegram Premium to another user.
@@ -30,10 +32,16 @@ import kotlin.String
  * @property userId Identifiers of the user which will receive Telegram Premium.
  * @property text Text to show along with the gift codes; 0-getOption(&quot;gift_text_length_max&quot;) characters. Only Bold, Italic, Underline, Strikethrough, Spoiler, and CustomEmoji entities are allowed.
  */
+@SerialName(value = "storePaymentPurposePremiumGift")
+@Serializable
 public class StorePaymentPurposePremiumGift public constructor(
+    @SerialName(value = "currency")
     public val currency: String,
+    @SerialName(value = "amount")
     public val amount: Long,
+    @SerialName(value = "user_id")
     public val userId: Long,
+    @SerialName(value = "text")
     public val text: FormattedText,
 ) : StorePaymentPurpose() {
     override fun equals(other: Any?): Boolean {

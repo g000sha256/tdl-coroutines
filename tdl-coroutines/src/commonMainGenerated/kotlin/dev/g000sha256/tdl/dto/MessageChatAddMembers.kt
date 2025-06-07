@@ -21,13 +21,18 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.LongArray
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * New chat members were added.
  *
  * @property memberUserIds User identifiers of the new members.
  */
+@SerialName(value = "messageChatAddMembers")
+@Serializable
 public class MessageChatAddMembers public constructor(
+    @SerialName(value = "member_user_ids")
     public val memberUserIds: LongArray,
 ) : MessageContent() {
     override fun equals(other: Any?): Boolean {

@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The link is an invite link for a basic group.
  */
+@SerialName(value = "inviteLinkChatTypeBasicGroup")
+@Serializable
 public class InviteLinkChatTypeBasicGroup public constructor() : InviteLinkChatType() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

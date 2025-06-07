@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The message content has changed.
@@ -29,9 +31,14 @@ import kotlin.String
  * @property messageId Message identifier.
  * @property newContent New message content.
  */
+@SerialName(value = "updateMessageContent")
+@Serializable
 public class UpdateMessageContent public constructor(
+    @SerialName(value = "chat_id")
     public val chatId: Long,
+    @SerialName(value = "message_id")
     public val messageId: Long,
+    @SerialName(value = "new_content")
     public val newContent: MessageContent,
 ) : Update() {
     override fun equals(other: Any?): Boolean {

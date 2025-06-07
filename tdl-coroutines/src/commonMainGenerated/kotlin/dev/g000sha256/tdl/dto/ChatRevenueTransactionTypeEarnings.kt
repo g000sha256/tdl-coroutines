@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes earnings from sponsored messages in a chat in some time frame.
@@ -27,8 +29,12 @@ import kotlin.String
  * @property startDate Point in time (Unix timestamp) when the earnings started.
  * @property endDate Point in time (Unix timestamp) when the earnings ended.
  */
+@SerialName(value = "chatRevenueTransactionTypeEarnings")
+@Serializable
 public class ChatRevenueTransactionTypeEarnings public constructor(
+    @SerialName(value = "start_date")
     public val startDate: Int,
+    @SerialName(value = "end_date")
     public val endDate: Int,
 ) : ChatRevenueTransactionType() {
     override fun equals(other: Any?): Boolean {

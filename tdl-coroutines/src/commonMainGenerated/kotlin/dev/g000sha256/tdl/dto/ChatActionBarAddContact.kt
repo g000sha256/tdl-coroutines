@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The chat is a private or secret chat and the other user can be added to the contact list using the method addContact.
  */
+@SerialName(value = "chatActionBarAddContact")
+@Serializable
 public class ChatActionBarAddContact public constructor() : ChatActionBar() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

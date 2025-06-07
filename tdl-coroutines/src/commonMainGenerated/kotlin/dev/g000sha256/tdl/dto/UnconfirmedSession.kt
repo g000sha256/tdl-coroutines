@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains information about an unconfirmed session.
@@ -30,12 +32,18 @@ import kotlin.String
  * @property deviceModel Model of the device that was used for the session creation, as provided by the application.
  * @property location A human-readable description of the location from which the session was created, based on the IP address.
  */
+@SerialName(value = "unconfirmedSession")
+@Serializable
 public class UnconfirmedSession public constructor(
+    @SerialName(value = "id")
     public val id: Long,
+    @SerialName(value = "log_in_date")
     public val logInDate: Int,
+    @SerialName(value = "device_model")
     public val deviceModel: String,
+    @SerialName(value = "location")
     public val location: String,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains basic information about a forum topic.
@@ -36,18 +38,30 @@ import kotlin.String
  * @property isClosed True, if the topic is closed.
  * @property isHidden True, if the topic is hidden above the topic list and closed; for General topic only.
  */
+@SerialName(value = "forumTopicInfo")
+@Serializable
 public class ForumTopicInfo public constructor(
+    @SerialName(value = "chat_id")
     public val chatId: Long,
+    @SerialName(value = "message_thread_id")
     public val messageThreadId: Long,
+    @SerialName(value = "name")
     public val name: String,
+    @SerialName(value = "icon")
     public val icon: ForumTopicIcon,
+    @SerialName(value = "creation_date")
     public val creationDate: Int,
+    @SerialName(value = "creator_id")
     public val creatorId: MessageSender,
+    @SerialName(value = "is_general")
     public val isGeneral: Boolean,
+    @SerialName(value = "is_outgoing")
     public val isOutgoing: Boolean,
+    @SerialName(value = "is_closed")
     public val isClosed: Boolean,
+    @SerialName(value = "is_hidden")
     public val isHidden: Boolean,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

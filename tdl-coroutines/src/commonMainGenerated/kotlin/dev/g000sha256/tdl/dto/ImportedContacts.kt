@@ -22,6 +22,8 @@ import kotlin.Int
 import kotlin.IntArray
 import kotlin.LongArray
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Represents the result of an importContacts request.
@@ -29,10 +31,14 @@ import kotlin.String
  * @property userIds User identifiers of the imported contacts in the same order as they were specified in the request; 0 if the contact is not yet a registered user.
  * @property importerCount The number of users that imported the corresponding contact; 0 for already registered users or if unavailable.
  */
+@SerialName(value = "importedContacts")
+@Serializable
 public class ImportedContacts public constructor(
+    @SerialName(value = "user_ids")
     public val userIds: LongArray,
+    @SerialName(value = "importer_count")
     public val importerCount: IntArray,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

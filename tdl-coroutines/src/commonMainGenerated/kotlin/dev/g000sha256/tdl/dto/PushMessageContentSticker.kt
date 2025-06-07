@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A message with a sticker.
@@ -28,9 +30,14 @@ import kotlin.String
  * @property emoji Emoji corresponding to the sticker; may be empty.
  * @property isPinned True, if the message is a pinned message with the specified content.
  */
+@SerialName(value = "pushMessageContentSticker")
+@Serializable
 public class PushMessageContentSticker public constructor(
+    @SerialName(value = "sticker")
     public val sticker: Sticker?,
+    @SerialName(value = "emoji")
     public val emoji: String,
+    @SerialName(value = "is_pinned")
     public val isPinned: Boolean,
 ) : PushMessageContent() {
     override fun equals(other: Any?): Boolean {

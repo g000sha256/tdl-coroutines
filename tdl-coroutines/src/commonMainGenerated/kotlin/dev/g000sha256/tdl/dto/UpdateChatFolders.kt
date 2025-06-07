@@ -21,6 +21,8 @@ import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The list of chat folders or a chat folder has changed.
@@ -29,9 +31,14 @@ import kotlin.String
  * @property mainChatListPosition Position of the main chat list among chat folders, 0-based.
  * @property areTagsEnabled True, if folder tags are enabled.
  */
+@SerialName(value = "updateChatFolders")
+@Serializable
 public class UpdateChatFolders public constructor(
+    @SerialName(value = "chat_folders")
     public val chatFolders: Array<ChatFolderInfo>,
+    @SerialName(value = "main_chat_list_position")
     public val mainChatListPosition: Int,
+    @SerialName(value = "are_tags_enabled")
     public val areTagsEnabled: Boolean,
 ) : Update() {
     override fun equals(other: Any?): Boolean {

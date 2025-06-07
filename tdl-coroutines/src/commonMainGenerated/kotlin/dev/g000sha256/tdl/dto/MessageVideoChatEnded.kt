@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A message with information about an ended video chat.
  *
  * @property duration Call duration, in seconds.
  */
+@SerialName(value = "messageVideoChatEnded")
+@Serializable
 public class MessageVideoChatEnded public constructor(
+    @SerialName(value = "duration")
     public val duration: Int,
 ) : MessageContent() {
     override fun equals(other: Any?): Boolean {

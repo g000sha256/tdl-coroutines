@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The link is an affiliate program link. Call searchChatAffiliateProgram with the given username and referrer to process the link.
@@ -27,8 +29,12 @@ import kotlin.String
  * @property username Username to be passed to searchChatAffiliateProgram.
  * @property referrer Referrer to be passed to searchChatAffiliateProgram.
  */
+@SerialName(value = "internalLinkTypeChatAffiliateProgram")
+@Serializable
 public class InternalLinkTypeChatAffiliateProgram public constructor(
+    @SerialName(value = "username")
     public val username: String,
+    @SerialName(value = "referrer")
     public val referrer: String,
 ) : InternalLinkType() {
     override fun equals(other: Any?): Boolean {

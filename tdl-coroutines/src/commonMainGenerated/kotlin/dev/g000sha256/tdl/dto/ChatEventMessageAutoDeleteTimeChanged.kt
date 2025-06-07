@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The message auto-delete timer was changed.
@@ -27,8 +29,12 @@ import kotlin.String
  * @property oldMessageAutoDeleteTime Previous value of messageAutoDeleteTime.
  * @property newMessageAutoDeleteTime New value of messageAutoDeleteTime.
  */
+@SerialName(value = "chatEventMessageAutoDeleteTimeChanged")
+@Serializable
 public class ChatEventMessageAutoDeleteTimeChanged public constructor(
+    @SerialName(value = "old_message_auto_delete_time")
     public val oldMessageAutoDeleteTime: Int,
+    @SerialName(value = "new_message_auto_delete_time")
     public val newMessageAutoDeleteTime: Int,
 ) : ChatEventAction() {
     override fun equals(other: Any?): Boolean {

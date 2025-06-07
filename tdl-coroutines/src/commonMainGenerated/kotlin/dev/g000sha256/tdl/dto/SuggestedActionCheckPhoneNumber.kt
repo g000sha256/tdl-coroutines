@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Suggests the user to check whether authorization phone number is correct and change the phone number if it is inaccessible.
  */
+@SerialName(value = "suggestedActionCheckPhoneNumber")
+@Serializable
 public class SuggestedActionCheckPhoneNumber public constructor() : SuggestedAction() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

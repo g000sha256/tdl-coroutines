@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The user's status has never been changed.
  */
+@SerialName(value = "userStatusEmpty")
+@Serializable
 public class UserStatusEmpty public constructor() : UserStatus() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

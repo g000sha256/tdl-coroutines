@@ -16,8 +16,11 @@
 
 package dev.g000sha256.tdl.dto
 
+import kotlinx.serialization.Serializable
+
 /**
  * This class is an abstract base class.
  * Contains information about a Telegram Passport element.
  */
-public sealed class PassportElement protected constructor()
+@Serializable
+public sealed class PassportElement protected constructor() : Model()

@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A media timestamp.
  *
  * @property mediaTimestamp Timestamp from which a video/audio/video note/voice note/story playing must start, in seconds. The media can be in the content or the link preview of the current message, or in the same places in the replied message.
  */
+@SerialName(value = "textEntityTypeMediaTimestamp")
+@Serializable
 public class TextEntityTypeMediaTimestamp public constructor(
+    @SerialName(value = "media_timestamp")
     public val mediaTimestamp: Int,
 ) : TextEntityType() {
     override fun equals(other: Any?): Boolean {

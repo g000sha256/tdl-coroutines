@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes a message from a business account as received by a bot.
@@ -27,10 +29,14 @@ import kotlin.String
  * @property message The message.
  * @property replyToMessage Message that is replied by the message in the same chat; may be null if none.
  */
+@SerialName(value = "businessMessage")
+@Serializable
 public class BusinessMessage public constructor(
+    @SerialName(value = "message")
     public val message: Message,
+    @SerialName(value = "reply_to_message")
     public val replyToMessage: Message?,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

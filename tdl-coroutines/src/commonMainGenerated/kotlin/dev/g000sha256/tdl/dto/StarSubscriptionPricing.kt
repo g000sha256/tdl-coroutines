@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes subscription plan paid in Telegram Stars.
@@ -28,10 +30,14 @@ import kotlin.String
  * @property period The number of seconds between consecutive Telegram Star debiting.
  * @property starCount The amount of Telegram Stars that must be paid for each period.
  */
+@SerialName(value = "starSubscriptionPricing")
+@Serializable
 public class StarSubscriptionPricing public constructor(
+    @SerialName(value = "period")
     public val period: Int,
+    @SerialName(value = "star_count")
     public val starCount: Long,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

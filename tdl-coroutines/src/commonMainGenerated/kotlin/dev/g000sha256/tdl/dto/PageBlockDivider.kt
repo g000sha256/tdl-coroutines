@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * An empty block separating a page.
  */
+@SerialName(value = "pageBlockDivider")
+@Serializable
 public class PageBlockDivider public constructor() : PageBlock() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

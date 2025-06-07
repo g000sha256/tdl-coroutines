@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A cubic Bézier curve to a given point.
@@ -28,9 +30,14 @@ import kotlin.String
  * @property endControlPoint The end control point of the curve.
  * @property endPoint The end point of the curve.
  */
+@SerialName(value = "vectorPathCommandCubicBezierCurve")
+@Serializable
 public class VectorPathCommandCubicBezierCurve public constructor(
+    @SerialName(value = "start_control_point")
     public val startControlPoint: Point,
+    @SerialName(value = "end_control_point")
     public val endControlPoint: Point,
+    @SerialName(value = "end_point")
     public val endPoint: Point,
 ) : VectorPathCommand() {
     override fun equals(other: Any?): Boolean {

@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A regular poll.
  *
  * @property allowMultipleAnswers True, if multiple answer options can be chosen simultaneously.
  */
+@SerialName(value = "pollTypeRegular")
+@Serializable
 public class PollTypeRegular public constructor(
+    @SerialName(value = "allow_multiple_answers")
     public val allowMultipleAnswers: Boolean,
 ) : PollType() {
     override fun equals(other: Any?): Boolean {

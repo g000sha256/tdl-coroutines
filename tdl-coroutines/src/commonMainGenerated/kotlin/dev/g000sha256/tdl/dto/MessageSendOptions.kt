@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Options to be used when a message is sent.
@@ -36,18 +38,30 @@ import kotlin.String
  * @property sendingId Non-persistent identifier, which will be returned back in messageSendingStatePending object and can be used to match sent messages and corresponding updateNewMessage updates.
  * @property onlyPreview Pass true to get a fake message instead of actually sending them.
  */
+@SerialName(value = "messageSendOptions")
+@Serializable
 public class MessageSendOptions public constructor(
+    @SerialName(value = "disable_notification")
     public val disableNotification: Boolean,
+    @SerialName(value = "from_background")
     public val fromBackground: Boolean,
+    @SerialName(value = "protect_content")
     public val protectContent: Boolean,
+    @SerialName(value = "allow_paid_broadcast")
     public val allowPaidBroadcast: Boolean,
+    @SerialName(value = "paid_message_star_count")
     public val paidMessageStarCount: Long,
+    @SerialName(value = "update_order_of_installed_sticker_sets")
     public val updateOrderOfInstalledStickerSets: Boolean,
+    @SerialName(value = "scheduling_state")
     public val schedulingState: MessageSchedulingState?,
+    @SerialName(value = "effect_id")
     public val effectId: Long,
+    @SerialName(value = "sending_id")
     public val sendingId: Int,
+    @SerialName(value = "only_preview")
     public val onlyPreview: Boolean,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

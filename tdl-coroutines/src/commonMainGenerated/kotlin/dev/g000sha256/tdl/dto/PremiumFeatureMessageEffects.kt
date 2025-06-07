@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The ability to use all available message effects.
  */
+@SerialName(value = "premiumFeatureMessageEffects")
+@Serializable
 public class PremiumFeatureMessageEffects public constructor() : PremiumFeature() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

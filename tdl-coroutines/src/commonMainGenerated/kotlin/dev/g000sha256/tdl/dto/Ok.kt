@@ -20,11 +20,15 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * An object of this type is returned on a successful function call for certain functions.
  */
-public class Ok public constructor() {
+@SerialName(value = "ok")
+@Serializable
+public class Ok public constructor() : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

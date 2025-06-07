@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The link is a link to a Telegram message or a forum topic. Call getMessageLinkInfo with the given URL to process the link, and then open received forum topic or chat and show the message there.
  *
  * @property url URL to be passed to getMessageLinkInfo.
  */
+@SerialName(value = "internalLinkTypeMessage")
+@Serializable
 public class InternalLinkTypeMessage public constructor(
+    @SerialName(value = "url")
     public val url: String,
 ) : InternalLinkType() {
     override fun equals(other: Any?): Boolean {

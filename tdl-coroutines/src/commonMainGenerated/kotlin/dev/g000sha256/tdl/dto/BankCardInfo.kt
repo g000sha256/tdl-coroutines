@@ -21,6 +21,8 @@ import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Information about a bank card.
@@ -28,10 +30,14 @@ import kotlin.String
  * @property title Title of the bank card description.
  * @property actions Actions that can be done with the bank card number.
  */
+@SerialName(value = "bankCardInfo")
+@Serializable
 public class BankCardInfo public constructor(
+    @SerialName(value = "title")
     public val title: String,
+    @SerialName(value = "actions")
     public val actions: Array<BankCardActionOpenUrl>,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

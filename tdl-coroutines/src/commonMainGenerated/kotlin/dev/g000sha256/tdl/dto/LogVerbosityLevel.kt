@@ -20,15 +20,20 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains a TDLib internal log verbosity level.
  *
  * @property verbosityLevel Log verbosity level.
  */
+@SerialName(value = "logVerbosityLevel")
+@Serializable
 public class LogVerbosityLevel public constructor(
+    @SerialName(value = "verbosity_level")
     public val verbosityLevel: Int,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

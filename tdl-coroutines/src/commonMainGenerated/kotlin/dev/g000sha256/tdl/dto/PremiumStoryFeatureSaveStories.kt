@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The ability to save other's unprotected stories.
  */
+@SerialName(value = "premiumStoryFeatureSaveStories")
+@Serializable
 public class PremiumStoryFeatureSaveStories public constructor() : PremiumStoryFeature() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

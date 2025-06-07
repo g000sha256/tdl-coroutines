@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A video note message.
@@ -30,11 +32,18 @@ import kotlin.String
  * @property length Video width and height; must be positive and not greater than 640.
  * @property selfDestructType Video note self-destruct type; may be null if none; pass null if none; private chats only.
  */
+@SerialName(value = "inputMessageVideoNote")
+@Serializable
 public class InputMessageVideoNote public constructor(
+    @SerialName(value = "video_note")
     public val videoNote: InputFile,
+    @SerialName(value = "thumbnail")
     public val thumbnail: InputThumbnail?,
+    @SerialName(value = "duration")
     public val duration: Int,
+    @SerialName(value = "length")
     public val length: Int,
+    @SerialName(value = "self_destruct_type")
     public val selfDestructType: MessageSelfDestructType?,
 ) : InputMessageContent() {
     override fun equals(other: Any?): Boolean {

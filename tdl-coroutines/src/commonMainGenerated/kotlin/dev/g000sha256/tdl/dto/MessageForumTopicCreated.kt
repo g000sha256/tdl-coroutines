@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A forum topic has been created.
@@ -27,8 +29,12 @@ import kotlin.String
  * @property name Name of the topic.
  * @property icon Icon of the topic.
  */
+@SerialName(value = "messageForumTopicCreated")
+@Serializable
 public class MessageForumTopicCreated public constructor(
+    @SerialName(value = "name")
     public val name: String,
+    @SerialName(value = "icon")
     public val icon: ForumTopicIcon,
 ) : MessageContent() {
     override fun equals(other: Any?): Boolean {

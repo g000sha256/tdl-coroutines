@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The link contains an authentication code. Call checkAuthenticationCode with the code if the current authorization state is authorizationStateWaitCode.
  *
  * @property code The authentication code.
  */
+@SerialName(value = "internalLinkTypeAuthenticationCode")
+@Serializable
 public class InternalLinkTypeAuthenticationCode public constructor(
+    @SerialName(value = "code")
     public val code: String,
 ) : InternalLinkType() {
     override fun equals(other: Any?): Boolean {

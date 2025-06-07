@@ -22,6 +22,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Represents the results of the inline query. Use sendInlineQueryResultMessage to send the result of the query.
@@ -31,12 +33,18 @@ import kotlin.String
  * @property results Results of the query.
  * @property nextOffset The offset for the next request. If empty, then there are no more results.
  */
+@SerialName(value = "inlineQueryResults")
+@Serializable
 public class InlineQueryResults public constructor(
+    @SerialName(value = "inline_query_id")
     public val inlineQueryId: Long,
+    @SerialName(value = "button")
     public val button: InlineQueryResultsButton?,
+    @SerialName(value = "results")
     public val results: Array<InlineQueryResult>,
+    @SerialName(value = "next_offset")
     public val nextOffset: String,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

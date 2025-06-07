@@ -21,6 +21,8 @@ import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * An identity document to be saved to Telegram Passport.
@@ -32,14 +34,22 @@ import kotlin.String
  * @property selfie Selfie with the document; pass null if unavailable.
  * @property translation List of files containing a certified English translation of the document.
  */
+@SerialName(value = "inputIdentityDocument")
+@Serializable
 public class InputIdentityDocument public constructor(
+    @SerialName(value = "number")
     public val number: String,
+    @SerialName(value = "expiration_date")
     public val expirationDate: Date?,
+    @SerialName(value = "front_side")
     public val frontSide: InputFile,
+    @SerialName(value = "reverse_side")
     public val reverseSide: InputFile?,
+    @SerialName(value = "selfie")
     public val selfie: InputFile?,
+    @SerialName(value = "translation")
     public val translation: Array<InputFile>,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

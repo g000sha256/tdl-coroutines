@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Represents a ready to send inline message. Use sendInlineQueryResultMessage to send the message.
@@ -29,11 +31,16 @@ import kotlin.String
  * @property result Resulted inline message of the query.
  * @property chatTypes Types of the chats to which the message can be sent.
  */
+@SerialName(value = "preparedInlineMessage")
+@Serializable
 public class PreparedInlineMessage public constructor(
+    @SerialName(value = "inline_query_id")
     public val inlineQueryId: Long,
+    @SerialName(value = "result")
     public val result: InlineQueryResult,
+    @SerialName(value = "chat_types")
     public val chatTypes: TargetChatTypes,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

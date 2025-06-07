@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A custom reason provided by the user.
  */
+@SerialName(value = "reportReasonCustom")
+@Serializable
 public class ReportReasonCustom public constructor() : ReportReason() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

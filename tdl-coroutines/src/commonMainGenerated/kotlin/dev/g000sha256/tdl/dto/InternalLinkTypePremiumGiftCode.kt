@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The link is a link with a Telegram Premium gift code. Call checkPremiumGiftCode with the given code to process the link. If the code is valid and the user wants to apply it, then call applyPremiumGiftCode.
  *
  * @property code The Telegram Premium gift code.
  */
+@SerialName(value = "internalLinkTypePremiumGiftCode")
+@Serializable
 public class InternalLinkTypePremiumGiftCode public constructor(
+    @SerialName(value = "code")
     public val code: String,
 ) : InternalLinkType() {
     override fun equals(other: Any?): Boolean {

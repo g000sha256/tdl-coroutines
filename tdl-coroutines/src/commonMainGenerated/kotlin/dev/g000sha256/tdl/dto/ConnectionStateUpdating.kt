@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Downloading data expected to be received while the application was offline.
  */
+@SerialName(value = "connectionStateUpdating")
+@Serializable
 public class ConnectionStateUpdating public constructor() : ConnectionState() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

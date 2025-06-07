@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * An audio message.
@@ -27,8 +29,12 @@ import kotlin.String
  * @property audio Message content; may be null.
  * @property isPinned True, if the message is a pinned message with the specified content.
  */
+@SerialName(value = "pushMessageContentAudio")
+@Serializable
 public class PushMessageContentAudio public constructor(
+    @SerialName(value = "audio")
     public val audio: Audio?,
+    @SerialName(value = "is_pinned")
     public val isPinned: Boolean,
 ) : PushMessageContent() {
     override fun equals(other: Any?): Boolean {

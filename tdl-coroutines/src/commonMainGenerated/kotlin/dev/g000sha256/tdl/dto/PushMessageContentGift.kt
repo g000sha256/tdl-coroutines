@@ -21,13 +21,18 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A message with a gift.
  *
  * @property starCount Number of Telegram Stars that sender paid for the gift.
  */
+@SerialName(value = "pushMessageContentGift")
+@Serializable
 public class PushMessageContentGift public constructor(
+    @SerialName(value = "star_count")
     public val starCount: Long,
 ) : PushMessageContent() {
     override fun equals(other: Any?): Boolean {

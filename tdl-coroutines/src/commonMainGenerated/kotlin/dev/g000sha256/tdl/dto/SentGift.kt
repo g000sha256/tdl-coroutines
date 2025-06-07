@@ -16,8 +16,11 @@
 
 package dev.g000sha256.tdl.dto
 
+import kotlinx.serialization.Serializable
+
 /**
  * This class is an abstract base class.
  * Represents content of a gift received by a user or a channel chat.
  */
-public sealed class SentGift protected constructor()
+@Serializable
+public sealed class SentGift protected constructor() : Model()

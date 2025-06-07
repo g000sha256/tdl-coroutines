@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Establishing a connection with a proxy server.
  */
+@SerialName(value = "connectionStateConnectingToProxy")
+@Serializable
 public class ConnectionStateConnectingToProxy public constructor() : ConnectionState() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

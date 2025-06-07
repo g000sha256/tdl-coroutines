@@ -21,15 +21,20 @@ import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains a list of options for gifting Telegram Premium to a user.
  *
  * @property options The list of options sorted by Telegram Premium subscription duration.
  */
+@SerialName(value = "premiumGiftPaymentOptions")
+@Serializable
 public class PremiumGiftPaymentOptions public constructor(
+    @SerialName(value = "options")
     public val options: Array<PremiumGiftPaymentOption>,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

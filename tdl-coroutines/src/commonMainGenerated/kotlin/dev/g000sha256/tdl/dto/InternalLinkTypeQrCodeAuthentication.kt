@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The link can be used to login the current user on another device, but it must be scanned from QR-code using in-app camera. An alert similar to &quot;This code can be used to allow someone to log in to your Telegram account. To confirm Telegram login, please go to Settings &gt; Devices &gt; Scan QR and scan the code&quot; needs to be shown.
  */
+@SerialName(value = "internalLinkTypeQrCodeAuthentication")
+@Serializable
 public class InternalLinkTypeQrCodeAuthentication public constructor() : InternalLinkType() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

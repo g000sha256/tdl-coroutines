@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Double
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Position on a photo where a mask is placed.
@@ -30,12 +32,18 @@ import kotlin.String
  * @property yShift Shift by Y-axis measured in heights of the mask scaled to the face size, from top to bottom. (For example, 1.0 will place the mask just below the default mask position.)
  * @property scale Mask scaling coefficient. (For example, 2.0 means a doubled size.)
  */
+@SerialName(value = "maskPosition")
+@Serializable
 public class MaskPosition public constructor(
+    @SerialName(value = "point")
     public val point: MaskPoint,
+    @SerialName(value = "x_shift")
     public val xShift: Double,
+    @SerialName(value = "y_shift")
     public val yShift: Double,
+    @SerialName(value = "scale")
     public val scale: Double,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

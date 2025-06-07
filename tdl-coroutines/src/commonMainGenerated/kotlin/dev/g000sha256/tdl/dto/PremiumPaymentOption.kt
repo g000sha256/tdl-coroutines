@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes an option for buying Telegram Premium to a user.
@@ -32,14 +34,22 @@ import kotlin.String
  * @property storeProductId Identifier of the store product associated with the option.
  * @property paymentLink An internal link to be opened for buying Telegram Premium to the user if store payment isn't possible; may be null if direct payment isn't available.
  */
+@SerialName(value = "premiumPaymentOption")
+@Serializable
 public class PremiumPaymentOption public constructor(
+    @SerialName(value = "currency")
     public val currency: String,
+    @SerialName(value = "amount")
     public val amount: Long,
+    @SerialName(value = "discount_percentage")
     public val discountPercentage: Int,
+    @SerialName(value = "month_count")
     public val monthCount: Int,
+    @SerialName(value = "store_product_id")
     public val storeProductId: String,
+    @SerialName(value = "payment_link")
     public val paymentLink: InternalLinkType?,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

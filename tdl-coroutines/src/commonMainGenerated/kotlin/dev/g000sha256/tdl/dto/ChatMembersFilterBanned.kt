@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Returns users banned from the chat; can be used only by administrators in a supergroup or in a channel.
  */
+@SerialName(value = "chatMembersFilterBanned")
+@Serializable
 public class ChatMembersFilterBanned public constructor() : ChatMembersFilter() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

@@ -16,8 +16,11 @@
 
 package dev.g000sha256.tdl.dto
 
+import kotlinx.serialization.Serializable
+
 /**
  * This class is an abstract base class.
  * Describes type of object, for which statistics are provided.
  */
-public sealed class ChatStatisticsObjectType protected constructor()
+@Serializable
+public sealed class ChatStatisticsObjectType protected constructor() : Model()

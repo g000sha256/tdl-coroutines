@@ -21,6 +21,8 @@ import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The chat active usernames were changed.
@@ -28,8 +30,12 @@ import kotlin.String
  * @property oldUsernames Previous list of active usernames.
  * @property newUsernames New list of active usernames.
  */
+@SerialName(value = "chatEventActiveUsernamesChanged")
+@Serializable
 public class ChatEventActiveUsernamesChanged public constructor(
+    @SerialName(value = "old_usernames")
     public val oldUsernames: Array<String>,
+    @SerialName(value = "new_usernames")
     public val newUsernames: Array<String>,
 ) : ChatEventAction() {
     override fun equals(other: Any?): Boolean {

@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Contains information about a Saved Messages topic.
@@ -32,14 +34,22 @@ import kotlin.String
  * @property lastMessage Last message in the topic; may be null if none or unknown.
  * @property draftMessage A draft of a message in the topic; may be null if none.
  */
+@SerialName(value = "savedMessagesTopic")
+@Serializable
 public class SavedMessagesTopic public constructor(
+    @SerialName(value = "id")
     public val id: Long,
+    @SerialName(value = "type")
     public val type: SavedMessagesTopicType,
+    @SerialName(value = "is_pinned")
     public val isPinned: Boolean,
+    @SerialName(value = "order")
     public val order: Long,
+    @SerialName(value = "last_message")
     public val lastMessage: Message?,
+    @SerialName(value = "draft_message")
     public val draftMessage: DraftMessage?,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

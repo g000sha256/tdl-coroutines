@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A story failed to post. If the story posting is canceled, then updateStoryDeleted will be received instead of this update.
@@ -28,9 +30,14 @@ import kotlin.String
  * @property error The cause of the story posting failure.
  * @property errorType Type of the error; may be null if unknown.
  */
+@SerialName(value = "updateStoryPostFailed")
+@Serializable
 public class UpdateStoryPostFailed public constructor(
+    @SerialName(value = "story")
     public val story: Story,
+    @SerialName(value = "error")
     public val error: Error,
+    @SerialName(value = "error_type")
     public val errorType: CanPostStoryResult?,
 ) : Update() {
     override fun equals(other: Any?): Boolean {

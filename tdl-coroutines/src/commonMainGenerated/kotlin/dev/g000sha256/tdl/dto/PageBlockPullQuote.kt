@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A pull quote.
@@ -27,8 +29,12 @@ import kotlin.String
  * @property text Quote text.
  * @property credit Quote credit.
  */
+@SerialName(value = "pageBlockPullQuote")
+@Serializable
 public class PageBlockPullQuote public constructor(
+    @SerialName(value = "text")
     public val text: RichText,
+    @SerialName(value = "credit")
     public val credit: RichText,
 ) : PageBlock() {
     override fun equals(other: Any?): Boolean {

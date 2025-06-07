@@ -20,6 +20,8 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes parameters used to join a group call.
@@ -29,12 +31,18 @@ import kotlin.String
  * @property isMuted Pass true to join the call with muted microphone.
  * @property isMyVideoEnabled Pass true if the user's video is enabled.
  */
+@SerialName(value = "groupCallJoinParameters")
+@Serializable
 public class GroupCallJoinParameters public constructor(
+    @SerialName(value = "audio_source_id")
     public val audioSourceId: Int,
+    @SerialName(value = "payload")
     public val payload: String,
+    @SerialName(value = "is_muted")
     public val isMuted: Boolean,
+    @SerialName(value = "is_my_video_enabled")
     public val isMyVideoEnabled: Boolean,
-) {
+) : Model() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true

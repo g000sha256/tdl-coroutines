@@ -20,13 +20,18 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The link is an invite link to a chat folder. Call checkChatFolderInviteLink with the given invite link to process the link. If the link is valid and the user wants to join the chat folder, then call addChatFolderByInviteLink.
  *
  * @property inviteLink Internal representation of the invite link.
  */
+@SerialName(value = "internalLinkTypeChatFolderInvite")
+@Serializable
 public class InternalLinkTypeChatFolderInvite public constructor(
+    @SerialName(value = "invite_link")
     public val inviteLink: String,
 ) : InternalLinkType() {
     override fun equals(other: Any?): Boolean {

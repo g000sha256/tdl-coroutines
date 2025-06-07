@@ -22,13 +22,18 @@ import kotlin.Boolean
 import kotlin.ByteArray
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The translation of the document contains an error. The error is considered resolved when the list of files changes.
  *
  * @property fileHashes Current hashes of all files with the translation.
  */
+@SerialName(value = "inputPassportElementErrorSourceTranslationFiles")
+@Serializable
 public class InputPassportElementErrorSourceTranslationFiles public constructor(
+    @SerialName(value = "file_hashes")
     public val fileHashes: Array<ByteArray>,
 ) : InputPassportElementErrorSource() {
     override fun equals(other: Any?): Boolean {

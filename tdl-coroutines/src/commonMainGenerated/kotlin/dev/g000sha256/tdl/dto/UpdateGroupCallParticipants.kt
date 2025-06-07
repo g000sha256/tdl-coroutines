@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.LongArray
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The list of group call participants that can send and receive encrypted call data has changed; for group calls not bound to a chat only.
@@ -28,8 +30,12 @@ import kotlin.String
  * @property groupCallId Identifier of the group call.
  * @property participantUserIds New list of group call participant user identifiers. The identifiers may be invalid or the corresponding users may be unknown. The participants must be shown in the list of group call participants even there is no information about them.
  */
+@SerialName(value = "updateGroupCallParticipants")
+@Serializable
 public class UpdateGroupCallParticipants public constructor(
+    @SerialName(value = "group_call_id")
     public val groupCallId: Int,
+    @SerialName(value = "participant_user_ids")
     public val participantUserIds: LongArray,
 ) : Update() {
     override fun equals(other: Any?): Boolean {

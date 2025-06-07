@@ -20,10 +20,14 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The user must choose messages to report and repeat the reportChat request with the chosen messages.
  */
+@SerialName(value = "reportChatResultMessagesRequired")
+@Serializable
 public class ReportChatResultMessagesRequired public constructor() : ReportChatResult() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

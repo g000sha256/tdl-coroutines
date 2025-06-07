@@ -21,6 +21,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The link contains a request of Telegram passport data. Call getPassportAuthorizationForm with the given parameters to process the link if the link was received from outside of the application; otherwise, ignore it.
@@ -31,11 +33,18 @@ import kotlin.String
  * @property nonce Unique request identifier provided by the service.
  * @property callbackUrl An HTTP URL to open once the request is finished, canceled, or failed with the parameters tgPassport=success, tgPassport=cancel, or tgPassport=error&amp;error=... respectively. If empty, then onActivityResult method must be used to return response on Android, or the link tgbot{botUserId}://passport/success or tgbot{botUserId}://passport/cancel must be opened otherwise.
  */
+@SerialName(value = "internalLinkTypePassportDataRequest")
+@Serializable
 public class InternalLinkTypePassportDataRequest public constructor(
+    @SerialName(value = "bot_user_id")
     public val botUserId: Long,
+    @SerialName(value = "scope")
     public val scope: String,
+    @SerialName(value = "public_key")
     public val publicKey: String,
+    @SerialName(value = "nonce")
     public val nonce: String,
+    @SerialName(value = "callback_url")
     public val callbackUrl: String,
 ) : InternalLinkType() {
     override fun equals(other: Any?): Boolean {
