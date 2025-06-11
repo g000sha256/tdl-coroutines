@@ -10,7 +10,7 @@ internal class Client {
         clientIds: IntArray,
         requestIds: LongArray,
         responses: Array<TdApi.Object?>,
-        timeoutInSeconds: Double
+        timeoutInSeconds: Double,
     ): Int
 
     external fun nativeClientExecute(request: TdApi.Function<*>): TdApi.Object
