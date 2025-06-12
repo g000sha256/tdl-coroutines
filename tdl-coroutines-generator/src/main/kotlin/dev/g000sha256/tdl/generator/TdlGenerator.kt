@@ -76,23 +76,20 @@ public fun main() {
 
     val objectClassDeclarations = compilationUnit
         .findAll(ClassOrInterfaceDeclaration::class.java)
-        .also { check(value = it.size == 2796) { "${it.size} != 2796" } }
         .filter { it.nameAsString != "TdApi" }
-        .also { check(value = it.size == 2795) { "${it.size} != 2795" } }
         .filter { it.extends(className = "Object") }
-        .also { check(value = it.size == 2794) { "${it.size} != 2794" } }
 
     val allDtoClassDeclarations = objectClassDeclarations
         .filter { it.nameAsString != "Function" && !it.extends(className = "Function") }
-        .also { check(value = it.size == 1938) { "${it.size} != 1938" } }
+        .also { println("DTOs: ${it.size}") }
 
     val functionClassDeclarations = objectClassDeclarations
         .filter { it.extends(className = "Function") }
-        .also { check(value = it.size == 855) { "${it.size} != 855" } }
+        .also { println("Functions: ${it.size}") }
 
     val updateDtoClassDeclarations = allDtoClassDeclarations
         .filter { it.extends(className = "Update") }
-        .also { check(value = it.size == 157) { "${it.size} != 157" } }
+        .also { println("Updates: ${it.size}") }
 
     check(value = allDtoClassDeclarations.size + functionClassDeclarations.size + 1 == objectClassDeclarations.size)
 
@@ -758,7 +755,7 @@ private fun writeTdApi(compilationUnit: CompilationUnit) {
                                             propertySpec = PropertySpec
                                                 .builder(name = "VERSION", type = STRING)
                                                 .addModifier(modifier = KModifier.CONST)
-                                                .initializer(format = "\"1.8.49\"") // TODO
+                                                .initializer(format = "\"1.8.50\"") // TODO
                                                 .build()
                                         )
                                         .build()

@@ -1,0 +1,73 @@
+name: Build and commit
+
+on:
+  push:
+    branches:
+      - update-td
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          lfs: true
+          submodules: true
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          java-version: 17
+          distribution: corretto
+
+      - name: Install dependencies
+        run: sudo apt-get install clang cmake gperf php
+
+      - name: Check environment
+        run: |
+          cd td/example/android
+          ./check-environment.sh
+
+      - name: Fetch Android SDK
+        run: |
+          cd td/example/android
+          ./fetch-sdk.sh
+
+      - name: Build OpenSSL
+        run: |
+          cd td/example/android
+          ./build-openssl.sh
+
+      - name: Build TDLib
+        run: |
+          cd td/example/android
+          ./build-tdlib.sh
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: 8.14.1
+          cache-disabled: false
+
+      - name: Assemble generator
+        run: ./gradlew tdl-coroutines-generator:assemble
+
+      - name: Run generator
+        run: ./gradlew tdl-coroutines-generator:run
+
+      - name: Assemble library
+        run: ./gradlew tdl-coroutines:assemble
+
+      - name: Assemble example
+        run: ./gradlew tdl-coroutines-example:assemble
+
+      - name: Commit and push changes
+        uses: EndBug/add-and-commit@v9
+        with:
+          author_name: Georgii Ippolitov
+          author_email: detmmpmznb@g000sha256.dev
+          message: "TDLib changes [skip ci]"
