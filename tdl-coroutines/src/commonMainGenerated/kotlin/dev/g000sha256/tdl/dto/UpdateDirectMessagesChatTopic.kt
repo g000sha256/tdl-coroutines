@@ -22,9 +22,13 @@ import kotlin.Int
 import kotlin.String
 
 /**
- * The message is from history of a forum topic.
+ * Basic information about a topic in a channel direct messages chat administered by the current user has changed. This update is guaranteed to come before the topic identifier is returned to the application.
+ *
+ * @property topic New data about the topic.
  */
-public class MessageSourceForumTopicHistory public constructor() : MessageSource() {
+public class UpdateDirectMessagesChatTopic public constructor(
+    public val topic: DirectMessagesChatTopic,
+) : Update() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true
@@ -32,14 +36,26 @@ public class MessageSourceForumTopicHistory public constructor() : MessageSource
         if (other == null) {
             return false
         }
-        return this::class == other::class
+        if (other::class != this::class) {
+            return false
+        }
+        other as UpdateDirectMessagesChatTopic
+        return other.topic == topic
     }
 
     override fun hashCode(): Int {
-        return this::class.hashCode()
+        var hashCode = this::class.hashCode()
+        hashCode = 31 * hashCode + topic.hashCode()
+        return hashCode
     }
 
     override fun toString(): String {
-        return "MessageSourceForumTopicHistory()"
+        return buildString {
+            append("UpdateDirectMessagesChatTopic")
+            append("(")
+            append("topic=")
+            append(topic)
+            append(")")
+        }
     }
 }

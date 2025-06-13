@@ -27,6 +27,7 @@ import kotlin.String
  *
  * @property gift The gift.
  * @property senderId Sender of the gift; may be null for anonymous gifts.
+ * @property receiverId Receiver of the gift.
  * @property receivedGiftId Unique identifier of the received gift for the current user; only for the receiver of the gift.
  * @property isUpgrade True, if the gift was obtained by upgrading of a previously received gift; otherwise, this is a transferred or resold gift.
  * @property isSaved True, if the gift is displayed on the user's or the channel's profile page; only for the receiver of the gift.
@@ -41,6 +42,7 @@ import kotlin.String
 public class MessageUpgradedGift public constructor(
     public val gift: UpgradedGift,
     public val senderId: MessageSender?,
+    public val receiverId: MessageSender,
     public val receivedGiftId: String,
     public val isUpgrade: Boolean,
     public val isSaved: Boolean,
@@ -67,6 +69,9 @@ public class MessageUpgradedGift public constructor(
             return false
         }
         if (other.senderId != senderId) {
+            return false
+        }
+        if (other.receiverId != receiverId) {
             return false
         }
         if (other.receivedGiftId != receivedGiftId) {
@@ -103,6 +108,7 @@ public class MessageUpgradedGift public constructor(
         var hashCode = this::class.hashCode()
         hashCode = 31 * hashCode + gift.hashCode()
         hashCode = 31 * hashCode + senderId.hashCode()
+        hashCode = 31 * hashCode + receiverId.hashCode()
         hashCode = 31 * hashCode + receivedGiftId.hashCode()
         hashCode = 31 * hashCode + isUpgrade.hashCode()
         hashCode = 31 * hashCode + isSaved.hashCode()
@@ -125,6 +131,9 @@ public class MessageUpgradedGift public constructor(
             append(", ")
             append("senderId=")
             append(senderId)
+            append(", ")
+            append("receiverId=")
+            append(receiverId)
             append(", ")
             append("receivedGiftId=")
             append(receivedGiftId)

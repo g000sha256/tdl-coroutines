@@ -26,11 +26,13 @@ import kotlin.String
  *
  * @property gift The gift.
  * @property senderId Sender of the gift.
+ * @property receiverId Receiver of the gift.
  * @property isUpgrade True, if the gift was obtained by upgrading of a previously received gift; otherwise, this is a transferred or resold gift.
  */
 public class MessageRefundedUpgradedGift public constructor(
     public val gift: Gift,
     public val senderId: MessageSender,
+    public val receiverId: MessageSender,
     public val isUpgrade: Boolean,
 ) : MessageContent() {
     override fun equals(other: Any?): Boolean {
@@ -50,6 +52,9 @@ public class MessageRefundedUpgradedGift public constructor(
         if (other.senderId != senderId) {
             return false
         }
+        if (other.receiverId != receiverId) {
+            return false
+        }
         return other.isUpgrade == isUpgrade
     }
 
@@ -57,6 +62,7 @@ public class MessageRefundedUpgradedGift public constructor(
         var hashCode = this::class.hashCode()
         hashCode = 31 * hashCode + gift.hashCode()
         hashCode = 31 * hashCode + senderId.hashCode()
+        hashCode = 31 * hashCode + receiverId.hashCode()
         hashCode = 31 * hashCode + isUpgrade.hashCode()
         return hashCode
     }
@@ -70,6 +76,9 @@ public class MessageRefundedUpgradedGift public constructor(
             append(", ")
             append("senderId=")
             append(senderId)
+            append(", ")
+            append("receiverId=")
+            append(receiverId)
             append(", ")
             append("isUpgrade=")
             append(isUpgrade)

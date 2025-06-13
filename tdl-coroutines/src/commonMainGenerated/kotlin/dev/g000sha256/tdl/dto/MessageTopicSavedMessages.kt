@@ -19,12 +19,17 @@ package dev.g000sha256.tdl.dto
 import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
+import kotlin.Long
 import kotlin.String
 
 /**
- * The message is from history of a forum topic.
+ * A topic in Saved Messages chat.
+ *
+ * @property savedMessagesTopicId Unique identifier of the Saved Messages topic.
  */
-public class MessageSourceForumTopicHistory public constructor() : MessageSource() {
+public class MessageTopicSavedMessages public constructor(
+    public val savedMessagesTopicId: Long,
+) : MessageTopic() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true
@@ -32,14 +37,26 @@ public class MessageSourceForumTopicHistory public constructor() : MessageSource
         if (other == null) {
             return false
         }
-        return this::class == other::class
+        if (other::class != this::class) {
+            return false
+        }
+        other as MessageTopicSavedMessages
+        return other.savedMessagesTopicId == savedMessagesTopicId
     }
 
     override fun hashCode(): Int {
-        return this::class.hashCode()
+        var hashCode = this::class.hashCode()
+        hashCode = 31 * hashCode + savedMessagesTopicId.hashCode()
+        return hashCode
     }
 
     override fun toString(): String {
-        return "MessageSourceForumTopicHistory()"
+        return buildString {
+            append("MessageTopicSavedMessages")
+            append("(")
+            append("savedMessagesTopicId=")
+            append(savedMessagesTopicId)
+            append(")")
+        }
     }
 }

@@ -22,7 +22,7 @@ import kotlin.Int
 import kotlin.String
 
 /**
- * The message is from a message thread history.
+ * The message is from history of a message thread.
  */
 public class MessageSourceMessageThreadHistory public constructor() : MessageSource() {
     override fun equals(other: Any?): Boolean {

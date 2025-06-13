@@ -19,16 +19,21 @@ package dev.g000sha256.tdl.dto
 import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
+import kotlin.Long
 import kotlin.String
 
 /**
- * The code is re-sent, because device verification has failed.
+ * Number of messages in a topic has changed; for Saved Messages and channel direct messages chat topics only.
  *
- * @property errorMessage Cause of the verification failure, for example, &quot;PLAY_SERVICES_NOT_AVAILABLE&quot;, &quot;APNS_RECEIVE_TIMEOUT&quot;, or &quot;APNS_INIT_FAILED&quot;.
+ * @property chatId Identifier of the chat in topic of which the number of messages has changed.
+ * @property topicId Identifier of the topic.
+ * @property messageCount Approximate number of messages in the topics.
  */
-public class ResendCodeReasonVerificationFailed public constructor(
-    public val errorMessage: String,
-) : ResendCodeReason() {
+public class UpdateTopicMessageCount public constructor(
+    public val chatId: Long,
+    public val topicId: MessageTopic,
+    public val messageCount: Int,
+) : Update() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true
@@ -39,22 +44,36 @@ public class ResendCodeReasonVerificationFailed public constructor(
         if (other::class != this::class) {
             return false
         }
-        other as ResendCodeReasonVerificationFailed
-        return other.errorMessage == errorMessage
+        other as UpdateTopicMessageCount
+        if (other.chatId != chatId) {
+            return false
+        }
+        if (other.topicId != topicId) {
+            return false
+        }
+        return other.messageCount == messageCount
     }
 
     override fun hashCode(): Int {
         var hashCode = this::class.hashCode()
-        hashCode = 31 * hashCode + errorMessage.hashCode()
+        hashCode = 31 * hashCode + chatId.hashCode()
+        hashCode = 31 * hashCode + topicId.hashCode()
+        hashCode = 31 * hashCode + messageCount.hashCode()
         return hashCode
     }
 
     override fun toString(): String {
         return buildString {
-            append("ResendCodeReasonVerificationFailed")
+            append("UpdateTopicMessageCount")
             append("(")
-            append("errorMessage=")
-            append(errorMessage)
+            append("chatId=")
+            append(chatId)
+            append(", ")
+            append("topicId=")
+            append(topicId)
+            append(", ")
+            append("messageCount=")
+            append(messageCount)
             append(")")
         }
     }

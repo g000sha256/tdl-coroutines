@@ -448,6 +448,7 @@ import dev.g000sha256.tdl.dto.DeviceTokenWindowsPush
 import dev.g000sha256.tdl.dto.DiceStickers
 import dev.g000sha256.tdl.dto.DiceStickersRegular
 import dev.g000sha256.tdl.dto.DiceStickersSlotMachine
+import dev.g000sha256.tdl.dto.DirectMessagesChatTopic
 import dev.g000sha256.tdl.dto.Document
 import dev.g000sha256.tdl.dto.DownloadedFileCounts
 import dev.g000sha256.tdl.dto.DraftMessage
@@ -897,6 +898,7 @@ import dev.g000sha256.tdl.dto.MessageContent
 import dev.g000sha256.tdl.dto.MessageCopyOptions
 import dev.g000sha256.tdl.dto.MessageCustomServiceAction
 import dev.g000sha256.tdl.dto.MessageDice
+import dev.g000sha256.tdl.dto.MessageDirectMessagePriceChanged
 import dev.g000sha256.tdl.dto.MessageDocument
 import dev.g000sha256.tdl.dto.MessageEffect
 import dev.g000sha256.tdl.dto.MessageEffectType
@@ -987,6 +989,7 @@ import dev.g000sha256.tdl.dto.MessageSource
 import dev.g000sha256.tdl.dto.MessageSourceChatEventLog
 import dev.g000sha256.tdl.dto.MessageSourceChatHistory
 import dev.g000sha256.tdl.dto.MessageSourceChatList
+import dev.g000sha256.tdl.dto.MessageSourceDirectMessagesChatTopicHistory
 import dev.g000sha256.tdl.dto.MessageSourceForumTopicHistory
 import dev.g000sha256.tdl.dto.MessageSourceHistoryPreview
 import dev.g000sha256.tdl.dto.MessageSourceMessageThreadHistory
@@ -1002,6 +1005,10 @@ import dev.g000sha256.tdl.dto.MessageSuggestProfilePhoto
 import dev.g000sha256.tdl.dto.MessageSupergroupChatCreate
 import dev.g000sha256.tdl.dto.MessageText
 import dev.g000sha256.tdl.dto.MessageThreadInfo
+import dev.g000sha256.tdl.dto.MessageTopic
+import dev.g000sha256.tdl.dto.MessageTopicDirectMessages
+import dev.g000sha256.tdl.dto.MessageTopicForum
+import dev.g000sha256.tdl.dto.MessageTopicSavedMessages
 import dev.g000sha256.tdl.dto.MessageUnsupported
 import dev.g000sha256.tdl.dto.MessageUpgradedGift
 import dev.g000sha256.tdl.dto.MessageUsersShared
@@ -1782,6 +1789,7 @@ import dev.g000sha256.tdl.dto.UpdateDefaultPaidReactionType
 import dev.g000sha256.tdl.dto.UpdateDefaultReactionType
 import dev.g000sha256.tdl.dto.UpdateDeleteMessages
 import dev.g000sha256.tdl.dto.UpdateDiceEmojis
+import dev.g000sha256.tdl.dto.UpdateDirectMessagesChatTopic
 import dev.g000sha256.tdl.dto.UpdateFavoriteStickers
 import dev.g000sha256.tdl.dto.UpdateFile
 import dev.g000sha256.tdl.dto.UpdateFileAddedToDownloads
@@ -1864,6 +1872,7 @@ import dev.g000sha256.tdl.dto.UpdateSuggestedActions
 import dev.g000sha256.tdl.dto.UpdateSupergroup
 import dev.g000sha256.tdl.dto.UpdateSupergroupFullInfo
 import dev.g000sha256.tdl.dto.UpdateTermsOfService
+import dev.g000sha256.tdl.dto.UpdateTopicMessageCount
 import dev.g000sha256.tdl.dto.UpdateTrendingStickerSets
 import dev.g000sha256.tdl.dto.UpdateUnconfirmedSession
 import dev.g000sha256.tdl.dto.UpdateUnreadChatCount
@@ -8515,6 +8524,38 @@ internal class TdlMapper {
         )
     }
 
+    fun map(dto: TdApi.DirectMessagesChatTopic): DirectMessagesChatTopic {
+        return DirectMessagesChatTopic(
+            chatId = dto.chatId,
+            id = dto.id,
+            senderId = map(dto.senderId),
+            order = dto.order,
+            isMarkedAsUnread = dto.isMarkedAsUnread,
+            unreadCount = dto.unreadCount,
+            lastReadInboxMessageId = dto.lastReadInboxMessageId,
+            lastReadOutboxMessageId = dto.lastReadOutboxMessageId,
+            unreadReactionCount = dto.unreadReactionCount,
+            lastMessage = dto.lastMessage?.let { map(it) },
+            draftMessage = dto.draftMessage?.let { map(it) },
+        )
+    }
+
+    fun map(dto: DirectMessagesChatTopic): TdApi.DirectMessagesChatTopic {
+        return TdApi.DirectMessagesChatTopic(
+            chatId = dto.chatId,
+            id = dto.id,
+            senderId = map(dto.senderId),
+            order = dto.order,
+            isMarkedAsUnread = dto.isMarkedAsUnread,
+            unreadCount = dto.unreadCount,
+            lastReadInboxMessageId = dto.lastReadInboxMessageId,
+            lastReadOutboxMessageId = dto.lastReadOutboxMessageId,
+            unreadReactionCount = dto.unreadReactionCount,
+            lastMessage = dto.lastMessage?.let { map(it) },
+            draftMessage = dto.draftMessage?.let { map(it) },
+        )
+    }
+
     fun map(dto: TdApi.Document): Document {
         return Document(
             fileName = dto.fileName,
@@ -9480,6 +9521,7 @@ internal class TdlMapper {
     fun map(dto: TdApi.ForumTopicInfo): ForumTopicInfo {
         return ForumTopicInfo(
             chatId = dto.chatId,
+            forumTopicId = dto.forumTopicId,
             messageThreadId = dto.messageThreadId,
             name = dto.name,
             icon = map(dto.icon),
@@ -9495,6 +9537,7 @@ internal class TdlMapper {
     fun map(dto: ForumTopicInfo): TdApi.ForumTopicInfo {
         return TdApi.ForumTopicInfo(
             chatId = dto.chatId,
+            forumTopicId = dto.forumTopicId,
             messageThreadId = dto.messageThreadId,
             name = dto.name,
             icon = map(dto.icon),
@@ -14980,7 +15023,6 @@ internal class TdlMapper {
             canBeSaved = dto.canBeSaved,
             hasTimestampedMedia = dto.hasTimestampedMedia,
             isChannelPost = dto.isChannelPost,
-            isTopicMessage = dto.isTopicMessage,
             containsUnreadMention = dto.containsUnreadMention,
             date = dto.date,
             editDate = dto.editDate,
@@ -14991,7 +15033,7 @@ internal class TdlMapper {
             factCheck = dto.factCheck?.let { map(it) },
             replyTo = dto.replyTo?.let { map(it) },
             messageThreadId = dto.messageThreadId,
-            savedMessagesTopicId = dto.savedMessagesTopicId,
+            topicId = dto.topicId?.let { map(it) },
             selfDestructType = dto.selfDestructType?.let { map(it) },
             selfDestructIn = dto.selfDestructIn,
             autoDeleteIn = dto.autoDeleteIn,
@@ -15022,7 +15064,6 @@ internal class TdlMapper {
             canBeSaved = dto.canBeSaved,
             hasTimestampedMedia = dto.hasTimestampedMedia,
             isChannelPost = dto.isChannelPost,
-            isTopicMessage = dto.isTopicMessage,
             containsUnreadMention = dto.containsUnreadMention,
             date = dto.date,
             editDate = dto.editDate,
@@ -15033,7 +15074,7 @@ internal class TdlMapper {
             factCheck = dto.factCheck?.let { map(it) },
             replyTo = dto.replyTo?.let { map(it) },
             messageThreadId = dto.messageThreadId,
-            savedMessagesTopicId = dto.savedMessagesTopicId,
+            topicId = dto.topicId?.let { map(it) },
             selfDestructType = dto.selfDestructType?.let { map(it) },
             selfDestructIn = dto.selfDestructIn,
             autoDeleteIn = dto.autoDeleteIn,
@@ -15162,6 +15203,7 @@ internal class TdlMapper {
             is TdApi.MessageRefundedUpgradedGift -> return map(dto)
             is TdApi.MessagePaidMessagesRefunded -> return map(dto)
             is TdApi.MessagePaidMessagePriceChanged -> return map(dto)
+            is TdApi.MessageDirectMessagePriceChanged -> return map(dto)
             is TdApi.MessageContactRegistered -> return map(dto)
             is TdApi.MessageUsersShared -> return map(dto)
             is TdApi.MessageChatShared -> return map(dto)
@@ -15680,6 +15722,7 @@ internal class TdlMapper {
         return MessageGift(
             gift = map(dto.gift),
             senderId = map(dto.senderId),
+            receiverId = map(dto.receiverId),
             receivedGiftId = dto.receivedGiftId,
             text = map(dto.text),
             sellStarCount = dto.sellStarCount,
@@ -15698,6 +15741,7 @@ internal class TdlMapper {
         return MessageUpgradedGift(
             gift = map(dto.gift),
             senderId = dto.senderId?.let { map(it) },
+            receiverId = map(dto.receiverId),
             receivedGiftId = dto.receivedGiftId,
             isUpgrade = dto.isUpgrade,
             isSaved = dto.isSaved,
@@ -15715,6 +15759,7 @@ internal class TdlMapper {
         return MessageRefundedUpgradedGift(
             gift = map(dto.gift),
             senderId = map(dto.senderId),
+            receiverId = map(dto.receiverId),
             isUpgrade = dto.isUpgrade,
         )
     }
@@ -15728,6 +15773,13 @@ internal class TdlMapper {
 
     fun map(dto: TdApi.MessagePaidMessagePriceChanged): MessagePaidMessagePriceChanged {
         return MessagePaidMessagePriceChanged(
+            paidMessageStarCount = dto.paidMessageStarCount,
+        )
+    }
+
+    fun map(dto: TdApi.MessageDirectMessagePriceChanged): MessageDirectMessagePriceChanged {
+        return MessageDirectMessagePriceChanged(
+            isEnabled = dto.isEnabled,
             paidMessageStarCount = dto.paidMessageStarCount,
         )
     }
@@ -15865,6 +15917,7 @@ internal class TdlMapper {
             is MessageRefundedUpgradedGift -> return map(dto)
             is MessagePaidMessagesRefunded -> return map(dto)
             is MessagePaidMessagePriceChanged -> return map(dto)
+            is MessageDirectMessagePriceChanged -> return map(dto)
             is MessageContactRegistered -> return map(dto)
             is MessageUsersShared -> return map(dto)
             is MessageChatShared -> return map(dto)
@@ -16382,6 +16435,7 @@ internal class TdlMapper {
         return TdApi.MessageGift(
             gift = map(dto.gift),
             senderId = map(dto.senderId),
+            receiverId = map(dto.receiverId),
             receivedGiftId = dto.receivedGiftId,
             text = map(dto.text),
             sellStarCount = dto.sellStarCount,
@@ -16400,6 +16454,7 @@ internal class TdlMapper {
         return TdApi.MessageUpgradedGift(
             gift = map(dto.gift),
             senderId = dto.senderId?.let { map(it) },
+            receiverId = map(dto.receiverId),
             receivedGiftId = dto.receivedGiftId,
             isUpgrade = dto.isUpgrade,
             isSaved = dto.isSaved,
@@ -16417,6 +16472,7 @@ internal class TdlMapper {
         return TdApi.MessageRefundedUpgradedGift(
             gift = map(dto.gift),
             senderId = map(dto.senderId),
+            receiverId = map(dto.receiverId),
             isUpgrade = dto.isUpgrade,
         )
     }
@@ -16430,6 +16486,13 @@ internal class TdlMapper {
 
     fun map(dto: MessagePaidMessagePriceChanged): TdApi.MessagePaidMessagePriceChanged {
         return TdApi.MessagePaidMessagePriceChanged(
+            paidMessageStarCount = dto.paidMessageStarCount,
+        )
+    }
+
+    fun map(dto: MessageDirectMessagePriceChanged): TdApi.MessageDirectMessagePriceChanged {
+        return TdApi.MessageDirectMessagePriceChanged(
+            isEnabled = dto.isEnabled,
             paidMessageStarCount = dto.paidMessageStarCount,
         )
     }
@@ -16815,6 +16878,7 @@ internal class TdlMapper {
 
     fun map(dto: TdApi.MessageProperties): MessageProperties {
         return MessageProperties(
+            canBeCopied = dto.canBeCopied,
             canBeCopiedToSecretChat = dto.canBeCopiedToSecretChat,
             canBeDeletedOnlyForSelf = dto.canBeDeletedOnlyForSelf,
             canBeDeletedForAllUsers = dto.canBeDeletedForAllUsers,
@@ -16828,6 +16892,7 @@ internal class TdlMapper {
             canBeSharedInStory = dto.canBeSharedInStory,
             canEditMedia = dto.canEditMedia,
             canEditSchedulingState = dto.canEditSchedulingState,
+            canGetAuthor = dto.canGetAuthor,
             canGetEmbeddingCode = dto.canGetEmbeddingCode,
             canGetLink = dto.canGetLink,
             canGetMediaTimestampLinks = dto.canGetMediaTimestampLinks,
@@ -16846,6 +16911,7 @@ internal class TdlMapper {
 
     fun map(dto: MessageProperties): TdApi.MessageProperties {
         return TdApi.MessageProperties(
+            canBeCopied = dto.canBeCopied,
             canBeCopiedToSecretChat = dto.canBeCopiedToSecretChat,
             canBeDeletedOnlyForSelf = dto.canBeDeletedOnlyForSelf,
             canBeDeletedForAllUsers = dto.canBeDeletedForAllUsers,
@@ -16859,6 +16925,7 @@ internal class TdlMapper {
             canBeSharedInStory = dto.canBeSharedInStory,
             canEditMedia = dto.canEditMedia,
             canEditSchedulingState = dto.canEditSchedulingState,
+            canGetAuthor = dto.canGetAuthor,
             canGetEmbeddingCode = dto.canGetEmbeddingCode,
             canGetLink = dto.canGetLink,
             canGetMediaTimestampLinks = dto.canGetMediaTimestampLinks,
@@ -17135,6 +17202,7 @@ internal class TdlMapper {
 
     fun map(dto: TdApi.MessageSendOptions): MessageSendOptions {
         return MessageSendOptions(
+            directMessagesChatTopicId = dto.directMessagesChatTopicId,
             disableNotification = dto.disableNotification,
             fromBackground = dto.fromBackground,
             protectContent = dto.protectContent,
@@ -17150,6 +17218,7 @@ internal class TdlMapper {
 
     fun map(dto: MessageSendOptions): TdApi.MessageSendOptions {
         return TdApi.MessageSendOptions(
+            directMessagesChatTopicId = dto.directMessagesChatTopicId,
             disableNotification = dto.disableNotification,
             fromBackground = dto.fromBackground,
             protectContent = dto.protectContent,
@@ -17272,6 +17341,7 @@ internal class TdlMapper {
             is TdApi.MessageSourceChatHistory -> return map(dto)
             is TdApi.MessageSourceMessageThreadHistory -> return map(dto)
             is TdApi.MessageSourceForumTopicHistory -> return map(dto)
+            is TdApi.MessageSourceDirectMessagesChatTopicHistory -> return map(dto)
             is TdApi.MessageSourceHistoryPreview -> return map(dto)
             is TdApi.MessageSourceChatList -> return map(dto)
             is TdApi.MessageSourceSearch -> return map(dto)
@@ -17293,6 +17363,10 @@ internal class TdlMapper {
 
     fun map(dto: TdApi.MessageSourceForumTopicHistory): MessageSourceForumTopicHistory {
         return MessageSourceForumTopicHistory()
+    }
+
+    fun map(dto: TdApi.MessageSourceDirectMessagesChatTopicHistory): MessageSourceDirectMessagesChatTopicHistory {
+        return MessageSourceDirectMessagesChatTopicHistory()
     }
 
     fun map(dto: TdApi.MessageSourceHistoryPreview): MessageSourceHistoryPreview {
@@ -17328,6 +17402,7 @@ internal class TdlMapper {
             is MessageSourceChatHistory -> return map(dto)
             is MessageSourceMessageThreadHistory -> return map(dto)
             is MessageSourceForumTopicHistory -> return map(dto)
+            is MessageSourceDirectMessagesChatTopicHistory -> return map(dto)
             is MessageSourceHistoryPreview -> return map(dto)
             is MessageSourceChatList -> return map(dto)
             is MessageSourceSearch -> return map(dto)
@@ -17348,6 +17423,10 @@ internal class TdlMapper {
 
     fun map(dto: MessageSourceForumTopicHistory): TdApi.MessageSourceForumTopicHistory {
         return TdApi.MessageSourceForumTopicHistory()
+    }
+
+    fun map(dto: MessageSourceDirectMessagesChatTopicHistory): TdApi.MessageSourceDirectMessagesChatTopicHistory {
+        return TdApi.MessageSourceDirectMessagesChatTopicHistory()
     }
 
     fun map(dto: MessageSourceHistoryPreview): TdApi.MessageSourceHistoryPreview {
@@ -17427,6 +17506,59 @@ internal class TdlMapper {
             unreadMessageCount = dto.unreadMessageCount,
             messages = dto.messages.mapArray { map(it) },
             draftMessage = dto.draftMessage?.let { map(it) },
+        )
+    }
+
+    fun map(dto: TdApi.MessageTopic): MessageTopic {
+        when (dto) {
+            is TdApi.MessageTopicForum -> return map(dto)
+            is TdApi.MessageTopicDirectMessages -> return map(dto)
+            is TdApi.MessageTopicSavedMessages -> return map(dto)
+            else -> error("Unknown DTO class type (${dto.javaClass})")
+        }
+    }
+
+    fun map(dto: TdApi.MessageTopicForum): MessageTopicForum {
+        return MessageTopicForum(
+            forumTopicId = dto.forumTopicId,
+        )
+    }
+
+    fun map(dto: TdApi.MessageTopicDirectMessages): MessageTopicDirectMessages {
+        return MessageTopicDirectMessages(
+            directMessagesChatTopicId = dto.directMessagesChatTopicId,
+        )
+    }
+
+    fun map(dto: TdApi.MessageTopicSavedMessages): MessageTopicSavedMessages {
+        return MessageTopicSavedMessages(
+            savedMessagesTopicId = dto.savedMessagesTopicId,
+        )
+    }
+
+    fun map(dto: MessageTopic): TdApi.MessageTopic {
+        when (dto) {
+            is MessageTopicForum -> return map(dto)
+            is MessageTopicDirectMessages -> return map(dto)
+            is MessageTopicSavedMessages -> return map(dto)
+        }
+    }
+
+    fun map(dto: MessageTopicForum): TdApi.MessageTopicForum {
+        return TdApi.MessageTopicForum(
+            forumTopicId = dto.forumTopicId,
+        )
+    }
+
+    fun map(dto: MessageTopicDirectMessages): TdApi.MessageTopicDirectMessages {
+        return TdApi.MessageTopicDirectMessages(
+            directMessagesChatTopicId = dto.directMessagesChatTopicId,
+        )
+    }
+
+    fun map(dto: MessageTopicSavedMessages): TdApi.MessageTopicSavedMessages {
+        return TdApi.MessageTopicSavedMessages(
+            savedMessagesTopicId = dto.savedMessagesTopicId,
         )
     }
 
@@ -25907,7 +26039,11 @@ internal class TdlMapper {
             isChannel = dto.isChannel,
             isBroadcastGroup = dto.isBroadcastGroup,
             isForum = dto.isForum,
+            isDirectMessagesGroup = dto.isDirectMessagesGroup,
+            isAdministeredDirectMessagesGroup = dto.isAdministeredDirectMessagesGroup,
             verificationStatus = dto.verificationStatus?.let { map(it) },
+            hasDirectMessagesGroup = dto.hasDirectMessagesGroup,
+            hasForumTabs = dto.hasForumTabs,
             hasSensitiveContent = dto.hasSensitiveContent,
             restrictionReason = dto.restrictionReason,
             paidMessageStarCount = dto.paidMessageStarCount,
@@ -25935,7 +26071,11 @@ internal class TdlMapper {
             isChannel = dto.isChannel,
             isBroadcastGroup = dto.isBroadcastGroup,
             isForum = dto.isForum,
+            isDirectMessagesGroup = dto.isDirectMessagesGroup,
+            isAdministeredDirectMessagesGroup = dto.isAdministeredDirectMessagesGroup,
             verificationStatus = dto.verificationStatus?.let { map(it) },
+            hasDirectMessagesGroup = dto.hasDirectMessagesGroup,
+            hasForumTabs = dto.hasForumTabs,
             hasSensitiveContent = dto.hasSensitiveContent,
             restrictionReason = dto.restrictionReason,
             paidMessageStarCount = dto.paidMessageStarCount,
@@ -25953,6 +26093,7 @@ internal class TdlMapper {
             restrictedCount = dto.restrictedCount,
             bannedCount = dto.bannedCount,
             linkedChatId = dto.linkedChatId,
+            directMessagesChatId = dto.directMessagesChatId,
             slowModeDelay = dto.slowModeDelay,
             slowModeDelayExpiresIn = dto.slowModeDelayExpiresIn,
             canEnablePaidMessages = dto.canEnablePaidMessages,
@@ -25995,6 +26136,7 @@ internal class TdlMapper {
             restrictedCount = dto.restrictedCount,
             bannedCount = dto.bannedCount,
             linkedChatId = dto.linkedChatId,
+            directMessagesChatId = dto.directMessagesChatId,
             slowModeDelay = dto.slowModeDelay,
             slowModeDelayExpiresIn = dto.slowModeDelayExpiresIn,
             canEnablePaidMessages = dto.canEnablePaidMessages,
@@ -27292,6 +27434,8 @@ internal class TdlMapper {
             is TdApi.UpdateChatOnlineMemberCount -> return map(dto)
             is TdApi.UpdateSavedMessagesTopic -> return map(dto)
             is TdApi.UpdateSavedMessagesTopicCount -> return map(dto)
+            is TdApi.UpdateDirectMessagesChatTopic -> return map(dto)
+            is TdApi.UpdateTopicMessageCount -> return map(dto)
             is TdApi.UpdateQuickReplyShortcut -> return map(dto)
             is TdApi.UpdateQuickReplyShortcutDeleted -> return map(dto)
             is TdApi.UpdateQuickReplyShortcuts -> return map(dto)
@@ -27777,6 +27921,20 @@ internal class TdlMapper {
         )
     }
 
+    fun map(dto: TdApi.UpdateDirectMessagesChatTopic): UpdateDirectMessagesChatTopic {
+        return UpdateDirectMessagesChatTopic(
+            topic = map(dto.topic),
+        )
+    }
+
+    fun map(dto: TdApi.UpdateTopicMessageCount): UpdateTopicMessageCount {
+        return UpdateTopicMessageCount(
+            chatId = dto.chatId,
+            topicId = map(dto.topicId),
+            messageCount = dto.messageCount,
+        )
+    }
+
     fun map(dto: TdApi.UpdateQuickReplyShortcut): UpdateQuickReplyShortcut {
         return UpdateQuickReplyShortcut(
             shortcut = map(dto.shortcut),
@@ -27815,6 +27973,8 @@ internal class TdlMapper {
             isPinned = dto.isPinned,
             lastReadInboxMessageId = dto.lastReadInboxMessageId,
             lastReadOutboxMessageId = dto.lastReadOutboxMessageId,
+            unreadMentionCount = dto.unreadMentionCount,
+            unreadReactionCount = dto.unreadReactionCount,
             notificationSettings = map(dto.notificationSettings),
         )
     }
@@ -28606,6 +28766,8 @@ internal class TdlMapper {
             is UpdateChatOnlineMemberCount -> return map(dto)
             is UpdateSavedMessagesTopic -> return map(dto)
             is UpdateSavedMessagesTopicCount -> return map(dto)
+            is UpdateDirectMessagesChatTopic -> return map(dto)
+            is UpdateTopicMessageCount -> return map(dto)
             is UpdateQuickReplyShortcut -> return map(dto)
             is UpdateQuickReplyShortcutDeleted -> return map(dto)
             is UpdateQuickReplyShortcuts -> return map(dto)
@@ -29090,6 +29252,20 @@ internal class TdlMapper {
         )
     }
 
+    fun map(dto: UpdateDirectMessagesChatTopic): TdApi.UpdateDirectMessagesChatTopic {
+        return TdApi.UpdateDirectMessagesChatTopic(
+            topic = map(dto.topic),
+        )
+    }
+
+    fun map(dto: UpdateTopicMessageCount): TdApi.UpdateTopicMessageCount {
+        return TdApi.UpdateTopicMessageCount(
+            chatId = dto.chatId,
+            topicId = map(dto.topicId),
+            messageCount = dto.messageCount,
+        )
+    }
+
     fun map(dto: UpdateQuickReplyShortcut): TdApi.UpdateQuickReplyShortcut {
         return TdApi.UpdateQuickReplyShortcut(
             shortcut = map(dto.shortcut),
@@ -29128,6 +29304,8 @@ internal class TdlMapper {
             isPinned = dto.isPinned,
             lastReadInboxMessageId = dto.lastReadInboxMessageId,
             lastReadOutboxMessageId = dto.lastReadOutboxMessageId,
+            unreadMentionCount = dto.unreadMentionCount,
+            unreadReactionCount = dto.unreadReactionCount,
             notificationSettings = map(dto.notificationSettings),
         )
     }

@@ -22,7 +22,7 @@ import kotlin.Int
 import kotlin.String
 
 /**
- * The link is a link to a group call that isn't bound to a chat. Call joinGroupCall with the given inviteLink.
+ * The link is a link to a group call that isn't bound to a chat. Use getGroupCallParticipants to get the list of group call participants and show them on the join group call screen. Call joinGroupCall with the given inviteLink to join the call.
  *
  * @property inviteLink Internal representation of the invite link.
  */

@@ -129,6 +129,7 @@ import dev.g000sha256.tdl.dto.Data
 import dev.g000sha256.tdl.dto.DatabaseStatistics
 import dev.g000sha256.tdl.dto.DeepLinkInfo
 import dev.g000sha256.tdl.dto.DeviceToken
+import dev.g000sha256.tdl.dto.DirectMessagesChatTopic
 import dev.g000sha256.tdl.dto.DraftMessage
 import dev.g000sha256.tdl.dto.EmailAddressAuthentication
 import dev.g000sha256.tdl.dto.EmailAddressAuthenticationCodeInfo
@@ -231,6 +232,7 @@ import dev.g000sha256.tdl.dto.MessageSenders
 import dev.g000sha256.tdl.dto.MessageSource
 import dev.g000sha256.tdl.dto.MessageStatistics
 import dev.g000sha256.tdl.dto.MessageThreadInfo
+import dev.g000sha256.tdl.dto.MessageTopic
 import dev.g000sha256.tdl.dto.MessageViewers
 import dev.g000sha256.tdl.dto.Messages
 import dev.g000sha256.tdl.dto.NetworkStatistics
@@ -418,6 +420,7 @@ import dev.g000sha256.tdl.dto.UpdateDefaultPaidReactionType
 import dev.g000sha256.tdl.dto.UpdateDefaultReactionType
 import dev.g000sha256.tdl.dto.UpdateDeleteMessages
 import dev.g000sha256.tdl.dto.UpdateDiceEmojis
+import dev.g000sha256.tdl.dto.UpdateDirectMessagesChatTopic
 import dev.g000sha256.tdl.dto.UpdateFavoriteStickers
 import dev.g000sha256.tdl.dto.UpdateFile
 import dev.g000sha256.tdl.dto.UpdateFileAddedToDownloads
@@ -500,6 +503,7 @@ import dev.g000sha256.tdl.dto.UpdateSuggestedActions
 import dev.g000sha256.tdl.dto.UpdateSupergroup
 import dev.g000sha256.tdl.dto.UpdateSupergroupFullInfo
 import dev.g000sha256.tdl.dto.UpdateTermsOfService
+import dev.g000sha256.tdl.dto.UpdateTopicMessageCount
 import dev.g000sha256.tdl.dto.UpdateTrendingStickerSets
 import dev.g000sha256.tdl.dto.UpdateUnconfirmedSession
 import dev.g000sha256.tdl.dto.UpdateUnreadChatCount
@@ -803,6 +807,16 @@ public abstract class TdlClient internal constructor() {
      * Number of Saved Messages topics has changed.
      */
     public abstract val savedMessagesTopicCountUpdates: Flow<UpdateSavedMessagesTopicCount>
+
+    /**
+     * Basic information about a topic in a channel direct messages chat administered by the current user has changed. This update is guaranteed to come before the topic identifier is returned to the application.
+     */
+    public abstract val directMessagesChatTopicUpdates: Flow<UpdateDirectMessagesChatTopic>
+
+    /**
+     * Number of messages in a topic has changed; for Saved Messages and channel direct messages chat topics only.
+     */
+    public abstract val topicMessageCountUpdates: Flow<UpdateTopicMessageCount>
 
     /**
      * Basic information about a quick reply shortcut has changed. This update is guaranteed to come before the quick shortcut name is returned to the application.
@@ -1442,7 +1456,7 @@ public abstract class TdlClient internal constructor() {
     /**
      * Adds a local message to a chat. The message is persistent across application restarts only if the message database is used. Returns the added message.
      *
-     * @param chatId Target chat.
+     * @param chatId Target chat; channel direct messages chats aren't supported.
      * @param senderId Identifier of the sender of the message.
      * @param replyTo Information about the message or story to be replied; pass null if none.
      * @param disableNotification Pass true to disable notification for the message.
@@ -2511,6 +2525,29 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun deleteDefaultBackground(forDarkTheme: Boolean): TdlResult<Ok>
 
     /**
+     * Deletes all messages in the topic in a channel direct messages chat administered by the current user.
+     *
+     * @param chatId Chat identifier of the channel direct messages chat.
+     * @param topicId Identifier of the topic which messages will be deleted.
+     */
+    public abstract suspend fun deleteDirectMessagesChatTopicHistory(chatId: Long, topicId: Long): TdlResult<Ok>
+
+    /**
+     * Deletes all messages between the specified dates in the topic in a channel direct messages chat administered by the current user. Messages sent in the last 30 seconds will not be deleted.
+     *
+     * @param chatId Chat identifier of the channel direct messages chat.
+     * @param topicId Identifier of the topic which messages will be deleted.
+     * @param minDate The minimum date of the messages to delete.
+     * @param maxDate The maximum date of the messages to delete.
+     */
+    public abstract suspend fun deleteDirectMessagesChatTopicMessagesByDate(
+        chatId: Long,
+        topicId: Long,
+        minDate: Int,
+        maxDate: Int,
+    ): TdlResult<Ok>
+
+    /**
      * Deletes a file from the TDLib file cache.
      *
      * @param fileId Identifier of the file to delete.
@@ -3214,7 +3251,7 @@ public abstract class TdlClient internal constructor() {
      * @param fromChatId Identifier of the chat from which to forward messages.
      * @param messageIds Identifiers of the messages to forward. Message identifiers must be in a strictly increasing order. At most 100 messages can be forwarded simultaneously. A message can be forwarded only if messageProperties.canBeForwarded.
      * @param options Options to be used to send the messages; pass null to use default options.
-     * @param sendCopy Pass true to copy content of the messages without reference to the original sender. Always true if the messages are forwarded to a secret chat or are local. Use messageProperties.canBeSaved and messageProperties.canBeCopiedToSecretChat to check whether the message is suitable.
+     * @param sendCopy Pass true to copy content of the messages without reference to the original sender. Always true if the messages are forwarded to a secret chat or are local. Use messageProperties.canBeCopied and messageProperties.canBeCopiedToSecretChat to check whether the message is suitable.
      * @param removeCaption Pass true to remove media captions of message copies. Ignored if sendCopy is false.
      */
     public abstract suspend fun forwardMessages(
@@ -3765,47 +3802,45 @@ public abstract class TdlClient internal constructor() {
      * Returns information about the next messages of the specified type in the chat split by days. Returns the results in reverse chronological order. Can return partial result for the last returned day. Behavior of this method depends on the value of the option &quot;utc_time_offset&quot;.
      *
      * @param chatId Identifier of the chat in which to return information about messages.
+     * @param topicId Pass topic identifier to get the result only in specific topic; pass null to get the result in all topics; forum topics aren't supported.
      * @param filter Filter for message content. Filters searchMessagesFilterEmpty, searchMessagesFilterMention, searchMessagesFilterUnreadMention, and searchMessagesFilterUnreadReaction are unsupported in this function.
      * @param fromMessageId The message identifier from which to return information about messages; use 0 to get results from the last message.
-     * @param savedMessagesTopicId If not0, only messages in the specified Saved Messages topic will be considered; pass 0 to consider all messages, or for chats other than Saved Messages.
      */
     public abstract suspend fun getChatMessageCalendar(
         chatId: Long,
+        topicId: MessageTopic? = null,
         filter: SearchMessagesFilter,
         fromMessageId: Long,
-        savedMessagesTopicId: Long,
     ): TdlResult<MessageCalendar>
 
     /**
-     * Returns approximate number of messages of the specified type in the chat.
+     * Returns approximate number of messages of the specified type in the chat or its topic.
      *
      * @param chatId Identifier of the chat in which to count messages.
+     * @param topicId Pass topic identifier to get number of messages only in specific topic; pass null to get number of messages in all topics.
      * @param filter Filter for message content; searchMessagesFilterEmpty is unsupported in this function.
-     * @param savedMessagesTopicId If not 0, only messages in the specified Saved Messages topic will be counted; pass 0 to count all messages, or for chats other than Saved Messages.
      * @param returnLocal Pass true to get the number of messages without sending network requests, or -1 if the number of messages is unknown locally.
      */
     public abstract suspend fun getChatMessageCount(
         chatId: Long,
+        topicId: MessageTopic? = null,
         filter: SearchMessagesFilter,
-        savedMessagesTopicId: Long,
         returnLocal: Boolean,
     ): TdlResult<Count>
 
     /**
-     * Returns approximate 1-based position of a message among messages, which can be found by the specified filter in the chat. Cannot be used in secret chats.
+     * Returns approximate 1-based position of a message among messages, which can be found by the specified filter in the chat and topic. Cannot be used in secret chats.
      *
      * @param chatId Identifier of the chat in which to find message position.
-     * @param messageId Message identifier.
+     * @param topicId Pass topic identifier to get position among messages only in specific topic; pass null to get position among all chat messages.
      * @param filter Filter for message content; searchMessagesFilterEmpty, searchMessagesFilterUnreadMention, searchMessagesFilterUnreadReaction, and searchMessagesFilterFailedToSend are unsupported in this function.
-     * @param messageThreadId If not 0, only messages in the specified thread will be considered; supergroups only.
-     * @param savedMessagesTopicId If not 0, only messages in the specified Saved Messages topic will be considered; pass 0 to consider all relevant messages, or for chats other than Saved Messages.
+     * @param messageId Message identifier.
      */
     public abstract suspend fun getChatMessagePosition(
         chatId: Long,
-        messageId: Long,
+        topicId: MessageTopic? = null,
         filter: SearchMessagesFilter,
-        messageThreadId: Long,
-        savedMessagesTopicId: Long,
+        messageId: Long,
     ): TdlResult<Count>
 
     /**
@@ -4100,6 +4135,44 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun getDefaultProfilePhotoCustomEmojiStickers(): TdlResult<Stickers>
 
     /**
+     * Returns information about the topic in a channel direct messages chat administered by the current user.
+     *
+     * @param chatId Chat identifier of the channel direct messages chat.
+     * @param topicId Identifier of the topic to get.
+     */
+    public abstract suspend fun getDirectMessagesChatTopic(chatId: Long, topicId: Long): TdlResult<DirectMessagesChatTopic>
+
+    /**
+     * Returns messages in the topic in a channel direct messages chat administered by the current user. The messages are returned in reverse chronological order (i.e., in order of decreasing messageId).
+     *
+     * @param chatId Chat identifier of the channel direct messages chat.
+     * @param topicId Identifier of the topic which messages will be fetched.
+     * @param fromMessageId Identifier of the message starting from which messages must be fetched; use 0 to get results from the last message.
+     * @param offset Specify 0 to get results from exactly the message fromMessageId or a negative offset up to 99 to get additionally some newer messages.
+     * @param limit The maximum number of messages to be returned; must be positive and can't be greater than 100. If the offset is negative, the limit must be greater than or equal to -offset. For optimal performance, the number of returned messages is chosen by TDLib and can be smaller than the specified limit.
+     */
+    public abstract suspend fun getDirectMessagesChatTopicHistory(
+        chatId: Long,
+        topicId: Long,
+        fromMessageId: Long,
+        offset: Int,
+        limit: Int,
+    ): TdlResult<Messages>
+
+    /**
+     * Returns the last message sent in the topic in a channel direct messages chat administered by the current user no later than the specified date.
+     *
+     * @param chatId Chat identifier of the channel direct messages chat.
+     * @param topicId Identifier of the topic which messages will be fetched.
+     * @param date Point in time (Unix timestamp) relative to which to search for messages.
+     */
+    public abstract suspend fun getDirectMessagesChatTopicMessageByDate(
+        chatId: Long,
+        topicId: Long,
+        date: Int,
+    ): TdlResult<Message>
+
+    /**
      * Returns the list of emoji statuses, which can't be used as chat emoji status, even they are from a sticker set with isAllowedAsChatEmojiStatus == true.
      */
     public abstract suspend fun getDisallowedChatEmojiStatuses(): TdlResult<EmojiStatusCustomEmojis>
@@ -4289,7 +4362,7 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun getImportedContactCount(): TdlResult<Count>
 
     /**
-     * Returns a list of recently inactive supergroups and channels. Can be used when user reaches limit on the number of joined supergroups and channels and receives CHANNELSTOOMUCH error. Also, the limit can be increased with Telegram Premium.
+     * Returns a list of recently inactive supergroups and channels. Can be used when user reaches limit on the number of joined supergroups and channels and receives the error &quot;CHANNELS_TOO_MUCH&quot;. Also, the limit can be increased with Telegram Premium.
      */
     public abstract suspend fun getInactiveSupergroupChats(): TdlResult<Chats>
 
@@ -4541,6 +4614,14 @@ public abstract class TdlClient internal constructor() {
         offset: String,
         limit: Int,
     ): TdlResult<AddedReactions>
+
+    /**
+     * Returns information about actual author of a message sent on behalf of a channel. The method can be called if messageProperties.canGetAuthor == true.
+     *
+     * @param chatId Chat identifier.
+     * @param messageId Identifier of the message.
+     */
+    public abstract suspend fun getMessageAuthor(chatId: Long, messageId: Long): TdlResult<User>
 
     /**
      * Returns reactions, which can be added to a message. The list can change after updateActiveEmojiReactions, updateChatAvailableReactions for the chat, or updateMessageInteractionInfo for the message.
@@ -5751,6 +5832,14 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun loadChats(chatList: ChatList? = null, limit: Int): TdlResult<Ok>
 
     /**
+     * Loads more topics in a channel direct messages chat administered by the current user. The loaded topics will be sent through updateDirectMessagesChatTopic. Topics are sorted by their topic.order in descending order. Returns a 404 error if all topics have been loaded.
+     *
+     * @param chatId Chat identifier of the channel direct messages chat.
+     * @param limit The maximum number of topics to be loaded. For optimal performance, the number of loaded topics is chosen by TDLib and can be smaller than the specified limit, even if the end of the list is not reached.
+     */
+    public abstract suspend fun loadDirectMessagesChatTopics(chatId: Long, limit: Int): TdlResult<Ok>
+
+    /**
      * Loads more participants of a group call. The loaded participants will be received through updates. Use the field groupCall.loadedAllParticipants to check whether all participants have already been loaded.
      *
      * @param groupCallId Group call identifier. The group call must be previously received through getGroupCall and must be joined or being joined.
@@ -5834,7 +5923,8 @@ public abstract class TdlClient internal constructor() {
      * @param chatId Identifier of the chat in which the Web App is opened. The Web App can't be opened in secret chats.
      * @param botUserId Identifier of the bot, providing the Web App. If the bot is restricted for the current user, then show an error instead of calling the method.
      * @param url The URL from an inlineKeyboardButtonTypeWebApp button, a botMenuButton button, an internalLinkTypeAttachmentMenuBot link, or an empty string otherwise.
-     * @param messageThreadId If not 0, the message thread identifier in which the message will be sent.
+     * @param messageThreadId If not 0, the message thread identifier to which the message will be sent.
+     * @param directMessagesChatTopicId If not 0, unique identifier of the topic of channel direct messages chat to which the message will be sent.
      * @param replyTo Information about the message or story to be replied in the message sent by the Web App; pass null if none.
      * @param parameters Parameters to use to open the Web App.
      */
@@ -5843,6 +5933,7 @@ public abstract class TdlClient internal constructor() {
         botUserId: Long,
         url: String,
         messageThreadId: Long,
+        directMessagesChatTopicId: Long,
         replyTo: InputMessageReplyTo? = null,
         parameters: WebAppOpenParameters,
     ): TdlResult<WebAppInfo>
@@ -6014,6 +6105,14 @@ public abstract class TdlClient internal constructor() {
      * @param chatId Chat identifier.
      */
     public abstract suspend fun readAllChatReactions(chatId: Long): TdlResult<Ok>
+
+    /**
+     * Removes all unread reactions in the topic in a channel direct messages chat administered by the current user.
+     *
+     * @param chatId Identifier of the chat.
+     * @param topicId Topic identifier.
+     */
+    public abstract suspend fun readAllDirectMessagesChatTopicReactions(chatId: Long, topicId: Long): TdlResult<Ok>
 
     /**
      * Marks all mentions in a forum topic as read.
@@ -6691,28 +6790,26 @@ public abstract class TdlClient internal constructor() {
     ): TdlResult<ChatMembers>
 
     /**
-     * Searches for messages with given words in the chat. Returns the results in reverse chronological order, i.e. in order of decreasing messageId. Cannot be used in secret chats with a non-empty query (searchSecretMessages must be used instead), or without an enabled message database. For optimal performance, the number of returned messages is chosen by TDLib and can be smaller than the specified limit. A combination of query, senderId, filter and messageThreadId search criteria is expected to be supported, only if it is required for Telegram official application implementation.
+     * Searches for messages with given words in the chat. Returns the results in reverse chronological order, i.e. in order of decreasing messageId. Cannot be used in secret chats with a non-empty query (searchSecretMessages must be used instead), or without an enabled message database. For optimal performance, the number of returned messages is chosen by TDLib and can be smaller than the specified limit. A combination of query, senderId, filter and topicId search criteria is expected to be supported, only if it is required for Telegram official application implementation.
      *
      * @param chatId Identifier of the chat in which to search messages.
+     * @param topicId Pass topic identifier to search messages only in specific topic; pass null to search for messages in all topics.
      * @param query Query to search for.
      * @param senderId Identifier of the sender of messages to search for; pass null to search for messages from any sender. Not supported in secret chats.
      * @param fromMessageId Identifier of the message starting from which history must be fetched; use 0 to get results from the last message.
      * @param offset Specify 0 to get results from exactly the message fromMessageId or a negative offset to get the specified message and some newer messages.
      * @param limit The maximum number of messages to be returned; must be positive and can't be greater than 100. If the offset is negative, the limit must be greater than -offset. For optimal performance, the number of returned messages is chosen by TDLib and can be smaller than the specified limit.
      * @param filter Additional filter for messages to search; pass null to search for all messages.
-     * @param messageThreadId If not 0, only messages in the specified thread will be returned; supergroups only.
-     * @param savedMessagesTopicId If not 0, only messages in the specified Saved Messages topic will be returned; pass 0 to return all messages, or for chats other than Saved Messages.
      */
     public abstract suspend fun searchChatMessages(
         chatId: Long,
+        topicId: MessageTopic? = null,
         query: String,
         senderId: MessageSender? = null,
         fromMessageId: Long,
         offset: Int,
         limit: Int,
         filter: SearchMessagesFilter? = null,
-        messageThreadId: Long,
-        savedMessagesTopicId: Long,
     ): TdlResult<FoundChatMessages>
 
     /**
@@ -7381,7 +7478,7 @@ public abstract class TdlClient internal constructor() {
      * Application or reCAPTCHA verification has been completed. Can be called before authorization.
      *
      * @param verificationId Unique identifier for the verification process as received from updateApplicationVerificationRequired or updateApplicationRecaptchaVerificationRequired.
-     * @param token Play Integrity API token for the Android application, or secret from push notification for the iOS application for application verification, or reCAPTCHA token for reCAPTCHA verifications; pass an empty string to abort verification and receive error VERIFICATIONFAILED for the request.
+     * @param token Play Integrity API token for the Android application, or secret from push notification for the iOS application for application verification, or reCAPTCHA token for reCAPTCHA verifications; pass an empty string to abort verification and receive the error &quot;VERIFICATION_FAILED&quot; for the request.
      */
     public abstract suspend fun setApplicationVerificationToken(verificationId: Long, token: String): TdlResult<Ok>
 
@@ -7685,6 +7782,19 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun setChatDescription(chatId: Long, description: String): TdlResult<Ok>
 
     /**
+     * Changes direct messages group settings for a channel chat; requires owner privileges in the chat.
+     *
+     * @param chatId Identifier of the channel chat.
+     * @param isEnabled Pass true if the direct messages group is enabled for the channel chat; pass false otherwise.
+     * @param paidMessageStarCount The new number of Telegram Stars that must be paid for each message that is sent to the direct messages chat unless the sender is an administrator of the channel chat; 0-getOption(&quot;paid_message_star_count_max&quot;). The channel will receive getOption(&quot;paid_message_earnings_per_mille&quot;) Telegram Stars for each 1000 Telegram Stars paid for message sending. Requires supergroupFullInfo.canEnablePaidMessages for positive amounts.
+     */
+    public abstract suspend fun setChatDirectMessagesGroup(
+        chatId: Long,
+        isEnabled: Boolean,
+        paidMessageStarCount: Long,
+    ): TdlResult<Ok>
+
+    /**
      * Changes the discussion group of a channel chat; requires canChangeInfo administrator right in the channel if it is specified.
      *
      * @param chatId Identifier of the channel chat. Pass 0 to remove a link from the supergroup passed in the second argument to a linked channel chat (requires canPinMessages member right in the supergroup).
@@ -7920,6 +8030,32 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun setDefaultReactionType(reactionType: ReactionType): TdlResult<Ok>
 
     /**
+     * Changes the draft message in the topic in a channel direct messages chat administered by the current user.
+     *
+     * @param chatId Chat identifier.
+     * @param topicId Topic identifier.
+     * @param draftMessage New draft message; pass null to remove the draft. All files in draft message content must be of the type inputFileLocal. Media thumbnails and captions are ignored.
+     */
+    public abstract suspend fun setDirectMessagesChatTopicDraftMessage(
+        chatId: Long,
+        topicId: Long,
+        draftMessage: DraftMessage? = null,
+    ): TdlResult<Ok>
+
+    /**
+     * Changes the marked as unread state of the topic in a channel direct messages chat administered by the current user.
+     *
+     * @param chatId Chat identifier of the channel direct messages chat.
+     * @param topicId Topic identifier.
+     * @param isMarkedAsUnread New value of isMarkedAsUnread.
+     */
+    public abstract suspend fun setDirectMessagesChatTopicIsMarkedAsUnread(
+        chatId: Long,
+        topicId: Long,
+        isMarkedAsUnread: Boolean,
+    ): TdlResult<Ok>
+
+    /**
      * Changes the emoji status of the current user; for Telegram Premium users only.
      *
      * @param emojiStatus New emoji status; pass null to switch to the default badge.
@@ -7987,7 +8123,7 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun setGiftSettings(settings: GiftSettings): TdlResult<Ok>
 
     /**
-     * Informs TDLib that speaking state of a participant of an active group call has changed.
+     * Informs TDLib that speaking state of a participant of an active group call has changed. Returns identifier of the participant if it is found.
      *
      * @param groupCallId Group call identifier.
      * @param audioSource Group call participant's synchronization audio source identifier, or 0 for the current user.
@@ -7997,7 +8133,7 @@ public abstract class TdlClient internal constructor() {
         groupCallId: Int,
         audioSource: Int,
         isSpeaking: Boolean,
-    ): TdlResult<Ok>
+    ): TdlResult<MessageSender>
 
     /**
      * Changes volume level of a participant of an active group call. If the current user can manage the group call or is the owner of the group call, then the participant's volume level will be changed for all users with the default volume level.
@@ -9048,8 +9184,13 @@ public abstract class TdlClient internal constructor() {
      *
      * @param supergroupId Identifier of the supergroup.
      * @param isForum New value of isForum.
+     * @param hasForumTabs New value of hasForumTabs; ignored if isForum is false.
      */
-    public abstract suspend fun toggleSupergroupIsForum(supergroupId: Long, isForum: Boolean): TdlResult<Ok>
+    public abstract suspend fun toggleSupergroupIsForum(
+        supergroupId: Long,
+        isForum: Boolean,
+        hasForumTabs: Boolean,
+    ): TdlResult<Ok>
 
     /**
      * Toggles whether all users directly joining the supergroup need to be approved by supergroup administrators; requires canRestrictMembers administrator right.
@@ -9180,6 +9321,14 @@ public abstract class TdlClient internal constructor() {
      * @param chatId Identifier of the chat.
      */
     public abstract suspend fun unpinAllChatMessages(chatId: Long): TdlResult<Ok>
+
+    /**
+     * Removes all pinned messages from the topic in a channel direct messages chat administered by the current user.
+     *
+     * @param chatId Identifier of the chat.
+     * @param topicId Topic identifier.
+     */
+    public abstract suspend fun unpinAllDirectMessagesChatTopicMessages(chatId: Long, topicId: Long): TdlResult<Ok>
 
     /**
      * Removes all pinned messages from a forum topic; requires canPinMessages member right in the supergroup.

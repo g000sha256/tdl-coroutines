@@ -24,19 +24,21 @@ import kotlin.String
 /**
  * Contains properties of a message and describes actions that can be done with the message right now.
  *
+ * @property canBeCopied True, if content of the message can be copied using inputMessageForwarded or forwardMessages with copy options.
  * @property canBeCopiedToSecretChat True, if content of the message can be copied to a secret chat using inputMessageForwarded or forwardMessages with copy options.
  * @property canBeDeletedOnlyForSelf True, if the message can be deleted only for the current user while other users will continue to see it using the method deleteMessages with revoke == false.
  * @property canBeDeletedForAllUsers True, if the message can be deleted for all users using the method deleteMessages with revoke == true.
  * @property canBeEdited True, if the message can be edited using the methods editMessageText, editMessageCaption, or editMessageReplyMarkup. For live location and poll messages this fields shows whether editMessageLiveLocation or stopPoll can be used with this message.
- * @property canBeForwarded True, if the message can be forwarded using inputMessageForwarded or forwardMessages.
+ * @property canBeForwarded True, if the message can be forwarded using inputMessageForwarded or forwardMessages without copy options.
  * @property canBePaid True, if the message can be paid using inputInvoiceMessage.
  * @property canBePinned True, if the message can be pinned or unpinned in the chat using pinChatMessage or unpinChatMessage.
  * @property canBeReplied True, if the message can be replied in the same chat and forum topic using inputMessageReplyToMessage.
  * @property canBeRepliedInAnotherChat True, if the message can be replied in another chat or forum topic using inputMessageReplyToExternalMessage.
- * @property canBeSaved True, if content of the message can be saved locally or copied using inputMessageForwarded or forwardMessages with copy options.
+ * @property canBeSaved True, if content of the message can be saved locally.
  * @property canBeSharedInStory True, if the message can be shared in a story using inputStoryAreaTypeMessage.
  * @property canEditMedia True, if the message can be edited using the method editMessageMedia.
  * @property canEditSchedulingState True, if scheduling state of the message can be edited.
+ * @property canGetAuthor True, if author of the message sent on behalf of a chat can be received through getMessageAuthor.
  * @property canGetEmbeddingCode True, if code for message embedding can be received using getMessageEmbeddingCode.
  * @property canGetLink True, if a link can be generated for the message using getMessageLink.
  * @property canGetMediaTimestampLinks True, if media timestamp links can be generated for media timestamp entities in the message text, caption or link preview description using getMessageLink.
@@ -52,6 +54,7 @@ import kotlin.String
  * @property needShowStatistics True, if message statistics must be available from context menu of the message.
  */
 public class MessageProperties public constructor(
+    public val canBeCopied: Boolean,
     public val canBeCopiedToSecretChat: Boolean,
     public val canBeDeletedOnlyForSelf: Boolean,
     public val canBeDeletedForAllUsers: Boolean,
@@ -65,6 +68,7 @@ public class MessageProperties public constructor(
     public val canBeSharedInStory: Boolean,
     public val canEditMedia: Boolean,
     public val canEditSchedulingState: Boolean,
+    public val canGetAuthor: Boolean,
     public val canGetEmbeddingCode: Boolean,
     public val canGetLink: Boolean,
     public val canGetMediaTimestampLinks: Boolean,
@@ -90,6 +94,9 @@ public class MessageProperties public constructor(
             return false
         }
         other as MessageProperties
+        if (other.canBeCopied != canBeCopied) {
+            return false
+        }
         if (other.canBeCopiedToSecretChat != canBeCopiedToSecretChat) {
             return false
         }
@@ -127,6 +134,9 @@ public class MessageProperties public constructor(
             return false
         }
         if (other.canEditSchedulingState != canEditSchedulingState) {
+            return false
+        }
+        if (other.canGetAuthor != canGetAuthor) {
             return false
         }
         if (other.canGetEmbeddingCode != canGetEmbeddingCode) {
@@ -170,6 +180,7 @@ public class MessageProperties public constructor(
 
     override fun hashCode(): Int {
         var hashCode = this::class.hashCode()
+        hashCode = 31 * hashCode + canBeCopied.hashCode()
         hashCode = 31 * hashCode + canBeCopiedToSecretChat.hashCode()
         hashCode = 31 * hashCode + canBeDeletedOnlyForSelf.hashCode()
         hashCode = 31 * hashCode + canBeDeletedForAllUsers.hashCode()
@@ -183,6 +194,7 @@ public class MessageProperties public constructor(
         hashCode = 31 * hashCode + canBeSharedInStory.hashCode()
         hashCode = 31 * hashCode + canEditMedia.hashCode()
         hashCode = 31 * hashCode + canEditSchedulingState.hashCode()
+        hashCode = 31 * hashCode + canGetAuthor.hashCode()
         hashCode = 31 * hashCode + canGetEmbeddingCode.hashCode()
         hashCode = 31 * hashCode + canGetLink.hashCode()
         hashCode = 31 * hashCode + canGetMediaTimestampLinks.hashCode()
@@ -203,6 +215,9 @@ public class MessageProperties public constructor(
         return buildString {
             append("MessageProperties")
             append("(")
+            append("canBeCopied=")
+            append(canBeCopied)
+            append(", ")
             append("canBeCopiedToSecretChat=")
             append(canBeCopiedToSecretChat)
             append(", ")
@@ -241,6 +256,9 @@ public class MessageProperties public constructor(
             append(", ")
             append("canEditSchedulingState=")
             append(canEditSchedulingState)
+            append(", ")
+            append("canGetAuthor=")
+            append(canGetAuthor)
             append(", ")
             append("canGetEmbeddingCode=")
             append(canGetEmbeddingCode)

@@ -27,6 +27,7 @@ import kotlin.String
  *
  * @property gift The gift.
  * @property senderId Sender of the gift.
+ * @property receiverId Receiver of the gift.
  * @property receivedGiftId Unique identifier of the received gift for the current user; only for the receiver of the gift.
  * @property text Message added to the gift.
  * @property sellStarCount Number of Telegram Stars that can be claimed by the receiver instead of the regular gift; 0 if the gift can't be sold by the receiver.
@@ -42,6 +43,7 @@ import kotlin.String
 public class MessageGift public constructor(
     public val gift: Gift,
     public val senderId: MessageSender,
+    public val receiverId: MessageSender,
     public val receivedGiftId: String,
     public val text: FormattedText,
     public val sellStarCount: Long,
@@ -69,6 +71,9 @@ public class MessageGift public constructor(
             return false
         }
         if (other.senderId != senderId) {
+            return false
+        }
+        if (other.receiverId != receiverId) {
             return false
         }
         if (other.receivedGiftId != receivedGiftId) {
@@ -108,6 +113,7 @@ public class MessageGift public constructor(
         var hashCode = this::class.hashCode()
         hashCode = 31 * hashCode + gift.hashCode()
         hashCode = 31 * hashCode + senderId.hashCode()
+        hashCode = 31 * hashCode + receiverId.hashCode()
         hashCode = 31 * hashCode + receivedGiftId.hashCode()
         hashCode = 31 * hashCode + text.hashCode()
         hashCode = 31 * hashCode + sellStarCount.hashCode()
@@ -131,6 +137,9 @@ public class MessageGift public constructor(
             append(", ")
             append("senderId=")
             append(senderId)
+            append(", ")
+            append("receiverId=")
+            append(receiverId)
             append(", ")
             append("receivedGiftId=")
             append(receivedGiftId)
