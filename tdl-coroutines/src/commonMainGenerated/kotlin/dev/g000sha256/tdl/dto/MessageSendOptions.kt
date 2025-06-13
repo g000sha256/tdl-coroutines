@@ -25,18 +25,20 @@ import kotlin.String
 /**
  * Options to be used when a message is sent.
  *
+ * @property directMessagesChatTopicId Unique identifier of the topic in a channel direct messages chat administered by the current user; pass 0 if the chat isn't a channel direct messages chat administered by the current user.
  * @property disableNotification Pass true to disable notification for the message.
  * @property fromBackground Pass true if the message is sent from the background.
  * @property protectContent Pass true if the content of the message must be protected from forwarding and saving; for bots only.
  * @property allowPaidBroadcast Pass true to allow the message to ignore regular broadcast limits for a small fee; for bots only.
  * @property paidMessageStarCount The number of Telegram Stars the user agreed to pay to send the messages.
  * @property updateOrderOfInstalledStickerSets Pass true if the user explicitly chosen a sticker or a custom emoji from an installed sticker set; applicable only to sendMessage and sendMessageAlbum.
- * @property schedulingState Message scheduling state; pass null to send message immediately. Messages sent to a secret chat, to a chat with paid messages, live location messages and self-destructing messages can't be scheduled.
+ * @property schedulingState Message scheduling state; pass null to send message immediately. Messages sent to a secret chat, to a chat with paid messages, to a channel direct messages chat, live location messages and self-destructing messages can't be scheduled.
  * @property effectId Identifier of the effect to apply to the message; pass 0 if none; applicable only to sendMessage and sendMessageAlbum in private chats.
  * @property sendingId Non-persistent identifier, which will be returned back in messageSendingStatePending object and can be used to match sent messages and corresponding updateNewMessage updates.
  * @property onlyPreview Pass true to get a fake message instead of actually sending them.
  */
 public class MessageSendOptions public constructor(
+    public val directMessagesChatTopicId: Long,
     public val disableNotification: Boolean,
     public val fromBackground: Boolean,
     public val protectContent: Boolean,
@@ -59,6 +61,9 @@ public class MessageSendOptions public constructor(
             return false
         }
         other as MessageSendOptions
+        if (other.directMessagesChatTopicId != directMessagesChatTopicId) {
+            return false
+        }
         if (other.disableNotification != disableNotification) {
             return false
         }
@@ -91,6 +96,7 @@ public class MessageSendOptions public constructor(
 
     override fun hashCode(): Int {
         var hashCode = this::class.hashCode()
+        hashCode = 31 * hashCode + directMessagesChatTopicId.hashCode()
         hashCode = 31 * hashCode + disableNotification.hashCode()
         hashCode = 31 * hashCode + fromBackground.hashCode()
         hashCode = 31 * hashCode + protectContent.hashCode()
@@ -108,6 +114,9 @@ public class MessageSendOptions public constructor(
         return buildString {
             append("MessageSendOptions")
             append("(")
+            append("directMessagesChatTopicId=")
+            append(directMessagesChatTopicId)
+            append(", ")
             append("disableNotification=")
             append(disableNotification)
             append(", ")

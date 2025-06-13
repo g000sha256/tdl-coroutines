@@ -42,7 +42,11 @@ import kotlin.String
  * @property isChannel True, if the supergroup is a channel.
  * @property isBroadcastGroup True, if the supergroup is a broadcast group, i.e. only administrators can send messages and there is no limit on the number of members.
  * @property isForum True, if the supergroup is a forum with topics.
+ * @property isDirectMessagesGroup True, if the supergroup is a direct message group for a channel chat.
+ * @property isAdministeredDirectMessagesGroup True, if the supergroup is a direct messages group for a channel chat that is administered by the current user.
  * @property verificationStatus Information about verification status of the supergroup or channel; may be null if none.
+ * @property hasDirectMessagesGroup True, if the channel has direct messages group.
+ * @property hasForumTabs True, if the supergroup is a forum, which topics are shown in the same way as in channel direct messages groups.
  * @property hasSensitiveContent True, if content of media messages in the supergroup or channel chat must be hidden with 18+ spoiler.
  * @property restrictionReason If non-empty, contains a human-readable description of the reason why access to this supergroup or channel must be restricted.
  * @property paidMessageStarCount Number of Telegram Stars that must be paid by non-administrator users of the supergroup chat for each sent message.
@@ -67,7 +71,11 @@ public class Supergroup public constructor(
     public val isChannel: Boolean,
     public val isBroadcastGroup: Boolean,
     public val isForum: Boolean,
+    public val isDirectMessagesGroup: Boolean,
+    public val isAdministeredDirectMessagesGroup: Boolean,
     public val verificationStatus: VerificationStatus?,
+    public val hasDirectMessagesGroup: Boolean,
+    public val hasForumTabs: Boolean,
     public val hasSensitiveContent: Boolean,
     public val restrictionReason: String,
     public val paidMessageStarCount: Long,
@@ -136,7 +144,19 @@ public class Supergroup public constructor(
         if (other.isForum != isForum) {
             return false
         }
+        if (other.isDirectMessagesGroup != isDirectMessagesGroup) {
+            return false
+        }
+        if (other.isAdministeredDirectMessagesGroup != isAdministeredDirectMessagesGroup) {
+            return false
+        }
         if (other.verificationStatus != verificationStatus) {
+            return false
+        }
+        if (other.hasDirectMessagesGroup != hasDirectMessagesGroup) {
+            return false
+        }
+        if (other.hasForumTabs != hasForumTabs) {
             return false
         }
         if (other.hasSensitiveContent != hasSensitiveContent) {
@@ -173,7 +193,11 @@ public class Supergroup public constructor(
         hashCode = 31 * hashCode + isChannel.hashCode()
         hashCode = 31 * hashCode + isBroadcastGroup.hashCode()
         hashCode = 31 * hashCode + isForum.hashCode()
+        hashCode = 31 * hashCode + isDirectMessagesGroup.hashCode()
+        hashCode = 31 * hashCode + isAdministeredDirectMessagesGroup.hashCode()
         hashCode = 31 * hashCode + verificationStatus.hashCode()
+        hashCode = 31 * hashCode + hasDirectMessagesGroup.hashCode()
+        hashCode = 31 * hashCode + hasForumTabs.hashCode()
         hashCode = 31 * hashCode + hasSensitiveContent.hashCode()
         hashCode = 31 * hashCode + restrictionReason.hashCode()
         hashCode = 31 * hashCode + paidMessageStarCount.hashCode()
@@ -237,8 +261,20 @@ public class Supergroup public constructor(
             append("isForum=")
             append(isForum)
             append(", ")
+            append("isDirectMessagesGroup=")
+            append(isDirectMessagesGroup)
+            append(", ")
+            append("isAdministeredDirectMessagesGroup=")
+            append(isAdministeredDirectMessagesGroup)
+            append(", ")
             append("verificationStatus=")
             append(verificationStatus)
+            append(", ")
+            append("hasDirectMessagesGroup=")
+            append(hasDirectMessagesGroup)
+            append(", ")
+            append("hasForumTabs=")
+            append(hasForumTabs)
             append(", ")
             append("hasSensitiveContent=")
             append(hasSensitiveContent)

@@ -34,6 +34,7 @@ import kotlin.String
  * @property restrictedCount Number of restricted users in the supergroup; 0 if unknown.
  * @property bannedCount Number of users banned from chat; 0 if unknown.
  * @property linkedChatId Chat identifier of a discussion group for the channel, or a channel, for which the supergroup is the designated discussion group; 0 if none or unknown.
+ * @property directMessagesChatId Chat identifier of a direct messages group for the channel, or a channel, for which the supergroup is the designated direct messages group; 0 if none.
  * @property slowModeDelay Delay between consecutive sent messages for non-administrator supergroup members, in seconds.
  * @property slowModeDelayExpiresIn Time left before next message can be sent in the supergroup, in seconds. An updateSupergroupFullInfo update is not triggered when value of this field changes, but both new and old values are non-zero.
  * @property canEnablePaidMessages True, if paid messages can be enabled in the supergroup chat; for supergroup only.
@@ -73,6 +74,7 @@ public class SupergroupFullInfo public constructor(
     public val restrictedCount: Int,
     public val bannedCount: Int,
     public val linkedChatId: Long,
+    public val directMessagesChatId: Long,
     public val slowModeDelay: Int,
     public val slowModeDelayExpiresIn: Double,
     public val canEnablePaidMessages: Boolean,
@@ -134,6 +136,9 @@ public class SupergroupFullInfo public constructor(
             return false
         }
         if (other.linkedChatId != linkedChatId) {
+            return false
+        }
+        if (other.directMessagesChatId != directMessagesChatId) {
             return false
         }
         if (other.slowModeDelay != slowModeDelay) {
@@ -236,6 +241,7 @@ public class SupergroupFullInfo public constructor(
         hashCode = 31 * hashCode + restrictedCount.hashCode()
         hashCode = 31 * hashCode + bannedCount.hashCode()
         hashCode = 31 * hashCode + linkedChatId.hashCode()
+        hashCode = 31 * hashCode + directMessagesChatId.hashCode()
         hashCode = 31 * hashCode + slowModeDelay.hashCode()
         hashCode = 31 * hashCode + slowModeDelayExpiresIn.hashCode()
         hashCode = 31 * hashCode + canEnablePaidMessages.hashCode()
@@ -293,6 +299,9 @@ public class SupergroupFullInfo public constructor(
             append(", ")
             append("linkedChatId=")
             append(linkedChatId)
+            append(", ")
+            append("directMessagesChatId=")
+            append(directMessagesChatId)
             append(", ")
             append("slowModeDelay=")
             append(slowModeDelay)

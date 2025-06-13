@@ -129,6 +129,7 @@ import dev.g000sha256.tdl.dto.Data
 import dev.g000sha256.tdl.dto.DatabaseStatistics
 import dev.g000sha256.tdl.dto.DeepLinkInfo
 import dev.g000sha256.tdl.dto.DeviceToken
+import dev.g000sha256.tdl.dto.DirectMessagesChatTopic
 import dev.g000sha256.tdl.dto.DraftMessage
 import dev.g000sha256.tdl.dto.EmailAddressAuthentication
 import dev.g000sha256.tdl.dto.EmailAddressAuthenticationCodeInfo
@@ -231,6 +232,7 @@ import dev.g000sha256.tdl.dto.MessageSenders
 import dev.g000sha256.tdl.dto.MessageSource
 import dev.g000sha256.tdl.dto.MessageStatistics
 import dev.g000sha256.tdl.dto.MessageThreadInfo
+import dev.g000sha256.tdl.dto.MessageTopic
 import dev.g000sha256.tdl.dto.MessageViewers
 import dev.g000sha256.tdl.dto.Messages
 import dev.g000sha256.tdl.dto.NetworkStatistics
@@ -418,6 +420,7 @@ import dev.g000sha256.tdl.dto.UpdateDefaultPaidReactionType
 import dev.g000sha256.tdl.dto.UpdateDefaultReactionType
 import dev.g000sha256.tdl.dto.UpdateDeleteMessages
 import dev.g000sha256.tdl.dto.UpdateDiceEmojis
+import dev.g000sha256.tdl.dto.UpdateDirectMessagesChatTopic
 import dev.g000sha256.tdl.dto.UpdateFavoriteStickers
 import dev.g000sha256.tdl.dto.UpdateFile
 import dev.g000sha256.tdl.dto.UpdateFileAddedToDownloads
@@ -500,6 +503,7 @@ import dev.g000sha256.tdl.dto.UpdateSuggestedActions
 import dev.g000sha256.tdl.dto.UpdateSupergroup
 import dev.g000sha256.tdl.dto.UpdateSupergroupFullInfo
 import dev.g000sha256.tdl.dto.UpdateTermsOfService
+import dev.g000sha256.tdl.dto.UpdateTopicMessageCount
 import dev.g000sha256.tdl.dto.UpdateTrendingStickerSets
 import dev.g000sha256.tdl.dto.UpdateUnconfirmedSession
 import dev.g000sha256.tdl.dto.UpdateUnreadChatCount
@@ -697,6 +701,12 @@ internal class TdlClientImpl(
 
     override val savedMessagesTopicCountUpdates: Flow<UpdateSavedMessagesTopicCount>
         get() = repository.getUpdates(TdApi.UpdateSavedMessagesTopicCount::class) { mapper.map(it) }
+
+    override val directMessagesChatTopicUpdates: Flow<UpdateDirectMessagesChatTopic>
+        get() = repository.getUpdates(TdApi.UpdateDirectMessagesChatTopic::class) { mapper.map(it) }
+
+    override val topicMessageCountUpdates: Flow<UpdateTopicMessageCount>
+        get() = repository.getUpdates(TdApi.UpdateTopicMessageCount::class) { mapper.map(it) }
 
     override val quickReplyShortcutUpdates: Flow<UpdateQuickReplyShortcut>
         get() = repository.getUpdates(TdApi.UpdateQuickReplyShortcut::class) { mapper.map(it) }
@@ -2192,6 +2202,29 @@ internal class TdlClientImpl(
         return repository.send(function) { mapper.map(it) }
     }
 
+    override suspend fun deleteDirectMessagesChatTopicHistory(chatId: Long, topicId: Long): TdlResult<Ok> {
+        val function = TdApi.DeleteDirectMessagesChatTopicHistory(
+            chatId = chatId,
+            topicId = topicId,
+        )
+        return repository.send(function) { mapper.map(it) }
+    }
+
+    override suspend fun deleteDirectMessagesChatTopicMessagesByDate(
+        chatId: Long,
+        topicId: Long,
+        minDate: Int,
+        maxDate: Int,
+    ): TdlResult<Ok> {
+        val function = TdApi.DeleteDirectMessagesChatTopicMessagesByDate(
+            chatId = chatId,
+            topicId = topicId,
+            minDate = minDate,
+            maxDate = maxDate,
+        )
+        return repository.send(function) { mapper.map(it) }
+    }
+
     override suspend fun deleteFile(fileId: Int): TdlResult<Ok> {
         val function = TdApi.DeleteFile(
             fileId = fileId,
@@ -3445,29 +3478,29 @@ internal class TdlClientImpl(
 
     override suspend fun getChatMessageCalendar(
         chatId: Long,
+        topicId: MessageTopic?,
         filter: SearchMessagesFilter,
         fromMessageId: Long,
-        savedMessagesTopicId: Long,
     ): TdlResult<MessageCalendar> {
         val function = TdApi.GetChatMessageCalendar(
             chatId = chatId,
+            topicId = topicId?.let { mapper.map(it) },
             filter = mapper.map(filter),
             fromMessageId = fromMessageId,
-            savedMessagesTopicId = savedMessagesTopicId,
         )
         return repository.send(function) { mapper.map(it) }
     }
 
     override suspend fun getChatMessageCount(
         chatId: Long,
+        topicId: MessageTopic?,
         filter: SearchMessagesFilter,
-        savedMessagesTopicId: Long,
         returnLocal: Boolean,
     ): TdlResult<Count> {
         val function = TdApi.GetChatMessageCount(
             chatId = chatId,
+            topicId = topicId?.let { mapper.map(it) },
             filter = mapper.map(filter),
-            savedMessagesTopicId = savedMessagesTopicId,
             returnLocal = returnLocal,
         )
         return repository.send(function) { mapper.map(it) }
@@ -3475,17 +3508,15 @@ internal class TdlClientImpl(
 
     override suspend fun getChatMessagePosition(
         chatId: Long,
-        messageId: Long,
+        topicId: MessageTopic?,
         filter: SearchMessagesFilter,
-        messageThreadId: Long,
-        savedMessagesTopicId: Long,
+        messageId: Long,
     ): TdlResult<Count> {
         val function = TdApi.GetChatMessagePosition(
             chatId = chatId,
-            messageId = messageId,
+            topicId = topicId?.let { mapper.map(it) },
             filter = mapper.map(filter),
-            messageThreadId = messageThreadId,
-            savedMessagesTopicId = savedMessagesTopicId,
+            messageId = messageId,
         )
         return repository.send(function) { mapper.map(it) }
     }
@@ -3778,6 +3809,44 @@ internal class TdlClientImpl(
 
     override suspend fun getDefaultProfilePhotoCustomEmojiStickers(): TdlResult<Stickers> {
         val function = TdApi.GetDefaultProfilePhotoCustomEmojiStickers()
+        return repository.send(function) { mapper.map(it) }
+    }
+
+    override suspend fun getDirectMessagesChatTopic(chatId: Long, topicId: Long): TdlResult<DirectMessagesChatTopic> {
+        val function = TdApi.GetDirectMessagesChatTopic(
+            chatId = chatId,
+            topicId = topicId,
+        )
+        return repository.send(function) { mapper.map(it) }
+    }
+
+    override suspend fun getDirectMessagesChatTopicHistory(
+        chatId: Long,
+        topicId: Long,
+        fromMessageId: Long,
+        offset: Int,
+        limit: Int,
+    ): TdlResult<Messages> {
+        val function = TdApi.GetDirectMessagesChatTopicHistory(
+            chatId = chatId,
+            topicId = topicId,
+            fromMessageId = fromMessageId,
+            offset = offset,
+            limit = limit,
+        )
+        return repository.send(function) { mapper.map(it) }
+    }
+
+    override suspend fun getDirectMessagesChatTopicMessageByDate(
+        chatId: Long,
+        topicId: Long,
+        date: Int,
+    ): TdlResult<Message> {
+        val function = TdApi.GetDirectMessagesChatTopicMessageByDate(
+            chatId = chatId,
+            topicId = topicId,
+            date = date,
+        )
         return repository.send(function) { mapper.map(it) }
     }
 
@@ -4220,6 +4289,14 @@ internal class TdlClientImpl(
             reactionType = reactionType?.let { mapper.map(it) },
             offset = offset,
             limit = limit,
+        )
+        return repository.send(function) { mapper.map(it) }
+    }
+
+    override suspend fun getMessageAuthor(chatId: Long, messageId: Long): TdlResult<User> {
+        val function = TdApi.GetMessageAuthor(
+            chatId = chatId,
+            messageId = messageId,
         )
         return repository.send(function) { mapper.map(it) }
     }
@@ -5432,6 +5509,14 @@ internal class TdlClientImpl(
         return repository.send(function) { mapper.map(it) }
     }
 
+    override suspend fun loadDirectMessagesChatTopics(chatId: Long, limit: Int): TdlResult<Ok> {
+        val function = TdApi.LoadDirectMessagesChatTopics(
+            chatId = chatId,
+            limit = limit,
+        )
+        return repository.send(function) { mapper.map(it) }
+    }
+
     override suspend fun loadGroupCallParticipants(groupCallId: Int, limit: Int): TdlResult<Ok> {
         val function = TdApi.LoadGroupCallParticipants(
             groupCallId = groupCallId,
@@ -5515,6 +5600,7 @@ internal class TdlClientImpl(
         botUserId: Long,
         url: String,
         messageThreadId: Long,
+        directMessagesChatTopicId: Long,
         replyTo: InputMessageReplyTo?,
         parameters: WebAppOpenParameters,
     ): TdlResult<WebAppInfo> {
@@ -5523,6 +5609,7 @@ internal class TdlClientImpl(
             botUserId = botUserId,
             url = url,
             messageThreadId = messageThreadId,
+            directMessagesChatTopicId = directMessagesChatTopicId,
             replyTo = replyTo?.let { mapper.map(it) },
             parameters = mapper.map(parameters),
         )
@@ -5693,6 +5780,14 @@ internal class TdlClientImpl(
     override suspend fun readAllChatReactions(chatId: Long): TdlResult<Ok> {
         val function = TdApi.ReadAllChatReactions(
             chatId = chatId,
+        )
+        return repository.send(function) { mapper.map(it) }
+    }
+
+    override suspend fun readAllDirectMessagesChatTopicReactions(chatId: Long, topicId: Long): TdlResult<Ok> {
+        val function = TdApi.ReadAllDirectMessagesChatTopicReactions(
+            chatId = chatId,
+            topicId = topicId,
         )
         return repository.send(function) { mapper.map(it) }
     }
@@ -6374,25 +6469,23 @@ internal class TdlClientImpl(
 
     override suspend fun searchChatMessages(
         chatId: Long,
+        topicId: MessageTopic?,
         query: String,
         senderId: MessageSender?,
         fromMessageId: Long,
         offset: Int,
         limit: Int,
         filter: SearchMessagesFilter?,
-        messageThreadId: Long,
-        savedMessagesTopicId: Long,
     ): TdlResult<FoundChatMessages> {
         val function = TdApi.SearchChatMessages(
             chatId = chatId,
+            topicId = topicId?.let { mapper.map(it) },
             query = query,
             senderId = senderId?.let { mapper.map(it) },
             fromMessageId = fromMessageId,
             offset = offset,
             limit = limit,
             filter = filter?.let { mapper.map(it) },
-            messageThreadId = messageThreadId,
-            savedMessagesTopicId = savedMessagesTopicId,
         )
         return repository.send(function) { mapper.map(it) }
     }
@@ -7366,6 +7459,19 @@ internal class TdlClientImpl(
         return repository.send(function) { mapper.map(it) }
     }
 
+    override suspend fun setChatDirectMessagesGroup(
+        chatId: Long,
+        isEnabled: Boolean,
+        paidMessageStarCount: Long,
+    ): TdlResult<Ok> {
+        val function = TdApi.SetChatDirectMessagesGroup(
+            chatId = chatId,
+            isEnabled = isEnabled,
+            paidMessageStarCount = paidMessageStarCount,
+        )
+        return repository.send(function) { mapper.map(it) }
+    }
+
     override suspend fun setChatDiscussionGroup(chatId: Long, discussionChatId: Long): TdlResult<Ok> {
         val function = TdApi.SetChatDiscussionGroup(
             chatId = chatId,
@@ -7601,6 +7707,32 @@ internal class TdlClientImpl(
         return repository.send(function) { mapper.map(it) }
     }
 
+    override suspend fun setDirectMessagesChatTopicDraftMessage(
+        chatId: Long,
+        topicId: Long,
+        draftMessage: DraftMessage?,
+    ): TdlResult<Ok> {
+        val function = TdApi.SetDirectMessagesChatTopicDraftMessage(
+            chatId = chatId,
+            topicId = topicId,
+            draftMessage = draftMessage?.let { mapper.map(it) },
+        )
+        return repository.send(function) { mapper.map(it) }
+    }
+
+    override suspend fun setDirectMessagesChatTopicIsMarkedAsUnread(
+        chatId: Long,
+        topicId: Long,
+        isMarkedAsUnread: Boolean,
+    ): TdlResult<Ok> {
+        val function = TdApi.SetDirectMessagesChatTopicIsMarkedAsUnread(
+            chatId = chatId,
+            topicId = topicId,
+            isMarkedAsUnread = isMarkedAsUnread,
+        )
+        return repository.send(function) { mapper.map(it) }
+    }
+
     override suspend fun setEmojiStatus(emojiStatus: EmojiStatus?): TdlResult<Ok> {
         val function = TdApi.SetEmojiStatus(
             emojiStatus = emojiStatus?.let { mapper.map(it) },
@@ -7672,7 +7804,7 @@ internal class TdlClientImpl(
         groupCallId: Int,
         audioSource: Int,
         isSpeaking: Boolean,
-    ): TdlResult<Ok> {
+    ): TdlResult<MessageSender> {
         val function = TdApi.SetGroupCallParticipantIsSpeaking(
             groupCallId = groupCallId,
             audioSource = audioSource,
@@ -8725,10 +8857,15 @@ internal class TdlClientImpl(
         return repository.send(function) { mapper.map(it) }
     }
 
-    override suspend fun toggleSupergroupIsForum(supergroupId: Long, isForum: Boolean): TdlResult<Ok> {
+    override suspend fun toggleSupergroupIsForum(
+        supergroupId: Long,
+        isForum: Boolean,
+        hasForumTabs: Boolean,
+    ): TdlResult<Ok> {
         val function = TdApi.ToggleSupergroupIsForum(
             supergroupId = supergroupId,
             isForum = isForum,
+            hasForumTabs = hasForumTabs,
         )
         return repository.send(function) { mapper.map(it) }
     }
@@ -8859,6 +8996,14 @@ internal class TdlClientImpl(
     override suspend fun unpinAllChatMessages(chatId: Long): TdlResult<Ok> {
         val function = TdApi.UnpinAllChatMessages(
             chatId = chatId,
+        )
+        return repository.send(function) { mapper.map(it) }
+    }
+
+    override suspend fun unpinAllDirectMessagesChatTopicMessages(chatId: Long, topicId: Long): TdlResult<Ok> {
+        val function = TdApi.UnpinAllDirectMessagesChatTopicMessages(
+            chatId = chatId,
+            topicId = topicId,
         )
         return repository.send(function) { mapper.map(it) }
     }

@@ -35,10 +35,9 @@ import kotlin.String
  * @property isOutgoing True, if the message is outgoing.
  * @property isPinned True, if the message is pinned.
  * @property isFromOffline True, if the message was sent because of a scheduled action by the message sender, for example, as away, or greeting service message.
- * @property canBeSaved True, if content of the message can be saved locally or copied using inputMessageForwarded or forwardMessages with copy options.
+ * @property canBeSaved True, if content of the message can be saved locally.
  * @property hasTimestampedMedia True, if media timestamp entities refers to a media in this message as opposed to a media in the replied message.
  * @property isChannelPost True, if the message is a channel post. All messages to channels are channel posts, all other messages are not channel posts.
- * @property isTopicMessage True, if the message is a forum topic message.
  * @property containsUnreadMention True, if the message contains an unread mention for the current user.
  * @property date Point in time (Unix timestamp) when the message was sent; 0 for scheduled messages.
  * @property editDate Point in time (Unix timestamp) when the message was last edited; 0 for scheduled messages.
@@ -49,7 +48,7 @@ import kotlin.String
  * @property factCheck Information about fact-check added to the message; may be null if none.
  * @property replyTo Information about the message or the story this message is replying to; may be null if none.
  * @property messageThreadId If non-zero, the identifier of the message thread the message belongs to; unique within the chat to which the message belongs.
- * @property savedMessagesTopicId Identifier of the Saved Messages topic for the message; 0 for messages not from Saved Messages.
+ * @property topicId Identifier of the topic within the chat to which the message belongs; may be null if none.
  * @property selfDestructType The message's self-destruct type; may be null if none.
  * @property selfDestructIn Time left before the message self-destruct timer expires, in seconds; 0 if self-destruction isn't scheduled yet.
  * @property autoDeleteIn Time left before the message will be automatically deleted by messageAutoDeleteTime setting of the chat, in seconds; 0 if never.
@@ -77,7 +76,6 @@ public class Message public constructor(
     public val canBeSaved: Boolean,
     public val hasTimestampedMedia: Boolean,
     public val isChannelPost: Boolean,
-    public val isTopicMessage: Boolean,
     public val containsUnreadMention: Boolean,
     public val date: Int,
     public val editDate: Int,
@@ -88,7 +86,7 @@ public class Message public constructor(
     public val factCheck: FactCheck?,
     public val replyTo: MessageReplyTo?,
     public val messageThreadId: Long,
-    public val savedMessagesTopicId: Long,
+    public val topicId: MessageTopic?,
     public val selfDestructType: MessageSelfDestructType?,
     public val selfDestructIn: Double,
     public val autoDeleteIn: Double,
@@ -148,9 +146,6 @@ public class Message public constructor(
         if (other.isChannelPost != isChannelPost) {
             return false
         }
-        if (other.isTopicMessage != isTopicMessage) {
-            return false
-        }
         if (other.containsUnreadMention != containsUnreadMention) {
             return false
         }
@@ -182,7 +177,7 @@ public class Message public constructor(
         if (other.messageThreadId != messageThreadId) {
             return false
         }
-        if (other.savedMessagesTopicId != savedMessagesTopicId) {
+        if (other.topicId != topicId) {
             return false
         }
         if (other.selfDestructType != selfDestructType) {
@@ -240,7 +235,6 @@ public class Message public constructor(
         hashCode = 31 * hashCode + canBeSaved.hashCode()
         hashCode = 31 * hashCode + hasTimestampedMedia.hashCode()
         hashCode = 31 * hashCode + isChannelPost.hashCode()
-        hashCode = 31 * hashCode + isTopicMessage.hashCode()
         hashCode = 31 * hashCode + containsUnreadMention.hashCode()
         hashCode = 31 * hashCode + date.hashCode()
         hashCode = 31 * hashCode + editDate.hashCode()
@@ -251,7 +245,7 @@ public class Message public constructor(
         hashCode = 31 * hashCode + factCheck.hashCode()
         hashCode = 31 * hashCode + replyTo.hashCode()
         hashCode = 31 * hashCode + messageThreadId.hashCode()
-        hashCode = 31 * hashCode + savedMessagesTopicId.hashCode()
+        hashCode = 31 * hashCode + topicId.hashCode()
         hashCode = 31 * hashCode + selfDestructType.hashCode()
         hashCode = 31 * hashCode + selfDestructIn.hashCode()
         hashCode = 31 * hashCode + autoDeleteIn.hashCode()
@@ -306,9 +300,6 @@ public class Message public constructor(
             append("isChannelPost=")
             append(isChannelPost)
             append(", ")
-            append("isTopicMessage=")
-            append(isTopicMessage)
-            append(", ")
             append("containsUnreadMention=")
             append(containsUnreadMention)
             append(", ")
@@ -341,8 +332,8 @@ public class Message public constructor(
             append("messageThreadId=")
             append(messageThreadId)
             append(", ")
-            append("savedMessagesTopicId=")
-            append(savedMessagesTopicId)
+            append("topicId=")
+            append(topicId)
             append(", ")
             append("selfDestructType=")
             append(selfDestructType)

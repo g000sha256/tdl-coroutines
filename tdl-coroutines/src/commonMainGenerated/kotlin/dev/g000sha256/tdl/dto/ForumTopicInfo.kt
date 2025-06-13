@@ -26,6 +26,7 @@ import kotlin.String
  * Contains basic information about a forum topic.
  *
  * @property chatId Identifier of the forum chat to which the topic belongs.
+ * @property forumTopicId Forum topic identifier of the topic.
  * @property messageThreadId Message thread identifier of the topic.
  * @property name Name of the topic.
  * @property icon Icon of the topic.
@@ -38,6 +39,7 @@ import kotlin.String
  */
 public class ForumTopicInfo public constructor(
     public val chatId: Long,
+    public val forumTopicId: Long,
     public val messageThreadId: Long,
     public val name: String,
     public val icon: ForumTopicIcon,
@@ -60,6 +62,9 @@ public class ForumTopicInfo public constructor(
         }
         other as ForumTopicInfo
         if (other.chatId != chatId) {
+            return false
+        }
+        if (other.forumTopicId != forumTopicId) {
             return false
         }
         if (other.messageThreadId != messageThreadId) {
@@ -92,6 +97,7 @@ public class ForumTopicInfo public constructor(
     override fun hashCode(): Int {
         var hashCode = this::class.hashCode()
         hashCode = 31 * hashCode + chatId.hashCode()
+        hashCode = 31 * hashCode + forumTopicId.hashCode()
         hashCode = 31 * hashCode + messageThreadId.hashCode()
         hashCode = 31 * hashCode + name.hashCode()
         hashCode = 31 * hashCode + icon.hashCode()
@@ -110,6 +116,9 @@ public class ForumTopicInfo public constructor(
             append("(")
             append("chatId=")
             append(chatId)
+            append(", ")
+            append("forumTopicId=")
+            append(forumTopicId)
             append(", ")
             append("messageThreadId=")
             append(messageThreadId)

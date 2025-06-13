@@ -30,6 +30,8 @@ import kotlin.String
  * @property isPinned True, if the topic is pinned in the topic list.
  * @property lastReadInboxMessageId Identifier of the last read incoming message.
  * @property lastReadOutboxMessageId Identifier of the last read outgoing message.
+ * @property unreadMentionCount Number of unread messages with a mention/reply in the topic.
+ * @property unreadReactionCount Number of messages with unread reactions in the topic.
  * @property notificationSettings Notification settings for the topic.
  */
 public class UpdateForumTopic public constructor(
@@ -38,6 +40,8 @@ public class UpdateForumTopic public constructor(
     public val isPinned: Boolean,
     public val lastReadInboxMessageId: Long,
     public val lastReadOutboxMessageId: Long,
+    public val unreadMentionCount: Int,
+    public val unreadReactionCount: Int,
     public val notificationSettings: ChatNotificationSettings,
 ) : Update() {
     override fun equals(other: Any?): Boolean {
@@ -66,6 +70,12 @@ public class UpdateForumTopic public constructor(
         if (other.lastReadOutboxMessageId != lastReadOutboxMessageId) {
             return false
         }
+        if (other.unreadMentionCount != unreadMentionCount) {
+            return false
+        }
+        if (other.unreadReactionCount != unreadReactionCount) {
+            return false
+        }
         return other.notificationSettings == notificationSettings
     }
 
@@ -76,6 +86,8 @@ public class UpdateForumTopic public constructor(
         hashCode = 31 * hashCode + isPinned.hashCode()
         hashCode = 31 * hashCode + lastReadInboxMessageId.hashCode()
         hashCode = 31 * hashCode + lastReadOutboxMessageId.hashCode()
+        hashCode = 31 * hashCode + unreadMentionCount.hashCode()
+        hashCode = 31 * hashCode + unreadReactionCount.hashCode()
         hashCode = 31 * hashCode + notificationSettings.hashCode()
         return hashCode
     }
@@ -98,6 +110,12 @@ public class UpdateForumTopic public constructor(
             append(", ")
             append("lastReadOutboxMessageId=")
             append(lastReadOutboxMessageId)
+            append(", ")
+            append("unreadMentionCount=")
+            append(unreadMentionCount)
+            append(", ")
+            append("unreadReactionCount=")
+            append(unreadReactionCount)
             append(", ")
             append("notificationSettings=")
             append(notificationSettings)

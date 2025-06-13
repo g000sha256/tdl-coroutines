@@ -22,9 +22,9 @@ import kotlin.Int
 import kotlin.String
 
 /**
- * The message is from history of a forum topic.
+ * The message is from history of a topic in a channel direct messages chat administered by the current user.
  */
-public class MessageSourceForumTopicHistory public constructor() : MessageSource() {
+public class MessageSourceDirectMessagesChatTopicHistory public constructor() : MessageSource() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true
@@ -40,6 +40,6 @@ public class MessageSourceForumTopicHistory public constructor() : MessageSource
     }
 
     override fun toString(): String {
-        return "MessageSourceForumTopicHistory()"
+        return "MessageSourceDirectMessagesChatTopicHistory()"
     }
 }

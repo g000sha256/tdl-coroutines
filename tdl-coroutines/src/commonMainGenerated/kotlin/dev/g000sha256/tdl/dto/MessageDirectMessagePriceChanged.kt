@@ -19,16 +19,19 @@ package dev.g000sha256.tdl.dto
 import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
+import kotlin.Long
 import kotlin.String
 
 /**
- * The code is re-sent, because device verification has failed.
+ * A price for direct messages was changed in the channel chat.
  *
- * @property errorMessage Cause of the verification failure, for example, &quot;PLAY_SERVICES_NOT_AVAILABLE&quot;, &quot;APNS_RECEIVE_TIMEOUT&quot;, or &quot;APNS_INIT_FAILED&quot;.
+ * @property isEnabled True, if direct messages group was enabled for the channel; false otherwise.
+ * @property paidMessageStarCount The new number of Telegram Stars that must be paid by non-administrator users of the channel chat for each message sent to the direct messages group; 0 if the direct messages group was disabled or the messages are free.
  */
-public class ResendCodeReasonVerificationFailed public constructor(
-    public val errorMessage: String,
-) : ResendCodeReason() {
+public class MessageDirectMessagePriceChanged public constructor(
+    public val isEnabled: Boolean,
+    public val paidMessageStarCount: Long,
+) : MessageContent() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true
@@ -39,22 +42,29 @@ public class ResendCodeReasonVerificationFailed public constructor(
         if (other::class != this::class) {
             return false
         }
-        other as ResendCodeReasonVerificationFailed
-        return other.errorMessage == errorMessage
+        other as MessageDirectMessagePriceChanged
+        if (other.isEnabled != isEnabled) {
+            return false
+        }
+        return other.paidMessageStarCount == paidMessageStarCount
     }
 
     override fun hashCode(): Int {
         var hashCode = this::class.hashCode()
-        hashCode = 31 * hashCode + errorMessage.hashCode()
+        hashCode = 31 * hashCode + isEnabled.hashCode()
+        hashCode = 31 * hashCode + paidMessageStarCount.hashCode()
         return hashCode
     }
 
     override fun toString(): String {
         return buildString {
-            append("ResendCodeReasonVerificationFailed")
+            append("MessageDirectMessagePriceChanged")
             append("(")
-            append("errorMessage=")
-            append(errorMessage)
+            append("isEnabled=")
+            append(isEnabled)
+            append(", ")
+            append("paidMessageStarCount=")
+            append(paidMessageStarCount)
             append(")")
         }
     }

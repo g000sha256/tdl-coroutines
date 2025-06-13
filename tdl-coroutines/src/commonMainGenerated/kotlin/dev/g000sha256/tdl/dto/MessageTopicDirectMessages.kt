@@ -19,12 +19,17 @@ package dev.g000sha256.tdl.dto
 import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
+import kotlin.Long
 import kotlin.String
 
 /**
- * The message is from history of a forum topic.
+ * A topic in a channel direct messages chat administered by the current user.
+ *
+ * @property directMessagesChatTopicId Unique identifier of the topic.
  */
-public class MessageSourceForumTopicHistory public constructor() : MessageSource() {
+public class MessageTopicDirectMessages public constructor(
+    public val directMessagesChatTopicId: Long,
+) : MessageTopic() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true
@@ -32,14 +37,26 @@ public class MessageSourceForumTopicHistory public constructor() : MessageSource
         if (other == null) {
             return false
         }
-        return this::class == other::class
+        if (other::class != this::class) {
+            return false
+        }
+        other as MessageTopicDirectMessages
+        return other.directMessagesChatTopicId == directMessagesChatTopicId
     }
 
     override fun hashCode(): Int {
-        return this::class.hashCode()
+        var hashCode = this::class.hashCode()
+        hashCode = 31 * hashCode + directMessagesChatTopicId.hashCode()
+        return hashCode
     }
 
     override fun toString(): String {
-        return "MessageSourceForumTopicHistory()"
+        return buildString {
+            append("MessageTopicDirectMessages")
+            append("(")
+            append("directMessagesChatTopicId=")
+            append(directMessagesChatTopicId)
+            append(")")
+        }
     }
 }

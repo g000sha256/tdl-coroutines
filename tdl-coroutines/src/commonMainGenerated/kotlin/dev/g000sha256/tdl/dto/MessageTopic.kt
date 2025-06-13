@@ -16,30 +16,8 @@
 
 package dev.g000sha256.tdl.dto
 
-import kotlin.Any
-import kotlin.Boolean
-import kotlin.Int
-import kotlin.String
-
 /**
- * The message is from history of a forum topic.
+ * This class is an abstract base class.
+ * Describes a topic of messages in a chat.
  */
-public class MessageSourceForumTopicHistory public constructor() : MessageSource() {
-    override fun equals(other: Any?): Boolean {
-        if (other === this) {
-            return true
-        }
-        if (other == null) {
-            return false
-        }
-        return this::class == other::class
-    }
-
-    override fun hashCode(): Int {
-        return this::class.hashCode()
-    }
-
-    override fun toString(): String {
-        return "MessageSourceForumTopicHistory()"
-    }
-}
+public sealed class MessageTopic protected constructor()

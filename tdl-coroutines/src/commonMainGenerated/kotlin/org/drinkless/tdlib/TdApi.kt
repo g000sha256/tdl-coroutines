@@ -13,9 +13,9 @@ import kotlin.jvm.JvmField
 
 internal class TdApi private constructor() {
     companion object {
-        const val GIT_COMMIT_HASH: String = "4a967f7a633d3c98184806650607b1746020a6a8"
+        const val GIT_COMMIT_HASH: String = "fb04b8d40e5e3d24c30001af2e9784c91d4606c0"
 
-        const val VERSION: String = "1.8.49"
+        const val VERSION: String = "1.8.50"
     }
 
     abstract class Object {
@@ -3870,6 +3870,33 @@ internal class TdApi private constructor() {
         override fun getConstructor(): Int = -375_223_124
     }
 
+    class DirectMessagesChatTopic(
+        @JvmField
+        val chatId: Long,
+        @JvmField
+        val id: Long,
+        @JvmField
+        val senderId: MessageSender,
+        @JvmField
+        val order: Long,
+        @JvmField
+        val isMarkedAsUnread: Boolean,
+        @JvmField
+        val unreadCount: Long,
+        @JvmField
+        val lastReadInboxMessageId: Long,
+        @JvmField
+        val lastReadOutboxMessageId: Long,
+        @JvmField
+        val unreadReactionCount: Long,
+        @JvmField
+        val lastMessage: Message?,
+        @JvmField
+        val draftMessage: DraftMessage?,
+    ) : Object() {
+        override fun getConstructor(): Int = 2_087_487_975
+    }
+
     class Document(
         @JvmField
         val fileName: String,
@@ -4388,6 +4415,8 @@ internal class TdApi private constructor() {
         @JvmField
         val chatId: Long,
         @JvmField
+        val forumTopicId: Long,
+        @JvmField
         val messageThreadId: Long,
         @JvmField
         val name: String,
@@ -4406,7 +4435,7 @@ internal class TdApi private constructor() {
         @JvmField
         val isHidden: Boolean,
     ) : Object() {
-        override fun getConstructor(): Int = -654_857_606
+        override fun getConstructor(): Int = 1_573_650_873
     }
 
     class ForumTopics(
@@ -7591,8 +7620,6 @@ internal class TdApi private constructor() {
         @JvmField
         val isChannelPost: Boolean,
         @JvmField
-        val isTopicMessage: Boolean,
-        @JvmField
         val containsUnreadMention: Boolean,
         @JvmField
         val date: Int,
@@ -7613,7 +7640,7 @@ internal class TdApi private constructor() {
         @JvmField
         val messageThreadId: Long,
         @JvmField
-        val savedMessagesTopicId: Long,
+        val topicId: MessageTopic?,
         @JvmField
         val selfDestructType: MessageSelfDestructType?,
         @JvmField
@@ -7643,7 +7670,7 @@ internal class TdApi private constructor() {
         @JvmField
         val replyMarkup: ReplyMarkup?,
     ) : Object() {
-        override fun getConstructor(): Int = 726_001_662
+        override fun getConstructor(): Int = -1_108_402_734
     }
 
     class MessageAutoDeleteTime(
@@ -8367,6 +8394,8 @@ internal class TdApi private constructor() {
         @JvmField
         val senderId: MessageSender,
         @JvmField
+        val receiverId: MessageSender,
+        @JvmField
         val receivedGiftId: String,
         @JvmField
         val text: FormattedText,
@@ -8389,7 +8418,7 @@ internal class TdApi private constructor() {
         @JvmField
         val upgradedReceivedGiftId: String,
     ) : MessageContent() {
-        override fun getConstructor(): Int = 2_090_444_659
+        override fun getConstructor(): Int = 608_387_671
     }
 
     class MessageUpgradedGift(
@@ -8397,6 +8426,8 @@ internal class TdApi private constructor() {
         val gift: UpgradedGift,
         @JvmField
         val senderId: MessageSender?,
+        @JvmField
+        val receiverId: MessageSender,
         @JvmField
         val receivedGiftId: String,
         @JvmField
@@ -8418,7 +8449,7 @@ internal class TdApi private constructor() {
         @JvmField
         val exportDate: Int,
     ) : MessageContent() {
-        override fun getConstructor(): Int = -1_586_797_067
+        override fun getConstructor(): Int = 200_921_321
     }
 
     class MessageRefundedUpgradedGift(
@@ -8427,9 +8458,11 @@ internal class TdApi private constructor() {
         @JvmField
         val senderId: MessageSender,
         @JvmField
+        val receiverId: MessageSender,
+        @JvmField
         val isUpgrade: Boolean,
     ) : MessageContent() {
-        override fun getConstructor(): Int = -1_308_949_479
+        override fun getConstructor(): Int = -1_881_697_169
     }
 
     class MessagePaidMessagesRefunded(
@@ -8446,6 +8479,15 @@ internal class TdApi private constructor() {
         val paidMessageStarCount: Long,
     ) : MessageContent() {
         override fun getConstructor(): Int = -344_945_397
+    }
+
+    class MessageDirectMessagePriceChanged(
+        @JvmField
+        val isEnabled: Boolean,
+        @JvmField
+        val paidMessageStarCount: Long,
+    ) : MessageContent() {
+        override fun getConstructor(): Int = 1_320_832_439
     }
 
     class MessageContactRegistered : MessageContent() {
@@ -8709,6 +8751,8 @@ internal class TdApi private constructor() {
 
     class MessageProperties(
         @JvmField
+        val canBeCopied: Boolean,
+        @JvmField
         val canBeCopiedToSecretChat: Boolean,
         @JvmField
         val canBeDeletedOnlyForSelf: Boolean,
@@ -8734,6 +8778,8 @@ internal class TdApi private constructor() {
         val canEditMedia: Boolean,
         @JvmField
         val canEditSchedulingState: Boolean,
+        @JvmField
+        val canGetAuthor: Boolean,
         @JvmField
         val canGetEmbeddingCode: Boolean,
         @JvmField
@@ -8761,7 +8807,7 @@ internal class TdApi private constructor() {
         @JvmField
         val needShowStatistics: Boolean,
     ) : Object() {
-        override fun getConstructor(): Int = -27_014_655
+        override fun getConstructor(): Int = -370_030_008
     }
 
     class MessageReaction(
@@ -8895,6 +8941,8 @@ internal class TdApi private constructor() {
 
     class MessageSendOptions(
         @JvmField
+        val directMessagesChatTopicId: Long,
+        @JvmField
         val disableNotification: Boolean,
         @JvmField
         val fromBackground: Boolean,
@@ -8915,7 +8963,7 @@ internal class TdApi private constructor() {
         @JvmField
         val onlyPreview: Boolean,
     ) : Object() {
-        override fun getConstructor(): Int = -128_496_262
+        override fun getConstructor(): Int = 1_944_319_036
     }
 
     abstract class MessageSender : Object()
@@ -8985,6 +9033,10 @@ internal class TdApi private constructor() {
         override fun getConstructor(): Int = -1_518_064_457
     }
 
+    class MessageSourceDirectMessagesChatTopicHistory : MessageSource() {
+        override fun getConstructor(): Int = 1_869_256_503
+    }
+
     class MessageSourceHistoryPreview : MessageSource() {
         override fun getConstructor(): Int = 1_024_254_993
     }
@@ -9048,6 +9100,29 @@ internal class TdApi private constructor() {
         val draftMessage: DraftMessage?,
     ) : Object() {
         override fun getConstructor(): Int = -248_536_056
+    }
+
+    abstract class MessageTopic : Object()
+
+    class MessageTopicForum(
+        @JvmField
+        val forumTopicId: Long,
+    ) : MessageTopic() {
+        override fun getConstructor(): Int = 1_997_025_385
+    }
+
+    class MessageTopicDirectMessages(
+        @JvmField
+        val directMessagesChatTopicId: Long,
+    ) : MessageTopic() {
+        override fun getConstructor(): Int = -1_285_378_599
+    }
+
+    class MessageTopicSavedMessages(
+        @JvmField
+        val savedMessagesTopicId: Long,
+    ) : MessageTopic() {
+        override fun getConstructor(): Int = 588_026_991
     }
 
     class MessageViewer(
@@ -13631,7 +13706,15 @@ internal class TdApi private constructor() {
         @JvmField
         val isForum: Boolean,
         @JvmField
+        val isDirectMessagesGroup: Boolean,
+        @JvmField
+        val isAdministeredDirectMessagesGroup: Boolean,
+        @JvmField
         val verificationStatus: VerificationStatus?,
+        @JvmField
+        val hasDirectMessagesGroup: Boolean,
+        @JvmField
+        val hasForumTabs: Boolean,
         @JvmField
         val hasSensitiveContent: Boolean,
         @JvmField
@@ -13643,7 +13726,7 @@ internal class TdApi private constructor() {
         @JvmField
         val hasUnreadActiveStories: Boolean,
     ) : Object() {
-        override fun getConstructor(): Int = -1_355_919_719
+        override fun getConstructor(): Int = -90_094_017
     }
 
     class SupergroupFullInfo(
@@ -13661,6 +13744,8 @@ internal class TdApi private constructor() {
         val bannedCount: Int,
         @JvmField
         val linkedChatId: Long,
+        @JvmField
+        val directMessagesChatId: Long,
         @JvmField
         val slowModeDelay: Int,
         @JvmField
@@ -13722,7 +13807,7 @@ internal class TdApi private constructor() {
         @JvmField
         val upgradedFromMaxMessageId: Long,
     ) : Object() {
-        override fun getConstructor(): Int = 2_114_051_007
+        override fun getConstructor(): Int = -826_030_361
     }
 
     abstract class SupergroupMembersFilter : Object()
@@ -14847,6 +14932,24 @@ internal class TdApi private constructor() {
         override fun getConstructor(): Int = -70_092_335
     }
 
+    class UpdateDirectMessagesChatTopic(
+        @JvmField
+        val topic: DirectMessagesChatTopic,
+    ) : Update() {
+        override fun getConstructor(): Int = -683_346_963
+    }
+
+    class UpdateTopicMessageCount(
+        @JvmField
+        val chatId: Long,
+        @JvmField
+        val topicId: MessageTopic,
+        @JvmField
+        val messageCount: Int,
+    ) : Update() {
+        override fun getConstructor(): Int = -1_591_525_479
+    }
+
     class UpdateQuickReplyShortcut(
         @JvmField
         val shortcut: QuickReplyShortcut,
@@ -14896,9 +14999,13 @@ internal class TdApi private constructor() {
         @JvmField
         val lastReadOutboxMessageId: Long,
         @JvmField
+        val unreadMentionCount: Int,
+        @JvmField
+        val unreadReactionCount: Int,
+        @JvmField
         val notificationSettings: ChatNotificationSettings,
     ) : Update() {
-        override fun getConstructor(): Int = 266_794_534
+        override fun getConstructor(): Int = -534_120_613
     }
 
     class UpdateScopeNotificationSettings(
@@ -17751,6 +17858,28 @@ internal class TdApi private constructor() {
         override fun getConstructor(): Int = -1_297_814_210
     }
 
+    class DeleteDirectMessagesChatTopicHistory(
+        @JvmField
+        val chatId: Long,
+        @JvmField
+        val topicId: Long,
+    ) : Function<Ok>() {
+        override fun getConstructor(): Int = -1_906_080_196
+    }
+
+    class DeleteDirectMessagesChatTopicMessagesByDate(
+        @JvmField
+        val chatId: Long,
+        @JvmField
+        val topicId: Long,
+        @JvmField
+        val minDate: Int,
+        @JvmField
+        val maxDate: Int,
+    ) : Function<Ok>() {
+        override fun getConstructor(): Int = 945_080_841
+    }
+
     class DeleteFile(
         @JvmField
         val fileId: Int,
@@ -18921,41 +19050,39 @@ internal class TdApi private constructor() {
         @JvmField
         val chatId: Long,
         @JvmField
+        val topicId: MessageTopic?,
+        @JvmField
         val filter: SearchMessagesFilter,
         @JvmField
         val fromMessageId: Long,
-        @JvmField
-        val savedMessagesTopicId: Long,
     ) : Function<MessageCalendar>() {
-        override fun getConstructor(): Int = -2_119_225_929
+        override fun getConstructor(): Int = 1_644_001_372
     }
 
     class GetChatMessageCount(
         @JvmField
         val chatId: Long,
         @JvmField
-        val filter: SearchMessagesFilter,
+        val topicId: MessageTopic?,
         @JvmField
-        val savedMessagesTopicId: Long,
+        val filter: SearchMessagesFilter,
         @JvmField
         val returnLocal: Boolean,
     ) : Function<Count>() {
-        override fun getConstructor(): Int = 955_746_569
+        override fun getConstructor(): Int = 1_641_001_101
     }
 
     class GetChatMessagePosition(
         @JvmField
         val chatId: Long,
         @JvmField
-        val messageId: Long,
+        val topicId: MessageTopic?,
         @JvmField
         val filter: SearchMessagesFilter,
         @JvmField
-        val messageThreadId: Long,
-        @JvmField
-        val savedMessagesTopicId: Long,
+        val messageId: Long,
     ) : Function<Count>() {
-        override fun getConstructor(): Int = 136_051_911
+        override fun getConstructor(): Int = -1_468_174_577
     }
 
     class GetChatNotificationSettingsExceptions(
@@ -19230,6 +19357,41 @@ internal class TdApi private constructor() {
 
     class GetDefaultProfilePhotoCustomEmojiStickers : Function<Stickers>() {
         override fun getConstructor(): Int = 1_280_041_655
+    }
+
+    class GetDirectMessagesChatTopic(
+        @JvmField
+        val chatId: Long,
+        @JvmField
+        val topicId: Long,
+    ) : Function<DirectMessagesChatTopic>() {
+        override fun getConstructor(): Int = 1_990_530_052
+    }
+
+    class GetDirectMessagesChatTopicHistory(
+        @JvmField
+        val chatId: Long,
+        @JvmField
+        val topicId: Long,
+        @JvmField
+        val fromMessageId: Long,
+        @JvmField
+        val offset: Int,
+        @JvmField
+        val limit: Int,
+    ) : Function<Messages>() {
+        override fun getConstructor(): Int = 1_035_221_188
+    }
+
+    class GetDirectMessagesChatTopicMessageByDate(
+        @JvmField
+        val chatId: Long,
+        @JvmField
+        val topicId: Long,
+        @JvmField
+        val date: Int,
+    ) : Function<Message>() {
+        override fun getConstructor(): Int = 1_837_500_879
     }
 
     class GetDisallowedChatEmojiStatuses : Function<EmojiStatusCustomEmojis>() {
@@ -19656,6 +19818,15 @@ internal class TdApi private constructor() {
         val limit: Int,
     ) : Function<AddedReactions>() {
         override fun getConstructor(): Int = 2_110_172_754
+    }
+
+    class GetMessageAuthor(
+        @JvmField
+        val chatId: Long,
+        @JvmField
+        val messageId: Long,
+    ) : Function<User>() {
+        override fun getConstructor(): Int = 1_890_166_449
     }
 
     class GetMessageAvailableReactions(
@@ -20804,6 +20975,15 @@ internal class TdApi private constructor() {
         override fun getConstructor(): Int = -1_885_635_205
     }
 
+    class LoadDirectMessagesChatTopics(
+        @JvmField
+        val chatId: Long,
+        @JvmField
+        val limit: Int,
+    ) : Function<Ok>() {
+        override fun getConstructor(): Int = 1_488_065_975
+    }
+
     class LoadGroupCallParticipants(
         @JvmField
         val groupCallId: Int,
@@ -20895,11 +21075,13 @@ internal class TdApi private constructor() {
         @JvmField
         val messageThreadId: Long,
         @JvmField
+        val directMessagesChatTopicId: Long,
+        @JvmField
         val replyTo: InputMessageReplyTo?,
         @JvmField
         val parameters: WebAppOpenParameters,
     ) : Function<WebAppInfo>() {
-        override fun getConstructor(): Int = 662_795_170
+        override fun getConstructor(): Int = -2_103_994_738
     }
 
     class OptimizeStorage(
@@ -21056,6 +21238,15 @@ internal class TdApi private constructor() {
         val chatId: Long,
     ) : Function<Ok>() {
         override fun getConstructor(): Int = 1_421_973_357
+    }
+
+    class ReadAllDirectMessagesChatTopicReactions(
+        @JvmField
+        val chatId: Long,
+        @JvmField
+        val topicId: Long,
+    ) : Function<Ok>() {
+        override fun getConstructor(): Int = 1_154_665_542
     }
 
     class ReadAllMessageThreadMentions(
@@ -21709,6 +21900,8 @@ internal class TdApi private constructor() {
         @JvmField
         val chatId: Long,
         @JvmField
+        val topicId: MessageTopic?,
+        @JvmField
         val query: String,
         @JvmField
         val senderId: MessageSender?,
@@ -21720,12 +21913,8 @@ internal class TdApi private constructor() {
         val limit: Int,
         @JvmField
         val filter: SearchMessagesFilter?,
-        @JvmField
-        val messageThreadId: Long,
-        @JvmField
-        val savedMessagesTopicId: Long,
     ) : Function<FoundChatMessages>() {
-        override fun getConstructor(): Int = -539_052_602
+        override fun getConstructor(): Int = 1_072_442_212
     }
 
     class SearchChatRecentLocationMessages(
@@ -22656,6 +22845,17 @@ internal class TdApi private constructor() {
         override fun getConstructor(): Int = 1_957_213_277
     }
 
+    class SetChatDirectMessagesGroup(
+        @JvmField
+        val chatId: Long,
+        @JvmField
+        val isEnabled: Boolean,
+        @JvmField
+        val paidMessageStarCount: Long,
+    ) : Function<Ok>() {
+        override fun getConstructor(): Int = 1_633_150_115
+    }
+
     class SetChatDiscussionGroup(
         @JvmField
         val chatId: Long,
@@ -22897,6 +23097,28 @@ internal class TdApi private constructor() {
         override fun getConstructor(): Int = 1_694_730_813
     }
 
+    class SetDirectMessagesChatTopicDraftMessage(
+        @JvmField
+        val chatId: Long,
+        @JvmField
+        val topicId: Long,
+        @JvmField
+        val draftMessage: DraftMessage?,
+    ) : Function<Ok>() {
+        override fun getConstructor(): Int = 603_635_002
+    }
+
+    class SetDirectMessagesChatTopicIsMarkedAsUnread(
+        @JvmField
+        val chatId: Long,
+        @JvmField
+        val topicId: Long,
+        @JvmField
+        val isMarkedAsUnread: Boolean,
+    ) : Function<Ok>() {
+        override fun getConstructor(): Int = 1_569_655_059
+    }
+
     class SetEmojiStatus(
         @JvmField
         val emojiStatus: EmojiStatus?,
@@ -22966,8 +23188,8 @@ internal class TdApi private constructor() {
         val audioSource: Int,
         @JvmField
         val isSpeaking: Boolean,
-    ) : Function<Ok>() {
-        override fun getConstructor(): Int = 927_506_917
+    ) : Function<MessageSender>() {
+        override fun getConstructor(): Int = -1_019_676_164
     }
 
     class SetGroupCallParticipantVolumeLevel(
@@ -24017,8 +24239,10 @@ internal class TdApi private constructor() {
         val supergroupId: Long,
         @JvmField
         val isForum: Boolean,
+        @JvmField
+        val hasForumTabs: Boolean,
     ) : Function<Ok>() {
-        override fun getConstructor(): Int = -1_771_071_990
+        override fun getConstructor(): Int = 371_064_337
     }
 
     class ToggleSupergroupJoinByRequest(
@@ -24146,6 +24370,15 @@ internal class TdApi private constructor() {
         val chatId: Long,
     ) : Function<Ok>() {
         override fun getConstructor(): Int = -1_437_805_385
+    }
+
+    class UnpinAllDirectMessagesChatTopicMessages(
+        @JvmField
+        val chatId: Long,
+        @JvmField
+        val topicId: Long,
+    ) : Function<Ok>() {
+        override fun getConstructor(): Int = 89_671_100
     }
 
     class UnpinAllMessageThreadMessages(

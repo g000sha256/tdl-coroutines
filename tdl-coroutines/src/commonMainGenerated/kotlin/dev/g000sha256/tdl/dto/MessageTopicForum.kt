@@ -19,12 +19,17 @@ package dev.g000sha256.tdl.dto
 import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
+import kotlin.Long
 import kotlin.String
 
 /**
- * The message is from history of a forum topic.
+ * A topic in a forum supergroup chat.
+ *
+ * @property forumTopicId Unique identifier of the forum topic; all messages in a non-forum supergroup chats belongs to the General topic.
  */
-public class MessageSourceForumTopicHistory public constructor() : MessageSource() {
+public class MessageTopicForum public constructor(
+    public val forumTopicId: Long,
+) : MessageTopic() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true
@@ -32,14 +37,26 @@ public class MessageSourceForumTopicHistory public constructor() : MessageSource
         if (other == null) {
             return false
         }
-        return this::class == other::class
+        if (other::class != this::class) {
+            return false
+        }
+        other as MessageTopicForum
+        return other.forumTopicId == forumTopicId
     }
 
     override fun hashCode(): Int {
-        return this::class.hashCode()
+        var hashCode = this::class.hashCode()
+        hashCode = 31 * hashCode + forumTopicId.hashCode()
+        return hashCode
     }
 
     override fun toString(): String {
-        return "MessageSourceForumTopicHistory()"
+        return buildString {
+            append("MessageTopicForum")
+            append("(")
+            append("forumTopicId=")
+            append(forumTopicId)
+            append(")")
+        }
     }
 }
