@@ -29,10 +29,10 @@ jobs:
           cache-disabled: false
 
       - name: Assemble library
-        run: ./gradlew tdl-coroutines:assembleRelease
+        run: ./gradlew tdl-coroutines:assemble
 
       - name: Assemble example
-        run: ./gradlew tdl-coroutines-example:assembleRelease
+        run: ./gradlew tdl-coroutines-example:assemble
 
       - name: Check API compatibility
         run: ./gradlew apiCheck
