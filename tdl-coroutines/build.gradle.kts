@@ -169,4 +169,8 @@ class CustomSignatureType(
             .asFile
     }
 
+    override fun sign(signatory: Signatory, toSign: File): File {
+        return super.sign(signatory, toSign)
+    }
+
 }
