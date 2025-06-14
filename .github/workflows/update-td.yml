@@ -1,4 +1,4 @@
-name: Build and commit
+name: Update TDLib
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
       - update-td
 
 jobs:
-  build:
+  update-td:
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -47,6 +47,14 @@ jobs:
           cd td/example/android
           ./build-tdlib.sh
 
+      - name: SHA256 checksums for TDLib JNI libraries
+        run: |
+          cd td/example/android/tdlib/libs
+          shasum -a 256 arm64-v8a/libtdjni.so
+          shasum -a 256 armeabi-v7a/libtdjni.so
+          shasum -a 256 x86/libtdjni.so
+          shasum -a 256 x86_64/libtdjni.so
+
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
         with:
@@ -65,9 +73,19 @@ jobs:
       - name: Assemble example
         run: ./gradlew tdl-coroutines-example:assemble
 
+      - name: SHA256 checksums for module JNI libraries
+        run: |
+          cd tdl-coroutines/src/androidMainGenerated/jniLibs
+          shasum -a 256 arm64-v8a/libtdjni.so
+          shasum -a 256 armeabi-v7a/libtdjni.so
+          shasum -a 256 x86/libtdjni.so
+          shasum -a 256 x86_64/libtdjni.so
+
       - name: Commit and push changes
         uses: EndBug/add-and-commit@v9
         with:
           author_name: Georgii Ippolitov
           author_email: detmmpmznb@g000sha256.dev
+          committer_name: GitHub
+          committer_email: noreply@github.com
           message: "TDLib changes [skip ci]"
