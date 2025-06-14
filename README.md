@@ -24,6 +24,10 @@ dependencies {
 
 ## Usage
 
+> [!CAUTION]
+> To reduce breaking changes when updating the library, use named arguments for constructors and methods, as new parameters may
+> be added in future releases.
+
 ### How to create a client
 
 ```kotlin
@@ -32,7 +36,7 @@ val client = TdlClient.create()
 
 ### How to subscribe to updates
 
-The `TdlClient` provides 157 update flows
+The `TdlClient` provides 159 update flows.
 
 ```kotlin
 coroutineScope.launch {
@@ -44,7 +48,7 @@ coroutineScope.launch {
 
 ### How to send a request
 
-The `TdlClient` provides 855 request methods
+The `TdlClient` provides 867 request methods.
 
 ```kotlin
 coroutineScope.launch {
@@ -64,9 +68,13 @@ coroutineScope.launch {
 
 ## To-Do list
 
-- Define optional parameters and properties. Add initializers.
-- Link JNI directly. Remove `TdApi`.
 - Research replacing arrays with `List` or `ImmutableList`.
-- Add usage of `Client.nativeClientExecute`.
-- Add usage of `Client.nativeClientSetLogMessageHandler`.
-- Add multiplatform support (JVM, iOS, etc.).
+- Add usage for `Client.nativeClientExecute`.
+- Add usage for `Client.nativeClientSetLogMessageHandler`.
+- Add builders to preserve binary compatibility.
+- Add default initializers.
+- Rebuild `TDLib` as a `JSON` client.
+- Parse `td_api.tl` instead of `TdApi.java`.
+- Add multiplatform support for `JVM`.
+- Add multiplatform support for `iOS`.
+- Add multiplatform support for `macOS`.
