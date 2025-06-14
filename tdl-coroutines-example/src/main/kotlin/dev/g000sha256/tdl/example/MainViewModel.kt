@@ -5,6 +5,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dev.g000sha256.tdl.TdlClient
 import dev.g000sha256.tdl.TdlResult
+import dev.g000sha256.tdl.dto.AuthorizationStateClosed
+import dev.g000sha256.tdl.dto.AuthorizationStateClosing
+import dev.g000sha256.tdl.dto.AuthorizationStateLoggingOut
 import dev.g000sha256.tdl.dto.AuthorizationStateReady
 import dev.g000sha256.tdl.dto.AuthorizationStateWaitCode
 import dev.g000sha256.tdl.dto.AuthorizationStateWaitPassword
@@ -12,6 +15,7 @@ import dev.g000sha256.tdl.dto.AuthorizationStateWaitPhoneNumber
 import dev.g000sha256.tdl.dto.AuthorizationStateWaitTdlibParameters
 import dev.g000sha256.tdl.dto.OptionValueString
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -35,6 +39,11 @@ internal class MainViewModel : ViewModel() {
 
     val titles: StateFlow<String> = titlesMutableStateFlow.asStateFlow()
 
+    private val String.secured: String
+        get() = """."""
+            .toRegex()
+            .replace(input = this) { "*" }
+
     init {
         subscribeToAuthorizationStateUpdates(coroutineScope = viewModelScope)
 
@@ -42,6 +51,11 @@ internal class MainViewModel : ViewModel() {
             getVersionOption()
             getGitCommitHashOption()
         }
+    }
+
+    public override fun onCleared() {
+        viewModelScope.launch(context = NonCancellable) { tdlClient.close() }
+        super.onCleared()
     }
 
     fun sendText(text: String) {
@@ -150,6 +164,18 @@ internal class MainViewModel : ViewModel() {
                         textsMutableStateFlow.value = null
                         titlesMutableStateFlow.value = "Ready"
                     }
+                    is AuthorizationStateLoggingOut -> {
+                        textsMutableStateFlow.value = null
+                        titlesMutableStateFlow.value = "LoggingOut"
+                    }
+                    is AuthorizationStateClosing -> {
+                        textsMutableStateFlow.value = null
+                        titlesMutableStateFlow.value = "Closing"
+                    }
+                    is AuthorizationStateClosed -> {
+                        textsMutableStateFlow.value = null
+                        titlesMutableStateFlow.value = "Closed"
+                    }
                     else -> Unit
                 }
             }
@@ -181,7 +207,7 @@ internal class MainViewModel : ViewModel() {
     }
 
     private suspend fun setAuthenticationPhoneNumber(phoneNumber: String): Boolean {
-        logDebug(message = "[setAuthenticationPhoneNumber] phoneNumber=$phoneNumber")
+        logDebug(message = "[setAuthenticationPhoneNumber] phoneNumber=${phoneNumber.secured}")
         val result = tdlClient.setAuthenticationPhoneNumber(phoneNumber = phoneNumber, settings = null)
         when (result) {
             is TdlResult.Failure -> {
@@ -196,7 +222,7 @@ internal class MainViewModel : ViewModel() {
     }
 
     private suspend fun checkAuthenticationCode(code: String): Boolean {
-        logDebug(message = "[checkAuthenticationCode] code=$code")
+        logDebug(message = "[checkAuthenticationCode] code=${code.secured}")
         val result = tdlClient.checkAuthenticationCode(code)
         when (result) {
             is TdlResult.Failure -> {
@@ -211,7 +237,7 @@ internal class MainViewModel : ViewModel() {
     }
 
     private suspend fun checkAuthenticationPassword(password: String): Boolean {
-        logDebug(message = "[checkAuthenticationPassword] password=$password")
+        logDebug(message = "[checkAuthenticationPassword] password=${password.secured}")
         val result = tdlClient.checkAuthenticationPassword(password)
         when (result) {
             is TdlResult.Failure -> {

@@ -1,13 +1,14 @@
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 group = "dev.g000sha256"
-version = "1.0.0"
+version = "1.1.0"
 
 plugins {
     alias(catalog.plugins.android.library)
     alias(catalog.plugins.g000sha256.sonatypeMavenCentral)
     alias(catalog.plugins.jetBrains.binaryCompatibilityValidator)
-    alias(catalog.plugins.jetBrains.kotlin.android)
+    alias(catalog.plugins.jetBrains.dokka)
+    alias(catalog.plugins.jetBrains.kotlin.multiplatform)
     id("org.gradle.maven-publish")
     id("org.gradle.signing")
 }
@@ -37,45 +38,55 @@ android {
         minSdk = 24
     }
 
-    publishing {
-        singleVariant("release") {
-            withJavadocJar()
-            withSourcesJar()
-        }
-    }
-
     sourceSets {
         getByName("main") {
-            java.srcDir(srcDir = "src/generated/kotlin")
-            jniLibs.srcDir(srcDir = "src/generated/jniLibs")
+            jniLibs.srcDir(srcDir = "src/androidMainGenerated/jniLibs")
         }
     }
 }
 
 kotlin {
     explicitApi()
+    withSourcesJar(publish = true)
 
-    compilerOptions {
-        jvmTarget = JvmTarget.JVM_1_8
-        moduleName = android.namespace
+    androidTarget {
+        publishLibraryVariants("release")
+
+        compilerOptions {
+            jvmTarget = JvmTarget.JVM_1_8
+            moduleName = android.namespace
+        }
+    }
+
+    sourceSets {
+        commonMain {
+            kotlin.srcDirs("src/commonMainGenerated/kotlin")
+
+            dependencies {
+                implementation(catalog.libs.jetBrains.annotations)
+                implementation(catalog.libs.jetBrains.kotlin)
+
+                implementation(catalog.libs.jetBrains.atomic)
+                implementation(catalog.libs.jetBrains.coroutinesCore)
+            }
+        }
+
+        androidMain {
+            kotlin.srcDirs("src/androidMainGenerated/kotlin")
+        }
     }
 }
 
-dependencies {
-    implementation(catalog.libs.jetBrains.annotations)
-    implementation(catalog.libs.jetBrains.kotlin)
-
-    implementation(catalog.libs.jetBrains.atomic)
-    implementation(catalog.libs.jetBrains.coroutinesCore)
+val dokkaJavaDocJarTaskProvider = tasks.register<Jar>(name = "dokkaJavaDocJar") {
+    group = "documentation"
+    archiveClassifier = "javadoc"
+    from(tasks.dokkaHtml)
 }
 
 publishing {
     publications {
-        register<MavenPublication>("release") {
-            afterEvaluate {
-                val component = components.getByName("release")
-                from(component)
-            }
+        withType<MavenPublication> {
+            artifact(dokkaJavaDocJarTaskProvider)
 
             pom {
                 name = "TDLib Kotlin Coroutines client"
@@ -122,6 +133,11 @@ signing {
     sign(publishing.publications)
 }
 
+tasks.withType<Sign> {
+    val path = "signatures/$name"
+    signatureType = CustomSignatureType(path = path, signatureType = signatureType)
+}
+
 sonatypeMavenCentralRepository {
     credentials {
         username = getProperty("SonatypeMavenCentral.Username") ?: getEnvironment("SONATYPE_USERNAME")
@@ -135,4 +151,22 @@ private fun getProperty(key: String): String? {
 
 private fun getEnvironment(key: String): String? {
     return System.getenv(key)
+}
+
+@Suppress("DELEGATED_MEMBER_HIDES_SUPERTYPE_OVERRIDE")
+class CustomSignatureType(
+    private val path: String,
+    signatureType: SignatureType,
+) : AbstractSignatureType(), SignatureType by signatureType {
+
+    override fun fileFor(toSign: File): File {
+        val original = super.fileFor(toSign)
+        return layout
+            .buildDirectory
+            .dir(path)
+            .get()
+            .file(original.name)
+            .asFile
+    }
+
 }
