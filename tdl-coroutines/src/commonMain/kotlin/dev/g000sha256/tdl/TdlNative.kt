@@ -7,6 +7,17 @@ internal class TdlNative {
 
     private val client = Client()
 
+    init {
+        client.nativeClientExecute(
+            request = TdApi.SetLogVerbosityLevel(newVerbosityLevel = 0),
+        )
+        client.nativeClientExecute(
+            request = TdApi.SetLogStream(
+                logStream = TdApi.LogStreamEmpty(),
+            ),
+        )
+    }
+
     fun createClientId(): Int {
         return client.createNativeClient()
     }
