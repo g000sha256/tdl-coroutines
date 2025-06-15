@@ -64,11 +64,12 @@ jobs:
       - name: Commit and push libs
         uses: EndBug/add-and-commit@v9
         with:
+          pull: --rebase --autostash
           author_name: Georgii Ippolitov
           author_email: detmmpmznb@g000sha256.dev
           committer_name: GitHub
           committer_email: noreply@github.com
-          message: "Update TDLib. Android libs. [skip ci]"
+          message: Update TDLib. Android libs. [skip ci]
 
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
@@ -85,11 +86,12 @@ jobs:
       - name: Commit and push code changes
         uses: EndBug/add-and-commit@v9
         with:
+          pull: --rebase --autostash
           author_name: Georgii Ippolitov
           author_email: detmmpmznb@g000sha256.dev
           committer_name: GitHub
           committer_email: noreply@github.com
-          message: "Update TDLib. Code changes. [skip ci]"
+          message: Update TDLib. Code changes. [skip ci]
 
   build-jvm-linux:
     runs-on: ubuntu-latest
@@ -141,11 +143,12 @@ jobs:
       - name: Commit and push lib
         uses: EndBug/add-and-commit@v9
         with:
+          pull: --rebase --autostash
           author_name: Georgii Ippolitov
           author_email: detmmpmznb@g000sha256.dev
           committer_name: GitHub
           committer_email: noreply@github.com
-          message: "Update TDLib. JVM Linux lib. [skip ci]"
+          message: Update TDLib. JVM Linux lib. [skip ci]
 
   build-jvm-macos:
     runs-on: macos-latest
@@ -197,20 +200,26 @@ jobs:
       - name: Commit and push lib
         uses: EndBug/add-and-commit@v9
         with:
+          pull: --rebase --autostash
           author_name: Georgii Ippolitov
           author_email: detmmpmznb@g000sha256.dev
           committer_name: GitHub
           committer_email: noreply@github.com
-          message: "Update TDLib. JVM macOS lib. [skip ci]"
+          message: Update TDLib. JVM macOS lib. [skip ci]
 
   check:
-    needs: [ build-android, build-jvm-linux, build-jvm-macos ]
+    needs:
+      - build-android
+      - build-jvm-linux
+      - build-jvm-macos
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
         with:
+          fetch-depth: 0
+          ref: ${{ github.ref }}
           lfs: true
           submodules: false
 
