@@ -94,9 +94,6 @@ public fun main() {
     check(value = allDtoClassDeclarations.size + functionClassDeclarations.size + 1 == objectClassDeclarations.size)
 
     deleteRecursively(
-        file = File(currentPath, "tdl-coroutines/src/androidMainGenerated")
-    )
-    deleteRecursively(
         file = File(currentPath, "tdl-coroutines/src/commonMainGenerated")
     )
 
@@ -109,11 +106,6 @@ public fun main() {
     writeTdlClientInterface(functionClassDeclarations, updateDtoClassDeclarations)
 
     writeTdlClientImplementation(functionClassDeclarations, updateDtoClassDeclarations)
-
-    copyFiles(
-        fromDirectory = File(currentPath, "td/example/android/tdlib/libs"),
-        toDirectory = File(currentPath, "tdl-coroutines/src/androidMainGenerated/jniLibs")
-    )
 }
 
 private const val LICENCE = """/*
@@ -685,22 +677,6 @@ private fun writeTdlClientImplementation(
         .indent(indent = "    ")
         .build()
         .writeAndFixContent(folderName = "commonMainGenerated")
-}
-
-private fun copyFiles(fromDirectory: File, toDirectory: File) {
-    check(value = fromDirectory.isDirectory) { "File $fromDirectory isn't a directory" }
-
-    val files = fromDirectory.listFiles()
-    if (files == null) {
-        return
-    }
-
-    files.forEach {
-        it.copyRecursively(
-            target = File(toDirectory, it.name),
-            overwrite = true
-        )
-    }
 }
 
 //////  //////  //////
