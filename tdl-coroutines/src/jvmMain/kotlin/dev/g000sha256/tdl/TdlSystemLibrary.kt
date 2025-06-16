@@ -18,7 +18,7 @@ private fun load(libraryName: String) {
     createTempFile()
         .toFile()
         .also { it.deleteOnExit() }
-        .also { it.copyToTemp(name = libraryName) }
+        .also { it.copyToTemp(name = "/$libraryName") }
         .also { System.load(it.absolutePath) }
 }
 
