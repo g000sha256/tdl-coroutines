@@ -71,7 +71,7 @@ jobs:
           author_email: detmmpmznb@g000sha256.dev
           committer_name: GitHub
           committer_email: noreply@github.com
-          message: Update TDLib. Android libs. [skip ci]
+          message: TDLib for Android [skip ci]
 
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
@@ -93,7 +93,7 @@ jobs:
           author_email: detmmpmznb@g000sha256.dev
           committer_name: GitHub
           committer_email: noreply@github.com
-          message: Update TDLib. Code changes. [skip ci]
+          message: Update API [skip ci]
 
   build-jvm-linux:
     runs-on: ubuntu-latest
@@ -150,7 +150,7 @@ jobs:
           author_email: detmmpmznb@g000sha256.dev
           committer_name: GitHub
           committer_email: noreply@github.com
-          message: Update TDLib. JVM Linux lib. [skip ci]
+          message: TDLib for JVM Linux [skip ci]
 
   build-jvm-macos:
     runs-on: macos-latest
@@ -207,7 +207,7 @@ jobs:
           author_email: detmmpmznb@g000sha256.dev
           committer_name: GitHub
           committer_email: noreply@github.com
-          message: Update TDLib. JVM macOS lib. [skip ci]
+          message: TDLib for JVM macOS [skip ci]
 
   check:
     needs:
@@ -238,7 +238,9 @@ jobs:
           cache-disabled: false
 
       - name: Assemble library
-        run: ./gradlew tdl-coroutines:assemble
+        run: |
+          ./gradlew tdl-coroutines:assembleRelease
+          ./gradlew tdl-coroutines:jvmJar
 
       - name: Assemble example
-        run: ./gradlew tdl-coroutines-example:assemble
+        run: ./gradlew tdl-coroutines-example:assembleRelease

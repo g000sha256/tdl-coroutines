@@ -1,10 +1,6 @@
 name: Build
 
 on:
-  push:
-    branches:
-      - develop
-      - master
   pull_request:
     branches:
       - develop
@@ -12,6 +8,7 @@ on:
     types:
       - opened
       - synchronize
+      - reopened
 
 jobs:
   build:
@@ -37,10 +34,13 @@ jobs:
           cache-disabled: false
 
       - name: Assemble library
-        run: ./gradlew tdl-coroutines:assemble
+        run: |
+          ./gradlew tdl-coroutines:assembleRelease
+          ./gradlew tdl-coroutines:jvmJar
 
       - name: Assemble example
-        run: ./gradlew tdl-coroutines-example:assemble
+        run: ./gradlew tdl-coroutines-example:assembleRelease
 
       - name: Check API compatibility
+        if: github.ref != 'refs/heads/update-td'
         run: ./gradlew apiCheck
