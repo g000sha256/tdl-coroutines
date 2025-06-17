@@ -1,6 +1,12 @@
 package org.drinkless.tdlib
 
+import dev.g000sha256.tdl.loadSystemLibrary
+
 internal class Client {
+
+    init {
+        loadSystemLibrary()
+    }
 
     external fun createNativeClient(): Int
 
@@ -20,14 +26,6 @@ internal class Client {
     fun interface LogMessageHandler {
 
         fun onLogMessage(verbosityLevel: Int, message: String)
-
-    }
-
-    companion object {
-
-        init {
-            System.loadLibrary("tdjni")
-        }
 
     }
 

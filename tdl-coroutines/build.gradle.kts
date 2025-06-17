@@ -1,7 +1,7 @@
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 group = "dev.g000sha256"
-version = "1.1.0"
+version = "1.2.0"
 
 plugins {
     alias(catalog.plugins.android.library)
@@ -45,6 +45,8 @@ android {
     }
 }
 
+val kotlinModuleName = android.namespace
+
 kotlin {
     explicitApi()
     withSourcesJar(publish = true)
@@ -54,7 +56,14 @@ kotlin {
 
         compilerOptions {
             jvmTarget = JvmTarget.JVM_1_8
-            moduleName = android.namespace
+            moduleName = kotlinModuleName
+        }
+    }
+
+    jvm {
+        compilerOptions {
+            jvmTarget = JvmTarget.JVM_1_8
+            moduleName = kotlinModuleName
         }
     }
 
@@ -73,6 +82,11 @@ kotlin {
 
         androidMain {
             kotlin.srcDirs("src/androidMainGenerated/kotlin")
+        }
+
+        jvmMain {
+            kotlin.srcDirs("src/jvmMainGenerated/kotlin")
+            resources.srcDirs("src/jvmMainGenerated/resources")
         }
     }
 }

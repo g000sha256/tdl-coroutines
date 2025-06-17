@@ -29,21 +29,13 @@ jobs:
           cache-disabled: false
 
       - name: Assemble library
-        run: ./gradlew tdl-coroutines:assembleRelease
+        run: ./gradlew tdl-coroutines:assemble
 
       - name: Assemble example
-        run: ./gradlew tdl-coroutines-example:assembleRelease
+        run: ./gradlew tdl-coroutines-example:assemble
 
       - name: Check API compatibility
         run: ./gradlew apiCheck
-
-      - name: SHA256 checksums for JNI libraries
-        run: |
-          cd tdl-coroutines/src/androidMainGenerated/jniLibs
-          shasum -a 256 arm64-v8a/libtdjni.so
-          shasum -a 256 armeabi-v7a/libtdjni.so
-          shasum -a 256 x86/libtdjni.so
-          shasum -a 256 x86_64/libtdjni.so
 
       - name: Publish
         env:
