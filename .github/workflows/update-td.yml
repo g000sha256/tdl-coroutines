@@ -7,7 +7,7 @@ on:
 
 jobs:
   build-android:
-    runs-on: ubuntu-24.04-arm
+    runs-on: ubuntu-24.04
     permissions:
       contents: write
 
@@ -18,8 +18,14 @@ jobs:
           lfs: true
           submodules: true
 
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          java-version: 24
+          distribution: corretto
+
       - name: Setup dependencies
-        run: sudo apt-get install make git zlib1g-dev libssl-dev gperf php-cli cmake default-jdk g++
+        run: sudo apt-get install make git zlib1g-dev libssl-dev gperf php-cli cmake g++
 
       - name: Check environment
         run: |
@@ -102,8 +108,14 @@ jobs:
           lfs: true
           submodules: true
 
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          java-version: 24
+          distribution: corretto
+
       - name: Setup dependencies
-        run: sudo apt-get install make git zlib1g-dev libssl-dev gperf php-cli cmake default-jdk g++
+        run: sudo apt-get install make git zlib1g-dev libssl-dev gperf php-cli cmake g++
 
       - name: Build TDLib
         run: |
@@ -150,8 +162,14 @@ jobs:
           lfs: true
           submodules: true
 
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          java-version: 24
+          distribution: corretto
+
       - name: Setup dependencies
-        run: sudo apt-get install make git zlib1g-dev libssl-dev gperf php-cli cmake default-jdk g++
+        run: sudo apt-get install make git zlib1g-dev libssl-dev gperf php-cli cmake g++
 
       - name: Build TDLib
         run: |
@@ -299,19 +317,19 @@ jobs:
           git clone https://github.com/Microsoft/vcpkg.git
           cd vcpkg
           ./bootstrap-vcpkg.bat
-          ./vcpkg.exe install gperf:x64-windows openssl:x64-windows zlib:x64-windows
+          ./vcpkg.exe install gperf:arm64-windows openssl:arm64-windows zlib:arm64-windows
 
       - name: Build TDLib
         run: |
           cd td
           mkdir build
           cd build
-          cmake -A x64 -DCMAKE_INSTALL_PREFIX:PATH=../example/java/td -DTD_ENABLE_JNI=ON -DCMAKE_TOOLCHAIN_FILE:FILEPATH=../../vcpkg/scripts/buildsystems/vcpkg.cmake ..
+          cmake -A ARM64 -DCMAKE_INSTALL_PREFIX:PATH=../example/java/td -DTD_ENABLE_JNI=ON -DCMAKE_TOOLCHAIN_FILE:FILEPATH=../../vcpkg/scripts/buildsystems/vcpkg.cmake ..
           cmake --build . --target install --config Release
           cd ../example/java
           mkdir build
           cd build
-          cmake -A x64 -DCMAKE_INSTALL_PREFIX:PATH=../../../tdlib -DCMAKE_TOOLCHAIN_FILE:FILEPATH=../../../../vcpkg/scripts/buildsystems/vcpkg.cmake -DTd_DIR:PATH=$(Resolve-Path ../td/lib/cmake/Td) ..
+          cmake -A ARM64 -DCMAKE_INSTALL_PREFIX:PATH=../../../tdlib -DCMAKE_TOOLCHAIN_FILE:FILEPATH=../../../../vcpkg/scripts/buildsystems/vcpkg.cmake -DTd_DIR:PATH=$(Resolve-Path ../td/lib/cmake/Td) ..
           cmake --build . --target install --config Release
 
       - name: SHA256 checksum
@@ -407,7 +425,7 @@ jobs:
       - build-jvm-macos-x64
       - build-jvm-windows-arm64
       - build-jvm-windows-x64
-    runs-on: ubuntu-24.04-arm
+    runs-on: ubuntu-24.04
 
     steps:
       - name: Checkout
@@ -421,7 +439,7 @@ jobs:
       - name: Setup Java
         uses: actions/setup-java@v4
         with:
-          java-version: 17
+          java-version: 24
           distribution: corretto
 
       - name: Setup Gradle
