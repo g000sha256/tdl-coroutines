@@ -7,7 +7,7 @@ on:
 
 jobs:
   build-android:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     permissions:
       contents: write
 
@@ -96,8 +96,8 @@ jobs:
           message: Update API [skip ci]
           add: tdl-coroutines
 
-  build-jvm-linux:
-    runs-on: ubuntu-latest
+  build-jvm-linux-x64:
+    runs-on: ubuntu-24.04
     permissions:
       contents: write
 
@@ -136,8 +136,8 @@ jobs:
 
       - name: Copy lib
         run: |
-          mkdir -p tdl-coroutines/src/jvmMainGenerated/resources
-          cp td/tdlib/bin/libtdjni.so tdl-coroutines/src/jvmMainGenerated/resources/libtdjni.so
+          mkdir -p tdl-coroutines/src/jvmMainGenerated/resources/libs/linux-x64
+          cp td/tdlib/bin/libtdjni.so tdl-coroutines/src/jvmMainGenerated/resources/libs/linux-x64/libtdjni.so
 
       - name: Commit and push lib
         uses: EndBug/add-and-commit@v9
@@ -147,11 +147,11 @@ jobs:
           author_email: detmmpmznb@g000sha256.dev
           committer_name: GitHub
           committer_email: noreply@github.com
-          message: TDLib for JVM Linux [skip ci]
+          message: TDLib for JVM Linux x64 [skip ci]
           add: tdl-coroutines
 
-  build-jvm-macos:
-    runs-on: macos-latest
+  build-jvm-macos-arm64:
+    runs-on: macos-15
     permissions:
       contents: write
 
@@ -190,8 +190,8 @@ jobs:
 
       - name: Copy lib
         run: |
-          mkdir -p tdl-coroutines/src/jvmMainGenerated/resources
-          cp td/tdlib/bin/libtdjni.dylib tdl-coroutines/src/jvmMainGenerated/resources/libtdjni.dylib
+          mkdir -p tdl-coroutines/src/jvmMainGenerated/resources/libs/macos-arm64
+          cp td/tdlib/bin/libtdjni.dylib tdl-coroutines/src/jvmMainGenerated/resources/libs/macos-arm64/libtdjni.dylib
 
       - name: Commit and push lib
         uses: EndBug/add-and-commit@v9
@@ -201,15 +201,15 @@ jobs:
           author_email: detmmpmznb@g000sha256.dev
           committer_name: GitHub
           committer_email: noreply@github.com
-          message: TDLib for JVM macOS [skip ci]
+          message: TDLib for JVM macOS Arm64 [skip ci]
           add: tdl-coroutines
 
   check:
     needs:
       - build-android
-      - build-jvm-linux
-      - build-jvm-macos
-    runs-on: ubuntu-latest
+      - build-jvm-linux-x64
+      - build-jvm-macos-arm64
+    runs-on: ubuntu-24.04
 
     steps:
       - name: Checkout
