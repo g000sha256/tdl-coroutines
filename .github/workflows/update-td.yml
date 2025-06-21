@@ -258,12 +258,67 @@ jobs:
           message: TDLib for JVM macOS Arm64 [skip ci]
           add: tdl-coroutines
 
+  build-jvm-macos-x64:
+    runs-on: macos-13
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          lfs: true
+          submodules: true
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          java-version: 24
+          distribution: corretto
+
+      - name: Setup dependencies
+        run: brew install gperf cmake openssl coreutils
+
+      - name: Build TDLib
+        run: |
+          cd td
+          mkdir build
+          cd build
+          cmake -DCMAKE_BUILD_TYPE=Release -DJAVA_HOME=/opt/homebrew/opt/openjdk/libexec/openjdk.jdk/Contents/Home/ -DOPENSSL_ROOT_DIR=/opt/homebrew/opt/openssl/ -DCMAKE_INSTALL_PREFIX:PATH=../example/java/td -DTD_ENABLE_JNI=ON ..
+          cmake --build . --target install
+          cd ../example/java
+          mkdir build
+          cd build
+          cmake -DCMAKE_BUILD_TYPE=Release -DJAVA_HOME=/opt/homebrew/opt/openjdk/libexec/openjdk.jdk/Contents/Home/ -DCMAKE_INSTALL_PREFIX:PATH=../../../tdlib -DTd_DIR:PATH=$(greadlink -e ../td/lib/cmake/Td) ..
+          cmake --build . --target install
+
+      - name: SHA256 checksum
+        run: |
+          shasum -a 256 td/tdlib/bin/libtdjni.dylib
+
+      - name: Copy lib
+        run: |
+          mkdir -p tdl-coroutines/src/jvmMainGenerated/resources/libs/macos-x64
+          cp td/tdlib/bin/libtdjni.dylib tdl-coroutines/src/jvmMainGenerated/resources/libs/macos-x64/libtdjni.dylib
+
+      - name: Commit and push lib
+        uses: EndBug/add-and-commit@v9
+        with:
+          pull: --rebase --autostash
+          author_name: Georgii Ippolitov
+          author_email: detmmpmznb@g000sha256.dev
+          committer_name: GitHub
+          committer_email: noreply@github.com
+          message: TDLib for JVM macOS x64 [skip ci]
+          add: tdl-coroutines
+
   check:
     needs:
       - build-android
       - build-jvm-linux-arm64
       - build-jvm-linux-x64
       - build-jvm-macos-arm64
+      - build-jvm-macos-x64
     runs-on: ubuntu-24.04
 
     steps:
