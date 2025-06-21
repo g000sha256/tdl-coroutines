@@ -96,6 +96,60 @@ jobs:
           message: Update API [skip ci]
           add: tdl-coroutines
 
+  build-jvm-linux-arm64:
+    runs-on: ubuntu-24.04-arm
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          lfs: true
+          submodules: true
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          java-version: 24
+          distribution: corretto
+
+      - name: Setup dependencies
+        run: sudo apt-get install make git zlib1g-dev libssl-dev gperf php-cli cmake g++
+
+      - name: Build TDLib
+        run: |
+          cd td
+          mkdir build
+          cd build
+          cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX:PATH=../example/java/td -DTD_ENABLE_JNI=ON ..
+          cmake --build . --target install
+          cd ../example/java
+          mkdir build
+          cd build
+          cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX:PATH=../../../tdlib -DTd_DIR:PATH=$(readlink -e ../td/lib/cmake/Td) ..
+          cmake --build . --target install
+
+      - name: SHA256 checksum
+        run: |
+          shasum -a 256 td/tdlib/bin/libtdjni.so
+
+      - name: Copy lib
+        run: |
+          mkdir -p tdl-coroutines/src/jvmMainGenerated/resources/libs/linux-arm64
+          cp td/tdlib/bin/libtdjni.so tdl-coroutines/src/jvmMainGenerated/resources/libs/linux-arm64/libtdjni.so
+
+      - name: Commit and push lib
+        uses: EndBug/add-and-commit@v9
+        with:
+          pull: --rebase --autostash
+          author_name: Georgii Ippolitov
+          author_email: detmmpmznb@g000sha256.dev
+          committer_name: GitHub
+          committer_email: noreply@github.com
+          message: TDLib for JVM Linux Arm64 [skip ci]
+          add: tdl-coroutines
+
   build-jvm-linux-x64:
     runs-on: ubuntu-24.04
     permissions:
@@ -207,6 +261,7 @@ jobs:
   check:
     needs:
       - build-android
+      - build-jvm-linux-arm64
       - build-jvm-linux-x64
       - build-jvm-macos-arm64
     runs-on: ubuntu-24.04
