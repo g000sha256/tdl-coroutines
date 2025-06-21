@@ -312,6 +312,122 @@ jobs:
           message: TDLib for JVM macOS x64 [skip ci]
           add: tdl-coroutines
 
+  build-jvm-windows-arm64:
+    runs-on: windows-11-arm
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          lfs: true
+          submodules: true
+
+      - name: Setup dependencies
+        run: |
+          git clone https://github.com/Microsoft/vcpkg.git
+          cd vcpkg
+          ./bootstrap-vcpkg.bat
+          ./vcpkg.exe install gperf:arm64-windows openssl:arm64-windows zlib:arm64-windows
+
+      - name: Build TDLib
+        run: |
+          cd td
+          mkdir build
+          cd build
+          cmake -A ARM64 -DCMAKE_INSTALL_PREFIX:PATH=../example/java/td -DTD_ENABLE_JNI=ON -DCMAKE_TOOLCHAIN_FILE:FILEPATH=../../vcpkg/scripts/buildsystems/vcpkg.cmake ..
+          cmake --build . --target install --config Release
+          cd ../example/java
+          mkdir build
+          cd build
+          cmake -A ARM64 -DCMAKE_INSTALL_PREFIX:PATH=../../../tdlib -DCMAKE_TOOLCHAIN_FILE:FILEPATH=../../../../vcpkg/scripts/buildsystems/vcpkg.cmake -DTd_DIR:PATH=$(Resolve-Path ../td/lib/cmake/Td) ..
+          cmake --build . --target install --config Release
+
+      - name: SHA256 checksum
+        run: |
+          Get-FileHash td/tdlib/bin/libcrypto-3-arm64.dll -Algorithm SHA256
+          Get-FileHash td/tdlib/bin/libssl-3-arm64.dll -Algorithm SHA256
+          Get-FileHash td/tdlib/bin/tdjni.dll -Algorithm SHA256
+          Get-FileHash td/tdlib/bin/zlib1.dll -Algorithm SHA256
+
+      - name: Copy libs
+        run: |
+          New-Item -ItemType Directory -Path tdl-coroutines/src/jvmMainGenerated/resources/libs/windows-arm64
+          Copy-Item td/tdlib/bin/libcrypto-3-arm64.dll -Destination tdl-coroutines/src/jvmMainGenerated/resources/libs/windows-arm64/libcrypto-3-arm64.dll
+          Copy-Item td/tdlib/bin/libssl-3-arm64.dll -Destination tdl-coroutines/src/jvmMainGenerated/resources/libs/windows-arm64/libssl-3-arm64.dll
+          Copy-Item td/tdlib/bin/tdjni.dll -Destination tdl-coroutines/src/jvmMainGenerated/resources/libs/windows-arm64/tdjni.dll
+          Copy-Item td/tdlib/bin/zlib1.dll -Destination tdl-coroutines/src/jvmMainGenerated/resources/libs/windows-arm64/zlib1.dll
+
+      - name: Commit and push lib
+        uses: EndBug/add-and-commit@v9
+        with:
+          pull: --rebase --autostash
+          author_name: Georgii Ippolitov
+          author_email: detmmpmznb@g000sha256.dev
+          committer_name: GitHub
+          committer_email: noreply@github.com
+          message: TDLib for JVM Windows Arm64 [skip ci]
+          add: tdl-coroutines
+
+  build-jvm-windows-x64:
+    runs-on: windows-2025
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          lfs: true
+          submodules: true
+
+      - name: Setup dependencies
+        run: |
+          git clone https://github.com/Microsoft/vcpkg.git
+          cd vcpkg
+          ./bootstrap-vcpkg.bat
+          ./vcpkg.exe install gperf:x64-windows openssl:x64-windows zlib:x64-windows
+
+      - name: Build TDLib
+        run: |
+          cd td
+          mkdir build
+          cd build
+          cmake -A x64 -DCMAKE_INSTALL_PREFIX:PATH=../example/java/td -DTD_ENABLE_JNI=ON -DCMAKE_TOOLCHAIN_FILE:FILEPATH=../../vcpkg/scripts/buildsystems/vcpkg.cmake ..
+          cmake --build . --target install --config Release
+          cd ../example/java
+          mkdir build
+          cd build
+          cmake -A x64 -DCMAKE_INSTALL_PREFIX:PATH=../../../tdlib -DCMAKE_TOOLCHAIN_FILE:FILEPATH=../../../../vcpkg/scripts/buildsystems/vcpkg.cmake -DTd_DIR:PATH=$(Resolve-Path ../td/lib/cmake/Td) ..
+          cmake --build . --target install --config Release
+
+      - name: SHA256 checksum
+        run: |
+          Get-FileHash td/tdlib/bin/libcrypto-3-x64.dll -Algorithm SHA256
+          Get-FileHash td/tdlib/bin/libssl-3-x64.dll -Algorithm SHA256
+          Get-FileHash td/tdlib/bin/tdjni.dll -Algorithm SHA256
+          Get-FileHash td/tdlib/bin/zlib1.dll -Algorithm SHA256
+
+      - name: Copy libs
+        run: |
+          New-Item -ItemType Directory -Path tdl-coroutines/src/jvmMainGenerated/resources/libs/windows-x64
+          Copy-Item td/tdlib/bin/libcrypto-3-x64.dll -Destination tdl-coroutines/src/jvmMainGenerated/resources/libs/windows-x64/libcrypto-3-x64.dll
+          Copy-Item td/tdlib/bin/libssl-3-x64.dll -Destination tdl-coroutines/src/jvmMainGenerated/resources/libs/windows-x64/libssl-3-x64.dll
+          Copy-Item td/tdlib/bin/tdjni.dll -Destination tdl-coroutines/src/jvmMainGenerated/resources/libs/windows-x64/tdjni.dll
+          Copy-Item td/tdlib/bin/zlib1.dll -Destination tdl-coroutines/src/jvmMainGenerated/resources/libs/windows-x64/zlib1.dll
+
+      - name: Commit and push lib
+        uses: EndBug/add-and-commit@v9
+        with:
+          pull: --rebase --autostash
+          author_name: Georgii Ippolitov
+          author_email: detmmpmznb@g000sha256.dev
+          committer_name: GitHub
+          committer_email: noreply@github.com
+          message: TDLib for JVM Windows x64 [skip ci]
+          add: tdl-coroutines
+
   check:
     needs:
       - build-android
@@ -319,6 +435,8 @@ jobs:
       - build-jvm-linux-x64
       - build-jvm-macos-arm64
       - build-jvm-macos-x64
+      - build-jvm-windows-arm64
+      - build-jvm-windows-x64
     runs-on: ubuntu-24.04
 
     steps:
