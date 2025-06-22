@@ -77,6 +77,5 @@ coroutineScope.launch {
 - Add default initializers.
 - Rebuild `TDLib` as a `JSON` client.
 - Parse `td_api.tl` instead of `TdApi.java`.
-- Add multiplatform support for `JVM (Windows)`.
 - Add multiplatform support for `iOS`.
 - Add multiplatform support for `macOS`.
