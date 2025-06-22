@@ -7,7 +7,7 @@ on:
 
 jobs:
   build-android:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     permissions:
       contents: write
 
@@ -21,11 +21,11 @@ jobs:
       - name: Setup Java
         uses: actions/setup-java@v4
         with:
-          java-version: 17
+          java-version: 24
           distribution: corretto
 
       - name: Setup dependencies
-        run: sudo apt-get install clang cmake gperf php
+        run: sudo apt-get install make git zlib1g-dev libssl-dev gperf php-cli cmake g++
 
       - name: Check environment
         run: |
@@ -49,11 +49,10 @@ jobs:
 
       - name: SHA256 checksums
         run: |
-          cd td/example/android/tdlib/libs
-          shasum -a 256 arm64-v8a/libtdjni.so
-          shasum -a 256 armeabi-v7a/libtdjni.so
-          shasum -a 256 x86/libtdjni.so
-          shasum -a 256 x86_64/libtdjni.so
+          shasum -a 256 td/example/android/tdlib/libs/arm64-v8a/libtdjni.so
+          shasum -a 256 td/example/android/tdlib/libs/armeabi-v7a/libtdjni.so
+          shasum -a 256 td/example/android/tdlib/libs/x86/libtdjni.so
+          shasum -a 256 td/example/android/tdlib/libs/x86_64/libtdjni.so
 
       - name: Copy libs
         run: |
@@ -72,6 +71,7 @@ jobs:
           committer_name: GitHub
           committer_email: noreply@github.com
           message: TDLib for Android [skip ci]
+          add: tdl-coroutines
 
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
@@ -94,9 +94,10 @@ jobs:
           committer_name: GitHub
           committer_email: noreply@github.com
           message: Update API [skip ci]
+          add: tdl-coroutines
 
-  build-jvm-linux:
-    runs-on: ubuntu-latest
+  build-jvm-linux-arm64:
+    runs-on: ubuntu-24.04-arm
     permissions:
       contents: write
 
@@ -110,37 +111,33 @@ jobs:
       - name: Setup Java
         uses: actions/setup-java@v4
         with:
-          java-version: 17
+          java-version: 24
           distribution: corretto
 
       - name: Setup dependencies
-        run: sudo apt-get install clang cmake gperf php
-
-      - name: Prebuild TDLib
-        run: |
-          cd td
-          mkdir jnibuild
-          cd jnibuild
-          cmake -DCMAKE_BUILD_TYPE=Release -DTD_ENABLE_JNI=ON -DCMAKE_INSTALL_PREFIX:PATH=../example/java/td ..
-          cmake --build . --target install
+        run: sudo apt-get install make git zlib1g-dev libssl-dev gperf php-cli cmake g++
 
       - name: Build TDLib
         run: |
-          cd td/example/java
+          cd td
           mkdir build
           cd build
-          cmake -DCMAKE_BUILD_TYPE=Release -DTd_DIR=$GITHUB_WORKSPACE/td/example/java/td/lib/cmake/Td -DCMAKE_INSTALL_PREFIX:PATH=.. ..
+          cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX:PATH=../example/java/td -DTD_ENABLE_JNI=ON ..
+          cmake --build . --target install
+          cd ../example/java
+          mkdir build
+          cd build
+          cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX:PATH=../../../tdlib -DTd_DIR:PATH=$(readlink -e ../td/lib/cmake/Td) ..
           cmake --build . --target install
 
       - name: SHA256 checksum
         run: |
-          cd td/example/java/bin
-          shasum -a 256 libtdjni.so
+          shasum -a 256 td/tdlib/bin/libtdjni.so
 
       - name: Copy lib
         run: |
-          mkdir -p tdl-coroutines/src/jvmMainGenerated/resources
-          cp td/example/java/bin/libtdjni.so tdl-coroutines/src/jvmMainGenerated/resources/libtdjni.so
+          mkdir -p tdl-coroutines/src/jvmMainGenerated/resources/libs/linux-arm64
+          cp td/tdlib/bin/libtdjni.so tdl-coroutines/src/jvmMainGenerated/resources/libs/linux-arm64/libtdjni.so
 
       - name: Commit and push lib
         uses: EndBug/add-and-commit@v9
@@ -150,10 +147,11 @@ jobs:
           author_email: detmmpmznb@g000sha256.dev
           committer_name: GitHub
           committer_email: noreply@github.com
-          message: TDLib for JVM Linux [skip ci]
+          message: TDLib for JVM Linux Arm64 [skip ci]
+          add: tdl-coroutines
 
-  build-jvm-macos:
-    runs-on: macos-latest
+  build-jvm-linux-x64:
+    runs-on: ubuntu-24.04
     permissions:
       contents: write
 
@@ -167,37 +165,33 @@ jobs:
       - name: Setup Java
         uses: actions/setup-java@v4
         with:
-          java-version: 17
+          java-version: 24
           distribution: corretto
 
       - name: Setup dependencies
-        run: brew install cmake coreutils gperf
-
-      - name: Prebuild TDLib
-        run: |
-          cd td
-          mkdir jnibuild
-          cd jnibuild
-          cmake -DCMAKE_BUILD_TYPE=Release -DTD_ENABLE_JNI=ON -DCMAKE_INSTALL_PREFIX:PATH=../example/java/td ..
-          cmake --build . --target install
+        run: sudo apt-get install make git zlib1g-dev libssl-dev gperf php-cli cmake g++
 
       - name: Build TDLib
         run: |
-          cd td/example/java
+          cd td
           mkdir build
           cd build
-          cmake -DCMAKE_BUILD_TYPE=Release -DTd_DIR=$GITHUB_WORKSPACE/td/example/java/td/lib/cmake/Td -DCMAKE_INSTALL_PREFIX:PATH=.. ..
+          cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX:PATH=../example/java/td -DTD_ENABLE_JNI=ON ..
+          cmake --build . --target install
+          cd ../example/java
+          mkdir build
+          cd build
+          cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX:PATH=../../../tdlib -DTd_DIR:PATH=$(readlink -e ../td/lib/cmake/Td) ..
           cmake --build . --target install
 
       - name: SHA256 checksum
         run: |
-          cd td/example/java/bin
-          shasum -a 256 libtdjni.dylib
+          shasum -a 256 td/tdlib/bin/libtdjni.so
 
       - name: Copy lib
         run: |
-          mkdir -p tdl-coroutines/src/jvmMainGenerated/resources
-          cp td/example/java/bin/libtdjni.dylib tdl-coroutines/src/jvmMainGenerated/resources/libtdjni.dylib
+          mkdir -p tdl-coroutines/src/jvmMainGenerated/resources/libs/linux-x64
+          cp td/tdlib/bin/libtdjni.so tdl-coroutines/src/jvmMainGenerated/resources/libs/linux-x64/libtdjni.so
 
       - name: Commit and push lib
         uses: EndBug/add-and-commit@v9
@@ -207,14 +201,243 @@ jobs:
           author_email: detmmpmznb@g000sha256.dev
           committer_name: GitHub
           committer_email: noreply@github.com
-          message: TDLib for JVM macOS [skip ci]
+          message: TDLib for JVM Linux x64 [skip ci]
+          add: tdl-coroutines
+
+  build-jvm-macos-arm64:
+    runs-on: macos-15
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          lfs: true
+          submodules: true
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          java-version: 24
+          distribution: corretto
+
+      - name: Setup dependencies
+        run: brew install gperf cmake openssl coreutils
+
+      - name: Build TDLib
+        run: |
+          cd td
+          mkdir build
+          cd build
+          cmake -DCMAKE_BUILD_TYPE=Release -DJAVA_HOME=/opt/homebrew/opt/openjdk/libexec/openjdk.jdk/Contents/Home/ -DOPENSSL_ROOT_DIR=/opt/homebrew/opt/openssl/ -DCMAKE_INSTALL_PREFIX:PATH=../example/java/td -DTD_ENABLE_JNI=ON ..
+          cmake --build . --target install
+          cd ../example/java
+          mkdir build
+          cd build
+          cmake -DCMAKE_BUILD_TYPE=Release -DJAVA_HOME=/opt/homebrew/opt/openjdk/libexec/openjdk.jdk/Contents/Home/ -DCMAKE_INSTALL_PREFIX:PATH=../../../tdlib -DTd_DIR:PATH=$(greadlink -e ../td/lib/cmake/Td) ..
+          cmake --build . --target install
+
+      - name: SHA256 checksum
+        run: |
+          shasum -a 256 td/tdlib/bin/libtdjni.dylib
+
+      - name: Copy lib
+        run: |
+          mkdir -p tdl-coroutines/src/jvmMainGenerated/resources/libs/macos-arm64
+          cp td/tdlib/bin/libtdjni.dylib tdl-coroutines/src/jvmMainGenerated/resources/libs/macos-arm64/libtdjni.dylib
+
+      - name: Commit and push lib
+        uses: EndBug/add-and-commit@v9
+        with:
+          pull: --rebase --autostash
+          author_name: Georgii Ippolitov
+          author_email: detmmpmznb@g000sha256.dev
+          committer_name: GitHub
+          committer_email: noreply@github.com
+          message: TDLib for JVM macOS Arm64 [skip ci]
+          add: tdl-coroutines
+
+  build-jvm-macos-x64:
+    runs-on: macos-13
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          lfs: true
+          submodules: true
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          java-version: 24
+          distribution: corretto
+
+      - name: Setup dependencies
+        run: brew install gperf cmake openssl coreutils
+
+      - name: Build TDLib
+        run: |
+          cd td
+          mkdir build
+          cd build
+          cmake -DCMAKE_BUILD_TYPE=Release -DJAVA_HOME=/opt/homebrew/opt/openjdk/libexec/openjdk.jdk/Contents/Home/ -DOPENSSL_ROOT_DIR=/opt/homebrew/opt/openssl/ -DCMAKE_INSTALL_PREFIX:PATH=../example/java/td -DTD_ENABLE_JNI=ON ..
+          cmake --build . --target install
+          cd ../example/java
+          mkdir build
+          cd build
+          cmake -DCMAKE_BUILD_TYPE=Release -DJAVA_HOME=/opt/homebrew/opt/openjdk/libexec/openjdk.jdk/Contents/Home/ -DCMAKE_INSTALL_PREFIX:PATH=../../../tdlib -DTd_DIR:PATH=$(greadlink -e ../td/lib/cmake/Td) ..
+          cmake --build . --target install
+
+      - name: SHA256 checksum
+        run: |
+          shasum -a 256 td/tdlib/bin/libtdjni.dylib
+
+      - name: Copy lib
+        run: |
+          mkdir -p tdl-coroutines/src/jvmMainGenerated/resources/libs/macos-x64
+          cp td/tdlib/bin/libtdjni.dylib tdl-coroutines/src/jvmMainGenerated/resources/libs/macos-x64/libtdjni.dylib
+
+      - name: Commit and push lib
+        uses: EndBug/add-and-commit@v9
+        with:
+          pull: --rebase --autostash
+          author_name: Georgii Ippolitov
+          author_email: detmmpmznb@g000sha256.dev
+          committer_name: GitHub
+          committer_email: noreply@github.com
+          message: TDLib for JVM macOS x64 [skip ci]
+          add: tdl-coroutines
+
+  build-jvm-windows-arm64:
+    runs-on: windows-11-arm
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          lfs: true
+          submodules: true
+
+      - name: Setup dependencies
+        run: |
+          git clone https://github.com/Microsoft/vcpkg.git
+          cd vcpkg
+          ./bootstrap-vcpkg.bat
+          ./vcpkg.exe install gperf:arm64-windows openssl:arm64-windows zlib:arm64-windows
+
+      - name: Build TDLib
+        run: |
+          cd td
+          mkdir build
+          cd build
+          cmake -A ARM64 -DCMAKE_INSTALL_PREFIX:PATH=../example/java/td -DTD_ENABLE_JNI=ON -DCMAKE_TOOLCHAIN_FILE:FILEPATH=../../vcpkg/scripts/buildsystems/vcpkg.cmake ..
+          cmake --build . --target install --config Release
+          cd ../example/java
+          mkdir build
+          cd build
+          cmake -A ARM64 -DCMAKE_INSTALL_PREFIX:PATH=../../../tdlib -DCMAKE_TOOLCHAIN_FILE:FILEPATH=../../../../vcpkg/scripts/buildsystems/vcpkg.cmake -DTd_DIR:PATH=$(Resolve-Path ../td/lib/cmake/Td) ..
+          cmake --build . --target install --config Release
+
+      - name: SHA256 checksum
+        run: |
+          Get-FileHash td/tdlib/bin/libcrypto-3-arm64.dll -Algorithm SHA256
+          Get-FileHash td/tdlib/bin/libssl-3-arm64.dll -Algorithm SHA256
+          Get-FileHash td/tdlib/bin/tdjni.dll -Algorithm SHA256
+          Get-FileHash td/tdlib/bin/zlib1.dll -Algorithm SHA256
+
+      - name: Copy libs
+        run: |
+          New-Item -ItemType Directory -Path tdl-coroutines/src/jvmMainGenerated/resources/libs/windows-arm64
+          Copy-Item td/tdlib/bin/libcrypto-3-arm64.dll -Destination tdl-coroutines/src/jvmMainGenerated/resources/libs/windows-arm64/libcrypto-3-arm64.dll
+          Copy-Item td/tdlib/bin/libssl-3-arm64.dll -Destination tdl-coroutines/src/jvmMainGenerated/resources/libs/windows-arm64/libssl-3-arm64.dll
+          Copy-Item td/tdlib/bin/tdjni.dll -Destination tdl-coroutines/src/jvmMainGenerated/resources/libs/windows-arm64/tdjni.dll
+          Copy-Item td/tdlib/bin/zlib1.dll -Destination tdl-coroutines/src/jvmMainGenerated/resources/libs/windows-arm64/zlib1.dll
+
+      - name: Commit and push lib
+        uses: EndBug/add-and-commit@v9
+        with:
+          pull: --rebase --autostash
+          author_name: Georgii Ippolitov
+          author_email: detmmpmznb@g000sha256.dev
+          committer_name: GitHub
+          committer_email: noreply@github.com
+          message: TDLib for JVM Windows Arm64 [skip ci]
+          add: tdl-coroutines
+
+  build-jvm-windows-x64:
+    runs-on: windows-2025
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          lfs: true
+          submodules: true
+
+      - name: Setup dependencies
+        run: |
+          git clone https://github.com/Microsoft/vcpkg.git
+          cd vcpkg
+          ./bootstrap-vcpkg.bat
+          ./vcpkg.exe install gperf:x64-windows openssl:x64-windows zlib:x64-windows
+
+      - name: Build TDLib
+        run: |
+          cd td
+          mkdir build
+          cd build
+          cmake -A x64 -DCMAKE_INSTALL_PREFIX:PATH=../example/java/td -DTD_ENABLE_JNI=ON -DCMAKE_TOOLCHAIN_FILE:FILEPATH=../../vcpkg/scripts/buildsystems/vcpkg.cmake ..
+          cmake --build . --target install --config Release
+          cd ../example/java
+          mkdir build
+          cd build
+          cmake -A x64 -DCMAKE_INSTALL_PREFIX:PATH=../../../tdlib -DCMAKE_TOOLCHAIN_FILE:FILEPATH=../../../../vcpkg/scripts/buildsystems/vcpkg.cmake -DTd_DIR:PATH=$(Resolve-Path ../td/lib/cmake/Td) ..
+          cmake --build . --target install --config Release
+
+      - name: SHA256 checksum
+        run: |
+          Get-FileHash td/tdlib/bin/libcrypto-3-x64.dll -Algorithm SHA256
+          Get-FileHash td/tdlib/bin/libssl-3-x64.dll -Algorithm SHA256
+          Get-FileHash td/tdlib/bin/tdjni.dll -Algorithm SHA256
+          Get-FileHash td/tdlib/bin/zlib1.dll -Algorithm SHA256
+
+      - name: Copy libs
+        run: |
+          New-Item -ItemType Directory -Path tdl-coroutines/src/jvmMainGenerated/resources/libs/windows-x64
+          Copy-Item td/tdlib/bin/libcrypto-3-x64.dll -Destination tdl-coroutines/src/jvmMainGenerated/resources/libs/windows-x64/libcrypto-3-x64.dll
+          Copy-Item td/tdlib/bin/libssl-3-x64.dll -Destination tdl-coroutines/src/jvmMainGenerated/resources/libs/windows-x64/libssl-3-x64.dll
+          Copy-Item td/tdlib/bin/tdjni.dll -Destination tdl-coroutines/src/jvmMainGenerated/resources/libs/windows-x64/tdjni.dll
+          Copy-Item td/tdlib/bin/zlib1.dll -Destination tdl-coroutines/src/jvmMainGenerated/resources/libs/windows-x64/zlib1.dll
+
+      - name: Commit and push lib
+        uses: EndBug/add-and-commit@v9
+        with:
+          pull: --rebase --autostash
+          author_name: Georgii Ippolitov
+          author_email: detmmpmznb@g000sha256.dev
+          committer_name: GitHub
+          committer_email: noreply@github.com
+          message: TDLib for JVM Windows x64 [skip ci]
+          add: tdl-coroutines
 
   check:
     needs:
       - build-android
-      - build-jvm-linux
-      - build-jvm-macos
-    runs-on: ubuntu-latest
+      - build-jvm-linux-arm64
+      - build-jvm-linux-x64
+      - build-jvm-macos-arm64
+      - build-jvm-macos-x64
+      - build-jvm-windows-arm64
+      - build-jvm-windows-x64
+    runs-on: ubuntu-24.04
 
     steps:
       - name: Checkout
@@ -228,7 +451,7 @@ jobs:
       - name: Setup Java
         uses: actions/setup-java@v4
         with:
-          java-version: 17
+          java-version: 24
           distribution: corretto
 
       - name: Setup Gradle
