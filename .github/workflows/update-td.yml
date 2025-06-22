@@ -22,7 +22,7 @@ jobs:
         uses: actions/setup-java@v4
         with:
           java-version: 24
-          distribution: corretto
+          distribution: temurin
 
       - name: Setup dependencies
         run: sudo apt-get install make git zlib1g-dev libssl-dev gperf php-cli cmake g++
@@ -112,7 +112,7 @@ jobs:
         uses: actions/setup-java@v4
         with:
           java-version: 24
-          distribution: corretto
+          distribution: temurin
 
       - name: Setup dependencies
         run: sudo apt-get install make git zlib1g-dev libssl-dev gperf php-cli cmake g++
@@ -166,7 +166,7 @@ jobs:
         uses: actions/setup-java@v4
         with:
           java-version: 24
-          distribution: corretto
+          distribution: temurin
 
       - name: Setup dependencies
         run: sudo apt-get install make git zlib1g-dev libssl-dev gperf php-cli cmake g++
@@ -220,7 +220,7 @@ jobs:
         uses: actions/setup-java@v4
         with:
           java-version: 24
-          distribution: corretto
+          distribution: temurin
 
       - name: Setup dependencies
         run: brew install gperf cmake openssl coreutils
@@ -274,7 +274,7 @@ jobs:
         uses: actions/setup-java@v4
         with:
           java-version: 24
-          distribution: corretto
+          distribution: temurin
 
       - name: Setup dependencies
         run: brew install gperf cmake openssl coreutils
@@ -359,7 +359,7 @@ jobs:
           Copy-Item td/tdlib/bin/tdjni.dll -Destination tdl-coroutines/src/jvmMainGenerated/resources/libs/windows-arm64/tdjni.dll
           Copy-Item td/tdlib/bin/zlib1.dll -Destination tdl-coroutines/src/jvmMainGenerated/resources/libs/windows-arm64/zlib1.dll
 
-      - name: Commit and push lib
+      - name: Commit and push libs
         uses: EndBug/add-and-commit@v9
         with:
           pull: --rebase --autostash
@@ -417,7 +417,7 @@ jobs:
           Copy-Item td/tdlib/bin/tdjni.dll -Destination tdl-coroutines/src/jvmMainGenerated/resources/libs/windows-x64/tdjni.dll
           Copy-Item td/tdlib/bin/zlib1.dll -Destination tdl-coroutines/src/jvmMainGenerated/resources/libs/windows-x64/zlib1.dll
 
-      - name: Commit and push lib
+      - name: Commit and push libs
         uses: EndBug/add-and-commit@v9
         with:
           pull: --rebase --autostash
@@ -452,7 +452,7 @@ jobs:
         uses: actions/setup-java@v4
         with:
           java-version: 24
-          distribution: corretto
+          distribution: temurin
 
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
