@@ -19,8 +19,8 @@ jobs:
       - name: Setup Java
         uses: actions/setup-java@v4
         with:
-          java-version: 17
-          distribution: corretto
+          java-version: 24
+          distribution: temurin
 
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
@@ -29,10 +29,12 @@ jobs:
           cache-disabled: false
 
       - name: Assemble library
-        run: ./gradlew tdl-coroutines:assemble
+        run: |
+          ./gradlew tdl-coroutines:assembleRelease
+          ./gradlew tdl-coroutines:jvmJar
 
       - name: Assemble example
-        run: ./gradlew tdl-coroutines-example:assemble
+        run: ./gradlew tdl-coroutines-example:assembleRelease
 
       - name: Check API compatibility
         run: ./gradlew apiCheck
