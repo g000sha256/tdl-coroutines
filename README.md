@@ -20,7 +20,7 @@ repositories {
 
 ```kotlin
 dependencies {
-    implementation("dev.g000sha256:tdl-coroutines:1.2.0")
+    implementation("dev.g000sha256:tdl-coroutines:1.3.0")
 }
 ```
 
