@@ -2,4 +2,5 @@
 .idea/
 .kotlin/
 build/
+tdl-data/
 local.properties

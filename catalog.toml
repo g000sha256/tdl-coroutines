@@ -20,8 +20,10 @@ libs-squareUp-kotlinPoet = { module = "com.squareup:kotlinpoet", version = "2.2.
 android-application = { id = "com.android.application", version.ref = "android" }
 android-library = { id = "com.android.library", version.ref = "android" }
 g000sha256-sonatypeMavenCentral = { id = "dev.g000sha256.sonatype-maven-central", version = "1.0.0" }
+gmazzo-buildConfig = { id = "com.github.gmazzo.buildconfig", version = "5.6.5" }
 jetBrains-binaryCompatibilityValidator = { id = "org.jetbrains.kotlinx.binary-compatibility-validator", version = "0.17.0" }
 jetBrains-dokka = { id = "org.jetbrains.dokka", version = "2.0.0" }
 jetBrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 jetBrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 jetBrains-kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
+johnRengelman-shadow = { id = "com.github.johnrengelman.shadow", version = "8.1.1" }
