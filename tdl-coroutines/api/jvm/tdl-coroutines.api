@@ -229,6 +229,7 @@ public abstract class dev/g000sha256/tdl/TdlClient {
 	public abstract fun getActiveSessions (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun getAllPassportElements (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun getAllStickerEmojis (Ldev/g000sha256/tdl/dto/StickerType;Ljava/lang/String;JZLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun getAllUpdates ()Lkotlinx/coroutines/flow/Flow;
 	public abstract fun getAnimatedEmoji (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun getAnimatedEmojiMessageClickedUpdates ()Lkotlinx/coroutines/flow/Flow;
 	public abstract fun getAnimationSearchParametersUpdates ()Lkotlinx/coroutines/flow/Flow;

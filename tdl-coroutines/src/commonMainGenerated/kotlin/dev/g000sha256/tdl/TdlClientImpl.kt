@@ -546,6 +546,9 @@ internal class TdlClientImpl(
     private val mapper: TdlMapper,
     private val repository: TdlRepository,
 ) : TdlClient() {
+    override val allUpdates: Flow<Update>
+        get() = repository.getUpdates(TdApi.Update::class) { mapper.map(it) }
+
     override val authorizationStateUpdates: Flow<UpdateAuthorizationState>
         get() = repository.getUpdates(TdApi.UpdateAuthorizationState::class) { mapper.map(it) }
 

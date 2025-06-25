@@ -548,6 +548,11 @@ import kotlinx.coroutines.flow.Flow
  */
 public abstract class TdlClient internal constructor() {
     /**
+     * All updates.
+     */
+    public abstract val allUpdates: Flow<Update>
+
+    /**
      * The user authorization state has changed.
      */
     public abstract val authorizationStateUpdates: Flow<UpdateAuthorizationState>
