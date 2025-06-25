@@ -5966,7 +5966,7 @@ public abstract class TdlClient internal constructor() {
     /**
      * Parses Markdown entities in a human-friendly format, ignoring markup errors. Can be called synchronously.
      *
-     * @param text The text to parse. For example, &quot;__italic__ ~~strikethrough~~ ||spoiler|| **bold** `code` ```pre``` __[italic__ textUrl](telegram.org) _Italic**bold italic_Bold**&quot;.
+     * @param text The text to parse. For example, &quot;__italic__ ~~strikethrough~~ ||spoiler|| **bold** `code` ```pre``` __[italic__ textUrl](telegram.org) __italic**bold italic__bold**&quot;.
      */
     public abstract suspend fun parseMarkdown(text: FormattedText): TdlResult<FormattedText>
 
