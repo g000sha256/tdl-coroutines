@@ -67,7 +67,7 @@ import kotlin.io.path.readLines
 import kotlin.io.path.writeLines
 import kotlin.jvm.optionals.getOrNull
 
-public fun main() {
+private fun mainLegacy() {
     val file = File(currentPath, "td/example/android/tdlib/java/org/drinkless/tdlib/TdApi.java")
     val exists = file.exists()
     require(exists) { "File $file doesn't exist" }
@@ -81,31 +81,15 @@ public fun main() {
 
     val allDtoClassDeclarations = objectClassDeclarations
         .filter { it.nameAsString != "Function" && !it.extends(className = "Function") }
-        .also { println("DTOs: ${it.size}") }
 
     val functionClassDeclarations = objectClassDeclarations
         .filter { it.extends(className = "Function") }
-        .also { println("Functions: ${it.size}") }
-
-    val updateDtoClassDeclarations = allDtoClassDeclarations
-        .filter { it.extends(className = "Update") }
-        .also { println("Updates: ${it.size}") }
 
     check(value = allDtoClassDeclarations.size + functionClassDeclarations.size + 1 == objectClassDeclarations.size)
 
-    deleteRecursively(
-        file = File(currentPath, "tdl-coroutines/src/commonMainGenerated")
-    )
-
     writeTdApi(compilationUnit)
 
-    writeDtoClasses(allDtoClassDeclarations)
-
     writeTdlMapper(allDtoClassDeclarations)
-
-    writeTdlClientInterface(functionClassDeclarations, updateDtoClassDeclarations)
-
-    writeTdlClientImplementation(functionClassDeclarations, updateDtoClassDeclarations)
 }
 
 private const val LICENCE = """/*
@@ -144,108 +128,6 @@ private fun readCompilationUnit(file: File): CompilationUnit {
         .parse(file)
         .result
         .get()
-}
-
-private fun deleteRecursively(file: File) {
-    file.deleteRecursively()
-}
-
-private fun writeDtoClasses(classDeclarations: List<ClassOrInterfaceDeclaration>) {
-    classDeclarations.forEach { classDeclaration ->
-        val className = classDeclaration.nameAsString
-
-        FileSpec
-            .builder(packageName = PACKAGE_DTO, fileName = className)
-            .addType(
-                typeSpec = TypeSpec
-                    .classBuilder(name = className)
-                    .addModifier(modifier = KModifier.PUBLIC)
-                    .apply {
-                        if (classDeclaration.isAbstract) {
-                            addKdoc(format = classDeclaration.javaDoc)
-
-                            addModifier(modifier = KModifier.SEALED)
-
-                            primaryConstructor(
-                                primaryConstructor = FunSpec
-                                    .constructorBuilder()
-                                    .addModifier(modifier = KModifier.PROTECTED)
-                                    .build()
-                            )
-                        } else {
-                            val properties = classDeclaration.createProperties()
-
-                            addKdoc(
-                                format = buildString {
-                                    classDeclaration
-                                        .javaDoc
-                                        .replace(oldValue = "%", newValue = "%%")
-                                        .also { append(it) }
-
-                                    if (properties.size > 0) {
-                                        append("\n")
-
-                                        properties.forEach { property ->
-                                            append("\n")
-                                            append("@property ")
-                                            append(property.name)
-                                            append(" ")
-                                            append(property.javaDoc)
-                                        }
-                                    }
-                                }
-                            )
-
-                            primaryConstructor(
-                                primaryConstructor = FunSpec
-                                    .constructorBuilder()
-                                    .addModifier(modifier = KModifier.PUBLIC)
-                                    .addParameters(
-                                        parameterSpecs = properties.map { property ->
-                                            return@map ParameterSpec
-                                                .builder(name = property.name, type = property.type)
-                                                .build()
-                                        }
-                                    )
-                                    .build()
-                            )
-
-                            val extendedClassTypeName = classDeclaration.extendedClassTypeName
-                            if (extendedClassTypeName != "Object") {
-                                superclass(
-                                    superclass = dtoTypeName(simpleName = extendedClassTypeName)
-                                )
-                            }
-
-                            addProperties(
-                                propertySpecs = properties.map { property ->
-                                    return@map PropertySpec
-                                        .builder(name = property.name, type = property.type)
-                                        .addModifier(modifier = KModifier.PUBLIC)
-                                        .initializer(format = property.name)
-                                        .build()
-                                }
-                            )
-
-                            addFunction(
-                                funSpec = buildEqualsFunSpec(className = className, properties = properties)
-                            )
-
-                            addFunction(
-                                funSpec = buildHashCodeFunSpec(properties = properties)
-                            )
-
-                            addFunction(
-                                funSpec = buildToStringFunSpec(className = className, properties = properties)
-                            )
-                        }
-                    }
-                    .build()
-            )
-            .indent(indent = "    ")
-            .build()
-            .writeAndFixContent(folderName = "commonMainGenerated")
-    }
 }
 
 private fun buildEqualsFunSpec(className: String, properties: List<Property>): FunSpec {
@@ -389,303 +271,6 @@ private fun buildToStringFunSpec(className: String, properties: List<Property>):
         }
         .build()
 }
-
-private fun writeTdlClientInterface(
-    functionClassDeclarations: List<ClassOrInterfaceDeclaration>,
-    updateClassDeclarations: List<ClassOrInterfaceDeclaration>
-) {
-    FileSpec
-        .builder(packageName = PACKAGE, fileName = "TdlClient")
-        .addType(
-            typeSpec = TypeSpec
-                .classBuilder(name = "TdlClient")
-                .addKdoc(
-                    format = buildString {
-                        append("A Kotlin Coroutines client for the TDLib.")
-                        append("\n")
-                        append("\n")
-                        append("You should subscribe to the primary update flows before calling requests to avoid missing initial updates.")
-                    }
-                )
-                .addModifier(modifier = KModifier.PUBLIC)
-                .addModifier(modifier = KModifier.ABSTRACT)
-                .primaryConstructor(
-                    primaryConstructor = FunSpec
-                        .constructorBuilder()
-                        .addModifier(modifier = KModifier.INTERNAL)
-                        .build()
-                )
-                .addProperties(
-                    propertySpecs = updateClassDeclarations.map { classDeclaration ->
-                        val className = classDeclaration.nameAsString
-
-                        return@map PropertySpec
-                            .builder(
-                                name = className
-                                    .removePrefix(prefix = "Update")
-                                    .let { it.decapitalized + "Updates" },
-                                type = TypeName(
-                                    packageName = "kotlinx.coroutines.flow",
-                                    simpleName = "Flow",
-                                    parameterizedBy = dtoTypeName(simpleName = className)
-                                )
-                            )
-                            .addKdoc(format = classDeclaration.javaDoc)
-                            .addModifier(modifier = KModifier.PUBLIC)
-                            .addModifier(modifier = KModifier.ABSTRACT)
-                            .build()
-                    }
-                )
-                .addFunctions(
-                    funSpecs = functionClassDeclarations.map { classDeclaration ->
-                        val className = classDeclaration.nameAsString
-
-                        val properties = classDeclaration.createProperties()
-
-                        return@map FunSpec
-                            .builder(name = className.decapitalized)
-                            .addKdoc(
-                                format = buildString {
-                                    classDeclaration
-                                        .javaDoc
-                                        .substringBefore(delimiter = "<p> Returns")
-                                        .trim()
-                                        .also { append(it) }
-
-                                    if (properties.size > 0) {
-                                        append("\n")
-
-                                        properties.forEach { property ->
-                                            append("\n")
-                                            append("@param ")
-                                            append(property.name)
-                                            append(" ")
-                                            append(property.javaDoc)
-                                        }
-                                    }
-                                }
-                            )
-                            .addModifier(modifier = KModifier.PUBLIC)
-                            .addModifier(modifier = KModifier.ABSTRACT)
-                            .addModifier(modifier = KModifier.SUSPEND)
-                            .addParameters(
-                                parameterSpecs = properties.map mapParameter@{ property ->
-                                    return@mapParameter ParameterSpec
-                                        .builder(name = property.name, type = property.type)
-                                        .apply {
-                                            if (property.type.isNullable) {
-                                                defaultValue(format = "null")
-                                            }
-                                        }
-                                        .build()
-                                }
-                            )
-                            .returns(
-                                returnType = TypeName(
-                                    packageName = PACKAGE,
-                                    simpleName = "TdlResult",
-                                    parameterizedBy = dtoTypeName(simpleName = classDeclaration.extendedClassTypeArgumentName)
-                                )
-                            )
-                            .build()
-                    }
-                )
-                .addType(
-                    typeSpec = TypeSpec
-                        .companionObjectBuilder()
-                        .addModifier(modifier = KModifier.PUBLIC)
-                        .addProperty(
-                            propertySpec = PropertySpec
-                                .builder(name = "TDL_GIT_COMMIT_HASH", type = STRING)
-                                .addKdoc(format = "The Git commit hash of the TDLib.")
-                                .addModifier(modifier = KModifier.CONST)
-                                .initializer(format = "TdlEngine.GIT_COMMIT_HASH")
-                                .build()
-                        )
-                        .addProperty(
-                            propertySpec = PropertySpec
-                                .builder(name = "TDL_VERSION", type = STRING)
-                                .addKdoc(format = "The version of the TDLib.")
-                                .addModifier(modifier = KModifier.CONST)
-                                .initializer(format = "TdlEngine.VERSION")
-                                .build()
-                        )
-                        .addFunction(
-                            funSpec = FunSpec
-                                .builder(name = "create")
-                                .addKdoc(format = "Creates a new instance of the [TdlClient].")
-                                .addModifier(modifier = KModifier.PUBLIC)
-                                .returns(
-                                    returnType = TypeName(packageName = PACKAGE, simpleName = "TdlClient")
-                                )
-                                .addStatement(format = "REMOVE_LINE")
-                                .addStatement(format = "return serviceLocator.createClient()")
-                                .build()
-                        )
-                        .build()
-                )
-                .build()
-        )
-        .indent(indent = "    ")
-        .build()
-        .writeAndFixContent(folderName = "commonMainGenerated")
-}
-
-private fun writeTdlClientImplementation(
-    functionClassDeclarations: List<ClassOrInterfaceDeclaration>,
-    updateClassDeclarations: List<ClassOrInterfaceDeclaration>
-) {
-    FileSpec
-        .builder(packageName = PACKAGE, fileName = "TdlClientImpl")
-        .addType(
-            typeSpec = TypeSpec
-                .classBuilder(name = "TdlClientImpl")
-                .addModifier(modifier = KModifier.INTERNAL)
-                .primaryConstructor(
-                    primaryConstructor = FunSpec
-                        .constructorBuilder()
-                        .addParameter(
-                            parameterSpec = ParameterSpec
-                                .builder(
-                                    name = "mapper",
-                                    type = TypeName(packageName = PACKAGE, simpleName = "TdlMapper")
-                                )
-                                .build()
-                        )
-                        .addParameter(
-                            parameterSpec = ParameterSpec
-                                .builder(
-                                    name = "repository",
-                                    type = TypeName(packageName = PACKAGE, simpleName = "TdlRepository")
-                                )
-                                .build()
-                        )
-                        .build()
-                )
-                .superclass(
-                    superclass = TypeName(packageName = PACKAGE, simpleName = "TdlClient")
-                )
-                .addProperty(
-                    propertySpec = PropertySpec
-                        .builder(
-                            name = "mapper",
-                            type = TypeName(packageName = PACKAGE, simpleName = "TdlMapper")
-                        )
-                        .addModifier(modifier = KModifier.PRIVATE)
-                        .initializer(format = "mapper")
-                        .build()
-                )
-                .addProperty(
-                    propertySpec = PropertySpec
-                        .builder(
-                            name = "repository",
-                            type = TypeName(packageName = PACKAGE, simpleName = "TdlRepository")
-                        )
-                        .addModifier(modifier = KModifier.PRIVATE)
-                        .initializer(format = "repository")
-                        .build()
-                )
-                .addProperties(
-                    propertySpecs = updateClassDeclarations.map { classDeclaration ->
-                        val className = classDeclaration.nameAsString
-
-                        return@map PropertySpec
-                            .builder(
-                                name = className
-                                    .removePrefix(prefix = "Update")
-                                    .let { it.decapitalized + "Updates" },
-                                type = TypeName(
-                                    packageName = "kotlinx.coroutines.flow",
-                                    simpleName = "Flow",
-                                    parameterizedBy = dtoTypeName(simpleName = className)
-                                )
-                            )
-                            .addModifier(modifier = KModifier.OVERRIDE)
-                            .getter(
-                                getter = FunSpec
-                                    .getterBuilder()
-                                    .addStatement(
-                                        format = "return repository.getUpdates(%T::class) { mapper.map(it) }",
-                                        tdApiTypeName(simpleName = className)
-                                    )
-                                    .build()
-                            )
-                            .build()
-                    }
-                )
-                .addFunctions(
-                    funSpecs = functionClassDeclarations.map { classDeclaration ->
-                        val className = classDeclaration.nameAsString
-
-                        val properties = classDeclaration.createProperties()
-
-                        return@map FunSpec
-                            .builder(name = className.decapitalized)
-                            .addModifier(modifier = KModifier.OVERRIDE)
-                            .addModifier(modifier = KModifier.SUSPEND)
-                            .addParameters(
-                                parameterSpecs = properties.map mapParameter@{ property ->
-                                    return@mapParameter ParameterSpec
-                                        .builder(name = property.name, type = property.type)
-                                        .build()
-                                }
-                            )
-                            .returns(
-                                returnType = TypeName(
-                                    packageName = PACKAGE,
-                                    simpleName = "TdlResult",
-                                    parameterizedBy = dtoTypeName(simpleName = classDeclaration.extendedClassTypeArgumentName)
-                                )
-                            )
-                            .apply {
-                                if (properties.size > 0) {
-                                    addStatement(format = "val function = TdApi.%L(", className)
-                                    properties.forEach { property ->
-                                        val name = property.name
-                                        val typeName = property.type
-                                        if (typeName is ParameterizedTypeName) {
-                                            val type = typeName.argumentTypeName as ClassName
-                                            if (type.packageName == PACKAGE_DTO) {
-                                                addStatement(format = "    %L = %L.mapArray { mapper.map(it) },", name, name)
-                                            } else {
-                                                addStatement(format = "    %L = %L,", name, name)
-                                            }
-                                        } else {
-                                            typeName as ClassName
-                                            if (typeName.packageName == PACKAGE_DTO) {
-                                                if (typeName.isNullable) {
-                                                    addStatement(format = "    %L = %L?.let { mapper.map(it) },", name, name)
-                                                } else {
-                                                    addStatement(format = "    %L = mapper.map(%L),", name, name)
-                                                }
-                                            } else {
-                                                addStatement(format = "    %L = %L,", name, name)
-                                            }
-                                        }
-                                    }
-                                    addStatement(format = ")")
-                                } else {
-                                    addStatement(format = "val function = TdApi.%L()", className)
-                                }
-                                addStatement(format = "return repository.send(function) { mapper.map(it) }")
-                            }
-                            .build()
-                    }
-                )
-                .build()
-        )
-        .indent(indent = "    ")
-        .build()
-        .writeAndFixContent(folderName = "commonMainGenerated")
-}
-
-//////  //////  //////
-//////  //////  //////
-//////  //////  //////
-
-//////  //////  //////
-//////  //////  //////
-//////  //////  //////
 
 //////  //////  //////
 //////  //////  //////
@@ -1295,14 +880,6 @@ private fun writeTdlMapper(classDeclarations: List<ClassOrInterfaceDeclaration>)
 //////  //////  //////
 //////  //////  //////
 
-//////  //////  //////
-//////  //////  //////
-//////  //////  //////
-
-//////  //////  //////
-//////  //////  //////
-//////  //////  //////
-
 private fun ClassOrInterfaceDeclaration.findConstructorValue(): Int? {
     fields.forEach {
         it.variables.forEach {
@@ -1336,18 +913,6 @@ private fun ClassOrInterfaceDeclaration.findGitCommitHashValue(): String? {
         }
     }
     return null
-}
-
-private fun createInnerClassName(child: String, parent: String): String {
-    val regex = "(?=[A-Z])".toRegex()
-    val aw = child.split(regex)
-    val bw = parent.split(regex)
-
-    val commonCount = aw.zip(bw)
-        .takeWhile { (w1, w2) -> w1 == w2 }
-        .count()
-
-    return aw.drop(commonCount).joinToString("")
 }
 
 private fun Type.toTypeName(replace: Boolean = false): TypeName {
@@ -1431,29 +996,8 @@ private val ParameterizedTypeName.argumentTypeName: TypeName
             .first()
     }
 
-private val ClassOrInterfaceDeclaration.extendedClassTypeName: String
-    get() {
-        val classType = extendedTypeFirst()
-        return classType.nameAsString
-    }
-
-private val ClassOrInterfaceDeclaration.extendedClassTypeArgumentName: String
-    get() {
-        return extendedTypeFirst()
-            .typeArgumentFirst()
-            .let { it as ClassOrInterfaceType }
-            .nameAsString
-    }
-
 private fun ClassOrInterfaceDeclaration.extendedTypeFirst(): ClassOrInterfaceType {
     return extendedTypes
-        .also { check(value = it.size == 1) }
-        .first()
-}
-
-private fun ClassOrInterfaceType.typeArgumentFirst(): Type {
-    return typeArguments
-        .get()
         .also { check(value = it.size == 1) }
         .first()
 }
@@ -1498,11 +1042,10 @@ private val TypeName.isPrimitiveArray: Boolean
         return false
     }
 
-private fun ClassOrInterfaceDeclaration.createProperties(): List<Property> {
+private fun ClassOrInterfaceDeclaration.createProperties(): List<LegacyProperty> {
     return fields
         .map { fieldDeclaration ->
             val isNullable = fieldDeclaration.isNullable
-            val javaDoc = fieldDeclaration.javaDoc
             return@map fieldDeclaration.variables.mapNotNull { variableDeclarator ->
                 val name = variableDeclarator.nameAsString
                 if (name == "CONSTRUCTOR") {
@@ -1510,12 +1053,11 @@ private fun ClassOrInterfaceDeclaration.createProperties(): List<Property> {
                 }
 
                 val type = variableDeclarator.type
-                return@mapNotNull Property(
+                return@mapNotNull LegacyProperty(
                     name = name,
                     type = type
                         .toTypeName(replace = true)
                         .copy(nullable = isNullable),
-                    javaDoc = javaDoc,
                     originalType = type
                         .toTypeName(replace = false)
                         .copy(nullable = isNullable)
@@ -1569,10 +1111,9 @@ private fun TypeSpec.Builder.addModifier(modifier: KModifier): TypeSpec.Builder 
     return addModifiers(modifier)
 }
 
-private class Property(
+private class LegacyProperty(
     val name: String,
     val type: TypeName,
-    val javaDoc: String,
     val originalType: TypeName
 )
 
@@ -1596,3 +1137,668 @@ private fun TypeName(packageName: String, simpleName: String, parameterizedBy: T
 private fun TypeName(packageName: String, rootSimpleName: String, innerSimpleName: String): TypeName {
     return ClassName(packageName, rootSimpleName, innerSimpleName)
 }
+
+//////  //////  //////
+//////  //////  //////
+//////  //////  //////
+
+//////  //////  //////
+//////  //////  //////
+//////  //////  //////
+
+//////  //////  //////
+//////  //////  //////
+//////  //////  //////
+
+public fun main() {
+    val text = readAndFixText()
+
+    val typesText = text.substringBefore(delimiter = "\n---functions---")
+    val functionsText = text.substringAfter(delimiter = "---functions---\n\n")
+
+    val classElements = parseClassElements(text = typesText)
+        .also { check(value = it.size == 172) }
+
+    val dtoCommonElements = parseCommonElements(text = typesText)
+        .also { check(value = it.size == 1775) }
+
+    check(value = classElements.size + dtoCommonElements.size == 1947)
+
+    val functionCommonElements = parseCommonElements(text = functionsText)
+        .also { check(value = it.size == 867) }
+        .also { println("Functions: ${it.size}") }
+        .sortedBy { it.name } // TODO Remove sorting in the future
+
+    val updateDtoCommonElements = dtoCommonElements
+        .filter { it.returns == "Update" }
+        .also { check(value = it.size == 159) }
+        .also { println("Updates: ${it.size}") }
+
+    File(currentPath, "tdl-coroutines/src/commonMainGenerated")
+        .deleteRecursively()
+
+    writeClassElements(classElements)
+
+    writeDtoCommonElements(dtoCommonElements)
+
+    writeClientInterface(functionCommonElements, updateDtoCommonElements)
+
+    writeTdlClientImplementation(functionCommonElements, updateDtoCommonElements)
+
+    mainLegacy()
+}
+
+//////  //////  //////
+//////  //////  //////
+//////  //////  //////
+
+private fun readAndFixText(): String {
+    return getFile()
+        .readText(charset = Charsets.UTF_8)
+        .substringAfter(delimiter = "//@")
+        .replace(oldValue = "\n//-", newValue = " ")
+        .replace(oldValue = " @", newValue = "\n//@")
+        .replace(oldValue = "\n\n\n", newValue = "\n\n")
+        .replace(oldValue = ";\n//@", newValue = ";\n\n//@")
+        .let { text -> "//@$text" }
+}
+
+private fun getFile(): File {
+    val file = File(currentPath, "td/td/generate/scheme/td_api.tl")
+
+    val exists = file.exists()
+    require(exists) { "File $file doesn't exist" }
+
+    return file
+}
+
+private fun parseClassElements(text: String): List<ClassElement> {
+    return """//@class\s(\w+)\n//@description\s(.+)\n"""
+        .toRegex()
+        .findAll(input = text)
+        .map(::toClassElement)
+        .toList()
+}
+
+private fun toClassElement(matchResult: MatchResult): ClassElement {
+    val (name, description) = matchResult.destructured
+    return ClassElement(description = description, name = name)
+}
+
+private fun parseCommonElements(text: String): List<CommonElement> {
+    return """//@description\s(.+)\n((?://@.+\n)*)(\w+)\s((?:\w+:[<>\w]+\s)*)=\s(\w+);"""
+        .toRegex()
+        .findAll(input = text)
+        .map(::toCommonElement)
+        .toList()
+}
+
+private fun toCommonElement(matchResult: MatchResult): CommonElement {
+    val (description, fields, name, properties, returns) = matchResult.destructured
+    return CommonElement(
+        description = CommonElement.Description(
+            text = description,
+            fields = parseFields(text = fields)
+        ),
+        name = name,
+        properties = parseProperties(text = properties),
+        returns = returns
+    )
+}
+
+private fun parseFields(text: String): List<CommonElement.Description.Field> {
+    if (text.length == 0) {
+        return emptyList()
+    }
+
+    return """//@(\w+)\s(.+)"""
+        .toRegex()
+        .findAll(input = text)
+        .map(::toField)
+        .toList()
+}
+
+private fun toField(matchResult: MatchResult): CommonElement.Description.Field {
+    val (name, description) = matchResult.destructured
+    if (name == "param_description") {
+        return CommonElement.Description.Field(name = "description", description = description)
+    }
+
+    return CommonElement.Description.Field(name = name, description = description)
+}
+
+private fun parseProperties(text: String): List<CommonElement.Property> {
+    if (text.length == 0) {
+        return emptyList()
+    }
+
+    return """(\w+):([<>\w]+)\s"""
+        .toRegex()
+        .findAll(input = text)
+        .map(::toProperty)
+        .toList()
+}
+
+private fun toProperty(matchResult: MatchResult): CommonElement.Property {
+    val (name, type) = matchResult.destructured
+    return CommonElement.Property(name = name, type = type)
+}
+
+private class ClassElement(val description: String, val name: String)
+
+private class CommonElement(
+    val description: Description,
+    val name: String,
+    val properties: List<Property>,
+    val returns: String
+) {
+
+    class Description(val text: String, val fields: List<Field>) {
+
+        class Field(val name: String, val description: String)
+
+    }
+
+    class Property(val name: String, val type: String)
+
+}
+
+//////  //////  //////
+//////  //////  //////
+//////  //////  //////
+
+private fun writeClassElements(classElements: List<ClassElement>) {
+    classElements.forEach { classElement ->
+        val className = classElement.name.capitalized
+
+        FileSpec
+            .builder(packageName = PACKAGE_DTO, fileName = className)
+            .addType(
+                typeSpec = TypeSpec
+                    .classBuilder(name = className)
+                    .addKdoc(format = "This class is an abstract base class.\n")
+                    .addKdoc(format = classElement.description.withDotIfNeeded)
+                    .addModifier(modifier = KModifier.PUBLIC)
+                    .addModifier(modifier = KModifier.SEALED)
+                    .primaryConstructor(
+                        primaryConstructor = FunSpec
+                            .constructorBuilder()
+                            .addModifier(modifier = KModifier.PROTECTED)
+                            .build()
+                    )
+                    .build()
+            )
+            .setIndent()
+            .build()
+            .writeAndFixContent(folderName = "commonMainGenerated")
+    }
+}
+
+private fun writeDtoCommonElements(dtoCommonElements: List<CommonElement>) {
+    dtoCommonElements.forEach { commonElement ->
+        val className = commonElement.name.capitalized
+
+        val properties = createProperties(properties = commonElement.properties, fields = commonElement.description.fields)
+
+        FileSpec
+            .builder(packageName = PACKAGE_DTO, fileName = className)
+            .addType(
+                typeSpec = TypeSpec
+                    .classBuilder(name = className)
+                    .addKdoc(format = commonElement.description.text.withDotIfNeeded.withReplacedSnakeCases2.withReplacedSymbols)
+                    .apply {
+                        val fields = commonElement.description.fields
+                        if (fields.size > 0) {
+                            addKdoc(format = "\n")
+
+                            fields.forEach { field ->
+                                addKdoc(format = "\n")
+                                addKdoc(format = "@property ")
+                                addKdoc(format = field.name.withReplacedSnakeCases1)
+                                addKdoc(format = " ")
+                                addKdoc(format = field.description.withDotIfNeeded.withReplacedSnakeCases2.withReplacedSymbols)
+                            }
+                        }
+                    }
+                    .addModifier(modifier = KModifier.PUBLIC)
+                    .primaryConstructor(
+                        primaryConstructor = FunSpec
+                            .constructorBuilder()
+                            .addModifier(modifier = KModifier.PUBLIC)
+                            .addParameters(
+                                parameterSpecs = properties.map { property ->
+                                    return@map ParameterSpec
+                                        .builder(name = property.name, type = property.type)
+                                        .build()
+                                }
+                            )
+                            .build()
+                    )
+                    .addProperties(
+                        propertySpecs = properties.map { property ->
+                            return@map PropertySpec
+                                .builder(name = property.name, type = property.type)
+                                .addModifier(modifier = KModifier.PUBLIC)
+                                .initializer(format = property.name)
+                                .build()
+                        }
+                    )
+                    .apply {
+                        val equals = commonElement.returns.equals(other = commonElement.name, ignoreCase = true)
+                        if (!equals) {
+                            superclass(
+                                superclass = dtoTypeName(simpleName = commonElement.returns)
+                            )
+                        }
+                    }
+                    .addFunction(
+                        funSpec = buildEqualsFunSpec(className = className, properties = properties)
+                    )
+                    .addFunction(
+                        funSpec = buildHashCodeFunSpec(properties = properties)
+                    )
+                    .addFunction(
+                        funSpec = buildToStringFunSpec(className = className, properties = properties)
+                    )
+                    .build()
+            )
+            .setIndent()
+            .build()
+            .writeAndFixContent(folderName = "commonMainGenerated")
+    }
+}
+
+private fun writeClientInterface(functionCommonElements: List<CommonElement>, updateDtoCommonElements: List<CommonElement>) {
+    FileSpec
+        .builder(packageName = PACKAGE, fileName = "TdlClient")
+        .addType(
+            typeSpec = TypeSpec
+                .classBuilder(name = "TdlClient")
+                .addKdoc(format = "A Kotlin Coroutines client for the TDLib.")
+                .addKdoc(format = "\n")
+                .addKdoc(format = "\n")
+                .addKdoc(format = "You should subscribe to the primary update flows before calling requests to avoid missing initial updates.")
+                .addModifier(modifier = KModifier.PUBLIC)
+                .addModifier(modifier = KModifier.ABSTRACT)
+                .primaryConstructor(
+                    primaryConstructor = FunSpec
+                        .constructorBuilder()
+                        .addModifier(modifier = KModifier.INTERNAL)
+                        .build()
+                )
+                .addProperties(
+                    propertySpecs = updateDtoCommonElements.map { commonElement ->
+                        val className = commonElement.name.capitalized
+
+                        return@map PropertySpec
+                            .builder(
+                                name = className
+                                    .removePrefix(prefix = "Update")
+                                    .let { it.decapitalized + "Updates" },
+                                type = TypeName(
+                                    packageName = "kotlinx.coroutines.flow",
+                                    simpleName = "Flow",
+                                    parameterizedBy = dtoTypeName(simpleName = className)
+                                )
+                            )
+                            .addKdoc(format = commonElement.description.text.withDotIfNeeded.withReplacedSnakeCases2.withReplacedSymbols)
+                            .addModifier(modifier = KModifier.PUBLIC)
+                            .addModifier(modifier = KModifier.ABSTRACT)
+                            .build()
+                    }
+                )
+                .addFunctions(
+                    funSpecs = functionCommonElements.map { commonElement ->
+                        val functionName = commonElement.name
+
+                        val properties = createProperties(
+                            properties = commonElement.properties,
+                            fields = commonElement.description.fields
+                        )
+
+                        return@map FunSpec
+                            .builder(name = functionName)
+                            .addKdoc(format = commonElement.description.text.withDotIfNeeded.withReplacedSnakeCases2.withReplacedSymbols)
+                            .apply {
+                                val fields = commonElement.description.fields
+                                if (fields.size > 0) {
+                                    addKdoc(format = "\n")
+
+                                    fields.forEach { field ->
+                                        addKdoc(format = "\n")
+                                        addKdoc(format = "@param ")
+                                        addKdoc(format = field.name.withReplacedSnakeCases1)
+                                        addKdoc(format = " ")
+                                        addKdoc(format = field.description.withDotIfNeeded.withReplacedSnakeCases2.withReplacedSymbols)
+                                    }
+                                }
+                            }
+                            .addModifier(modifier = KModifier.PUBLIC)
+                            .addModifier(modifier = KModifier.ABSTRACT)
+                            .addModifier(modifier = KModifier.SUSPEND)
+                            .addParameters(
+                                parameterSpecs = properties.map mapProperty@{ property ->
+                                    return@mapProperty ParameterSpec
+                                        .builder(name = property.name, type = property.type)
+                                        .apply {
+                                            if (property.type.isNullable) {
+                                                defaultValue(format = "null")
+                                            }
+                                        }
+                                        .build()
+                                }
+                            )
+                            .returns(
+                                returnType = TypeName(
+                                    packageName = PACKAGE,
+                                    simpleName = "TdlResult",
+                                    parameterizedBy = dtoTypeName(simpleName = commonElement.returns)
+                                )
+                            )
+                            .build()
+                    }
+                )
+                .addType(
+                    typeSpec = TypeSpec
+                        .companionObjectBuilder()
+                        .addModifier(modifier = KModifier.PUBLIC)
+                        .addProperty(
+                            propertySpec = PropertySpec
+                                .builder(name = "TDL_GIT_COMMIT_HASH", type = STRING)
+                                .addKdoc(format = "The Git commit hash of the TDLib.")
+                                .addModifier(modifier = KModifier.CONST)
+                                .initializer(format = "TdlEngine.GIT_COMMIT_HASH")
+                                .build()
+                        )
+                        .addProperty(
+                            propertySpec = PropertySpec
+                                .builder(name = "TDL_VERSION", type = STRING)
+                                .addKdoc(format = "The version of the TDLib.")
+                                .addModifier(modifier = KModifier.CONST)
+                                .initializer(format = "TdlEngine.VERSION")
+                                .build()
+                        )
+                        .addFunction(
+                            funSpec = FunSpec
+                                .builder(name = "create")
+                                .addKdoc(format = "Creates a new instance of the [TdlClient].")
+                                .addModifier(modifier = KModifier.PUBLIC)
+                                .returns(
+                                    returnType = TypeName(packageName = PACKAGE, simpleName = "TdlClient")
+                                )
+                                .addStatement(format = "REMOVE_LINE")
+                                .addStatement(format = "return serviceLocator.createClient()")
+                                .build()
+                        )
+                        .build()
+                )
+                .build()
+        )
+        .setIndent()
+        .build()
+        .writeAndFixContent(folderName = "commonMainGenerated")
+}
+
+private fun writeTdlClientImplementation(
+    functionCommonElements: List<CommonElement>,
+    updateDtoCommonElements: List<CommonElement>,
+) {
+    FileSpec
+        .builder(packageName = PACKAGE, fileName = "TdlClientImpl")
+        .addType(
+            typeSpec = TypeSpec
+                .classBuilder(name = "TdlClientImpl")
+                .addModifier(modifier = KModifier.INTERNAL)
+                .primaryConstructor(
+                    primaryConstructor = FunSpec
+                        .constructorBuilder()
+                        .addParameter(
+                            parameterSpec = ParameterSpec
+                                .builder(
+                                    name = "mapper",
+                                    type = TypeName(packageName = PACKAGE, simpleName = "TdlMapper")
+                                )
+                                .build()
+                        )
+                        .addParameter(
+                            parameterSpec = ParameterSpec
+                                .builder(
+                                    name = "repository",
+                                    type = TypeName(packageName = PACKAGE, simpleName = "TdlRepository")
+                                )
+                                .build()
+                        )
+                        .build()
+                )
+                .superclass(
+                    superclass = TypeName(packageName = PACKAGE, simpleName = "TdlClient")
+                )
+                .addProperty(
+                    propertySpec = PropertySpec
+                        .builder(
+                            name = "mapper",
+                            type = TypeName(packageName = PACKAGE, simpleName = "TdlMapper")
+                        )
+                        .addModifier(modifier = KModifier.PRIVATE)
+                        .initializer(format = "mapper")
+                        .build()
+                )
+                .addProperty(
+                    propertySpec = PropertySpec
+                        .builder(
+                            name = "repository",
+                            type = TypeName(packageName = PACKAGE, simpleName = "TdlRepository")
+                        )
+                        .addModifier(modifier = KModifier.PRIVATE)
+                        .initializer(format = "repository")
+                        .build()
+                )
+                .addProperties(
+                    propertySpecs = updateDtoCommonElements.map { commonElement ->
+                        val className = commonElement.name.capitalized
+
+                        return@map PropertySpec
+                            .builder(
+                                name = className
+                                    .removePrefix(prefix = "Update")
+                                    .let { it.decapitalized + "Updates" },
+                                type = TypeName(
+                                    packageName = "kotlinx.coroutines.flow",
+                                    simpleName = "Flow",
+                                    parameterizedBy = dtoTypeName(simpleName = className)
+                                )
+                            )
+                            .addModifier(modifier = KModifier.OVERRIDE)
+                            .getter(
+                                getter = FunSpec
+                                    .getterBuilder()
+                                    .addStatement(
+                                        format = "return repository.getUpdates(%T::class) { mapper.map(it) }",
+                                        tdApiTypeName(simpleName = className)
+                                    )
+                                    .build()
+                            )
+                            .build()
+                    }
+                )
+                .addFunctions(
+                    funSpecs = functionCommonElements.map { commonElement ->
+                        val functionName = commonElement.name
+
+                        val properties = createProperties(
+                            properties = commonElement.properties,
+                            fields = commonElement.description.fields
+                        )
+
+                        return@map FunSpec
+                            .builder(name = functionName)
+                            .addModifier(modifier = KModifier.OVERRIDE)
+                            .addModifier(modifier = KModifier.SUSPEND)
+                            .addParameters(
+                                parameterSpecs = properties.map mapParameter@{ property ->
+                                    return@mapParameter ParameterSpec
+                                        .builder(name = property.name, type = property.type)
+                                        .build()
+                                }
+                            )
+                            .returns(
+                                returnType = TypeName(
+                                    packageName = PACKAGE,
+                                    simpleName = "TdlResult",
+                                    parameterizedBy = dtoTypeName(simpleName = commonElement.returns)
+                                )
+                            )
+                            .apply {
+                                val className = functionName.capitalized
+                                if (properties.size > 0) {
+                                    addStatement(format = "val function = TdApi.%L(", className)
+                                    properties.forEach { property ->
+                                        val name = property.name
+                                        val typeName = property.type
+                                        if (typeName is ParameterizedTypeName) {
+                                            val type = typeName.argumentTypeName as ClassName
+                                            if (type.packageName == PACKAGE_DTO) {
+                                                addStatement(format = "    %L = %L.mapArray { mapper.map(it) },", name, name)
+                                            } else {
+                                                addStatement(format = "    %L = %L,", name, name)
+                                            }
+                                        } else {
+                                            typeName as ClassName
+                                            if (typeName.packageName == PACKAGE_DTO) {
+                                                if (typeName.isNullable) {
+                                                    addStatement(format = "    %L = %L?.let { mapper.map(it) },", name, name)
+                                                } else {
+                                                    addStatement(format = "    %L = mapper.map(%L),", name, name)
+                                                }
+                                            } else {
+                                                addStatement(format = "    %L = %L,", name, name)
+                                            }
+                                        }
+                                    }
+                                    addStatement(format = ")")
+                                } else {
+                                    addStatement(format = "val function = TdApi.%L()", className)
+                                }
+                                addStatement(format = "return repository.send(function) { mapper.map(it) }")
+                            }
+                            .build()
+                    }
+                )
+                .build()
+        )
+        .setIndent()
+        .build()
+        .writeAndFixContent(folderName = "commonMainGenerated")
+}
+
+//////  //////  //////
+//////  //////  //////
+//////  //////  //////
+
+private val CommonElement.Description.Field.isNullable: Boolean
+    get() {
+        val hasBeNull = description.contains(other = "be null", ignoreCase = true)
+        val hasPassNull = description.contains(other = "pass null", ignoreCase = true)
+        return hasBeNull || hasPassNull
+    }
+
+private val String.capitalized: String
+    get() = replaceFirstChar { it.uppercaseChar() }
+
+private val String.withDotIfNeeded: String
+    get() {
+        val endsWithDot = endsWith(suffix = ".")
+        if (endsWithDot) {
+            return this
+        }
+
+        val matchResult = """.+\.\s\(.+\)$"""
+            .toRegex()
+            .find(input = this)
+        if (matchResult == null) {
+            return "$this."
+        }
+
+        return dropLast(n = 1) + ".)"
+    }
+
+private val String.withReplacedSymbols: String
+    get() {
+        return replace(oldValue = "%", newValue = "%%")
+            .replace(oldValue = "&", newValue = "&amp;")
+            .replace(oldValue = "<", newValue = "&lt;")
+            .replace(oldValue = ">", newValue = "&gt;")
+            .replace(oldValue = "\"", newValue = "&quot;")
+    }
+
+private val String.withReplacedSnakeCases1: String
+    get() {
+        val delimiter = '_'
+        return split(delimiter)
+            .mapIndexed { index, text ->
+                if (index == 0) {
+                    return@mapIndexed text
+                } else {
+                    return@mapIndexed text.capitalized
+                }
+            }
+            .joinToString(separator = "")
+    }
+
+private val String.withReplacedSnakeCases2: String
+    get() {
+        return """(?<=\s|\(|:|\.|\{|;|<)([0-9a-z]+(?:_[0-9a-z]+)+)(?=\s|\)|,|\.|;|=|}|]|&|>|")"""
+            .toRegex()
+            .replace(input = this) { matchResult -> matchResult.value.withReplacedSnakeCases1 }
+    }
+
+private fun FileSpec.Builder.setIndent(): FileSpec.Builder {
+    return indent(indent = "    ")
+}
+
+private fun createProperties(
+    properties: List<CommonElement.Property>,
+    fields: List<CommonElement.Description.Field>
+): List<Property> {
+    return properties.map { property ->
+        return@map Property(
+            name = property.name.withReplacedSnakeCases1,
+            type = property
+                .type
+                .let(::createTypeName)
+                .copy(
+                    nullable = fields
+                        .firstOrNull { it.name == property.name }
+                        .let { it?.isNullable == true }
+                ),
+        )
+    }
+}
+
+private fun createTypeName(type: String): TypeName {
+    when {
+        type == "Bool" -> return BOOLEAN
+        type == "bytes" -> return BYTE_ARRAY
+        type == "double" -> return DOUBLE
+        type == "int32" -> return INT
+        type == "int53" -> return LONG
+        type == "int64" -> return LONG
+        type == "string" -> return STRING
+        type.contains(other = "vector<") -> {
+            val arrayTypeName = """vector<(.+)>"""
+                .toRegex()
+                .find(input = type)!!
+                .destructured
+                .component1()
+                .let(::createTypeName)
+            when (arrayTypeName) {
+                INT -> return INT_ARRAY
+                LONG -> return LONG_ARRAY
+                else -> return ARRAY.parameterizedBy(arrayTypeName)
+            }
+        }
+        else -> return dtoTypeName(simpleName = type.capitalized)
+    }
+}
+
+private class Property(val name: String, val type: TypeName)
