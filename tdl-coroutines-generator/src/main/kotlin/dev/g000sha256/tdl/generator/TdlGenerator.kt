@@ -1426,6 +1426,21 @@ private fun writeClientInterface(functionCommonElements: List<CommonElement>, up
                         .addModifier(modifier = KModifier.INTERNAL)
                         .build()
                 )
+                .addProperty(
+                    propertySpec = PropertySpec
+                        .builder(
+                            name = "allUpdates",
+                            type = TypeName(
+                                packageName = "kotlinx.coroutines.flow",
+                                simpleName = "Flow",
+                                parameterizedBy = dtoTypeName(simpleName = "Update")
+                            )
+                        )
+                        .addKdoc(format = "All updates.")
+                        .addModifier(modifier = KModifier.PUBLIC)
+                        .addModifier(modifier = KModifier.ABSTRACT)
+                        .build()
+                )
                 .addProperties(
                     propertySpecs = updateDtoCommonElements.map { commonElement ->
                         val className = commonElement.name.capitalized
@@ -1591,6 +1606,28 @@ private fun writeTdlClientImplementation(
                         )
                         .addModifier(modifier = KModifier.PRIVATE)
                         .initializer(format = "repository")
+                        .build()
+                )
+                .addProperty(
+                    propertySpec = PropertySpec
+                        .builder(
+                            name = "allUpdates",
+                            type = TypeName(
+                                packageName = "kotlinx.coroutines.flow",
+                                simpleName = "Flow",
+                                parameterizedBy = dtoTypeName(simpleName = "Update")
+                            )
+                        )
+                        .addModifier(modifier = KModifier.OVERRIDE)
+                        .getter(
+                            getter = FunSpec
+                                .getterBuilder()
+                                .addStatement(
+                                    format = "return repository.getUpdates(%T::class) { mapper.map(it) }",
+                                    tdApiTypeName(simpleName = "Update")
+                                )
+                                .build()
+                        )
                         .build()
                 )
                 .addProperties(
