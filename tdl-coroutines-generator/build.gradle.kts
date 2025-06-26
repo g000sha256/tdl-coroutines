@@ -26,7 +26,5 @@ dependencies {
     implementation(catalog.libs.jetBrains.annotations)
     implementation(catalog.libs.jetBrains.kotlin)
 
-    implementation(catalog.libs.javaParser.core)
-    implementation(catalog.libs.javaParser.symbolSolverCore)
     implementation(catalog.libs.squareUp.kotlinPoet)
 }

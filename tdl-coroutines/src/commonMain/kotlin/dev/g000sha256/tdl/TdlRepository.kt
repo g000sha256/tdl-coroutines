@@ -16,71 +16,63 @@
 
 package dev.g000sha256.tdl
 
-import kotlin.reflect.KClass
+import dev.g000sha256.tdl.dto.AuthorizationStateClosed
+import dev.g000sha256.tdl.dto.Error
+import dev.g000sha256.tdl.dto.ServiceUpdate
+import dev.g000sha256.tdl.dto.Update
+import dev.g000sha256.tdl.dto.UpdateAuthorizationState
 import kotlinx.atomicfu.atomic
 import kotlinx.atomicfu.updateAndGet
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.FlowCollector
 import kotlinx.coroutines.flow.filter
-import kotlinx.coroutines.flow.filterIsInstance
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.takeWhile
 import kotlinx.coroutines.flow.transform
-import org.drinkless.tdlib.TdApi
 
 internal class TdlRepository(private val engine: TdlEngine) {
 
     private val stopped = atomic(initial = false)
-    private val updatesFlow: Flow<TdApi.Update>
     private val clientId = engine.createClientId()
 
+    val updates: Flow<Update>
+
     init {
-        updatesFlow = engine
-            .getUpdates(clientId)
-            .filterIsInstance<TdApi.Update>()
-            .onStart { emit(ServiceUpdate.Start) }
-            .transform { update -> transformUpdates(update) }
-            .takeWhile { update -> !checkStopped(update) }
-            .filter { it !is ServiceUpdate }
+        updates = engine
+            .getUpdates(clientId = clientId)
+            .onStart { emit(value = ServiceUpdate.Start) }
+            .transform { update -> transform(update = update) }
+            .takeWhile { update -> !checkStopped(update = update) }
+            .filter { update -> update !is ServiceUpdate }
     }
 
-    fun <T1 : TdApi.Update, T2> getUpdates(clazz: KClass<T1>, transform: (T1) -> T2): Flow<T2> {
-        return updatesFlow
-            .filterIsInstance(clazz)
-            .map(transform)
-    }
-
-    suspend fun <T1 : TdApi.Object, T2> send(function: TdApi.Function<T1>, transform: (T1) -> T2): TdlResult<T2> {
-        val result = engine.send(clientId, function)
+    @Suppress("UNCHECKED_CAST")
+    suspend fun <F : Any, M> send(function: F): TdlResult<M> {
+        val dto = engine.send(function = function, clientId = clientId)
         when {
-            result is TdApi.Error -> return TdlResult.Failure(result.code, result.message)
-            else -> {
-                @Suppress("UNCHECKED_CAST")
-                val transformed = transform.invoke(result as T1)
-                return TdlResult.Success(transformed)
-            }
+            dto is Error -> return TdlResult.Failure(code = dto.code, message = dto.message)
+            else -> return TdlResult.Success(result = dto as M)
         }
     }
 
-    private suspend fun FlowCollector<TdApi.Update>.transformUpdates(update: TdApi.Update) {
-        emit(update)
+    private suspend fun FlowCollector<Update>.transform(update: Update) {
+        emit(value = update)
 
-        val closed = checkClosed(update)
+        val closed = checkClosed(update = update)
         if (closed) {
-            emit(ServiceUpdate.Stop)
+            emit(value = ServiceUpdate.Stop)
         }
     }
 
-    private fun checkClosed(update: TdApi.Update): Boolean {
-        if (update !is TdApi.UpdateAuthorizationState) {
+    private fun checkClosed(update: Update): Boolean {
+        if (update !is UpdateAuthorizationState) {
             return false
         }
 
-        return update.authorizationState is TdApi.AuthorizationStateClosed
+        return update.authorizationState is AuthorizationStateClosed
     }
 
-    private fun checkStopped(update: TdApi.Update): Boolean {
+    private fun checkStopped(update: Update): Boolean {
         return stopped.updateAndGet { alreadyStopped ->
             if (alreadyStopped) {
                 return@updateAndGet true
@@ -88,18 +80,6 @@ internal class TdlRepository(private val engine: TdlEngine) {
 
             return@updateAndGet update == ServiceUpdate.Stop
         }
-    }
-
-    private sealed class ServiceUpdate : TdApi.Update() {
-
-        override fun getConstructor(): Int {
-            return 0
-        }
-
-        object Start : ServiceUpdate()
-
-        object Stop : ServiceUpdate()
-
     }
 
 }

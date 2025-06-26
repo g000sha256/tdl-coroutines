@@ -9568,18 +9568,18 @@ public abstract class TdlClient internal constructor() {
         /**
          * The Git commit hash of the TDLib.
          */
-        public const val TDL_GIT_COMMIT_HASH: String = TdlEngine.GIT_COMMIT_HASH
+        public const val TDL_GIT_COMMIT_HASH: String = "bb474a201baa798784d696d2d9d762a9d2807f96"
 
         /**
          * The version of the TDLib.
          */
-        public const val TDL_VERSION: String = TdlEngine.VERSION
+        public const val TDL_VERSION: String = "1.8.51"
 
         /**
          * Creates a new instance of the [TdlClient].
          */
         public fun create(): TdlClient {
-            return serviceLocator.createClient()
+            return createClient()
         }
     }
 }
