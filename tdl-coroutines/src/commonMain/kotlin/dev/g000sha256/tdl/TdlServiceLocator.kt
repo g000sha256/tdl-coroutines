@@ -16,20 +16,55 @@
 
 package dev.g000sha256.tdl
 
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.DelicateCoroutinesApi
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.newFixedThreadPoolContext
+
 internal val serviceLocator by lazy { TdlServiceLocator() }
 
 internal class TdlServiceLocator {
 
-    private val coroutineScope by lazy { TdlCoroutineScope() }
-    private val engine by lazy { TdlEngine(coroutineScope, native) }
-    private val mapper by lazy { TdlMapper() }
+    private val coroutineDispatcherReceiver by lazy { createSingleThreadCoroutineDispatcher(name = "TDL-Receiver-Thread") }
+    private val coroutineDispatcherSender by lazy { createSingleThreadCoroutineDispatcher(name = "TDL-Sender-Thread") }
+    private val coroutineScope by lazy { createCoroutineScope() }
+
+    private val engine by lazy { createEngine() }
     private val native by lazy { TdlNative() }
 
+    private val deserializer by lazy { TdlDeserializer() }
+    private val serializer by lazy { TdlSerializer() }
+
     private val repository: TdlRepository
-        get() = TdlRepository(engine)
+        get() = TdlRepository(engine = engine)
 
     fun createClient(): TdlClient {
-        return TdlClientImpl(mapper, repository)
+        return TdlClientImpl(repository = repository)
+    }
+
+    @OptIn(DelicateCoroutinesApi::class)
+    private fun createSingleThreadCoroutineDispatcher(name: String): CoroutineDispatcher {
+        return newFixedThreadPoolContext(nThreads = 1, name = name)
+    }
+
+    private fun createCoroutineScope(): CoroutineScope {
+        return object : CoroutineScope {
+
+            override val coroutineContext = Job()
+
+        }
+    }
+
+    private fun createEngine(): TdlEngine {
+        return TdlEngine(
+            coroutineDispatcherReceiver = coroutineDispatcherReceiver,
+            coroutineDispatcherSender = coroutineDispatcherSender,
+            coroutineScope = coroutineScope,
+            native = native,
+            deserializer = deserializer,
+            serializer = serializer,
+        )
     }
 
 }

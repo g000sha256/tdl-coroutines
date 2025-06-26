@@ -9452,12 +9452,12 @@ public abstract class TdlClient internal constructor() {
         /**
          * The Git commit hash of the TDLib.
          */
-        public const val TDL_GIT_COMMIT_HASH: String = TdlEngine.GIT_COMMIT_HASH
+        public const val TDL_GIT_COMMIT_HASH: String = "fb04b8d40e5e3d24c30001af2e9784c91d4606c0"
 
         /**
          * The version of the TDLib.
          */
-        public const val TDL_VERSION: String = TdlEngine.VERSION
+        public const val TDL_VERSION: String = "1.8.50"
 
         /**
          * Creates a new instance of the [TdlClient].

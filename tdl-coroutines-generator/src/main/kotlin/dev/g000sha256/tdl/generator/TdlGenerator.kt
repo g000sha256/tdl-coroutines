@@ -16,32 +16,15 @@
 
 package dev.g000sha256.tdl.generator
 
-import com.github.javaparser.JavaParser
-import com.github.javaparser.ParserConfiguration
-import com.github.javaparser.ast.CompilationUnit
-import com.github.javaparser.ast.Modifier
-import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration
-import com.github.javaparser.ast.body.FieldDeclaration
-import com.github.javaparser.ast.expr.UnaryExpr
-import com.github.javaparser.ast.nodeTypes.NodeWithJavadoc
-import com.github.javaparser.ast.type.ArrayType
-import com.github.javaparser.ast.type.ClassOrInterfaceType
-import com.github.javaparser.ast.type.PrimitiveType
-import com.github.javaparser.ast.type.Type
-import com.github.javaparser.symbolsolver.JavaSymbolSolver
-import com.github.javaparser.symbolsolver.resolution.typesolvers.ReflectionTypeSolver
 import com.squareup.kotlinpoet.ANY
 import com.squareup.kotlinpoet.ARRAY
 import com.squareup.kotlinpoet.BOOLEAN
 import com.squareup.kotlinpoet.BOOLEAN_ARRAY
-import com.squareup.kotlinpoet.BYTE
 import com.squareup.kotlinpoet.BYTE_ARRAY
-import com.squareup.kotlinpoet.CHAR
 import com.squareup.kotlinpoet.CHAR_ARRAY
 import com.squareup.kotlinpoet.ClassName
 import com.squareup.kotlinpoet.DOUBLE
 import com.squareup.kotlinpoet.DOUBLE_ARRAY
-import com.squareup.kotlinpoet.FLOAT
 import com.squareup.kotlinpoet.FLOAT_ARRAY
 import com.squareup.kotlinpoet.FileSpec
 import com.squareup.kotlinpoet.FunSpec
@@ -54,43 +37,15 @@ import com.squareup.kotlinpoet.ParameterSpec
 import com.squareup.kotlinpoet.ParameterizedTypeName
 import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
 import com.squareup.kotlinpoet.PropertySpec
-import com.squareup.kotlinpoet.SHORT
 import com.squareup.kotlinpoet.SHORT_ARRAY
 import com.squareup.kotlinpoet.STRING
 import com.squareup.kotlinpoet.TypeName
 import com.squareup.kotlinpoet.TypeSpec
-import com.squareup.kotlinpoet.TypeVariableName
 import java.io.File
 import java.nio.file.Paths
 import kotlin.io.path.pathString
 import kotlin.io.path.readLines
 import kotlin.io.path.writeLines
-import kotlin.jvm.optionals.getOrNull
-
-private fun mainLegacy() {
-    val file = File(currentPath, "td/example/android/tdlib/java/org/drinkless/tdlib/TdApi.java")
-    val exists = file.exists()
-    require(exists) { "File $file doesn't exist" }
-
-    val compilationUnit = readCompilationUnit(file)
-
-    val objectClassDeclarations = compilationUnit
-        .findAll(ClassOrInterfaceDeclaration::class.java)
-        .filter { it.nameAsString != "TdApi" }
-        .filter { it.extends(className = "Object") }
-
-    val allDtoClassDeclarations = objectClassDeclarations
-        .filter { it.nameAsString != "Function" && !it.extends(className = "Function") }
-
-    val functionClassDeclarations = objectClassDeclarations
-        .filter { it.extends(className = "Function") }
-
-    check(value = allDtoClassDeclarations.size + functionClassDeclarations.size + 1 == objectClassDeclarations.size)
-
-    writeTdApi(compilationUnit)
-
-    writeTdlMapper(allDtoClassDeclarations)
-}
 
 private const val LICENCE = """/*
  * Copyright 2025 Georgii Ippolitov (g000sha256)
@@ -111,24 +66,13 @@ private const val LICENCE = """/*
 
 private const val PACKAGE = "dev.g000sha256.tdl"
 private const val PACKAGE_DTO = "$PACKAGE.dto"
+private const val PACKAGE_FUNCTION = "$PACKAGE.function"
 
 private val currentPath = System
     .getProperty("user.dir")
     .let { Paths.get(it) }
     .parent
     .pathString
-
-@Suppress("CheckedExceptionsKotlin")
-private fun readCompilationUnit(file: File): CompilationUnit {
-    val parserConfiguration = ParserConfiguration()
-    return ReflectionTypeSolver()
-        .let { JavaSymbolSolver(it) }
-        .let { parserConfiguration.setSymbolResolver(it) }
-        .let { JavaParser(it) }
-        .parse(file)
-        .result
-        .get()
-}
 
 private fun buildEqualsFunSpec(className: String, properties: List<Property>): FunSpec {
     return FunSpec
@@ -276,748 +220,6 @@ private fun buildToStringFunSpec(className: String, properties: List<Property>):
 //////  //////  //////
 //////  //////  //////
 
-private fun writeTdApi(compilationUnit: CompilationUnit) {
-    FileSpec
-        .builder(
-            packageName = compilationUnit
-                .packageDeclaration
-                .get()
-                .nameAsString,
-            fileName = compilationUnit.primaryTypeName.get()
-        )
-        .addTypes(
-            typeSpecs = compilationUnit
-                .findAll(ClassOrInterfaceDeclaration::class.java)
-                .filter(ClassOrInterfaceDeclaration::isTopLevelType)
-                .map { topClassDeclaration ->
-                    TypeSpec
-                        .classBuilder(name = topClassDeclaration.nameAsString)
-                        .addModifier(modifier = KModifier.INTERNAL)
-                        .primaryConstructor(
-                            primaryConstructor = FunSpec
-                                .constructorBuilder()
-                                .addModifier(modifier = KModifier.PRIVATE)
-                                .build()
-                        )
-                        .apply {
-                            val gitCommitHash = topClassDeclaration.findGitCommitHashValue()
-                            if (gitCommitHash != null) {
-                                addType(
-                                    typeSpec = TypeSpec
-                                        .companionObjectBuilder()
-                                        .addProperty(
-                                            propertySpec = PropertySpec
-                                                .builder(name = "GIT_COMMIT_HASH", type = STRING)
-                                                .addModifier(modifier = KModifier.CONST)
-                                                .initializer(format = "\"%L\"", gitCommitHash)
-                                                .build()
-                                        )
-                                        .addProperty(
-                                            propertySpec = PropertySpec
-                                                .builder(name = "VERSION", type = STRING)
-                                                .addModifier(modifier = KModifier.CONST)
-                                                .initializer(format = "\"1.8.50\"") // TODO
-                                                .build()
-                                        )
-                                        .build()
-                                )
-                            }
-                        }
-                        .addTypes(
-                            typeSpecs = topClassDeclaration
-                                .findAll(ClassOrInterfaceDeclaration::class.java)
-                                .filter(ClassOrInterfaceDeclaration::isNestedType)
-                                .map { nestedClassDeclaration ->
-                                    val properties = nestedClassDeclaration.createProperties()
-                                    TypeSpec
-                                        .classBuilder(name = nestedClassDeclaration.nameAsString)
-                                        .addModifiers(
-                                            modifiers = nestedClassDeclaration.modifiers.mapNotNull {
-                                                when (it) {
-                                                    Modifier.abstractModifier() -> return@mapNotNull KModifier.ABSTRACT
-                                                    else -> return@mapNotNull null
-                                                }
-                                            }
-                                        )
-                                        .apply {
-                                            if (properties.size > 0) {
-                                                primaryConstructor(
-                                                    primaryConstructor = FunSpec
-                                                        .constructorBuilder()
-                                                        .addParameters(
-                                                            parameterSpecs = properties.map { property ->
-                                                                return@map ParameterSpec
-                                                                    .builder(name = property.name, type = property.originalType)
-                                                                    .build()
-                                                            }
-                                                        )
-                                                        .build()
-                                                )
-                                            }
-                                        }
-                                        .apply {
-                                            if (nestedClassDeclaration.nameAsString == "Function") {
-                                                addTypeVariable(
-                                                    typeVariable = TypeVariableName(
-                                                        name = "T",
-                                                        bounds = listOf(
-                                                            tdApiTypeName(simpleName = "Object")
-                                                        )
-                                                    )
-                                                )
-                                            }
-                                        }
-                                        .addProperties(
-                                            propertySpecs = properties.map { property ->
-                                                return@map PropertySpec
-                                                    .builder(name = property.name, type = property.originalType)
-                                                    .addAnnotation(JvmField::class)
-                                                    .initializer(format = property.name)
-                                                    .build()
-                                            }
-                                        )
-                                        .apply {
-                                            val parent = nestedClassDeclaration
-                                                .extendedTypes
-                                                .firstOrNull()
-                                            if (parent != null) {
-                                                val types =
-                                                    parent.typeArguments.getOrNull()?.map { it.toTypeName(replace = false) }
-                                                superclass(
-                                                    superclass = parent
-                                                        .toTypeName(replace = false)
-                                                        .let {
-                                                            if (it is ClassName) {
-                                                                if (types != null && types.isNotEmpty()) {
-                                                                    return@let it.parameterizedBy(types)
-                                                                }
-                                                            }
-                                                            return@let it
-                                                        }
-                                                )
-                                            }
-                                        }
-                                        .addFunctions(
-                                            funSpecs = nestedClassDeclaration.methods.mapNotNull {
-                                                when (it.nameAsString) {
-                                                    "getConstructor" -> {
-                                                        if (nestedClassDeclaration.nameAsString == "Object") {
-                                                            return@mapNotNull FunSpec
-                                                                .builder(name = it.nameAsString)
-                                                                .addModifier(modifier = KModifier.PUBLIC)
-                                                                .addModifier(modifier = KModifier.ABSTRACT)
-                                                                .returns(returnType = INT)
-                                                                .build()
-                                                        } else {
-                                                            val constructor = nestedClassDeclaration.findConstructorValue()
-                                                            if (constructor == null) {
-                                                                return@mapNotNull null
-                                                            } else {
-                                                                return@mapNotNull FunSpec
-                                                                    .builder(name = it.nameAsString)
-                                                                    .addModifier(modifier = KModifier.OVERRIDE)
-                                                                    .returns(returnType = INT)
-                                                                    .addStatement(format = "return %L", constructor)
-                                                                    .build()
-                                                            }
-                                                        }
-                                                    }
-                                                    "toString" -> {
-                                                        return@mapNotNull FunSpec
-                                                            .builder(name = it.nameAsString)
-                                                            .addModifier(modifier = KModifier.EXTERNAL)
-                                                            .addModifier(modifier = KModifier.OVERRIDE)
-                                                            .returns(returnType = STRING)
-                                                            .build()
-                                                    }
-                                                    else -> error(message = "Unknown method")
-                                                }
-                                            }
-                                        )
-                                        .build()
-                                }
-                        )
-                        .build()
-                }
-        )
-        .indent(indent = "    ")
-        .build()
-        .writeAndFixContent(folderName = "commonMainGenerated", addLicence = false, removeAllPublic = true)
-}
-
-private fun writeTdlMapper(classDeclarations: List<ClassOrInterfaceDeclaration>) {
-    FileSpec
-        .builder(packageName = PACKAGE, fileName = "TdlMapper")
-        .addType(
-            typeSpec = TypeSpec
-                .classBuilder(name = "TdlMapper")
-                .addModifier(modifier = KModifier.INTERNAL)
-                .addFunctions(
-                    funSpecs = buildList {
-                        val classDeclarationsGroups = classDeclarations.groupBy {
-                            return@groupBy it
-                                .extendedTypeFirst()
-                                .nameAsString
-                        }
-
-                        classDeclarationsGroups
-                            .getValue(key = "Object")
-                            .forEach { classDeclaration ->
-                                val className = classDeclaration.nameAsString
-
-                                if (classDeclaration.isAbstract) {
-                                    val innerClassDeclarations = classDeclarationsGroups.getValue(key = className)
-
-                                    FunSpec
-                                        .builder(name = "map")
-                                        .addParameter(
-                                            parameterSpec = ParameterSpec
-                                                .builder(
-                                                    name = "dto",
-                                                    type = tdApiTypeName(simpleName = className)
-                                                )
-                                                .build()
-                                        )
-                                        .returns(
-                                            returnType = dtoTypeName(simpleName = className)
-                                        )
-                                        .apply {
-                                            beginControlFlow(controlFlow = "when (dto)")
-                                            innerClassDeclarations.forEach {
-                                                addStatement(format = "is TdApi.%L -> return map(dto)", it.nameAsString)
-                                            }
-                                            addStatement(format = "else -> error(\"Unknown DTO class type (\${dto.javaClass})\")")
-                                            endControlFlow()
-                                        }
-                                        .build()
-                                        .also { add(it) }
-
-                                    innerClassDeclarations.forEach { innerClassDeclaration ->
-                                        val innerClassName = innerClassDeclaration.nameAsString
-
-                                        val innerProperties = innerClassDeclaration.createProperties()
-
-                                        FunSpec
-                                            .builder(name = "map")
-                                            .addParameter(
-                                                parameterSpec = ParameterSpec
-                                                    .builder(
-                                                        name = "dto",
-                                                        type = tdApiTypeName(simpleName = innerClassName)
-                                                    )
-                                                    .build()
-                                            )
-                                            .returns(
-                                                returnType = dtoTypeName(simpleName = innerClassName)
-                                            )
-                                            .apply {
-                                                addStatement(format = "REMOVE_LINE")
-                                                if (innerProperties.size > 0) {
-                                                    addStatement(format = "return %L(", innerClassName)
-                                                    innerProperties.forEach {
-                                                        val name = it.name
-                                                        val typeName = it.type
-                                                        if (typeName is ParameterizedTypeName) {
-                                                            val type = typeName.typeArguments.first()
-                                                            if (type is ParameterizedTypeName) {
-                                                                type.typeArguments.first() as ClassName
-                                                                if (typeName.isNullable) {
-                                                                    addStatement(
-                                                                        format = "    %L = dto.%L?.mapArrayOfArrays { map(it) },",
-                                                                        name,
-                                                                        name
-                                                                    )
-                                                                } else {
-                                                                    addStatement(
-                                                                        format = "    %L = dto.%L.mapArrayOfArrays { map(it) },",
-                                                                        name,
-                                                                        name
-                                                                    )
-                                                                }
-                                                            } else if (type is ClassName && type.packageName.startsWith(prefix = PACKAGE_DTO)) {
-                                                                if (typeName.isNullable) {
-                                                                    addStatement(
-                                                                        format = "    %L = dto.%L?.mapArray { map(it) },",
-                                                                        name,
-                                                                        name
-                                                                    )
-                                                                } else {
-                                                                    addStatement(
-                                                                        format = "    %L = dto.%L.mapArray { map(it) },",
-                                                                        name,
-                                                                        name
-                                                                    )
-                                                                }
-                                                            } else {
-                                                                addStatement(format = "    %L = dto.%L,", name, name)
-                                                            }
-                                                        } else {
-                                                            typeName as ClassName
-                                                            if (typeName.packageName.startsWith(prefix = PACKAGE_DTO)) {
-                                                                if (typeName.isNullable) {
-                                                                    addStatement(
-                                                                        format = "    %L = dto.%L?.let { map(it) },",
-                                                                        name,
-                                                                        name
-                                                                    )
-                                                                } else {
-                                                                    addStatement(format = "    %L = map(dto.%L),", name, name)
-                                                                }
-                                                            } else {
-                                                                addStatement(format = "    %L = dto.%L,", name, name)
-                                                            }
-                                                        }
-                                                    }
-                                                    addStatement(format = ")")
-                                                } else {
-                                                    addStatement(format = "return %L()", innerClassName)
-                                                }
-                                            }
-                                            .build()
-                                            .also { add(it) }
-                                    }
-
-                                    FunSpec
-                                        .builder(name = "map")
-                                        .addParameter(
-                                            parameterSpec = ParameterSpec
-                                                .builder(
-                                                    name = "dto",
-                                                    type = dtoTypeName(simpleName = className)
-                                                )
-                                                .build()
-                                        )
-                                        .returns(
-                                            returnType = tdApiTypeName(simpleName = className)
-                                        )
-                                        .apply {
-                                            beginControlFlow(controlFlow = "when (dto)")
-                                            innerClassDeclarations.forEach {
-                                                addStatement(format = "is %L -> return map(dto)", it.nameAsString)
-                                            }
-                                            endControlFlow()
-                                        }
-                                        .build()
-                                        .also { add(it) }
-
-                                    innerClassDeclarations.forEach { innerClassDeclaration ->
-                                        val innerClassName = innerClassDeclaration.nameAsString
-
-                                        val innerProperties = innerClassDeclaration.createProperties()
-
-                                        FunSpec
-                                            .builder(name = "map")
-                                            .addParameter(
-                                                parameterSpec = ParameterSpec
-                                                    .builder(
-                                                        name = "dto",
-                                                        type = dtoTypeName(simpleName = innerClassName)
-                                                    )
-                                                    .build()
-                                            )
-                                            .returns(
-                                                returnType = tdApiTypeName(simpleName = innerClassName)
-                                            )
-                                            .apply {
-                                                addStatement(format = "REMOVE_LINE")
-                                                if (innerProperties.size > 0) {
-                                                    addStatement(format = "return TdApi.%L(", innerClassName)
-                                                    innerProperties.forEach {
-                                                        val name = it.name
-                                                        val typeName = it.type
-                                                        if (typeName is ParameterizedTypeName) {
-                                                            val type = typeName.typeArguments.first()
-                                                            if (type is ParameterizedTypeName) {
-                                                                type.typeArguments.first() as ClassName
-                                                                if (typeName.isNullable) {
-                                                                    addStatement(
-                                                                        format = "    %L = dto.%L?.mapArrayOfArrays { map(it) },",
-                                                                        name,
-                                                                        name
-                                                                    )
-                                                                } else {
-                                                                    addStatement(
-                                                                        format = "    %L = dto.%L.mapArrayOfArrays { map(it) },",
-                                                                        name,
-                                                                        name
-                                                                    )
-                                                                }
-                                                            } else if (type is ClassName && type.packageName.startsWith(
-                                                                    prefix = PACKAGE_DTO
-                                                                )
-                                                            ) {
-                                                                if (typeName.isNullable) {
-                                                                    addStatement(
-                                                                        format = "    %L = dto.%L?.mapArray { map(it) },",
-                                                                        name,
-                                                                        name
-                                                                    )
-                                                                } else {
-                                                                    addStatement(
-                                                                        format = "    %L = dto.%L.mapArray { map(it) },",
-                                                                        name,
-                                                                        name
-                                                                    )
-                                                                }
-                                                            } else {
-                                                                addStatement(format = "    %L = dto.%L,", name, name)
-                                                            }
-                                                        } else {
-                                                            typeName as ClassName
-                                                            if (typeName.packageName.startsWith(prefix = PACKAGE_DTO)) {
-                                                                if (typeName.isNullable) {
-                                                                    addStatement(
-                                                                        format = "    %L = dto.%L?.let { map(it) },",
-                                                                        name,
-                                                                        name
-                                                                    )
-                                                                } else {
-                                                                    addStatement(
-                                                                        format = "    %L = map(dto.%L),",
-                                                                        name,
-                                                                        name
-                                                                    )
-                                                                }
-                                                            } else {
-                                                                addStatement(format = "    %L = dto.%L,", name, name)
-                                                            }
-                                                        }
-                                                    }
-                                                    addStatement(format = ")")
-                                                } else {
-                                                    addStatement(format = "return TdApi.%L()", innerClassName)
-                                                }
-                                            }
-                                            .build()
-                                            .also { add(it) }
-                                    }
-                                } else {
-                                    val properties = classDeclaration.createProperties()
-
-                                    FunSpec
-                                        .builder(name = "map")
-                                        .addParameter(
-                                            parameterSpec = ParameterSpec
-                                                .builder(
-                                                    name = "dto",
-                                                    type = tdApiTypeName(simpleName = className)
-                                                )
-                                                .build()
-                                        )
-                                        .returns(
-                                            returnType = dtoTypeName(simpleName = className)
-                                        )
-                                        .apply {
-                                            addStatement(format = "REMOVE_LINE")
-                                            if (properties.size > 0) {
-                                                addStatement(format = "return %L(", className)
-                                                properties.forEach {
-                                                    val name = it.name
-                                                    val typeName = it.type
-                                                    if (typeName is ParameterizedTypeName) {
-                                                        val type = typeName.typeArguments.first()
-                                                        if (type is ParameterizedTypeName) {
-                                                            type.typeArguments.first() as ClassName
-                                                            if (typeName.isNullable) {
-                                                                addStatement(
-                                                                    format = "    %L = dto.%L?.mapArrayOfArrays { map(it) },",
-                                                                    name,
-                                                                    name
-                                                                )
-                                                            } else {
-                                                                addStatement(
-                                                                    format = "    %L = dto.%L.mapArrayOfArrays { map(it) },",
-                                                                    name,
-                                                                    name
-                                                                )
-                                                            }
-                                                        } else if (type is ClassName && type.packageName.startsWith(
-                                                                prefix = PACKAGE_DTO
-                                                            )
-                                                        ) {
-                                                            if (typeName.isNullable) {
-                                                                addStatement(
-                                                                    format = "    %L = dto.%L?.mapArray { map(it) },",
-                                                                    name,
-                                                                    name
-                                                                )
-                                                            } else {
-                                                                addStatement(
-                                                                    format = "    %L = dto.%L.mapArray { map(it) },",
-                                                                    name,
-                                                                    name
-                                                                )
-                                                            }
-                                                        } else {
-                                                            addStatement(format = "    %L = dto.%L,", name, name)
-                                                        }
-                                                    } else {
-                                                        typeName as ClassName
-                                                        if (typeName.packageName.startsWith(prefix = PACKAGE_DTO)) {
-                                                            if (typeName.isNullable) {
-                                                                addStatement(
-                                                                    format = "    %L = dto.%L?.let { map(it) },",
-                                                                    name,
-                                                                    name
-                                                                )
-                                                            } else {
-                                                                addStatement(
-                                                                    format = "    %L = map(dto.%L),",
-                                                                    name,
-                                                                    name
-                                                                )
-                                                            }
-                                                        } else {
-                                                            addStatement(format = "    %L = dto.%L,", name, name)
-                                                        }
-                                                    }
-                                                }
-                                                addStatement(format = ")")
-                                            } else {
-                                                addStatement(format = "return %L()", className)
-                                            }
-                                        }
-                                        .build()
-                                        .also { add(it) }
-
-                                    FunSpec
-                                        .builder(name = "map")
-                                        .addParameter(
-                                            parameterSpec = ParameterSpec
-                                                .builder(
-                                                    name = "dto",
-                                                    type = dtoTypeName(simpleName = className)
-                                                )
-                                                .build()
-                                        )
-                                        .returns(
-                                            returnType = tdApiTypeName(simpleName = className)
-                                        )
-                                        .apply {
-                                            addStatement(format = "REMOVE_LINE")
-                                            if (properties.size > 0) {
-                                                addStatement(format = "return TdApi.%L(", className)
-                                                properties.forEach {
-                                                    val name = it.name
-                                                    val typeName = it.type
-                                                    if (typeName is ParameterizedTypeName) {
-                                                        val type = typeName.typeArguments.first()
-                                                        if (type is ParameterizedTypeName) {
-                                                            type.typeArguments.first() as ClassName
-                                                            if (typeName.isNullable) {
-                                                                addStatement(
-                                                                    format = "    %L = dto.%L?.mapArrayOfArrays { map(it) },",
-                                                                    name,
-                                                                    name
-                                                                )
-                                                            } else {
-                                                                addStatement(
-                                                                    format = "    %L = dto.%L.mapArrayOfArrays { map(it) },",
-                                                                    name,
-                                                                    name
-                                                                )
-                                                            }
-                                                        } else if (type is ClassName && type.packageName.startsWith(
-                                                                prefix = PACKAGE_DTO
-                                                            )
-                                                        ) {
-                                                            if (typeName.isNullable) {
-                                                                addStatement(
-                                                                    format = "    %L = dto.%L?.mapArray { map(it) },",
-                                                                    name,
-                                                                    name
-                                                                )
-                                                            } else {
-                                                                addStatement(
-                                                                    format = "    %L = dto.%L.mapArray { map(it) },",
-                                                                    name,
-                                                                    name
-                                                                )
-                                                            }
-                                                        } else {
-                                                            addStatement(format = "    %L = dto.%L,", name, name)
-                                                        }
-                                                    } else {
-                                                        typeName as ClassName
-                                                        if (typeName.packageName.startsWith(prefix = PACKAGE_DTO)) {
-                                                            if (typeName.isNullable) {
-                                                                addStatement(
-                                                                    format = "    %L = dto.%L?.let { map(it) },",
-                                                                    name,
-                                                                    name
-                                                                )
-                                                            } else {
-                                                                addStatement(
-                                                                    format = "    %L = map(dto.%L),",
-                                                                    name,
-                                                                    name
-                                                                )
-                                                            }
-                                                        } else {
-                                                            addStatement(format = "    %L = dto.%L,", name, name)
-                                                        }
-                                                    }
-                                                }
-                                                addStatement(format = ")")
-                                            } else {
-                                                addStatement(format = "return TdApi.%L()", className)
-                                            }
-                                        }
-                                        .build()
-                                        .also { add(it) }
-                                }
-                            }
-                    }
-                )
-                .build()
-        )
-        .indent(indent = "    ")
-        .build()
-        .writeAndFixContent(folderName = "commonMainGenerated", removeAllPublic = true)
-}
-
-//////  //////  //////
-//////  //////  //////
-//////  //////  //////
-
-private fun ClassOrInterfaceDeclaration.findConstructorValue(): Int? {
-    fields.forEach {
-        it.variables.forEach {
-            if (it.nameAsString == "CONSTRUCTOR") {
-                val expr = it.initializer.get()
-                if (expr.isIntegerLiteralExpr) {
-                    return expr.asIntegerLiteralExpr().value.toInt()
-                }
-                val unary = expr.asUnaryExpr()
-                if (unary.operator === UnaryExpr.Operator.MINUS && unary.expression.isIntegerLiteralExpr) {
-                    return unary
-                        .expression
-                        .asIntegerLiteralExpr()
-                        .value
-                        .toInt()
-                        .let { -it }
-                }
-            }
-        }
-    }
-    return null
-}
-
-private fun ClassOrInterfaceDeclaration.findGitCommitHashValue(): String? {
-    fields.forEach {
-        it.variables.forEach {
-            if (it.nameAsString == "GIT_COMMIT_HASH") {
-                val expr = it.initializer.get()
-                return expr.asStringLiteralExpr().value
-            }
-        }
-    }
-    return null
-}
-
-private fun Type.toTypeName(replace: Boolean = false): TypeName {
-    when (this) {
-        is ArrayType -> {
-            val type = componentType
-            when (type) {
-                is ArrayType -> {
-                    return type
-                        .toTypeName(replace)
-                        .let { ARRAY.parameterizedBy(it) }
-                }
-                is ClassOrInterfaceType -> {
-                    return type
-                        .toTypeName(replace)
-                        .let { ARRAY.parameterizedBy(it) }
-                }
-                is PrimitiveType -> {
-                    when (type.type) {
-                        PrimitiveType.Primitive.BOOLEAN -> return BOOLEAN_ARRAY
-                        PrimitiveType.Primitive.BYTE -> return BYTE_ARRAY
-                        PrimitiveType.Primitive.CHAR -> return CHAR_ARRAY
-                        PrimitiveType.Primitive.DOUBLE -> return DOUBLE_ARRAY
-                        PrimitiveType.Primitive.FLOAT -> return FLOAT_ARRAY
-                        PrimitiveType.Primitive.INT -> return INT_ARRAY
-                        PrimitiveType.Primitive.LONG -> return LONG_ARRAY
-                        PrimitiveType.Primitive.SHORT -> return SHORT_ARRAY
-                        else -> error("Type is null")
-                    }
-                }
-                else -> error("Unknown type ${type.javaClass}")
-            }
-        }
-        is ClassOrInterfaceType -> return toTypeName(replace)
-        is PrimitiveType -> {
-            when (type) {
-                PrimitiveType.Primitive.BOOLEAN -> return BOOLEAN
-                PrimitiveType.Primitive.BYTE -> return BYTE
-                PrimitiveType.Primitive.CHAR -> return CHAR
-                PrimitiveType.Primitive.DOUBLE -> return DOUBLE
-                PrimitiveType.Primitive.FLOAT -> return FLOAT
-                PrimitiveType.Primitive.INT -> return INT
-                PrimitiveType.Primitive.LONG -> return LONG
-                PrimitiveType.Primitive.SHORT -> return SHORT
-                else -> error("Type is null")
-            }
-        }
-        else -> error("Unknown type $javaClass")
-    }
-}
-
-private fun ClassOrInterfaceType.toTypeName(replace: Boolean): TypeName {
-    val qualifiedName = resolve()
-        .asReferenceType()
-        .qualifiedName
-
-    when {
-        qualifiedName == "java.lang.String" -> return STRING
-        qualifiedName.startsWith("org.drinkless.tdlib.TdApi.") -> {
-            val simpleName = qualifiedName.substringAfterLast(delimiter = '.')
-            if (replace) {
-                return dtoTypeName(simpleName)
-            } else {
-                return tdApiTypeName(simpleName)
-            }
-        }
-        else -> error("Unknown type $qualifiedName")
-    }
-}
-
-private fun ClassOrInterfaceDeclaration.extends(className: String): Boolean {
-    return resolve()
-        .allAncestors
-        .any { it.qualifiedName == "org.drinkless.tdlib.TdApi.$className" }
-}
-
-private val ParameterizedTypeName.argumentTypeName: TypeName
-    get() {
-        return typeArguments
-            .also { check(value = it.size == 1) }
-            .first()
-    }
-
-private fun ClassOrInterfaceDeclaration.extendedTypeFirst(): ClassOrInterfaceType {
-    return extendedTypes
-        .also { check(value = it.size == 1) }
-        .first()
-}
-
-private val FieldDeclaration.isNullable: Boolean
-    get() {
-        val javaDoc = javaDoc
-        val hasBeNull = javaDoc.contains(other = "be null", ignoreCase = true)
-        val hasPassNull = javaDoc.contains(other = "pass null", ignoreCase = true)
-        return hasBeNull || hasPassNull
-    }
-
-private val NodeWithJavadoc<*>.javaDoc: String
-    get() {
-        return javadocComment
-            .map { it.parse() }
-            .map { it.description.toText() }
-            .get()
-    }
-
 private val String.decapitalized: String
     get() = replaceFirstChar { it.lowercase() }
 
@@ -1041,31 +243,6 @@ private val TypeName.isPrimitiveArray: Boolean
         }
         return false
     }
-
-private fun ClassOrInterfaceDeclaration.createProperties(): List<LegacyProperty> {
-    return fields
-        .map { fieldDeclaration ->
-            val isNullable = fieldDeclaration.isNullable
-            return@map fieldDeclaration.variables.mapNotNull { variableDeclarator ->
-                val name = variableDeclarator.nameAsString
-                if (name == "CONSTRUCTOR") {
-                    return@mapNotNull null
-                }
-
-                val type = variableDeclarator.type
-                return@mapNotNull LegacyProperty(
-                    name = name,
-                    type = type
-                        .toTypeName(replace = true)
-                        .copy(nullable = isNullable),
-                    originalType = type
-                        .toTypeName(replace = false)
-                        .copy(nullable = isNullable)
-                )
-            }
-        }
-        .flatten()
-}
 
 private fun FileSpec.writeAndFixContent(
     folderName: String,
@@ -1111,18 +288,12 @@ private fun TypeSpec.Builder.addModifier(modifier: KModifier): TypeSpec.Builder 
     return addModifiers(modifier)
 }
 
-private class LegacyProperty(
-    val name: String,
-    val type: TypeName,
-    val originalType: TypeName
-)
-
 private fun dtoTypeName(simpleName: String): TypeName {
     return TypeName(packageName = PACKAGE_DTO, simpleName = simpleName)
 }
 
-private fun tdApiTypeName(simpleName: String): TypeName {
-    return TypeName(packageName = "org.drinkless.tdlib", rootSimpleName = "TdApi", innerSimpleName = simpleName)
+private fun functionTypeName(simpleName: String): TypeName {
+    return TypeName(packageName = PACKAGE_FUNCTION, simpleName = simpleName)
 }
 
 private fun TypeName(packageName: String, simpleName: String, parameterizedBy: TypeName? = null): TypeName {
@@ -1132,10 +303,6 @@ private fun TypeName(packageName: String, simpleName: String, parameterizedBy: T
     }
 
     return className.parameterizedBy(parameterizedBy)
-}
-
-private fun TypeName(packageName: String, rootSimpleName: String, innerSimpleName: String): TypeName {
-    return ClassName(packageName, rootSimpleName, innerSimpleName)
 }
 
 //////  //////  //////
@@ -1181,11 +348,13 @@ public fun main() {
 
     writeDtoCommonElements(dtoCommonElements)
 
+    writeFunctionCommonElements(functionCommonElements)
+
+    writeSerializer(functionCommonElements, dtoCommonElements)
+
     writeClientInterface(functionCommonElements, updateDtoCommonElements)
 
     writeTdlClientImplementation(functionCommonElements, updateDtoCommonElements)
-
-    mainLegacy()
 }
 
 //////  //////  //////
@@ -1193,7 +362,7 @@ public fun main() {
 //////  //////  //////
 
 private fun readAndFixText(): String {
-    return getFile()
+    return getFile(path = "td/td/generate/scheme/td_api.tl")
         .readText(charset = Charsets.UTF_8)
         .substringAfter(delimiter = "//@")
         .replace(oldValue = "\n//-", newValue = " ")
@@ -1203,8 +372,8 @@ private fun readAndFixText(): String {
         .let { text -> "//@$text" }
 }
 
-private fun getFile(): File {
-    val file = File(currentPath, "td/td/generate/scheme/td_api.tl")
+private fun getFile(path: String): File {
+    val file = File(currentPath, path)
 
     val exists = file.exists()
     require(exists) { "File $file doesn't exist" }
@@ -1374,6 +543,13 @@ private fun writeDtoCommonElements(dtoCommonElements: List<CommonElement>) {
                             )
                             .build()
                     )
+                    .apply {
+                        if (commonElement.returns != className) {
+                            superclass(
+                                superclass = dtoTypeName(simpleName = commonElement.returns)
+                            )
+                        }
+                    }
                     .addProperties(
                         propertySpecs = properties.map { property ->
                             return@map PropertySpec
@@ -1383,14 +559,6 @@ private fun writeDtoCommonElements(dtoCommonElements: List<CommonElement>) {
                                 .build()
                         }
                     )
-                    .apply {
-                        val equals = commonElement.returns.equals(other = commonElement.name, ignoreCase = true)
-                        if (!equals) {
-                            superclass(
-                                superclass = dtoTypeName(simpleName = commonElement.returns)
-                            )
-                        }
-                    }
                     .addFunction(
                         funSpec = buildEqualsFunSpec(className = className, properties = properties)
                     )
@@ -1406,6 +574,490 @@ private fun writeDtoCommonElements(dtoCommonElements: List<CommonElement>) {
             .build()
             .writeAndFixContent(folderName = "commonMainGenerated")
     }
+}
+
+private fun writeFunctionCommonElements(functionCommonElements: List<CommonElement>) {
+    functionCommonElements.forEach { commonElement ->
+        val className = commonElement.name.capitalized
+
+        val properties = createProperties(properties = commonElement.properties, fields = commonElement.description.fields)
+
+        FileSpec
+            .builder(packageName = PACKAGE_FUNCTION, fileName = className)
+            .addType(
+                typeSpec = TypeSpec
+                    .classBuilder(name = className)
+                    .addModifier(modifier = KModifier.INTERNAL)
+                    .primaryConstructor(
+                        primaryConstructor = FunSpec
+                            .constructorBuilder()
+                            .addModifier(modifier = KModifier.INTERNAL)
+                            .addParameters(
+                                parameterSpecs = properties.map { property ->
+                                    return@map ParameterSpec
+                                        .builder(name = property.name, type = property.type)
+                                        .build()
+                                }
+                            )
+                            .build()
+                    )
+                    .addSuperinterface(
+                        superinterface = TypeName(packageName = PACKAGE_FUNCTION, simpleName = "Function")
+                    )
+                    .addProperties(
+                        propertySpecs = properties.map { property ->
+                            return@map PropertySpec
+                                .builder(name = property.name, type = property.type)
+                                .addModifier(modifier = KModifier.INTERNAL)
+                                .initializer(format = property.name)
+                                .build()
+                        }
+                    )
+                    .build()
+            )
+            .setIndent()
+            .build()
+            .writeAndFixContent(folderName = "commonMainGenerated")
+    }
+}
+
+private fun writeSerializer(functionCommonElements: List<CommonElement>, dtoCommonElements: List<CommonElement>) {
+    FileSpec
+        .builder(packageName = PACKAGE, fileName = "TdlSerializer")
+        .addType(
+            typeSpec = TypeSpec
+                .classBuilder(name = "TdlSerializer")
+                .addModifier(modifier = KModifier.INTERNAL)
+                .primaryConstructor(
+                    primaryConstructor = FunSpec
+                        .constructorBuilder()
+                        .addModifier(modifier = KModifier.INTERNAL)
+                        .build()
+                )
+                .addFunction(
+                    funSpec = FunSpec
+                        .builder(name = "serialize")
+                        .addModifier(modifier = KModifier.INTERNAL)
+                        .addParameter(
+                            parameterSpec = ParameterSpec
+                                .builder(
+                                    name = "function",
+                                    type = functionTypeName(simpleName = "Function")
+                                )
+                                .build()
+                        )
+                        .addParameter(
+                            parameterSpec = ParameterSpec
+                                .builder(name = "requestId", type = LONG)
+                                .build()
+                        )
+                        .returns(
+                            returnType = STRING
+                        )
+                        .addStatement(format = "val jsonElement = serializeJsonElement(function = function, requestId = requestId)")
+                        .addStatement(format = "return jsonElement.toString()")
+                        .build()
+                )
+                .addFunction(
+                    funSpec = FunSpec
+                        .builder(name = "serializeJsonElement")
+                        .addModifier(modifier = KModifier.PRIVATE)
+                        .addParameter(
+                            parameterSpec = ParameterSpec
+                                .builder(
+                                    name = "function",
+                                    type = functionTypeName(simpleName = "Function")
+                                )
+                                .build()
+                        )
+                        .addParameter(
+                            parameterSpec = ParameterSpec
+                                .builder(name = "requestId", type = LONG)
+                                .build()
+                        )
+                        .returns(
+                            returnType = TypeName(packageName = "kotlinx.serialization.json", simpleName = "JsonElement")
+                        )
+                        .beginControlFlow(controlFlow = "when(function)")
+                        .apply {
+                            functionCommonElements.map { commonElement ->
+                                val functionName = commonElement.name.capitalized
+
+                                addStatement(
+                                    format = "is %T -> return serialize(requestId = requestId, function = function)",
+                                    functionTypeName(simpleName = functionName)
+                                )
+                            }
+                            addStatement(format = "else -> error(message = \"Unknown function type: \${function::class}\")")
+                        }
+                        .endControlFlow()
+                        .build()
+                )
+                .addFunctions(
+                    funSpecs = functionCommonElements.map { commonElement ->
+                        val functionName = commonElement.name.capitalized
+
+                        val properties = createProperties(
+                            properties = commonElement.properties,
+                            fields = commonElement.description.fields
+                        )
+
+                        return@map FunSpec
+                            .builder(name = "serialize")
+                            .addModifier(modifier = KModifier.PRIVATE)
+                            .addParameter(
+                                parameterSpec = ParameterSpec
+                                    .builder(name = "requestId", type = LONG)
+                                    .build()
+                            )
+                            .addParameter(
+                                parameterSpec = ParameterSpec
+                                    .builder(
+                                        name = "function",
+                                        type = functionTypeName(simpleName = functionName)
+                                    )
+                                    .build()
+                            )
+                            .returns(
+                                returnType = TypeName(packageName = "kotlinx.serialization.json", simpleName = "JsonElement")
+                            )
+                            .addStatement(format = "REMOVE_LINE")
+                            .beginControlFlow(
+                                controlFlow = "return %T",
+                                TypeName(packageName = "kotlinx.serialization.json", simpleName = "buildJsonObject"),
+                            )
+                            .addStatement(
+                                format = "%T(key = \"@type\", string = \"%L\")",
+                                TypeName(packageName = PACKAGE, simpleName = "put"),
+                                commonElement.name
+                            )
+                            .addStatement(
+                                format = "%T(key = \"@extra\", long = requestId)",
+                                TypeName(packageName = PACKAGE, simpleName = "put"),
+                            )
+                            .apply {
+                                properties.forEach { property ->
+                                    val typeName = property.type
+                                    when (typeName) {
+                                        BOOLEAN -> {
+                                            addStatement(
+                                                format = "%T(key = \"%L\", boolean = function.%L)",
+                                                TypeName(packageName = PACKAGE, simpleName = "put"),
+                                                property.nameSnakeCase,
+                                                property.name,
+                                            )
+                                        }
+                                        BYTE_ARRAY -> {
+                                            addStatement(
+                                                format = "%T(key = \"%L\", bytes = function.%L)",
+                                                TypeName(packageName = PACKAGE, simpleName = "put"),
+                                                property.nameSnakeCase,
+                                                property.name,
+                                            )
+                                        }
+                                        DOUBLE -> {
+                                            addStatement(
+                                                format = "%T(key = \"%L\", double = function.%L)",
+                                                TypeName(packageName = PACKAGE, simpleName = "put"),
+                                                property.nameSnakeCase,
+                                                property.name,
+                                            )
+                                        }
+                                        INT -> {
+                                            addStatement(
+                                                format = "%T(key = \"%L\", int = function.%L)",
+                                                TypeName(packageName = PACKAGE, simpleName = "put"),
+                                                property.nameSnakeCase,
+                                                property.name,
+                                            )
+                                        }
+                                        INT_ARRAY -> {
+                                            addStatement(
+                                                format = "%T(key = \"%L\", ints = function.%L)",
+                                                TypeName(packageName = PACKAGE, simpleName = "put"),
+                                                property.nameSnakeCase,
+                                                property.name,
+                                            )
+                                        }
+                                        LONG -> {
+                                            addStatement(
+                                                format = "%T(key = \"%L\", long = function.%L)",
+                                                TypeName(packageName = PACKAGE, simpleName = "put"),
+                                                property.nameSnakeCase,
+                                                property.name,
+                                            )
+                                        }
+                                        LONG_ARRAY -> {
+                                            addStatement(
+                                                format = "%T(key = \"%L\", longs = function.%L)",
+                                                TypeName(packageName = PACKAGE, simpleName = "put"),
+                                                property.nameSnakeCase,
+                                                property.name,
+                                            )
+                                        }
+                                        STRING -> {
+                                            addStatement(
+                                                format = "%T(key = \"%L\", string = function.%L)",
+                                                TypeName(packageName = PACKAGE, simpleName = "put"),
+                                                property.nameSnakeCase,
+                                                property.name,
+                                            )
+                                        }
+                                        else -> {
+                                            if (typeName is ParameterizedTypeName) {
+                                                val genericTypeNames = typeName.typeArguments
+                                                check(value = genericTypeNames.size == 1) {
+                                                    return@check "Expected one type argument for $typeName, but found ${genericTypeNames.size}"
+                                                }
+                                                val genericTypeName = genericTypeNames.first()
+                                                when (genericTypeName) {
+                                                    STRING -> {
+                                                        addStatement(
+                                                            format = "%T(key = \"%L\", strings = function.%L)",
+                                                            TypeName(packageName = PACKAGE, simpleName = "put"),
+                                                            property.nameSnakeCase,
+                                                            property.name,
+                                                        )
+                                                    }
+                                                    else -> {
+                                                        addStatement(
+                                                            format = "%T(key = \"%L\", array = function.%L) { data -> serialize(dto = data) }",
+                                                            TypeName(packageName = PACKAGE, simpleName = "put"),
+                                                            property.nameSnakeCase,
+                                                            property.name,
+                                                        )
+                                                    }
+                                                }
+                                            } else {
+                                                addStatement(
+                                                    format = "%T(key = \"%L\", value = function.%L) { data -> serialize(dto = data) }",
+                                                    TypeName(packageName = PACKAGE, simpleName = "put"),
+                                                    property.nameSnakeCase,
+                                                    property.name,
+                                                )
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            .endControlFlow()
+                            .build()
+                    }
+                )
+                .addFunctions(
+                    funSpecs = dtoCommonElements
+                        .filter { commonElement ->
+                            return@filter !commonElement.returns.equals(other = commonElement.name, ignoreCase = true)
+                        }
+                        .groupBy(
+                            keySelector = { commonElement -> commonElement.returns },
+                            valueTransform = { commonElement -> commonElement.name },
+                        )
+                        .map { entry ->
+                            return@map FunSpec
+                                .builder(name = "serialize")
+                                .addModifier(modifier = KModifier.PRIVATE)
+                                .addParameter(
+                                    parameterSpec = ParameterSpec
+                                        .builder(
+                                            name = "dto",
+                                            type = dtoTypeName(simpleName = entry.key.capitalized)
+                                        )
+                                        .build()
+                                )
+                                .returns(
+                                    returnType = TypeName(
+                                        packageName = "kotlinx.serialization.json",
+                                        simpleName = "JsonElement"
+                                    )
+                                )
+                                .beginControlFlow(controlFlow = "when(dto)")
+                                .apply {
+                                    entry.value.map { name ->
+                                        addStatement(
+                                            format = "is %T -> return serialize(dto = dto)",
+                                            dtoTypeName(simpleName = name.capitalized)
+                                        )
+                                    }
+                                    addStatement(format = "else -> error(message = \"Unknown dto type: \${dto::class}\")")
+                                }
+                                .endControlFlow()
+                                .build()
+                        }
+                )
+                .addFunctions(
+                    funSpecs = dtoCommonElements.map { commonElement ->
+                        val className = commonElement.name.capitalized
+
+                        val properties = createProperties(
+                            properties = commonElement.properties,
+                            fields = commonElement.description.fields
+                        )
+
+                        return@map FunSpec
+                            .builder(name = "serialize")
+                            .addModifier(modifier = KModifier.PRIVATE)
+                            .addParameter(
+                                parameterSpec = ParameterSpec
+                                    .builder(
+                                        name = "dto",
+                                        type = dtoTypeName(simpleName = className)
+                                    )
+                                    .build()
+                            )
+                            .returns(
+                                returnType = TypeName(packageName = "kotlinx.serialization.json", simpleName = "JsonElement")
+                            )
+                            .addStatement(format = "REMOVE_LINE")
+                            .beginControlFlow(
+                                controlFlow = "return %T",
+                                TypeName(packageName = "kotlinx.serialization.json", simpleName = "buildJsonObject"),
+                            )
+                            .addStatement(
+                                format = "%T(key = \"@type\", string = \"%L\")",
+                                TypeName(packageName = PACKAGE, simpleName = "put"),
+                                commonElement.name
+                            )
+                            .apply {
+                                properties.forEach { property ->
+                                    val typeName = property.type
+                                    when (typeName) {
+                                        BOOLEAN -> {
+                                            addStatement(
+                                                format = "%T(key = \"%L\", boolean = dto.%L)",
+                                                TypeName(packageName = PACKAGE, simpleName = "put"),
+                                                property.nameSnakeCase,
+                                                property.name,
+                                            )
+                                        }
+                                        BYTE_ARRAY -> {
+                                            addStatement(
+                                                format = "%T(key = \"%L\", bytes = dto.%L)",
+                                                TypeName(packageName = PACKAGE, simpleName = "put"),
+                                                property.nameSnakeCase,
+                                                property.name,
+                                            )
+                                        }
+                                        DOUBLE -> {
+                                            addStatement(
+                                                format = "%T(key = \"%L\", double = dto.%L)",
+                                                TypeName(packageName = PACKAGE, simpleName = "put"),
+                                                property.nameSnakeCase,
+                                                property.name,
+                                            )
+                                        }
+                                        INT -> {
+                                            addStatement(
+                                                format = "%T(key = \"%L\", int = dto.%L)",
+                                                TypeName(packageName = PACKAGE, simpleName = "put"),
+                                                property.nameSnakeCase,
+                                                property.name,
+                                            )
+                                        }
+                                        INT_ARRAY -> {
+                                            addStatement(
+                                                format = "%T(key = \"%L\", ints = dto.%L)",
+                                                TypeName(packageName = PACKAGE, simpleName = "put"),
+                                                property.nameSnakeCase,
+                                                property.name,
+                                            )
+                                        }
+                                        LONG -> {
+                                            addStatement(
+                                                format = "%T(key = \"%L\", long = dto.%L)",
+                                                TypeName(packageName = PACKAGE, simpleName = "put"),
+                                                property.nameSnakeCase,
+                                                property.name,
+                                            )
+                                        }
+                                        LONG_ARRAY -> {
+                                            addStatement(
+                                                format = "%T(key = \"%L\", longs = dto.%L)",
+                                                TypeName(packageName = PACKAGE, simpleName = "put"),
+                                                property.nameSnakeCase,
+                                                property.name,
+                                            )
+                                        }
+                                        STRING -> {
+                                            addStatement(
+                                                format = "%T(key = \"%L\", string = dto.%L)",
+                                                TypeName(packageName = PACKAGE, simpleName = "put"),
+                                                property.nameSnakeCase,
+                                                property.name,
+                                            )
+                                        }
+                                        else -> {
+                                            if (typeName is ParameterizedTypeName) {
+                                                val genericTypeNames = typeName.typeArguments
+                                                check(value = genericTypeNames.size == 1) {
+                                                    return@check "Expected one type argument for $typeName, but found ${genericTypeNames.size}"
+                                                }
+                                                val genericTypeName = genericTypeNames.first()
+                                                when (genericTypeName) {
+                                                    BYTE_ARRAY -> {
+                                                        addStatement(
+                                                            format = "%T(key = \"%L\", bytes = dto.%L)",
+                                                            TypeName(packageName = PACKAGE, simpleName = "put"),
+                                                            property.nameSnakeCase,
+                                                            property.name,
+                                                        )
+                                                    }
+                                                    STRING -> {
+                                                        addStatement(
+                                                            format = "%T(key = \"%L\", strings = dto.%L)",
+                                                            TypeName(packageName = PACKAGE, simpleName = "put"),
+                                                            property.nameSnakeCase,
+                                                            property.name,
+                                                        )
+                                                    }
+                                                    else -> {
+                                                        if (genericTypeName is ParameterizedTypeName) {
+                                                            addStatement(
+                                                                format = "%T(key = \"%L\", arrayOfArrays = dto.%L) { data -> serialize(dto = data) }",
+                                                                TypeName(
+                                                                    packageName = PACKAGE,
+                                                                    simpleName = "put"
+                                                                ),
+                                                                property.nameSnakeCase,
+                                                                property.name,
+                                                            )
+                                                        } else {
+                                                            genericTypeName as ClassName
+                                                            check(value = genericTypeName.packageName == PACKAGE_DTO) { "Unexpected type: $genericTypeName" }
+
+                                                            addStatement(
+                                                                format = "%T(key = \"%L\", array = dto.%L) { data -> serialize(dto = data) }",
+                                                                TypeName(packageName = PACKAGE, simpleName = "put"),
+                                                                property.nameSnakeCase,
+                                                                property.name,
+                                                            )
+                                                        }
+                                                    }
+                                                }
+                                            } else {
+                                                typeName as ClassName
+                                                check(value = typeName.packageName == PACKAGE_DTO) { "Unexpected type: $typeName" }
+
+                                                addStatement(
+                                                    format = "%T(key = \"%L\", value = dto.%L) { data -> serialize(dto = data) }",
+                                                    TypeName(packageName = PACKAGE, simpleName = "put"),
+                                                    property.nameSnakeCase,
+                                                    property.name,
+                                                )
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            .endControlFlow()
+                            .build()
+                    }
+                )
+                .build()
+        )
+        .setIndent()
+        .build()
+        .writeAndFixContent(folderName = "commonMainGenerated")
 }
 
 private fun writeClientInterface(functionCommonElements: List<CommonElement>, updateDtoCommonElements: List<CommonElement>) {
@@ -1522,7 +1174,18 @@ private fun writeClientInterface(functionCommonElements: List<CommonElement>, up
                                 .builder(name = "TDL_GIT_COMMIT_HASH", type = STRING)
                                 .addKdoc(format = "The Git commit hash of the TDLib.")
                                 .addModifier(modifier = KModifier.CONST)
-                                .initializer(format = "TdlEngine.GIT_COMMIT_HASH")
+                                .initializer(
+                                    format = Runtime
+                                        .getRuntime()
+                                        .exec(
+                                            """git log -1 --pretty=format:"%H"""",
+                                            null,
+                                            getFile(path = "td")
+                                        )
+                                        .inputStream
+                                        .reader(charset = Charsets.UTF_8)
+                                        .readText()
+                                )
                                 .build()
                         )
                         .addProperty(
@@ -1530,7 +1193,18 @@ private fun writeClientInterface(functionCommonElements: List<CommonElement>, up
                                 .builder(name = "TDL_VERSION", type = STRING)
                                 .addKdoc(format = "The version of the TDLib.")
                                 .addModifier(modifier = KModifier.CONST)
-                                .initializer(format = "TdlEngine.VERSION")
+                                .initializer(
+                                    format = getFile(path = "td/CMakeLists.txt")
+                                        .readText(charset = Charsets.UTF_8)
+                                        .let {
+                                            return@let """project\(TDLib VERSION ([0-9]+\.[0-9]+\.[0-9]+) LANGUAGES CXX C\)"""
+                                                .toRegex()
+                                                .find(input = it)!!
+                                                .destructured
+                                                .component1()
+                                        }
+                                        .let { "\"$it\"" }
+                                )
                                 .build()
                         )
                         .addFunction(
@@ -1570,14 +1244,6 @@ private fun writeTdlClientImplementation(
                         .addParameter(
                             parameterSpec = ParameterSpec
                                 .builder(
-                                    name = "mapper",
-                                    type = TypeName(packageName = PACKAGE, simpleName = "TdlMapper")
-                                )
-                                .build()
-                        )
-                        .addParameter(
-                            parameterSpec = ParameterSpec
-                                .builder(
                                     name = "repository",
                                     type = TypeName(packageName = PACKAGE, simpleName = "TdlRepository")
                                 )
@@ -1587,16 +1253,6 @@ private fun writeTdlClientImplementation(
                 )
                 .superclass(
                     superclass = TypeName(packageName = PACKAGE, simpleName = "TdlClient")
-                )
-                .addProperty(
-                    propertySpec = PropertySpec
-                        .builder(
-                            name = "mapper",
-                            type = TypeName(packageName = PACKAGE, simpleName = "TdlMapper")
-                        )
-                        .addModifier(modifier = KModifier.PRIVATE)
-                        .initializer(format = "mapper")
-                        .build()
                 )
                 .addProperty(
                     propertySpec = PropertySpec
@@ -1622,10 +1278,7 @@ private fun writeTdlClientImplementation(
                         .getter(
                             getter = FunSpec
                                 .getterBuilder()
-                                .addStatement(
-                                    format = "return repository.getUpdates(%T::class) { mapper.map(it) }",
-                                    tdApiTypeName(simpleName = "Update")
-                                )
+                                .addStatement(format = "return repository.updates")
                                 .build()
                         )
                         .build()
@@ -1650,8 +1303,8 @@ private fun writeTdlClientImplementation(
                                 getter = FunSpec
                                     .getterBuilder()
                                     .addStatement(
-                                        format = "return repository.getUpdates(%T::class) { mapper.map(it) }",
-                                        tdApiTypeName(simpleName = className)
+                                        format = "return repository.updates.%T()",
+                                        TypeName(packageName = "kotlinx.coroutines.flow", simpleName = "filterIsInstance")
                                     )
                                     .build()
                             )
@@ -1686,37 +1339,24 @@ private fun writeTdlClientImplementation(
                                 )
                             )
                             .apply {
-                                val className = functionName.capitalized
+                                val typeName = functionTypeName(simpleName = functionName.capitalized)
+
+                                addStatement(format = "REMOVE_LINE")
+                                addStatement(format = "return repository.send(")
+
                                 if (properties.size > 0) {
-                                    addStatement(format = "val function = TdApi.%L(", className)
+                                    addStatement(format = "    function = %T(", typeName)
+
                                     properties.forEach { property ->
                                         val name = property.name
-                                        val typeName = property.type
-                                        if (typeName is ParameterizedTypeName) {
-                                            val type = typeName.argumentTypeName as ClassName
-                                            if (type.packageName == PACKAGE_DTO) {
-                                                addStatement(format = "    %L = %L.mapArray { mapper.map(it) },", name, name)
-                                            } else {
-                                                addStatement(format = "    %L = %L,", name, name)
-                                            }
-                                        } else {
-                                            typeName as ClassName
-                                            if (typeName.packageName == PACKAGE_DTO) {
-                                                if (typeName.isNullable) {
-                                                    addStatement(format = "    %L = %L?.let { mapper.map(it) },", name, name)
-                                                } else {
-                                                    addStatement(format = "    %L = mapper.map(%L),", name, name)
-                                                }
-                                            } else {
-                                                addStatement(format = "    %L = %L,", name, name)
-                                            }
-                                        }
+                                        addStatement(format = "        %L = %L,", name, name)
                                     }
-                                    addStatement(format = ")")
+
+                                    addStatement(format = "    ),")
                                 } else {
-                                    addStatement(format = "val function = TdApi.%L()", className)
+                                    addStatement(format = "    function = %T(),", typeName)
                                 }
-                                addStatement(format = "return repository.send(function) { mapper.map(it) }")
+                                addStatement(format = ")")
                             }
                             .build()
                     }
@@ -1800,6 +1440,7 @@ private fun createProperties(
     return properties.map { property ->
         return@map Property(
             name = property.name.withReplacedSnakeCases1,
+            nameSnakeCase = property.name,
             type = property
                 .type
                 .let(::createTypeName)
@@ -1838,4 +1479,8 @@ private fun createTypeName(type: String): TypeName {
     }
 }
 
-private class Property(val name: String, val type: TypeName)
+private class Property(
+    val name: String,
+    val nameSnakeCase: String,
+    val type: TypeName,
+)

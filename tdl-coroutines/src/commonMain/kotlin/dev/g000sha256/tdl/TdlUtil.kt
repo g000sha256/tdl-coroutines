@@ -16,31 +16,152 @@
 
 package dev.g000sha256.tdl
 
-internal inline fun <T1, reified T2> Array<T1>.mapArray(crossinline transform: (T1) -> T2): Array<T2> {
-    return Array(size) { index ->
-        val value = get(index)
-        return@Array transform.invoke(value)
+import kotlinx.serialization.json.JsonArray
+import kotlinx.serialization.json.JsonElement
+import kotlinx.serialization.json.JsonNull
+import kotlinx.serialization.json.JsonObjectBuilder
+import kotlinx.serialization.json.JsonPrimitive
+
+internal fun <T> JsonObjectBuilder.put(
+    key: String,
+    array: Array<T>?,
+    transformer: Transformer<T, JsonElement>,
+) {
+    if (array == null) {
+        put(key = key, element = JsonNull)
+    } else {
+        array
+            .toJsonElement(transformer = transformer)
+            .also { jsonElement -> put(key = key, element = jsonElement) }
     }
 }
 
-internal inline fun <T1, reified T2> Array<Array<T1>>.mapArrayOfArrays(crossinline transform: (T1) -> T2): Array<Array<T2>> {
-    return mapArray { array -> array.mapArray(transform) }
+internal fun <T> JsonObjectBuilder.put(
+    key: String,
+    arrayOfArrays: Array<Array<T>>,
+    transformer: Transformer<T, JsonElement>,
+) {
+    arrayOfArrays
+        .toJsonElement { array -> array.toJsonElement(transformer = transformer) }
+        .also { jsonElement -> put(key = key, element = jsonElement) }
 }
 
-internal fun <T> Array<T>.getAndSet(index: Int, newValue: T): T {
-    val value = get(index)
-    set(index, newValue)
-    return value
+internal fun JsonObjectBuilder.put(key: String, boolean: Boolean) {
+    put(
+        key = key,
+        element = JsonPrimitive(value = boolean),
+    )
 }
 
-internal fun IntArray.getAndSet(index: Int, newValue: Int): Int {
-    val value = get(index)
-    set(index, newValue)
-    return value
+internal fun JsonObjectBuilder.put(key: String, bytes: ByteArray) {
+    bytes
+        .toJsonElement()
+        .also { jsonElement -> put(key = key, element = jsonElement) }
 }
 
-internal fun LongArray.getAndSet(index: Int, newValue: Long): Long {
-    val value = get(index)
-    set(index, newValue)
-    return value
+internal fun JsonObjectBuilder.put(key: String, bytes: Array<ByteArray>) {
+    bytes
+        .toJsonElement { array -> array.toJsonElement() }
+        .also { jsonElement -> put(key = key, element = jsonElement) }
+}
+
+internal fun JsonObjectBuilder.put(key: String, double: Double) {
+    put(
+        key = key,
+        element = JsonPrimitive(value = double),
+    )
+}
+
+internal fun JsonObjectBuilder.put(key: String, int: Int) {
+    put(
+        key = key,
+        element = JsonPrimitive(value = int),
+    )
+}
+
+internal fun JsonObjectBuilder.put(key: String, ints: IntArray) {
+    ints
+        .toJsonElement()
+        .also { jsonElement -> put(key = key, element = jsonElement) }
+}
+
+internal fun JsonObjectBuilder.put(key: String, long: Long) {
+    put(
+        key = key,
+        element = JsonPrimitive(value = long),
+    )
+}
+
+internal fun JsonObjectBuilder.put(key: String, longs: LongArray) {
+    longs
+        .toJsonElement()
+        .also { jsonElement -> put(key = key, element = jsonElement) }
+}
+
+internal fun JsonObjectBuilder.put(key: String, string: String) {
+    put(
+        key = key,
+        element = JsonPrimitive(value = string),
+    )
+}
+
+internal fun JsonObjectBuilder.put(key: String, strings: Array<String>) {
+    strings
+        .toJsonElement { element -> JsonPrimitive(value = element) }
+        .also { jsonElement -> put(key = key, element = jsonElement) }
+}
+
+internal fun <T> JsonObjectBuilder.put(
+    key: String,
+    value: T?,
+    transformer: Transformer<T, JsonElement>,
+) {
+    if (value == null) {
+        put(key = key, element = JsonNull)
+    } else {
+        transformer
+            .transform(data = value)
+            .also { jsonElement -> put(key = key, element = jsonElement) }
+    }
+}
+
+private fun <T> Array<T>.toJsonElement(transformer: Transformer<T, JsonElement>): JsonElement {
+    return iterator()
+        .map(transformer = transformer)
+        .let { elements -> JsonArray(content = elements) }
+}
+
+private fun ByteArray.toJsonElement(): JsonElement {
+    return iterator()
+        .map { element -> JsonPrimitive(value = element) }
+        .let { elements -> JsonArray(content = elements) }
+}
+
+private fun IntArray.toJsonElement(): JsonElement {
+    return iterator()
+        .map { element -> JsonPrimitive(value = element) }
+        .let { elements -> JsonArray(content = elements) }
+}
+
+private fun LongArray.toJsonElement(): JsonElement {
+    return iterator()
+        .map { element -> JsonPrimitive(value = element) }
+        .let { elements -> JsonArray(content = elements) }
+}
+
+private fun <C, N> Iterator<C>.map(transformer: Transformer<C, N>): List<N> {
+    val iterator = this
+    return buildList {
+        for (currentElement in iterator) {
+            transformer
+                .transform(data = currentElement)
+                .also { newElement -> add(element = newElement) }
+        }
+    }
+}
+
+internal fun interface Transformer<C, N> {
+
+    fun transform(data: C): N
+
 }
