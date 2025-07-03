@@ -299,30 +299,31 @@ private fun writeTdApi(compilationUnit: CompilationUnit) {
                                 .addModifier(modifier = KModifier.PRIVATE)
                                 .build()
                         )
-                        .apply {
-                            val gitCommitHash = topClassDeclaration.findGitCommitHashValue()
-                            if (gitCommitHash != null) {
-                                addType(
-                                    typeSpec = TypeSpec
-                                        .companionObjectBuilder()
-                                        .addProperty(
-                                            propertySpec = PropertySpec
-                                                .builder(name = "GIT_COMMIT_HASH", type = STRING)
-                                                .addModifier(modifier = KModifier.CONST)
-                                                .initializer(format = "\"%L\"", gitCommitHash)
-                                                .build()
-                                        )
-                                        .addProperty(
-                                            propertySpec = PropertySpec
-                                                .builder(name = "VERSION", type = STRING)
-                                                .addModifier(modifier = KModifier.CONST)
-                                                .initializer(format = "\"1.8.50\"") // TODO
-                                                .build()
+                        .addType(
+                            typeSpec = TypeSpec
+                                .companionObjectBuilder()
+                                .addProperty(
+                                    propertySpec = PropertySpec
+                                        .builder(name = "GIT_COMMIT_HASH", type = STRING)
+                                        .addModifier(modifier = KModifier.CONST)
+                                        .initializer(
+                                            format = "\"%L\"",
+                                            getTdLibCommitHash(),
                                         )
                                         .build()
                                 )
-                            }
-                        }
+                                .addProperty(
+                                    propertySpec = PropertySpec
+                                        .builder(name = "VERSION", type = STRING)
+                                        .addModifier(modifier = KModifier.CONST)
+                                        .initializer(
+                                            format = "\"%L\"",
+                                            getTdLibVersion(),
+                                        )
+                                        .build()
+                                )
+                                .build()
+                        )
                         .addTypes(
                             typeSpecs = topClassDeclaration
                                 .findAll(ClassOrInterfaceDeclaration::class.java)
@@ -903,18 +904,6 @@ private fun ClassOrInterfaceDeclaration.findConstructorValue(): Int? {
     return null
 }
 
-private fun ClassOrInterfaceDeclaration.findGitCommitHashValue(): String? {
-    fields.forEach {
-        it.variables.forEach {
-            if (it.nameAsString == "GIT_COMMIT_HASH") {
-                val expr = it.initializer.get()
-                return expr.asStringLiteralExpr().value
-            }
-        }
-    }
-    return null
-}
-
 private fun Type.toTypeName(replace: Boolean = false): TypeName {
     when (this) {
         is ArrayType -> {
@@ -1157,22 +1146,13 @@ public fun main() {
     val functionsText = text.substringAfter(delimiter = "---functions---\n\n")
 
     val classElements = parseClassElements(text = typesText)
-        .also { check(value = it.size == 172) }
 
     val dtoCommonElements = parseCommonElements(text = typesText)
-        .also { check(value = it.size == 1775) }
-
-    check(value = classElements.size + dtoCommonElements.size == 1947)
 
     val functionCommonElements = parseCommonElements(text = functionsText)
-        .also { check(value = it.size == 867) }
-        .also { println("Functions: ${it.size}") }
         .sortedBy { it.name } // TODO Remove sorting in the future
 
-    val updateDtoCommonElements = dtoCommonElements
-        .filter { it.returns == "Update" }
-        .also { check(value = it.size == 159) }
-        .also { println("Updates: ${it.size}") }
+    val updateDtoCommonElements = dtoCommonElements.filter { it.returns == "Update" }
 
     File(currentPath, "tdl-coroutines/src/commonMainGenerated")
         .deleteRecursively()
@@ -1186,6 +1166,13 @@ public fun main() {
     writeTdlClientImplementation(functionCommonElements, updateDtoCommonElements)
 
     mainLegacy()
+
+    updateReadMe(
+        tdLibVersion = getTdLibVersion(),
+        tdLibCommitHash = getTdLibCommitHash(),
+        updatesCount = updateDtoCommonElements.size,
+        requestsCount = functionCommonElements.size,
+    )
 }
 
 //////  //////  //////
@@ -1193,7 +1180,7 @@ public fun main() {
 //////  //////  //////
 
 private fun readAndFixText(): String {
-    return getFile()
+    return getFile(path = "td/td/generate/scheme/td_api.tl")
         .readText(charset = Charsets.UTF_8)
         .substringAfter(delimiter = "//@")
         .replace(oldValue = "\n//-", newValue = " ")
@@ -1203,8 +1190,8 @@ private fun readAndFixText(): String {
         .let { text -> "//@$text" }
 }
 
-private fun getFile(): File {
-    val file = File(currentPath, "td/td/generate/scheme/td_api.tl")
+private fun getFile(path: String): File {
+    val file = File(currentPath, path)
 
     val exists = file.exists()
     require(exists) { "File $file doesn't exist" }
@@ -1301,6 +1288,30 @@ private class CommonElement(
 
     class Property(val name: String, val type: String)
 
+}
+
+//////  //////  //////
+//////  //////  //////
+//////  //////  //////
+
+private fun getTdLibCommitHash(): String {
+    val command = """git log -1 --pretty=format:%H"""
+    val file = getFile(path = "td")
+    return Runtime
+        .getRuntime()
+        .exec(command, null, file)
+        .inputStream
+        .reader(charset = Charsets.UTF_8)
+        .readText()
+}
+
+private fun getTdLibVersion(): String {
+    val file = getFile(path = "td/CMakeLists.txt")
+    val text = file.readText(charset = Charsets.UTF_8)
+    return """project\(TDLib VERSION ([0-9]+\.[0-9]+\.[0-9]+) LANGUAGES CXX C\)"""
+        .toRegex()
+        .find(input = text)!!
+        .groupValues.get(index = 1)
 }
 
 //////  //////  //////
@@ -1726,6 +1737,31 @@ private fun writeTdlClientImplementation(
         .setIndent()
         .build()
         .writeAndFixContent(folderName = "commonMainGenerated")
+}
+
+private fun updateReadMe(tdLibVersion: String, tdLibCommitHash: String, updatesCount: Int, requestsCount: Int) {
+    val file = getFile(path = "README.md")
+
+    val text = file
+        .readText(charset = Charsets.UTF_8)
+        .replace(
+            regex = """TDLib-v([0-9]+\.[0-9]+\.[0-9]+)-blue""".toRegex(),
+            replacement = """TDLib-v$tdLibVersion-blue""",
+        )
+        .replace(
+            regex = """\(https://github.com/tdlib/td/tree/(.+)\)""".toRegex(),
+            replacement = """(https://github.com/tdlib/td/tree/$tdLibCommitHash)""",
+        )
+        .replace(
+            regex = """provides (\d+) update flows""".toRegex(),
+            replacement = """provides $updatesCount update flows""",
+        )
+        .replace(
+            regex = """provides (\d+) request methods""".toRegex(),
+            replacement = """provides $requestsCount request methods""",
+        )
+
+    file.writeText(text = text, charset = Charsets.UTF_8)
 }
 
 //////  //////  //////
