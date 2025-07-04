@@ -27,6 +27,7 @@ import kotlin.String
  *
  * @property video The video description.
  * @property alternativeVideos Alternative qualities of the video.
+ * @property storyboards Available storyboards for the video.
  * @property cover Cover of the video; may be null if none.
  * @property startTimestamp Timestamp from which the video playing must start, in seconds.
  * @property caption Video caption.
@@ -37,6 +38,7 @@ import kotlin.String
 public class MessageVideo public constructor(
     public val video: Video,
     public val alternativeVideos: Array<AlternativeVideo>,
+    public val storyboards: Array<VideoStoryboard>,
     public val cover: Photo?,
     public val startTimestamp: Int,
     public val caption: FormattedText,
@@ -62,6 +64,10 @@ public class MessageVideo public constructor(
         if (!alternativeVideosEquals) {
             return false
         }
+        val storyboardsEquals = other.storyboards.contentDeepEquals(storyboards)
+        if (!storyboardsEquals) {
+            return false
+        }
         if (other.cover != cover) {
             return false
         }
@@ -84,6 +90,7 @@ public class MessageVideo public constructor(
         var hashCode = this::class.hashCode()
         hashCode = 31 * hashCode + video.hashCode()
         hashCode = 31 * hashCode + alternativeVideos.contentDeepHashCode()
+        hashCode = 31 * hashCode + storyboards.contentDeepHashCode()
         hashCode = 31 * hashCode + cover.hashCode()
         hashCode = 31 * hashCode + startTimestamp.hashCode()
         hashCode = 31 * hashCode + caption.hashCode()
@@ -102,6 +109,11 @@ public class MessageVideo public constructor(
             append(", ")
             append("alternativeVideos=")
             alternativeVideos
+                .contentDeepToString()
+                .also { append(it) }
+            append(", ")
+            append("storyboards=")
+            storyboards
                 .contentDeepToString()
                 .also { append(it) }
             append(", ")

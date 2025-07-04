@@ -31,7 +31,7 @@ import kotlin.String
  * @property canSendVideos True, if the user can send videos.
  * @property canSendVideoNotes True, if the user can send video notes.
  * @property canSendVoiceNotes True, if the user can send voice notes.
- * @property canSendPolls True, if the user can send polls.
+ * @property canSendPolls True, if the user can send polls and checklists.
  * @property canSendOtherMessages True, if the user can send animations, games, stickers, and dice and use inline bots.
  * @property canAddLinkPreviews True, if the user may add a link preview to their messages.
  * @property canChangeInfo True, if the user can change the chat title, photo, and other settings.

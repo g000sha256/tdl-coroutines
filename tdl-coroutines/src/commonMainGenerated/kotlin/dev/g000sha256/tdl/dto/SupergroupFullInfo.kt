@@ -57,6 +57,7 @@ import kotlin.String
  * @property giftCount Number of saved to profile gifts for channels without canPostMessages administrator right, otherwise, the total number of received gifts.
  * @property myBoostCount Number of times the current user boosted the supergroup or channel.
  * @property unrestrictBoostCount Number of times the supergroup must be boosted by a user to ignore slow mode and chat permission restrictions; 0 if unspecified.
+ * @property outgoingPaidMessageStarCount Number of Telegram Stars that must be paid by the current user for each sent message to the supergroup.
  * @property stickerSetId Identifier of the supergroup sticker set that must be shown before user sticker sets; 0 if none.
  * @property customEmojiStickerSetId Identifier of the custom emoji sticker set that can be used in the supergroup without Telegram Premium subscription; 0 if none.
  * @property location Location to which the supergroup is connected; may be null if none.
@@ -97,6 +98,7 @@ public class SupergroupFullInfo public constructor(
     public val giftCount: Int,
     public val myBoostCount: Int,
     public val unrestrictBoostCount: Int,
+    public val outgoingPaidMessageStarCount: Long,
     public val stickerSetId: Long,
     public val customEmojiStickerSetId: Long,
     public val location: ChatLocation?,
@@ -207,6 +209,9 @@ public class SupergroupFullInfo public constructor(
         if (other.unrestrictBoostCount != unrestrictBoostCount) {
             return false
         }
+        if (other.outgoingPaidMessageStarCount != outgoingPaidMessageStarCount) {
+            return false
+        }
         if (other.stickerSetId != stickerSetId) {
             return false
         }
@@ -264,6 +269,7 @@ public class SupergroupFullInfo public constructor(
         hashCode = 31 * hashCode + giftCount.hashCode()
         hashCode = 31 * hashCode + myBoostCount.hashCode()
         hashCode = 31 * hashCode + unrestrictBoostCount.hashCode()
+        hashCode = 31 * hashCode + outgoingPaidMessageStarCount.hashCode()
         hashCode = 31 * hashCode + stickerSetId.hashCode()
         hashCode = 31 * hashCode + customEmojiStickerSetId.hashCode()
         hashCode = 31 * hashCode + location.hashCode()
@@ -368,6 +374,9 @@ public class SupergroupFullInfo public constructor(
             append(", ")
             append("unrestrictBoostCount=")
             append(unrestrictBoostCount)
+            append(", ")
+            append("outgoingPaidMessageStarCount=")
+            append(outgoingPaidMessageStarCount)
             append(", ")
             append("stickerSetId=")
             append(stickerSetId)
