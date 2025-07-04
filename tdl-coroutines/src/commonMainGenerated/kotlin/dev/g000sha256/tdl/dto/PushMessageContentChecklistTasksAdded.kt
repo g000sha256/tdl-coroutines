@@ -22,17 +22,13 @@ import kotlin.Int
 import kotlin.String
 
 /**
- * Information about the sponsor of a message.
+ * Some tasks were added to a checklist.
  *
- * @property url URL of the sponsor to be opened when the message is clicked.
- * @property photo Photo of the sponsor; may be null if must not be shown.
- * @property info Additional optional information about the sponsor to be shown along with the message.
+ * @property taskCount Number of added tasks.
  */
-public class MessageSponsor public constructor(
-    public val url: String,
-    public val photo: Photo?,
-    public val info: String,
-) {
+public class PushMessageContentChecklistTasksAdded public constructor(
+    public val taskCount: Int,
+) : PushMessageContent() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true
@@ -43,36 +39,22 @@ public class MessageSponsor public constructor(
         if (other::class != this::class) {
             return false
         }
-        other as MessageSponsor
-        if (other.url != url) {
-            return false
-        }
-        if (other.photo != photo) {
-            return false
-        }
-        return other.info == info
+        other as PushMessageContentChecklistTasksAdded
+        return other.taskCount == taskCount
     }
 
     override fun hashCode(): Int {
         var hashCode = this::class.hashCode()
-        hashCode = 31 * hashCode + url.hashCode()
-        hashCode = 31 * hashCode + photo.hashCode()
-        hashCode = 31 * hashCode + info.hashCode()
+        hashCode = 31 * hashCode + taskCount.hashCode()
         return hashCode
     }
 
     override fun toString(): String {
         return buildString {
-            append("MessageSponsor")
+            append("PushMessageContentChecklistTasksAdded")
             append("(")
-            append("url=")
-            append(url)
-            append(", ")
-            append("photo=")
-            append(photo)
-            append(", ")
-            append("info=")
-            append(info)
+            append("taskCount=")
+            append(taskCount)
             append(")")
         }
     }

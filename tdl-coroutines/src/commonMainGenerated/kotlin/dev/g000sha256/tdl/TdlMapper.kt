@@ -23,6 +23,7 @@ import dev.g000sha256.tdl.dto.AccountTtl
 import dev.g000sha256.tdl.dto.AddedReaction
 import dev.g000sha256.tdl.dto.AddedReactions
 import dev.g000sha256.tdl.dto.Address
+import dev.g000sha256.tdl.dto.AdvertisementSponsor
 import dev.g000sha256.tdl.dto.AffiliateInfo
 import dev.g000sha256.tdl.dto.AffiliateProgramInfo
 import dev.g000sha256.tdl.dto.AffiliateProgramParameters
@@ -403,6 +404,8 @@ import dev.g000sha256.tdl.dto.CheckStickerSetNameResult
 import dev.g000sha256.tdl.dto.CheckStickerSetNameResultNameInvalid
 import dev.g000sha256.tdl.dto.CheckStickerSetNameResultNameOccupied
 import dev.g000sha256.tdl.dto.CheckStickerSetNameResultOk
+import dev.g000sha256.tdl.dto.Checklist
+import dev.g000sha256.tdl.dto.ChecklistTask
 import dev.g000sha256.tdl.dto.CloseBirthdayUser
 import dev.g000sha256.tdl.dto.ClosedVectorPath
 import dev.g000sha256.tdl.dto.CollectibleItemInfo
@@ -622,6 +625,8 @@ import dev.g000sha256.tdl.dto.InputChatPhotoAnimation
 import dev.g000sha256.tdl.dto.InputChatPhotoPrevious
 import dev.g000sha256.tdl.dto.InputChatPhotoStatic
 import dev.g000sha256.tdl.dto.InputChatPhotoSticker
+import dev.g000sha256.tdl.dto.InputChecklist
+import dev.g000sha256.tdl.dto.InputChecklistTask
 import dev.g000sha256.tdl.dto.InputCredentials
 import dev.g000sha256.tdl.dto.InputCredentialsApplePay
 import dev.g000sha256.tdl.dto.InputCredentialsGooglePay
@@ -655,6 +660,7 @@ import dev.g000sha256.tdl.dto.InputInvoiceName
 import dev.g000sha256.tdl.dto.InputInvoiceTelegram
 import dev.g000sha256.tdl.dto.InputMessageAnimation
 import dev.g000sha256.tdl.dto.InputMessageAudio
+import dev.g000sha256.tdl.dto.InputMessageChecklist
 import dev.g000sha256.tdl.dto.InputMessageContact
 import dev.g000sha256.tdl.dto.InputMessageContent
 import dev.g000sha256.tdl.dto.InputMessageDice
@@ -892,6 +898,9 @@ import dev.g000sha256.tdl.dto.MessageChatSetTheme
 import dev.g000sha256.tdl.dto.MessageChatShared
 import dev.g000sha256.tdl.dto.MessageChatUpgradeFrom
 import dev.g000sha256.tdl.dto.MessageChatUpgradeTo
+import dev.g000sha256.tdl.dto.MessageChecklist
+import dev.g000sha256.tdl.dto.MessageChecklistTasksAdded
+import dev.g000sha256.tdl.dto.MessageChecklistTasksDone
 import dev.g000sha256.tdl.dto.MessageContact
 import dev.g000sha256.tdl.dto.MessageContactRegistered
 import dev.g000sha256.tdl.dto.MessageContent
@@ -997,7 +1006,6 @@ import dev.g000sha256.tdl.dto.MessageSourceNotification
 import dev.g000sha256.tdl.dto.MessageSourceOther
 import dev.g000sha256.tdl.dto.MessageSourceScreenshot
 import dev.g000sha256.tdl.dto.MessageSourceSearch
-import dev.g000sha256.tdl.dto.MessageSponsor
 import dev.g000sha256.tdl.dto.MessageStatistics
 import dev.g000sha256.tdl.dto.MessageSticker
 import dev.g000sha256.tdl.dto.MessageStory
@@ -1198,6 +1206,7 @@ import dev.g000sha256.tdl.dto.PremiumFeatureAppIcons
 import dev.g000sha256.tdl.dto.PremiumFeatureBackgroundForBoth
 import dev.g000sha256.tdl.dto.PremiumFeatureBusiness
 import dev.g000sha256.tdl.dto.PremiumFeatureChatBoost
+import dev.g000sha256.tdl.dto.PremiumFeatureChecklists
 import dev.g000sha256.tdl.dto.PremiumFeatureCustomEmoji
 import dev.g000sha256.tdl.dto.PremiumFeatureDisabledAds
 import dev.g000sha256.tdl.dto.PremiumFeatureEmojiStatus
@@ -1293,6 +1302,9 @@ import dev.g000sha256.tdl.dto.PushMessageContentChatJoinByLink
 import dev.g000sha256.tdl.dto.PushMessageContentChatJoinByRequest
 import dev.g000sha256.tdl.dto.PushMessageContentChatSetBackground
 import dev.g000sha256.tdl.dto.PushMessageContentChatSetTheme
+import dev.g000sha256.tdl.dto.PushMessageContentChecklist
+import dev.g000sha256.tdl.dto.PushMessageContentChecklistTasksAdded
+import dev.g000sha256.tdl.dto.PushMessageContentChecklistTasksDone
 import dev.g000sha256.tdl.dto.PushMessageContentContact
 import dev.g000sha256.tdl.dto.PushMessageContentContactRegistered
 import dev.g000sha256.tdl.dto.PushMessageContentDocument
@@ -1953,7 +1965,10 @@ import dev.g000sha256.tdl.dto.Video
 import dev.g000sha256.tdl.dto.VideoChat
 import dev.g000sha256.tdl.dto.VideoChatStream
 import dev.g000sha256.tdl.dto.VideoChatStreams
+import dev.g000sha256.tdl.dto.VideoMessageAdvertisement
+import dev.g000sha256.tdl.dto.VideoMessageAdvertisements
 import dev.g000sha256.tdl.dto.VideoNote
+import dev.g000sha256.tdl.dto.VideoStoryboard
 import dev.g000sha256.tdl.dto.VoiceNote
 import dev.g000sha256.tdl.dto.WebApp
 import dev.g000sha256.tdl.dto.WebAppInfo
@@ -2089,6 +2104,22 @@ internal class TdlMapper {
             streetLine1 = dto.streetLine1,
             streetLine2 = dto.streetLine2,
             postalCode = dto.postalCode,
+        )
+    }
+
+    fun map(dto: TdApi.AdvertisementSponsor): AdvertisementSponsor {
+        return AdvertisementSponsor(
+            url = dto.url,
+            photo = dto.photo?.let { map(it) },
+            info = dto.info,
+        )
+    }
+
+    fun map(dto: AdvertisementSponsor): TdApi.AdvertisementSponsor {
+        return TdApi.AdvertisementSponsor(
+            url = dto.url,
+            photo = dto.photo?.let { map(it) },
+            info = dto.info,
         )
     }
 
@@ -7870,6 +7901,46 @@ internal class TdlMapper {
         return TdApi.CheckStickerSetNameResultNameOccupied()
     }
 
+    fun map(dto: TdApi.Checklist): Checklist {
+        return Checklist(
+            title = map(dto.title),
+            tasks = dto.tasks.mapArray { map(it) },
+            othersCanAddTasks = dto.othersCanAddTasks,
+            canAddTasks = dto.canAddTasks,
+            othersCanMarkTasksAsDone = dto.othersCanMarkTasksAsDone,
+            canMarkTasksAsDone = dto.canMarkTasksAsDone,
+        )
+    }
+
+    fun map(dto: Checklist): TdApi.Checklist {
+        return TdApi.Checklist(
+            title = map(dto.title),
+            tasks = dto.tasks.mapArray { map(it) },
+            othersCanAddTasks = dto.othersCanAddTasks,
+            canAddTasks = dto.canAddTasks,
+            othersCanMarkTasksAsDone = dto.othersCanMarkTasksAsDone,
+            canMarkTasksAsDone = dto.canMarkTasksAsDone,
+        )
+    }
+
+    fun map(dto: TdApi.ChecklistTask): ChecklistTask {
+        return ChecklistTask(
+            id = dto.id,
+            text = map(dto.text),
+            completedByUserId = dto.completedByUserId,
+            completionDate = dto.completionDate,
+        )
+    }
+
+    fun map(dto: ChecklistTask): TdApi.ChecklistTask {
+        return TdApi.ChecklistTask(
+            id = dto.id,
+            text = map(dto.text),
+            completedByUserId = dto.completedByUserId,
+            completionDate = dto.completionDate,
+        )
+    }
+
     fun map(dto: TdApi.CloseBirthdayUser): CloseBirthdayUser {
         return CloseBirthdayUser(
             userId = dto.userId,
@@ -8530,6 +8601,7 @@ internal class TdlMapper {
             id = dto.id,
             senderId = map(dto.senderId),
             order = dto.order,
+            canSendUnpaidMessages = dto.canSendUnpaidMessages,
             isMarkedAsUnread = dto.isMarkedAsUnread,
             unreadCount = dto.unreadCount,
             lastReadInboxMessageId = dto.lastReadInboxMessageId,
@@ -8546,6 +8618,7 @@ internal class TdlMapper {
             id = dto.id,
             senderId = map(dto.senderId),
             order = dto.order,
+            canSendUnpaidMessages = dto.canSendUnpaidMessages,
             isMarkedAsUnread = dto.isMarkedAsUnread,
             unreadCount = dto.unreadCount,
             lastReadInboxMessageId = dto.lastReadInboxMessageId,
@@ -11097,6 +11170,38 @@ internal class TdlMapper {
         )
     }
 
+    fun map(dto: TdApi.InputChecklist): InputChecklist {
+        return InputChecklist(
+            title = map(dto.title),
+            tasks = dto.tasks.mapArray { map(it) },
+            othersCanAddTasks = dto.othersCanAddTasks,
+            othersCanMarkTasksAsDone = dto.othersCanMarkTasksAsDone,
+        )
+    }
+
+    fun map(dto: InputChecklist): TdApi.InputChecklist {
+        return TdApi.InputChecklist(
+            title = map(dto.title),
+            tasks = dto.tasks.mapArray { map(it) },
+            othersCanAddTasks = dto.othersCanAddTasks,
+            othersCanMarkTasksAsDone = dto.othersCanMarkTasksAsDone,
+        )
+    }
+
+    fun map(dto: TdApi.InputChecklistTask): InputChecklistTask {
+        return InputChecklistTask(
+            id = dto.id,
+            text = map(dto.text),
+        )
+    }
+
+    fun map(dto: InputChecklistTask): TdApi.InputChecklistTask {
+        return TdApi.InputChecklistTask(
+            id = dto.id,
+            text = map(dto.text),
+        )
+    }
+
     fun map(dto: TdApi.InputCredentials): InputCredentials {
         when (dto) {
             is TdApi.InputCredentialsSaved -> return map(dto)
@@ -11722,6 +11827,7 @@ internal class TdlMapper {
             is TdApi.InputMessageInvoice -> return map(dto)
             is TdApi.InputMessagePoll -> return map(dto)
             is TdApi.InputMessageStory -> return map(dto)
+            is TdApi.InputMessageChecklist -> return map(dto)
             is TdApi.InputMessageForwarded -> return map(dto)
             else -> error("Unknown DTO class type (${dto.javaClass})")
         }
@@ -11913,6 +12019,12 @@ internal class TdlMapper {
         )
     }
 
+    fun map(dto: TdApi.InputMessageChecklist): InputMessageChecklist {
+        return InputMessageChecklist(
+            checklist = map(dto.checklist),
+        )
+    }
+
     fun map(dto: TdApi.InputMessageForwarded): InputMessageForwarded {
         return InputMessageForwarded(
             fromChatId = dto.fromChatId,
@@ -11944,6 +12056,7 @@ internal class TdlMapper {
             is InputMessageInvoice -> return map(dto)
             is InputMessagePoll -> return map(dto)
             is InputMessageStory -> return map(dto)
+            is InputMessageChecklist -> return map(dto)
             is InputMessageForwarded -> return map(dto)
         }
     }
@@ -12131,6 +12244,12 @@ internal class TdlMapper {
         return TdApi.InputMessageStory(
             storyPosterChatId = dto.storyPosterChatId,
             storyId = dto.storyId,
+        )
+    }
+
+    fun map(dto: InputMessageChecklist): TdApi.InputMessageChecklist {
+        return TdApi.InputMessageChecklist(
+            checklist = map(dto.checklist),
         )
     }
 
@@ -15156,6 +15275,7 @@ internal class TdlMapper {
             is TdApi.MessageGame -> return map(dto)
             is TdApi.MessagePoll -> return map(dto)
             is TdApi.MessageStory -> return map(dto)
+            is TdApi.MessageChecklist -> return map(dto)
             is TdApi.MessageInvoice -> return map(dto)
             is TdApi.MessageCall -> return map(dto)
             is TdApi.MessageGroupCall -> return map(dto)
@@ -15204,6 +15324,8 @@ internal class TdlMapper {
             is TdApi.MessagePaidMessagesRefunded -> return map(dto)
             is TdApi.MessagePaidMessagePriceChanged -> return map(dto)
             is TdApi.MessageDirectMessagePriceChanged -> return map(dto)
+            is TdApi.MessageChecklistTasksDone -> return map(dto)
+            is TdApi.MessageChecklistTasksAdded -> return map(dto)
             is TdApi.MessageContactRegistered -> return map(dto)
             is TdApi.MessageUsersShared -> return map(dto)
             is TdApi.MessageChatShared -> return map(dto)
@@ -15280,6 +15402,7 @@ internal class TdlMapper {
         return MessageVideo(
             video = map(dto.video),
             alternativeVideos = dto.alternativeVideos.mapArray { map(it) },
+            storyboards = dto.storyboards.mapArray { map(it) },
             cover = dto.cover?.let { map(it) },
             startTimestamp = dto.startTimestamp,
             caption = map(dto.caption),
@@ -15377,6 +15500,12 @@ internal class TdlMapper {
             storyPosterChatId = dto.storyPosterChatId,
             storyId = dto.storyId,
             viaMention = dto.viaMention,
+        )
+    }
+
+    fun map(dto: TdApi.MessageChecklist): MessageChecklist {
+        return MessageChecklist(
+            list = map(dto.list),
         )
     }
 
@@ -15784,6 +15913,21 @@ internal class TdlMapper {
         )
     }
 
+    fun map(dto: TdApi.MessageChecklistTasksDone): MessageChecklistTasksDone {
+        return MessageChecklistTasksDone(
+            checklistMessageId = dto.checklistMessageId,
+            markedAsDoneTaskIds = dto.markedAsDoneTaskIds,
+            markedAsNotDoneTaskIds = dto.markedAsNotDoneTaskIds,
+        )
+    }
+
+    fun map(dto: TdApi.MessageChecklistTasksAdded): MessageChecklistTasksAdded {
+        return MessageChecklistTasksAdded(
+            checklistMessageId = dto.checklistMessageId,
+            tasks = dto.tasks.mapArray { map(it) },
+        )
+    }
+
     fun map(dto: TdApi.MessageContactRegistered): MessageContactRegistered {
         return MessageContactRegistered()
     }
@@ -15870,6 +16014,7 @@ internal class TdlMapper {
             is MessageGame -> return map(dto)
             is MessagePoll -> return map(dto)
             is MessageStory -> return map(dto)
+            is MessageChecklist -> return map(dto)
             is MessageInvoice -> return map(dto)
             is MessageCall -> return map(dto)
             is MessageGroupCall -> return map(dto)
@@ -15918,6 +16063,8 @@ internal class TdlMapper {
             is MessagePaidMessagesRefunded -> return map(dto)
             is MessagePaidMessagePriceChanged -> return map(dto)
             is MessageDirectMessagePriceChanged -> return map(dto)
+            is MessageChecklistTasksDone -> return map(dto)
+            is MessageChecklistTasksAdded -> return map(dto)
             is MessageContactRegistered -> return map(dto)
             is MessageUsersShared -> return map(dto)
             is MessageChatShared -> return map(dto)
@@ -15993,6 +16140,7 @@ internal class TdlMapper {
         return TdApi.MessageVideo(
             video = map(dto.video),
             alternativeVideos = dto.alternativeVideos.mapArray { map(it) },
+            storyboards = dto.storyboards.mapArray { map(it) },
             cover = dto.cover?.let { map(it) },
             startTimestamp = dto.startTimestamp,
             caption = map(dto.caption),
@@ -16090,6 +16238,12 @@ internal class TdlMapper {
             storyPosterChatId = dto.storyPosterChatId,
             storyId = dto.storyId,
             viaMention = dto.viaMention,
+        )
+    }
+
+    fun map(dto: MessageChecklist): TdApi.MessageChecklist {
+        return TdApi.MessageChecklist(
+            list = map(dto.list),
         )
     }
 
@@ -16497,6 +16651,21 @@ internal class TdlMapper {
         )
     }
 
+    fun map(dto: MessageChecklistTasksDone): TdApi.MessageChecklistTasksDone {
+        return TdApi.MessageChecklistTasksDone(
+            checklistMessageId = dto.checklistMessageId,
+            markedAsDoneTaskIds = dto.markedAsDoneTaskIds,
+            markedAsNotDoneTaskIds = dto.markedAsNotDoneTaskIds,
+        )
+    }
+
+    fun map(dto: MessageChecklistTasksAdded): TdApi.MessageChecklistTasksAdded {
+        return TdApi.MessageChecklistTasksAdded(
+            checklistMessageId = dto.checklistMessageId,
+            tasks = dto.tasks.mapArray { map(it) },
+        )
+    }
+
     fun map(dto: MessageContactRegistered): TdApi.MessageContactRegistered {
         return TdApi.MessageContactRegistered()
     }
@@ -16878,6 +17047,7 @@ internal class TdlMapper {
 
     fun map(dto: TdApi.MessageProperties): MessageProperties {
         return MessageProperties(
+            canAddTasks = dto.canAddTasks,
             canBeCopied = dto.canBeCopied,
             canBeCopiedToSecretChat = dto.canBeCopiedToSecretChat,
             canBeDeletedOnlyForSelf = dto.canBeDeletedOnlyForSelf,
@@ -16899,7 +17069,9 @@ internal class TdlMapper {
             canGetMessageThread = dto.canGetMessageThread,
             canGetReadDate = dto.canGetReadDate,
             canGetStatistics = dto.canGetStatistics,
+            canGetVideoAdvertisements = dto.canGetVideoAdvertisements,
             canGetViewers = dto.canGetViewers,
+            canMarkTasksAsDone = dto.canMarkTasksAsDone,
             canRecognizeSpeech = dto.canRecognizeSpeech,
             canReportChat = dto.canReportChat,
             canReportReactions = dto.canReportReactions,
@@ -16911,6 +17083,7 @@ internal class TdlMapper {
 
     fun map(dto: MessageProperties): TdApi.MessageProperties {
         return TdApi.MessageProperties(
+            canAddTasks = dto.canAddTasks,
             canBeCopied = dto.canBeCopied,
             canBeCopiedToSecretChat = dto.canBeCopiedToSecretChat,
             canBeDeletedOnlyForSelf = dto.canBeDeletedOnlyForSelf,
@@ -16932,7 +17105,9 @@ internal class TdlMapper {
             canGetMessageThread = dto.canGetMessageThread,
             canGetReadDate = dto.canGetReadDate,
             canGetStatistics = dto.canGetStatistics,
+            canGetVideoAdvertisements = dto.canGetVideoAdvertisements,
             canGetViewers = dto.canGetViewers,
+            canMarkTasksAsDone = dto.canMarkTasksAsDone,
             canRecognizeSpeech = dto.canRecognizeSpeech,
             canReportChat = dto.canReportChat,
             canReportReactions = dto.canReportReactions,
@@ -17455,22 +17630,6 @@ internal class TdlMapper {
 
     fun map(dto: MessageSourceOther): TdApi.MessageSourceOther {
         return TdApi.MessageSourceOther()
-    }
-
-    fun map(dto: TdApi.MessageSponsor): MessageSponsor {
-        return MessageSponsor(
-            url = dto.url,
-            photo = dto.photo?.let { map(it) },
-            info = dto.info,
-        )
-    }
-
-    fun map(dto: MessageSponsor): TdApi.MessageSponsor {
-        return TdApi.MessageSponsor(
-            url = dto.url,
-            photo = dto.photo?.let { map(it) },
-            info = dto.info,
-        )
     }
 
     fun map(dto: TdApi.MessageStatistics): MessageStatistics {
@@ -19981,6 +20140,7 @@ internal class TdlMapper {
             is TdApi.PremiumFeatureLastSeenTimes -> return map(dto)
             is TdApi.PremiumFeatureBusiness -> return map(dto)
             is TdApi.PremiumFeatureMessageEffects -> return map(dto)
+            is TdApi.PremiumFeatureChecklists -> return map(dto)
             else -> error("Unknown DTO class type (${dto.javaClass})")
         }
     }
@@ -20081,6 +20241,10 @@ internal class TdlMapper {
         return PremiumFeatureMessageEffects()
     }
 
+    fun map(dto: TdApi.PremiumFeatureChecklists): PremiumFeatureChecklists {
+        return PremiumFeatureChecklists()
+    }
+
     fun map(dto: PremiumFeature): TdApi.PremiumFeature {
         when (dto) {
             is PremiumFeatureIncreasedLimits -> return map(dto)
@@ -20107,6 +20271,7 @@ internal class TdlMapper {
             is PremiumFeatureLastSeenTimes -> return map(dto)
             is PremiumFeatureBusiness -> return map(dto)
             is PremiumFeatureMessageEffects -> return map(dto)
+            is PremiumFeatureChecklists -> return map(dto)
         }
     }
 
@@ -20204,6 +20369,10 @@ internal class TdlMapper {
 
     fun map(dto: PremiumFeatureMessageEffects): TdApi.PremiumFeatureMessageEffects {
         return TdApi.PremiumFeatureMessageEffects()
+    }
+
+    fun map(dto: PremiumFeatureChecklists): TdApi.PremiumFeatureChecklists {
+        return TdApi.PremiumFeatureChecklists()
     }
 
     fun map(dto: TdApi.PremiumFeaturePromotionAnimation): PremiumFeaturePromotionAnimation {
@@ -21103,6 +21272,7 @@ internal class TdlMapper {
             is TdApi.PushMessageContentSticker -> return map(dto)
             is TdApi.PushMessageContentStory -> return map(dto)
             is TdApi.PushMessageContentText -> return map(dto)
+            is TdApi.PushMessageContentChecklist -> return map(dto)
             is TdApi.PushMessageContentVideo -> return map(dto)
             is TdApi.PushMessageContentVideoNote -> return map(dto)
             is TdApi.PushMessageContentVoiceNote -> return map(dto)
@@ -21121,6 +21291,8 @@ internal class TdlMapper {
             is TdApi.PushMessageContentRecurringPayment -> return map(dto)
             is TdApi.PushMessageContentSuggestProfilePhoto -> return map(dto)
             is TdApi.PushMessageContentProximityAlertTriggered -> return map(dto)
+            is TdApi.PushMessageContentChecklistTasksAdded -> return map(dto)
+            is TdApi.PushMessageContentChecklistTasksDone -> return map(dto)
             is TdApi.PushMessageContentMessageForwards -> return map(dto)
             is TdApi.PushMessageContentMediaAlbum -> return map(dto)
             else -> error("Unknown DTO class type (${dto.javaClass})")
@@ -21271,6 +21443,13 @@ internal class TdlMapper {
         )
     }
 
+    fun map(dto: TdApi.PushMessageContentChecklist): PushMessageContentChecklist {
+        return PushMessageContentChecklist(
+            title = dto.title,
+            isPinned = dto.isPinned,
+        )
+    }
+
     fun map(dto: TdApi.PushMessageContentVideo): PushMessageContentVideo {
         return PushMessageContentVideo(
             video = dto.video?.let { map(it) },
@@ -21374,6 +21553,18 @@ internal class TdlMapper {
         )
     }
 
+    fun map(dto: TdApi.PushMessageContentChecklistTasksAdded): PushMessageContentChecklistTasksAdded {
+        return PushMessageContentChecklistTasksAdded(
+            taskCount = dto.taskCount,
+        )
+    }
+
+    fun map(dto: TdApi.PushMessageContentChecklistTasksDone): PushMessageContentChecklistTasksDone {
+        return PushMessageContentChecklistTasksDone(
+            taskCount = dto.taskCount,
+        )
+    }
+
     fun map(dto: TdApi.PushMessageContentMessageForwards): PushMessageContentMessageForwards {
         return PushMessageContentMessageForwards(
             totalCount = dto.totalCount,
@@ -21413,6 +21604,7 @@ internal class TdlMapper {
             is PushMessageContentSticker -> return map(dto)
             is PushMessageContentStory -> return map(dto)
             is PushMessageContentText -> return map(dto)
+            is PushMessageContentChecklist -> return map(dto)
             is PushMessageContentVideo -> return map(dto)
             is PushMessageContentVideoNote -> return map(dto)
             is PushMessageContentVoiceNote -> return map(dto)
@@ -21431,6 +21623,8 @@ internal class TdlMapper {
             is PushMessageContentRecurringPayment -> return map(dto)
             is PushMessageContentSuggestProfilePhoto -> return map(dto)
             is PushMessageContentProximityAlertTriggered -> return map(dto)
+            is PushMessageContentChecklistTasksAdded -> return map(dto)
+            is PushMessageContentChecklistTasksDone -> return map(dto)
             is PushMessageContentMessageForwards -> return map(dto)
             is PushMessageContentMediaAlbum -> return map(dto)
         }
@@ -21580,6 +21774,13 @@ internal class TdlMapper {
         )
     }
 
+    fun map(dto: PushMessageContentChecklist): TdApi.PushMessageContentChecklist {
+        return TdApi.PushMessageContentChecklist(
+            title = dto.title,
+            isPinned = dto.isPinned,
+        )
+    }
+
     fun map(dto: PushMessageContentVideo): TdApi.PushMessageContentVideo {
         return TdApi.PushMessageContentVideo(
             video = dto.video?.let { map(it) },
@@ -21680,6 +21881,18 @@ internal class TdlMapper {
     fun map(dto: PushMessageContentProximityAlertTriggered): TdApi.PushMessageContentProximityAlertTriggered {
         return TdApi.PushMessageContentProximityAlertTriggered(
             distance = dto.distance,
+        )
+    }
+
+    fun map(dto: PushMessageContentChecklistTasksAdded): TdApi.PushMessageContentChecklistTasksAdded {
+        return TdApi.PushMessageContentChecklistTasksAdded(
+            taskCount = dto.taskCount,
+        )
+    }
+
+    fun map(dto: PushMessageContentChecklistTasksDone): TdApi.PushMessageContentChecklistTasksDone {
+        return TdApi.PushMessageContentChecklistTasksDone(
+            taskCount = dto.taskCount,
         )
     }
 
@@ -26116,6 +26329,7 @@ internal class TdlMapper {
             giftCount = dto.giftCount,
             myBoostCount = dto.myBoostCount,
             unrestrictBoostCount = dto.unrestrictBoostCount,
+            outgoingPaidMessageStarCount = dto.outgoingPaidMessageStarCount,
             stickerSetId = dto.stickerSetId,
             customEmojiStickerSetId = dto.customEmojiStickerSetId,
             location = dto.location?.let { map(it) },
@@ -26159,6 +26373,7 @@ internal class TdlMapper {
             giftCount = dto.giftCount,
             myBoostCount = dto.myBoostCount,
             unrestrictBoostCount = dto.unrestrictBoostCount,
+            outgoingPaidMessageStarCount = dto.outgoingPaidMessageStarCount,
             stickerSetId = dto.stickerSetId,
             customEmojiStickerSetId = dto.customEmojiStickerSetId,
             location = dto.location?.let { map(it) },
@@ -31109,6 +31324,48 @@ internal class TdlMapper {
         )
     }
 
+    fun map(dto: TdApi.VideoMessageAdvertisement): VideoMessageAdvertisement {
+        return VideoMessageAdvertisement(
+            uniqueId = dto.uniqueId,
+            text = dto.text,
+            minDisplayDuration = dto.minDisplayDuration,
+            maxDisplayDuration = dto.maxDisplayDuration,
+            canBeReported = dto.canBeReported,
+            sponsor = map(dto.sponsor),
+            title = dto.title,
+            additionalInfo = dto.additionalInfo,
+        )
+    }
+
+    fun map(dto: VideoMessageAdvertisement): TdApi.VideoMessageAdvertisement {
+        return TdApi.VideoMessageAdvertisement(
+            uniqueId = dto.uniqueId,
+            text = dto.text,
+            minDisplayDuration = dto.minDisplayDuration,
+            maxDisplayDuration = dto.maxDisplayDuration,
+            canBeReported = dto.canBeReported,
+            sponsor = map(dto.sponsor),
+            title = dto.title,
+            additionalInfo = dto.additionalInfo,
+        )
+    }
+
+    fun map(dto: TdApi.VideoMessageAdvertisements): VideoMessageAdvertisements {
+        return VideoMessageAdvertisements(
+            advertisements = dto.advertisements.mapArray { map(it) },
+            startDelay = dto.startDelay,
+            betweenDelay = dto.betweenDelay,
+        )
+    }
+
+    fun map(dto: VideoMessageAdvertisements): TdApi.VideoMessageAdvertisements {
+        return TdApi.VideoMessageAdvertisements(
+            advertisements = dto.advertisements.mapArray { map(it) },
+            startDelay = dto.startDelay,
+            betweenDelay = dto.betweenDelay,
+        )
+    }
+
     fun map(dto: TdApi.VideoNote): VideoNote {
         return VideoNote(
             duration = dto.duration,
@@ -31130,6 +31387,24 @@ internal class TdlMapper {
             thumbnail = dto.thumbnail?.let { map(it) },
             speechRecognitionResult = dto.speechRecognitionResult?.let { map(it) },
             video = map(dto.video),
+        )
+    }
+
+    fun map(dto: TdApi.VideoStoryboard): VideoStoryboard {
+        return VideoStoryboard(
+            storyboardFile = map(dto.storyboardFile),
+            width = dto.width,
+            height = dto.height,
+            mapFile = map(dto.mapFile),
+        )
+    }
+
+    fun map(dto: VideoStoryboard): TdApi.VideoStoryboard {
+        return TdApi.VideoStoryboard(
+            storyboardFile = map(dto.storyboardFile),
+            width = dto.width,
+            height = dto.height,
+            mapFile = map(dto.mapFile),
         )
     }
 

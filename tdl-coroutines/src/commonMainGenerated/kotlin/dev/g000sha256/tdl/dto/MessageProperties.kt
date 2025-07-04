@@ -24,11 +24,12 @@ import kotlin.String
 /**
  * Contains properties of a message and describes actions that can be done with the message right now.
  *
+ * @property canAddTasks True, if tasks can be added to the message's checklist using addChecklistTasks if the current user has Telegram Premium subscription.
  * @property canBeCopied True, if content of the message can be copied using inputMessageForwarded or forwardMessages with copy options.
  * @property canBeCopiedToSecretChat True, if content of the message can be copied to a secret chat using inputMessageForwarded or forwardMessages with copy options.
  * @property canBeDeletedOnlyForSelf True, if the message can be deleted only for the current user while other users will continue to see it using the method deleteMessages with revoke == false.
  * @property canBeDeletedForAllUsers True, if the message can be deleted for all users using the method deleteMessages with revoke == true.
- * @property canBeEdited True, if the message can be edited using the methods editMessageText, editMessageCaption, or editMessageReplyMarkup. For live location and poll messages this fields shows whether editMessageLiveLocation or stopPoll can be used with this message.
+ * @property canBeEdited True, if the message can be edited using the methods editMessageText, editMessageCaption, or editMessageReplyMarkup. For live location, poll, and checklist messages this fields shows whether editMessageLiveLocation, stopPoll, or editMessageChecklist respectively can be used with this message.
  * @property canBeForwarded True, if the message can be forwarded using inputMessageForwarded or forwardMessages without copy options.
  * @property canBePaid True, if the message can be paid using inputInvoiceMessage.
  * @property canBePinned True, if the message can be pinned or unpinned in the chat using pinChatMessage or unpinChatMessage.
@@ -45,7 +46,9 @@ import kotlin.String
  * @property canGetMessageThread True, if information about the message thread is available through getMessageThread and getMessageThreadHistory.
  * @property canGetReadDate True, if read date of the message can be received through getMessageReadDate.
  * @property canGetStatistics True, if message statistics are available through getMessageStatistics and message forwards can be received using getMessagePublicForwards.
+ * @property canGetVideoAdvertisements True, if advertisements for video of the message can be received though getVideoMessageAdvertisements.
  * @property canGetViewers True, if chat members already viewed the message can be received through getMessageViewers.
+ * @property canMarkTasksAsDone True, if tasks can be marked as done or not done in the message's checklist using markChecklistTasksAsDone if the current user has Telegram Premium subscription.
  * @property canRecognizeSpeech True, if speech can be recognized for the message through recognizeSpeech.
  * @property canReportChat True, if the message can be reported using reportChat.
  * @property canReportReactions True, if reactions on the message can be reported through reportMessageReactions.
@@ -54,6 +57,7 @@ import kotlin.String
  * @property needShowStatistics True, if message statistics must be available from context menu of the message.
  */
 public class MessageProperties public constructor(
+    public val canAddTasks: Boolean,
     public val canBeCopied: Boolean,
     public val canBeCopiedToSecretChat: Boolean,
     public val canBeDeletedOnlyForSelf: Boolean,
@@ -75,7 +79,9 @@ public class MessageProperties public constructor(
     public val canGetMessageThread: Boolean,
     public val canGetReadDate: Boolean,
     public val canGetStatistics: Boolean,
+    public val canGetVideoAdvertisements: Boolean,
     public val canGetViewers: Boolean,
+    public val canMarkTasksAsDone: Boolean,
     public val canRecognizeSpeech: Boolean,
     public val canReportChat: Boolean,
     public val canReportReactions: Boolean,
@@ -94,6 +100,9 @@ public class MessageProperties public constructor(
             return false
         }
         other as MessageProperties
+        if (other.canAddTasks != canAddTasks) {
+            return false
+        }
         if (other.canBeCopied != canBeCopied) {
             return false
         }
@@ -157,7 +166,13 @@ public class MessageProperties public constructor(
         if (other.canGetStatistics != canGetStatistics) {
             return false
         }
+        if (other.canGetVideoAdvertisements != canGetVideoAdvertisements) {
+            return false
+        }
         if (other.canGetViewers != canGetViewers) {
+            return false
+        }
+        if (other.canMarkTasksAsDone != canMarkTasksAsDone) {
             return false
         }
         if (other.canRecognizeSpeech != canRecognizeSpeech) {
@@ -180,6 +195,7 @@ public class MessageProperties public constructor(
 
     override fun hashCode(): Int {
         var hashCode = this::class.hashCode()
+        hashCode = 31 * hashCode + canAddTasks.hashCode()
         hashCode = 31 * hashCode + canBeCopied.hashCode()
         hashCode = 31 * hashCode + canBeCopiedToSecretChat.hashCode()
         hashCode = 31 * hashCode + canBeDeletedOnlyForSelf.hashCode()
@@ -201,7 +217,9 @@ public class MessageProperties public constructor(
         hashCode = 31 * hashCode + canGetMessageThread.hashCode()
         hashCode = 31 * hashCode + canGetReadDate.hashCode()
         hashCode = 31 * hashCode + canGetStatistics.hashCode()
+        hashCode = 31 * hashCode + canGetVideoAdvertisements.hashCode()
         hashCode = 31 * hashCode + canGetViewers.hashCode()
+        hashCode = 31 * hashCode + canMarkTasksAsDone.hashCode()
         hashCode = 31 * hashCode + canRecognizeSpeech.hashCode()
         hashCode = 31 * hashCode + canReportChat.hashCode()
         hashCode = 31 * hashCode + canReportReactions.hashCode()
@@ -215,6 +233,9 @@ public class MessageProperties public constructor(
         return buildString {
             append("MessageProperties")
             append("(")
+            append("canAddTasks=")
+            append(canAddTasks)
+            append(", ")
             append("canBeCopied=")
             append(canBeCopied)
             append(", ")
@@ -278,8 +299,14 @@ public class MessageProperties public constructor(
             append("canGetStatistics=")
             append(canGetStatistics)
             append(", ")
+            append("canGetVideoAdvertisements=")
+            append(canGetVideoAdvertisements)
+            append(", ")
             append("canGetViewers=")
             append(canGetViewers)
+            append(", ")
+            append("canMarkTasksAsDone=")
+            append(canMarkTasksAsDone)
             append(", ")
             append("canRecognizeSpeech=")
             append(canRecognizeSpeech)
