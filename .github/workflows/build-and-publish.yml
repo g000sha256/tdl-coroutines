@@ -28,13 +28,15 @@ jobs:
           gradle-version: 8.14.1
           cache-disabled: false
 
-      - name: Assemble library
+      - name: Assemble libraries
         run: |
           ./gradlew tdl-coroutines:assembleRelease
           ./gradlew tdl-coroutines:jvmJar
 
-      - name: Assemble example
-        run: ./gradlew tdl-coroutines-example:assembleRelease
+      - name: Assemble examples
+        run: |
+          ./gradlew tdl-coroutines-example:assembleRelease
+          ./gradlew tdl-coroutines-example-jvm:assemble
 
       - name: Check API compatibility
         run: ./gradlew apiCheck
