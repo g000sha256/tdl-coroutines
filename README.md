@@ -2,13 +2,11 @@
 
 [![Maven Central](https://img.shields.io/maven-central/v/dev.g000sha256/tdl-coroutines?label=Maven%20Central&labelColor=171C35&color=E38E33)](https://central.sonatype.com/artifact/dev.g000sha256/tdl-coroutines)
 [![TDLib Version](https://img.shields.io/badge/TDLib-v1.8.51-blue?labelColor=19212A&color=53A5E3)](https://github.com/tdlib/td/tree/bb474a201baa798784d696d2d9d762a9d2807f96)
-[![GitHub Actions](https://img.shields.io/github/actions/workflow/status/g000sha256/tdl-coroutines/build-and-publish.yml?label=GitHub%20Actions&labelColor=161B22)](https://github.com/g000sha256/tdl-coroutines/actions/workflows/build-and-publish.yml)
 
 ![Platform](https://img.shields.io/static/v1?label=Platform&labelColor=black&message=Android&color=green)
 ![Platform](https://img.shields.io/static/v1?label=Platform&labelColor=black&message=JVM&color=orange)
 
-This library provides a Kotlin Coroutines client for the Telegram Database Library ([TDLib](https://github.com/tdlib/td)).
-Data Transfer Objects (DTOs), the client, and the mapper are generated from the `TdApi.java` file.
+This library provides a `Kotlin Coroutines` client for the `Telegram Database Library` ([TDLib](https://github.com/tdlib/td)).
 
 ## Gradle setup
 
@@ -27,8 +25,9 @@ dependencies {
 ## Usage
 
 > [!CAUTION]
-> To reduce breaking changes when updating the library, use named arguments for constructors and methods, as new parameters may
-> be added in future releases.
+> The `TDLib` frequently includes breaking changes in its minor versions.
+> To reduce breaking changes when updating the `TDL Coroutines` library,
+> use named arguments for constructors and methods, as new parameters may be added in future releases.
 
 ### How to create a client
 
@@ -38,12 +37,32 @@ val client = TdlClient.create()
 
 ### How to subscribe to updates
 
-The `TdlClient` provides 159 update flows.
+The `TdlClient` provides 159 update flows, as well as one that includes all updates.
 
 ```kotlin
 coroutineScope.launch {
-    client.authorizationStateUpdates.collect { authorizationState ->
+    client.authorizationStateUpdates.collect { updateAuthorizationState ->
+        val authorizationState = updateAuthorizationState.authorizationState
         // TODO
+    }
+}
+```
+
+```kotlin
+coroutineScope.launch {
+    client.allUpdates.collect { update ->
+        when (update) {
+            is UpdateAuthorizationState -> {
+                val authorizationState = update.authorizationState
+                // TODO
+            }
+            is UpdateOption -> {
+                val name = update.name
+                val value = update.value
+                // TODO
+            }
+            // TODO
+        }
     }
 }
 ```
@@ -62,20 +81,9 @@ coroutineScope.launch {
             // TODO
         }
         is TdlResult.Success -> {
+            val authorizationState = result.result
             // TODO
         }
     }
 }
 ```
-
-## To-Do list
-
-- Research replacing arrays with `List` or `ImmutableList`.
-- Add usage for `Client.nativeClientExecute`.
-- Add usage for `Client.nativeClientSetLogMessageHandler`.
-- Add builders to preserve binary compatibility.
-- Add default initializers.
-- Rebuild `TDLib` as a `JSON` client.
-- Parse `td_api.tl` instead of `TdApi.java`.
-- Add multiplatform support for `iOS`.
-- Add multiplatform support for `macOS`.
