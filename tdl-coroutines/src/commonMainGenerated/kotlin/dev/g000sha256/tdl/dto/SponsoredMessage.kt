@@ -41,7 +41,7 @@ public class SponsoredMessage public constructor(
     public val isRecommended: Boolean,
     public val canBeReported: Boolean,
     public val content: MessageContent,
-    public val sponsor: MessageSponsor,
+    public val sponsor: AdvertisementSponsor,
     public val title: String,
     public val buttonText: String,
     public val accentColorId: Int,

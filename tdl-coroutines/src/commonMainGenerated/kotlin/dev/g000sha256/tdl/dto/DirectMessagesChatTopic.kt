@@ -29,6 +29,7 @@ import kotlin.String
  * @property id Unique topic identifier.
  * @property senderId Identifier of the user or chat that sends the messages to the topic.
  * @property order A parameter used to determine order of the topic in the topic list. Topics must be sorted by the order in descending order.
+ * @property canSendUnpaidMessages True, if the other party can send unpaid messages even if the chat has paid messages enabled.
  * @property isMarkedAsUnread True, if the forum topic is marked as unread.
  * @property unreadCount Number of unread messages in the chat.
  * @property lastReadInboxMessageId Identifier of the last read incoming message.
@@ -42,6 +43,7 @@ public class DirectMessagesChatTopic public constructor(
     public val id: Long,
     public val senderId: MessageSender,
     public val order: Long,
+    public val canSendUnpaidMessages: Boolean,
     public val isMarkedAsUnread: Boolean,
     public val unreadCount: Long,
     public val lastReadInboxMessageId: Long,
@@ -73,6 +75,9 @@ public class DirectMessagesChatTopic public constructor(
         if (other.order != order) {
             return false
         }
+        if (other.canSendUnpaidMessages != canSendUnpaidMessages) {
+            return false
+        }
         if (other.isMarkedAsUnread != isMarkedAsUnread) {
             return false
         }
@@ -100,6 +105,7 @@ public class DirectMessagesChatTopic public constructor(
         hashCode = 31 * hashCode + id.hashCode()
         hashCode = 31 * hashCode + senderId.hashCode()
         hashCode = 31 * hashCode + order.hashCode()
+        hashCode = 31 * hashCode + canSendUnpaidMessages.hashCode()
         hashCode = 31 * hashCode + isMarkedAsUnread.hashCode()
         hashCode = 31 * hashCode + unreadCount.hashCode()
         hashCode = 31 * hashCode + lastReadInboxMessageId.hashCode()
@@ -125,6 +131,9 @@ public class DirectMessagesChatTopic public constructor(
             append(", ")
             append("order=")
             append(order)
+            append(", ")
+            append("canSendUnpaidMessages=")
+            append(canSendUnpaidMessages)
             append(", ")
             append("isMarkedAsUnread=")
             append(isMarkedAsUnread)

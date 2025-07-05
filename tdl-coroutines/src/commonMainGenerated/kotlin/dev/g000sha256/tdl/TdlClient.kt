@@ -184,6 +184,8 @@ import dev.g000sha256.tdl.dto.InputBackground
 import dev.g000sha256.tdl.dto.InputBusinessChatLink
 import dev.g000sha256.tdl.dto.InputBusinessStartPage
 import dev.g000sha256.tdl.dto.InputChatPhoto
+import dev.g000sha256.tdl.dto.InputChecklist
+import dev.g000sha256.tdl.dto.InputChecklistTask
 import dev.g000sha256.tdl.dto.InputCredentials
 import dev.g000sha256.tdl.dto.InputFile
 import dev.g000sha256.tdl.dto.InputGroupCall
@@ -527,6 +529,7 @@ import dev.g000sha256.tdl.dto.UserSupportInfo
 import dev.g000sha256.tdl.dto.Users
 import dev.g000sha256.tdl.dto.ValidatedOrderInfo
 import dev.g000sha256.tdl.dto.VideoChatStreams
+import dev.g000sha256.tdl.dto.VideoMessageAdvertisements
 import dev.g000sha256.tdl.dto.WebAppInfo
 import dev.g000sha256.tdl.dto.WebAppOpenParameters
 import dev.g000sha256.tdl.dto.WebPageInstantView
@@ -547,6 +550,11 @@ import kotlinx.coroutines.flow.Flow
  * You should subscribe to the primary update flows before calling requests to avoid missing initial updates.
  */
 public abstract class TdlClient internal constructor() {
+    /**
+     * All updates.
+     */
+    public abstract val allUpdates: Flow<Update>
+
     /**
      * The user authorization state has changed.
      */
@@ -1417,6 +1425,19 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun addChatToList(chatId: Long, chatList: ChatList): TdlResult<Ok>
 
     /**
+     * Adds tasks to a checklist in a message.
+     *
+     * @param chatId Identifier of the chat with the message.
+     * @param messageId Identifier of the message containing the checklist. Use messageProperties.canAddTasks to check whether the tasks can be added.
+     * @param tasks List of added tasks.
+     */
+    public abstract suspend fun addChecklistTasks(
+        chatId: Long,
+        messageId: Long,
+        tasks: Array<InputChecklistTask>,
+    ): TdlResult<Ok>
+
+    /**
      * Adds a user to the contact list or edits an existing contact by their user identifier.
      *
      * @param contact The contact to add or edit; phone number may be empty and needs to be specified only if known, vCard is ignored.
@@ -1554,7 +1575,7 @@ public abstract class TdlClient internal constructor() {
      *
      * @param shortcutName Name of the target shortcut.
      * @param replyToMessageId Identifier of a quick reply message in the same shortcut to be replied; pass 0 if none.
-     * @param inputMessageContent The content of the message to be added; inputMessagePoll, inputMessageForwarded and inputMessageLocation with livePeriod aren't supported.
+     * @param inputMessageContent The content of the message to be added; inputMessagePaidMedia, inputMessageForwarded and inputMessageLocation with livePeriod aren't supported.
      */
     public abstract suspend fun addQuickReplyShortcutMessage(
         shortcutName: String,
@@ -2066,6 +2087,13 @@ public abstract class TdlClient internal constructor() {
      * Informs TDLib that the user clicked Premium subscription button on the Premium features screen.
      */
     public abstract suspend fun clickPremiumSubscriptionButton(): TdlResult<Ok>
+
+    /**
+     * Informs TDLib that the user clicked a video message advertisement.
+     *
+     * @param advertisementUniqueId Unique identifier of the advertisement.
+     */
+    public abstract suspend fun clickVideoMessageAdvertisement(advertisementUniqueId: Long): TdlResult<Ok>
 
     /**
      * Closes the TDLib instance. All databases will be flushed to disk and properly closed. After the close completes, updateAuthorizationState with authorizationStateClosed will be sent. Can be called before initialization.
@@ -2780,6 +2808,23 @@ public abstract class TdlClient internal constructor() {
     ): TdlResult<BusinessMessage>
 
     /**
+     * Edits the content of a checklist in a message sent on behalf of a business account; for bots only.
+     *
+     * @param businessConnectionId Unique identifier of business connection on behalf of which the message was sent.
+     * @param chatId The chat the message belongs to.
+     * @param messageId Identifier of the message.
+     * @param replyMarkup The new message reply markup; pass null if none.
+     * @param checklist The new checklist. If some tasks were completed, this information will be kept.
+     */
+    public abstract suspend fun editBusinessMessageChecklist(
+        businessConnectionId: String,
+        chatId: Long,
+        messageId: Long,
+        replyMarkup: ReplyMarkup? = null,
+        checklist: InputChecklist,
+    ): TdlResult<BusinessMessage>
+
+    /**
      * Edits the content of a live location in a message sent on behalf of a business account; for bots only.
      *
      * @param businessConnectionId Unique identifier of business connection on behalf of which the message was sent.
@@ -3035,6 +3080,21 @@ public abstract class TdlClient internal constructor() {
     ): TdlResult<Message>
 
     /**
+     * Edits the message content of a checklist. Returns the edited message after the edit is completed on the server side.
+     *
+     * @param chatId The chat the message belongs to.
+     * @param messageId Identifier of the message. Use messageProperties.canBeEdited to check whether the message can be edited.
+     * @param replyMarkup The new message reply markup; pass null if none; for bots only.
+     * @param checklist The new checklist. If some tasks were completed, this information will be kept.
+     */
+    public abstract suspend fun editMessageChecklist(
+        chatId: Long,
+        messageId: Long,
+        replyMarkup: ReplyMarkup? = null,
+        checklist: InputChecklist,
+    ): TdlResult<Message>
+
+    /**
      * Edits the message content of a live location. Messages can be edited for a limited period of time specified in the live location. Returns the edited message after the edit is completed on the server side.
      *
      * @param chatId The chat the message belongs to.
@@ -3129,11 +3189,11 @@ public abstract class TdlClient internal constructor() {
     ): TdlResult<Proxy>
 
     /**
-     * Asynchronously edits the text, media or caption of a quick reply message. Use quickReplyMessage.canBeEdited to check whether a message can be edited. Media message can be edited only to a media message. The type of message content in an album can't be changed with exception of replacing a photo with a video or vice versa.
+     * Asynchronously edits the text, media or caption of a quick reply message. Use quickReplyMessage.canBeEdited to check whether a message can be edited. Media message can be edited only to a media message. Checklist messages can be edited only to a checklist message. The type of message content in an album can't be changed with exception of replacing a photo with a video or vice versa.
      *
      * @param shortcutId Unique identifier of the quick reply shortcut with the message.
      * @param messageId Identifier of the message.
-     * @param inputMessageContent New content of the message. Must be one of the following types: inputMessageText, inputMessageAnimation, inputMessageAudio, inputMessageDocument, inputMessagePhoto or inputMessageVideo.
+     * @param inputMessageContent New content of the message. Must be one of the following types: inputMessageAnimation, inputMessageAudio, inputMessageChecklist, inputMessageDocument, inputMessagePhoto, inputMessageText, or inputMessageVideo.
      */
     public abstract suspend fun editQuickReplyMessage(
         shortcutId: Int,
@@ -4173,6 +4233,14 @@ public abstract class TdlClient internal constructor() {
     ): TdlResult<Message>
 
     /**
+     * Returns the total number of Telegram Stars received by the channel chat for direct messages from the given topic.
+     *
+     * @param chatId Chat identifier of the channel direct messages chat administered by the current user.
+     * @param topicId Identifier of the topic.
+     */
+    public abstract suspend fun getDirectMessagesChatTopicRevenue(chatId: Long, topicId: Long): TdlResult<StarCount>
+
+    /**
      * Returns the list of emoji statuses, which can't be used as chat emoji status, even they are from a sticker set with isAllowedAsChatEmojiStatus == true.
      */
     public abstract suspend fun getDisallowedChatEmojiStatuses(): TdlResult<EmojiStatusCustomEmojis>
@@ -5090,7 +5158,7 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun getRemoteFile(remoteFileId: String, fileType: FileType? = null): TdlResult<File>
 
     /**
-     * Returns information about a non-bundled message that is replied by a given message. Also, returns the pinned message, the game message, the invoice message, the message with a previously set same background, the giveaway message, and the topic creation message for messages of the types messagePinMessage, messageGameScore, messagePaymentSuccessful, messageChatSetBackground, messageGiveawayCompleted and topic messages without non-bundled replied message respectively. Returns a 404 error if the message doesn't exist.
+     * Returns information about a non-bundled message that is replied by a given message. Also, returns the pinned message, the game message, the invoice message, the message with a previously set same background, the giveaway message, the checklist message, and the topic creation message for messages of the types messagePinMessage, messageGameScore, messagePaymentSuccessful, messageChatSetBackground, messageGiveawayCompleted, messageChecklistTasksDone and messageChecklistTasksAdded, and topic messages without non-bundled replied message respectively. Returns a 404 error if the message doesn't exist.
      *
      * @param chatId Identifier of the chat the message belongs to.
      * @param messageId Identifier of the reply message.
@@ -5636,6 +5704,14 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun getVideoChatStreams(groupCallId: Int): TdlResult<VideoChatStreams>
 
     /**
+     * Returns advertisements to be shown while a video from a message is watched. Available only if messageProperties.canGetVideoAdvertisements.
+     *
+     * @param chatId Identifier of the chat with the message.
+     * @param messageId Identifier of the message.
+     */
+    public abstract suspend fun getVideoMessageAdvertisements(chatId: Long, messageId: Long): TdlResult<VideoMessageAdvertisements>
+
+    /**
      * Returns an HTTPS URL of a Web App to open after a link of the type internalLinkTypeWebApp is clicked.
      *
      * @param chatId Identifier of the chat in which the link was clicked; pass 0 if none.
@@ -5872,6 +5948,21 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun logOut(): TdlResult<Ok>
 
     /**
+     * Adds tasks of a checklist in a message as done or not done.
+     *
+     * @param chatId Identifier of the chat with the message.
+     * @param messageId Identifier of the message containing the checklist. Use messageProperties.canMarkTasksAsDone to check whether the tasks can be marked as done or not done.
+     * @param markedAsDoneTaskIds Identifiers of tasks that were marked as done.
+     * @param markedAsNotDoneTaskIds Identifiers of tasks that were marked as not done.
+     */
+    public abstract suspend fun markChecklistTasksAsDone(
+        chatId: Long,
+        messageId: Long,
+        markedAsDoneTaskIds: IntArray,
+        markedAsNotDoneTaskIds: IntArray,
+    ): TdlResult<Ok>
+
+    /**
      * Informs TDLib that a bot was opened from the list of similar bots.
      *
      * @param botUserId Identifier of the original bot, which similar bots were requested.
@@ -5966,7 +6057,7 @@ public abstract class TdlClient internal constructor() {
     /**
      * Parses Markdown entities in a human-friendly format, ignoring markup errors. Can be called synchronously.
      *
-     * @param text The text to parse. For example, &quot;__italic__ ~~strikethrough~~ ||spoiler|| **bold** `code` ```pre``` __[italic__ textUrl](telegram.org) _Italic**bold italic_Bold**&quot;.
+     * @param text The text to parse. For example, &quot;__italic__ ~~strikethrough~~ ||spoiler|| **bold** `code` ```pre``` __[italic__ textUrl](telegram.org) __italic**bold italic__bold**&quot;.
      */
     public abstract suspend fun parseMarkdown(text: FormattedText): TdlResult<FormattedText>
 
@@ -6596,6 +6687,14 @@ public abstract class TdlClient internal constructor() {
      * @param messageIds Identifiers of messages to report. Use messageProperties.canReportSupergroupSpam to check whether the message can be reported.
      */
     public abstract suspend fun reportSupergroupSpam(supergroupId: Long, messageIds: LongArray): TdlResult<Ok>
+
+    /**
+     * Reports a video message advertisement to Telegram moderators.
+     *
+     * @param advertisementUniqueId Unique identifier of the advertisement.
+     * @param optionId Option identifier chosen by the user; leave empty for the initial request.
+     */
+    public abstract suspend fun reportVideoMessageAdvertisement(advertisementUniqueId: Long, optionId: ByteArray): TdlResult<ReportSponsoredResult>
 
     /**
      * Requests to send a 2-step verification password recovery code to an email address that was previously set up. Works only when the current authorization state is authorizationStateWaitPassword.
@@ -8989,6 +9088,21 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun toggleChatViewAsTopics(chatId: Long, viewAsTopics: Boolean): TdlResult<Ok>
 
     /**
+     * Allows to send unpaid messages to the given topic of the channel direct messages chat administered by the current user.
+     *
+     * @param chatId Chat identifier.
+     * @param topicId Identifier of the topic.
+     * @param canSendUnpaidMessages Pass true to allow unpaid messages; pass false to disallow unpaid messages.
+     * @param refundPayments Pass true to refund the user previously paid messages.
+     */
+    public abstract suspend fun toggleDirectMessagesChatTopicCanSendUnpaidMessages(
+        chatId: Long,
+        topicId: Long,
+        canSendUnpaidMessages: Boolean,
+        refundPayments: Boolean,
+    ): TdlResult<Ok>
+
+    /**
      * Changes pause state of a file in the file download list.
      *
      * @param fileId Identifier of the downloaded file.
@@ -9429,6 +9543,13 @@ public abstract class TdlClient internal constructor() {
      * @param stickerSetIds Identifiers of viewed trending sticker sets.
      */
     public abstract suspend fun viewTrendingStickerSets(stickerSetIds: LongArray): TdlResult<Ok>
+
+    /**
+     * Informs TDLib that the user viewed a video message advertisement.
+     *
+     * @param advertisementUniqueId Unique identifier of the advertisement.
+     */
+    public abstract suspend fun viewVideoMessageAdvertisement(advertisementUniqueId: Long): TdlResult<Ok>
 
     /**
      * Writes a part of a generated file. This method is intended to be used only if the application has no direct access to TDLib's file system, because it is usually slower than a direct write to the destination file.

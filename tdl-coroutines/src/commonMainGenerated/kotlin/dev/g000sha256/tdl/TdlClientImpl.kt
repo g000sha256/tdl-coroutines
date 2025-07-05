@@ -184,6 +184,8 @@ import dev.g000sha256.tdl.dto.InputBackground
 import dev.g000sha256.tdl.dto.InputBusinessChatLink
 import dev.g000sha256.tdl.dto.InputBusinessStartPage
 import dev.g000sha256.tdl.dto.InputChatPhoto
+import dev.g000sha256.tdl.dto.InputChecklist
+import dev.g000sha256.tdl.dto.InputChecklistTask
 import dev.g000sha256.tdl.dto.InputCredentials
 import dev.g000sha256.tdl.dto.InputFile
 import dev.g000sha256.tdl.dto.InputGroupCall
@@ -527,6 +529,7 @@ import dev.g000sha256.tdl.dto.UserSupportInfo
 import dev.g000sha256.tdl.dto.Users
 import dev.g000sha256.tdl.dto.ValidatedOrderInfo
 import dev.g000sha256.tdl.dto.VideoChatStreams
+import dev.g000sha256.tdl.dto.VideoMessageAdvertisements
 import dev.g000sha256.tdl.dto.WebAppInfo
 import dev.g000sha256.tdl.dto.WebAppOpenParameters
 import dev.g000sha256.tdl.dto.WebPageInstantView
@@ -546,6 +549,9 @@ internal class TdlClientImpl(
     private val mapper: TdlMapper,
     private val repository: TdlRepository,
 ) : TdlClient() {
+    override val allUpdates: Flow<Update>
+        get() = repository.getUpdates(TdApi.Update::class) { mapper.map(it) }
+
     override val authorizationStateUpdates: Flow<UpdateAuthorizationState>
         get() = repository.getUpdates(TdApi.UpdateAuthorizationState::class) { mapper.map(it) }
 
@@ -1090,6 +1096,19 @@ internal class TdlClientImpl(
         val function = TdApi.AddChatToList(
             chatId = chatId,
             chatList = mapper.map(chatList),
+        )
+        return repository.send(function) { mapper.map(it) }
+    }
+
+    override suspend fun addChecklistTasks(
+        chatId: Long,
+        messageId: Long,
+        tasks: Array<InputChecklistTask>,
+    ): TdlResult<Ok> {
+        val function = TdApi.AddChecklistTasks(
+            chatId = chatId,
+            messageId = messageId,
+            tasks = tasks.mapArray { mapper.map(it) },
         )
         return repository.send(function) { mapper.map(it) }
     }
@@ -1742,6 +1761,13 @@ internal class TdlClientImpl(
 
     override suspend fun clickPremiumSubscriptionButton(): TdlResult<Ok> {
         val function = TdApi.ClickPremiumSubscriptionButton()
+        return repository.send(function) { mapper.map(it) }
+    }
+
+    override suspend fun clickVideoMessageAdvertisement(advertisementUniqueId: Long): TdlResult<Ok> {
+        val function = TdApi.ClickVideoMessageAdvertisement(
+            advertisementUniqueId = advertisementUniqueId,
+        )
         return repository.send(function) { mapper.map(it) }
     }
 
@@ -2457,6 +2483,23 @@ internal class TdlClientImpl(
         return repository.send(function) { mapper.map(it) }
     }
 
+    override suspend fun editBusinessMessageChecklist(
+        businessConnectionId: String,
+        chatId: Long,
+        messageId: Long,
+        replyMarkup: ReplyMarkup?,
+        checklist: InputChecklist,
+    ): TdlResult<BusinessMessage> {
+        val function = TdApi.EditBusinessMessageChecklist(
+            businessConnectionId = businessConnectionId,
+            chatId = chatId,
+            messageId = messageId,
+            replyMarkup = replyMarkup?.let { mapper.map(it) },
+            checklist = mapper.map(checklist),
+        )
+        return repository.send(function) { mapper.map(it) }
+    }
+
     override suspend fun editBusinessMessageLiveLocation(
         businessConnectionId: String,
         chatId: Long,
@@ -2708,6 +2751,21 @@ internal class TdlClientImpl(
             replyMarkup = replyMarkup?.let { mapper.map(it) },
             caption = caption?.let { mapper.map(it) },
             showCaptionAboveMedia = showCaptionAboveMedia,
+        )
+        return repository.send(function) { mapper.map(it) }
+    }
+
+    override suspend fun editMessageChecklist(
+        chatId: Long,
+        messageId: Long,
+        replyMarkup: ReplyMarkup?,
+        checklist: InputChecklist,
+    ): TdlResult<Message> {
+        val function = TdApi.EditMessageChecklist(
+            chatId = chatId,
+            messageId = messageId,
+            replyMarkup = replyMarkup?.let { mapper.map(it) },
+            checklist = mapper.map(checklist),
         )
         return repository.send(function) { mapper.map(it) }
     }
@@ -3846,6 +3904,14 @@ internal class TdlClientImpl(
             chatId = chatId,
             topicId = topicId,
             date = date,
+        )
+        return repository.send(function) { mapper.map(it) }
+    }
+
+    override suspend fun getDirectMessagesChatTopicRevenue(chatId: Long, topicId: Long): TdlResult<StarCount> {
+        val function = TdApi.GetDirectMessagesChatTopicRevenue(
+            chatId = chatId,
+            topicId = topicId,
         )
         return repository.send(function) { mapper.map(it) }
     }
@@ -5313,6 +5379,14 @@ internal class TdlClientImpl(
         return repository.send(function) { mapper.map(it) }
     }
 
+    override suspend fun getVideoMessageAdvertisements(chatId: Long, messageId: Long): TdlResult<VideoMessageAdvertisements> {
+        val function = TdApi.GetVideoMessageAdvertisements(
+            chatId = chatId,
+            messageId = messageId,
+        )
+        return repository.send(function) { mapper.map(it) }
+    }
+
     override suspend fun getWebAppLinkUrl(
         chatId: Long,
         botUserId: Long,
@@ -5546,6 +5620,21 @@ internal class TdlClientImpl(
 
     override suspend fun logOut(): TdlResult<Ok> {
         val function = TdApi.LogOut()
+        return repository.send(function) { mapper.map(it) }
+    }
+
+    override suspend fun markChecklistTasksAsDone(
+        chatId: Long,
+        messageId: Long,
+        markedAsDoneTaskIds: IntArray,
+        markedAsNotDoneTaskIds: IntArray,
+    ): TdlResult<Ok> {
+        val function = TdApi.MarkChecklistTasksAsDone(
+            chatId = chatId,
+            messageId = messageId,
+            markedAsDoneTaskIds = markedAsDoneTaskIds,
+            markedAsNotDoneTaskIds = markedAsNotDoneTaskIds,
+        )
         return repository.send(function) { mapper.map(it) }
     }
 
@@ -6271,6 +6360,14 @@ internal class TdlClientImpl(
         val function = TdApi.ReportSupergroupSpam(
             supergroupId = supergroupId,
             messageIds = messageIds,
+        )
+        return repository.send(function) { mapper.map(it) }
+    }
+
+    override suspend fun reportVideoMessageAdvertisement(advertisementUniqueId: Long, optionId: ByteArray): TdlResult<ReportSponsoredResult> {
+        val function = TdApi.ReportVideoMessageAdvertisement(
+            advertisementUniqueId = advertisementUniqueId,
+            optionId = optionId,
         )
         return repository.send(function) { mapper.map(it) }
     }
@@ -8666,6 +8763,21 @@ internal class TdlClientImpl(
         return repository.send(function) { mapper.map(it) }
     }
 
+    override suspend fun toggleDirectMessagesChatTopicCanSendUnpaidMessages(
+        chatId: Long,
+        topicId: Long,
+        canSendUnpaidMessages: Boolean,
+        refundPayments: Boolean,
+    ): TdlResult<Ok> {
+        val function = TdApi.ToggleDirectMessagesChatTopicCanSendUnpaidMessages(
+            chatId = chatId,
+            topicId = topicId,
+            canSendUnpaidMessages = canSendUnpaidMessages,
+            refundPayments = refundPayments,
+        )
+        return repository.send(function) { mapper.map(it) }
+    }
+
     override suspend fun toggleDownloadIsPaused(fileId: Int, isPaused: Boolean): TdlResult<Ok> {
         val function = TdApi.ToggleDownloadIsPaused(
             fileId = fileId,
@@ -9104,6 +9216,13 @@ internal class TdlClientImpl(
     override suspend fun viewTrendingStickerSets(stickerSetIds: LongArray): TdlResult<Ok> {
         val function = TdApi.ViewTrendingStickerSets(
             stickerSetIds = stickerSetIds,
+        )
+        return repository.send(function) { mapper.map(it) }
+    }
+
+    override suspend fun viewVideoMessageAdvertisement(advertisementUniqueId: Long): TdlResult<Ok> {
+        val function = TdApi.ViewVideoMessageAdvertisement(
+            advertisementUniqueId = advertisementUniqueId,
         )
         return repository.send(function) { mapper.map(it) }
     }

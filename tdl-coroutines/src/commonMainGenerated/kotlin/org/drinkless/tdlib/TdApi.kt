@@ -13,9 +13,9 @@ import kotlin.jvm.JvmField
 
 internal class TdApi private constructor() {
     companion object {
-        const val GIT_COMMIT_HASH: String = "fb04b8d40e5e3d24c30001af2e9784c91d4606c0"
+        const val GIT_COMMIT_HASH: String = "bb474a201baa798784d696d2d9d762a9d2807f96"
 
-        const val VERSION: String = "1.8.50"
+        const val VERSION: String = "1.8.51"
     }
 
     abstract class Object {
@@ -117,6 +117,17 @@ internal class TdApi private constructor() {
         val postalCode: String,
     ) : Object() {
         override fun getConstructor(): Int = -2_043_654_342
+    }
+
+    class AdvertisementSponsor(
+        @JvmField
+        val url: String,
+        @JvmField
+        val photo: Photo?,
+        @JvmField
+        val info: String,
+    ) : Object() {
+        override fun getConstructor(): Int = 1_388_914_159
     }
 
     class AffiliateInfo(
@@ -3494,6 +3505,36 @@ internal class TdApi private constructor() {
         override fun getConstructor(): Int = 1_012_980_872
     }
 
+    class Checklist(
+        @JvmField
+        val title: FormattedText,
+        @JvmField
+        val tasks: Array<ChecklistTask>,
+        @JvmField
+        val othersCanAddTasks: Boolean,
+        @JvmField
+        val canAddTasks: Boolean,
+        @JvmField
+        val othersCanMarkTasksAsDone: Boolean,
+        @JvmField
+        val canMarkTasksAsDone: Boolean,
+    ) : Object() {
+        override fun getConstructor(): Int = -987_598_247
+    }
+
+    class ChecklistTask(
+        @JvmField
+        val id: Int,
+        @JvmField
+        val text: FormattedText,
+        @JvmField
+        val completedByUserId: Long,
+        @JvmField
+        val completionDate: Int,
+    ) : Object() {
+        override fun getConstructor(): Int = 772_992_512
+    }
+
     class CloseBirthdayUser(
         @JvmField
         val userId: Long,
@@ -3880,6 +3921,8 @@ internal class TdApi private constructor() {
         @JvmField
         val order: Long,
         @JvmField
+        val canSendUnpaidMessages: Boolean,
+        @JvmField
         val isMarkedAsUnread: Boolean,
         @JvmField
         val unreadCount: Long,
@@ -3894,7 +3937,7 @@ internal class TdApi private constructor() {
         @JvmField
         val draftMessage: DraftMessage?,
     ) : Object() {
-        override fun getConstructor(): Int = 2_087_487_975
+        override fun getConstructor(): Int = 1_778_377_757
     }
 
     class Document(
@@ -5362,6 +5405,28 @@ internal class TdApi private constructor() {
         override fun getConstructor(): Int = 1_315_861_341
     }
 
+    class InputChecklist(
+        @JvmField
+        val title: FormattedText,
+        @JvmField
+        val tasks: Array<InputChecklistTask>,
+        @JvmField
+        val othersCanAddTasks: Boolean,
+        @JvmField
+        val othersCanMarkTasksAsDone: Boolean,
+    ) : Object() {
+        override fun getConstructor(): Int = -145_125_739
+    }
+
+    class InputChecklistTask(
+        @JvmField
+        val id: Int,
+        @JvmField
+        val text: FormattedText,
+    ) : Object() {
+        override fun getConstructor(): Int = 1_633_462_225
+    }
+
     abstract class InputCredentials : Object()
 
     class InputCredentialsSaved(
@@ -6024,6 +6089,13 @@ internal class TdApi private constructor() {
         val storyId: Int,
     ) : InputMessageContent() {
         override fun getConstructor(): Int = -370_732_053
+    }
+
+    class InputMessageChecklist(
+        @JvmField
+        val checklist: InputChecklist,
+    ) : InputMessageContent() {
+        override fun getConstructor(): Int = -1_722_965_261
     }
 
     class InputMessageForwarded(
@@ -7787,6 +7859,8 @@ internal class TdApi private constructor() {
         @JvmField
         val alternativeVideos: Array<AlternativeVideo>,
         @JvmField
+        val storyboards: Array<VideoStoryboard>,
+        @JvmField
         val cover: Photo?,
         @JvmField
         val startTimestamp: Int,
@@ -7799,7 +7873,7 @@ internal class TdApi private constructor() {
         @JvmField
         val isSecret: Boolean,
     ) : MessageContent() {
-        override fun getConstructor(): Int = 374_791_437
+        override fun getConstructor(): Int = 952_522_912
     }
 
     class MessageVideoNote(
@@ -7916,6 +7990,13 @@ internal class TdApi private constructor() {
         val viaMention: Boolean,
     ) : MessageContent() {
         override fun getConstructor(): Int = 1_514_236_353
+    }
+
+    class MessageChecklist(
+        @JvmField
+        val list: Checklist,
+    ) : MessageContent() {
+        override fun getConstructor(): Int = 609_926_697
     }
 
     class MessageInvoice(
@@ -8490,6 +8571,26 @@ internal class TdApi private constructor() {
         override fun getConstructor(): Int = 1_320_832_439
     }
 
+    class MessageChecklistTasksDone(
+        @JvmField
+        val checklistMessageId: Long,
+        @JvmField
+        val markedAsDoneTaskIds: IntArray,
+        @JvmField
+        val markedAsNotDoneTaskIds: IntArray,
+    ) : MessageContent() {
+        override fun getConstructor(): Int = -716_083_401
+    }
+
+    class MessageChecklistTasksAdded(
+        @JvmField
+        val checklistMessageId: Long,
+        @JvmField
+        val tasks: Array<ChecklistTask>,
+    ) : MessageContent() {
+        override fun getConstructor(): Int = 2_057_538_984
+    }
+
     class MessageContactRegistered : MessageContent() {
         override fun getConstructor(): Int = -1_502_020_353
     }
@@ -8751,6 +8852,8 @@ internal class TdApi private constructor() {
 
     class MessageProperties(
         @JvmField
+        val canAddTasks: Boolean,
+        @JvmField
         val canBeCopied: Boolean,
         @JvmField
         val canBeCopiedToSecretChat: Boolean,
@@ -8793,7 +8896,11 @@ internal class TdApi private constructor() {
         @JvmField
         val canGetStatistics: Boolean,
         @JvmField
+        val canGetVideoAdvertisements: Boolean,
+        @JvmField
         val canGetViewers: Boolean,
+        @JvmField
+        val canMarkTasksAsDone: Boolean,
         @JvmField
         val canRecognizeSpeech: Boolean,
         @JvmField
@@ -8807,7 +8914,7 @@ internal class TdApi private constructor() {
         @JvmField
         val needShowStatistics: Boolean,
     ) : Object() {
-        override fun getConstructor(): Int = -370_030_008
+        override fun getConstructor(): Int = 1_122_190_783
     }
 
     class MessageReaction(
@@ -9063,17 +9170,6 @@ internal class TdApi private constructor() {
 
     class MessageSourceOther : MessageSource() {
         override fun getConstructor(): Int = 901_818_114
-    }
-
-    class MessageSponsor(
-        @JvmField
-        val url: String,
-        @JvmField
-        val photo: Photo?,
-        @JvmField
-        val info: String,
-    ) : Object() {
-        override fun getConstructor(): Int = 2_009_223_646
     }
 
     class MessageStatistics(
@@ -10517,6 +10613,10 @@ internal class TdApi private constructor() {
         override fun getConstructor(): Int = -723_300_255
     }
 
+    class PremiumFeatureChecklists : PremiumFeature() {
+        override fun getConstructor(): Int = -1_128_709_251
+    }
+
     class PremiumFeaturePromotionAnimation(
         @JvmField
         val feature: PremiumFeature,
@@ -11175,6 +11275,15 @@ internal class TdApi private constructor() {
         override fun getConstructor(): Int = 274_587_305
     }
 
+    class PushMessageContentChecklist(
+        @JvmField
+        val title: String,
+        @JvmField
+        val isPinned: Boolean,
+    ) : PushMessageContent() {
+        override fun getConstructor(): Int = 212_274_252
+    }
+
     class PushMessageContentVideo(
         @JvmField
         val video: Video?,
@@ -11296,6 +11405,20 @@ internal class TdApi private constructor() {
         val distance: Int,
     ) : PushMessageContent() {
         override fun getConstructor(): Int = -264_601_594
+    }
+
+    class PushMessageContentChecklistTasksAdded(
+        @JvmField
+        val taskCount: Int,
+    ) : PushMessageContent() {
+        override fun getConstructor(): Int = -2_141_595_022
+    }
+
+    class PushMessageContentChecklistTasksDone(
+        @JvmField
+        val taskCount: Int,
+    ) : PushMessageContent() {
+        override fun getConstructor(): Int = 1_187_614_554
     }
 
     class PushMessageContentMessageForwards(
@@ -12348,7 +12471,7 @@ internal class TdApi private constructor() {
         @JvmField
         val content: MessageContent,
         @JvmField
-        val sponsor: MessageSponsor,
+        val sponsor: AdvertisementSponsor,
         @JvmField
         val title: String,
         @JvmField
@@ -12360,7 +12483,7 @@ internal class TdApi private constructor() {
         @JvmField
         val additionalInfo: String,
     ) : Object() {
-        override fun getConstructor(): Int = -1_215_476_699
+        override fun getConstructor(): Int = 1_521_782_216
     }
 
     class SponsoredMessages(
@@ -13791,6 +13914,8 @@ internal class TdApi private constructor() {
         @JvmField
         val unrestrictBoostCount: Int,
         @JvmField
+        val outgoingPaidMessageStarCount: Long,
+        @JvmField
         val stickerSetId: Long,
         @JvmField
         val customEmojiStickerSetId: Long,
@@ -13807,7 +13932,7 @@ internal class TdApi private constructor() {
         @JvmField
         val upgradedFromMaxMessageId: Long,
     ) : Object() {
-        override fun getConstructor(): Int = -826_030_361
+        override fun getConstructor(): Int = -726_503_465
     }
 
     abstract class SupergroupMembersFilter : Object()
@@ -16617,6 +16742,38 @@ internal class TdApi private constructor() {
         override fun getConstructor(): Int = -434_622_720
     }
 
+    class VideoMessageAdvertisement(
+        @JvmField
+        val uniqueId: Long,
+        @JvmField
+        val text: String,
+        @JvmField
+        val minDisplayDuration: Int,
+        @JvmField
+        val maxDisplayDuration: Int,
+        @JvmField
+        val canBeReported: Boolean,
+        @JvmField
+        val sponsor: AdvertisementSponsor,
+        @JvmField
+        val title: String,
+        @JvmField
+        val additionalInfo: String,
+    ) : Object() {
+        override fun getConstructor(): Int = -112_391_535
+    }
+
+    class VideoMessageAdvertisements(
+        @JvmField
+        val advertisements: Array<VideoMessageAdvertisement>,
+        @JvmField
+        val startDelay: Int,
+        @JvmField
+        val betweenDelay: Int,
+    ) : Object() {
+        override fun getConstructor(): Int = -1_776_370_217
+    }
+
     class VideoNote(
         @JvmField
         val duration: Int,
@@ -16634,6 +16791,19 @@ internal class TdApi private constructor() {
         val video: File,
     ) : Object() {
         override fun getConstructor(): Int = 2_062_096_581
+    }
+
+    class VideoStoryboard(
+        @JvmField
+        val storyboardFile: File,
+        @JvmField
+        val width: Int,
+        @JvmField
+        val height: Int,
+        @JvmField
+        val mapFile: File,
+    ) : Object() {
+        override fun getConstructor(): Int = 1_731_320_034
     }
 
     class VoiceNote(
@@ -16784,6 +16954,17 @@ internal class TdApi private constructor() {
         val chatList: ChatList,
     ) : Function<Ok>() {
         override fun getConstructor(): Int = -80_523_595
+    }
+
+    class AddChecklistTasks(
+        @JvmField
+        val chatId: Long,
+        @JvmField
+        val messageId: Long,
+        @JvmField
+        val tasks: Array<InputChecklistTask>,
+    ) : Function<Ok>() {
+        override fun getConstructor(): Int = 1_554_619_499
     }
 
     class AddContact(
@@ -17407,6 +17588,13 @@ internal class TdApi private constructor() {
 
     class ClickPremiumSubscriptionButton : Function<Ok>() {
         override fun getConstructor(): Int = -369_319_162
+    }
+
+    class ClickVideoMessageAdvertisement(
+        @JvmField
+        val advertisementUniqueId: Long,
+    ) : Function<Ok>() {
+        override fun getConstructor(): Int = 1_367_156_622
     }
 
     class Close : Function<Ok>() {
@@ -18101,6 +18289,21 @@ internal class TdApi private constructor() {
         override fun getConstructor(): Int = -1_071_562_045
     }
 
+    class EditBusinessMessageChecklist(
+        @JvmField
+        val businessConnectionId: String,
+        @JvmField
+        val chatId: Long,
+        @JvmField
+        val messageId: Long,
+        @JvmField
+        val replyMarkup: ReplyMarkup?,
+        @JvmField
+        val checklist: InputChecklist,
+    ) : Function<BusinessMessage>() {
+        override fun getConstructor(): Int = -445_013_904
+    }
+
     class EditBusinessMessageLiveLocation(
         @JvmField
         val businessConnectionId: String,
@@ -18328,6 +18531,19 @@ internal class TdApi private constructor() {
         val showCaptionAboveMedia: Boolean,
     ) : Function<Message>() {
         override fun getConstructor(): Int = -2_020_117_951
+    }
+
+    class EditMessageChecklist(
+        @JvmField
+        val chatId: Long,
+        @JvmField
+        val messageId: Long,
+        @JvmField
+        val replyMarkup: ReplyMarkup?,
+        @JvmField
+        val checklist: InputChecklist,
+    ) : Function<Message>() {
+        override fun getConstructor(): Int = 1_497_856_700
     }
 
     class EditMessageLiveLocation(
@@ -19392,6 +19608,15 @@ internal class TdApi private constructor() {
         val date: Int,
     ) : Function<Message>() {
         override fun getConstructor(): Int = 1_837_500_879
+    }
+
+    class GetDirectMessagesChatTopicRevenue(
+        @JvmField
+        val chatId: Long,
+        @JvmField
+        val topicId: Long,
+    ) : Function<StarCount>() {
+        override fun getConstructor(): Int = -792_382_961
     }
 
     class GetDisallowedChatEmojiStatuses : Function<EmojiStatusCustomEmojis>() {
@@ -20790,6 +21015,15 @@ internal class TdApi private constructor() {
         override fun getConstructor(): Int = 531_757_765
     }
 
+    class GetVideoMessageAdvertisements(
+        @JvmField
+        val chatId: Long,
+        @JvmField
+        val messageId: Long,
+    ) : Function<VideoMessageAdvertisements>() {
+        override fun getConstructor(): Int = -285_681_331
+    }
+
     class GetWebAppLinkUrl(
         @JvmField
         val chatId: Long,
@@ -21013,6 +21247,19 @@ internal class TdApi private constructor() {
 
     class LogOut : Function<Ok>() {
         override fun getConstructor(): Int = -1_581_923_301
+    }
+
+    class MarkChecklistTasksAsDone(
+        @JvmField
+        val chatId: Long,
+        @JvmField
+        val messageId: Long,
+        @JvmField
+        val markedAsDoneTaskIds: IntArray,
+        @JvmField
+        val markedAsNotDoneTaskIds: IntArray,
+    ) : Function<Ok>() {
+        override fun getConstructor(): Int = 386_950_739
     }
 
     class OpenBotSimilarBot(
@@ -21722,6 +21969,15 @@ internal class TdApi private constructor() {
         val messageIds: LongArray,
     ) : Function<Ok>() {
         override fun getConstructor(): Int = -94_825_000
+    }
+
+    class ReportVideoMessageAdvertisement(
+        @JvmField
+        val advertisementUniqueId: Long,
+        @JvmField
+        val optionId: ByteArray,
+    ) : Function<ReportSponsoredResult>() {
+        override fun getConstructor(): Int = 617_137_942
     }
 
     class RequestAuthenticationPasswordRecovery : Function<Ok>() {
@@ -24039,6 +24295,19 @@ internal class TdApi private constructor() {
         override fun getConstructor(): Int = 724_009_948
     }
 
+    class ToggleDirectMessagesChatTopicCanSendUnpaidMessages(
+        @JvmField
+        val chatId: Long,
+        @JvmField
+        val topicId: Long,
+        @JvmField
+        val canSendUnpaidMessages: Boolean,
+        @JvmField
+        val refundPayments: Boolean,
+    ) : Function<Ok>() {
+        override fun getConstructor(): Int = -335_898_703
+    }
+
     class ToggleDownloadIsPaused(
         @JvmField
         val fileId: Int,
@@ -24473,6 +24742,13 @@ internal class TdApi private constructor() {
         val stickerSetIds: LongArray,
     ) : Function<Ok>() {
         override fun getConstructor(): Int = -952_416_520
+    }
+
+    class ViewVideoMessageAdvertisement(
+        @JvmField
+        val advertisementUniqueId: Long,
+    ) : Function<Ok>() {
+        override fun getConstructor(): Int = -808_563_006
     }
 
     class WriteGeneratedFilePart(

@@ -94,7 +94,9 @@ jobs:
           committer_name: GitHub
           committer_email: noreply@github.com
           message: Update API [skip ci]
-          add: tdl-coroutines
+          add: |
+            - tdl-coroutines
+            - README.md
 
   build-jvm-linux-arm64:
     runs-on: ubuntu-24.04-arm
@@ -344,7 +346,7 @@ jobs:
           cmake -A ARM64 -DCMAKE_INSTALL_PREFIX:PATH=../../../tdlib -DCMAKE_TOOLCHAIN_FILE:FILEPATH=../../../../vcpkg/scripts/buildsystems/vcpkg.cmake -DTd_DIR:PATH=$(Resolve-Path ../td/lib/cmake/Td) ..
           cmake --build . --target install --config Release
 
-      - name: SHA256 checksum
+      - name: SHA256 checksums
         run: |
           Get-FileHash td/tdlib/bin/libcrypto-3-arm64.dll -Algorithm SHA256
           Get-FileHash td/tdlib/bin/libssl-3-arm64.dll -Algorithm SHA256
@@ -353,6 +355,7 @@ jobs:
 
       - name: Copy libs
         run: |
+          Remove-Item -Recurse tdl-coroutines/src/jvmMainGenerated/resources/libs/windows-arm64
           New-Item -ItemType Directory -Path tdl-coroutines/src/jvmMainGenerated/resources/libs/windows-arm64
           Copy-Item td/tdlib/bin/libcrypto-3-arm64.dll -Destination tdl-coroutines/src/jvmMainGenerated/resources/libs/windows-arm64/libcrypto-3-arm64.dll
           Copy-Item td/tdlib/bin/libssl-3-arm64.dll -Destination tdl-coroutines/src/jvmMainGenerated/resources/libs/windows-arm64/libssl-3-arm64.dll
@@ -402,7 +405,7 @@ jobs:
           cmake -A x64 -DCMAKE_INSTALL_PREFIX:PATH=../../../tdlib -DCMAKE_TOOLCHAIN_FILE:FILEPATH=../../../../vcpkg/scripts/buildsystems/vcpkg.cmake -DTd_DIR:PATH=$(Resolve-Path ../td/lib/cmake/Td) ..
           cmake --build . --target install --config Release
 
-      - name: SHA256 checksum
+      - name: SHA256 checksums
         run: |
           Get-FileHash td/tdlib/bin/libcrypto-3-x64.dll -Algorithm SHA256
           Get-FileHash td/tdlib/bin/libssl-3-x64.dll -Algorithm SHA256
@@ -411,6 +414,7 @@ jobs:
 
       - name: Copy libs
         run: |
+          Remove-Item -Recurse tdl-coroutines/src/jvmMainGenerated/resources/libs/windows-x64
           New-Item -ItemType Directory -Path tdl-coroutines/src/jvmMainGenerated/resources/libs/windows-x64
           Copy-Item td/tdlib/bin/libcrypto-3-x64.dll -Destination tdl-coroutines/src/jvmMainGenerated/resources/libs/windows-x64/libcrypto-3-x64.dll
           Copy-Item td/tdlib/bin/libssl-3-x64.dll -Destination tdl-coroutines/src/jvmMainGenerated/resources/libs/windows-x64/libssl-3-x64.dll
@@ -460,10 +464,12 @@ jobs:
           gradle-version: 8.14.1
           cache-disabled: false
 
-      - name: Assemble library
+      - name: Assemble libraries
         run: |
           ./gradlew tdl-coroutines:assembleRelease
           ./gradlew tdl-coroutines:jvmJar
 
-      - name: Assemble example
-        run: ./gradlew tdl-coroutines-example:assembleRelease
+      - name: Assemble examples
+        run: |
+          ./gradlew tdl-coroutines-example:assembleRelease
+          ./gradlew tdl-coroutines-example-jvm:assemble
