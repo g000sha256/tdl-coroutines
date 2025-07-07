@@ -1161,6 +1161,15 @@ public final class dev/g000sha256/tdl/TdlResult$Success : dev/g000sha256/tdl/Tdl
 	public final fun getResult ()Ljava/lang/Object;
 }
 
+public final class dev/g000sha256/tdl/TdlResultKt {
+	public static final fun toResult (Ldev/g000sha256/tdl/TdlResult;)Ljava/lang/Object;
+}
+
+public final class dev/g000sha256/tdl/TdlThrowable : java/lang/Throwable {
+	public final fun getCode ()I
+	public fun getMessage ()Ljava/lang/String;
+}
+
 public final class dev/g000sha256/tdl/dto/AccentColor {
 	public fun <init> (II[I[II)V
 	public fun equals (Ljava/lang/Object;)Z
