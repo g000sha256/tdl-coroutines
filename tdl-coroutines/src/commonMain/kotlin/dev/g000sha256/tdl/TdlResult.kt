@@ -37,3 +37,19 @@ public sealed class TdlResult<out T> private constructor() {
     public class Success<T> internal constructor(public val result: T) : TdlResult<T>()
 
 }
+
+/**
+ * Converts this [TdlResult] to the [Result].
+ *
+ * - For [TdlResult.Success], returns [Result.success] with the contained value.
+ * - For [TdlResult.Failure], returns [Result.failure] with a [TdlThrowable] containing the TDLib error code and message.
+ */
+public fun <T> TdlResult<T>.toResult(): Result<T> {
+    when (this) {
+        is TdlResult.Success -> return Result.success(value = result)
+        is TdlResult.Failure -> {
+            val throwable = TdlThrowable(code = code, message = message)
+            return Result.failure(exception = throwable)
+        }
+    }
+}
