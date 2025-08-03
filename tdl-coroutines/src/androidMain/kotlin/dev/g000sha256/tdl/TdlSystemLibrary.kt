@@ -1,5 +1,5 @@
 package dev.g000sha256.tdl
 
 internal actual fun loadSystemLibrary() {
-    System.loadLibrary("tdjni")
+    System.loadLibrary("tdjsonjava")
 }
