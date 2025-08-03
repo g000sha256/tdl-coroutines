@@ -28,7 +28,7 @@ import kotlin.String
  * @property messages List of quick reply messages; messages may be null.
  */
 public class QuickReplyMessages public constructor(
-    public val messages: Array<QuickReplyMessage>?,
+    public val messages: Array<QuickReplyMessage?>,
 ) {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

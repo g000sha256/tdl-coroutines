@@ -30,7 +30,7 @@ import kotlin.String
  */
 public class Messages public constructor(
     public val totalCount: Int,
-    public val messages: Array<Message>?,
+    public val messages: Array<Message?>,
 ) {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
