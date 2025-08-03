@@ -77,6 +77,7 @@ kotlin {
 
                 implementation(catalog.libs.jetBrains.atomic)
                 implementation(catalog.libs.jetBrains.coroutinesCore)
+                implementation(catalog.libs.jetBrains.kotlinSerialization)
             }
         }
 

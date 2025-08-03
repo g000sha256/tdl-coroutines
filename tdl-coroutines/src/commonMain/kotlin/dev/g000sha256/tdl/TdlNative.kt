@@ -1,38 +1,21 @@
 package dev.g000sha256.tdl
 
-import org.drinkless.tdlib.Client
-import org.drinkless.tdlib.TdApi
+import org.drinkless.tdlib.JsonClient
 
 internal class TdlNative {
 
-    private val client = Client()
-
-    init {
-        client.nativeClientExecute(
-            request = TdApi.SetLogVerbosityLevel(newVerbosityLevel = 0),
-        )
-        client.nativeClientExecute(
-            request = TdApi.SetLogStream(
-                logStream = TdApi.LogStreamEmpty(),
-            ),
-        )
-    }
+    private val jsonClient = JsonClient()
 
     fun createClientId(): Int {
-        return client.createNativeClient()
+        return jsonClient.createClientId()
     }
 
-    fun send(clientId: Int, requestId: Long, request: TdApi.Function<*>) {
-        client.nativeClientSend(clientId, requestId, request)
+    fun send(clientId: Int, request: String) {
+        jsonClient.send(clientId = clientId, request = request)
     }
 
-    fun receive(
-        clientIds: IntArray,
-        requestIds: LongArray,
-        responses: Array<TdApi.Object?>,
-        timeoutInSeconds: Double,
-    ): Int {
-        return client.nativeClientReceive(clientIds, requestIds, responses, timeoutInSeconds)
+    fun receive(timeoutInSeconds: Double): String {
+        return jsonClient.receive(timeoutInSeconds = timeoutInSeconds)
     }
 
 }
