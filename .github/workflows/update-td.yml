@@ -47,6 +47,9 @@ jobs:
           cd td/example/android
           ./build-tdlib.sh
 
+      - name: Show files
+        run: find td/example/android/tdlib -name '*.so' -type f
+
       - name: SHA256 checksums
         run: |
           shasum -a 256 td/example/android/tdlib/libs/arm64-v8a/libtdjni.so
@@ -56,7 +59,8 @@ jobs:
 
       - name: Copy libs
         run: |
-          mkdir -p tdl-coroutines/src/androidMainGenerated/jniLibs/{arm64-v8a,armeabi-v7a,x86,x86_64}
+          rm -r tdl-coroutines/src/androidMainGenerated/jniLibs/{arm64-v8a,armeabi-v7a,x86,x86_64}
+          mkdir tdl-coroutines/src/androidMainGenerated/jniLibs/{arm64-v8a,armeabi-v7a,x86,x86_64}
           cp td/example/android/tdlib/libs/arm64-v8a/libtdjni.so tdl-coroutines/src/androidMainGenerated/jniLibs/arm64-v8a/libtdjni.so
           cp td/example/android/tdlib/libs/armeabi-v7a/libtdjni.so tdl-coroutines/src/androidMainGenerated/jniLibs/armeabi-v7a/libtdjni.so
           cp td/example/android/tdlib/libs/x86/libtdjni.so tdl-coroutines/src/androidMainGenerated/jniLibs/x86/libtdjni.so
@@ -132,13 +136,16 @@ jobs:
           cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX:PATH=../../../tdlib -DTd_DIR:PATH=$(readlink -e ../td/lib/cmake/Td) ..
           cmake --build . --target install
 
+      - name: Show files
+        run: find td/tdlib/bin -name '*.so' -type f
+
       - name: SHA256 checksum
-        run: |
-          shasum -a 256 td/tdlib/bin/libtdjni.so
+        run: shasum -a 256 td/tdlib/bin/libtdjni.so
 
       - name: Copy lib
         run: |
-          mkdir -p tdl-coroutines/src/jvmMainGenerated/resources/libs/linux-arm64
+          rm -r tdl-coroutines/src/jvmMainGenerated/resources/libs/linux-arm64
+          mkdir tdl-coroutines/src/jvmMainGenerated/resources/libs/linux-arm64
           cp td/tdlib/bin/libtdjni.so tdl-coroutines/src/jvmMainGenerated/resources/libs/linux-arm64/libtdjni.so
 
       - name: Commit and push lib
@@ -186,13 +193,16 @@ jobs:
           cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX:PATH=../../../tdlib -DTd_DIR:PATH=$(readlink -e ../td/lib/cmake/Td) ..
           cmake --build . --target install
 
+      - name: Show files
+        run: find td/tdlib/bin -name '*.so' -type f
+
       - name: SHA256 checksum
-        run: |
-          shasum -a 256 td/tdlib/bin/libtdjni.so
+        run: shasum -a 256 td/tdlib/bin/libtdjni.so
 
       - name: Copy lib
         run: |
-          mkdir -p tdl-coroutines/src/jvmMainGenerated/resources/libs/linux-x64
+          rm -r tdl-coroutines/src/jvmMainGenerated/resources/libs/linux-x64
+          mkdir tdl-coroutines/src/jvmMainGenerated/resources/libs/linux-x64
           cp td/tdlib/bin/libtdjni.so tdl-coroutines/src/jvmMainGenerated/resources/libs/linux-x64/libtdjni.so
 
       - name: Commit and push lib
@@ -240,13 +250,16 @@ jobs:
           cmake -DCMAKE_BUILD_TYPE=Release -DJAVA_HOME=/opt/homebrew/opt/openjdk/libexec/openjdk.jdk/Contents/Home/ -DCMAKE_INSTALL_PREFIX:PATH=../../../tdlib -DTd_DIR:PATH=$(greadlink -e ../td/lib/cmake/Td) ..
           cmake --build . --target install
 
+      - name: Show files
+        run: find td/tdlib/bin -name '*.dylib' -type f
+
       - name: SHA256 checksum
-        run: |
-          shasum -a 256 td/tdlib/bin/libtdjni.dylib
+        run: shasum -a 256 td/tdlib/bin/libtdjni.dylib
 
       - name: Copy lib
         run: |
-          mkdir -p tdl-coroutines/src/jvmMainGenerated/resources/libs/macos-arm64
+          rm -r tdl-coroutines/src/jvmMainGenerated/resources/libs/macos-arm64
+          mkdir tdl-coroutines/src/jvmMainGenerated/resources/libs/macos-arm64
           cp td/tdlib/bin/libtdjni.dylib tdl-coroutines/src/jvmMainGenerated/resources/libs/macos-arm64/libtdjni.dylib
 
       - name: Commit and push lib
@@ -294,13 +307,16 @@ jobs:
           cmake -DCMAKE_BUILD_TYPE=Release -DJAVA_HOME=/opt/homebrew/opt/openjdk/libexec/openjdk.jdk/Contents/Home/ -DCMAKE_INSTALL_PREFIX:PATH=../../../tdlib -DTd_DIR:PATH=$(greadlink -e ../td/lib/cmake/Td) ..
           cmake --build . --target install
 
+      - name: Show files
+        run: find td/tdlib/bin -name '*.dylib' -type f
+
       - name: SHA256 checksum
-        run: |
-          shasum -a 256 td/tdlib/bin/libtdjni.dylib
+        run: shasum -a 256 td/tdlib/bin/libtdjni.dylib
 
       - name: Copy lib
         run: |
-          mkdir -p tdl-coroutines/src/jvmMainGenerated/resources/libs/macos-x64
+          rm -r tdl-coroutines/src/jvmMainGenerated/resources/libs/macos-x64
+          mkdir tdl-coroutines/src/jvmMainGenerated/resources/libs/macos-x64
           cp td/tdlib/bin/libtdjni.dylib tdl-coroutines/src/jvmMainGenerated/resources/libs/macos-x64/libtdjni.dylib
 
       - name: Commit and push lib
@@ -345,6 +361,9 @@ jobs:
           cd build
           cmake -A ARM64 -DCMAKE_INSTALL_PREFIX:PATH=../../../tdlib -DCMAKE_TOOLCHAIN_FILE:FILEPATH=../../../../vcpkg/scripts/buildsystems/vcpkg.cmake -DTd_DIR:PATH=$(Resolve-Path ../td/lib/cmake/Td) ..
           cmake --build . --target install --config Release
+
+      - name: Show files
+        run: Get-ChildItem -Filter *.dll -Recurse
 
       - name: SHA256 checksums
         run: |
@@ -404,6 +423,9 @@ jobs:
           cd build
           cmake -A x64 -DCMAKE_INSTALL_PREFIX:PATH=../../../tdlib -DCMAKE_TOOLCHAIN_FILE:FILEPATH=../../../../vcpkg/scripts/buildsystems/vcpkg.cmake -DTd_DIR:PATH=$(Resolve-Path ../td/lib/cmake/Td) ..
           cmake --build . --target install --config Release
+
+      - name: Show files
+        run: Get-ChildItem -Filter *.dll -Recurse
 
       - name: SHA256 checksums
         run: |
