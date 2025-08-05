@@ -2857,6 +2857,7 @@ import dev.g000sha256.tdl.function.ViewVideoMessageAdvertisement
 import dev.g000sha256.tdl.function.WriteGeneratedFilePart
 import dev.g000sha256.tdl.util.buildJsonObjectString
 import dev.g000sha256.tdl.util.put
+import dev.g000sha256.tdl.util.putNullable
 import kotlin.Any
 import kotlin.Long
 import kotlin.String
@@ -17161,7 +17162,7 @@ internal class TdlSerializer internal constructor() {
         return buildJsonObject {
             put(key = "@type", string = "messages")
             put(key = "total_count", int = dto.totalCount)
-            put(key = "messages", objects = dto.messages) { data -> serialize(dto = data) }
+            putNullable(key = "messages", objects = dto.messages) { data -> serialize(dto = data) }
         }
     }
 
@@ -22017,7 +22018,7 @@ internal class TdlSerializer internal constructor() {
     private fun serialize(dto: QuickReplyMessages): JsonElement {
         return buildJsonObject {
             put(key = "@type", string = "quickReplyMessages")
-            put(key = "messages", objects = dto.messages) { data -> serialize(dto = data) }
+            putNullable(key = "messages", objects = dto.messages) { data -> serialize(dto = data) }
         }
     }
 

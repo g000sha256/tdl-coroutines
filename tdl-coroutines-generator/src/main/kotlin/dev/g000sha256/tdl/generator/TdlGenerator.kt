@@ -37,6 +37,7 @@ import com.squareup.kotlinpoet.LONG_ARRAY
 import com.squareup.kotlinpoet.ParameterSpec
 import com.squareup.kotlinpoet.ParameterizedTypeName
 import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
+import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.plusParameter
 import com.squareup.kotlinpoet.PropertySpec
 import com.squareup.kotlinpoet.SHORT_ARRAY
 import com.squareup.kotlinpoet.STRING
@@ -972,45 +973,79 @@ private fun createProperties(
     fields: List<CommonElement.Description.Field>
 ): List<Property> {
     return properties.map { property ->
+        val field = fields.firstOrNull { field -> field.name == property.name }
         return@map Property(
             name = property.name.withReplacedSnakeCases1,
             nameSnakeCase = property.name,
-            type = property
-                .type
-                .let(::createTypeName)
-                .copy(
-                    nullable = fields
-                        .firstOrNull { it.name == property.name }
-                        .let { it?.isNullable == true },
-                ),
+            type = createTypeName(type = property.type, isNullable = field?.isNullable == true),
             typeName = property.type,
         )
     }
 }
 
-private fun createTypeName(type: String): TypeName {
+private fun createTypeName(type: String, isNullable: Boolean): TypeName {
     when {
-        type == "Bool" -> return BOOLEAN
-        type == "bytes" -> return BYTE_ARRAY
-        type == "double" -> return DOUBLE
-        type == "int32" -> return INT
-        type == "int53" -> return LONG
-        type == "int64" -> return LONG
-        type == "string" -> return STRING
+        type == "Bool" -> {
+            require(value = !isNullable)
+            return BOOLEAN
+        }
+        type == "bytes" -> {
+            require(value = !isNullable)
+            return BYTE_ARRAY
+        }
+        type == "double" -> {
+            require(value = !isNullable)
+            return DOUBLE
+        }
+        type == "int32" -> {
+            require(value = !isNullable)
+            return INT
+        }
+        type == "int53" -> {
+            require(value = !isNullable)
+            return LONG
+        }
+        type == "int64" -> {
+            require(value = !isNullable)
+            return LONG
+        }
+        type == "string" -> {
+            require(value = !isNullable)
+            return STRING
+        }
         type.contains(other = "vector<") -> {
             val arrayTypeName = """vector<(.+)>"""
                 .toRegex()
                 .find(input = type)!!
                 .destructured
                 .component1()
-                .let(::createTypeName)
+                .let { arrayType -> createTypeName(type = arrayType, isNullable = isNullable) }
             when (arrayTypeName) {
-                INT -> return INT_ARRAY
-                LONG -> return LONG_ARRAY
-                else -> return ARRAY.parameterizedBy(arrayTypeName)
+                INT -> {
+                    require(value = !isNullable)
+                    return INT_ARRAY
+                }
+                LONG -> {
+                    require(value = !isNullable)
+                    return LONG_ARRAY
+                }
+                else -> {
+                    if (isNullable) {
+                        return arrayTypeName
+                            .copy(nullable = true)
+                            .let { ARRAY.plusParameter(typeArgument = it) }
+                    }
+                    return ARRAY.plusParameter(typeArgument = arrayTypeName)
+                }
             }
         }
-        else -> return dtoTypeName(simpleName = type.capitalized)
+        else -> {
+            val typeName = dtoTypeName(simpleName = type.capitalized)
+            if (isNullable) {
+                return typeName.copy(nullable = true)
+            }
+            return typeName
+        }
     }
 }
 
@@ -1255,7 +1290,6 @@ private fun writeDeserializer(dtoCommonElements: List<CommonElement>) {
                                         val typeName = property.type
                                         when (typeName) {
                                             BOOLEAN -> {
-                                                require(!typeName.isNullable)
                                                 addStatement(
                                                     format = """    %L = jsonObject.%T(key = "%L"),""",
                                                     name,
@@ -1264,7 +1298,6 @@ private fun writeDeserializer(dtoCommonElements: List<CommonElement>) {
                                                 )
                                             }
                                             BYTE_ARRAY -> {
-                                                require(!typeName.isNullable)
                                                 addStatement(
                                                     format = """    %L = jsonObject.%T(key = "%L"),""",
                                                     name,
@@ -1273,7 +1306,6 @@ private fun writeDeserializer(dtoCommonElements: List<CommonElement>) {
                                                 )
                                             }
                                             DOUBLE -> {
-                                                require(!typeName.isNullable)
                                                 addStatement(
                                                     format = """    %L = jsonObject.%T(key = "%L"),""",
                                                     name,
@@ -1282,7 +1314,6 @@ private fun writeDeserializer(dtoCommonElements: List<CommonElement>) {
                                                 )
                                             }
                                             INT -> {
-                                                require(!typeName.isNullable)
                                                 addStatement(
                                                     format = """    %L = jsonObject.%T(key = "%L"),""",
                                                     name,
@@ -1291,7 +1322,6 @@ private fun writeDeserializer(dtoCommonElements: List<CommonElement>) {
                                                 )
                                             }
                                             INT_ARRAY -> {
-                                                require(!typeName.isNullable)
                                                 addStatement(
                                                     format = """    %L = jsonObject.%T(key = "%L"),""",
                                                     name,
@@ -1300,7 +1330,6 @@ private fun writeDeserializer(dtoCommonElements: List<CommonElement>) {
                                                 )
                                             }
                                             LONG -> {
-                                                require(!typeName.isNullable)
                                                 addStatement(
                                                     format = """    %L = jsonObject.%T(key = "%L"),""",
                                                     name,
@@ -1309,7 +1338,6 @@ private fun writeDeserializer(dtoCommonElements: List<CommonElement>) {
                                                 )
                                             }
                                             LONG_ARRAY -> {
-                                                require(!typeName.isNullable)
                                                 addStatement(
                                                     format = """    %L = jsonObject.%T(key = "%L"),""",
                                                     name,
@@ -1318,7 +1346,6 @@ private fun writeDeserializer(dtoCommonElements: List<CommonElement>) {
                                                 )
                                             }
                                             STRING -> {
-                                                require(!typeName.isNullable)
                                                 addStatement(
                                                     format = """    %L = jsonObject.%T(key = "%L"),""",
                                                     name,
@@ -1329,10 +1356,8 @@ private fun writeDeserializer(dtoCommonElements: List<CommonElement>) {
                                             else -> {
                                                 if (typeName is ParameterizedTypeName) {
                                                     val genericTypeName = typeName.typeArguments.first()
-                                                    require(!genericTypeName.isNullable)
                                                     when (genericTypeName) {
                                                         BYTE_ARRAY -> {
-                                                            require(!typeName.isNullable)
                                                             addStatement(
                                                                 format = """    %L = jsonObject.%T(key = "%L"),""",
                                                                 name,
@@ -1341,7 +1366,6 @@ private fun writeDeserializer(dtoCommonElements: List<CommonElement>) {
                                                             )
                                                         }
                                                         STRING -> {
-                                                            require(!typeName.isNullable)
                                                             addStatement(
                                                                 format = """    %L = jsonObject.%T(key = "%L"),""",
                                                                 name,
@@ -1351,7 +1375,6 @@ private fun writeDeserializer(dtoCommonElements: List<CommonElement>) {
                                                         }
                                                         else -> {
                                                             if (genericTypeName is ParameterizedTypeName) {
-                                                                require(!genericTypeName.typeArguments.first().isNullable)
                                                                 addStatement(
                                                                     format = """    %L = jsonObject.%T(key = "%L") { data -> deserialize%L(jsonObject = data) },""",
                                                                     name,
@@ -1364,17 +1387,31 @@ private fun writeDeserializer(dtoCommonElements: List<CommonElement>) {
                                                                         .capitalized,
                                                                 )
                                                             } else {
-                                                                addStatement(
-                                                                    format = """    %L = jsonObject.%T(key = "%L") { data -> deserialize%L(jsonObject = data) },""",
-                                                                    name,
-                                                                    utilTypeName(simpleName = "getObjects"),
-                                                                    nameSnakeCase,
-                                                                    property
-                                                                        .typeName
-                                                                        .substringAfter(delimiter = "vector<")
-                                                                        .substringBefore(delimiter = ">")
-                                                                        .capitalized,
-                                                                )
+                                                                if (genericTypeName.isNullable) {
+                                                                    addStatement(
+                                                                        format = """    %L = jsonObject.%T(key = "%L") { data -> deserialize%L(jsonObject = data) },""",
+                                                                        name,
+                                                                        utilTypeName(simpleName = "getObjectsNullable"),
+                                                                        nameSnakeCase,
+                                                                        property
+                                                                            .typeName
+                                                                            .substringAfter(delimiter = "vector<")
+                                                                            .substringBefore(delimiter = ">")
+                                                                            .capitalized,
+                                                                    )
+                                                                } else {
+                                                                    addStatement(
+                                                                        format = """    %L = jsonObject.%T(key = "%L") { data -> deserialize%L(jsonObject = data) },""",
+                                                                        name,
+                                                                        utilTypeName(simpleName = "getObjects"),
+                                                                        nameSnakeCase,
+                                                                        property
+                                                                            .typeName
+                                                                            .substringAfter(delimiter = "vector<")
+                                                                            .substringBefore(delimiter = ">")
+                                                                            .capitalized,
+                                                                    )
+                                                                }
                                                             }
                                                         }
                                                     }
@@ -1611,7 +1648,6 @@ private fun FunSpec.Builder.addSerializerProperties(properties: List<Property>, 
         val name = property.name
         when (typeName) {
             BOOLEAN -> {
-                require(value = !typeName.isNullable)
                 addStatement(
                     format = "%T(key = \"%L\", boolean = %L.%L)",
                     utilTypeName(simpleName = "put"),
@@ -1621,7 +1657,6 @@ private fun FunSpec.Builder.addSerializerProperties(properties: List<Property>, 
                 )
             }
             BYTE_ARRAY -> {
-                require(value = !typeName.isNullable)
                 addStatement(
                     format = "%T(key = \"%L\", bytes = %L.%L)",
                     utilTypeName(simpleName = "put"),
@@ -1631,7 +1666,6 @@ private fun FunSpec.Builder.addSerializerProperties(properties: List<Property>, 
                 )
             }
             DOUBLE -> {
-                require(value = !typeName.isNullable)
                 addStatement(
                     format = "%T(key = \"%L\", double = %L.%L)",
                     utilTypeName(simpleName = "put"),
@@ -1641,7 +1675,6 @@ private fun FunSpec.Builder.addSerializerProperties(properties: List<Property>, 
                 )
             }
             INT -> {
-                require(value = !typeName.isNullable)
                 addStatement(
                     format = "%T(key = \"%L\", int = %L.%L)",
                     utilTypeName(simpleName = "put"),
@@ -1651,7 +1684,6 @@ private fun FunSpec.Builder.addSerializerProperties(properties: List<Property>, 
                 )
             }
             INT_ARRAY -> {
-                require(value = !typeName.isNullable)
                 addStatement(
                     format = "%T(key = \"%L\", ints = %L.%L)",
                     utilTypeName(simpleName = "put"),
@@ -1661,7 +1693,6 @@ private fun FunSpec.Builder.addSerializerProperties(properties: List<Property>, 
                 )
             }
             LONG -> {
-                require(value = !typeName.isNullable)
                 addStatement(
                     format = "%T(key = \"%L\", long = %L.%L)",
                     utilTypeName(simpleName = "put"),
@@ -1671,7 +1702,6 @@ private fun FunSpec.Builder.addSerializerProperties(properties: List<Property>, 
                 )
             }
             LONG_ARRAY -> {
-                require(value = !typeName.isNullable)
                 addStatement(
                     format = "%T(key = \"%L\", longs = %L.%L)",
                     utilTypeName(simpleName = "put"),
@@ -1681,7 +1711,6 @@ private fun FunSpec.Builder.addSerializerProperties(properties: List<Property>, 
                 )
             }
             STRING -> {
-                require(value = !typeName.isNullable)
                 addStatement(
                     format = "%T(key = \"%L\", string = %L.%L)",
                     utilTypeName(simpleName = "put"),
@@ -1692,11 +1721,9 @@ private fun FunSpec.Builder.addSerializerProperties(properties: List<Property>, 
             }
             else -> {
                 if (typeName is ParameterizedTypeName) {
-                    val firstGenericTypeName = typeName.typeArguments.first()
-                    require(value = !firstGenericTypeName.isNullable)
-                    when (firstGenericTypeName) {
+                    val genericTypeName = typeName.typeArguments.first()
+                    when (genericTypeName) {
                         BYTE_ARRAY -> {
-                            require(value = !typeName.isNullable)
                             addStatement(
                                 format = "%T(key = \"%L\", bytes = %L.%L)",
                                 utilTypeName(simpleName = "put"),
@@ -1706,7 +1733,6 @@ private fun FunSpec.Builder.addSerializerProperties(properties: List<Property>, 
                             )
                         }
                         STRING -> {
-                            require(value = !typeName.isNullable)
                             addStatement(
                                 format = "%T(key = \"%L\", strings = %L.%L)",
                                 utilTypeName(simpleName = "put"),
@@ -1716,10 +1742,7 @@ private fun FunSpec.Builder.addSerializerProperties(properties: List<Property>, 
                             )
                         }
                         else -> {
-                            if (firstGenericTypeName is ParameterizedTypeName) {
-                                val secondGenericTypeName = firstGenericTypeName.typeArguments.first()
-                                require(value = !secondGenericTypeName.isNullable)
-                                require(value = !typeName.isNullable)
+                            if (genericTypeName is ParameterizedTypeName) {
                                 addStatement(
                                     format = "%T(key = \"%L\", objectArrays = %L.%L) { data -> serialize(dto = data) }",
                                     utilTypeName(simpleName = "put"),
@@ -1728,19 +1751,27 @@ private fun FunSpec.Builder.addSerializerProperties(properties: List<Property>, 
                                     name,
                                 )
                             } else {
-                                // nullable
-                                addStatement(
-                                    format = "%T(key = \"%L\", objects = %L.%L) { data -> serialize(dto = data) }",
-                                    utilTypeName(simpleName = "put"),
-                                    nameSnakeCase,
-                                    objectName,
-                                    name,
-                                )
+                                if (genericTypeName.isNullable) {
+                                    addStatement(
+                                        format = "%T(key = \"%L\", objects = %L.%L) { data -> serialize(dto = data) }",
+                                        utilTypeName(simpleName = "putNullable"),
+                                        nameSnakeCase,
+                                        objectName,
+                                        name,
+                                    )
+                                } else {
+                                    addStatement(
+                                        format = "%T(key = \"%L\", objects = %L.%L) { data -> serialize(dto = data) }",
+                                        utilTypeName(simpleName = "put"),
+                                        nameSnakeCase,
+                                        objectName,
+                                        name,
+                                    )
+                                }
                             }
                         }
                     }
                 } else {
-                    // nullable
                     addStatement(
                         format = "%T(key = \"%L\", value = %L.%L) { data -> serialize(dto = data) }",
                         utilTypeName(simpleName = "put"),
@@ -1786,9 +1817,7 @@ private fun TypeName(packageName: String, simpleName: String): TypeName {
 
 private fun TypeName(packageName: String, simpleName: String, generic: TypeName): TypeName {
     val className = ClassName(packageName = packageName, simpleName = simpleName)
-    return className.parameterizedBy(
-        typeArguments = buildList { add(element = generic) },
-    )
+    return className.plusParameter(typeArgument = generic)
 }
 
 private fun TypeName(packageName: String, simpleName: String, generics: List<TypeName>): TypeName {

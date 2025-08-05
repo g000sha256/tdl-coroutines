@@ -1990,6 +1990,7 @@ import dev.g000sha256.tdl.util.getObject
 import dev.g000sha256.tdl.util.getObjectNullable
 import dev.g000sha256.tdl.util.getObjects
 import dev.g000sha256.tdl.util.getObjectsArray
+import dev.g000sha256.tdl.util.getObjectsNullable
 import dev.g000sha256.tdl.util.getString
 import dev.g000sha256.tdl.util.getStrings
 import dev.g000sha256.tdl.util.parseJsonObject
@@ -13065,7 +13066,7 @@ internal class TdlDeserializer internal constructor() {
     private fun deserializeMessages(jsonObject: JsonObject): Messages {
         return Messages(
             totalCount = jsonObject.getInt(key = "total_count"),
-            messages = jsonObject.getObjects(key = "messages") { data -> deserializeMessage(jsonObject = data) },
+            messages = jsonObject.getObjectsNullable(key = "messages") { data -> deserializeMessage(jsonObject = data) },
         )
     }
 
@@ -14797,7 +14798,7 @@ internal class TdlDeserializer internal constructor() {
 
     private fun deserializeQuickReplyMessages(jsonObject: JsonObject): QuickReplyMessages {
         return QuickReplyMessages(
-            messages = jsonObject.getObjects(key = "messages") { data -> deserializeQuickReplyMessage(jsonObject = data) },
+            messages = jsonObject.getObjectsNullable(key = "messages") { data -> deserializeQuickReplyMessage(jsonObject = data) },
         )
     }
 

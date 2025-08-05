@@ -18,7 +18,7 @@ package dev.g000sha256.tdl.util
 
 import kotlin.io.encoding.Base64
 import kotlin.io.encoding.ExperimentalEncodingApi
-import kotlinx.serialization.json.JsonElement
+import kotlinx.serialization.json.JsonNull
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.boolean
 import kotlinx.serialization.json.double
@@ -43,7 +43,7 @@ internal fun JsonObject.getBytes(key: String): ByteArray {
         return byteArrayOf()
     }
 
-    return value.toByteArray()
+    return value.jsonPrimitive.content.fromBase64()
 }
 
 internal fun JsonObject.getBytesArray(key: String): Array<ByteArray> {
@@ -55,7 +55,7 @@ internal fun JsonObject.getBytesArray(key: String): Array<ByteArray> {
     val jsonArray = value.jsonArray
     return Array(size = jsonArray.size) { index ->
         val jsonElement = jsonArray.get(index = index)
-        return@Array jsonElement.toByteArray()
+        return@Array jsonElement.jsonPrimitive.content.fromBase64()
     }
 }
 
@@ -139,6 +139,22 @@ internal inline fun <reified T> JsonObject.getObjects(key: String, transformer: 
     }
 }
 
+internal inline fun <reified T> JsonObject.getObjectsNullable(key: String, transformer: Transformer<JsonObject, T>): Array<T?> {
+    val value = get(key = key)
+    if (value == null) {
+        return emptyArray()
+    }
+
+    val jsonArray = value.jsonArray
+    return Array(size = jsonArray.size) { index ->
+        val jsonElement = jsonArray.getOrNull(index = index)
+        if (jsonElement == null || jsonElement == JsonNull) {
+            return@Array null
+        }
+        return@Array transformer.transform(data = jsonElement.jsonObject)
+    }
+}
+
 internal inline fun <reified T> JsonObject.getObjectsArray(
     key: String,
     transformer: Transformer<JsonObject, T>,
@@ -182,6 +198,6 @@ internal fun JsonObject.getStrings(key: String): Array<String> {
 }
 
 @OptIn(ExperimentalEncodingApi::class)
-private fun JsonElement.toByteArray(): ByteArray {
-    return Base64.decode(source = jsonPrimitive.content)
+private fun String.fromBase64(): ByteArray {
+    return Base64.decode(source = this)
 }
