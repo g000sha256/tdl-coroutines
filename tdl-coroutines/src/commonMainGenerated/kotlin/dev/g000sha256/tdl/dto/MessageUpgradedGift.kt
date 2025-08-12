@@ -28,12 +28,11 @@ import kotlin.String
  * @property gift The gift.
  * @property senderId Sender of the gift; may be null for anonymous gifts.
  * @property receiverId Receiver of the gift.
+ * @property origin Origin of the upgraded gift.
  * @property receivedGiftId Unique identifier of the received gift for the current user; only for the receiver of the gift.
- * @property isUpgrade True, if the gift was obtained by upgrading of a previously received gift; otherwise, this is a transferred or resold gift.
  * @property isSaved True, if the gift is displayed on the user's or the channel's profile page; only for the receiver of the gift.
  * @property canBeTransferred True, if the gift can be transferred to another owner; only for the receiver of the gift.
- * @property wasTransferred True, if the gift was transferred to another owner; only for the receiver of the gift.
- * @property lastResaleStarCount Number of Telegram Stars that were paid by the sender for the gift; 0 if the gift was upgraded or transferred.
+ * @property wasTransferred True, if the gift has already been transferred to another owner; only for the receiver of the gift.
  * @property transferStarCount Number of Telegram Stars that must be paid to transfer the upgraded gift; only for the receiver of the gift.
  * @property nextTransferDate Point in time (Unix timestamp) when the gift can be transferred to another owner; 0 if the gift can be transferred immediately or transfer isn't possible; only for the receiver of the gift.
  * @property nextResaleDate Point in time (Unix timestamp) when the gift can be resold to another user; 0 if the gift can't be resold; only for the receiver of the gift.
@@ -43,12 +42,11 @@ public class MessageUpgradedGift public constructor(
     public val gift: UpgradedGift,
     public val senderId: MessageSender?,
     public val receiverId: MessageSender,
+    public val origin: UpgradedGiftOrigin,
     public val receivedGiftId: String,
-    public val isUpgrade: Boolean,
     public val isSaved: Boolean,
     public val canBeTransferred: Boolean,
     public val wasTransferred: Boolean,
-    public val lastResaleStarCount: Long,
     public val transferStarCount: Long,
     public val nextTransferDate: Int,
     public val nextResaleDate: Int,
@@ -74,10 +72,10 @@ public class MessageUpgradedGift public constructor(
         if (other.receiverId != receiverId) {
             return false
         }
-        if (other.receivedGiftId != receivedGiftId) {
+        if (other.origin != origin) {
             return false
         }
-        if (other.isUpgrade != isUpgrade) {
+        if (other.receivedGiftId != receivedGiftId) {
             return false
         }
         if (other.isSaved != isSaved) {
@@ -87,9 +85,6 @@ public class MessageUpgradedGift public constructor(
             return false
         }
         if (other.wasTransferred != wasTransferred) {
-            return false
-        }
-        if (other.lastResaleStarCount != lastResaleStarCount) {
             return false
         }
         if (other.transferStarCount != transferStarCount) {
@@ -109,12 +104,11 @@ public class MessageUpgradedGift public constructor(
         hashCode = 31 * hashCode + gift.hashCode()
         hashCode = 31 * hashCode + senderId.hashCode()
         hashCode = 31 * hashCode + receiverId.hashCode()
+        hashCode = 31 * hashCode + origin.hashCode()
         hashCode = 31 * hashCode + receivedGiftId.hashCode()
-        hashCode = 31 * hashCode + isUpgrade.hashCode()
         hashCode = 31 * hashCode + isSaved.hashCode()
         hashCode = 31 * hashCode + canBeTransferred.hashCode()
         hashCode = 31 * hashCode + wasTransferred.hashCode()
-        hashCode = 31 * hashCode + lastResaleStarCount.hashCode()
         hashCode = 31 * hashCode + transferStarCount.hashCode()
         hashCode = 31 * hashCode + nextTransferDate.hashCode()
         hashCode = 31 * hashCode + nextResaleDate.hashCode()
@@ -135,11 +129,11 @@ public class MessageUpgradedGift public constructor(
             append("receiverId=")
             append(receiverId)
             append(", ")
+            append("origin=")
+            append(origin)
+            append(", ")
             append("receivedGiftId=")
             append(receivedGiftId)
-            append(", ")
-            append("isUpgrade=")
-            append(isUpgrade)
             append(", ")
             append("isSaved=")
             append(isSaved)
@@ -149,9 +143,6 @@ public class MessageUpgradedGift public constructor(
             append(", ")
             append("wasTransferred=")
             append(wasTransferred)
-            append(", ")
-            append("lastResaleStarCount=")
-            append(lastResaleStarCount)
             append(", ")
             append("transferStarCount=")
             append(transferStarCount)

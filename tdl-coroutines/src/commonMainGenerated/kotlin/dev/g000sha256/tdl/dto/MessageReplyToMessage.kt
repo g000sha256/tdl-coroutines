@@ -28,6 +28,7 @@ import kotlin.String
  * @property chatId The identifier of the chat to which the message belongs; may be 0 if the replied message is in unknown chat.
  * @property messageId The identifier of the message; may be 0 if the replied message is in unknown chat.
  * @property quote Chosen quote from the replied message; may be null if none.
+ * @property checklistTaskId Identifier of the checklist task in the original message that was replied; 0 if none.
  * @property origin Information about origin of the message if the message was from another chat or topic; may be null for messages from the same chat.
  * @property originSendDate Point in time (Unix timestamp) when the message was sent if the message was from another chat or topic; 0 for messages from the same chat.
  * @property content Media content of the message if the message was from another chat or topic; may be null for messages from the same chat and messages without media. Can be only one of the following types: messageAnimation, messageAudio, messageChecklist, messageContact, messageDice, messageDocument, messageGame, messageGiveaway, messageGiveawayWinners, messageInvoice, messageLocation, messagePaidMedia, messagePhoto, messagePoll, messageSticker, messageStory, messageText (for link preview), messageVenue, messageVideo, messageVideoNote, or messageVoiceNote.
@@ -36,6 +37,7 @@ public class MessageReplyToMessage public constructor(
     public val chatId: Long,
     public val messageId: Long,
     public val quote: TextQuote?,
+    public val checklistTaskId: Int,
     public val origin: MessageOrigin?,
     public val originSendDate: Int,
     public val content: MessageContent?,
@@ -60,6 +62,9 @@ public class MessageReplyToMessage public constructor(
         if (other.quote != quote) {
             return false
         }
+        if (other.checklistTaskId != checklistTaskId) {
+            return false
+        }
         if (other.origin != origin) {
             return false
         }
@@ -74,6 +79,7 @@ public class MessageReplyToMessage public constructor(
         hashCode = 31 * hashCode + chatId.hashCode()
         hashCode = 31 * hashCode + messageId.hashCode()
         hashCode = 31 * hashCode + quote.hashCode()
+        hashCode = 31 * hashCode + checklistTaskId.hashCode()
         hashCode = 31 * hashCode + origin.hashCode()
         hashCode = 31 * hashCode + originSendDate.hashCode()
         hashCode = 31 * hashCode + content.hashCode()
@@ -92,6 +98,9 @@ public class MessageReplyToMessage public constructor(
             append(", ")
             append("quote=")
             append(quote)
+            append(", ")
+            append("checklistTaskId=")
+            append(checklistTaskId)
             append(", ")
             append("origin=")
             append(origin)

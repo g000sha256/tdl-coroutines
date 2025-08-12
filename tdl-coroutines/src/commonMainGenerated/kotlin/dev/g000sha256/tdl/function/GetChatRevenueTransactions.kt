@@ -18,9 +18,10 @@ package dev.g000sha256.tdl.function
 
 import kotlin.Int
 import kotlin.Long
+import kotlin.String
 
 internal class GetChatRevenueTransactions internal constructor(
     internal val chatId: Long,
-    internal val offset: Int,
+    internal val offset: String,
     internal val limit: Int,
 )

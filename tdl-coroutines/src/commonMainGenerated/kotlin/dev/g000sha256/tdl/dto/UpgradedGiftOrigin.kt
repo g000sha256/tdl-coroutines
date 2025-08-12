@@ -18,6 +18,6 @@ package dev.g000sha256.tdl.dto
 
 /**
  * This class is an abstract base class.
- * Describes direction of a transaction with Telegram Stars.
+ * Describes origin from which the upgraded gift was obtained.
  */
-public sealed class StarTransactionDirection protected constructor()
+public sealed class UpgradedGiftOrigin protected constructor()

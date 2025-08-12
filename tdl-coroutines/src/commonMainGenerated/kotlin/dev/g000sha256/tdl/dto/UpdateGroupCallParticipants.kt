@@ -26,7 +26,7 @@ import kotlin.String
  * The list of group call participants that can send and receive encrypted call data has changed; for group calls not bound to a chat only.
  *
  * @property groupCallId Identifier of the group call.
- * @property participantUserIds New list of group call participant user identifiers. The identifiers may be invalid or the corresponding users may be unknown. The participants must be shown in the list of group call participants even there is no information about them.
+ * @property participantUserIds New list of group call participant user identifiers. The identifiers may be invalid or the corresponding users may be unknown. The participants must be shown in the list of group call participants even if there is no information about them.
  */
 public class UpdateGroupCallParticipants public constructor(
     public val groupCallId: Int,

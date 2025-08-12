@@ -26,7 +26,7 @@ import kotlin.String
  *
  * @property canManageChat True, if the administrator can access the chat event log, get boost list, see hidden supergroup and channel members, report supergroup spam messages, ignore slow mode, and send messages to the chat without paying Telegram Stars. Implied by any other privilege; applicable to supergroups and channels only.
  * @property canChangeInfo True, if the administrator can change the chat title, photo, and other settings.
- * @property canPostMessages True, if the administrator can create channel posts, answer to channel direct messages, or view channel statistics; applicable to channels only.
+ * @property canPostMessages True, if the administrator can create channel posts, approve suggested channel posts, or view channel statistics; applicable to channels only.
  * @property canEditMessages True, if the administrator can edit messages of other users and pin messages; applicable to channels only.
  * @property canDeleteMessages True, if the administrator can delete messages of other users.
  * @property canInviteUsers True, if the administrator can invite new users to the chat.
@@ -38,6 +38,7 @@ import kotlin.String
  * @property canPostStories True, if the administrator can create new chat stories, or edit and delete posted stories; applicable to supergroups and channels only.
  * @property canEditStories True, if the administrator can edit stories posted by other users, post stories to the chat page, pin chat stories, and access story archive; applicable to supergroups and channels only.
  * @property canDeleteStories True, if the administrator can delete stories posted by other users; applicable to supergroups and channels only.
+ * @property canManageDirectMessages True, if the administrator can answer to channel direct messages; applicable to channels only.
  * @property isAnonymous True, if the administrator isn't shown in the chat member list and sends messages anonymously; applicable to supergroups only.
  */
 public class ChatAdministratorRights public constructor(
@@ -55,6 +56,7 @@ public class ChatAdministratorRights public constructor(
     public val canPostStories: Boolean,
     public val canEditStories: Boolean,
     public val canDeleteStories: Boolean,
+    public val canManageDirectMessages: Boolean,
     public val isAnonymous: Boolean,
 ) {
     override fun equals(other: Any?): Boolean {
@@ -110,6 +112,9 @@ public class ChatAdministratorRights public constructor(
         if (other.canDeleteStories != canDeleteStories) {
             return false
         }
+        if (other.canManageDirectMessages != canManageDirectMessages) {
+            return false
+        }
         return other.isAnonymous == isAnonymous
     }
 
@@ -129,6 +134,7 @@ public class ChatAdministratorRights public constructor(
         hashCode = 31 * hashCode + canPostStories.hashCode()
         hashCode = 31 * hashCode + canEditStories.hashCode()
         hashCode = 31 * hashCode + canDeleteStories.hashCode()
+        hashCode = 31 * hashCode + canManageDirectMessages.hashCode()
         hashCode = 31 * hashCode + isAnonymous.hashCode()
         return hashCode
     }
@@ -178,6 +184,9 @@ public class ChatAdministratorRights public constructor(
             append(", ")
             append("canDeleteStories=")
             append(canDeleteStories)
+            append(", ")
+            append("canManageDirectMessages=")
+            append(canManageDirectMessages)
             append(", ")
             append("isAnonymous=")
             append(isAnonymous)

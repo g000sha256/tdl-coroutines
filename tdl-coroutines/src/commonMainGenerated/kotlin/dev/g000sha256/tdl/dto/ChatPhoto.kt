@@ -31,7 +31,7 @@ import kotlin.String
  * @property minithumbnail Photo minithumbnail; may be null.
  * @property sizes Available variants of the photo in JPEG format, in different size.
  * @property animation A big (up to 1280x1280) animated variant of the photo in MPEG4 format; may be null.
- * @property smallAnimation A small (160x160) animated variant of the photo in MPEG4 format; may be null even the big animation is available.
+ * @property smallAnimation A small (160x160) animated variant of the photo in MPEG4 format; may be null even if the big animation is available.
  * @property sticker Sticker-based version of the chat photo; may be null.
  */
 public class ChatPhoto public constructor(

@@ -19,12 +19,17 @@ package dev.g000sha256.tdl.dto
 import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
+import kotlin.Long
 import kotlin.String
 
 /**
- * The transaction is incoming and increases the number of owned Telegram Stars.
+ * Describes price of a suggested post in Toncoins.
+ *
+ * @property toncoinCentCount The amount of 1/100 of Toncoin agreed to pay for the post; getOption(&quot;suggested_post_toncoin_cent_count_min&quot;)-getOption(&quot;suggested_post_toncoin_cent_count_max&quot;).
  */
-public class StarTransactionDirectionIncoming public constructor() : StarTransactionDirection() {
+public class SuggestedPostPriceTon public constructor(
+    public val toncoinCentCount: Long,
+) : SuggestedPostPrice() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true
@@ -32,14 +37,26 @@ public class StarTransactionDirectionIncoming public constructor() : StarTransac
         if (other == null) {
             return false
         }
-        return this::class == other::class
+        if (other::class != this::class) {
+            return false
+        }
+        other as SuggestedPostPriceTon
+        return other.toncoinCentCount == toncoinCentCount
     }
 
     override fun hashCode(): Int {
-        return this::class.hashCode()
+        var hashCode = this::class.hashCode()
+        hashCode = 31 * hashCode + toncoinCentCount.hashCode()
+        return hashCode
     }
 
     override fun toString(): String {
-        return "StarTransactionDirectionIncoming()"
+        return buildString {
+            append("SuggestedPostPriceTon")
+            append("(")
+            append("toncoinCentCount=")
+            append(toncoinCentCount)
+            append(")")
+        }
     }
 }

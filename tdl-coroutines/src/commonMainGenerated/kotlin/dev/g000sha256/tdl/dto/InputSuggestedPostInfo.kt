@@ -22,15 +22,15 @@ import kotlin.Int
 import kotlin.String
 
 /**
- * Describes earnings from sponsored messages in a chat in some time frame.
+ * Contains information about a post to suggest.
  *
- * @property startDate Point in time (Unix timestamp) when the earnings started.
- * @property endDate Point in time (Unix timestamp) when the earnings ended.
+ * @property price Price of the suggested post; pass null to suggest a post without payment. If the current user isn't an administrator of the channel direct messages chat and has no enough funds to pay for the post, then the error &quot;BALANCE_TOO_LOW&quot; will be returned immediately.
+ * @property sendDate Point in time (Unix timestamp) when the post is expected to be published; pass 0 if the date isn't restricted. If specified, then the date must be getOption(&quot;suggested_post_send_delay_min&quot;)-getOption(&quot;suggested_post_send_delay_max&quot;) seconds in the future.
  */
-public class ChatRevenueTransactionTypeEarnings public constructor(
-    public val startDate: Int,
-    public val endDate: Int,
-) : ChatRevenueTransactionType() {
+public class InputSuggestedPostInfo public constructor(
+    public val price: SuggestedPostPrice?,
+    public val sendDate: Int,
+) {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true
@@ -41,29 +41,29 @@ public class ChatRevenueTransactionTypeEarnings public constructor(
         if (other::class != this::class) {
             return false
         }
-        other as ChatRevenueTransactionTypeEarnings
-        if (other.startDate != startDate) {
+        other as InputSuggestedPostInfo
+        if (other.price != price) {
             return false
         }
-        return other.endDate == endDate
+        return other.sendDate == sendDate
     }
 
     override fun hashCode(): Int {
         var hashCode = this::class.hashCode()
-        hashCode = 31 * hashCode + startDate.hashCode()
-        hashCode = 31 * hashCode + endDate.hashCode()
+        hashCode = 31 * hashCode + price.hashCode()
+        hashCode = 31 * hashCode + sendDate.hashCode()
         return hashCode
     }
 
     override fun toString(): String {
         return buildString {
-            append("ChatRevenueTransactionTypeEarnings")
+            append("InputSuggestedPostInfo")
             append("(")
-            append("startDate=")
-            append(startDate)
+            append("price=")
+            append(price)
             append(", ")
-            append("endDate=")
-            append(endDate)
+            append("sendDate=")
+            append(sendDate)
             append(")")
         }
     }

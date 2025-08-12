@@ -19,12 +19,17 @@ package dev.g000sha256.tdl.dto
 import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
+import kotlin.Long
 import kotlin.String
 
 /**
- * The transaction is outgoing and decreases the number of owned Telegram Stars.
+ * The transaction is a payment for a suggested post.
+ *
+ * @property chatId Identifier of the channel chat that posted the post.
  */
-public class StarTransactionDirectionOutgoing public constructor() : StarTransactionDirection() {
+public class TonTransactionTypeSuggestedPostPayment public constructor(
+    public val chatId: Long,
+) : TonTransactionType() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true
@@ -32,14 +37,26 @@ public class StarTransactionDirectionOutgoing public constructor() : StarTransac
         if (other == null) {
             return false
         }
-        return this::class == other::class
+        if (other::class != this::class) {
+            return false
+        }
+        other as TonTransactionTypeSuggestedPostPayment
+        return other.chatId == chatId
     }
 
     override fun hashCode(): Int {
-        return this::class.hashCode()
+        var hashCode = this::class.hashCode()
+        hashCode = 31 * hashCode + chatId.hashCode()
+        return hashCode
     }
 
     override fun toString(): String {
-        return "StarTransactionDirectionOutgoing()"
+        return buildString {
+            append("TonTransactionTypeSuggestedPostPayment")
+            append("(")
+            append("chatId=")
+            append(chatId)
+            append(")")
+        }
     }
 }

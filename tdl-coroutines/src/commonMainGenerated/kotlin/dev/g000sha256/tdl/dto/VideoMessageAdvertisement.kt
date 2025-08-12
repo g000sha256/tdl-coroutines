@@ -27,8 +27,8 @@ import kotlin.String
  *
  * @property uniqueId Unique identifier of this result.
  * @property text Text of the advertisement.
- * @property minDisplayDuration The minimum amount of time the advertisement must be dispalyed before it can be hidden by the user, in seconds.
- * @property maxDisplayDuration The maximum amount of time the advertisement must be dispalyed before it must be automatically hidden, in seconds.
+ * @property minDisplayDuration The minimum amount of time the advertisement must be displayed before it can be hidden by the user, in seconds.
+ * @property maxDisplayDuration The maximum amount of time the advertisement must be displayed before it must be automatically hidden, in seconds.
  * @property canBeReported True, if the advertisement can be reported to Telegram moderators through reportVideoMessageAdvertisement.
  * @property sponsor Information about the sponsor of the advertisement.
  * @property title Title of the sponsored message.

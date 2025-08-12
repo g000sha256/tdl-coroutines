@@ -28,11 +28,13 @@ import kotlin.String
  * @property chatId The identifier of the chat to which the message to be replied belongs.
  * @property messageId The identifier of the message to be replied in the specified chat. A message can be replied in another chat or forum topic only if messageProperties.canBeRepliedInAnotherChat.
  * @property quote Quote from the message to be replied; pass null if none.
+ * @property checklistTaskId Identifier of the checklist task in the message to be replied; pass 0 to reply to the whole message.
  */
 public class InputMessageReplyToExternalMessage public constructor(
     public val chatId: Long,
     public val messageId: Long,
     public val quote: InputTextQuote?,
+    public val checklistTaskId: Int,
 ) : InputMessageReplyTo() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
@@ -51,7 +53,10 @@ public class InputMessageReplyToExternalMessage public constructor(
         if (other.messageId != messageId) {
             return false
         }
-        return other.quote == quote
+        if (other.quote != quote) {
+            return false
+        }
+        return other.checklistTaskId == checklistTaskId
     }
 
     override fun hashCode(): Int {
@@ -59,6 +64,7 @@ public class InputMessageReplyToExternalMessage public constructor(
         hashCode = 31 * hashCode + chatId.hashCode()
         hashCode = 31 * hashCode + messageId.hashCode()
         hashCode = 31 * hashCode + quote.hashCode()
+        hashCode = 31 * hashCode + checklistTaskId.hashCode()
         return hashCode
     }
 
@@ -74,6 +80,9 @@ public class InputMessageReplyToExternalMessage public constructor(
             append(", ")
             append("quote=")
             append(quote)
+            append(", ")
+            append("checklistTaskId=")
+            append(checklistTaskId)
             append(")")
         }
     }

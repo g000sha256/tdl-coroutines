@@ -26,10 +26,12 @@ import kotlin.String
  *
  * @property photo Photo of the chat with the video chat; may be null if none.
  * @property isLiveStream True, if the video chat is expected to be a live stream in a channel or a broadcast group.
+ * @property joinsAsSpeaker True, if the user can use the link to join the video chat without being muted by administrators.
  */
 public class LinkPreviewTypeVideoChat public constructor(
     public val photo: ChatPhoto?,
     public val isLiveStream: Boolean,
+    public val joinsAsSpeaker: Boolean,
 ) : LinkPreviewType() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
@@ -45,13 +47,17 @@ public class LinkPreviewTypeVideoChat public constructor(
         if (other.photo != photo) {
             return false
         }
-        return other.isLiveStream == isLiveStream
+        if (other.isLiveStream != isLiveStream) {
+            return false
+        }
+        return other.joinsAsSpeaker == joinsAsSpeaker
     }
 
     override fun hashCode(): Int {
         var hashCode = this::class.hashCode()
         hashCode = 31 * hashCode + photo.hashCode()
         hashCode = 31 * hashCode + isLiveStream.hashCode()
+        hashCode = 31 * hashCode + joinsAsSpeaker.hashCode()
         return hashCode
     }
 
@@ -64,6 +70,9 @@ public class LinkPreviewTypeVideoChat public constructor(
             append(", ")
             append("isLiveStream=")
             append(isLiveStream)
+            append(", ")
+            append("joinsAsSpeaker=")
+            append(joinsAsSpeaker)
             append(")")
         }
     }
