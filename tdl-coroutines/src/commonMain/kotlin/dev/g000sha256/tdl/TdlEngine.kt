@@ -17,6 +17,8 @@
 package dev.g000sha256.tdl
 
 import dev.g000sha256.tdl.dto.Update
+import dev.g000sha256.tdl.util.buildJsonObjectString
+import dev.g000sha256.tdl.util.put
 import kotlin.time.Duration.Companion.hours
 import kotlinx.atomicfu.atomic
 import kotlinx.coroutines.CoroutineDispatcher
@@ -28,6 +30,7 @@ import kotlinx.coroutines.flow.mapNotNull
 import kotlinx.coroutines.flow.onSubscription
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import kotlinx.serialization.json.putJsonObject
 
 private val MAX_TIMEOUT = 24.hours.inWholeSeconds.toDouble()
 
@@ -43,6 +46,23 @@ internal class TdlEngine(
     private val initialized = atomic(initial = false)
     private val requestIdsCounter = atomic(initial = 0L)
     private val responsesMutableSharedFlow = MutableSharedFlow<Triple<Int, Long, Any>>(extraBufferCapacity = Int.MAX_VALUE)
+
+    init {
+        native.execute(
+            request = buildJsonObjectString {
+                put(key = "@type", string = "setLogVerbosityLevel")
+                put(key = "new_verbosity_level", int = 0)
+            },
+        )
+        native.execute(
+            request = buildJsonObjectString {
+                put(key = "@type", string = "setLogStream")
+                putJsonObject(key = "log_stream") {
+                    put(key = "@type", string = "logStreamEmpty")
+                }
+            },
+        )
+    }
 
     fun createClientId(): Int {
         return native.createClientId()
