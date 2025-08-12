@@ -20,17 +20,20 @@ import kotlin.Any
 import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
+import kotlin.Long
 import kotlin.String
 
 /**
  * Contains a list of chat revenue transactions.
  *
- * @property totalCount Total number of transactions.
+ * @property tonAmount The amount of owned Toncoins; in the smallest units of the cryptocurrency.
  * @property transactions List of transactions.
+ * @property nextOffset The offset for the next request. If empty, then there are no more results.
  */
 public class ChatRevenueTransactions public constructor(
-    public val totalCount: Int,
+    public val tonAmount: Long,
     public val transactions: Array<ChatRevenueTransaction>,
+    public val nextOffset: String,
 ) {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
@@ -43,16 +46,21 @@ public class ChatRevenueTransactions public constructor(
             return false
         }
         other as ChatRevenueTransactions
-        if (other.totalCount != totalCount) {
+        if (other.tonAmount != tonAmount) {
             return false
         }
-        return other.transactions.contentDeepEquals(transactions)
+        val transactionsEquals = other.transactions.contentDeepEquals(transactions)
+        if (!transactionsEquals) {
+            return false
+        }
+        return other.nextOffset == nextOffset
     }
 
     override fun hashCode(): Int {
         var hashCode = this::class.hashCode()
-        hashCode = 31 * hashCode + totalCount.hashCode()
+        hashCode = 31 * hashCode + tonAmount.hashCode()
         hashCode = 31 * hashCode + transactions.contentDeepHashCode()
+        hashCode = 31 * hashCode + nextOffset.hashCode()
         return hashCode
     }
 
@@ -60,13 +68,16 @@ public class ChatRevenueTransactions public constructor(
         return buildString {
             append("ChatRevenueTransactions")
             append("(")
-            append("totalCount=")
-            append(totalCount)
+            append("tonAmount=")
+            append(tonAmount)
             append(", ")
             append("transactions=")
             transactions
                 .contentDeepToString()
                 .also { append(it) }
+            append(", ")
+            append("nextOffset=")
+            append(nextOffset)
             append(")")
         }
     }

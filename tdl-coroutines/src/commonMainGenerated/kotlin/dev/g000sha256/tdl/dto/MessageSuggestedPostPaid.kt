@@ -19,20 +19,21 @@ package dev.g000sha256.tdl.dto
 import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
+import kotlin.Long
 import kotlin.String
 
 /**
- * Describes a withdrawal of earnings.
+ * A suggested post was published for getOption(&quot;suggested_post_lifetime_min&quot;) seconds and payment for the post was received.
  *
- * @property withdrawalDate Point in time (Unix timestamp) when the earnings withdrawal started.
- * @property provider Name of the payment provider.
- * @property state State of the withdrawal.
+ * @property suggestedPostMessageId Identifier of the message with the suggested post; can be 0 if the message was deleted.
+ * @property starAmount The amount of received Telegram Stars.
+ * @property tonAmount The amount of received Toncoins; in the smallest units of the cryptocurrency.
  */
-public class ChatRevenueTransactionTypeWithdrawal public constructor(
-    public val withdrawalDate: Int,
-    public val provider: String,
-    public val state: RevenueWithdrawalState,
-) : ChatRevenueTransactionType() {
+public class MessageSuggestedPostPaid public constructor(
+    public val suggestedPostMessageId: Long,
+    public val starAmount: StarAmount,
+    public val tonAmount: Long,
+) : MessageContent() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true
@@ -43,36 +44,36 @@ public class ChatRevenueTransactionTypeWithdrawal public constructor(
         if (other::class != this::class) {
             return false
         }
-        other as ChatRevenueTransactionTypeWithdrawal
-        if (other.withdrawalDate != withdrawalDate) {
+        other as MessageSuggestedPostPaid
+        if (other.suggestedPostMessageId != suggestedPostMessageId) {
             return false
         }
-        if (other.provider != provider) {
+        if (other.starAmount != starAmount) {
             return false
         }
-        return other.state == state
+        return other.tonAmount == tonAmount
     }
 
     override fun hashCode(): Int {
         var hashCode = this::class.hashCode()
-        hashCode = 31 * hashCode + withdrawalDate.hashCode()
-        hashCode = 31 * hashCode + provider.hashCode()
-        hashCode = 31 * hashCode + state.hashCode()
+        hashCode = 31 * hashCode + suggestedPostMessageId.hashCode()
+        hashCode = 31 * hashCode + starAmount.hashCode()
+        hashCode = 31 * hashCode + tonAmount.hashCode()
         return hashCode
     }
 
     override fun toString(): String {
         return buildString {
-            append("ChatRevenueTransactionTypeWithdrawal")
+            append("MessageSuggestedPostPaid")
             append("(")
-            append("withdrawalDate=")
-            append(withdrawalDate)
+            append("suggestedPostMessageId=")
+            append(suggestedPostMessageId)
             append(", ")
-            append("provider=")
-            append(provider)
+            append("starAmount=")
+            append(starAmount)
             append(", ")
-            append("state=")
-            append(state)
+            append("tonAmount=")
+            append(tonAmount)
             append(")")
         }
     }

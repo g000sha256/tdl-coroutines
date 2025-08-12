@@ -315,7 +315,6 @@ import dev.g000sha256.tdl.dto.StarPaymentOptions
 import dev.g000sha256.tdl.dto.StarRevenueStatistics
 import dev.g000sha256.tdl.dto.StarSubscriptionPricing
 import dev.g000sha256.tdl.dto.StarSubscriptions
-import dev.g000sha256.tdl.dto.StarTransactionDirection
 import dev.g000sha256.tdl.dto.StarTransactions
 import dev.g000sha256.tdl.dto.StatisticalGraph
 import dev.g000sha256.tdl.dto.Sticker
@@ -354,7 +353,9 @@ import dev.g000sha256.tdl.dto.TextEntities
 import dev.g000sha256.tdl.dto.TextParseMode
 import dev.g000sha256.tdl.dto.ThemeParameters
 import dev.g000sha256.tdl.dto.TimeZones
+import dev.g000sha256.tdl.dto.TonTransactions
 import dev.g000sha256.tdl.dto.TopChatCategory
+import dev.g000sha256.tdl.dto.TransactionDirection
 import dev.g000sha256.tdl.dto.TrendingStickerSets
 import dev.g000sha256.tdl.dto.Update
 import dev.g000sha256.tdl.dto.UpdateAccentColors
@@ -454,6 +455,7 @@ import dev.g000sha256.tdl.dto.UpdateMessageReactions
 import dev.g000sha256.tdl.dto.UpdateMessageSendAcknowledged
 import dev.g000sha256.tdl.dto.UpdateMessageSendFailed
 import dev.g000sha256.tdl.dto.UpdateMessageSendSucceeded
+import dev.g000sha256.tdl.dto.UpdateMessageSuggestedPostInfo
 import dev.g000sha256.tdl.dto.UpdateMessageUnreadReactions
 import dev.g000sha256.tdl.dto.UpdateNewBusinessCallbackQuery
 import dev.g000sha256.tdl.dto.UpdateNewBusinessMessage
@@ -473,6 +475,7 @@ import dev.g000sha256.tdl.dto.UpdateNotification
 import dev.g000sha256.tdl.dto.UpdateNotificationGroup
 import dev.g000sha256.tdl.dto.UpdateOption
 import dev.g000sha256.tdl.dto.UpdateOwnedStarCount
+import dev.g000sha256.tdl.dto.UpdateOwnedTonCount
 import dev.g000sha256.tdl.dto.UpdatePaidMediaPurchased
 import dev.g000sha256.tdl.dto.UpdatePoll
 import dev.g000sha256.tdl.dto.UpdatePollAnswer
@@ -550,6 +553,7 @@ import dev.g000sha256.tdl.function.AddLocalMessage
 import dev.g000sha256.tdl.function.AddLogMessage
 import dev.g000sha256.tdl.function.AddMessageReaction
 import dev.g000sha256.tdl.function.AddNetworkStatistics
+import dev.g000sha256.tdl.function.AddOffer
 import dev.g000sha256.tdl.function.AddPendingPaidMessageReaction
 import dev.g000sha256.tdl.function.AddProxy
 import dev.g000sha256.tdl.function.AddQuickReplyShortcutInlineQueryResultMessage
@@ -569,6 +573,7 @@ import dev.g000sha256.tdl.function.AnswerPreCheckoutQuery
 import dev.g000sha256.tdl.function.AnswerShippingQuery
 import dev.g000sha256.tdl.function.AnswerWebAppQuery
 import dev.g000sha256.tdl.function.ApplyPremiumGiftCode
+import dev.g000sha256.tdl.function.ApproveSuggestedPost
 import dev.g000sha256.tdl.function.AssignStoreTransaction
 import dev.g000sha256.tdl.function.BanChatMember
 import dev.g000sha256.tdl.function.BanGroupCallParticipants
@@ -646,6 +651,7 @@ import dev.g000sha256.tdl.function.CreateSupergroupChat
 import dev.g000sha256.tdl.function.CreateTemporaryPassword
 import dev.g000sha256.tdl.function.CreateVideoChat
 import dev.g000sha256.tdl.function.DeclineGroupCallInvitation
+import dev.g000sha256.tdl.function.DeclineSuggestedPost
 import dev.g000sha256.tdl.function.DecryptGroupCallData
 import dev.g000sha256.tdl.function.DeleteAccount
 import dev.g000sha256.tdl.function.DeleteAllCallMessages
@@ -998,6 +1004,7 @@ import dev.g000sha256.tdl.function.GetThemeParametersJsonString
 import dev.g000sha256.tdl.function.GetThemedChatEmojiStatuses
 import dev.g000sha256.tdl.function.GetThemedEmojiStatuses
 import dev.g000sha256.tdl.function.GetTimeZones
+import dev.g000sha256.tdl.function.GetTonTransactions
 import dev.g000sha256.tdl.function.GetTopChats
 import dev.g000sha256.tdl.function.GetTrendingStickerSets
 import dev.g000sha256.tdl.function.GetUpgradedGift
@@ -1467,6 +1474,9 @@ internal class TdlClientImpl internal constructor(
     override val messageFactCheckUpdates: Flow<UpdateMessageFactCheck>
         get() = repository.updates.filterIsInstance()
 
+    override val messageSuggestedPostInfoUpdates: Flow<UpdateMessageSuggestedPostInfo>
+        get() = repository.updates.filterIsInstance()
+
     override val messageLiveLocationViewedUpdates: Flow<UpdateMessageLiveLocationViewed>
         get() = repository.updates.filterIsInstance()
 
@@ -1813,6 +1823,9 @@ internal class TdlClientImpl internal constructor(
     override val ownedStarCountUpdates: Flow<UpdateOwnedStarCount>
         get() = repository.updates.filterIsInstance()
 
+    override val ownedTonCountUpdates: Flow<UpdateOwnedTonCount>
+        get() = repository.updates.filterIsInstance()
+
     override val chatRevenueAmountUpdates: Flow<UpdateChatRevenueAmount>
         get() = repository.updates.filterIsInstance()
 
@@ -2075,6 +2088,19 @@ internal class TdlClientImpl internal constructor(
         return repository.send(function = function)
     }
 
+    override suspend fun addOffer(
+        chatId: Long,
+        messageId: Long,
+        options: MessageSendOptions,
+    ): TdlResult<Message> {
+        val function = AddOffer(
+            chatId = chatId,
+            messageId = messageId,
+            options = options,
+        )
+        return repository.send(function = function)
+    }
+
     override suspend fun addPendingPaidMessageReaction(
         chatId: Long,
         messageId: Long,
@@ -2281,6 +2307,19 @@ internal class TdlClientImpl internal constructor(
     override suspend fun applyPremiumGiftCode(code: String): TdlResult<Ok> {
         val function = ApplyPremiumGiftCode(
             code = code,
+        )
+        return repository.send(function = function)
+    }
+
+    override suspend fun approveSuggestedPost(
+        chatId: Long,
+        messageId: Long,
+        sendDate: Int,
+    ): TdlResult<Ok> {
+        val function = ApproveSuggestedPost(
+            chatId = chatId,
+            messageId = messageId,
+            sendDate = sendDate,
         )
         return repository.send(function = function)
     }
@@ -2929,6 +2968,19 @@ internal class TdlClientImpl internal constructor(
         val function = DeclineGroupCallInvitation(
             chatId = chatId,
             messageId = messageId,
+        )
+        return repository.send(function = function)
+    }
+
+    override suspend fun declineSuggestedPost(
+        chatId: Long,
+        messageId: Long,
+        comment: String,
+    ): TdlResult<Ok> {
+        val function = DeclineSuggestedPost(
+            chatId = chatId,
+            messageId = messageId,
+            comment = comment,
         )
         return repository.send(function = function)
     }
@@ -4493,7 +4545,7 @@ internal class TdlClientImpl internal constructor(
 
     override suspend fun getChatRevenueTransactions(
         chatId: Long,
-        offset: Int,
+        offset: String,
         limit: Int,
     ): TdlResult<ChatRevenueTransactions> {
         val function = GetChatRevenueTransactions(
@@ -5841,7 +5893,7 @@ internal class TdlClientImpl internal constructor(
     override suspend fun getStarTransactions(
         ownerId: MessageSender,
         subscriptionId: String,
-        direction: StarTransactionDirection?,
+        direction: TransactionDirection?,
         offset: String,
         limit: Int,
     ): TdlResult<StarTransactions> {
@@ -6111,6 +6163,19 @@ internal class TdlClientImpl internal constructor(
 
     override suspend fun getTimeZones(): TdlResult<TimeZones> {
         val function = GetTimeZones()
+        return repository.send(function = function)
+    }
+
+    override suspend fun getTonTransactions(
+        direction: TransactionDirection?,
+        offset: String,
+        limit: Int,
+    ): TdlResult<TonTransactions> {
+        val function = GetTonTransactions(
+            direction = direction,
+            offset = offset,
+            limit = limit,
+        )
         return repository.send(function = function)
     }
 

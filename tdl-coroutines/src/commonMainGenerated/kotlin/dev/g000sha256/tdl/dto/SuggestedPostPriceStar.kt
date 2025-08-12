@@ -19,18 +19,17 @@ package dev.g000sha256.tdl.dto
 import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
+import kotlin.Long
 import kotlin.String
 
 /**
- * Describes a refund for failed withdrawal of earnings.
+ * Describes price of a suggested post in Telegram Stars.
  *
- * @property refundDate Point in time (Unix timestamp) when the transaction was refunded.
- * @property provider Name of the payment provider.
+ * @property starCount The amount of Telegram Stars agreed to pay for the post; getOption(&quot;suggested_post_star_count_min&quot;)-getOption(&quot;suggested_post_star_count_max&quot;).
  */
-public class ChatRevenueTransactionTypeRefund public constructor(
-    public val refundDate: Int,
-    public val provider: String,
-) : ChatRevenueTransactionType() {
+public class SuggestedPostPriceStar public constructor(
+    public val starCount: Long,
+) : SuggestedPostPrice() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true
@@ -41,29 +40,22 @@ public class ChatRevenueTransactionTypeRefund public constructor(
         if (other::class != this::class) {
             return false
         }
-        other as ChatRevenueTransactionTypeRefund
-        if (other.refundDate != refundDate) {
-            return false
-        }
-        return other.provider == provider
+        other as SuggestedPostPriceStar
+        return other.starCount == starCount
     }
 
     override fun hashCode(): Int {
         var hashCode = this::class.hashCode()
-        hashCode = 31 * hashCode + refundDate.hashCode()
-        hashCode = 31 * hashCode + provider.hashCode()
+        hashCode = 31 * hashCode + starCount.hashCode()
         return hashCode
     }
 
     override fun toString(): String {
         return buildString {
-            append("ChatRevenueTransactionTypeRefund")
+            append("SuggestedPostPriceStar")
             append("(")
-            append("refundDate=")
-            append(refundDate)
-            append(", ")
-            append("provider=")
-            append(provider)
+            append("starCount=")
+            append(starCount)
             append(")")
         }
     }

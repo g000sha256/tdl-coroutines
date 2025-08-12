@@ -37,7 +37,7 @@ import kotlin.String
  * @property permissions Actions that non-administrator chat members are allowed to take in the chat.
  * @property lastMessage Last message in the chat; may be null if none or unknown.
  * @property positions Positions of the chat in chat lists.
- * @property chatLists Chat lists to which the chat belongs. A chat can have a non-zero position in a chat list even it doesn't belong to the chat list and have no position in a chat list even it belongs to the chat list.
+ * @property chatLists Chat lists to which the chat belongs. A chat can have a non-zero position in a chat list even if it doesn't belong to the chat list and have no position in a chat list even if it belongs to the chat list.
  * @property messageSenderId Identifier of a user or chat that is selected to send messages in the chat; may be null if the user can't change message sender.
  * @property blockList Block list to which the chat is added; may be null if none.
  * @property hasProtectedContent True, if chat content can't be saved locally, forwarded, or copied.

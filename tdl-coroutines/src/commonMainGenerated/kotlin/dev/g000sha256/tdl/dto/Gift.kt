@@ -26,6 +26,7 @@ import kotlin.String
  * Describes a gift that can be sent to another user or channel chat.
  *
  * @property id Unique identifier of the gift.
+ * @property publisherChatId Identifier of the chat that published the gift; 0 if none.
  * @property sticker The sticker representing the gift.
  * @property starCount Number of Telegram Stars that must be paid for the gift.
  * @property defaultSellStarCount Number of Telegram Stars that can be claimed by the receiver instead of the regular gift by default. If the gift was paid with just bought Telegram Stars, then full value can be claimed.
@@ -38,6 +39,7 @@ import kotlin.String
  */
 public class Gift public constructor(
     public val id: Long,
+    public val publisherChatId: Long,
     public val sticker: Sticker,
     public val starCount: Long,
     public val defaultSellStarCount: Long,
@@ -60,6 +62,9 @@ public class Gift public constructor(
         }
         other as Gift
         if (other.id != id) {
+            return false
+        }
+        if (other.publisherChatId != publisherChatId) {
             return false
         }
         if (other.sticker != sticker) {
@@ -92,6 +97,7 @@ public class Gift public constructor(
     override fun hashCode(): Int {
         var hashCode = this::class.hashCode()
         hashCode = 31 * hashCode + id.hashCode()
+        hashCode = 31 * hashCode + publisherChatId.hashCode()
         hashCode = 31 * hashCode + sticker.hashCode()
         hashCode = 31 * hashCode + starCount.hashCode()
         hashCode = 31 * hashCode + defaultSellStarCount.hashCode()
@@ -110,6 +116,9 @@ public class Gift public constructor(
             append("(")
             append("id=")
             append(id)
+            append(", ")
+            append("publisherChatId=")
+            append(publisherChatId)
             append(", ")
             append("sticker=")
             append(sticker)

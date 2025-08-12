@@ -17,14 +17,14 @@
 package dev.g000sha256.tdl.function
 
 import dev.g000sha256.tdl.dto.MessageSender
-import dev.g000sha256.tdl.dto.StarTransactionDirection
+import dev.g000sha256.tdl.dto.TransactionDirection
 import kotlin.Int
 import kotlin.String
 
 internal class GetStarTransactions internal constructor(
     internal val ownerId: MessageSender,
     internal val subscriptionId: String,
-    internal val direction: StarTransactionDirection?,
+    internal val direction: TransactionDirection?,
     internal val offset: String,
     internal val limit: Int,
 )

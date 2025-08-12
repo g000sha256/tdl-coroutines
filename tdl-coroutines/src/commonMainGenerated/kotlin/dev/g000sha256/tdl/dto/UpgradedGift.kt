@@ -26,6 +26,7 @@ import kotlin.String
  * Describes an upgraded gift that can be transferred to another owner or transferred to the TON blockchain as an NFT.
  *
  * @property id Unique identifier of the gift.
+ * @property publisherChatId Identifier of the chat that published the gift; 0 if none.
  * @property title The title of the upgraded gift.
  * @property name Unique name of the upgraded gift that can be used with internalLinkTypeUpgradedGift or sendResoldGift.
  * @property number Unique number of the upgraded gift among gifts upgraded from the same gift.
@@ -43,6 +44,7 @@ import kotlin.String
  */
 public class UpgradedGift public constructor(
     public val id: Long,
+    public val publisherChatId: Long,
     public val title: String,
     public val name: String,
     public val number: Int,
@@ -70,6 +72,9 @@ public class UpgradedGift public constructor(
         }
         other as UpgradedGift
         if (other.id != id) {
+            return false
+        }
+        if (other.publisherChatId != publisherChatId) {
             return false
         }
         if (other.title != title) {
@@ -117,6 +122,7 @@ public class UpgradedGift public constructor(
     override fun hashCode(): Int {
         var hashCode = this::class.hashCode()
         hashCode = 31 * hashCode + id.hashCode()
+        hashCode = 31 * hashCode + publisherChatId.hashCode()
         hashCode = 31 * hashCode + title.hashCode()
         hashCode = 31 * hashCode + name.hashCode()
         hashCode = 31 * hashCode + number.hashCode()
@@ -140,6 +146,9 @@ public class UpgradedGift public constructor(
             append("(")
             append("id=")
             append(id)
+            append(", ")
+            append("publisherChatId=")
+            append(publisherChatId)
             append(", ")
             append("title=")
             append(title)

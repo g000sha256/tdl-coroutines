@@ -34,7 +34,7 @@ import kotlin.String
  * @property creatorId Identifier of the creator of the topic.
  * @property isGeneral True, if the topic is the General topic list.
  * @property isOutgoing True, if the topic was created by the current user.
- * @property isClosed True, if the topic is closed.
+ * @property isClosed True, if the topic is closed. If the topic is closed, then the user must have canManageTopics administrator right in the supergroup or must be the creator of the topic to send messages there.
  * @property isHidden True, if the topic is hidden above the topic list and closed; for General topic only.
  */
 public class ForumTopicInfo public constructor(
