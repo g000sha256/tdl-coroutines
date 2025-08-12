@@ -25,7 +25,7 @@ jobs:
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
         with:
-          gradle-version: 8.14.1
+          gradle-version: 8.14.3
           cache-disabled: false
 
       - name: Assemble libraries

@@ -1828,6 +1828,6 @@ private fun TypeName(packageName: String, simpleName: String, generics: List<Typ
 private fun ClassName(packageName: String, simpleName: String): ClassName {
     return ClassName(
         packageName = packageName,
-        simpleNames = buildList { add(element = simpleName) },
+        simpleNames = listOf(element = simpleName),
     )
 }
