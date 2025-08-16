@@ -110,8 +110,10 @@ internal class TdlEngine(
         coroutineScope.launch(context = coroutineDispatcherReceiver) {
             while (true) {
                 val json = native.receive(timeoutInSeconds = MAX_TIMEOUT)
-                val triple = deserializer.deserialize(json = json)
-                responsesMutableSharedFlow.emit(value = triple)
+                if (json != null) {
+                    val triple = deserializer.deserialize(json = json)
+                    responsesMutableSharedFlow.emit(value = triple)
+                }
             }
         }
     }

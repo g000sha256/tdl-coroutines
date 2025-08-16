@@ -12,7 +12,7 @@ internal class JsonClient {
 
     external fun send(clientId: Int, request: String)
 
-    external fun receive(timeoutInSeconds: Double): String
+    external fun receive(timeoutInSeconds: Double): String?
 
     external fun execute(request: String): String
 
