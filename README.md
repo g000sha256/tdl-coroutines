@@ -6,7 +6,9 @@
 ![Platform](https://img.shields.io/static/v1?label=Platform&labelColor=black&message=Android&color=green)
 ![Platform](https://img.shields.io/static/v1?label=Platform&labelColor=black&message=JVM&color=orange)
 
-This library provides a `Kotlin Coroutines` client for the `Telegram Database Library` ([TDLib](https://github.com/tdlib/td)).
+`TDL Coroutines` is a `Kotlin Multiplatform` library that provides a coroutine-based client for the
+`Telegram Database Library` ([TDLib](https://github.com/tdlib/td)). It simplifies sending requests and handling updates, making
+integration with `TDLib` more straightforward and idiomatic for `Kotlin` and `Kotlin Multiplatform` projects.
 
 ## Gradle setup
 
@@ -34,6 +36,9 @@ dependencies {
 ```kotlin
 val client = TdlClient.create()
 ```
+
+> [!IMPORTANT]
+> To start using `TdlClient`, you should first subscribe to important updates, and then call any request method.
 
 ### How to subscribe to updates
 
@@ -87,3 +92,6 @@ coroutineScope.launch {
     }
 }
 ```
+
+> [!TIP]
+> You can use the `.toResult()` extension to convert the `TdlResult<T>` into the standard `Kotlin` `Result<T>`.
