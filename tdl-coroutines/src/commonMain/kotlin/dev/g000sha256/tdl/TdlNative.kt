@@ -1,38 +1,41 @@
+/*
+ * Copyright 2025 Georgii Ippolitov (g000sha256)
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package dev.g000sha256.tdl
 
-import org.drinkless.tdlib.Client
-import org.drinkless.tdlib.TdApi
+import org.drinkless.tdlib.JsonClient
 
 internal class TdlNative {
 
-    private val client = Client()
-
-    init {
-        client.nativeClientExecute(
-            request = TdApi.SetLogVerbosityLevel(newVerbosityLevel = 0),
-        )
-        client.nativeClientExecute(
-            request = TdApi.SetLogStream(
-                logStream = TdApi.LogStreamEmpty(),
-            ),
-        )
-    }
+    private val jsonClient = JsonClient()
 
     fun createClientId(): Int {
-        return client.createNativeClient()
+        return jsonClient.createClientId()
     }
 
-    fun send(clientId: Int, requestId: Long, request: TdApi.Function<*>) {
-        client.nativeClientSend(clientId, requestId, request)
+    fun send(clientId: Int, request: String) {
+        jsonClient.send(clientId = clientId, request = request)
     }
 
-    fun receive(
-        clientIds: IntArray,
-        requestIds: LongArray,
-        responses: Array<TdApi.Object?>,
-        timeoutInSeconds: Double,
-    ): Int {
-        return client.nativeClientReceive(clientIds, requestIds, responses, timeoutInSeconds)
+    fun receive(timeoutInSeconds: Double): String? {
+        return jsonClient.receive(timeoutInSeconds = timeoutInSeconds)
+    }
+
+    fun execute(request: String): String {
+        return jsonClient.execute(request = request)
     }
 
 }

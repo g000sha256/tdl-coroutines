@@ -24,9 +24,12 @@ import kotlin.String
 /**
  * Contains properties of a message and describes actions that can be done with the message right now.
  *
+ * @property canAddOffer True, if an offer can be added to the message using addOffer.
  * @property canAddTasks True, if tasks can be added to the message's checklist using addChecklistTasks if the current user has Telegram Premium subscription.
+ * @property canBeApproved True, if the message is a suggested post that can be approved by the user using approveSuggestedPost.
  * @property canBeCopied True, if content of the message can be copied using inputMessageForwarded or forwardMessages with copy options.
  * @property canBeCopiedToSecretChat True, if content of the message can be copied to a secret chat using inputMessageForwarded or forwardMessages with copy options.
+ * @property canBeDeclined True, if the message is a suggested post that can be declined by the user using declineSuggestedPost.
  * @property canBeDeletedOnlyForSelf True, if the message can be deleted only for the current user while other users will continue to see it using the method deleteMessages with revoke == false.
  * @property canBeDeletedForAllUsers True, if the message can be deleted for all users using the method deleteMessages with revoke == true.
  * @property canBeEdited True, if the message can be edited using the methods editMessageText, editMessageCaption, or editMessageReplyMarkup. For live location, poll, and checklist messages this fields shows whether editMessageLiveLocation, stopPoll, or editMessageChecklist respectively can be used with this message.
@@ -39,6 +42,7 @@ import kotlin.String
  * @property canBeSharedInStory True, if the message can be shared in a story using inputStoryAreaTypeMessage.
  * @property canEditMedia True, if the message can be edited using the method editMessageMedia.
  * @property canEditSchedulingState True, if scheduling state of the message can be edited.
+ * @property canEditSuggestedPostInfo True, if another price or post send time can be suggested using addOffer.
  * @property canGetAuthor True, if author of the message sent on behalf of a chat can be received through getMessageAuthor.
  * @property canGetEmbeddingCode True, if code for message embedding can be received using getMessageEmbeddingCode.
  * @property canGetLink True, if a link can be generated for the message using getMessageLink.
@@ -57,9 +61,12 @@ import kotlin.String
  * @property needShowStatistics True, if message statistics must be available from context menu of the message.
  */
 public class MessageProperties public constructor(
+    public val canAddOffer: Boolean,
     public val canAddTasks: Boolean,
+    public val canBeApproved: Boolean,
     public val canBeCopied: Boolean,
     public val canBeCopiedToSecretChat: Boolean,
+    public val canBeDeclined: Boolean,
     public val canBeDeletedOnlyForSelf: Boolean,
     public val canBeDeletedForAllUsers: Boolean,
     public val canBeEdited: Boolean,
@@ -72,6 +79,7 @@ public class MessageProperties public constructor(
     public val canBeSharedInStory: Boolean,
     public val canEditMedia: Boolean,
     public val canEditSchedulingState: Boolean,
+    public val canEditSuggestedPostInfo: Boolean,
     public val canGetAuthor: Boolean,
     public val canGetEmbeddingCode: Boolean,
     public val canGetLink: Boolean,
@@ -100,13 +108,22 @@ public class MessageProperties public constructor(
             return false
         }
         other as MessageProperties
+        if (other.canAddOffer != canAddOffer) {
+            return false
+        }
         if (other.canAddTasks != canAddTasks) {
+            return false
+        }
+        if (other.canBeApproved != canBeApproved) {
             return false
         }
         if (other.canBeCopied != canBeCopied) {
             return false
         }
         if (other.canBeCopiedToSecretChat != canBeCopiedToSecretChat) {
+            return false
+        }
+        if (other.canBeDeclined != canBeDeclined) {
             return false
         }
         if (other.canBeDeletedOnlyForSelf != canBeDeletedOnlyForSelf) {
@@ -143,6 +160,9 @@ public class MessageProperties public constructor(
             return false
         }
         if (other.canEditSchedulingState != canEditSchedulingState) {
+            return false
+        }
+        if (other.canEditSuggestedPostInfo != canEditSuggestedPostInfo) {
             return false
         }
         if (other.canGetAuthor != canGetAuthor) {
@@ -195,9 +215,12 @@ public class MessageProperties public constructor(
 
     override fun hashCode(): Int {
         var hashCode = this::class.hashCode()
+        hashCode = 31 * hashCode + canAddOffer.hashCode()
         hashCode = 31 * hashCode + canAddTasks.hashCode()
+        hashCode = 31 * hashCode + canBeApproved.hashCode()
         hashCode = 31 * hashCode + canBeCopied.hashCode()
         hashCode = 31 * hashCode + canBeCopiedToSecretChat.hashCode()
+        hashCode = 31 * hashCode + canBeDeclined.hashCode()
         hashCode = 31 * hashCode + canBeDeletedOnlyForSelf.hashCode()
         hashCode = 31 * hashCode + canBeDeletedForAllUsers.hashCode()
         hashCode = 31 * hashCode + canBeEdited.hashCode()
@@ -210,6 +233,7 @@ public class MessageProperties public constructor(
         hashCode = 31 * hashCode + canBeSharedInStory.hashCode()
         hashCode = 31 * hashCode + canEditMedia.hashCode()
         hashCode = 31 * hashCode + canEditSchedulingState.hashCode()
+        hashCode = 31 * hashCode + canEditSuggestedPostInfo.hashCode()
         hashCode = 31 * hashCode + canGetAuthor.hashCode()
         hashCode = 31 * hashCode + canGetEmbeddingCode.hashCode()
         hashCode = 31 * hashCode + canGetLink.hashCode()
@@ -233,14 +257,23 @@ public class MessageProperties public constructor(
         return buildString {
             append("MessageProperties")
             append("(")
+            append("canAddOffer=")
+            append(canAddOffer)
+            append(", ")
             append("canAddTasks=")
             append(canAddTasks)
+            append(", ")
+            append("canBeApproved=")
+            append(canBeApproved)
             append(", ")
             append("canBeCopied=")
             append(canBeCopied)
             append(", ")
             append("canBeCopiedToSecretChat=")
             append(canBeCopiedToSecretChat)
+            append(", ")
+            append("canBeDeclined=")
+            append(canBeDeclined)
             append(", ")
             append("canBeDeletedOnlyForSelf=")
             append(canBeDeletedOnlyForSelf)
@@ -277,6 +310,9 @@ public class MessageProperties public constructor(
             append(", ")
             append("canEditSchedulingState=")
             append(canEditSchedulingState)
+            append(", ")
+            append("canEditSuggestedPostInfo=")
+            append(canEditSuggestedPostInfo)
             append(", ")
             append("canGetAuthor=")
             append(canGetAuthor)

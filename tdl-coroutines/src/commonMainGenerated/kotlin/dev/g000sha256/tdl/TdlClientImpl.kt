@@ -315,7 +315,6 @@ import dev.g000sha256.tdl.dto.StarPaymentOptions
 import dev.g000sha256.tdl.dto.StarRevenueStatistics
 import dev.g000sha256.tdl.dto.StarSubscriptionPricing
 import dev.g000sha256.tdl.dto.StarSubscriptions
-import dev.g000sha256.tdl.dto.StarTransactionDirection
 import dev.g000sha256.tdl.dto.StarTransactions
 import dev.g000sha256.tdl.dto.StatisticalGraph
 import dev.g000sha256.tdl.dto.Sticker
@@ -354,7 +353,9 @@ import dev.g000sha256.tdl.dto.TextEntities
 import dev.g000sha256.tdl.dto.TextParseMode
 import dev.g000sha256.tdl.dto.ThemeParameters
 import dev.g000sha256.tdl.dto.TimeZones
+import dev.g000sha256.tdl.dto.TonTransactions
 import dev.g000sha256.tdl.dto.TopChatCategory
+import dev.g000sha256.tdl.dto.TransactionDirection
 import dev.g000sha256.tdl.dto.TrendingStickerSets
 import dev.g000sha256.tdl.dto.Update
 import dev.g000sha256.tdl.dto.UpdateAccentColors
@@ -454,6 +455,7 @@ import dev.g000sha256.tdl.dto.UpdateMessageReactions
 import dev.g000sha256.tdl.dto.UpdateMessageSendAcknowledged
 import dev.g000sha256.tdl.dto.UpdateMessageSendFailed
 import dev.g000sha256.tdl.dto.UpdateMessageSendSucceeded
+import dev.g000sha256.tdl.dto.UpdateMessageSuggestedPostInfo
 import dev.g000sha256.tdl.dto.UpdateMessageUnreadReactions
 import dev.g000sha256.tdl.dto.UpdateNewBusinessCallbackQuery
 import dev.g000sha256.tdl.dto.UpdateNewBusinessMessage
@@ -473,6 +475,7 @@ import dev.g000sha256.tdl.dto.UpdateNotification
 import dev.g000sha256.tdl.dto.UpdateNotificationGroup
 import dev.g000sha256.tdl.dto.UpdateOption
 import dev.g000sha256.tdl.dto.UpdateOwnedStarCount
+import dev.g000sha256.tdl.dto.UpdateOwnedTonCount
 import dev.g000sha256.tdl.dto.UpdatePaidMediaPurchased
 import dev.g000sha256.tdl.dto.UpdatePoll
 import dev.g000sha256.tdl.dto.UpdatePollAnswer
@@ -533,6 +536,887 @@ import dev.g000sha256.tdl.dto.VideoMessageAdvertisements
 import dev.g000sha256.tdl.dto.WebAppInfo
 import dev.g000sha256.tdl.dto.WebAppOpenParameters
 import dev.g000sha256.tdl.dto.WebPageInstantView
+import dev.g000sha256.tdl.function.AcceptCall
+import dev.g000sha256.tdl.function.AcceptTermsOfService
+import dev.g000sha256.tdl.function.ActivateStoryStealthMode
+import dev.g000sha256.tdl.function.AddBotMediaPreview
+import dev.g000sha256.tdl.function.AddChatFolderByInviteLink
+import dev.g000sha256.tdl.function.AddChatMember
+import dev.g000sha256.tdl.function.AddChatMembers
+import dev.g000sha256.tdl.function.AddChatToList
+import dev.g000sha256.tdl.function.AddChecklistTasks
+import dev.g000sha256.tdl.function.AddContact
+import dev.g000sha256.tdl.function.AddCustomServerLanguagePack
+import dev.g000sha256.tdl.function.AddFavoriteSticker
+import dev.g000sha256.tdl.function.AddFileToDownloads
+import dev.g000sha256.tdl.function.AddLocalMessage
+import dev.g000sha256.tdl.function.AddLogMessage
+import dev.g000sha256.tdl.function.AddMessageReaction
+import dev.g000sha256.tdl.function.AddNetworkStatistics
+import dev.g000sha256.tdl.function.AddOffer
+import dev.g000sha256.tdl.function.AddPendingPaidMessageReaction
+import dev.g000sha256.tdl.function.AddProxy
+import dev.g000sha256.tdl.function.AddQuickReplyShortcutInlineQueryResultMessage
+import dev.g000sha256.tdl.function.AddQuickReplyShortcutMessage
+import dev.g000sha256.tdl.function.AddQuickReplyShortcutMessageAlbum
+import dev.g000sha256.tdl.function.AddRecentSticker
+import dev.g000sha256.tdl.function.AddRecentlyFoundChat
+import dev.g000sha256.tdl.function.AddSavedAnimation
+import dev.g000sha256.tdl.function.AddSavedNotificationSound
+import dev.g000sha256.tdl.function.AddStickerToSet
+import dev.g000sha256.tdl.function.AllowBotToSendMessages
+import dev.g000sha256.tdl.function.AllowUnpaidMessagesFromUser
+import dev.g000sha256.tdl.function.AnswerCallbackQuery
+import dev.g000sha256.tdl.function.AnswerCustomQuery
+import dev.g000sha256.tdl.function.AnswerInlineQuery
+import dev.g000sha256.tdl.function.AnswerPreCheckoutQuery
+import dev.g000sha256.tdl.function.AnswerShippingQuery
+import dev.g000sha256.tdl.function.AnswerWebAppQuery
+import dev.g000sha256.tdl.function.ApplyPremiumGiftCode
+import dev.g000sha256.tdl.function.ApproveSuggestedPost
+import dev.g000sha256.tdl.function.AssignStoreTransaction
+import dev.g000sha256.tdl.function.BanChatMember
+import dev.g000sha256.tdl.function.BanGroupCallParticipants
+import dev.g000sha256.tdl.function.BlockMessageSenderFromReplies
+import dev.g000sha256.tdl.function.BoostChat
+import dev.g000sha256.tdl.function.CanBotSendMessages
+import dev.g000sha256.tdl.function.CanPostStory
+import dev.g000sha256.tdl.function.CanPurchaseFromStore
+import dev.g000sha256.tdl.function.CanSendMessageToUser
+import dev.g000sha256.tdl.function.CanTransferOwnership
+import dev.g000sha256.tdl.function.CancelDownloadFile
+import dev.g000sha256.tdl.function.CancelPasswordReset
+import dev.g000sha256.tdl.function.CancelPreliminaryUploadFile
+import dev.g000sha256.tdl.function.CancelRecoveryEmailAddressVerification
+import dev.g000sha256.tdl.function.ChangeImportedContacts
+import dev.g000sha256.tdl.function.ChangeStickerSet
+import dev.g000sha256.tdl.function.CheckAuthenticationBotToken
+import dev.g000sha256.tdl.function.CheckAuthenticationCode
+import dev.g000sha256.tdl.function.CheckAuthenticationEmailCode
+import dev.g000sha256.tdl.function.CheckAuthenticationPassword
+import dev.g000sha256.tdl.function.CheckAuthenticationPasswordRecoveryCode
+import dev.g000sha256.tdl.function.CheckAuthenticationPremiumPurchase
+import dev.g000sha256.tdl.function.CheckChatFolderInviteLink
+import dev.g000sha256.tdl.function.CheckChatInviteLink
+import dev.g000sha256.tdl.function.CheckChatUsername
+import dev.g000sha256.tdl.function.CheckCreatedPublicChatsLimit
+import dev.g000sha256.tdl.function.CheckEmailAddressVerificationCode
+import dev.g000sha256.tdl.function.CheckLoginEmailAddressCode
+import dev.g000sha256.tdl.function.CheckPasswordRecoveryCode
+import dev.g000sha256.tdl.function.CheckPhoneNumberCode
+import dev.g000sha256.tdl.function.CheckPremiumGiftCode
+import dev.g000sha256.tdl.function.CheckQuickReplyShortcutName
+import dev.g000sha256.tdl.function.CheckRecoveryEmailAddressCode
+import dev.g000sha256.tdl.function.CheckStickerSetName
+import dev.g000sha256.tdl.function.CheckWebAppFileDownload
+import dev.g000sha256.tdl.function.CleanFileName
+import dev.g000sha256.tdl.function.ClearAllDraftMessages
+import dev.g000sha256.tdl.function.ClearAutosaveSettingsExceptions
+import dev.g000sha256.tdl.function.ClearImportedContacts
+import dev.g000sha256.tdl.function.ClearRecentEmojiStatuses
+import dev.g000sha256.tdl.function.ClearRecentReactions
+import dev.g000sha256.tdl.function.ClearRecentStickers
+import dev.g000sha256.tdl.function.ClearRecentlyFoundChats
+import dev.g000sha256.tdl.function.ClearSearchedForTags
+import dev.g000sha256.tdl.function.ClickAnimatedEmojiMessage
+import dev.g000sha256.tdl.function.ClickChatSponsoredMessage
+import dev.g000sha256.tdl.function.ClickPremiumSubscriptionButton
+import dev.g000sha256.tdl.function.ClickVideoMessageAdvertisement
+import dev.g000sha256.tdl.function.Close
+import dev.g000sha256.tdl.function.CloseChat
+import dev.g000sha256.tdl.function.CloseSecretChat
+import dev.g000sha256.tdl.function.CloseStory
+import dev.g000sha256.tdl.function.CloseWebApp
+import dev.g000sha256.tdl.function.CommitPendingPaidMessageReactions
+import dev.g000sha256.tdl.function.ConfirmQrCodeAuthentication
+import dev.g000sha256.tdl.function.ConfirmSession
+import dev.g000sha256.tdl.function.ConnectAffiliateProgram
+import dev.g000sha256.tdl.function.CreateBasicGroupChat
+import dev.g000sha256.tdl.function.CreateBusinessChatLink
+import dev.g000sha256.tdl.function.CreateCall
+import dev.g000sha256.tdl.function.CreateChatFolder
+import dev.g000sha256.tdl.function.CreateChatFolderInviteLink
+import dev.g000sha256.tdl.function.CreateChatInviteLink
+import dev.g000sha256.tdl.function.CreateChatSubscriptionInviteLink
+import dev.g000sha256.tdl.function.CreateForumTopic
+import dev.g000sha256.tdl.function.CreateGroupCall
+import dev.g000sha256.tdl.function.CreateInvoiceLink
+import dev.g000sha256.tdl.function.CreateNewBasicGroupChat
+import dev.g000sha256.tdl.function.CreateNewSecretChat
+import dev.g000sha256.tdl.function.CreateNewStickerSet
+import dev.g000sha256.tdl.function.CreateNewSupergroupChat
+import dev.g000sha256.tdl.function.CreatePrivateChat
+import dev.g000sha256.tdl.function.CreateSecretChat
+import dev.g000sha256.tdl.function.CreateSupergroupChat
+import dev.g000sha256.tdl.function.CreateTemporaryPassword
+import dev.g000sha256.tdl.function.CreateVideoChat
+import dev.g000sha256.tdl.function.DeclineGroupCallInvitation
+import dev.g000sha256.tdl.function.DeclineSuggestedPost
+import dev.g000sha256.tdl.function.DecryptGroupCallData
+import dev.g000sha256.tdl.function.DeleteAccount
+import dev.g000sha256.tdl.function.DeleteAllCallMessages
+import dev.g000sha256.tdl.function.DeleteAllRevokedChatInviteLinks
+import dev.g000sha256.tdl.function.DeleteBotMediaPreviews
+import dev.g000sha256.tdl.function.DeleteBusinessChatLink
+import dev.g000sha256.tdl.function.DeleteBusinessConnectedBot
+import dev.g000sha256.tdl.function.DeleteBusinessMessages
+import dev.g000sha256.tdl.function.DeleteBusinessStory
+import dev.g000sha256.tdl.function.DeleteChat
+import dev.g000sha256.tdl.function.DeleteChatBackground
+import dev.g000sha256.tdl.function.DeleteChatFolder
+import dev.g000sha256.tdl.function.DeleteChatFolderInviteLink
+import dev.g000sha256.tdl.function.DeleteChatHistory
+import dev.g000sha256.tdl.function.DeleteChatMessagesByDate
+import dev.g000sha256.tdl.function.DeleteChatMessagesBySender
+import dev.g000sha256.tdl.function.DeleteChatReplyMarkup
+import dev.g000sha256.tdl.function.DeleteCommands
+import dev.g000sha256.tdl.function.DeleteDefaultBackground
+import dev.g000sha256.tdl.function.DeleteDirectMessagesChatTopicHistory
+import dev.g000sha256.tdl.function.DeleteDirectMessagesChatTopicMessagesByDate
+import dev.g000sha256.tdl.function.DeleteFile
+import dev.g000sha256.tdl.function.DeleteForumTopic
+import dev.g000sha256.tdl.function.DeleteLanguagePack
+import dev.g000sha256.tdl.function.DeleteMessages
+import dev.g000sha256.tdl.function.DeletePassportElement
+import dev.g000sha256.tdl.function.DeleteProfilePhoto
+import dev.g000sha256.tdl.function.DeleteQuickReplyShortcut
+import dev.g000sha256.tdl.function.DeleteQuickReplyShortcutMessages
+import dev.g000sha256.tdl.function.DeleteRevokedChatInviteLink
+import dev.g000sha256.tdl.function.DeleteSavedCredentials
+import dev.g000sha256.tdl.function.DeleteSavedMessagesTopicHistory
+import dev.g000sha256.tdl.function.DeleteSavedMessagesTopicMessagesByDate
+import dev.g000sha256.tdl.function.DeleteSavedOrderInfo
+import dev.g000sha256.tdl.function.DeleteStickerSet
+import dev.g000sha256.tdl.function.DeleteStory
+import dev.g000sha256.tdl.function.Destroy
+import dev.g000sha256.tdl.function.DisableAllSupergroupUsernames
+import dev.g000sha256.tdl.function.DisableProxy
+import dev.g000sha256.tdl.function.DiscardCall
+import dev.g000sha256.tdl.function.DisconnectAffiliateProgram
+import dev.g000sha256.tdl.function.DisconnectAllWebsites
+import dev.g000sha256.tdl.function.DisconnectWebsite
+import dev.g000sha256.tdl.function.DownloadFile
+import dev.g000sha256.tdl.function.EditBotMediaPreview
+import dev.g000sha256.tdl.function.EditBusinessChatLink
+import dev.g000sha256.tdl.function.EditBusinessMessageCaption
+import dev.g000sha256.tdl.function.EditBusinessMessageChecklist
+import dev.g000sha256.tdl.function.EditBusinessMessageLiveLocation
+import dev.g000sha256.tdl.function.EditBusinessMessageMedia
+import dev.g000sha256.tdl.function.EditBusinessMessageReplyMarkup
+import dev.g000sha256.tdl.function.EditBusinessMessageText
+import dev.g000sha256.tdl.function.EditBusinessStory
+import dev.g000sha256.tdl.function.EditChatFolder
+import dev.g000sha256.tdl.function.EditChatFolderInviteLink
+import dev.g000sha256.tdl.function.EditChatInviteLink
+import dev.g000sha256.tdl.function.EditChatSubscriptionInviteLink
+import dev.g000sha256.tdl.function.EditCustomLanguagePackInfo
+import dev.g000sha256.tdl.function.EditForumTopic
+import dev.g000sha256.tdl.function.EditInlineMessageCaption
+import dev.g000sha256.tdl.function.EditInlineMessageLiveLocation
+import dev.g000sha256.tdl.function.EditInlineMessageMedia
+import dev.g000sha256.tdl.function.EditInlineMessageReplyMarkup
+import dev.g000sha256.tdl.function.EditInlineMessageText
+import dev.g000sha256.tdl.function.EditMessageCaption
+import dev.g000sha256.tdl.function.EditMessageChecklist
+import dev.g000sha256.tdl.function.EditMessageLiveLocation
+import dev.g000sha256.tdl.function.EditMessageMedia
+import dev.g000sha256.tdl.function.EditMessageReplyMarkup
+import dev.g000sha256.tdl.function.EditMessageSchedulingState
+import dev.g000sha256.tdl.function.EditMessageText
+import dev.g000sha256.tdl.function.EditProxy
+import dev.g000sha256.tdl.function.EditQuickReplyMessage
+import dev.g000sha256.tdl.function.EditStarSubscription
+import dev.g000sha256.tdl.function.EditStory
+import dev.g000sha256.tdl.function.EditStoryCover
+import dev.g000sha256.tdl.function.EditUserStarSubscription
+import dev.g000sha256.tdl.function.EnableProxy
+import dev.g000sha256.tdl.function.EncryptGroupCallData
+import dev.g000sha256.tdl.function.EndGroupCall
+import dev.g000sha256.tdl.function.EndGroupCallRecording
+import dev.g000sha256.tdl.function.EndGroupCallScreenSharing
+import dev.g000sha256.tdl.function.FinishFileGeneration
+import dev.g000sha256.tdl.function.ForwardMessages
+import dev.g000sha256.tdl.function.GetAccountTtl
+import dev.g000sha256.tdl.function.GetActiveSessions
+import dev.g000sha256.tdl.function.GetAllPassportElements
+import dev.g000sha256.tdl.function.GetAllStickerEmojis
+import dev.g000sha256.tdl.function.GetAnimatedEmoji
+import dev.g000sha256.tdl.function.GetApplicationConfig
+import dev.g000sha256.tdl.function.GetApplicationDownloadLink
+import dev.g000sha256.tdl.function.GetArchiveChatListSettings
+import dev.g000sha256.tdl.function.GetArchivedStickerSets
+import dev.g000sha256.tdl.function.GetAttachedStickerSets
+import dev.g000sha256.tdl.function.GetAttachmentMenuBot
+import dev.g000sha256.tdl.function.GetAuthorizationState
+import dev.g000sha256.tdl.function.GetAutoDownloadSettingsPresets
+import dev.g000sha256.tdl.function.GetAutosaveSettings
+import dev.g000sha256.tdl.function.GetAvailableChatBoostSlots
+import dev.g000sha256.tdl.function.GetAvailableGifts
+import dev.g000sha256.tdl.function.GetBackgroundUrl
+import dev.g000sha256.tdl.function.GetBankCardInfo
+import dev.g000sha256.tdl.function.GetBasicGroup
+import dev.g000sha256.tdl.function.GetBasicGroupFullInfo
+import dev.g000sha256.tdl.function.GetBlockedMessageSenders
+import dev.g000sha256.tdl.function.GetBotInfoDescription
+import dev.g000sha256.tdl.function.GetBotInfoShortDescription
+import dev.g000sha256.tdl.function.GetBotMediaPreviewInfo
+import dev.g000sha256.tdl.function.GetBotMediaPreviews
+import dev.g000sha256.tdl.function.GetBotName
+import dev.g000sha256.tdl.function.GetBotSimilarBotCount
+import dev.g000sha256.tdl.function.GetBotSimilarBots
+import dev.g000sha256.tdl.function.GetBusinessAccountStarAmount
+import dev.g000sha256.tdl.function.GetBusinessChatLinkInfo
+import dev.g000sha256.tdl.function.GetBusinessChatLinks
+import dev.g000sha256.tdl.function.GetBusinessConnectedBot
+import dev.g000sha256.tdl.function.GetBusinessConnection
+import dev.g000sha256.tdl.function.GetBusinessFeatures
+import dev.g000sha256.tdl.function.GetCallbackQueryAnswer
+import dev.g000sha256.tdl.function.GetCallbackQueryMessage
+import dev.g000sha256.tdl.function.GetChat
+import dev.g000sha256.tdl.function.GetChatActiveStories
+import dev.g000sha256.tdl.function.GetChatAdministrators
+import dev.g000sha256.tdl.function.GetChatArchivedStories
+import dev.g000sha256.tdl.function.GetChatAvailableMessageSenders
+import dev.g000sha256.tdl.function.GetChatAvailablePaidMessageReactionSenders
+import dev.g000sha256.tdl.function.GetChatBoostFeatures
+import dev.g000sha256.tdl.function.GetChatBoostLevelFeatures
+import dev.g000sha256.tdl.function.GetChatBoostLink
+import dev.g000sha256.tdl.function.GetChatBoostLinkInfo
+import dev.g000sha256.tdl.function.GetChatBoostStatus
+import dev.g000sha256.tdl.function.GetChatBoosts
+import dev.g000sha256.tdl.function.GetChatEventLog
+import dev.g000sha256.tdl.function.GetChatFolder
+import dev.g000sha256.tdl.function.GetChatFolderChatCount
+import dev.g000sha256.tdl.function.GetChatFolderChatsToLeave
+import dev.g000sha256.tdl.function.GetChatFolderDefaultIconName
+import dev.g000sha256.tdl.function.GetChatFolderInviteLinks
+import dev.g000sha256.tdl.function.GetChatFolderNewChats
+import dev.g000sha256.tdl.function.GetChatHistory
+import dev.g000sha256.tdl.function.GetChatInviteLink
+import dev.g000sha256.tdl.function.GetChatInviteLinkCounts
+import dev.g000sha256.tdl.function.GetChatInviteLinkMembers
+import dev.g000sha256.tdl.function.GetChatInviteLinks
+import dev.g000sha256.tdl.function.GetChatJoinRequests
+import dev.g000sha256.tdl.function.GetChatListsToAddChat
+import dev.g000sha256.tdl.function.GetChatMember
+import dev.g000sha256.tdl.function.GetChatMessageByDate
+import dev.g000sha256.tdl.function.GetChatMessageCalendar
+import dev.g000sha256.tdl.function.GetChatMessageCount
+import dev.g000sha256.tdl.function.GetChatMessagePosition
+import dev.g000sha256.tdl.function.GetChatNotificationSettingsExceptions
+import dev.g000sha256.tdl.function.GetChatPinnedMessage
+import dev.g000sha256.tdl.function.GetChatPostedToChatPageStories
+import dev.g000sha256.tdl.function.GetChatRevenueStatistics
+import dev.g000sha256.tdl.function.GetChatRevenueTransactions
+import dev.g000sha256.tdl.function.GetChatRevenueWithdrawalUrl
+import dev.g000sha256.tdl.function.GetChatScheduledMessages
+import dev.g000sha256.tdl.function.GetChatSimilarChatCount
+import dev.g000sha256.tdl.function.GetChatSimilarChats
+import dev.g000sha256.tdl.function.GetChatSparseMessagePositions
+import dev.g000sha256.tdl.function.GetChatSponsoredMessages
+import dev.g000sha256.tdl.function.GetChatStatistics
+import dev.g000sha256.tdl.function.GetChatStoryInteractions
+import dev.g000sha256.tdl.function.GetChats
+import dev.g000sha256.tdl.function.GetChatsForChatFolderInviteLink
+import dev.g000sha256.tdl.function.GetChatsToPostStories
+import dev.g000sha256.tdl.function.GetCloseFriends
+import dev.g000sha256.tdl.function.GetCollectibleItemInfo
+import dev.g000sha256.tdl.function.GetCommands
+import dev.g000sha256.tdl.function.GetConnectedAffiliateProgram
+import dev.g000sha256.tdl.function.GetConnectedAffiliatePrograms
+import dev.g000sha256.tdl.function.GetConnectedWebsites
+import dev.g000sha256.tdl.function.GetContacts
+import dev.g000sha256.tdl.function.GetCountries
+import dev.g000sha256.tdl.function.GetCountryCode
+import dev.g000sha256.tdl.function.GetCountryFlagEmoji
+import dev.g000sha256.tdl.function.GetCreatedPublicChats
+import dev.g000sha256.tdl.function.GetCurrentState
+import dev.g000sha256.tdl.function.GetCurrentWeather
+import dev.g000sha256.tdl.function.GetCustomEmojiReactionAnimations
+import dev.g000sha256.tdl.function.GetCustomEmojiStickers
+import dev.g000sha256.tdl.function.GetDatabaseStatistics
+import dev.g000sha256.tdl.function.GetDeepLinkInfo
+import dev.g000sha256.tdl.function.GetDefaultBackgroundCustomEmojiStickers
+import dev.g000sha256.tdl.function.GetDefaultChatEmojiStatuses
+import dev.g000sha256.tdl.function.GetDefaultChatPhotoCustomEmojiStickers
+import dev.g000sha256.tdl.function.GetDefaultEmojiStatuses
+import dev.g000sha256.tdl.function.GetDefaultMessageAutoDeleteTime
+import dev.g000sha256.tdl.function.GetDefaultProfilePhotoCustomEmojiStickers
+import dev.g000sha256.tdl.function.GetDirectMessagesChatTopic
+import dev.g000sha256.tdl.function.GetDirectMessagesChatTopicHistory
+import dev.g000sha256.tdl.function.GetDirectMessagesChatTopicMessageByDate
+import dev.g000sha256.tdl.function.GetDirectMessagesChatTopicRevenue
+import dev.g000sha256.tdl.function.GetDisallowedChatEmojiStatuses
+import dev.g000sha256.tdl.function.GetEmojiCategories
+import dev.g000sha256.tdl.function.GetEmojiReaction
+import dev.g000sha256.tdl.function.GetEmojiSuggestionsUrl
+import dev.g000sha256.tdl.function.GetExternalLink
+import dev.g000sha256.tdl.function.GetExternalLinkInfo
+import dev.g000sha256.tdl.function.GetFavoriteStickers
+import dev.g000sha256.tdl.function.GetFile
+import dev.g000sha256.tdl.function.GetFileDownloadedPrefixSize
+import dev.g000sha256.tdl.function.GetFileExtension
+import dev.g000sha256.tdl.function.GetFileMimeType
+import dev.g000sha256.tdl.function.GetForumTopic
+import dev.g000sha256.tdl.function.GetForumTopicDefaultIcons
+import dev.g000sha256.tdl.function.GetForumTopicLink
+import dev.g000sha256.tdl.function.GetForumTopics
+import dev.g000sha256.tdl.function.GetGameHighScores
+import dev.g000sha256.tdl.function.GetGiftUpgradePreview
+import dev.g000sha256.tdl.function.GetGiveawayInfo
+import dev.g000sha256.tdl.function.GetGreetingStickers
+import dev.g000sha256.tdl.function.GetGrossingWebAppBots
+import dev.g000sha256.tdl.function.GetGroupCall
+import dev.g000sha256.tdl.function.GetGroupCallParticipants
+import dev.g000sha256.tdl.function.GetGroupsInCommon
+import dev.g000sha256.tdl.function.GetImportedContactCount
+import dev.g000sha256.tdl.function.GetInactiveSupergroupChats
+import dev.g000sha256.tdl.function.GetInlineGameHighScores
+import dev.g000sha256.tdl.function.GetInlineQueryResults
+import dev.g000sha256.tdl.function.GetInstalledBackgrounds
+import dev.g000sha256.tdl.function.GetInstalledStickerSets
+import dev.g000sha256.tdl.function.GetInternalLink
+import dev.g000sha256.tdl.function.GetInternalLinkType
+import dev.g000sha256.tdl.function.GetJsonString
+import dev.g000sha256.tdl.function.GetJsonValue
+import dev.g000sha256.tdl.function.GetKeywordEmojis
+import dev.g000sha256.tdl.function.GetLanguagePackInfo
+import dev.g000sha256.tdl.function.GetLanguagePackString
+import dev.g000sha256.tdl.function.GetLanguagePackStrings
+import dev.g000sha256.tdl.function.GetLinkPreview
+import dev.g000sha256.tdl.function.GetLocalizationTargetInfo
+import dev.g000sha256.tdl.function.GetLogStream
+import dev.g000sha256.tdl.function.GetLogTagVerbosityLevel
+import dev.g000sha256.tdl.function.GetLogTags
+import dev.g000sha256.tdl.function.GetLogVerbosityLevel
+import dev.g000sha256.tdl.function.GetLoginUrl
+import dev.g000sha256.tdl.function.GetLoginUrlInfo
+import dev.g000sha256.tdl.function.GetMainWebApp
+import dev.g000sha256.tdl.function.GetMapThumbnailFile
+import dev.g000sha256.tdl.function.GetMarkdownText
+import dev.g000sha256.tdl.function.GetMe
+import dev.g000sha256.tdl.function.GetMenuButton
+import dev.g000sha256.tdl.function.GetMessage
+import dev.g000sha256.tdl.function.GetMessageAddedReactions
+import dev.g000sha256.tdl.function.GetMessageAuthor
+import dev.g000sha256.tdl.function.GetMessageAvailableReactions
+import dev.g000sha256.tdl.function.GetMessageEffect
+import dev.g000sha256.tdl.function.GetMessageEmbeddingCode
+import dev.g000sha256.tdl.function.GetMessageFileType
+import dev.g000sha256.tdl.function.GetMessageImportConfirmationText
+import dev.g000sha256.tdl.function.GetMessageLink
+import dev.g000sha256.tdl.function.GetMessageLinkInfo
+import dev.g000sha256.tdl.function.GetMessageLocally
+import dev.g000sha256.tdl.function.GetMessageProperties
+import dev.g000sha256.tdl.function.GetMessagePublicForwards
+import dev.g000sha256.tdl.function.GetMessageReadDate
+import dev.g000sha256.tdl.function.GetMessageStatistics
+import dev.g000sha256.tdl.function.GetMessageThread
+import dev.g000sha256.tdl.function.GetMessageThreadHistory
+import dev.g000sha256.tdl.function.GetMessageViewers
+import dev.g000sha256.tdl.function.GetMessages
+import dev.g000sha256.tdl.function.GetNetworkStatistics
+import dev.g000sha256.tdl.function.GetNewChatPrivacySettings
+import dev.g000sha256.tdl.function.GetOption
+import dev.g000sha256.tdl.function.GetOwnedBots
+import dev.g000sha256.tdl.function.GetOwnedStickerSets
+import dev.g000sha256.tdl.function.GetPaidMessageRevenue
+import dev.g000sha256.tdl.function.GetPassportAuthorizationForm
+import dev.g000sha256.tdl.function.GetPassportAuthorizationFormAvailableElements
+import dev.g000sha256.tdl.function.GetPassportElement
+import dev.g000sha256.tdl.function.GetPasswordState
+import dev.g000sha256.tdl.function.GetPaymentForm
+import dev.g000sha256.tdl.function.GetPaymentReceipt
+import dev.g000sha256.tdl.function.GetPhoneNumberInfo
+import dev.g000sha256.tdl.function.GetPhoneNumberInfoSync
+import dev.g000sha256.tdl.function.GetPollVoters
+import dev.g000sha256.tdl.function.GetPreferredCountryLanguage
+import dev.g000sha256.tdl.function.GetPremiumFeatures
+import dev.g000sha256.tdl.function.GetPremiumGiftPaymentOptions
+import dev.g000sha256.tdl.function.GetPremiumGiveawayPaymentOptions
+import dev.g000sha256.tdl.function.GetPremiumInfoSticker
+import dev.g000sha256.tdl.function.GetPremiumLimit
+import dev.g000sha256.tdl.function.GetPremiumState
+import dev.g000sha256.tdl.function.GetPremiumStickerExamples
+import dev.g000sha256.tdl.function.GetPremiumStickers
+import dev.g000sha256.tdl.function.GetPreparedInlineMessage
+import dev.g000sha256.tdl.function.GetProxies
+import dev.g000sha256.tdl.function.GetProxyLink
+import dev.g000sha256.tdl.function.GetPushReceiverId
+import dev.g000sha256.tdl.function.GetReadDatePrivacySettings
+import dev.g000sha256.tdl.function.GetReceivedGift
+import dev.g000sha256.tdl.function.GetReceivedGifts
+import dev.g000sha256.tdl.function.GetRecentEmojiStatuses
+import dev.g000sha256.tdl.function.GetRecentInlineBots
+import dev.g000sha256.tdl.function.GetRecentStickers
+import dev.g000sha256.tdl.function.GetRecentlyOpenedChats
+import dev.g000sha256.tdl.function.GetRecentlyVisitedTMeUrls
+import dev.g000sha256.tdl.function.GetRecommendedChatFolders
+import dev.g000sha256.tdl.function.GetRecommendedChats
+import dev.g000sha256.tdl.function.GetRecoveryEmailAddress
+import dev.g000sha256.tdl.function.GetRemoteFile
+import dev.g000sha256.tdl.function.GetRepliedMessage
+import dev.g000sha256.tdl.function.GetSavedAnimations
+import dev.g000sha256.tdl.function.GetSavedMessagesTags
+import dev.g000sha256.tdl.function.GetSavedMessagesTopicHistory
+import dev.g000sha256.tdl.function.GetSavedMessagesTopicMessageByDate
+import dev.g000sha256.tdl.function.GetSavedNotificationSound
+import dev.g000sha256.tdl.function.GetSavedNotificationSounds
+import dev.g000sha256.tdl.function.GetSavedOrderInfo
+import dev.g000sha256.tdl.function.GetScopeNotificationSettings
+import dev.g000sha256.tdl.function.GetSearchSponsoredChats
+import dev.g000sha256.tdl.function.GetSearchedForTags
+import dev.g000sha256.tdl.function.GetSecretChat
+import dev.g000sha256.tdl.function.GetStarAdAccountUrl
+import dev.g000sha256.tdl.function.GetStarGiftPaymentOptions
+import dev.g000sha256.tdl.function.GetStarGiveawayPaymentOptions
+import dev.g000sha256.tdl.function.GetStarPaymentOptions
+import dev.g000sha256.tdl.function.GetStarRevenueStatistics
+import dev.g000sha256.tdl.function.GetStarSubscriptions
+import dev.g000sha256.tdl.function.GetStarTransactions
+import dev.g000sha256.tdl.function.GetStarWithdrawalUrl
+import dev.g000sha256.tdl.function.GetStatisticalGraph
+import dev.g000sha256.tdl.function.GetStickerEmojis
+import dev.g000sha256.tdl.function.GetStickerOutline
+import dev.g000sha256.tdl.function.GetStickerSet
+import dev.g000sha256.tdl.function.GetStickerSetName
+import dev.g000sha256.tdl.function.GetStickers
+import dev.g000sha256.tdl.function.GetStorageStatistics
+import dev.g000sha256.tdl.function.GetStorageStatisticsFast
+import dev.g000sha256.tdl.function.GetStory
+import dev.g000sha256.tdl.function.GetStoryAvailableReactions
+import dev.g000sha256.tdl.function.GetStoryInteractions
+import dev.g000sha256.tdl.function.GetStoryNotificationSettingsExceptions
+import dev.g000sha256.tdl.function.GetStoryPublicForwards
+import dev.g000sha256.tdl.function.GetStoryStatistics
+import dev.g000sha256.tdl.function.GetSuggestedFileName
+import dev.g000sha256.tdl.function.GetSuggestedStickerSetName
+import dev.g000sha256.tdl.function.GetSuitableDiscussionChats
+import dev.g000sha256.tdl.function.GetSuitablePersonalChats
+import dev.g000sha256.tdl.function.GetSupergroup
+import dev.g000sha256.tdl.function.GetSupergroupFullInfo
+import dev.g000sha256.tdl.function.GetSupergroupMembers
+import dev.g000sha256.tdl.function.GetSupportName
+import dev.g000sha256.tdl.function.GetSupportUser
+import dev.g000sha256.tdl.function.GetTemporaryPasswordState
+import dev.g000sha256.tdl.function.GetTextEntities
+import dev.g000sha256.tdl.function.GetThemeParametersJsonString
+import dev.g000sha256.tdl.function.GetThemedChatEmojiStatuses
+import dev.g000sha256.tdl.function.GetThemedEmojiStatuses
+import dev.g000sha256.tdl.function.GetTimeZones
+import dev.g000sha256.tdl.function.GetTonTransactions
+import dev.g000sha256.tdl.function.GetTopChats
+import dev.g000sha256.tdl.function.GetTrendingStickerSets
+import dev.g000sha256.tdl.function.GetUpgradedGift
+import dev.g000sha256.tdl.function.GetUpgradedGiftEmojiStatuses
+import dev.g000sha256.tdl.function.GetUpgradedGiftWithdrawalUrl
+import dev.g000sha256.tdl.function.GetUser
+import dev.g000sha256.tdl.function.GetUserChatBoosts
+import dev.g000sha256.tdl.function.GetUserFullInfo
+import dev.g000sha256.tdl.function.GetUserLink
+import dev.g000sha256.tdl.function.GetUserPrivacySettingRules
+import dev.g000sha256.tdl.function.GetUserProfilePhotos
+import dev.g000sha256.tdl.function.GetUserSupportInfo
+import dev.g000sha256.tdl.function.GetVideoChatAvailableParticipants
+import dev.g000sha256.tdl.function.GetVideoChatInviteLink
+import dev.g000sha256.tdl.function.GetVideoChatRtmpUrl
+import dev.g000sha256.tdl.function.GetVideoChatStreamSegment
+import dev.g000sha256.tdl.function.GetVideoChatStreams
+import dev.g000sha256.tdl.function.GetVideoMessageAdvertisements
+import dev.g000sha256.tdl.function.GetWebAppLinkUrl
+import dev.g000sha256.tdl.function.GetWebAppPlaceholder
+import dev.g000sha256.tdl.function.GetWebAppUrl
+import dev.g000sha256.tdl.function.GetWebPageInstantView
+import dev.g000sha256.tdl.function.GiftPremiumWithStars
+import dev.g000sha256.tdl.function.HideContactCloseBirthdays
+import dev.g000sha256.tdl.function.HideSuggestedAction
+import dev.g000sha256.tdl.function.ImportContacts
+import dev.g000sha256.tdl.function.ImportMessages
+import dev.g000sha256.tdl.function.InviteGroupCallParticipant
+import dev.g000sha256.tdl.function.InviteVideoChatParticipants
+import dev.g000sha256.tdl.function.JoinChat
+import dev.g000sha256.tdl.function.JoinChatByInviteLink
+import dev.g000sha256.tdl.function.JoinGroupCall
+import dev.g000sha256.tdl.function.JoinVideoChat
+import dev.g000sha256.tdl.function.LaunchPrepaidGiveaway
+import dev.g000sha256.tdl.function.LeaveChat
+import dev.g000sha256.tdl.function.LeaveGroupCall
+import dev.g000sha256.tdl.function.LoadActiveStories
+import dev.g000sha256.tdl.function.LoadChats
+import dev.g000sha256.tdl.function.LoadDirectMessagesChatTopics
+import dev.g000sha256.tdl.function.LoadGroupCallParticipants
+import dev.g000sha256.tdl.function.LoadQuickReplyShortcutMessages
+import dev.g000sha256.tdl.function.LoadQuickReplyShortcuts
+import dev.g000sha256.tdl.function.LoadSavedMessagesTopics
+import dev.g000sha256.tdl.function.LogOut
+import dev.g000sha256.tdl.function.MarkChecklistTasksAsDone
+import dev.g000sha256.tdl.function.OpenBotSimilarBot
+import dev.g000sha256.tdl.function.OpenChat
+import dev.g000sha256.tdl.function.OpenChatSimilarChat
+import dev.g000sha256.tdl.function.OpenMessageContent
+import dev.g000sha256.tdl.function.OpenSponsoredChat
+import dev.g000sha256.tdl.function.OpenStory
+import dev.g000sha256.tdl.function.OpenWebApp
+import dev.g000sha256.tdl.function.OptimizeStorage
+import dev.g000sha256.tdl.function.ParseMarkdown
+import dev.g000sha256.tdl.function.ParseTextEntities
+import dev.g000sha256.tdl.function.PinChatMessage
+import dev.g000sha256.tdl.function.PingProxy
+import dev.g000sha256.tdl.function.PostStory
+import dev.g000sha256.tdl.function.PreliminaryUploadFile
+import dev.g000sha256.tdl.function.ProcessChatFolderNewChats
+import dev.g000sha256.tdl.function.ProcessChatJoinRequest
+import dev.g000sha256.tdl.function.ProcessChatJoinRequests
+import dev.g000sha256.tdl.function.ProcessPushNotification
+import dev.g000sha256.tdl.function.RateSpeechRecognition
+import dev.g000sha256.tdl.function.ReadAllChatMentions
+import dev.g000sha256.tdl.function.ReadAllChatReactions
+import dev.g000sha256.tdl.function.ReadAllDirectMessagesChatTopicReactions
+import dev.g000sha256.tdl.function.ReadAllMessageThreadMentions
+import dev.g000sha256.tdl.function.ReadAllMessageThreadReactions
+import dev.g000sha256.tdl.function.ReadBusinessMessage
+import dev.g000sha256.tdl.function.ReadChatList
+import dev.g000sha256.tdl.function.ReadFilePart
+import dev.g000sha256.tdl.function.ReaddQuickReplyShortcutMessages
+import dev.g000sha256.tdl.function.RecognizeSpeech
+import dev.g000sha256.tdl.function.RecoverAuthenticationPassword
+import dev.g000sha256.tdl.function.RecoverPassword
+import dev.g000sha256.tdl.function.RefundStarPayment
+import dev.g000sha256.tdl.function.RegisterDevice
+import dev.g000sha256.tdl.function.RegisterUser
+import dev.g000sha256.tdl.function.RemoveAllFilesFromDownloads
+import dev.g000sha256.tdl.function.RemoveBusinessConnectedBotFromChat
+import dev.g000sha256.tdl.function.RemoveChatActionBar
+import dev.g000sha256.tdl.function.RemoveContacts
+import dev.g000sha256.tdl.function.RemoveFavoriteSticker
+import dev.g000sha256.tdl.function.RemoveFileFromDownloads
+import dev.g000sha256.tdl.function.RemoveInstalledBackground
+import dev.g000sha256.tdl.function.RemoveMessageReaction
+import dev.g000sha256.tdl.function.RemoveMessageSenderBotVerification
+import dev.g000sha256.tdl.function.RemoveNotification
+import dev.g000sha256.tdl.function.RemoveNotificationGroup
+import dev.g000sha256.tdl.function.RemovePendingPaidMessageReactions
+import dev.g000sha256.tdl.function.RemoveProxy
+import dev.g000sha256.tdl.function.RemoveRecentHashtag
+import dev.g000sha256.tdl.function.RemoveRecentSticker
+import dev.g000sha256.tdl.function.RemoveRecentlyFoundChat
+import dev.g000sha256.tdl.function.RemoveSavedAnimation
+import dev.g000sha256.tdl.function.RemoveSavedNotificationSound
+import dev.g000sha256.tdl.function.RemoveSearchedForTag
+import dev.g000sha256.tdl.function.RemoveStickerFromSet
+import dev.g000sha256.tdl.function.RemoveTopChat
+import dev.g000sha256.tdl.function.ReorderActiveUsernames
+import dev.g000sha256.tdl.function.ReorderBotActiveUsernames
+import dev.g000sha256.tdl.function.ReorderBotMediaPreviews
+import dev.g000sha256.tdl.function.ReorderChatFolders
+import dev.g000sha256.tdl.function.ReorderInstalledStickerSets
+import dev.g000sha256.tdl.function.ReorderQuickReplyShortcuts
+import dev.g000sha256.tdl.function.ReorderSupergroupActiveUsernames
+import dev.g000sha256.tdl.function.ReplacePrimaryChatInviteLink
+import dev.g000sha256.tdl.function.ReplaceStickerInSet
+import dev.g000sha256.tdl.function.ReplaceVideoChatRtmpUrl
+import dev.g000sha256.tdl.function.ReportAuthenticationCodeMissing
+import dev.g000sha256.tdl.function.ReportChat
+import dev.g000sha256.tdl.function.ReportChatPhoto
+import dev.g000sha256.tdl.function.ReportChatSponsoredMessage
+import dev.g000sha256.tdl.function.ReportMessageReactions
+import dev.g000sha256.tdl.function.ReportPhoneNumberCodeMissing
+import dev.g000sha256.tdl.function.ReportSponsoredChat
+import dev.g000sha256.tdl.function.ReportStory
+import dev.g000sha256.tdl.function.ReportSupergroupAntiSpamFalsePositive
+import dev.g000sha256.tdl.function.ReportSupergroupSpam
+import dev.g000sha256.tdl.function.ReportVideoMessageAdvertisement
+import dev.g000sha256.tdl.function.RequestAuthenticationPasswordRecovery
+import dev.g000sha256.tdl.function.RequestPasswordRecovery
+import dev.g000sha256.tdl.function.RequestQrCodeAuthentication
+import dev.g000sha256.tdl.function.ResendAuthenticationCode
+import dev.g000sha256.tdl.function.ResendEmailAddressVerificationCode
+import dev.g000sha256.tdl.function.ResendLoginEmailAddressCode
+import dev.g000sha256.tdl.function.ResendMessages
+import dev.g000sha256.tdl.function.ResendPhoneNumberCode
+import dev.g000sha256.tdl.function.ResendRecoveryEmailAddressCode
+import dev.g000sha256.tdl.function.ResetAllNotificationSettings
+import dev.g000sha256.tdl.function.ResetAuthenticationEmailAddress
+import dev.g000sha256.tdl.function.ResetInstalledBackgrounds
+import dev.g000sha256.tdl.function.ResetNetworkStatistics
+import dev.g000sha256.tdl.function.ResetPassword
+import dev.g000sha256.tdl.function.ReuseStarSubscription
+import dev.g000sha256.tdl.function.RevokeChatInviteLink
+import dev.g000sha256.tdl.function.RevokeGroupCallInviteLink
+import dev.g000sha256.tdl.function.SaveApplicationLogEvent
+import dev.g000sha256.tdl.function.SavePreparedInlineMessage
+import dev.g000sha256.tdl.function.SearchAffiliatePrograms
+import dev.g000sha256.tdl.function.SearchBackground
+import dev.g000sha256.tdl.function.SearchCallMessages
+import dev.g000sha256.tdl.function.SearchChatAffiliateProgram
+import dev.g000sha256.tdl.function.SearchChatMembers
+import dev.g000sha256.tdl.function.SearchChatMessages
+import dev.g000sha256.tdl.function.SearchChatRecentLocationMessages
+import dev.g000sha256.tdl.function.SearchChats
+import dev.g000sha256.tdl.function.SearchChatsOnServer
+import dev.g000sha256.tdl.function.SearchContacts
+import dev.g000sha256.tdl.function.SearchEmojis
+import dev.g000sha256.tdl.function.SearchFileDownloads
+import dev.g000sha256.tdl.function.SearchGiftsForResale
+import dev.g000sha256.tdl.function.SearchHashtags
+import dev.g000sha256.tdl.function.SearchInstalledStickerSets
+import dev.g000sha256.tdl.function.SearchMessages
+import dev.g000sha256.tdl.function.SearchOutgoingDocumentMessages
+import dev.g000sha256.tdl.function.SearchPublicChat
+import dev.g000sha256.tdl.function.SearchPublicChats
+import dev.g000sha256.tdl.function.SearchPublicMessagesByTag
+import dev.g000sha256.tdl.function.SearchPublicStoriesByLocation
+import dev.g000sha256.tdl.function.SearchPublicStoriesByTag
+import dev.g000sha256.tdl.function.SearchPublicStoriesByVenue
+import dev.g000sha256.tdl.function.SearchQuote
+import dev.g000sha256.tdl.function.SearchRecentlyFoundChats
+import dev.g000sha256.tdl.function.SearchSavedMessages
+import dev.g000sha256.tdl.function.SearchSecretMessages
+import dev.g000sha256.tdl.function.SearchStickerSet
+import dev.g000sha256.tdl.function.SearchStickerSets
+import dev.g000sha256.tdl.function.SearchStickers
+import dev.g000sha256.tdl.function.SearchStringsByPrefix
+import dev.g000sha256.tdl.function.SearchUserByPhoneNumber
+import dev.g000sha256.tdl.function.SearchUserByToken
+import dev.g000sha256.tdl.function.SearchWebApp
+import dev.g000sha256.tdl.function.SellGift
+import dev.g000sha256.tdl.function.SendAuthenticationFirebaseSms
+import dev.g000sha256.tdl.function.SendBotStartMessage
+import dev.g000sha256.tdl.function.SendBusinessMessage
+import dev.g000sha256.tdl.function.SendBusinessMessageAlbum
+import dev.g000sha256.tdl.function.SendCallDebugInformation
+import dev.g000sha256.tdl.function.SendCallLog
+import dev.g000sha256.tdl.function.SendCallRating
+import dev.g000sha256.tdl.function.SendCallSignalingData
+import dev.g000sha256.tdl.function.SendChatAction
+import dev.g000sha256.tdl.function.SendCustomRequest
+import dev.g000sha256.tdl.function.SendEmailAddressVerificationCode
+import dev.g000sha256.tdl.function.SendGift
+import dev.g000sha256.tdl.function.SendInlineQueryResultMessage
+import dev.g000sha256.tdl.function.SendMessage
+import dev.g000sha256.tdl.function.SendMessageAlbum
+import dev.g000sha256.tdl.function.SendPassportAuthorizationForm
+import dev.g000sha256.tdl.function.SendPaymentForm
+import dev.g000sha256.tdl.function.SendPhoneNumberCode
+import dev.g000sha256.tdl.function.SendPhoneNumberFirebaseSms
+import dev.g000sha256.tdl.function.SendQuickReplyShortcutMessages
+import dev.g000sha256.tdl.function.SendResoldGift
+import dev.g000sha256.tdl.function.SendWebAppCustomRequest
+import dev.g000sha256.tdl.function.SendWebAppData
+import dev.g000sha256.tdl.function.SetAccentColor
+import dev.g000sha256.tdl.function.SetAccountTtl
+import dev.g000sha256.tdl.function.SetAlarm
+import dev.g000sha256.tdl.function.SetApplicationVerificationToken
+import dev.g000sha256.tdl.function.SetArchiveChatListSettings
+import dev.g000sha256.tdl.function.SetAuthenticationEmailAddress
+import dev.g000sha256.tdl.function.SetAuthenticationPhoneNumber
+import dev.g000sha256.tdl.function.SetAuthenticationPremiumPurchaseTransaction
+import dev.g000sha256.tdl.function.SetAutoDownloadSettings
+import dev.g000sha256.tdl.function.SetAutosaveSettings
+import dev.g000sha256.tdl.function.SetBio
+import dev.g000sha256.tdl.function.SetBirthdate
+import dev.g000sha256.tdl.function.SetBotInfoDescription
+import dev.g000sha256.tdl.function.SetBotInfoShortDescription
+import dev.g000sha256.tdl.function.SetBotName
+import dev.g000sha256.tdl.function.SetBotProfilePhoto
+import dev.g000sha256.tdl.function.SetBotUpdatesStatus
+import dev.g000sha256.tdl.function.SetBusinessAccountBio
+import dev.g000sha256.tdl.function.SetBusinessAccountGiftSettings
+import dev.g000sha256.tdl.function.SetBusinessAccountName
+import dev.g000sha256.tdl.function.SetBusinessAccountProfilePhoto
+import dev.g000sha256.tdl.function.SetBusinessAccountUsername
+import dev.g000sha256.tdl.function.SetBusinessAwayMessageSettings
+import dev.g000sha256.tdl.function.SetBusinessConnectedBot
+import dev.g000sha256.tdl.function.SetBusinessGreetingMessageSettings
+import dev.g000sha256.tdl.function.SetBusinessLocation
+import dev.g000sha256.tdl.function.SetBusinessMessageIsPinned
+import dev.g000sha256.tdl.function.SetBusinessOpeningHours
+import dev.g000sha256.tdl.function.SetBusinessStartPage
+import dev.g000sha256.tdl.function.SetChatAccentColor
+import dev.g000sha256.tdl.function.SetChatActiveStoriesList
+import dev.g000sha256.tdl.function.SetChatAffiliateProgram
+import dev.g000sha256.tdl.function.SetChatAvailableReactions
+import dev.g000sha256.tdl.function.SetChatBackground
+import dev.g000sha256.tdl.function.SetChatClientData
+import dev.g000sha256.tdl.function.SetChatDescription
+import dev.g000sha256.tdl.function.SetChatDirectMessagesGroup
+import dev.g000sha256.tdl.function.SetChatDiscussionGroup
+import dev.g000sha256.tdl.function.SetChatDraftMessage
+import dev.g000sha256.tdl.function.SetChatEmojiStatus
+import dev.g000sha256.tdl.function.SetChatLocation
+import dev.g000sha256.tdl.function.SetChatMemberStatus
+import dev.g000sha256.tdl.function.SetChatMessageAutoDeleteTime
+import dev.g000sha256.tdl.function.SetChatMessageSender
+import dev.g000sha256.tdl.function.SetChatNotificationSettings
+import dev.g000sha256.tdl.function.SetChatPaidMessageStarCount
+import dev.g000sha256.tdl.function.SetChatPermissions
+import dev.g000sha256.tdl.function.SetChatPhoto
+import dev.g000sha256.tdl.function.SetChatPinnedStories
+import dev.g000sha256.tdl.function.SetChatProfileAccentColor
+import dev.g000sha256.tdl.function.SetChatSlowModeDelay
+import dev.g000sha256.tdl.function.SetChatTheme
+import dev.g000sha256.tdl.function.SetChatTitle
+import dev.g000sha256.tdl.function.SetCloseFriends
+import dev.g000sha256.tdl.function.SetCommands
+import dev.g000sha256.tdl.function.SetCustomEmojiStickerSetThumbnail
+import dev.g000sha256.tdl.function.SetCustomLanguagePack
+import dev.g000sha256.tdl.function.SetCustomLanguagePackString
+import dev.g000sha256.tdl.function.SetDatabaseEncryptionKey
+import dev.g000sha256.tdl.function.SetDefaultBackground
+import dev.g000sha256.tdl.function.SetDefaultChannelAdministratorRights
+import dev.g000sha256.tdl.function.SetDefaultGroupAdministratorRights
+import dev.g000sha256.tdl.function.SetDefaultMessageAutoDeleteTime
+import dev.g000sha256.tdl.function.SetDefaultReactionType
+import dev.g000sha256.tdl.function.SetDirectMessagesChatTopicDraftMessage
+import dev.g000sha256.tdl.function.SetDirectMessagesChatTopicIsMarkedAsUnread
+import dev.g000sha256.tdl.function.SetEmojiStatus
+import dev.g000sha256.tdl.function.SetFileGenerationProgress
+import dev.g000sha256.tdl.function.SetForumTopicNotificationSettings
+import dev.g000sha256.tdl.function.SetGameScore
+import dev.g000sha256.tdl.function.SetGiftResalePrice
+import dev.g000sha256.tdl.function.SetGiftSettings
+import dev.g000sha256.tdl.function.SetGroupCallParticipantIsSpeaking
+import dev.g000sha256.tdl.function.SetGroupCallParticipantVolumeLevel
+import dev.g000sha256.tdl.function.SetInactiveSessionTtl
+import dev.g000sha256.tdl.function.SetInlineGameScore
+import dev.g000sha256.tdl.function.SetLogStream
+import dev.g000sha256.tdl.function.SetLogTagVerbosityLevel
+import dev.g000sha256.tdl.function.SetLogVerbosityLevel
+import dev.g000sha256.tdl.function.SetLoginEmailAddress
+import dev.g000sha256.tdl.function.SetMenuButton
+import dev.g000sha256.tdl.function.SetMessageFactCheck
+import dev.g000sha256.tdl.function.SetMessageReactions
+import dev.g000sha256.tdl.function.SetMessageSenderBlockList
+import dev.g000sha256.tdl.function.SetMessageSenderBotVerification
+import dev.g000sha256.tdl.function.SetName
+import dev.g000sha256.tdl.function.SetNetworkType
+import dev.g000sha256.tdl.function.SetNewChatPrivacySettings
+import dev.g000sha256.tdl.function.SetOption
+import dev.g000sha256.tdl.function.SetPaidMessageReactionType
+import dev.g000sha256.tdl.function.SetPassportElement
+import dev.g000sha256.tdl.function.SetPassportElementErrors
+import dev.g000sha256.tdl.function.SetPassword
+import dev.g000sha256.tdl.function.SetPersonalChat
+import dev.g000sha256.tdl.function.SetPinnedChats
+import dev.g000sha256.tdl.function.SetPinnedForumTopics
+import dev.g000sha256.tdl.function.SetPinnedGifts
+import dev.g000sha256.tdl.function.SetPinnedSavedMessagesTopics
+import dev.g000sha256.tdl.function.SetPollAnswer
+import dev.g000sha256.tdl.function.SetProfileAccentColor
+import dev.g000sha256.tdl.function.SetProfilePhoto
+import dev.g000sha256.tdl.function.SetQuickReplyShortcutName
+import dev.g000sha256.tdl.function.SetReactionNotificationSettings
+import dev.g000sha256.tdl.function.SetReadDatePrivacySettings
+import dev.g000sha256.tdl.function.SetRecoveryEmailAddress
+import dev.g000sha256.tdl.function.SetSavedMessagesTagLabel
+import dev.g000sha256.tdl.function.SetScopeNotificationSettings
+import dev.g000sha256.tdl.function.SetStickerEmojis
+import dev.g000sha256.tdl.function.SetStickerKeywords
+import dev.g000sha256.tdl.function.SetStickerMaskPosition
+import dev.g000sha256.tdl.function.SetStickerPositionInSet
+import dev.g000sha256.tdl.function.SetStickerSetThumbnail
+import dev.g000sha256.tdl.function.SetStickerSetTitle
+import dev.g000sha256.tdl.function.SetStoryPrivacySettings
+import dev.g000sha256.tdl.function.SetStoryReaction
+import dev.g000sha256.tdl.function.SetSupergroupCustomEmojiStickerSet
+import dev.g000sha256.tdl.function.SetSupergroupStickerSet
+import dev.g000sha256.tdl.function.SetSupergroupUnrestrictBoostCount
+import dev.g000sha256.tdl.function.SetSupergroupUsername
+import dev.g000sha256.tdl.function.SetTdlibParameters
+import dev.g000sha256.tdl.function.SetUserEmojiStatus
+import dev.g000sha256.tdl.function.SetUserPersonalProfilePhoto
+import dev.g000sha256.tdl.function.SetUserPrivacySettingRules
+import dev.g000sha256.tdl.function.SetUserSupportInfo
+import dev.g000sha256.tdl.function.SetUsername
+import dev.g000sha256.tdl.function.SetVideoChatDefaultParticipant
+import dev.g000sha256.tdl.function.SetVideoChatTitle
+import dev.g000sha256.tdl.function.ShareChatWithBot
+import dev.g000sha256.tdl.function.SharePhoneNumber
+import dev.g000sha256.tdl.function.ShareUsersWithBot
+import dev.g000sha256.tdl.function.StartGroupCallRecording
+import dev.g000sha256.tdl.function.StartGroupCallScreenSharing
+import dev.g000sha256.tdl.function.StartScheduledVideoChat
+import dev.g000sha256.tdl.function.StopBusinessPoll
+import dev.g000sha256.tdl.function.StopPoll
+import dev.g000sha256.tdl.function.SuggestUserProfilePhoto
+import dev.g000sha256.tdl.function.SynchronizeLanguagePack
+import dev.g000sha256.tdl.function.TerminateAllOtherSessions
+import dev.g000sha256.tdl.function.TerminateSession
+import dev.g000sha256.tdl.function.TestCallBytes
+import dev.g000sha256.tdl.function.TestCallEmpty
+import dev.g000sha256.tdl.function.TestCallString
+import dev.g000sha256.tdl.function.TestCallVectorInt
+import dev.g000sha256.tdl.function.TestCallVectorIntObject
+import dev.g000sha256.tdl.function.TestCallVectorString
+import dev.g000sha256.tdl.function.TestCallVectorStringObject
+import dev.g000sha256.tdl.function.TestGetDifference
+import dev.g000sha256.tdl.function.TestNetwork
+import dev.g000sha256.tdl.function.TestProxy
+import dev.g000sha256.tdl.function.TestReturnError
+import dev.g000sha256.tdl.function.TestSquareInt
+import dev.g000sha256.tdl.function.TestUseUpdate
+import dev.g000sha256.tdl.function.ToggleAllDownloadsArePaused
+import dev.g000sha256.tdl.function.ToggleBotCanManageEmojiStatus
+import dev.g000sha256.tdl.function.ToggleBotIsAddedToAttachmentMenu
+import dev.g000sha256.tdl.function.ToggleBotUsernameIsActive
+import dev.g000sha256.tdl.function.ToggleBusinessConnectedBotChatIsPaused
+import dev.g000sha256.tdl.function.ToggleChatDefaultDisableNotification
+import dev.g000sha256.tdl.function.ToggleChatFolderTags
+import dev.g000sha256.tdl.function.ToggleChatGiftNotifications
+import dev.g000sha256.tdl.function.ToggleChatHasProtectedContent
+import dev.g000sha256.tdl.function.ToggleChatIsMarkedAsUnread
+import dev.g000sha256.tdl.function.ToggleChatIsPinned
+import dev.g000sha256.tdl.function.ToggleChatIsTranslatable
+import dev.g000sha256.tdl.function.ToggleChatViewAsTopics
+import dev.g000sha256.tdl.function.ToggleDirectMessagesChatTopicCanSendUnpaidMessages
+import dev.g000sha256.tdl.function.ToggleDownloadIsPaused
+import dev.g000sha256.tdl.function.ToggleForumTopicIsClosed
+import dev.g000sha256.tdl.function.ToggleForumTopicIsPinned
+import dev.g000sha256.tdl.function.ToggleGeneralForumTopicIsHidden
+import dev.g000sha256.tdl.function.ToggleGiftIsSaved
+import dev.g000sha256.tdl.function.ToggleGroupCallIsMyVideoEnabled
+import dev.g000sha256.tdl.function.ToggleGroupCallIsMyVideoPaused
+import dev.g000sha256.tdl.function.ToggleGroupCallParticipantIsHandRaised
+import dev.g000sha256.tdl.function.ToggleGroupCallParticipantIsMuted
+import dev.g000sha256.tdl.function.ToggleGroupCallScreenSharingIsPaused
+import dev.g000sha256.tdl.function.ToggleHasSponsoredMessagesEnabled
+import dev.g000sha256.tdl.function.ToggleSavedMessagesTopicIsPinned
+import dev.g000sha256.tdl.function.ToggleSessionCanAcceptCalls
+import dev.g000sha256.tdl.function.ToggleSessionCanAcceptSecretChats
+import dev.g000sha256.tdl.function.ToggleStoryIsPostedToChatPage
+import dev.g000sha256.tdl.function.ToggleSupergroupCanHaveSponsoredMessages
+import dev.g000sha256.tdl.function.ToggleSupergroupHasAggressiveAntiSpamEnabled
+import dev.g000sha256.tdl.function.ToggleSupergroupHasAutomaticTranslation
+import dev.g000sha256.tdl.function.ToggleSupergroupHasHiddenMembers
+import dev.g000sha256.tdl.function.ToggleSupergroupIsAllHistoryAvailable
+import dev.g000sha256.tdl.function.ToggleSupergroupIsBroadcastGroup
+import dev.g000sha256.tdl.function.ToggleSupergroupIsForum
+import dev.g000sha256.tdl.function.ToggleSupergroupJoinByRequest
+import dev.g000sha256.tdl.function.ToggleSupergroupJoinToSendMessages
+import dev.g000sha256.tdl.function.ToggleSupergroupSignMessages
+import dev.g000sha256.tdl.function.ToggleSupergroupUsernameIsActive
+import dev.g000sha256.tdl.function.ToggleUsernameIsActive
+import dev.g000sha256.tdl.function.ToggleVideoChatEnabledStartNotification
+import dev.g000sha256.tdl.function.ToggleVideoChatMuteNewParticipants
+import dev.g000sha256.tdl.function.TransferBusinessAccountStars
+import dev.g000sha256.tdl.function.TransferChatOwnership
+import dev.g000sha256.tdl.function.TransferGift
+import dev.g000sha256.tdl.function.TranslateMessageText
+import dev.g000sha256.tdl.function.TranslateText
+import dev.g000sha256.tdl.function.UnpinAllChatMessages
+import dev.g000sha256.tdl.function.UnpinAllDirectMessagesChatTopicMessages
+import dev.g000sha256.tdl.function.UnpinAllMessageThreadMessages
+import dev.g000sha256.tdl.function.UnpinChatMessage
+import dev.g000sha256.tdl.function.UpgradeBasicGroupChatToSupergroupChat
+import dev.g000sha256.tdl.function.UpgradeGift
+import dev.g000sha256.tdl.function.UploadStickerFile
+import dev.g000sha256.tdl.function.ValidateOrderInfo
+import dev.g000sha256.tdl.function.ViewMessages
+import dev.g000sha256.tdl.function.ViewPremiumFeature
+import dev.g000sha256.tdl.function.ViewSponsoredChat
+import dev.g000sha256.tdl.function.ViewTrendingStickerSets
+import dev.g000sha256.tdl.function.ViewVideoMessageAdvertisement
+import dev.g000sha256.tdl.function.WriteGeneratedFilePart
 import kotlin.Array
 import kotlin.Boolean
 import kotlin.ByteArray
@@ -543,511 +1427,516 @@ import kotlin.Long
 import kotlin.LongArray
 import kotlin.String
 import kotlinx.coroutines.flow.Flow
-import org.drinkless.tdlib.TdApi
+import kotlinx.coroutines.flow.filterIsInstance
 
-internal class TdlClientImpl(
-    private val mapper: TdlMapper,
+internal class TdlClientImpl internal constructor(
     private val repository: TdlRepository,
 ) : TdlClient() {
     override val allUpdates: Flow<Update>
-        get() = repository.getUpdates(TdApi.Update::class) { mapper.map(it) }
+        get() = repository.updates
 
     override val authorizationStateUpdates: Flow<UpdateAuthorizationState>
-        get() = repository.getUpdates(TdApi.UpdateAuthorizationState::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val newMessageUpdates: Flow<UpdateNewMessage>
-        get() = repository.getUpdates(TdApi.UpdateNewMessage::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val messageSendAcknowledgedUpdates: Flow<UpdateMessageSendAcknowledged>
-        get() = repository.getUpdates(TdApi.UpdateMessageSendAcknowledged::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val messageSendSucceededUpdates: Flow<UpdateMessageSendSucceeded>
-        get() = repository.getUpdates(TdApi.UpdateMessageSendSucceeded::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val messageSendFailedUpdates: Flow<UpdateMessageSendFailed>
-        get() = repository.getUpdates(TdApi.UpdateMessageSendFailed::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val messageContentUpdates: Flow<UpdateMessageContent>
-        get() = repository.getUpdates(TdApi.UpdateMessageContent::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val messageEditedUpdates: Flow<UpdateMessageEdited>
-        get() = repository.getUpdates(TdApi.UpdateMessageEdited::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val messageIsPinnedUpdates: Flow<UpdateMessageIsPinned>
-        get() = repository.getUpdates(TdApi.UpdateMessageIsPinned::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val messageInteractionInfoUpdates: Flow<UpdateMessageInteractionInfo>
-        get() = repository.getUpdates(TdApi.UpdateMessageInteractionInfo::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val messageContentOpenedUpdates: Flow<UpdateMessageContentOpened>
-        get() = repository.getUpdates(TdApi.UpdateMessageContentOpened::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val messageMentionReadUpdates: Flow<UpdateMessageMentionRead>
-        get() = repository.getUpdates(TdApi.UpdateMessageMentionRead::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val messageUnreadReactionsUpdates: Flow<UpdateMessageUnreadReactions>
-        get() = repository.getUpdates(TdApi.UpdateMessageUnreadReactions::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val messageFactCheckUpdates: Flow<UpdateMessageFactCheck>
-        get() = repository.getUpdates(TdApi.UpdateMessageFactCheck::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
+
+    override val messageSuggestedPostInfoUpdates: Flow<UpdateMessageSuggestedPostInfo>
+        get() = repository.updates.filterIsInstance()
 
     override val messageLiveLocationViewedUpdates: Flow<UpdateMessageLiveLocationViewed>
-        get() = repository.getUpdates(TdApi.UpdateMessageLiveLocationViewed::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val videoPublishedUpdates: Flow<UpdateVideoPublished>
-        get() = repository.getUpdates(TdApi.UpdateVideoPublished::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val newChatUpdates: Flow<UpdateNewChat>
-        get() = repository.getUpdates(TdApi.UpdateNewChat::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val chatTitleUpdates: Flow<UpdateChatTitle>
-        get() = repository.getUpdates(TdApi.UpdateChatTitle::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val chatPhotoUpdates: Flow<UpdateChatPhoto>
-        get() = repository.getUpdates(TdApi.UpdateChatPhoto::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val chatAccentColorsUpdates: Flow<UpdateChatAccentColors>
-        get() = repository.getUpdates(TdApi.UpdateChatAccentColors::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val chatPermissionsUpdates: Flow<UpdateChatPermissions>
-        get() = repository.getUpdates(TdApi.UpdateChatPermissions::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val chatLastMessageUpdates: Flow<UpdateChatLastMessage>
-        get() = repository.getUpdates(TdApi.UpdateChatLastMessage::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val chatPositionUpdates: Flow<UpdateChatPosition>
-        get() = repository.getUpdates(TdApi.UpdateChatPosition::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val chatAddedToListUpdates: Flow<UpdateChatAddedToList>
-        get() = repository.getUpdates(TdApi.UpdateChatAddedToList::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val chatRemovedFromListUpdates: Flow<UpdateChatRemovedFromList>
-        get() = repository.getUpdates(TdApi.UpdateChatRemovedFromList::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val chatReadInboxUpdates: Flow<UpdateChatReadInbox>
-        get() = repository.getUpdates(TdApi.UpdateChatReadInbox::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val chatReadOutboxUpdates: Flow<UpdateChatReadOutbox>
-        get() = repository.getUpdates(TdApi.UpdateChatReadOutbox::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val chatActionBarUpdates: Flow<UpdateChatActionBar>
-        get() = repository.getUpdates(TdApi.UpdateChatActionBar::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val chatBusinessBotManageBarUpdates: Flow<UpdateChatBusinessBotManageBar>
-        get() = repository.getUpdates(TdApi.UpdateChatBusinessBotManageBar::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val chatAvailableReactionsUpdates: Flow<UpdateChatAvailableReactions>
-        get() = repository.getUpdates(TdApi.UpdateChatAvailableReactions::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val chatDraftMessageUpdates: Flow<UpdateChatDraftMessage>
-        get() = repository.getUpdates(TdApi.UpdateChatDraftMessage::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val chatEmojiStatusUpdates: Flow<UpdateChatEmojiStatus>
-        get() = repository.getUpdates(TdApi.UpdateChatEmojiStatus::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val chatMessageSenderUpdates: Flow<UpdateChatMessageSender>
-        get() = repository.getUpdates(TdApi.UpdateChatMessageSender::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val chatMessageAutoDeleteTimeUpdates: Flow<UpdateChatMessageAutoDeleteTime>
-        get() = repository.getUpdates(TdApi.UpdateChatMessageAutoDeleteTime::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val chatNotificationSettingsUpdates: Flow<UpdateChatNotificationSettings>
-        get() = repository.getUpdates(TdApi.UpdateChatNotificationSettings::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val chatPendingJoinRequestsUpdates: Flow<UpdateChatPendingJoinRequests>
-        get() = repository.getUpdates(TdApi.UpdateChatPendingJoinRequests::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val chatReplyMarkupUpdates: Flow<UpdateChatReplyMarkup>
-        get() = repository.getUpdates(TdApi.UpdateChatReplyMarkup::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val chatBackgroundUpdates: Flow<UpdateChatBackground>
-        get() = repository.getUpdates(TdApi.UpdateChatBackground::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val chatThemeUpdates: Flow<UpdateChatTheme>
-        get() = repository.getUpdates(TdApi.UpdateChatTheme::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val chatUnreadMentionCountUpdates: Flow<UpdateChatUnreadMentionCount>
-        get() = repository.getUpdates(TdApi.UpdateChatUnreadMentionCount::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val chatUnreadReactionCountUpdates: Flow<UpdateChatUnreadReactionCount>
-        get() = repository.getUpdates(TdApi.UpdateChatUnreadReactionCount::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val chatVideoChatUpdates: Flow<UpdateChatVideoChat>
-        get() = repository.getUpdates(TdApi.UpdateChatVideoChat::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val chatDefaultDisableNotificationUpdates: Flow<UpdateChatDefaultDisableNotification>
-        get() = repository.getUpdates(TdApi.UpdateChatDefaultDisableNotification::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val chatHasProtectedContentUpdates: Flow<UpdateChatHasProtectedContent>
-        get() = repository.getUpdates(TdApi.UpdateChatHasProtectedContent::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val chatIsTranslatableUpdates: Flow<UpdateChatIsTranslatable>
-        get() = repository.getUpdates(TdApi.UpdateChatIsTranslatable::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val chatIsMarkedAsUnreadUpdates: Flow<UpdateChatIsMarkedAsUnread>
-        get() = repository.getUpdates(TdApi.UpdateChatIsMarkedAsUnread::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val chatViewAsTopicsUpdates: Flow<UpdateChatViewAsTopics>
-        get() = repository.getUpdates(TdApi.UpdateChatViewAsTopics::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val chatBlockListUpdates: Flow<UpdateChatBlockList>
-        get() = repository.getUpdates(TdApi.UpdateChatBlockList::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val chatHasScheduledMessagesUpdates: Flow<UpdateChatHasScheduledMessages>
-        get() = repository.getUpdates(TdApi.UpdateChatHasScheduledMessages::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val chatFoldersUpdates: Flow<UpdateChatFolders>
-        get() = repository.getUpdates(TdApi.UpdateChatFolders::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val chatOnlineMemberCountUpdates: Flow<UpdateChatOnlineMemberCount>
-        get() = repository.getUpdates(TdApi.UpdateChatOnlineMemberCount::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val savedMessagesTopicUpdates: Flow<UpdateSavedMessagesTopic>
-        get() = repository.getUpdates(TdApi.UpdateSavedMessagesTopic::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val savedMessagesTopicCountUpdates: Flow<UpdateSavedMessagesTopicCount>
-        get() = repository.getUpdates(TdApi.UpdateSavedMessagesTopicCount::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val directMessagesChatTopicUpdates: Flow<UpdateDirectMessagesChatTopic>
-        get() = repository.getUpdates(TdApi.UpdateDirectMessagesChatTopic::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val topicMessageCountUpdates: Flow<UpdateTopicMessageCount>
-        get() = repository.getUpdates(TdApi.UpdateTopicMessageCount::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val quickReplyShortcutUpdates: Flow<UpdateQuickReplyShortcut>
-        get() = repository.getUpdates(TdApi.UpdateQuickReplyShortcut::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val quickReplyShortcutDeletedUpdates: Flow<UpdateQuickReplyShortcutDeleted>
-        get() = repository.getUpdates(TdApi.UpdateQuickReplyShortcutDeleted::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val quickReplyShortcutsUpdates: Flow<UpdateQuickReplyShortcuts>
-        get() = repository.getUpdates(TdApi.UpdateQuickReplyShortcuts::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val quickReplyShortcutMessagesUpdates: Flow<UpdateQuickReplyShortcutMessages>
-        get() = repository.getUpdates(TdApi.UpdateQuickReplyShortcutMessages::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val forumTopicInfoUpdates: Flow<UpdateForumTopicInfo>
-        get() = repository.getUpdates(TdApi.UpdateForumTopicInfo::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val forumTopicUpdates: Flow<UpdateForumTopic>
-        get() = repository.getUpdates(TdApi.UpdateForumTopic::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val scopeNotificationSettingsUpdates: Flow<UpdateScopeNotificationSettings>
-        get() = repository.getUpdates(TdApi.UpdateScopeNotificationSettings::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val reactionNotificationSettingsUpdates: Flow<UpdateReactionNotificationSettings>
-        get() = repository.getUpdates(TdApi.UpdateReactionNotificationSettings::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val notificationUpdates: Flow<UpdateNotification>
-        get() = repository.getUpdates(TdApi.UpdateNotification::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val notificationGroupUpdates: Flow<UpdateNotificationGroup>
-        get() = repository.getUpdates(TdApi.UpdateNotificationGroup::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val activeNotificationsUpdates: Flow<UpdateActiveNotifications>
-        get() = repository.getUpdates(TdApi.UpdateActiveNotifications::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val havePendingNotificationsUpdates: Flow<UpdateHavePendingNotifications>
-        get() = repository.getUpdates(TdApi.UpdateHavePendingNotifications::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val deleteMessagesUpdates: Flow<UpdateDeleteMessages>
-        get() = repository.getUpdates(TdApi.UpdateDeleteMessages::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val chatActionUpdates: Flow<UpdateChatAction>
-        get() = repository.getUpdates(TdApi.UpdateChatAction::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val userStatusUpdates: Flow<UpdateUserStatus>
-        get() = repository.getUpdates(TdApi.UpdateUserStatus::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val userUpdates: Flow<UpdateUser>
-        get() = repository.getUpdates(TdApi.UpdateUser::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val basicGroupUpdates: Flow<UpdateBasicGroup>
-        get() = repository.getUpdates(TdApi.UpdateBasicGroup::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val supergroupUpdates: Flow<UpdateSupergroup>
-        get() = repository.getUpdates(TdApi.UpdateSupergroup::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val secretChatUpdates: Flow<UpdateSecretChat>
-        get() = repository.getUpdates(TdApi.UpdateSecretChat::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val userFullInfoUpdates: Flow<UpdateUserFullInfo>
-        get() = repository.getUpdates(TdApi.UpdateUserFullInfo::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val basicGroupFullInfoUpdates: Flow<UpdateBasicGroupFullInfo>
-        get() = repository.getUpdates(TdApi.UpdateBasicGroupFullInfo::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val supergroupFullInfoUpdates: Flow<UpdateSupergroupFullInfo>
-        get() = repository.getUpdates(TdApi.UpdateSupergroupFullInfo::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val serviceNotificationUpdates: Flow<UpdateServiceNotification>
-        get() = repository.getUpdates(TdApi.UpdateServiceNotification::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val fileUpdates: Flow<UpdateFile>
-        get() = repository.getUpdates(TdApi.UpdateFile::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val fileGenerationStartUpdates: Flow<UpdateFileGenerationStart>
-        get() = repository.getUpdates(TdApi.UpdateFileGenerationStart::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val fileGenerationStopUpdates: Flow<UpdateFileGenerationStop>
-        get() = repository.getUpdates(TdApi.UpdateFileGenerationStop::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val fileDownloadsUpdates: Flow<UpdateFileDownloads>
-        get() = repository.getUpdates(TdApi.UpdateFileDownloads::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val fileAddedToDownloadsUpdates: Flow<UpdateFileAddedToDownloads>
-        get() = repository.getUpdates(TdApi.UpdateFileAddedToDownloads::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val fileDownloadUpdates: Flow<UpdateFileDownload>
-        get() = repository.getUpdates(TdApi.UpdateFileDownload::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val fileRemovedFromDownloadsUpdates: Flow<UpdateFileRemovedFromDownloads>
-        get() = repository.getUpdates(TdApi.UpdateFileRemovedFromDownloads::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val applicationVerificationRequiredUpdates: Flow<UpdateApplicationVerificationRequired>
-        get() = repository.getUpdates(TdApi.UpdateApplicationVerificationRequired::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val applicationRecaptchaVerificationRequiredUpdates:
             Flow<UpdateApplicationRecaptchaVerificationRequired>
-        get() = repository.getUpdates(TdApi.UpdateApplicationRecaptchaVerificationRequired::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val callUpdates: Flow<UpdateCall>
-        get() = repository.getUpdates(TdApi.UpdateCall::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val groupCallUpdates: Flow<UpdateGroupCall>
-        get() = repository.getUpdates(TdApi.UpdateGroupCall::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val groupCallParticipantUpdates: Flow<UpdateGroupCallParticipant>
-        get() = repository.getUpdates(TdApi.UpdateGroupCallParticipant::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val groupCallParticipantsUpdates: Flow<UpdateGroupCallParticipants>
-        get() = repository.getUpdates(TdApi.UpdateGroupCallParticipants::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val groupCallVerificationStateUpdates: Flow<UpdateGroupCallVerificationState>
-        get() = repository.getUpdates(TdApi.UpdateGroupCallVerificationState::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val newCallSignalingDataUpdates: Flow<UpdateNewCallSignalingData>
-        get() = repository.getUpdates(TdApi.UpdateNewCallSignalingData::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val userPrivacySettingRulesUpdates: Flow<UpdateUserPrivacySettingRules>
-        get() = repository.getUpdates(TdApi.UpdateUserPrivacySettingRules::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val unreadMessageCountUpdates: Flow<UpdateUnreadMessageCount>
-        get() = repository.getUpdates(TdApi.UpdateUnreadMessageCount::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val unreadChatCountUpdates: Flow<UpdateUnreadChatCount>
-        get() = repository.getUpdates(TdApi.UpdateUnreadChatCount::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val storyUpdates: Flow<UpdateStory>
-        get() = repository.getUpdates(TdApi.UpdateStory::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val storyDeletedUpdates: Flow<UpdateStoryDeleted>
-        get() = repository.getUpdates(TdApi.UpdateStoryDeleted::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val storyPostSucceededUpdates: Flow<UpdateStoryPostSucceeded>
-        get() = repository.getUpdates(TdApi.UpdateStoryPostSucceeded::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val storyPostFailedUpdates: Flow<UpdateStoryPostFailed>
-        get() = repository.getUpdates(TdApi.UpdateStoryPostFailed::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val chatActiveStoriesUpdates: Flow<UpdateChatActiveStories>
-        get() = repository.getUpdates(TdApi.UpdateChatActiveStories::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val storyListChatCountUpdates: Flow<UpdateStoryListChatCount>
-        get() = repository.getUpdates(TdApi.UpdateStoryListChatCount::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val storyStealthModeUpdates: Flow<UpdateStoryStealthMode>
-        get() = repository.getUpdates(TdApi.UpdateStoryStealthMode::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val optionUpdates: Flow<UpdateOption>
-        get() = repository.getUpdates(TdApi.UpdateOption::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val stickerSetUpdates: Flow<UpdateStickerSet>
-        get() = repository.getUpdates(TdApi.UpdateStickerSet::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val installedStickerSetsUpdates: Flow<UpdateInstalledStickerSets>
-        get() = repository.getUpdates(TdApi.UpdateInstalledStickerSets::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val trendingStickerSetsUpdates: Flow<UpdateTrendingStickerSets>
-        get() = repository.getUpdates(TdApi.UpdateTrendingStickerSets::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val recentStickersUpdates: Flow<UpdateRecentStickers>
-        get() = repository.getUpdates(TdApi.UpdateRecentStickers::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val favoriteStickersUpdates: Flow<UpdateFavoriteStickers>
-        get() = repository.getUpdates(TdApi.UpdateFavoriteStickers::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val savedAnimationsUpdates: Flow<UpdateSavedAnimations>
-        get() = repository.getUpdates(TdApi.UpdateSavedAnimations::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val savedNotificationSoundsUpdates: Flow<UpdateSavedNotificationSounds>
-        get() = repository.getUpdates(TdApi.UpdateSavedNotificationSounds::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val defaultBackgroundUpdates: Flow<UpdateDefaultBackground>
-        get() = repository.getUpdates(TdApi.UpdateDefaultBackground::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val chatThemesUpdates: Flow<UpdateChatThemes>
-        get() = repository.getUpdates(TdApi.UpdateChatThemes::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val accentColorsUpdates: Flow<UpdateAccentColors>
-        get() = repository.getUpdates(TdApi.UpdateAccentColors::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val profileAccentColorsUpdates: Flow<UpdateProfileAccentColors>
-        get() = repository.getUpdates(TdApi.UpdateProfileAccentColors::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val languagePackStringsUpdates: Flow<UpdateLanguagePackStrings>
-        get() = repository.getUpdates(TdApi.UpdateLanguagePackStrings::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val connectionStateUpdates: Flow<UpdateConnectionState>
-        get() = repository.getUpdates(TdApi.UpdateConnectionState::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val freezeStateUpdates: Flow<UpdateFreezeState>
-        get() = repository.getUpdates(TdApi.UpdateFreezeState::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val termsOfServiceUpdates: Flow<UpdateTermsOfService>
-        get() = repository.getUpdates(TdApi.UpdateTermsOfService::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val unconfirmedSessionUpdates: Flow<UpdateUnconfirmedSession>
-        get() = repository.getUpdates(TdApi.UpdateUnconfirmedSession::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val attachmentMenuBotsUpdates: Flow<UpdateAttachmentMenuBots>
-        get() = repository.getUpdates(TdApi.UpdateAttachmentMenuBots::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val webAppMessageSentUpdates: Flow<UpdateWebAppMessageSent>
-        get() = repository.getUpdates(TdApi.UpdateWebAppMessageSent::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val activeEmojiReactionsUpdates: Flow<UpdateActiveEmojiReactions>
-        get() = repository.getUpdates(TdApi.UpdateActiveEmojiReactions::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val availableMessageEffectsUpdates: Flow<UpdateAvailableMessageEffects>
-        get() = repository.getUpdates(TdApi.UpdateAvailableMessageEffects::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val defaultReactionTypeUpdates: Flow<UpdateDefaultReactionType>
-        get() = repository.getUpdates(TdApi.UpdateDefaultReactionType::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val defaultPaidReactionTypeUpdates: Flow<UpdateDefaultPaidReactionType>
-        get() = repository.getUpdates(TdApi.UpdateDefaultPaidReactionType::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val savedMessagesTagsUpdates: Flow<UpdateSavedMessagesTags>
-        get() = repository.getUpdates(TdApi.UpdateSavedMessagesTags::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val activeLiveLocationMessagesUpdates: Flow<UpdateActiveLiveLocationMessages>
-        get() = repository.getUpdates(TdApi.UpdateActiveLiveLocationMessages::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val ownedStarCountUpdates: Flow<UpdateOwnedStarCount>
-        get() = repository.getUpdates(TdApi.UpdateOwnedStarCount::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
+
+    override val ownedTonCountUpdates: Flow<UpdateOwnedTonCount>
+        get() = repository.updates.filterIsInstance()
 
     override val chatRevenueAmountUpdates: Flow<UpdateChatRevenueAmount>
-        get() = repository.getUpdates(TdApi.UpdateChatRevenueAmount::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val starRevenueStatusUpdates: Flow<UpdateStarRevenueStatus>
-        get() = repository.getUpdates(TdApi.UpdateStarRevenueStatus::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val speechRecognitionTrialUpdates: Flow<UpdateSpeechRecognitionTrial>
-        get() = repository.getUpdates(TdApi.UpdateSpeechRecognitionTrial::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val diceEmojisUpdates: Flow<UpdateDiceEmojis>
-        get() = repository.getUpdates(TdApi.UpdateDiceEmojis::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val animatedEmojiMessageClickedUpdates: Flow<UpdateAnimatedEmojiMessageClicked>
-        get() = repository.getUpdates(TdApi.UpdateAnimatedEmojiMessageClicked::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val animationSearchParametersUpdates: Flow<UpdateAnimationSearchParameters>
-        get() = repository.getUpdates(TdApi.UpdateAnimationSearchParameters::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val suggestedActionsUpdates: Flow<UpdateSuggestedActions>
-        get() = repository.getUpdates(TdApi.UpdateSuggestedActions::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val speedLimitNotificationUpdates: Flow<UpdateSpeedLimitNotification>
-        get() = repository.getUpdates(TdApi.UpdateSpeedLimitNotification::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val contactCloseBirthdaysUpdates: Flow<UpdateContactCloseBirthdays>
-        get() = repository.getUpdates(TdApi.UpdateContactCloseBirthdays::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val autosaveSettingsUpdates: Flow<UpdateAutosaveSettings>
-        get() = repository.getUpdates(TdApi.UpdateAutosaveSettings::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val businessConnectionUpdates: Flow<UpdateBusinessConnection>
-        get() = repository.getUpdates(TdApi.UpdateBusinessConnection::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val newBusinessMessageUpdates: Flow<UpdateNewBusinessMessage>
-        get() = repository.getUpdates(TdApi.UpdateNewBusinessMessage::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val businessMessageEditedUpdates: Flow<UpdateBusinessMessageEdited>
-        get() = repository.getUpdates(TdApi.UpdateBusinessMessageEdited::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val businessMessagesDeletedUpdates: Flow<UpdateBusinessMessagesDeleted>
-        get() = repository.getUpdates(TdApi.UpdateBusinessMessagesDeleted::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val newInlineQueryUpdates: Flow<UpdateNewInlineQuery>
-        get() = repository.getUpdates(TdApi.UpdateNewInlineQuery::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val newChosenInlineResultUpdates: Flow<UpdateNewChosenInlineResult>
-        get() = repository.getUpdates(TdApi.UpdateNewChosenInlineResult::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val newCallbackQueryUpdates: Flow<UpdateNewCallbackQuery>
-        get() = repository.getUpdates(TdApi.UpdateNewCallbackQuery::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val newInlineCallbackQueryUpdates: Flow<UpdateNewInlineCallbackQuery>
-        get() = repository.getUpdates(TdApi.UpdateNewInlineCallbackQuery::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val newBusinessCallbackQueryUpdates: Flow<UpdateNewBusinessCallbackQuery>
-        get() = repository.getUpdates(TdApi.UpdateNewBusinessCallbackQuery::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val newShippingQueryUpdates: Flow<UpdateNewShippingQuery>
-        get() = repository.getUpdates(TdApi.UpdateNewShippingQuery::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val newPreCheckoutQueryUpdates: Flow<UpdateNewPreCheckoutQuery>
-        get() = repository.getUpdates(TdApi.UpdateNewPreCheckoutQuery::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val newCustomEventUpdates: Flow<UpdateNewCustomEvent>
-        get() = repository.getUpdates(TdApi.UpdateNewCustomEvent::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val newCustomQueryUpdates: Flow<UpdateNewCustomQuery>
-        get() = repository.getUpdates(TdApi.UpdateNewCustomQuery::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val pollUpdates: Flow<UpdatePoll>
-        get() = repository.getUpdates(TdApi.UpdatePoll::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val pollAnswerUpdates: Flow<UpdatePollAnswer>
-        get() = repository.getUpdates(TdApi.UpdatePollAnswer::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val chatMemberUpdates: Flow<UpdateChatMember>
-        get() = repository.getUpdates(TdApi.UpdateChatMember::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val newChatJoinRequestUpdates: Flow<UpdateNewChatJoinRequest>
-        get() = repository.getUpdates(TdApi.UpdateNewChatJoinRequest::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val chatBoostUpdates: Flow<UpdateChatBoost>
-        get() = repository.getUpdates(TdApi.UpdateChatBoost::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val messageReactionUpdates: Flow<UpdateMessageReaction>
-        get() = repository.getUpdates(TdApi.UpdateMessageReaction::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val messageReactionsUpdates: Flow<UpdateMessageReactions>
-        get() = repository.getUpdates(TdApi.UpdateMessageReactions::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override val paidMediaPurchasedUpdates: Flow<UpdatePaidMediaPurchased>
-        get() = repository.getUpdates(TdApi.UpdatePaidMediaPurchased::class) { mapper.map(it) }
+        get() = repository.updates.filterIsInstance()
 
     override suspend fun acceptCall(callId: Int, protocol: CallProtocol): TdlResult<Ok> {
-        val function = TdApi.AcceptCall(
+        val function = AcceptCall(
             callId = callId,
-            protocol = mapper.map(protocol),
+            protocol = protocol,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun acceptTermsOfService(termsOfServiceId: String): TdlResult<Ok> {
-        val function = TdApi.AcceptTermsOfService(
+        val function = AcceptTermsOfService(
             termsOfServiceId = termsOfServiceId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun activateStoryStealthMode(): TdlResult<Ok> {
-        val function = TdApi.ActivateStoryStealthMode()
-        return repository.send(function) { mapper.map(it) }
+        val function = ActivateStoryStealthMode()
+        return repository.send(function = function)
     }
 
     override suspend fun addBotMediaPreview(
@@ -1055,20 +1944,20 @@ internal class TdlClientImpl(
         languageCode: String,
         content: InputStoryContent,
     ): TdlResult<BotMediaPreview> {
-        val function = TdApi.AddBotMediaPreview(
+        val function = AddBotMediaPreview(
             botUserId = botUserId,
             languageCode = languageCode,
-            content = mapper.map(content),
+            content = content,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun addChatFolderByInviteLink(inviteLink: String, chatIds: LongArray): TdlResult<Ok> {
-        val function = TdApi.AddChatFolderByInviteLink(
+        val function = AddChatFolderByInviteLink(
             inviteLink = inviteLink,
             chatIds = chatIds,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun addChatMember(
@@ -1076,28 +1965,28 @@ internal class TdlClientImpl(
         userId: Long,
         forwardLimit: Int,
     ): TdlResult<FailedToAddMembers> {
-        val function = TdApi.AddChatMember(
+        val function = AddChatMember(
             chatId = chatId,
             userId = userId,
             forwardLimit = forwardLimit,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun addChatMembers(chatId: Long, userIds: LongArray): TdlResult<FailedToAddMembers> {
-        val function = TdApi.AddChatMembers(
+        val function = AddChatMembers(
             chatId = chatId,
             userIds = userIds,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun addChatToList(chatId: Long, chatList: ChatList): TdlResult<Ok> {
-        val function = TdApi.AddChatToList(
+        val function = AddChatToList(
             chatId = chatId,
-            chatList = mapper.map(chatList),
+            chatList = chatList,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun addChecklistTasks(
@@ -1105,34 +1994,34 @@ internal class TdlClientImpl(
         messageId: Long,
         tasks: Array<InputChecklistTask>,
     ): TdlResult<Ok> {
-        val function = TdApi.AddChecklistTasks(
+        val function = AddChecklistTasks(
             chatId = chatId,
             messageId = messageId,
-            tasks = tasks.mapArray { mapper.map(it) },
+            tasks = tasks,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun addContact(contact: Contact, sharePhoneNumber: Boolean): TdlResult<Ok> {
-        val function = TdApi.AddContact(
-            contact = mapper.map(contact),
+        val function = AddContact(
+            contact = contact,
             sharePhoneNumber = sharePhoneNumber,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun addCustomServerLanguagePack(languagePackId: String): TdlResult<Ok> {
-        val function = TdApi.AddCustomServerLanguagePack(
+        val function = AddCustomServerLanguagePack(
             languagePackId = languagePackId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun addFavoriteSticker(sticker: InputFile): TdlResult<Ok> {
-        val function = TdApi.AddFavoriteSticker(
-            sticker = mapper.map(sticker),
+        val function = AddFavoriteSticker(
+            sticker = sticker,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun addFileToDownloads(
@@ -1141,13 +2030,13 @@ internal class TdlClientImpl(
         messageId: Long,
         priority: Int,
     ): TdlResult<File> {
-        val function = TdApi.AddFileToDownloads(
+        val function = AddFileToDownloads(
             fileId = fileId,
             chatId = chatId,
             messageId = messageId,
             priority = priority,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun addLocalMessage(
@@ -1157,22 +2046,22 @@ internal class TdlClientImpl(
         disableNotification: Boolean,
         inputMessageContent: InputMessageContent,
     ): TdlResult<Message> {
-        val function = TdApi.AddLocalMessage(
+        val function = AddLocalMessage(
             chatId = chatId,
-            senderId = mapper.map(senderId),
-            replyTo = replyTo?.let { mapper.map(it) },
+            senderId = senderId,
+            replyTo = replyTo,
             disableNotification = disableNotification,
-            inputMessageContent = mapper.map(inputMessageContent),
+            inputMessageContent = inputMessageContent,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun addLogMessage(verbosityLevel: Int, text: String): TdlResult<Ok> {
-        val function = TdApi.AddLogMessage(
+        val function = AddLogMessage(
             verbosityLevel = verbosityLevel,
             text = text,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun addMessageReaction(
@@ -1182,21 +2071,34 @@ internal class TdlClientImpl(
         isBig: Boolean,
         updateRecentReactions: Boolean,
     ): TdlResult<Ok> {
-        val function = TdApi.AddMessageReaction(
+        val function = AddMessageReaction(
             chatId = chatId,
             messageId = messageId,
-            reactionType = mapper.map(reactionType),
+            reactionType = reactionType,
             isBig = isBig,
             updateRecentReactions = updateRecentReactions,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun addNetworkStatistics(entry: NetworkStatisticsEntry): TdlResult<Ok> {
-        val function = TdApi.AddNetworkStatistics(
-            entry = mapper.map(entry),
+        val function = AddNetworkStatistics(
+            entry = entry,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
+    }
+
+    override suspend fun addOffer(
+        chatId: Long,
+        messageId: Long,
+        options: MessageSendOptions,
+    ): TdlResult<Message> {
+        val function = AddOffer(
+            chatId = chatId,
+            messageId = messageId,
+            options = options,
+        )
+        return repository.send(function = function)
     }
 
     override suspend fun addPendingPaidMessageReaction(
@@ -1205,13 +2107,13 @@ internal class TdlClientImpl(
         starCount: Long,
         type: PaidReactionType?,
     ): TdlResult<Ok> {
-        val function = TdApi.AddPendingPaidMessageReaction(
+        val function = AddPendingPaidMessageReaction(
             chatId = chatId,
             messageId = messageId,
             starCount = starCount,
-            type = type?.let { mapper.map(it) },
+            type = type,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun addProxy(
@@ -1220,13 +2122,13 @@ internal class TdlClientImpl(
         enable: Boolean,
         type: ProxyType,
     ): TdlResult<Proxy> {
-        val function = TdApi.AddProxy(
+        val function = AddProxy(
             server = server,
             port = port,
             enable = enable,
-            type = mapper.map(type),
+            type = type,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun addQuickReplyShortcutInlineQueryResultMessage(
@@ -1236,14 +2138,14 @@ internal class TdlClientImpl(
         resultId: String,
         hideViaBot: Boolean,
     ): TdlResult<QuickReplyMessage> {
-        val function = TdApi.AddQuickReplyShortcutInlineQueryResultMessage(
+        val function = AddQuickReplyShortcutInlineQueryResultMessage(
             shortcutName = shortcutName,
             replyToMessageId = replyToMessageId,
             queryId = queryId,
             resultId = resultId,
             hideViaBot = hideViaBot,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun addQuickReplyShortcutMessage(
@@ -1251,12 +2153,12 @@ internal class TdlClientImpl(
         replyToMessageId: Long,
         inputMessageContent: InputMessageContent,
     ): TdlResult<QuickReplyMessage> {
-        val function = TdApi.AddQuickReplyShortcutMessage(
+        val function = AddQuickReplyShortcutMessage(
             shortcutName = shortcutName,
             replyToMessageId = replyToMessageId,
-            inputMessageContent = mapper.map(inputMessageContent),
+            inputMessageContent = inputMessageContent,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun addQuickReplyShortcutMessageAlbum(
@@ -1264,41 +2166,41 @@ internal class TdlClientImpl(
         replyToMessageId: Long,
         inputMessageContents: Array<InputMessageContent>,
     ): TdlResult<QuickReplyMessages> {
-        val function = TdApi.AddQuickReplyShortcutMessageAlbum(
+        val function = AddQuickReplyShortcutMessageAlbum(
             shortcutName = shortcutName,
             replyToMessageId = replyToMessageId,
-            inputMessageContents = inputMessageContents.mapArray { mapper.map(it) },
+            inputMessageContents = inputMessageContents,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun addRecentSticker(isAttached: Boolean, sticker: InputFile): TdlResult<Stickers> {
-        val function = TdApi.AddRecentSticker(
+        val function = AddRecentSticker(
             isAttached = isAttached,
-            sticker = mapper.map(sticker),
+            sticker = sticker,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun addRecentlyFoundChat(chatId: Long): TdlResult<Ok> {
-        val function = TdApi.AddRecentlyFoundChat(
+        val function = AddRecentlyFoundChat(
             chatId = chatId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun addSavedAnimation(animation: InputFile): TdlResult<Ok> {
-        val function = TdApi.AddSavedAnimation(
-            animation = mapper.map(animation),
+        val function = AddSavedAnimation(
+            animation = animation,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun addSavedNotificationSound(sound: InputFile): TdlResult<NotificationSound> {
-        val function = TdApi.AddSavedNotificationSound(
-            sound = mapper.map(sound),
+        val function = AddSavedNotificationSound(
+            sound = sound,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun addStickerToSet(
@@ -1306,27 +2208,27 @@ internal class TdlClientImpl(
         name: String,
         sticker: InputSticker,
     ): TdlResult<Ok> {
-        val function = TdApi.AddStickerToSet(
+        val function = AddStickerToSet(
             userId = userId,
             name = name,
-            sticker = mapper.map(sticker),
+            sticker = sticker,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun allowBotToSendMessages(botUserId: Long): TdlResult<Ok> {
-        val function = TdApi.AllowBotToSendMessages(
+        val function = AllowBotToSendMessages(
             botUserId = botUserId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun allowUnpaidMessagesFromUser(userId: Long, refundPayments: Boolean): TdlResult<Ok> {
-        val function = TdApi.AllowUnpaidMessagesFromUser(
+        val function = AllowUnpaidMessagesFromUser(
             userId = userId,
             refundPayments = refundPayments,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun answerCallbackQuery(
@@ -1336,22 +2238,22 @@ internal class TdlClientImpl(
         url: String,
         cacheTime: Int,
     ): TdlResult<Ok> {
-        val function = TdApi.AnswerCallbackQuery(
+        val function = AnswerCallbackQuery(
             callbackQueryId = callbackQueryId,
             text = text,
             showAlert = showAlert,
             url = url,
             cacheTime = cacheTime,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun answerCustomQuery(customQueryId: Long, data: String): TdlResult<Ok> {
-        val function = TdApi.AnswerCustomQuery(
+        val function = AnswerCustomQuery(
             customQueryId = customQueryId,
             data = data,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun answerInlineQuery(
@@ -1362,23 +2264,23 @@ internal class TdlClientImpl(
         cacheTime: Int,
         nextOffset: String,
     ): TdlResult<Ok> {
-        val function = TdApi.AnswerInlineQuery(
+        val function = AnswerInlineQuery(
             inlineQueryId = inlineQueryId,
             isPersonal = isPersonal,
-            button = button?.let { mapper.map(it) },
-            results = results.mapArray { mapper.map(it) },
+            button = button,
+            results = results,
             cacheTime = cacheTime,
             nextOffset = nextOffset,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun answerPreCheckoutQuery(preCheckoutQueryId: Long, errorMessage: String): TdlResult<Ok> {
-        val function = TdApi.AnswerPreCheckoutQuery(
+        val function = AnswerPreCheckoutQuery(
             preCheckoutQueryId = preCheckoutQueryId,
             errorMessage = errorMessage,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun answerShippingQuery(
@@ -1386,35 +2288,48 @@ internal class TdlClientImpl(
         shippingOptions: Array<ShippingOption>,
         errorMessage: String,
     ): TdlResult<Ok> {
-        val function = TdApi.AnswerShippingQuery(
+        val function = AnswerShippingQuery(
             shippingQueryId = shippingQueryId,
-            shippingOptions = shippingOptions.mapArray { mapper.map(it) },
+            shippingOptions = shippingOptions,
             errorMessage = errorMessage,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun answerWebAppQuery(webAppQueryId: String, result: InputInlineQueryResult): TdlResult<SentWebAppMessage> {
-        val function = TdApi.AnswerWebAppQuery(
+        val function = AnswerWebAppQuery(
             webAppQueryId = webAppQueryId,
-            result = mapper.map(result),
+            result = result,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun applyPremiumGiftCode(code: String): TdlResult<Ok> {
-        val function = TdApi.ApplyPremiumGiftCode(
+        val function = ApplyPremiumGiftCode(
             code = code,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
+    }
+
+    override suspend fun approveSuggestedPost(
+        chatId: Long,
+        messageId: Long,
+        sendDate: Int,
+    ): TdlResult<Ok> {
+        val function = ApproveSuggestedPost(
+            chatId = chatId,
+            messageId = messageId,
+            sendDate = sendDate,
+        )
+        return repository.send(function = function)
     }
 
     override suspend fun assignStoreTransaction(transaction: StoreTransaction, purpose: StorePaymentPurpose): TdlResult<Ok> {
-        val function = TdApi.AssignStoreTransaction(
-            transaction = mapper.map(transaction),
-            purpose = mapper.map(purpose),
+        val function = AssignStoreTransaction(
+            transaction = transaction,
+            purpose = purpose,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun banChatMember(
@@ -1423,21 +2338,21 @@ internal class TdlClientImpl(
         bannedUntilDate: Int,
         revokeMessages: Boolean,
     ): TdlResult<Ok> {
-        val function = TdApi.BanChatMember(
+        val function = BanChatMember(
             chatId = chatId,
-            memberId = mapper.map(memberId),
+            memberId = memberId,
             bannedUntilDate = bannedUntilDate,
             revokeMessages = revokeMessages,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun banGroupCallParticipants(groupCallId: Int, userIds: LongArray): TdlResult<Ok> {
-        val function = TdApi.BanGroupCallParticipants(
+        val function = BanGroupCallParticipants(
             groupCallId = groupCallId,
             userIds = userIds,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun blockMessageSenderFromReplies(
@@ -1446,87 +2361,87 @@ internal class TdlClientImpl(
         deleteAllMessages: Boolean,
         reportSpam: Boolean,
     ): TdlResult<Ok> {
-        val function = TdApi.BlockMessageSenderFromReplies(
+        val function = BlockMessageSenderFromReplies(
             messageId = messageId,
             deleteMessage = deleteMessage,
             deleteAllMessages = deleteAllMessages,
             reportSpam = reportSpam,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun boostChat(chatId: Long, slotIds: IntArray): TdlResult<ChatBoostSlots> {
-        val function = TdApi.BoostChat(
+        val function = BoostChat(
             chatId = chatId,
             slotIds = slotIds,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun canBotSendMessages(botUserId: Long): TdlResult<Ok> {
-        val function = TdApi.CanBotSendMessages(
+        val function = CanBotSendMessages(
             botUserId = botUserId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun canPostStory(chatId: Long): TdlResult<CanPostStoryResult> {
-        val function = TdApi.CanPostStory(
+        val function = CanPostStory(
             chatId = chatId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun canPurchaseFromStore(purpose: StorePaymentPurpose): TdlResult<Ok> {
-        val function = TdApi.CanPurchaseFromStore(
-            purpose = mapper.map(purpose),
+        val function = CanPurchaseFromStore(
+            purpose = purpose,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun canSendMessageToUser(userId: Long, onlyLocal: Boolean): TdlResult<CanSendMessageToUserResult> {
-        val function = TdApi.CanSendMessageToUser(
+        val function = CanSendMessageToUser(
             userId = userId,
             onlyLocal = onlyLocal,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun canTransferOwnership(): TdlResult<CanTransferOwnershipResult> {
-        val function = TdApi.CanTransferOwnership()
-        return repository.send(function) { mapper.map(it) }
+        val function = CanTransferOwnership()
+        return repository.send(function = function)
     }
 
     override suspend fun cancelDownloadFile(fileId: Int, onlyIfPending: Boolean): TdlResult<Ok> {
-        val function = TdApi.CancelDownloadFile(
+        val function = CancelDownloadFile(
             fileId = fileId,
             onlyIfPending = onlyIfPending,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun cancelPasswordReset(): TdlResult<Ok> {
-        val function = TdApi.CancelPasswordReset()
-        return repository.send(function) { mapper.map(it) }
+        val function = CancelPasswordReset()
+        return repository.send(function = function)
     }
 
     override suspend fun cancelPreliminaryUploadFile(fileId: Int): TdlResult<Ok> {
-        val function = TdApi.CancelPreliminaryUploadFile(
+        val function = CancelPreliminaryUploadFile(
             fileId = fileId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun cancelRecoveryEmailAddressVerification(): TdlResult<PasswordState> {
-        val function = TdApi.CancelRecoveryEmailAddressVerification()
-        return repository.send(function) { mapper.map(it) }
+        val function = CancelRecoveryEmailAddressVerification()
+        return repository.send(function = function)
     }
 
     override suspend fun changeImportedContacts(contacts: Array<Contact>): TdlResult<ImportedContacts> {
-        val function = TdApi.ChangeImportedContacts(
-            contacts = contacts.mapArray { mapper.map(it) },
+        val function = ChangeImportedContacts(
+            contacts = contacts,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun changeStickerSet(
@@ -1534,140 +2449,140 @@ internal class TdlClientImpl(
         isInstalled: Boolean,
         isArchived: Boolean,
     ): TdlResult<Ok> {
-        val function = TdApi.ChangeStickerSet(
+        val function = ChangeStickerSet(
             setId = setId,
             isInstalled = isInstalled,
             isArchived = isArchived,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun checkAuthenticationBotToken(token: String): TdlResult<Ok> {
-        val function = TdApi.CheckAuthenticationBotToken(
+        val function = CheckAuthenticationBotToken(
             token = token,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun checkAuthenticationCode(code: String): TdlResult<Ok> {
-        val function = TdApi.CheckAuthenticationCode(
+        val function = CheckAuthenticationCode(
             code = code,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun checkAuthenticationEmailCode(code: EmailAddressAuthentication): TdlResult<Ok> {
-        val function = TdApi.CheckAuthenticationEmailCode(
-            code = mapper.map(code),
+        val function = CheckAuthenticationEmailCode(
+            code = code,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun checkAuthenticationPassword(password: String): TdlResult<Ok> {
-        val function = TdApi.CheckAuthenticationPassword(
+        val function = CheckAuthenticationPassword(
             password = password,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun checkAuthenticationPasswordRecoveryCode(recoveryCode: String): TdlResult<Ok> {
-        val function = TdApi.CheckAuthenticationPasswordRecoveryCode(
+        val function = CheckAuthenticationPasswordRecoveryCode(
             recoveryCode = recoveryCode,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun checkAuthenticationPremiumPurchase(currency: String, amount: Long): TdlResult<Ok> {
-        val function = TdApi.CheckAuthenticationPremiumPurchase(
+        val function = CheckAuthenticationPremiumPurchase(
             currency = currency,
             amount = amount,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun checkChatFolderInviteLink(inviteLink: String): TdlResult<ChatFolderInviteLinkInfo> {
-        val function = TdApi.CheckChatFolderInviteLink(
+        val function = CheckChatFolderInviteLink(
             inviteLink = inviteLink,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun checkChatInviteLink(inviteLink: String): TdlResult<ChatInviteLinkInfo> {
-        val function = TdApi.CheckChatInviteLink(
+        val function = CheckChatInviteLink(
             inviteLink = inviteLink,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun checkChatUsername(chatId: Long, username: String): TdlResult<CheckChatUsernameResult> {
-        val function = TdApi.CheckChatUsername(
+        val function = CheckChatUsername(
             chatId = chatId,
             username = username,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun checkCreatedPublicChatsLimit(type: PublicChatType): TdlResult<Ok> {
-        val function = TdApi.CheckCreatedPublicChatsLimit(
-            type = mapper.map(type),
+        val function = CheckCreatedPublicChatsLimit(
+            type = type,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun checkEmailAddressVerificationCode(code: String): TdlResult<Ok> {
-        val function = TdApi.CheckEmailAddressVerificationCode(
+        val function = CheckEmailAddressVerificationCode(
             code = code,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun checkLoginEmailAddressCode(code: EmailAddressAuthentication): TdlResult<Ok> {
-        val function = TdApi.CheckLoginEmailAddressCode(
-            code = mapper.map(code),
+        val function = CheckLoginEmailAddressCode(
+            code = code,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun checkPasswordRecoveryCode(recoveryCode: String): TdlResult<Ok> {
-        val function = TdApi.CheckPasswordRecoveryCode(
+        val function = CheckPasswordRecoveryCode(
             recoveryCode = recoveryCode,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun checkPhoneNumberCode(code: String): TdlResult<Ok> {
-        val function = TdApi.CheckPhoneNumberCode(
+        val function = CheckPhoneNumberCode(
             code = code,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun checkPremiumGiftCode(code: String): TdlResult<PremiumGiftCodeInfo> {
-        val function = TdApi.CheckPremiumGiftCode(
+        val function = CheckPremiumGiftCode(
             code = code,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun checkQuickReplyShortcutName(name: String): TdlResult<Ok> {
-        val function = TdApi.CheckQuickReplyShortcutName(
+        val function = CheckQuickReplyShortcutName(
             name = name,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun checkRecoveryEmailAddressCode(code: String): TdlResult<PasswordState> {
-        val function = TdApi.CheckRecoveryEmailAddressCode(
+        val function = CheckRecoveryEmailAddressCode(
             code = code,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun checkStickerSetName(name: String): TdlResult<CheckStickerSetNameResult> {
-        val function = TdApi.CheckStickerSetName(
+        val function = CheckStickerSetName(
             name = name,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun checkWebAppFileDownload(
@@ -1675,73 +2590,73 @@ internal class TdlClientImpl(
         fileName: String,
         url: String,
     ): TdlResult<Ok> {
-        val function = TdApi.CheckWebAppFileDownload(
+        val function = CheckWebAppFileDownload(
             botUserId = botUserId,
             fileName = fileName,
             url = url,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun cleanFileName(fileName: String): TdlResult<Text> {
-        val function = TdApi.CleanFileName(
+        val function = CleanFileName(
             fileName = fileName,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun clearAllDraftMessages(excludeSecretChats: Boolean): TdlResult<Ok> {
-        val function = TdApi.ClearAllDraftMessages(
+        val function = ClearAllDraftMessages(
             excludeSecretChats = excludeSecretChats,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun clearAutosaveSettingsExceptions(): TdlResult<Ok> {
-        val function = TdApi.ClearAutosaveSettingsExceptions()
-        return repository.send(function) { mapper.map(it) }
+        val function = ClearAutosaveSettingsExceptions()
+        return repository.send(function = function)
     }
 
     override suspend fun clearImportedContacts(): TdlResult<Ok> {
-        val function = TdApi.ClearImportedContacts()
-        return repository.send(function) { mapper.map(it) }
+        val function = ClearImportedContacts()
+        return repository.send(function = function)
     }
 
     override suspend fun clearRecentEmojiStatuses(): TdlResult<Ok> {
-        val function = TdApi.ClearRecentEmojiStatuses()
-        return repository.send(function) { mapper.map(it) }
+        val function = ClearRecentEmojiStatuses()
+        return repository.send(function = function)
     }
 
     override suspend fun clearRecentReactions(): TdlResult<Ok> {
-        val function = TdApi.ClearRecentReactions()
-        return repository.send(function) { mapper.map(it) }
+        val function = ClearRecentReactions()
+        return repository.send(function = function)
     }
 
     override suspend fun clearRecentStickers(isAttached: Boolean): TdlResult<Ok> {
-        val function = TdApi.ClearRecentStickers(
+        val function = ClearRecentStickers(
             isAttached = isAttached,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun clearRecentlyFoundChats(): TdlResult<Ok> {
-        val function = TdApi.ClearRecentlyFoundChats()
-        return repository.send(function) { mapper.map(it) }
+        val function = ClearRecentlyFoundChats()
+        return repository.send(function = function)
     }
 
     override suspend fun clearSearchedForTags(clearCashtags: Boolean): TdlResult<Ok> {
-        val function = TdApi.ClearSearchedForTags(
+        val function = ClearSearchedForTags(
             clearCashtags = clearCashtags,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun clickAnimatedEmojiMessage(chatId: Long, messageId: Long): TdlResult<Sticker> {
-        val function = TdApi.ClickAnimatedEmojiMessage(
+        val function = ClickAnimatedEmojiMessage(
             chatId = chatId,
             messageId = messageId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun clickChatSponsoredMessage(
@@ -1750,104 +2665,104 @@ internal class TdlClientImpl(
         isMediaClick: Boolean,
         fromFullscreen: Boolean,
     ): TdlResult<Ok> {
-        val function = TdApi.ClickChatSponsoredMessage(
+        val function = ClickChatSponsoredMessage(
             chatId = chatId,
             messageId = messageId,
             isMediaClick = isMediaClick,
             fromFullscreen = fromFullscreen,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun clickPremiumSubscriptionButton(): TdlResult<Ok> {
-        val function = TdApi.ClickPremiumSubscriptionButton()
-        return repository.send(function) { mapper.map(it) }
+        val function = ClickPremiumSubscriptionButton()
+        return repository.send(function = function)
     }
 
     override suspend fun clickVideoMessageAdvertisement(advertisementUniqueId: Long): TdlResult<Ok> {
-        val function = TdApi.ClickVideoMessageAdvertisement(
+        val function = ClickVideoMessageAdvertisement(
             advertisementUniqueId = advertisementUniqueId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun close(): TdlResult<Ok> {
-        val function = TdApi.Close()
-        return repository.send(function) { mapper.map(it) }
+        val function = Close()
+        return repository.send(function = function)
     }
 
     override suspend fun closeChat(chatId: Long): TdlResult<Ok> {
-        val function = TdApi.CloseChat(
+        val function = CloseChat(
             chatId = chatId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun closeSecretChat(secretChatId: Int): TdlResult<Ok> {
-        val function = TdApi.CloseSecretChat(
+        val function = CloseSecretChat(
             secretChatId = secretChatId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun closeStory(storyPosterChatId: Long, storyId: Int): TdlResult<Ok> {
-        val function = TdApi.CloseStory(
+        val function = CloseStory(
             storyPosterChatId = storyPosterChatId,
             storyId = storyId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun closeWebApp(webAppLaunchId: Long): TdlResult<Ok> {
-        val function = TdApi.CloseWebApp(
+        val function = CloseWebApp(
             webAppLaunchId = webAppLaunchId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun commitPendingPaidMessageReactions(chatId: Long, messageId: Long): TdlResult<Ok> {
-        val function = TdApi.CommitPendingPaidMessageReactions(
+        val function = CommitPendingPaidMessageReactions(
             chatId = chatId,
             messageId = messageId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun confirmQrCodeAuthentication(link: String): TdlResult<Session> {
-        val function = TdApi.ConfirmQrCodeAuthentication(
+        val function = ConfirmQrCodeAuthentication(
             link = link,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun confirmSession(sessionId: Long): TdlResult<Ok> {
-        val function = TdApi.ConfirmSession(
+        val function = ConfirmSession(
             sessionId = sessionId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun connectAffiliateProgram(affiliate: AffiliateType, botUserId: Long): TdlResult<ConnectedAffiliateProgram> {
-        val function = TdApi.ConnectAffiliateProgram(
-            affiliate = mapper.map(affiliate),
+        val function = ConnectAffiliateProgram(
+            affiliate = affiliate,
             botUserId = botUserId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun createBasicGroupChat(basicGroupId: Long, force: Boolean): TdlResult<Chat> {
-        val function = TdApi.CreateBasicGroupChat(
+        val function = CreateBasicGroupChat(
             basicGroupId = basicGroupId,
             force = force,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun createBusinessChatLink(linkInfo: InputBusinessChatLink): TdlResult<BusinessChatLink> {
-        val function = TdApi.CreateBusinessChatLink(
-            linkInfo = mapper.map(linkInfo),
+        val function = CreateBusinessChatLink(
+            linkInfo = linkInfo,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun createCall(
@@ -1855,19 +2770,19 @@ internal class TdlClientImpl(
         protocol: CallProtocol,
         isVideo: Boolean,
     ): TdlResult<CallId> {
-        val function = TdApi.CreateCall(
+        val function = CreateCall(
             userId = userId,
-            protocol = mapper.map(protocol),
+            protocol = protocol,
             isVideo = isVideo,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun createChatFolder(folder: ChatFolder): TdlResult<ChatFolderInfo> {
-        val function = TdApi.CreateChatFolder(
-            folder = mapper.map(folder),
+        val function = CreateChatFolder(
+            folder = folder,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun createChatFolderInviteLink(
@@ -1875,12 +2790,12 @@ internal class TdlClientImpl(
         name: String,
         chatIds: LongArray,
     ): TdlResult<ChatFolderInviteLink> {
-        val function = TdApi.CreateChatFolderInviteLink(
+        val function = CreateChatFolderInviteLink(
             chatFolderId = chatFolderId,
             name = name,
             chatIds = chatIds,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun createChatInviteLink(
@@ -1890,14 +2805,14 @@ internal class TdlClientImpl(
         memberLimit: Int,
         createsJoinRequest: Boolean,
     ): TdlResult<ChatInviteLink> {
-        val function = TdApi.CreateChatInviteLink(
+        val function = CreateChatInviteLink(
             chatId = chatId,
             name = name,
             expirationDate = expirationDate,
             memberLimit = memberLimit,
             createsJoinRequest = createsJoinRequest,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun createChatSubscriptionInviteLink(
@@ -1905,12 +2820,12 @@ internal class TdlClientImpl(
         name: String,
         subscriptionPricing: StarSubscriptionPricing,
     ): TdlResult<ChatInviteLink> {
-        val function = TdApi.CreateChatSubscriptionInviteLink(
+        val function = CreateChatSubscriptionInviteLink(
             chatId = chatId,
             name = name,
-            subscriptionPricing = mapper.map(subscriptionPricing),
+            subscriptionPricing = subscriptionPricing,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun createForumTopic(
@@ -1918,27 +2833,27 @@ internal class TdlClientImpl(
         name: String,
         icon: ForumTopicIcon,
     ): TdlResult<ForumTopicInfo> {
-        val function = TdApi.CreateForumTopic(
+        val function = CreateForumTopic(
             chatId = chatId,
             name = name,
-            icon = mapper.map(icon),
+            icon = icon,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun createGroupCall(joinParameters: GroupCallJoinParameters?): TdlResult<GroupCallInfo> {
-        val function = TdApi.CreateGroupCall(
-            joinParameters = joinParameters?.let { mapper.map(it) },
+        val function = CreateGroupCall(
+            joinParameters = joinParameters,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun createInvoiceLink(businessConnectionId: String, invoice: InputMessageContent): TdlResult<HttpUrl> {
-        val function = TdApi.CreateInvoiceLink(
+        val function = CreateInvoiceLink(
             businessConnectionId = businessConnectionId,
-            invoice = mapper.map(invoice),
+            invoice = invoice,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun createNewBasicGroupChat(
@@ -1946,19 +2861,19 @@ internal class TdlClientImpl(
         title: String,
         messageAutoDeleteTime: Int,
     ): TdlResult<CreatedBasicGroupChat> {
-        val function = TdApi.CreateNewBasicGroupChat(
+        val function = CreateNewBasicGroupChat(
             userIds = userIds,
             title = title,
             messageAutoDeleteTime = messageAutoDeleteTime,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun createNewSecretChat(userId: Long): TdlResult<Chat> {
-        val function = TdApi.CreateNewSecretChat(
+        val function = CreateNewSecretChat(
             userId = userId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun createNewStickerSet(
@@ -1970,16 +2885,16 @@ internal class TdlClientImpl(
         stickers: Array<InputSticker>,
         source: String,
     ): TdlResult<StickerSet> {
-        val function = TdApi.CreateNewStickerSet(
+        val function = CreateNewStickerSet(
             userId = userId,
             title = title,
             name = name,
-            stickerType = mapper.map(stickerType),
+            stickerType = stickerType,
             needsRepainting = needsRepainting,
-            stickers = stickers.mapArray { mapper.map(it) },
+            stickers = stickers,
             source = source,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun createNewSupergroupChat(
@@ -1991,47 +2906,47 @@ internal class TdlClientImpl(
         messageAutoDeleteTime: Int,
         forImport: Boolean,
     ): TdlResult<Chat> {
-        val function = TdApi.CreateNewSupergroupChat(
+        val function = CreateNewSupergroupChat(
             title = title,
             isForum = isForum,
             isChannel = isChannel,
             description = description,
-            location = location?.let { mapper.map(it) },
+            location = location,
             messageAutoDeleteTime = messageAutoDeleteTime,
             forImport = forImport,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun createPrivateChat(userId: Long, force: Boolean): TdlResult<Chat> {
-        val function = TdApi.CreatePrivateChat(
+        val function = CreatePrivateChat(
             userId = userId,
             force = force,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun createSecretChat(secretChatId: Int): TdlResult<Chat> {
-        val function = TdApi.CreateSecretChat(
+        val function = CreateSecretChat(
             secretChatId = secretChatId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun createSupergroupChat(supergroupId: Long, force: Boolean): TdlResult<Chat> {
-        val function = TdApi.CreateSupergroupChat(
+        val function = CreateSupergroupChat(
             supergroupId = supergroupId,
             force = force,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun createTemporaryPassword(password: String, validFor: Int): TdlResult<TemporaryPasswordState> {
-        val function = TdApi.CreateTemporaryPassword(
+        val function = CreateTemporaryPassword(
             password = password,
             validFor = validFor,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun createVideoChat(
@@ -2040,21 +2955,34 @@ internal class TdlClientImpl(
         startDate: Int,
         isRtmpStream: Boolean,
     ): TdlResult<GroupCallId> {
-        val function = TdApi.CreateVideoChat(
+        val function = CreateVideoChat(
             chatId = chatId,
             title = title,
             startDate = startDate,
             isRtmpStream = isRtmpStream,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun declineGroupCallInvitation(chatId: Long, messageId: Long): TdlResult<Ok> {
-        val function = TdApi.DeclineGroupCallInvitation(
+        val function = DeclineGroupCallInvitation(
             chatId = chatId,
             messageId = messageId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
+    }
+
+    override suspend fun declineSuggestedPost(
+        chatId: Long,
+        messageId: Long,
+        comment: String,
+    ): TdlResult<Ok> {
+        val function = DeclineSuggestedPost(
+            chatId = chatId,
+            messageId = messageId,
+            comment = comment,
+        )
+        return repository.send(function = function)
     }
 
     override suspend fun decryptGroupCallData(
@@ -2063,36 +2991,36 @@ internal class TdlClientImpl(
         dataChannel: GroupCallDataChannel?,
         data: ByteArray,
     ): TdlResult<Data> {
-        val function = TdApi.DecryptGroupCallData(
+        val function = DecryptGroupCallData(
             groupCallId = groupCallId,
-            participantId = mapper.map(participantId),
-            dataChannel = dataChannel?.let { mapper.map(it) },
+            participantId = participantId,
+            dataChannel = dataChannel,
             data = data,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun deleteAccount(reason: String, password: String): TdlResult<Ok> {
-        val function = TdApi.DeleteAccount(
+        val function = DeleteAccount(
             reason = reason,
             password = password,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun deleteAllCallMessages(revoke: Boolean): TdlResult<Ok> {
-        val function = TdApi.DeleteAllCallMessages(
+        val function = DeleteAllCallMessages(
             revoke = revoke,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun deleteAllRevokedChatInviteLinks(chatId: Long, creatorUserId: Long): TdlResult<Ok> {
-        val function = TdApi.DeleteAllRevokedChatInviteLinks(
+        val function = DeleteAllRevokedChatInviteLinks(
             chatId = chatId,
             creatorUserId = creatorUserId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun deleteBotMediaPreviews(
@@ -2100,73 +3028,73 @@ internal class TdlClientImpl(
         languageCode: String,
         fileIds: IntArray,
     ): TdlResult<Ok> {
-        val function = TdApi.DeleteBotMediaPreviews(
+        val function = DeleteBotMediaPreviews(
             botUserId = botUserId,
             languageCode = languageCode,
             fileIds = fileIds,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun deleteBusinessChatLink(link: String): TdlResult<Ok> {
-        val function = TdApi.DeleteBusinessChatLink(
+        val function = DeleteBusinessChatLink(
             link = link,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun deleteBusinessConnectedBot(botUserId: Long): TdlResult<Ok> {
-        val function = TdApi.DeleteBusinessConnectedBot(
+        val function = DeleteBusinessConnectedBot(
             botUserId = botUserId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun deleteBusinessMessages(businessConnectionId: String, messageIds: LongArray): TdlResult<Ok> {
-        val function = TdApi.DeleteBusinessMessages(
+        val function = DeleteBusinessMessages(
             businessConnectionId = businessConnectionId,
             messageIds = messageIds,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun deleteBusinessStory(businessConnectionId: String, storyId: Int): TdlResult<Ok> {
-        val function = TdApi.DeleteBusinessStory(
+        val function = DeleteBusinessStory(
             businessConnectionId = businessConnectionId,
             storyId = storyId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun deleteChat(chatId: Long): TdlResult<Ok> {
-        val function = TdApi.DeleteChat(
+        val function = DeleteChat(
             chatId = chatId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun deleteChatBackground(chatId: Long, restorePrevious: Boolean): TdlResult<Ok> {
-        val function = TdApi.DeleteChatBackground(
+        val function = DeleteChatBackground(
             chatId = chatId,
             restorePrevious = restorePrevious,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun deleteChatFolder(chatFolderId: Int, leaveChatIds: LongArray): TdlResult<Ok> {
-        val function = TdApi.DeleteChatFolder(
+        val function = DeleteChatFolder(
             chatFolderId = chatFolderId,
             leaveChatIds = leaveChatIds,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun deleteChatFolderInviteLink(chatFolderId: Int, inviteLink: String): TdlResult<Ok> {
-        val function = TdApi.DeleteChatFolderInviteLink(
+        val function = DeleteChatFolderInviteLink(
             chatFolderId = chatFolderId,
             inviteLink = inviteLink,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun deleteChatHistory(
@@ -2174,12 +3102,12 @@ internal class TdlClientImpl(
         removeFromChatList: Boolean,
         revoke: Boolean,
     ): TdlResult<Ok> {
-        val function = TdApi.DeleteChatHistory(
+        val function = DeleteChatHistory(
             chatId = chatId,
             removeFromChatList = removeFromChatList,
             revoke = revoke,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun deleteChatMessagesByDate(
@@ -2188,52 +3116,52 @@ internal class TdlClientImpl(
         maxDate: Int,
         revoke: Boolean,
     ): TdlResult<Ok> {
-        val function = TdApi.DeleteChatMessagesByDate(
+        val function = DeleteChatMessagesByDate(
             chatId = chatId,
             minDate = minDate,
             maxDate = maxDate,
             revoke = revoke,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun deleteChatMessagesBySender(chatId: Long, senderId: MessageSender): TdlResult<Ok> {
-        val function = TdApi.DeleteChatMessagesBySender(
+        val function = DeleteChatMessagesBySender(
             chatId = chatId,
-            senderId = mapper.map(senderId),
+            senderId = senderId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun deleteChatReplyMarkup(chatId: Long, messageId: Long): TdlResult<Ok> {
-        val function = TdApi.DeleteChatReplyMarkup(
+        val function = DeleteChatReplyMarkup(
             chatId = chatId,
             messageId = messageId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun deleteCommands(scope: BotCommandScope?, languageCode: String): TdlResult<Ok> {
-        val function = TdApi.DeleteCommands(
-            scope = scope?.let { mapper.map(it) },
+        val function = DeleteCommands(
+            scope = scope,
             languageCode = languageCode,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun deleteDefaultBackground(forDarkTheme: Boolean): TdlResult<Ok> {
-        val function = TdApi.DeleteDefaultBackground(
+        val function = DeleteDefaultBackground(
             forDarkTheme = forDarkTheme,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun deleteDirectMessagesChatTopicHistory(chatId: Long, topicId: Long): TdlResult<Ok> {
-        val function = TdApi.DeleteDirectMessagesChatTopicHistory(
+        val function = DeleteDirectMessagesChatTopicHistory(
             chatId = chatId,
             topicId = topicId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun deleteDirectMessagesChatTopicMessagesByDate(
@@ -2242,35 +3170,35 @@ internal class TdlClientImpl(
         minDate: Int,
         maxDate: Int,
     ): TdlResult<Ok> {
-        val function = TdApi.DeleteDirectMessagesChatTopicMessagesByDate(
+        val function = DeleteDirectMessagesChatTopicMessagesByDate(
             chatId = chatId,
             topicId = topicId,
             minDate = minDate,
             maxDate = maxDate,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun deleteFile(fileId: Int): TdlResult<Ok> {
-        val function = TdApi.DeleteFile(
+        val function = DeleteFile(
             fileId = fileId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun deleteForumTopic(chatId: Long, messageThreadId: Long): TdlResult<Ok> {
-        val function = TdApi.DeleteForumTopic(
+        val function = DeleteForumTopic(
             chatId = chatId,
             messageThreadId = messageThreadId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun deleteLanguagePack(languagePackId: String): TdlResult<Ok> {
-        val function = TdApi.DeleteLanguagePack(
+        val function = DeleteLanguagePack(
             languagePackId = languagePackId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun deleteMessages(
@@ -2278,61 +3206,61 @@ internal class TdlClientImpl(
         messageIds: LongArray,
         revoke: Boolean,
     ): TdlResult<Ok> {
-        val function = TdApi.DeleteMessages(
+        val function = DeleteMessages(
             chatId = chatId,
             messageIds = messageIds,
             revoke = revoke,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun deletePassportElement(type: PassportElementType): TdlResult<Ok> {
-        val function = TdApi.DeletePassportElement(
-            type = mapper.map(type),
+        val function = DeletePassportElement(
+            type = type,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun deleteProfilePhoto(profilePhotoId: Long): TdlResult<Ok> {
-        val function = TdApi.DeleteProfilePhoto(
+        val function = DeleteProfilePhoto(
             profilePhotoId = profilePhotoId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun deleteQuickReplyShortcut(shortcutId: Int): TdlResult<Ok> {
-        val function = TdApi.DeleteQuickReplyShortcut(
+        val function = DeleteQuickReplyShortcut(
             shortcutId = shortcutId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun deleteQuickReplyShortcutMessages(shortcutId: Int, messageIds: LongArray): TdlResult<Ok> {
-        val function = TdApi.DeleteQuickReplyShortcutMessages(
+        val function = DeleteQuickReplyShortcutMessages(
             shortcutId = shortcutId,
             messageIds = messageIds,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun deleteRevokedChatInviteLink(chatId: Long, inviteLink: String): TdlResult<Ok> {
-        val function = TdApi.DeleteRevokedChatInviteLink(
+        val function = DeleteRevokedChatInviteLink(
             chatId = chatId,
             inviteLink = inviteLink,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun deleteSavedCredentials(): TdlResult<Ok> {
-        val function = TdApi.DeleteSavedCredentials()
-        return repository.send(function) { mapper.map(it) }
+        val function = DeleteSavedCredentials()
+        return repository.send(function = function)
     }
 
     override suspend fun deleteSavedMessagesTopicHistory(savedMessagesTopicId: Long): TdlResult<Ok> {
-        val function = TdApi.DeleteSavedMessagesTopicHistory(
+        val function = DeleteSavedMessagesTopicHistory(
             savedMessagesTopicId = savedMessagesTopicId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun deleteSavedMessagesTopicMessagesByDate(
@@ -2340,49 +3268,49 @@ internal class TdlClientImpl(
         minDate: Int,
         maxDate: Int,
     ): TdlResult<Ok> {
-        val function = TdApi.DeleteSavedMessagesTopicMessagesByDate(
+        val function = DeleteSavedMessagesTopicMessagesByDate(
             savedMessagesTopicId = savedMessagesTopicId,
             minDate = minDate,
             maxDate = maxDate,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun deleteSavedOrderInfo(): TdlResult<Ok> {
-        val function = TdApi.DeleteSavedOrderInfo()
-        return repository.send(function) { mapper.map(it) }
+        val function = DeleteSavedOrderInfo()
+        return repository.send(function = function)
     }
 
     override suspend fun deleteStickerSet(name: String): TdlResult<Ok> {
-        val function = TdApi.DeleteStickerSet(
+        val function = DeleteStickerSet(
             name = name,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun deleteStory(storyPosterChatId: Long, storyId: Int): TdlResult<Ok> {
-        val function = TdApi.DeleteStory(
+        val function = DeleteStory(
             storyPosterChatId = storyPosterChatId,
             storyId = storyId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun destroy(): TdlResult<Ok> {
-        val function = TdApi.Destroy()
-        return repository.send(function) { mapper.map(it) }
+        val function = Destroy()
+        return repository.send(function = function)
     }
 
     override suspend fun disableAllSupergroupUsernames(supergroupId: Long): TdlResult<Ok> {
-        val function = TdApi.DisableAllSupergroupUsernames(
+        val function = DisableAllSupergroupUsernames(
             supergroupId = supergroupId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun disableProxy(): TdlResult<Ok> {
-        val function = TdApi.DisableProxy()
-        return repository.send(function) { mapper.map(it) }
+        val function = DisableProxy()
+        return repository.send(function = function)
     }
 
     override suspend fun discardCall(
@@ -2393,7 +3321,7 @@ internal class TdlClientImpl(
         isVideo: Boolean,
         connectionId: Long,
     ): TdlResult<Ok> {
-        val function = TdApi.DiscardCall(
+        val function = DiscardCall(
             callId = callId,
             isDisconnected = isDisconnected,
             inviteLink = inviteLink,
@@ -2401,27 +3329,27 @@ internal class TdlClientImpl(
             isVideo = isVideo,
             connectionId = connectionId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun disconnectAffiliateProgram(affiliate: AffiliateType, url: String): TdlResult<ConnectedAffiliateProgram> {
-        val function = TdApi.DisconnectAffiliateProgram(
-            affiliate = mapper.map(affiliate),
+        val function = DisconnectAffiliateProgram(
+            affiliate = affiliate,
             url = url,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun disconnectAllWebsites(): TdlResult<Ok> {
-        val function = TdApi.DisconnectAllWebsites()
-        return repository.send(function) { mapper.map(it) }
+        val function = DisconnectAllWebsites()
+        return repository.send(function = function)
     }
 
     override suspend fun disconnectWebsite(websiteId: Long): TdlResult<Ok> {
-        val function = TdApi.DisconnectWebsite(
+        val function = DisconnectWebsite(
             websiteId = websiteId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun downloadFile(
@@ -2431,14 +3359,14 @@ internal class TdlClientImpl(
         limit: Long,
         synchronous: Boolean,
     ): TdlResult<File> {
-        val function = TdApi.DownloadFile(
+        val function = DownloadFile(
             fileId = fileId,
             priority = priority,
             offset = offset,
             limit = limit,
             synchronous = synchronous,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun editBotMediaPreview(
@@ -2447,21 +3375,21 @@ internal class TdlClientImpl(
         fileId: Int,
         content: InputStoryContent,
     ): TdlResult<BotMediaPreview> {
-        val function = TdApi.EditBotMediaPreview(
+        val function = EditBotMediaPreview(
             botUserId = botUserId,
             languageCode = languageCode,
             fileId = fileId,
-            content = mapper.map(content),
+            content = content,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun editBusinessChatLink(link: String, linkInfo: InputBusinessChatLink): TdlResult<BusinessChatLink> {
-        val function = TdApi.EditBusinessChatLink(
+        val function = EditBusinessChatLink(
             link = link,
-            linkInfo = mapper.map(linkInfo),
+            linkInfo = linkInfo,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun editBusinessMessageCaption(
@@ -2472,15 +3400,15 @@ internal class TdlClientImpl(
         caption: FormattedText?,
         showCaptionAboveMedia: Boolean,
     ): TdlResult<BusinessMessage> {
-        val function = TdApi.EditBusinessMessageCaption(
+        val function = EditBusinessMessageCaption(
             businessConnectionId = businessConnectionId,
             chatId = chatId,
             messageId = messageId,
-            replyMarkup = replyMarkup?.let { mapper.map(it) },
-            caption = caption?.let { mapper.map(it) },
+            replyMarkup = replyMarkup,
+            caption = caption,
             showCaptionAboveMedia = showCaptionAboveMedia,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun editBusinessMessageChecklist(
@@ -2490,14 +3418,14 @@ internal class TdlClientImpl(
         replyMarkup: ReplyMarkup?,
         checklist: InputChecklist,
     ): TdlResult<BusinessMessage> {
-        val function = TdApi.EditBusinessMessageChecklist(
+        val function = EditBusinessMessageChecklist(
             businessConnectionId = businessConnectionId,
             chatId = chatId,
             messageId = messageId,
-            replyMarkup = replyMarkup?.let { mapper.map(it) },
-            checklist = mapper.map(checklist),
+            replyMarkup = replyMarkup,
+            checklist = checklist,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun editBusinessMessageLiveLocation(
@@ -2510,17 +3438,17 @@ internal class TdlClientImpl(
         heading: Int,
         proximityAlertRadius: Int,
     ): TdlResult<BusinessMessage> {
-        val function = TdApi.EditBusinessMessageLiveLocation(
+        val function = EditBusinessMessageLiveLocation(
             businessConnectionId = businessConnectionId,
             chatId = chatId,
             messageId = messageId,
-            replyMarkup = replyMarkup?.let { mapper.map(it) },
-            location = location?.let { mapper.map(it) },
+            replyMarkup = replyMarkup,
+            location = location,
             livePeriod = livePeriod,
             heading = heading,
             proximityAlertRadius = proximityAlertRadius,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun editBusinessMessageMedia(
@@ -2530,14 +3458,14 @@ internal class TdlClientImpl(
         replyMarkup: ReplyMarkup?,
         inputMessageContent: InputMessageContent,
     ): TdlResult<BusinessMessage> {
-        val function = TdApi.EditBusinessMessageMedia(
+        val function = EditBusinessMessageMedia(
             businessConnectionId = businessConnectionId,
             chatId = chatId,
             messageId = messageId,
-            replyMarkup = replyMarkup?.let { mapper.map(it) },
-            inputMessageContent = mapper.map(inputMessageContent),
+            replyMarkup = replyMarkup,
+            inputMessageContent = inputMessageContent,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun editBusinessMessageReplyMarkup(
@@ -2546,13 +3474,13 @@ internal class TdlClientImpl(
         messageId: Long,
         replyMarkup: ReplyMarkup?,
     ): TdlResult<BusinessMessage> {
-        val function = TdApi.EditBusinessMessageReplyMarkup(
+        val function = EditBusinessMessageReplyMarkup(
             businessConnectionId = businessConnectionId,
             chatId = chatId,
             messageId = messageId,
-            replyMarkup = replyMarkup?.let { mapper.map(it) },
+            replyMarkup = replyMarkup,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun editBusinessMessageText(
@@ -2562,14 +3490,14 @@ internal class TdlClientImpl(
         replyMarkup: ReplyMarkup?,
         inputMessageContent: InputMessageContent,
     ): TdlResult<BusinessMessage> {
-        val function = TdApi.EditBusinessMessageText(
+        val function = EditBusinessMessageText(
             businessConnectionId = businessConnectionId,
             chatId = chatId,
             messageId = messageId,
-            replyMarkup = replyMarkup?.let { mapper.map(it) },
-            inputMessageContent = mapper.map(inputMessageContent),
+            replyMarkup = replyMarkup,
+            inputMessageContent = inputMessageContent,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun editBusinessStory(
@@ -2580,23 +3508,23 @@ internal class TdlClientImpl(
         caption: FormattedText,
         privacySettings: StoryPrivacySettings,
     ): TdlResult<Story> {
-        val function = TdApi.EditBusinessStory(
+        val function = EditBusinessStory(
             storyPosterChatId = storyPosterChatId,
             storyId = storyId,
-            content = mapper.map(content),
-            areas = mapper.map(areas),
-            caption = mapper.map(caption),
-            privacySettings = mapper.map(privacySettings),
+            content = content,
+            areas = areas,
+            caption = caption,
+            privacySettings = privacySettings,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun editChatFolder(chatFolderId: Int, folder: ChatFolder): TdlResult<ChatFolderInfo> {
-        val function = TdApi.EditChatFolder(
+        val function = EditChatFolder(
             chatFolderId = chatFolderId,
-            folder = mapper.map(folder),
+            folder = folder,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun editChatFolderInviteLink(
@@ -2605,13 +3533,13 @@ internal class TdlClientImpl(
         name: String,
         chatIds: LongArray,
     ): TdlResult<ChatFolderInviteLink> {
-        val function = TdApi.EditChatFolderInviteLink(
+        val function = EditChatFolderInviteLink(
             chatFolderId = chatFolderId,
             inviteLink = inviteLink,
             name = name,
             chatIds = chatIds,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun editChatInviteLink(
@@ -2622,7 +3550,7 @@ internal class TdlClientImpl(
         memberLimit: Int,
         createsJoinRequest: Boolean,
     ): TdlResult<ChatInviteLink> {
-        val function = TdApi.EditChatInviteLink(
+        val function = EditChatInviteLink(
             chatId = chatId,
             inviteLink = inviteLink,
             name = name,
@@ -2630,7 +3558,7 @@ internal class TdlClientImpl(
             memberLimit = memberLimit,
             createsJoinRequest = createsJoinRequest,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun editChatSubscriptionInviteLink(
@@ -2638,19 +3566,19 @@ internal class TdlClientImpl(
         inviteLink: String,
         name: String,
     ): TdlResult<ChatInviteLink> {
-        val function = TdApi.EditChatSubscriptionInviteLink(
+        val function = EditChatSubscriptionInviteLink(
             chatId = chatId,
             inviteLink = inviteLink,
             name = name,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun editCustomLanguagePackInfo(info: LanguagePackInfo): TdlResult<Ok> {
-        val function = TdApi.EditCustomLanguagePackInfo(
-            info = mapper.map(info),
+        val function = EditCustomLanguagePackInfo(
+            info = info,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun editForumTopic(
@@ -2660,14 +3588,14 @@ internal class TdlClientImpl(
         editIconCustomEmoji: Boolean,
         iconCustomEmojiId: Long,
     ): TdlResult<Ok> {
-        val function = TdApi.EditForumTopic(
+        val function = EditForumTopic(
             chatId = chatId,
             messageThreadId = messageThreadId,
             name = name,
             editIconCustomEmoji = editIconCustomEmoji,
             iconCustomEmojiId = iconCustomEmojiId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun editInlineMessageCaption(
@@ -2676,13 +3604,13 @@ internal class TdlClientImpl(
         caption: FormattedText?,
         showCaptionAboveMedia: Boolean,
     ): TdlResult<Ok> {
-        val function = TdApi.EditInlineMessageCaption(
+        val function = EditInlineMessageCaption(
             inlineMessageId = inlineMessageId,
-            replyMarkup = replyMarkup?.let { mapper.map(it) },
-            caption = caption?.let { mapper.map(it) },
+            replyMarkup = replyMarkup,
+            caption = caption,
             showCaptionAboveMedia = showCaptionAboveMedia,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun editInlineMessageLiveLocation(
@@ -2693,15 +3621,15 @@ internal class TdlClientImpl(
         heading: Int,
         proximityAlertRadius: Int,
     ): TdlResult<Ok> {
-        val function = TdApi.EditInlineMessageLiveLocation(
+        val function = EditInlineMessageLiveLocation(
             inlineMessageId = inlineMessageId,
-            replyMarkup = replyMarkup?.let { mapper.map(it) },
-            location = location?.let { mapper.map(it) },
+            replyMarkup = replyMarkup,
+            location = location,
             livePeriod = livePeriod,
             heading = heading,
             proximityAlertRadius = proximityAlertRadius,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun editInlineMessageMedia(
@@ -2709,20 +3637,20 @@ internal class TdlClientImpl(
         replyMarkup: ReplyMarkup?,
         inputMessageContent: InputMessageContent,
     ): TdlResult<Ok> {
-        val function = TdApi.EditInlineMessageMedia(
+        val function = EditInlineMessageMedia(
             inlineMessageId = inlineMessageId,
-            replyMarkup = replyMarkup?.let { mapper.map(it) },
-            inputMessageContent = mapper.map(inputMessageContent),
+            replyMarkup = replyMarkup,
+            inputMessageContent = inputMessageContent,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun editInlineMessageReplyMarkup(inlineMessageId: String, replyMarkup: ReplyMarkup?): TdlResult<Ok> {
-        val function = TdApi.EditInlineMessageReplyMarkup(
+        val function = EditInlineMessageReplyMarkup(
             inlineMessageId = inlineMessageId,
-            replyMarkup = replyMarkup?.let { mapper.map(it) },
+            replyMarkup = replyMarkup,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun editInlineMessageText(
@@ -2730,12 +3658,12 @@ internal class TdlClientImpl(
         replyMarkup: ReplyMarkup?,
         inputMessageContent: InputMessageContent,
     ): TdlResult<Ok> {
-        val function = TdApi.EditInlineMessageText(
+        val function = EditInlineMessageText(
             inlineMessageId = inlineMessageId,
-            replyMarkup = replyMarkup?.let { mapper.map(it) },
-            inputMessageContent = mapper.map(inputMessageContent),
+            replyMarkup = replyMarkup,
+            inputMessageContent = inputMessageContent,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun editMessageCaption(
@@ -2745,14 +3673,14 @@ internal class TdlClientImpl(
         caption: FormattedText?,
         showCaptionAboveMedia: Boolean,
     ): TdlResult<Message> {
-        val function = TdApi.EditMessageCaption(
+        val function = EditMessageCaption(
             chatId = chatId,
             messageId = messageId,
-            replyMarkup = replyMarkup?.let { mapper.map(it) },
-            caption = caption?.let { mapper.map(it) },
+            replyMarkup = replyMarkup,
+            caption = caption,
             showCaptionAboveMedia = showCaptionAboveMedia,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun editMessageChecklist(
@@ -2761,13 +3689,13 @@ internal class TdlClientImpl(
         replyMarkup: ReplyMarkup?,
         checklist: InputChecklist,
     ): TdlResult<Message> {
-        val function = TdApi.EditMessageChecklist(
+        val function = EditMessageChecklist(
             chatId = chatId,
             messageId = messageId,
-            replyMarkup = replyMarkup?.let { mapper.map(it) },
-            checklist = mapper.map(checklist),
+            replyMarkup = replyMarkup,
+            checklist = checklist,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun editMessageLiveLocation(
@@ -2779,16 +3707,16 @@ internal class TdlClientImpl(
         heading: Int,
         proximityAlertRadius: Int,
     ): TdlResult<Message> {
-        val function = TdApi.EditMessageLiveLocation(
+        val function = EditMessageLiveLocation(
             chatId = chatId,
             messageId = messageId,
-            replyMarkup = replyMarkup?.let { mapper.map(it) },
-            location = location?.let { mapper.map(it) },
+            replyMarkup = replyMarkup,
+            location = location,
             livePeriod = livePeriod,
             heading = heading,
             proximityAlertRadius = proximityAlertRadius,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun editMessageMedia(
@@ -2797,13 +3725,13 @@ internal class TdlClientImpl(
         replyMarkup: ReplyMarkup?,
         inputMessageContent: InputMessageContent,
     ): TdlResult<Message> {
-        val function = TdApi.EditMessageMedia(
+        val function = EditMessageMedia(
             chatId = chatId,
             messageId = messageId,
-            replyMarkup = replyMarkup?.let { mapper.map(it) },
-            inputMessageContent = mapper.map(inputMessageContent),
+            replyMarkup = replyMarkup,
+            inputMessageContent = inputMessageContent,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun editMessageReplyMarkup(
@@ -2811,12 +3739,12 @@ internal class TdlClientImpl(
         messageId: Long,
         replyMarkup: ReplyMarkup?,
     ): TdlResult<Message> {
-        val function = TdApi.EditMessageReplyMarkup(
+        val function = EditMessageReplyMarkup(
             chatId = chatId,
             messageId = messageId,
-            replyMarkup = replyMarkup?.let { mapper.map(it) },
+            replyMarkup = replyMarkup,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun editMessageSchedulingState(
@@ -2824,12 +3752,12 @@ internal class TdlClientImpl(
         messageId: Long,
         schedulingState: MessageSchedulingState?,
     ): TdlResult<Ok> {
-        val function = TdApi.EditMessageSchedulingState(
+        val function = EditMessageSchedulingState(
             chatId = chatId,
             messageId = messageId,
-            schedulingState = schedulingState?.let { mapper.map(it) },
+            schedulingState = schedulingState,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun editMessageText(
@@ -2838,13 +3766,13 @@ internal class TdlClientImpl(
         replyMarkup: ReplyMarkup?,
         inputMessageContent: InputMessageContent,
     ): TdlResult<Message> {
-        val function = TdApi.EditMessageText(
+        val function = EditMessageText(
             chatId = chatId,
             messageId = messageId,
-            replyMarkup = replyMarkup?.let { mapper.map(it) },
-            inputMessageContent = mapper.map(inputMessageContent),
+            replyMarkup = replyMarkup,
+            inputMessageContent = inputMessageContent,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun editProxy(
@@ -2854,14 +3782,14 @@ internal class TdlClientImpl(
         enable: Boolean,
         type: ProxyType,
     ): TdlResult<Proxy> {
-        val function = TdApi.EditProxy(
+        val function = EditProxy(
             proxyId = proxyId,
             server = server,
             port = port,
             enable = enable,
-            type = mapper.map(type),
+            type = type,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun editQuickReplyMessage(
@@ -2869,20 +3797,20 @@ internal class TdlClientImpl(
         messageId: Long,
         inputMessageContent: InputMessageContent,
     ): TdlResult<Ok> {
-        val function = TdApi.EditQuickReplyMessage(
+        val function = EditQuickReplyMessage(
             shortcutId = shortcutId,
             messageId = messageId,
-            inputMessageContent = mapper.map(inputMessageContent),
+            inputMessageContent = inputMessageContent,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun editStarSubscription(subscriptionId: String, isCanceled: Boolean): TdlResult<Ok> {
-        val function = TdApi.EditStarSubscription(
+        val function = EditStarSubscription(
             subscriptionId = subscriptionId,
             isCanceled = isCanceled,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun editStory(
@@ -2892,14 +3820,14 @@ internal class TdlClientImpl(
         areas: InputStoryAreas?,
         caption: FormattedText?,
     ): TdlResult<Ok> {
-        val function = TdApi.EditStory(
+        val function = EditStory(
             storyPosterChatId = storyPosterChatId,
             storyId = storyId,
-            content = content?.let { mapper.map(it) },
-            areas = areas?.let { mapper.map(it) },
-            caption = caption?.let { mapper.map(it) },
+            content = content,
+            areas = areas,
+            caption = caption,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun editStoryCover(
@@ -2907,12 +3835,12 @@ internal class TdlClientImpl(
         storyId: Int,
         coverFrameTimestamp: Double,
     ): TdlResult<Ok> {
-        val function = TdApi.EditStoryCover(
+        val function = EditStoryCover(
             storyPosterChatId = storyPosterChatId,
             storyId = storyId,
             coverFrameTimestamp = coverFrameTimestamp,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun editUserStarSubscription(
@@ -2920,19 +3848,19 @@ internal class TdlClientImpl(
         telegramPaymentChargeId: String,
         isCanceled: Boolean,
     ): TdlResult<Ok> {
-        val function = TdApi.EditUserStarSubscription(
+        val function = EditUserStarSubscription(
             userId = userId,
             telegramPaymentChargeId = telegramPaymentChargeId,
             isCanceled = isCanceled,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun enableProxy(proxyId: Int): TdlResult<Ok> {
-        val function = TdApi.EnableProxy(
+        val function = EnableProxy(
             proxyId = proxyId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun encryptGroupCallData(
@@ -2941,42 +3869,42 @@ internal class TdlClientImpl(
         data: ByteArray,
         unencryptedPrefixSize: Int,
     ): TdlResult<Data> {
-        val function = TdApi.EncryptGroupCallData(
+        val function = EncryptGroupCallData(
             groupCallId = groupCallId,
-            dataChannel = mapper.map(dataChannel),
+            dataChannel = dataChannel,
             data = data,
             unencryptedPrefixSize = unencryptedPrefixSize,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun endGroupCall(groupCallId: Int): TdlResult<Ok> {
-        val function = TdApi.EndGroupCall(
+        val function = EndGroupCall(
             groupCallId = groupCallId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun endGroupCallRecording(groupCallId: Int): TdlResult<Ok> {
-        val function = TdApi.EndGroupCallRecording(
+        val function = EndGroupCallRecording(
             groupCallId = groupCallId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun endGroupCallScreenSharing(groupCallId: Int): TdlResult<Ok> {
-        val function = TdApi.EndGroupCallScreenSharing(
+        val function = EndGroupCallScreenSharing(
             groupCallId = groupCallId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun finishFileGeneration(generationId: Long, error: Error?): TdlResult<Ok> {
-        val function = TdApi.FinishFileGeneration(
+        val function = FinishFileGeneration(
             generationId = generationId,
-            error = error?.let { mapper.map(it) },
+            error = error,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun forwardMessages(
@@ -2988,33 +3916,33 @@ internal class TdlClientImpl(
         sendCopy: Boolean,
         removeCaption: Boolean,
     ): TdlResult<Messages> {
-        val function = TdApi.ForwardMessages(
+        val function = ForwardMessages(
             chatId = chatId,
             messageThreadId = messageThreadId,
             fromChatId = fromChatId,
             messageIds = messageIds,
-            options = options?.let { mapper.map(it) },
+            options = options,
             sendCopy = sendCopy,
             removeCaption = removeCaption,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getAccountTtl(): TdlResult<AccountTtl> {
-        val function = TdApi.GetAccountTtl()
-        return repository.send(function) { mapper.map(it) }
+        val function = GetAccountTtl()
+        return repository.send(function = function)
     }
 
     override suspend fun getActiveSessions(): TdlResult<Sessions> {
-        val function = TdApi.GetActiveSessions()
-        return repository.send(function) { mapper.map(it) }
+        val function = GetActiveSessions()
+        return repository.send(function = function)
     }
 
     override suspend fun getAllPassportElements(password: String): TdlResult<PassportElements> {
-        val function = TdApi.GetAllPassportElements(
+        val function = GetAllPassportElements(
             password = password,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getAllStickerEmojis(
@@ -3023,35 +3951,35 @@ internal class TdlClientImpl(
         chatId: Long,
         returnOnlyMainEmoji: Boolean,
     ): TdlResult<Emojis> {
-        val function = TdApi.GetAllStickerEmojis(
-            stickerType = mapper.map(stickerType),
+        val function = GetAllStickerEmojis(
+            stickerType = stickerType,
             query = query,
             chatId = chatId,
             returnOnlyMainEmoji = returnOnlyMainEmoji,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getAnimatedEmoji(emoji: String): TdlResult<AnimatedEmoji> {
-        val function = TdApi.GetAnimatedEmoji(
+        val function = GetAnimatedEmoji(
             emoji = emoji,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getApplicationConfig(): TdlResult<JsonValue> {
-        val function = TdApi.GetApplicationConfig()
-        return repository.send(function) { mapper.map(it) }
+        val function = GetApplicationConfig()
+        return repository.send(function = function)
     }
 
     override suspend fun getApplicationDownloadLink(): TdlResult<HttpUrl> {
-        val function = TdApi.GetApplicationDownloadLink()
-        return repository.send(function) { mapper.map(it) }
+        val function = GetApplicationDownloadLink()
+        return repository.send(function = function)
     }
 
     override suspend fun getArchiveChatListSettings(): TdlResult<ArchiveChatListSettings> {
-        val function = TdApi.GetArchiveChatListSettings()
-        return repository.send(function) { mapper.map(it) }
+        val function = GetArchiveChatListSettings()
+        return repository.send(function = function)
     }
 
     override suspend fun getArchivedStickerSets(
@@ -3059,80 +3987,80 @@ internal class TdlClientImpl(
         offsetStickerSetId: Long,
         limit: Int,
     ): TdlResult<StickerSets> {
-        val function = TdApi.GetArchivedStickerSets(
-            stickerType = mapper.map(stickerType),
+        val function = GetArchivedStickerSets(
+            stickerType = stickerType,
             offsetStickerSetId = offsetStickerSetId,
             limit = limit,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getAttachedStickerSets(fileId: Int): TdlResult<StickerSets> {
-        val function = TdApi.GetAttachedStickerSets(
+        val function = GetAttachedStickerSets(
             fileId = fileId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getAttachmentMenuBot(botUserId: Long): TdlResult<AttachmentMenuBot> {
-        val function = TdApi.GetAttachmentMenuBot(
+        val function = GetAttachmentMenuBot(
             botUserId = botUserId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getAuthorizationState(): TdlResult<AuthorizationState> {
-        val function = TdApi.GetAuthorizationState()
-        return repository.send(function) { mapper.map(it) }
+        val function = GetAuthorizationState()
+        return repository.send(function = function)
     }
 
     override suspend fun getAutoDownloadSettingsPresets(): TdlResult<AutoDownloadSettingsPresets> {
-        val function = TdApi.GetAutoDownloadSettingsPresets()
-        return repository.send(function) { mapper.map(it) }
+        val function = GetAutoDownloadSettingsPresets()
+        return repository.send(function = function)
     }
 
     override suspend fun getAutosaveSettings(): TdlResult<AutosaveSettings> {
-        val function = TdApi.GetAutosaveSettings()
-        return repository.send(function) { mapper.map(it) }
+        val function = GetAutosaveSettings()
+        return repository.send(function = function)
     }
 
     override suspend fun getAvailableChatBoostSlots(): TdlResult<ChatBoostSlots> {
-        val function = TdApi.GetAvailableChatBoostSlots()
-        return repository.send(function) { mapper.map(it) }
+        val function = GetAvailableChatBoostSlots()
+        return repository.send(function = function)
     }
 
     override suspend fun getAvailableGifts(): TdlResult<AvailableGifts> {
-        val function = TdApi.GetAvailableGifts()
-        return repository.send(function) { mapper.map(it) }
+        val function = GetAvailableGifts()
+        return repository.send(function = function)
     }
 
     override suspend fun getBackgroundUrl(name: String, type: BackgroundType): TdlResult<HttpUrl> {
-        val function = TdApi.GetBackgroundUrl(
+        val function = GetBackgroundUrl(
             name = name,
-            type = mapper.map(type),
+            type = type,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getBankCardInfo(bankCardNumber: String): TdlResult<BankCardInfo> {
-        val function = TdApi.GetBankCardInfo(
+        val function = GetBankCardInfo(
             bankCardNumber = bankCardNumber,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getBasicGroup(basicGroupId: Long): TdlResult<BasicGroup> {
-        val function = TdApi.GetBasicGroup(
+        val function = GetBasicGroup(
             basicGroupId = basicGroupId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getBasicGroupFullInfo(basicGroupId: Long): TdlResult<BasicGroupFullInfo> {
-        val function = TdApi.GetBasicGroupFullInfo(
+        val function = GetBasicGroupFullInfo(
             basicGroupId = basicGroupId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getBlockedMessageSenders(
@@ -3140,104 +4068,104 @@ internal class TdlClientImpl(
         offset: Int,
         limit: Int,
     ): TdlResult<MessageSenders> {
-        val function = TdApi.GetBlockedMessageSenders(
-            blockList = mapper.map(blockList),
+        val function = GetBlockedMessageSenders(
+            blockList = blockList,
             offset = offset,
             limit = limit,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getBotInfoDescription(botUserId: Long, languageCode: String): TdlResult<Text> {
-        val function = TdApi.GetBotInfoDescription(
+        val function = GetBotInfoDescription(
             botUserId = botUserId,
             languageCode = languageCode,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getBotInfoShortDescription(botUserId: Long, languageCode: String): TdlResult<Text> {
-        val function = TdApi.GetBotInfoShortDescription(
+        val function = GetBotInfoShortDescription(
             botUserId = botUserId,
             languageCode = languageCode,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getBotMediaPreviewInfo(botUserId: Long, languageCode: String): TdlResult<BotMediaPreviewInfo> {
-        val function = TdApi.GetBotMediaPreviewInfo(
+        val function = GetBotMediaPreviewInfo(
             botUserId = botUserId,
             languageCode = languageCode,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getBotMediaPreviews(botUserId: Long): TdlResult<BotMediaPreviews> {
-        val function = TdApi.GetBotMediaPreviews(
+        val function = GetBotMediaPreviews(
             botUserId = botUserId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getBotName(botUserId: Long, languageCode: String): TdlResult<Text> {
-        val function = TdApi.GetBotName(
+        val function = GetBotName(
             botUserId = botUserId,
             languageCode = languageCode,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getBotSimilarBotCount(botUserId: Long, returnLocal: Boolean): TdlResult<Count> {
-        val function = TdApi.GetBotSimilarBotCount(
+        val function = GetBotSimilarBotCount(
             botUserId = botUserId,
             returnLocal = returnLocal,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getBotSimilarBots(botUserId: Long): TdlResult<Users> {
-        val function = TdApi.GetBotSimilarBots(
+        val function = GetBotSimilarBots(
             botUserId = botUserId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getBusinessAccountStarAmount(businessConnectionId: String): TdlResult<StarAmount> {
-        val function = TdApi.GetBusinessAccountStarAmount(
+        val function = GetBusinessAccountStarAmount(
             businessConnectionId = businessConnectionId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getBusinessChatLinkInfo(linkName: String): TdlResult<BusinessChatLinkInfo> {
-        val function = TdApi.GetBusinessChatLinkInfo(
+        val function = GetBusinessChatLinkInfo(
             linkName = linkName,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getBusinessChatLinks(): TdlResult<BusinessChatLinks> {
-        val function = TdApi.GetBusinessChatLinks()
-        return repository.send(function) { mapper.map(it) }
+        val function = GetBusinessChatLinks()
+        return repository.send(function = function)
     }
 
     override suspend fun getBusinessConnectedBot(): TdlResult<BusinessConnectedBot> {
-        val function = TdApi.GetBusinessConnectedBot()
-        return repository.send(function) { mapper.map(it) }
+        val function = GetBusinessConnectedBot()
+        return repository.send(function = function)
     }
 
     override suspend fun getBusinessConnection(connectionId: String): TdlResult<BusinessConnection> {
-        val function = TdApi.GetBusinessConnection(
+        val function = GetBusinessConnection(
             connectionId = connectionId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getBusinessFeatures(source: BusinessFeature?): TdlResult<BusinessFeatures> {
-        val function = TdApi.GetBusinessFeatures(
-            source = source?.let { mapper.map(it) },
+        val function = GetBusinessFeatures(
+            source = source,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getCallbackQueryAnswer(
@@ -3245,12 +4173,12 @@ internal class TdlClientImpl(
         messageId: Long,
         payload: CallbackQueryPayload,
     ): TdlResult<CallbackQueryAnswer> {
-        val function = TdApi.GetCallbackQueryAnswer(
+        val function = GetCallbackQueryAnswer(
             chatId = chatId,
             messageId = messageId,
-            payload = mapper.map(payload),
+            payload = payload,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getCallbackQueryMessage(
@@ -3258,33 +4186,33 @@ internal class TdlClientImpl(
         messageId: Long,
         callbackQueryId: Long,
     ): TdlResult<Message> {
-        val function = TdApi.GetCallbackQueryMessage(
+        val function = GetCallbackQueryMessage(
             chatId = chatId,
             messageId = messageId,
             callbackQueryId = callbackQueryId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getChat(chatId: Long): TdlResult<Chat> {
-        val function = TdApi.GetChat(
+        val function = GetChat(
             chatId = chatId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getChatActiveStories(chatId: Long): TdlResult<ChatActiveStories> {
-        val function = TdApi.GetChatActiveStories(
+        val function = GetChatActiveStories(
             chatId = chatId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getChatAdministrators(chatId: Long): TdlResult<ChatAdministrators> {
-        val function = TdApi.GetChatAdministrators(
+        val function = GetChatAdministrators(
             chatId = chatId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getChatArchivedStories(
@@ -3292,62 +4220,62 @@ internal class TdlClientImpl(
         fromStoryId: Int,
         limit: Int,
     ): TdlResult<Stories> {
-        val function = TdApi.GetChatArchivedStories(
+        val function = GetChatArchivedStories(
             chatId = chatId,
             fromStoryId = fromStoryId,
             limit = limit,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getChatAvailableMessageSenders(chatId: Long): TdlResult<ChatMessageSenders> {
-        val function = TdApi.GetChatAvailableMessageSenders(
+        val function = GetChatAvailableMessageSenders(
             chatId = chatId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getChatAvailablePaidMessageReactionSenders(chatId: Long): TdlResult<MessageSenders> {
-        val function = TdApi.GetChatAvailablePaidMessageReactionSenders(
+        val function = GetChatAvailablePaidMessageReactionSenders(
             chatId = chatId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getChatBoostFeatures(isChannel: Boolean): TdlResult<ChatBoostFeatures> {
-        val function = TdApi.GetChatBoostFeatures(
+        val function = GetChatBoostFeatures(
             isChannel = isChannel,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getChatBoostLevelFeatures(isChannel: Boolean, level: Int): TdlResult<ChatBoostLevelFeatures> {
-        val function = TdApi.GetChatBoostLevelFeatures(
+        val function = GetChatBoostLevelFeatures(
             isChannel = isChannel,
             level = level,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getChatBoostLink(chatId: Long): TdlResult<ChatBoostLink> {
-        val function = TdApi.GetChatBoostLink(
+        val function = GetChatBoostLink(
             chatId = chatId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getChatBoostLinkInfo(url: String): TdlResult<ChatBoostLinkInfo> {
-        val function = TdApi.GetChatBoostLinkInfo(
+        val function = GetChatBoostLinkInfo(
             url = url,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getChatBoostStatus(chatId: Long): TdlResult<ChatBoostStatus> {
-        val function = TdApi.GetChatBoostStatus(
+        val function = GetChatBoostStatus(
             chatId = chatId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getChatBoosts(
@@ -3356,13 +4284,13 @@ internal class TdlClientImpl(
         offset: String,
         limit: Int,
     ): TdlResult<FoundChatBoosts> {
-        val function = TdApi.GetChatBoosts(
+        val function = GetChatBoosts(
             chatId = chatId,
             onlyGiftCodes = onlyGiftCodes,
             offset = offset,
             limit = limit,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getChatEventLog(
@@ -3373,57 +4301,57 @@ internal class TdlClientImpl(
         filters: ChatEventLogFilters?,
         userIds: LongArray,
     ): TdlResult<ChatEvents> {
-        val function = TdApi.GetChatEventLog(
+        val function = GetChatEventLog(
             chatId = chatId,
             query = query,
             fromEventId = fromEventId,
             limit = limit,
-            filters = filters?.let { mapper.map(it) },
+            filters = filters,
             userIds = userIds,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getChatFolder(chatFolderId: Int): TdlResult<ChatFolder> {
-        val function = TdApi.GetChatFolder(
+        val function = GetChatFolder(
             chatFolderId = chatFolderId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getChatFolderChatCount(folder: ChatFolder): TdlResult<Count> {
-        val function = TdApi.GetChatFolderChatCount(
-            folder = mapper.map(folder),
+        val function = GetChatFolderChatCount(
+            folder = folder,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getChatFolderChatsToLeave(chatFolderId: Int): TdlResult<Chats> {
-        val function = TdApi.GetChatFolderChatsToLeave(
+        val function = GetChatFolderChatsToLeave(
             chatFolderId = chatFolderId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getChatFolderDefaultIconName(folder: ChatFolder): TdlResult<ChatFolderIcon> {
-        val function = TdApi.GetChatFolderDefaultIconName(
-            folder = mapper.map(folder),
+        val function = GetChatFolderDefaultIconName(
+            folder = folder,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getChatFolderInviteLinks(chatFolderId: Int): TdlResult<ChatFolderInviteLinks> {
-        val function = TdApi.GetChatFolderInviteLinks(
+        val function = GetChatFolderInviteLinks(
             chatFolderId = chatFolderId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getChatFolderNewChats(chatFolderId: Int): TdlResult<Chats> {
-        val function = TdApi.GetChatFolderNewChats(
+        val function = GetChatFolderNewChats(
             chatFolderId = chatFolderId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getChatHistory(
@@ -3433,29 +4361,29 @@ internal class TdlClientImpl(
         limit: Int,
         onlyLocal: Boolean,
     ): TdlResult<Messages> {
-        val function = TdApi.GetChatHistory(
+        val function = GetChatHistory(
             chatId = chatId,
             fromMessageId = fromMessageId,
             offset = offset,
             limit = limit,
             onlyLocal = onlyLocal,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getChatInviteLink(chatId: Long, inviteLink: String): TdlResult<ChatInviteLink> {
-        val function = TdApi.GetChatInviteLink(
+        val function = GetChatInviteLink(
             chatId = chatId,
             inviteLink = inviteLink,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getChatInviteLinkCounts(chatId: Long): TdlResult<ChatInviteLinkCounts> {
-        val function = TdApi.GetChatInviteLinkCounts(
+        val function = GetChatInviteLinkCounts(
             chatId = chatId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getChatInviteLinkMembers(
@@ -3465,14 +4393,14 @@ internal class TdlClientImpl(
         offsetMember: ChatInviteLinkMember?,
         limit: Int,
     ): TdlResult<ChatInviteLinkMembers> {
-        val function = TdApi.GetChatInviteLinkMembers(
+        val function = GetChatInviteLinkMembers(
             chatId = chatId,
             inviteLink = inviteLink,
             onlyWithExpiredSubscription = onlyWithExpiredSubscription,
-            offsetMember = offsetMember?.let { mapper.map(it) },
+            offsetMember = offsetMember,
             limit = limit,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getChatInviteLinks(
@@ -3483,7 +4411,7 @@ internal class TdlClientImpl(
         offsetInviteLink: String,
         limit: Int,
     ): TdlResult<ChatInviteLinks> {
-        val function = TdApi.GetChatInviteLinks(
+        val function = GetChatInviteLinks(
             chatId = chatId,
             creatorUserId = creatorUserId,
             isRevoked = isRevoked,
@@ -3491,7 +4419,7 @@ internal class TdlClientImpl(
             offsetInviteLink = offsetInviteLink,
             limit = limit,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getChatJoinRequests(
@@ -3501,37 +4429,37 @@ internal class TdlClientImpl(
         offsetRequest: ChatJoinRequest?,
         limit: Int,
     ): TdlResult<ChatJoinRequests> {
-        val function = TdApi.GetChatJoinRequests(
+        val function = GetChatJoinRequests(
             chatId = chatId,
             inviteLink = inviteLink,
             query = query,
-            offsetRequest = offsetRequest?.let { mapper.map(it) },
+            offsetRequest = offsetRequest,
             limit = limit,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getChatListsToAddChat(chatId: Long): TdlResult<ChatLists> {
-        val function = TdApi.GetChatListsToAddChat(
+        val function = GetChatListsToAddChat(
             chatId = chatId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getChatMember(chatId: Long, memberId: MessageSender): TdlResult<ChatMember> {
-        val function = TdApi.GetChatMember(
+        val function = GetChatMember(
             chatId = chatId,
-            memberId = mapper.map(memberId),
+            memberId = memberId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getChatMessageByDate(chatId: Long, date: Int): TdlResult<Message> {
-        val function = TdApi.GetChatMessageByDate(
+        val function = GetChatMessageByDate(
             chatId = chatId,
             date = date,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getChatMessageCalendar(
@@ -3540,13 +4468,13 @@ internal class TdlClientImpl(
         filter: SearchMessagesFilter,
         fromMessageId: Long,
     ): TdlResult<MessageCalendar> {
-        val function = TdApi.GetChatMessageCalendar(
+        val function = GetChatMessageCalendar(
             chatId = chatId,
-            topicId = topicId?.let { mapper.map(it) },
-            filter = mapper.map(filter),
+            topicId = topicId,
+            filter = filter,
             fromMessageId = fromMessageId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getChatMessageCount(
@@ -3555,13 +4483,13 @@ internal class TdlClientImpl(
         filter: SearchMessagesFilter,
         returnLocal: Boolean,
     ): TdlResult<Count> {
-        val function = TdApi.GetChatMessageCount(
+        val function = GetChatMessageCount(
             chatId = chatId,
-            topicId = topicId?.let { mapper.map(it) },
-            filter = mapper.map(filter),
+            topicId = topicId,
+            filter = filter,
             returnLocal = returnLocal,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getChatMessagePosition(
@@ -3570,28 +4498,28 @@ internal class TdlClientImpl(
         filter: SearchMessagesFilter,
         messageId: Long,
     ): TdlResult<Count> {
-        val function = TdApi.GetChatMessagePosition(
+        val function = GetChatMessagePosition(
             chatId = chatId,
-            topicId = topicId?.let { mapper.map(it) },
-            filter = mapper.map(filter),
+            topicId = topicId,
+            filter = filter,
             messageId = messageId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getChatNotificationSettingsExceptions(scope: NotificationSettingsScope?, compareSound: Boolean): TdlResult<Chats> {
-        val function = TdApi.GetChatNotificationSettingsExceptions(
-            scope = scope?.let { mapper.map(it) },
+        val function = GetChatNotificationSettingsExceptions(
+            scope = scope,
             compareSound = compareSound,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getChatPinnedMessage(chatId: Long): TdlResult<Message> {
-        val function = TdApi.GetChatPinnedMessage(
+        val function = GetChatPinnedMessage(
             chatId = chatId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getChatPostedToChatPageStories(
@@ -3599,63 +4527,63 @@ internal class TdlClientImpl(
         fromStoryId: Int,
         limit: Int,
     ): TdlResult<Stories> {
-        val function = TdApi.GetChatPostedToChatPageStories(
+        val function = GetChatPostedToChatPageStories(
             chatId = chatId,
             fromStoryId = fromStoryId,
             limit = limit,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getChatRevenueStatistics(chatId: Long, isDark: Boolean): TdlResult<ChatRevenueStatistics> {
-        val function = TdApi.GetChatRevenueStatistics(
+        val function = GetChatRevenueStatistics(
             chatId = chatId,
             isDark = isDark,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getChatRevenueTransactions(
         chatId: Long,
-        offset: Int,
+        offset: String,
         limit: Int,
     ): TdlResult<ChatRevenueTransactions> {
-        val function = TdApi.GetChatRevenueTransactions(
+        val function = GetChatRevenueTransactions(
             chatId = chatId,
             offset = offset,
             limit = limit,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getChatRevenueWithdrawalUrl(chatId: Long, password: String): TdlResult<HttpUrl> {
-        val function = TdApi.GetChatRevenueWithdrawalUrl(
+        val function = GetChatRevenueWithdrawalUrl(
             chatId = chatId,
             password = password,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getChatScheduledMessages(chatId: Long): TdlResult<Messages> {
-        val function = TdApi.GetChatScheduledMessages(
+        val function = GetChatScheduledMessages(
             chatId = chatId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getChatSimilarChatCount(chatId: Long, returnLocal: Boolean): TdlResult<Count> {
-        val function = TdApi.GetChatSimilarChatCount(
+        val function = GetChatSimilarChatCount(
             chatId = chatId,
             returnLocal = returnLocal,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getChatSimilarChats(chatId: Long): TdlResult<Chats> {
-        val function = TdApi.GetChatSimilarChats(
+        val function = GetChatSimilarChats(
             chatId = chatId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getChatSparseMessagePositions(
@@ -3665,29 +4593,29 @@ internal class TdlClientImpl(
         limit: Int,
         savedMessagesTopicId: Long,
     ): TdlResult<MessagePositions> {
-        val function = TdApi.GetChatSparseMessagePositions(
+        val function = GetChatSparseMessagePositions(
             chatId = chatId,
-            filter = mapper.map(filter),
+            filter = filter,
             fromMessageId = fromMessageId,
             limit = limit,
             savedMessagesTopicId = savedMessagesTopicId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getChatSponsoredMessages(chatId: Long): TdlResult<SponsoredMessages> {
-        val function = TdApi.GetChatSponsoredMessages(
+        val function = GetChatSponsoredMessages(
             chatId = chatId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getChatStatistics(chatId: Long, isDark: Boolean): TdlResult<ChatStatistics> {
-        val function = TdApi.GetChatStatistics(
+        val function = GetChatStatistics(
             chatId = chatId,
             isDark = isDark,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getChatStoryInteractions(
@@ -3698,63 +4626,63 @@ internal class TdlClientImpl(
         offset: String,
         limit: Int,
     ): TdlResult<StoryInteractions> {
-        val function = TdApi.GetChatStoryInteractions(
+        val function = GetChatStoryInteractions(
             storyPosterChatId = storyPosterChatId,
             storyId = storyId,
-            reactionType = reactionType?.let { mapper.map(it) },
+            reactionType = reactionType,
             preferForwards = preferForwards,
             offset = offset,
             limit = limit,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getChats(chatList: ChatList?, limit: Int): TdlResult<Chats> {
-        val function = TdApi.GetChats(
-            chatList = chatList?.let { mapper.map(it) },
+        val function = GetChats(
+            chatList = chatList,
             limit = limit,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getChatsForChatFolderInviteLink(chatFolderId: Int): TdlResult<Chats> {
-        val function = TdApi.GetChatsForChatFolderInviteLink(
+        val function = GetChatsForChatFolderInviteLink(
             chatFolderId = chatFolderId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getChatsToPostStories(): TdlResult<Chats> {
-        val function = TdApi.GetChatsToPostStories()
-        return repository.send(function) { mapper.map(it) }
+        val function = GetChatsToPostStories()
+        return repository.send(function = function)
     }
 
     override suspend fun getCloseFriends(): TdlResult<Users> {
-        val function = TdApi.GetCloseFriends()
-        return repository.send(function) { mapper.map(it) }
+        val function = GetCloseFriends()
+        return repository.send(function = function)
     }
 
     override suspend fun getCollectibleItemInfo(type: CollectibleItemType): TdlResult<CollectibleItemInfo> {
-        val function = TdApi.GetCollectibleItemInfo(
-            type = mapper.map(type),
+        val function = GetCollectibleItemInfo(
+            type = type,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getCommands(scope: BotCommandScope?, languageCode: String): TdlResult<BotCommands> {
-        val function = TdApi.GetCommands(
-            scope = scope?.let { mapper.map(it) },
+        val function = GetCommands(
+            scope = scope,
             languageCode = languageCode,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getConnectedAffiliateProgram(affiliate: AffiliateType, botUserId: Long): TdlResult<ConnectedAffiliateProgram> {
-        val function = TdApi.GetConnectedAffiliateProgram(
-            affiliate = mapper.map(affiliate),
+        val function = GetConnectedAffiliateProgram(
+            affiliate = affiliate,
             botUserId = botUserId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getConnectedAffiliatePrograms(
@@ -3762,120 +4690,120 @@ internal class TdlClientImpl(
         offset: String,
         limit: Int,
     ): TdlResult<ConnectedAffiliatePrograms> {
-        val function = TdApi.GetConnectedAffiliatePrograms(
-            affiliate = mapper.map(affiliate),
+        val function = GetConnectedAffiliatePrograms(
+            affiliate = affiliate,
             offset = offset,
             limit = limit,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getConnectedWebsites(): TdlResult<ConnectedWebsites> {
-        val function = TdApi.GetConnectedWebsites()
-        return repository.send(function) { mapper.map(it) }
+        val function = GetConnectedWebsites()
+        return repository.send(function = function)
     }
 
     override suspend fun getContacts(): TdlResult<Users> {
-        val function = TdApi.GetContacts()
-        return repository.send(function) { mapper.map(it) }
+        val function = GetContacts()
+        return repository.send(function = function)
     }
 
     override suspend fun getCountries(): TdlResult<Countries> {
-        val function = TdApi.GetCountries()
-        return repository.send(function) { mapper.map(it) }
+        val function = GetCountries()
+        return repository.send(function = function)
     }
 
     override suspend fun getCountryCode(): TdlResult<Text> {
-        val function = TdApi.GetCountryCode()
-        return repository.send(function) { mapper.map(it) }
+        val function = GetCountryCode()
+        return repository.send(function = function)
     }
 
     override suspend fun getCountryFlagEmoji(countryCode: String): TdlResult<Text> {
-        val function = TdApi.GetCountryFlagEmoji(
+        val function = GetCountryFlagEmoji(
             countryCode = countryCode,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getCreatedPublicChats(type: PublicChatType): TdlResult<Chats> {
-        val function = TdApi.GetCreatedPublicChats(
-            type = mapper.map(type),
+        val function = GetCreatedPublicChats(
+            type = type,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getCurrentState(): TdlResult<Updates> {
-        val function = TdApi.GetCurrentState()
-        return repository.send(function) { mapper.map(it) }
+        val function = GetCurrentState()
+        return repository.send(function = function)
     }
 
     override suspend fun getCurrentWeather(location: Location): TdlResult<CurrentWeather> {
-        val function = TdApi.GetCurrentWeather(
-            location = mapper.map(location),
+        val function = GetCurrentWeather(
+            location = location,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getCustomEmojiReactionAnimations(): TdlResult<Stickers> {
-        val function = TdApi.GetCustomEmojiReactionAnimations()
-        return repository.send(function) { mapper.map(it) }
+        val function = GetCustomEmojiReactionAnimations()
+        return repository.send(function = function)
     }
 
     override suspend fun getCustomEmojiStickers(customEmojiIds: LongArray): TdlResult<Stickers> {
-        val function = TdApi.GetCustomEmojiStickers(
+        val function = GetCustomEmojiStickers(
             customEmojiIds = customEmojiIds,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getDatabaseStatistics(): TdlResult<DatabaseStatistics> {
-        val function = TdApi.GetDatabaseStatistics()
-        return repository.send(function) { mapper.map(it) }
+        val function = GetDatabaseStatistics()
+        return repository.send(function = function)
     }
 
     override suspend fun getDeepLinkInfo(link: String): TdlResult<DeepLinkInfo> {
-        val function = TdApi.GetDeepLinkInfo(
+        val function = GetDeepLinkInfo(
             link = link,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getDefaultBackgroundCustomEmojiStickers(): TdlResult<Stickers> {
-        val function = TdApi.GetDefaultBackgroundCustomEmojiStickers()
-        return repository.send(function) { mapper.map(it) }
+        val function = GetDefaultBackgroundCustomEmojiStickers()
+        return repository.send(function = function)
     }
 
     override suspend fun getDefaultChatEmojiStatuses(): TdlResult<EmojiStatusCustomEmojis> {
-        val function = TdApi.GetDefaultChatEmojiStatuses()
-        return repository.send(function) { mapper.map(it) }
+        val function = GetDefaultChatEmojiStatuses()
+        return repository.send(function = function)
     }
 
     override suspend fun getDefaultChatPhotoCustomEmojiStickers(): TdlResult<Stickers> {
-        val function = TdApi.GetDefaultChatPhotoCustomEmojiStickers()
-        return repository.send(function) { mapper.map(it) }
+        val function = GetDefaultChatPhotoCustomEmojiStickers()
+        return repository.send(function = function)
     }
 
     override suspend fun getDefaultEmojiStatuses(): TdlResult<EmojiStatusCustomEmojis> {
-        val function = TdApi.GetDefaultEmojiStatuses()
-        return repository.send(function) { mapper.map(it) }
+        val function = GetDefaultEmojiStatuses()
+        return repository.send(function = function)
     }
 
     override suspend fun getDefaultMessageAutoDeleteTime(): TdlResult<MessageAutoDeleteTime> {
-        val function = TdApi.GetDefaultMessageAutoDeleteTime()
-        return repository.send(function) { mapper.map(it) }
+        val function = GetDefaultMessageAutoDeleteTime()
+        return repository.send(function = function)
     }
 
     override suspend fun getDefaultProfilePhotoCustomEmojiStickers(): TdlResult<Stickers> {
-        val function = TdApi.GetDefaultProfilePhotoCustomEmojiStickers()
-        return repository.send(function) { mapper.map(it) }
+        val function = GetDefaultProfilePhotoCustomEmojiStickers()
+        return repository.send(function = function)
     }
 
     override suspend fun getDirectMessagesChatTopic(chatId: Long, topicId: Long): TdlResult<DirectMessagesChatTopic> {
-        val function = TdApi.GetDirectMessagesChatTopic(
+        val function = GetDirectMessagesChatTopic(
             chatId = chatId,
             topicId = topicId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getDirectMessagesChatTopicHistory(
@@ -3885,14 +4813,14 @@ internal class TdlClientImpl(
         offset: Int,
         limit: Int,
     ): TdlResult<Messages> {
-        val function = TdApi.GetDirectMessagesChatTopicHistory(
+        val function = GetDirectMessagesChatTopicHistory(
             chatId = chatId,
             topicId = topicId,
             fromMessageId = fromMessageId,
             offset = offset,
             limit = limit,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getDirectMessagesChatTopicMessageByDate(
@@ -3900,116 +4828,116 @@ internal class TdlClientImpl(
         topicId: Long,
         date: Int,
     ): TdlResult<Message> {
-        val function = TdApi.GetDirectMessagesChatTopicMessageByDate(
+        val function = GetDirectMessagesChatTopicMessageByDate(
             chatId = chatId,
             topicId = topicId,
             date = date,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getDirectMessagesChatTopicRevenue(chatId: Long, topicId: Long): TdlResult<StarCount> {
-        val function = TdApi.GetDirectMessagesChatTopicRevenue(
+        val function = GetDirectMessagesChatTopicRevenue(
             chatId = chatId,
             topicId = topicId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getDisallowedChatEmojiStatuses(): TdlResult<EmojiStatusCustomEmojis> {
-        val function = TdApi.GetDisallowedChatEmojiStatuses()
-        return repository.send(function) { mapper.map(it) }
+        val function = GetDisallowedChatEmojiStatuses()
+        return repository.send(function = function)
     }
 
     override suspend fun getEmojiCategories(type: EmojiCategoryType?): TdlResult<EmojiCategories> {
-        val function = TdApi.GetEmojiCategories(
-            type = type?.let { mapper.map(it) },
+        val function = GetEmojiCategories(
+            type = type,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getEmojiReaction(emoji: String): TdlResult<EmojiReaction> {
-        val function = TdApi.GetEmojiReaction(
+        val function = GetEmojiReaction(
             emoji = emoji,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getEmojiSuggestionsUrl(languageCode: String): TdlResult<HttpUrl> {
-        val function = TdApi.GetEmojiSuggestionsUrl(
+        val function = GetEmojiSuggestionsUrl(
             languageCode = languageCode,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getExternalLink(link: String, allowWriteAccess: Boolean): TdlResult<HttpUrl> {
-        val function = TdApi.GetExternalLink(
+        val function = GetExternalLink(
             link = link,
             allowWriteAccess = allowWriteAccess,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getExternalLinkInfo(link: String): TdlResult<LoginUrlInfo> {
-        val function = TdApi.GetExternalLinkInfo(
+        val function = GetExternalLinkInfo(
             link = link,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getFavoriteStickers(): TdlResult<Stickers> {
-        val function = TdApi.GetFavoriteStickers()
-        return repository.send(function) { mapper.map(it) }
+        val function = GetFavoriteStickers()
+        return repository.send(function = function)
     }
 
     override suspend fun getFile(fileId: Int): TdlResult<File> {
-        val function = TdApi.GetFile(
+        val function = GetFile(
             fileId = fileId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getFileDownloadedPrefixSize(fileId: Int, offset: Long): TdlResult<FileDownloadedPrefixSize> {
-        val function = TdApi.GetFileDownloadedPrefixSize(
+        val function = GetFileDownloadedPrefixSize(
             fileId = fileId,
             offset = offset,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getFileExtension(mimeType: String): TdlResult<Text> {
-        val function = TdApi.GetFileExtension(
+        val function = GetFileExtension(
             mimeType = mimeType,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getFileMimeType(fileName: String): TdlResult<Text> {
-        val function = TdApi.GetFileMimeType(
+        val function = GetFileMimeType(
             fileName = fileName,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getForumTopic(chatId: Long, messageThreadId: Long): TdlResult<ForumTopic> {
-        val function = TdApi.GetForumTopic(
+        val function = GetForumTopic(
             chatId = chatId,
             messageThreadId = messageThreadId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getForumTopicDefaultIcons(): TdlResult<Stickers> {
-        val function = TdApi.GetForumTopicDefaultIcons()
-        return repository.send(function) { mapper.map(it) }
+        val function = GetForumTopicDefaultIcons()
+        return repository.send(function = function)
     }
 
     override suspend fun getForumTopicLink(chatId: Long, messageThreadId: Long): TdlResult<MessageLink> {
-        val function = TdApi.GetForumTopicLink(
+        val function = GetForumTopicLink(
             chatId = chatId,
             messageThreadId = messageThreadId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getForumTopics(
@@ -4020,7 +4948,7 @@ internal class TdlClientImpl(
         offsetMessageThreadId: Long,
         limit: Int,
     ): TdlResult<ForumTopics> {
-        val function = TdApi.GetForumTopics(
+        val function = GetForumTopics(
             chatId = chatId,
             query = query,
             offsetDate = offsetDate,
@@ -4028,7 +4956,7 @@ internal class TdlClientImpl(
             offsetMessageThreadId = offsetMessageThreadId,
             limit = limit,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getGameHighScores(
@@ -4036,55 +4964,55 @@ internal class TdlClientImpl(
         messageId: Long,
         userId: Long,
     ): TdlResult<GameHighScores> {
-        val function = TdApi.GetGameHighScores(
+        val function = GetGameHighScores(
             chatId = chatId,
             messageId = messageId,
             userId = userId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getGiftUpgradePreview(giftId: Long): TdlResult<GiftUpgradePreview> {
-        val function = TdApi.GetGiftUpgradePreview(
+        val function = GetGiftUpgradePreview(
             giftId = giftId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getGiveawayInfo(chatId: Long, messageId: Long): TdlResult<GiveawayInfo> {
-        val function = TdApi.GetGiveawayInfo(
+        val function = GetGiveawayInfo(
             chatId = chatId,
             messageId = messageId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getGreetingStickers(): TdlResult<Stickers> {
-        val function = TdApi.GetGreetingStickers()
-        return repository.send(function) { mapper.map(it) }
+        val function = GetGreetingStickers()
+        return repository.send(function = function)
     }
 
     override suspend fun getGrossingWebAppBots(offset: String, limit: Int): TdlResult<FoundUsers> {
-        val function = TdApi.GetGrossingWebAppBots(
+        val function = GetGrossingWebAppBots(
             offset = offset,
             limit = limit,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getGroupCall(groupCallId: Int): TdlResult<GroupCall> {
-        val function = TdApi.GetGroupCall(
+        val function = GetGroupCall(
             groupCallId = groupCallId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getGroupCallParticipants(inputGroupCall: InputGroupCall, limit: Int): TdlResult<GroupCallParticipants> {
-        val function = TdApi.GetGroupCallParticipants(
-            inputGroupCall = mapper.map(inputGroupCall),
+        val function = GetGroupCallParticipants(
+            inputGroupCall = inputGroupCall,
             limit = limit,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getGroupsInCommon(
@@ -4092,30 +5020,30 @@ internal class TdlClientImpl(
         offsetChatId: Long,
         limit: Int,
     ): TdlResult<Chats> {
-        val function = TdApi.GetGroupsInCommon(
+        val function = GetGroupsInCommon(
             userId = userId,
             offsetChatId = offsetChatId,
             limit = limit,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getImportedContactCount(): TdlResult<Count> {
-        val function = TdApi.GetImportedContactCount()
-        return repository.send(function) { mapper.map(it) }
+        val function = GetImportedContactCount()
+        return repository.send(function = function)
     }
 
     override suspend fun getInactiveSupergroupChats(): TdlResult<Chats> {
-        val function = TdApi.GetInactiveSupergroupChats()
-        return repository.send(function) { mapper.map(it) }
+        val function = GetInactiveSupergroupChats()
+        return repository.send(function = function)
     }
 
     override suspend fun getInlineGameHighScores(inlineMessageId: String, userId: Long): TdlResult<GameHighScores> {
-        val function = TdApi.GetInlineGameHighScores(
+        val function = GetInlineGameHighScores(
             inlineMessageId = inlineMessageId,
             userId = userId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getInlineQueryResults(
@@ -4125,72 +5053,72 @@ internal class TdlClientImpl(
         query: String,
         offset: String,
     ): TdlResult<InlineQueryResults> {
-        val function = TdApi.GetInlineQueryResults(
+        val function = GetInlineQueryResults(
             botUserId = botUserId,
             chatId = chatId,
-            userLocation = userLocation?.let { mapper.map(it) },
+            userLocation = userLocation,
             query = query,
             offset = offset,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getInstalledBackgrounds(forDarkTheme: Boolean): TdlResult<Backgrounds> {
-        val function = TdApi.GetInstalledBackgrounds(
+        val function = GetInstalledBackgrounds(
             forDarkTheme = forDarkTheme,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getInstalledStickerSets(stickerType: StickerType): TdlResult<StickerSets> {
-        val function = TdApi.GetInstalledStickerSets(
-            stickerType = mapper.map(stickerType),
+        val function = GetInstalledStickerSets(
+            stickerType = stickerType,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getInternalLink(type: InternalLinkType, isHttp: Boolean): TdlResult<HttpUrl> {
-        val function = TdApi.GetInternalLink(
-            type = mapper.map(type),
+        val function = GetInternalLink(
+            type = type,
             isHttp = isHttp,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getInternalLinkType(link: String): TdlResult<InternalLinkType> {
-        val function = TdApi.GetInternalLinkType(
+        val function = GetInternalLinkType(
             link = link,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getJsonString(jsonValue: JsonValue): TdlResult<Text> {
-        val function = TdApi.GetJsonString(
-            jsonValue = mapper.map(jsonValue),
+        val function = GetJsonString(
+            jsonValue = jsonValue,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getJsonValue(json: String): TdlResult<JsonValue> {
-        val function = TdApi.GetJsonValue(
+        val function = GetJsonValue(
             json = json,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getKeywordEmojis(text: String, inputLanguageCodes: Array<String>): TdlResult<Emojis> {
-        val function = TdApi.GetKeywordEmojis(
+        val function = GetKeywordEmojis(
             text = text,
             inputLanguageCodes = inputLanguageCodes,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getLanguagePackInfo(languagePackId: String): TdlResult<LanguagePackInfo> {
-        val function = TdApi.GetLanguagePackInfo(
+        val function = GetLanguagePackInfo(
             languagePackId = languagePackId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getLanguagePackString(
@@ -4199,58 +5127,58 @@ internal class TdlClientImpl(
         languagePackId: String,
         key: String,
     ): TdlResult<LanguagePackStringValue> {
-        val function = TdApi.GetLanguagePackString(
+        val function = GetLanguagePackString(
             languagePackDatabasePath = languagePackDatabasePath,
             localizationTarget = localizationTarget,
             languagePackId = languagePackId,
             key = key,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getLanguagePackStrings(languagePackId: String, keys: Array<String>): TdlResult<LanguagePackStrings> {
-        val function = TdApi.GetLanguagePackStrings(
+        val function = GetLanguagePackStrings(
             languagePackId = languagePackId,
             keys = keys,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getLinkPreview(text: FormattedText, linkPreviewOptions: LinkPreviewOptions?): TdlResult<LinkPreview> {
-        val function = TdApi.GetLinkPreview(
-            text = mapper.map(text),
-            linkPreviewOptions = linkPreviewOptions?.let { mapper.map(it) },
+        val function = GetLinkPreview(
+            text = text,
+            linkPreviewOptions = linkPreviewOptions,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getLocalizationTargetInfo(onlyLocal: Boolean): TdlResult<LocalizationTargetInfo> {
-        val function = TdApi.GetLocalizationTargetInfo(
+        val function = GetLocalizationTargetInfo(
             onlyLocal = onlyLocal,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getLogStream(): TdlResult<LogStream> {
-        val function = TdApi.GetLogStream()
-        return repository.send(function) { mapper.map(it) }
+        val function = GetLogStream()
+        return repository.send(function = function)
     }
 
     override suspend fun getLogTagVerbosityLevel(tag: String): TdlResult<LogVerbosityLevel> {
-        val function = TdApi.GetLogTagVerbosityLevel(
+        val function = GetLogTagVerbosityLevel(
             tag = tag,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getLogTags(): TdlResult<LogTags> {
-        val function = TdApi.GetLogTags()
-        return repository.send(function) { mapper.map(it) }
+        val function = GetLogTags()
+        return repository.send(function = function)
     }
 
     override suspend fun getLogVerbosityLevel(): TdlResult<LogVerbosityLevel> {
-        val function = TdApi.GetLogVerbosityLevel()
-        return repository.send(function) { mapper.map(it) }
+        val function = GetLogVerbosityLevel()
+        return repository.send(function = function)
     }
 
     override suspend fun getLoginUrl(
@@ -4259,13 +5187,13 @@ internal class TdlClientImpl(
         buttonId: Long,
         allowWriteAccess: Boolean,
     ): TdlResult<HttpUrl> {
-        val function = TdApi.GetLoginUrl(
+        val function = GetLoginUrl(
             chatId = chatId,
             messageId = messageId,
             buttonId = buttonId,
             allowWriteAccess = allowWriteAccess,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getLoginUrlInfo(
@@ -4273,12 +5201,12 @@ internal class TdlClientImpl(
         messageId: Long,
         buttonId: Long,
     ): TdlResult<LoginUrlInfo> {
-        val function = TdApi.GetLoginUrlInfo(
+        val function = GetLoginUrlInfo(
             chatId = chatId,
             messageId = messageId,
             buttonId = buttonId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getMainWebApp(
@@ -4287,13 +5215,13 @@ internal class TdlClientImpl(
         startParameter: String,
         parameters: WebAppOpenParameters,
     ): TdlResult<MainWebApp> {
-        val function = TdApi.GetMainWebApp(
+        val function = GetMainWebApp(
             chatId = chatId,
             botUserId = botUserId,
             startParameter = startParameter,
-            parameters = mapper.map(parameters),
+            parameters = parameters,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getMapThumbnailFile(
@@ -4304,42 +5232,42 @@ internal class TdlClientImpl(
         scale: Int,
         chatId: Long,
     ): TdlResult<File> {
-        val function = TdApi.GetMapThumbnailFile(
-            location = mapper.map(location),
+        val function = GetMapThumbnailFile(
+            location = location,
             zoom = zoom,
             width = width,
             height = height,
             scale = scale,
             chatId = chatId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getMarkdownText(text: FormattedText): TdlResult<FormattedText> {
-        val function = TdApi.GetMarkdownText(
-            text = mapper.map(text),
+        val function = GetMarkdownText(
+            text = text,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getMe(): TdlResult<User> {
-        val function = TdApi.GetMe()
-        return repository.send(function) { mapper.map(it) }
+        val function = GetMe()
+        return repository.send(function = function)
     }
 
     override suspend fun getMenuButton(userId: Long): TdlResult<BotMenuButton> {
-        val function = TdApi.GetMenuButton(
+        val function = GetMenuButton(
             userId = userId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getMessage(chatId: Long, messageId: Long): TdlResult<Message> {
-        val function = TdApi.GetMessage(
+        val function = GetMessage(
             chatId = chatId,
             messageId = messageId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getMessageAddedReactions(
@@ -4349,22 +5277,22 @@ internal class TdlClientImpl(
         offset: String,
         limit: Int,
     ): TdlResult<AddedReactions> {
-        val function = TdApi.GetMessageAddedReactions(
+        val function = GetMessageAddedReactions(
             chatId = chatId,
             messageId = messageId,
-            reactionType = reactionType?.let { mapper.map(it) },
+            reactionType = reactionType,
             offset = offset,
             limit = limit,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getMessageAuthor(chatId: Long, messageId: Long): TdlResult<User> {
-        val function = TdApi.GetMessageAuthor(
+        val function = GetMessageAuthor(
             chatId = chatId,
             messageId = messageId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getMessageAvailableReactions(
@@ -4372,19 +5300,19 @@ internal class TdlClientImpl(
         messageId: Long,
         rowSize: Int,
     ): TdlResult<AvailableReactions> {
-        val function = TdApi.GetMessageAvailableReactions(
+        val function = GetMessageAvailableReactions(
             chatId = chatId,
             messageId = messageId,
             rowSize = rowSize,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getMessageEffect(effectId: Long): TdlResult<MessageEffect> {
-        val function = TdApi.GetMessageEffect(
+        val function = GetMessageEffect(
             effectId = effectId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getMessageEmbeddingCode(
@@ -4392,26 +5320,26 @@ internal class TdlClientImpl(
         messageId: Long,
         forAlbum: Boolean,
     ): TdlResult<Text> {
-        val function = TdApi.GetMessageEmbeddingCode(
+        val function = GetMessageEmbeddingCode(
             chatId = chatId,
             messageId = messageId,
             forAlbum = forAlbum,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getMessageFileType(messageFileHead: String): TdlResult<MessageFileType> {
-        val function = TdApi.GetMessageFileType(
+        val function = GetMessageFileType(
             messageFileHead = messageFileHead,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getMessageImportConfirmationText(chatId: Long): TdlResult<Text> {
-        val function = TdApi.GetMessageImportConfirmationText(
+        val function = GetMessageImportConfirmationText(
             chatId = chatId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getMessageLink(
@@ -4421,37 +5349,37 @@ internal class TdlClientImpl(
         forAlbum: Boolean,
         inMessageThread: Boolean,
     ): TdlResult<MessageLink> {
-        val function = TdApi.GetMessageLink(
+        val function = GetMessageLink(
             chatId = chatId,
             messageId = messageId,
             mediaTimestamp = mediaTimestamp,
             forAlbum = forAlbum,
             inMessageThread = inMessageThread,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getMessageLinkInfo(url: String): TdlResult<MessageLinkInfo> {
-        val function = TdApi.GetMessageLinkInfo(
+        val function = GetMessageLinkInfo(
             url = url,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getMessageLocally(chatId: Long, messageId: Long): TdlResult<Message> {
-        val function = TdApi.GetMessageLocally(
+        val function = GetMessageLocally(
             chatId = chatId,
             messageId = messageId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getMessageProperties(chatId: Long, messageId: Long): TdlResult<MessageProperties> {
-        val function = TdApi.GetMessageProperties(
+        val function = GetMessageProperties(
             chatId = chatId,
             messageId = messageId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getMessagePublicForwards(
@@ -4460,21 +5388,21 @@ internal class TdlClientImpl(
         offset: String,
         limit: Int,
     ): TdlResult<PublicForwards> {
-        val function = TdApi.GetMessagePublicForwards(
+        val function = GetMessagePublicForwards(
             chatId = chatId,
             messageId = messageId,
             offset = offset,
             limit = limit,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getMessageReadDate(chatId: Long, messageId: Long): TdlResult<MessageReadDate> {
-        val function = TdApi.GetMessageReadDate(
+        val function = GetMessageReadDate(
             chatId = chatId,
             messageId = messageId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getMessageStatistics(
@@ -4482,20 +5410,20 @@ internal class TdlClientImpl(
         messageId: Long,
         isDark: Boolean,
     ): TdlResult<MessageStatistics> {
-        val function = TdApi.GetMessageStatistics(
+        val function = GetMessageStatistics(
             chatId = chatId,
             messageId = messageId,
             isDark = isDark,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getMessageThread(chatId: Long, messageId: Long): TdlResult<MessageThreadInfo> {
-        val function = TdApi.GetMessageThread(
+        val function = GetMessageThread(
             chatId = chatId,
             messageId = messageId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getMessageThreadHistory(
@@ -4505,69 +5433,69 @@ internal class TdlClientImpl(
         offset: Int,
         limit: Int,
     ): TdlResult<Messages> {
-        val function = TdApi.GetMessageThreadHistory(
+        val function = GetMessageThreadHistory(
             chatId = chatId,
             messageId = messageId,
             fromMessageId = fromMessageId,
             offset = offset,
             limit = limit,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getMessageViewers(chatId: Long, messageId: Long): TdlResult<MessageViewers> {
-        val function = TdApi.GetMessageViewers(
+        val function = GetMessageViewers(
             chatId = chatId,
             messageId = messageId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getMessages(chatId: Long, messageIds: LongArray): TdlResult<Messages> {
-        val function = TdApi.GetMessages(
+        val function = GetMessages(
             chatId = chatId,
             messageIds = messageIds,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getNetworkStatistics(onlyCurrent: Boolean): TdlResult<NetworkStatistics> {
-        val function = TdApi.GetNetworkStatistics(
+        val function = GetNetworkStatistics(
             onlyCurrent = onlyCurrent,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getNewChatPrivacySettings(): TdlResult<NewChatPrivacySettings> {
-        val function = TdApi.GetNewChatPrivacySettings()
-        return repository.send(function) { mapper.map(it) }
+        val function = GetNewChatPrivacySettings()
+        return repository.send(function = function)
     }
 
     override suspend fun getOption(name: String): TdlResult<OptionValue> {
-        val function = TdApi.GetOption(
+        val function = GetOption(
             name = name,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getOwnedBots(): TdlResult<Users> {
-        val function = TdApi.GetOwnedBots()
-        return repository.send(function) { mapper.map(it) }
+        val function = GetOwnedBots()
+        return repository.send(function = function)
     }
 
     override suspend fun getOwnedStickerSets(offsetStickerSetId: Long, limit: Int): TdlResult<StickerSets> {
-        val function = TdApi.GetOwnedStickerSets(
+        val function = GetOwnedStickerSets(
             offsetStickerSetId = offsetStickerSetId,
             limit = limit,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getPaidMessageRevenue(userId: Long): TdlResult<StarCount> {
-        val function = TdApi.GetPaidMessageRevenue(
+        val function = GetPaidMessageRevenue(
             userId = userId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getPassportAuthorizationForm(
@@ -4576,65 +5504,65 @@ internal class TdlClientImpl(
         publicKey: String,
         nonce: String,
     ): TdlResult<PassportAuthorizationForm> {
-        val function = TdApi.GetPassportAuthorizationForm(
+        val function = GetPassportAuthorizationForm(
             botUserId = botUserId,
             scope = scope,
             publicKey = publicKey,
             nonce = nonce,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getPassportAuthorizationFormAvailableElements(authorizationFormId: Int, password: String): TdlResult<PassportElementsWithErrors> {
-        val function = TdApi.GetPassportAuthorizationFormAvailableElements(
+        val function = GetPassportAuthorizationFormAvailableElements(
             authorizationFormId = authorizationFormId,
             password = password,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getPassportElement(type: PassportElementType, password: String): TdlResult<PassportElement> {
-        val function = TdApi.GetPassportElement(
-            type = mapper.map(type),
+        val function = GetPassportElement(
+            type = type,
             password = password,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getPasswordState(): TdlResult<PasswordState> {
-        val function = TdApi.GetPasswordState()
-        return repository.send(function) { mapper.map(it) }
+        val function = GetPasswordState()
+        return repository.send(function = function)
     }
 
     override suspend fun getPaymentForm(inputInvoice: InputInvoice, theme: ThemeParameters?): TdlResult<PaymentForm> {
-        val function = TdApi.GetPaymentForm(
-            inputInvoice = mapper.map(inputInvoice),
-            theme = theme?.let { mapper.map(it) },
+        val function = GetPaymentForm(
+            inputInvoice = inputInvoice,
+            theme = theme,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getPaymentReceipt(chatId: Long, messageId: Long): TdlResult<PaymentReceipt> {
-        val function = TdApi.GetPaymentReceipt(
+        val function = GetPaymentReceipt(
             chatId = chatId,
             messageId = messageId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getPhoneNumberInfo(phoneNumberPrefix: String): TdlResult<PhoneNumberInfo> {
-        val function = TdApi.GetPhoneNumberInfo(
+        val function = GetPhoneNumberInfo(
             phoneNumberPrefix = phoneNumberPrefix,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getPhoneNumberInfoSync(languageCode: String, phoneNumberPrefix: String): TdlResult<PhoneNumberInfo> {
-        val function = TdApi.GetPhoneNumberInfoSync(
+        val function = GetPhoneNumberInfoSync(
             languageCode = languageCode,
             phoneNumberPrefix = phoneNumberPrefix,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getPollVoters(
@@ -4644,110 +5572,110 @@ internal class TdlClientImpl(
         offset: Int,
         limit: Int,
     ): TdlResult<MessageSenders> {
-        val function = TdApi.GetPollVoters(
+        val function = GetPollVoters(
             chatId = chatId,
             messageId = messageId,
             optionId = optionId,
             offset = offset,
             limit = limit,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getPreferredCountryLanguage(countryCode: String): TdlResult<Text> {
-        val function = TdApi.GetPreferredCountryLanguage(
+        val function = GetPreferredCountryLanguage(
             countryCode = countryCode,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getPremiumFeatures(source: PremiumSource?): TdlResult<PremiumFeatures> {
-        val function = TdApi.GetPremiumFeatures(
-            source = source?.let { mapper.map(it) },
+        val function = GetPremiumFeatures(
+            source = source,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getPremiumGiftPaymentOptions(): TdlResult<PremiumGiftPaymentOptions> {
-        val function = TdApi.GetPremiumGiftPaymentOptions()
-        return repository.send(function) { mapper.map(it) }
+        val function = GetPremiumGiftPaymentOptions()
+        return repository.send(function = function)
     }
 
     override suspend fun getPremiumGiveawayPaymentOptions(boostedChatId: Long): TdlResult<PremiumGiveawayPaymentOptions> {
-        val function = TdApi.GetPremiumGiveawayPaymentOptions(
+        val function = GetPremiumGiveawayPaymentOptions(
             boostedChatId = boostedChatId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getPremiumInfoSticker(monthCount: Int): TdlResult<Sticker> {
-        val function = TdApi.GetPremiumInfoSticker(
+        val function = GetPremiumInfoSticker(
             monthCount = monthCount,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getPremiumLimit(limitType: PremiumLimitType): TdlResult<PremiumLimit> {
-        val function = TdApi.GetPremiumLimit(
-            limitType = mapper.map(limitType),
+        val function = GetPremiumLimit(
+            limitType = limitType,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getPremiumState(): TdlResult<PremiumState> {
-        val function = TdApi.GetPremiumState()
-        return repository.send(function) { mapper.map(it) }
+        val function = GetPremiumState()
+        return repository.send(function = function)
     }
 
     override suspend fun getPremiumStickerExamples(): TdlResult<Stickers> {
-        val function = TdApi.GetPremiumStickerExamples()
-        return repository.send(function) { mapper.map(it) }
+        val function = GetPremiumStickerExamples()
+        return repository.send(function = function)
     }
 
     override suspend fun getPremiumStickers(limit: Int): TdlResult<Stickers> {
-        val function = TdApi.GetPremiumStickers(
+        val function = GetPremiumStickers(
             limit = limit,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getPreparedInlineMessage(botUserId: Long, preparedMessageId: String): TdlResult<PreparedInlineMessage> {
-        val function = TdApi.GetPreparedInlineMessage(
+        val function = GetPreparedInlineMessage(
             botUserId = botUserId,
             preparedMessageId = preparedMessageId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getProxies(): TdlResult<Proxies> {
-        val function = TdApi.GetProxies()
-        return repository.send(function) { mapper.map(it) }
+        val function = GetProxies()
+        return repository.send(function = function)
     }
 
     override suspend fun getProxyLink(proxyId: Int): TdlResult<HttpUrl> {
-        val function = TdApi.GetProxyLink(
+        val function = GetProxyLink(
             proxyId = proxyId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getPushReceiverId(payload: String): TdlResult<PushReceiverId> {
-        val function = TdApi.GetPushReceiverId(
+        val function = GetPushReceiverId(
             payload = payload,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getReadDatePrivacySettings(): TdlResult<ReadDatePrivacySettings> {
-        val function = TdApi.GetReadDatePrivacySettings()
-        return repository.send(function) { mapper.map(it) }
+        val function = GetReadDatePrivacySettings()
+        return repository.send(function = function)
     }
 
     override suspend fun getReceivedGift(receivedGiftId: String): TdlResult<ReceivedGift> {
-        val function = TdApi.GetReceivedGift(
+        val function = GetReceivedGift(
             receivedGiftId = receivedGiftId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getReceivedGifts(
@@ -4762,9 +5690,9 @@ internal class TdlClientImpl(
         offset: String,
         limit: Int,
     ): TdlResult<ReceivedGifts> {
-        val function = TdApi.GetReceivedGifts(
+        val function = GetReceivedGifts(
             businessConnectionId = businessConnectionId,
-            ownerId = mapper.map(ownerId),
+            ownerId = ownerId,
             excludeUnsaved = excludeUnsaved,
             excludeSaved = excludeSaved,
             excludeUnlimited = excludeUnlimited,
@@ -4774,83 +5702,83 @@ internal class TdlClientImpl(
             offset = offset,
             limit = limit,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getRecentEmojiStatuses(): TdlResult<EmojiStatuses> {
-        val function = TdApi.GetRecentEmojiStatuses()
-        return repository.send(function) { mapper.map(it) }
+        val function = GetRecentEmojiStatuses()
+        return repository.send(function = function)
     }
 
     override suspend fun getRecentInlineBots(): TdlResult<Users> {
-        val function = TdApi.GetRecentInlineBots()
-        return repository.send(function) { mapper.map(it) }
+        val function = GetRecentInlineBots()
+        return repository.send(function = function)
     }
 
     override suspend fun getRecentStickers(isAttached: Boolean): TdlResult<Stickers> {
-        val function = TdApi.GetRecentStickers(
+        val function = GetRecentStickers(
             isAttached = isAttached,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getRecentlyOpenedChats(limit: Int): TdlResult<Chats> {
-        val function = TdApi.GetRecentlyOpenedChats(
+        val function = GetRecentlyOpenedChats(
             limit = limit,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getRecentlyVisitedTMeUrls(referrer: String): TdlResult<TMeUrls> {
-        val function = TdApi.GetRecentlyVisitedTMeUrls(
+        val function = GetRecentlyVisitedTMeUrls(
             referrer = referrer,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getRecommendedChatFolders(): TdlResult<RecommendedChatFolders> {
-        val function = TdApi.GetRecommendedChatFolders()
-        return repository.send(function) { mapper.map(it) }
+        val function = GetRecommendedChatFolders()
+        return repository.send(function = function)
     }
 
     override suspend fun getRecommendedChats(): TdlResult<Chats> {
-        val function = TdApi.GetRecommendedChats()
-        return repository.send(function) { mapper.map(it) }
+        val function = GetRecommendedChats()
+        return repository.send(function = function)
     }
 
     override suspend fun getRecoveryEmailAddress(password: String): TdlResult<RecoveryEmailAddress> {
-        val function = TdApi.GetRecoveryEmailAddress(
+        val function = GetRecoveryEmailAddress(
             password = password,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getRemoteFile(remoteFileId: String, fileType: FileType?): TdlResult<File> {
-        val function = TdApi.GetRemoteFile(
+        val function = GetRemoteFile(
             remoteFileId = remoteFileId,
-            fileType = fileType?.let { mapper.map(it) },
+            fileType = fileType,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getRepliedMessage(chatId: Long, messageId: Long): TdlResult<Message> {
-        val function = TdApi.GetRepliedMessage(
+        val function = GetRepliedMessage(
             chatId = chatId,
             messageId = messageId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getSavedAnimations(): TdlResult<Animations> {
-        val function = TdApi.GetSavedAnimations()
-        return repository.send(function) { mapper.map(it) }
+        val function = GetSavedAnimations()
+        return repository.send(function = function)
     }
 
     override suspend fun getSavedMessagesTags(savedMessagesTopicId: Long): TdlResult<SavedMessagesTags> {
-        val function = TdApi.GetSavedMessagesTags(
+        val function = GetSavedMessagesTags(
             savedMessagesTopicId = savedMessagesTopicId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getSavedMessagesTopicHistory(
@@ -4859,124 +5787,124 @@ internal class TdlClientImpl(
         offset: Int,
         limit: Int,
     ): TdlResult<Messages> {
-        val function = TdApi.GetSavedMessagesTopicHistory(
+        val function = GetSavedMessagesTopicHistory(
             savedMessagesTopicId = savedMessagesTopicId,
             fromMessageId = fromMessageId,
             offset = offset,
             limit = limit,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getSavedMessagesTopicMessageByDate(savedMessagesTopicId: Long, date: Int): TdlResult<Message> {
-        val function = TdApi.GetSavedMessagesTopicMessageByDate(
+        val function = GetSavedMessagesTopicMessageByDate(
             savedMessagesTopicId = savedMessagesTopicId,
             date = date,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getSavedNotificationSound(notificationSoundId: Long): TdlResult<NotificationSounds> {
-        val function = TdApi.GetSavedNotificationSound(
+        val function = GetSavedNotificationSound(
             notificationSoundId = notificationSoundId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getSavedNotificationSounds(): TdlResult<NotificationSounds> {
-        val function = TdApi.GetSavedNotificationSounds()
-        return repository.send(function) { mapper.map(it) }
+        val function = GetSavedNotificationSounds()
+        return repository.send(function = function)
     }
 
     override suspend fun getSavedOrderInfo(): TdlResult<OrderInfo> {
-        val function = TdApi.GetSavedOrderInfo()
-        return repository.send(function) { mapper.map(it) }
+        val function = GetSavedOrderInfo()
+        return repository.send(function = function)
     }
 
     override suspend fun getScopeNotificationSettings(scope: NotificationSettingsScope): TdlResult<ScopeNotificationSettings> {
-        val function = TdApi.GetScopeNotificationSettings(
-            scope = mapper.map(scope),
+        val function = GetScopeNotificationSettings(
+            scope = scope,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getSearchSponsoredChats(query: String): TdlResult<SponsoredChats> {
-        val function = TdApi.GetSearchSponsoredChats(
+        val function = GetSearchSponsoredChats(
             query = query,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getSearchedForTags(tagPrefix: String, limit: Int): TdlResult<Hashtags> {
-        val function = TdApi.GetSearchedForTags(
+        val function = GetSearchedForTags(
             tagPrefix = tagPrefix,
             limit = limit,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getSecretChat(secretChatId: Int): TdlResult<SecretChat> {
-        val function = TdApi.GetSecretChat(
+        val function = GetSecretChat(
             secretChatId = secretChatId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getStarAdAccountUrl(ownerId: MessageSender): TdlResult<HttpUrl> {
-        val function = TdApi.GetStarAdAccountUrl(
-            ownerId = mapper.map(ownerId),
+        val function = GetStarAdAccountUrl(
+            ownerId = ownerId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getStarGiftPaymentOptions(userId: Long): TdlResult<StarPaymentOptions> {
-        val function = TdApi.GetStarGiftPaymentOptions(
+        val function = GetStarGiftPaymentOptions(
             userId = userId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getStarGiveawayPaymentOptions(): TdlResult<StarGiveawayPaymentOptions> {
-        val function = TdApi.GetStarGiveawayPaymentOptions()
-        return repository.send(function) { mapper.map(it) }
+        val function = GetStarGiveawayPaymentOptions()
+        return repository.send(function = function)
     }
 
     override suspend fun getStarPaymentOptions(): TdlResult<StarPaymentOptions> {
-        val function = TdApi.GetStarPaymentOptions()
-        return repository.send(function) { mapper.map(it) }
+        val function = GetStarPaymentOptions()
+        return repository.send(function = function)
     }
 
     override suspend fun getStarRevenueStatistics(ownerId: MessageSender, isDark: Boolean): TdlResult<StarRevenueStatistics> {
-        val function = TdApi.GetStarRevenueStatistics(
-            ownerId = mapper.map(ownerId),
+        val function = GetStarRevenueStatistics(
+            ownerId = ownerId,
             isDark = isDark,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getStarSubscriptions(onlyExpiring: Boolean, offset: String): TdlResult<StarSubscriptions> {
-        val function = TdApi.GetStarSubscriptions(
+        val function = GetStarSubscriptions(
             onlyExpiring = onlyExpiring,
             offset = offset,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getStarTransactions(
         ownerId: MessageSender,
         subscriptionId: String,
-        direction: StarTransactionDirection?,
+        direction: TransactionDirection?,
         offset: String,
         limit: Int,
     ): TdlResult<StarTransactions> {
-        val function = TdApi.GetStarTransactions(
-            ownerId = mapper.map(ownerId),
+        val function = GetStarTransactions(
+            ownerId = ownerId,
             subscriptionId = subscriptionId,
-            direction = direction?.let { mapper.map(it) },
+            direction = direction,
             offset = offset,
             limit = limit,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getStarWithdrawalUrl(
@@ -4984,12 +5912,12 @@ internal class TdlClientImpl(
         starCount: Long,
         password: String,
     ): TdlResult<HttpUrl> {
-        val function = TdApi.GetStarWithdrawalUrl(
-            ownerId = mapper.map(ownerId),
+        val function = GetStarWithdrawalUrl(
+            ownerId = ownerId,
             starCount = starCount,
             password = password,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getStatisticalGraph(
@@ -4997,19 +5925,19 @@ internal class TdlClientImpl(
         token: String,
         x: Long,
     ): TdlResult<StatisticalGraph> {
-        val function = TdApi.GetStatisticalGraph(
+        val function = GetStatisticalGraph(
             chatId = chatId,
             token = token,
             x = x,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getStickerEmojis(sticker: InputFile): TdlResult<Emojis> {
-        val function = TdApi.GetStickerEmojis(
-            sticker = mapper.map(sticker),
+        val function = GetStickerEmojis(
+            sticker = sticker,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getStickerOutline(
@@ -5017,26 +5945,26 @@ internal class TdlClientImpl(
         forAnimatedEmoji: Boolean,
         forClickedAnimatedEmojiMessage: Boolean,
     ): TdlResult<Outline> {
-        val function = TdApi.GetStickerOutline(
+        val function = GetStickerOutline(
             stickerFileId = stickerFileId,
             forAnimatedEmoji = forAnimatedEmoji,
             forClickedAnimatedEmojiMessage = forClickedAnimatedEmojiMessage,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getStickerSet(setId: Long): TdlResult<StickerSet> {
-        val function = TdApi.GetStickerSet(
+        val function = GetStickerSet(
             setId = setId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getStickerSetName(setId: Long): TdlResult<Text> {
-        val function = TdApi.GetStickerSetName(
+        val function = GetStickerSetName(
             setId = setId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getStickers(
@@ -5045,25 +5973,25 @@ internal class TdlClientImpl(
         limit: Int,
         chatId: Long,
     ): TdlResult<Stickers> {
-        val function = TdApi.GetStickers(
-            stickerType = mapper.map(stickerType),
+        val function = GetStickers(
+            stickerType = stickerType,
             query = query,
             limit = limit,
             chatId = chatId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getStorageStatistics(chatLimit: Int): TdlResult<StorageStatistics> {
-        val function = TdApi.GetStorageStatistics(
+        val function = GetStorageStatistics(
             chatLimit = chatLimit,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getStorageStatisticsFast(): TdlResult<StorageStatisticsFast> {
-        val function = TdApi.GetStorageStatisticsFast()
-        return repository.send(function) { mapper.map(it) }
+        val function = GetStorageStatisticsFast()
+        return repository.send(function = function)
     }
 
     override suspend fun getStory(
@@ -5071,19 +5999,19 @@ internal class TdlClientImpl(
         storyId: Int,
         onlyLocal: Boolean,
     ): TdlResult<Story> {
-        val function = TdApi.GetStory(
+        val function = GetStory(
             storyPosterChatId = storyPosterChatId,
             storyId = storyId,
             onlyLocal = onlyLocal,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getStoryAvailableReactions(rowSize: Int): TdlResult<AvailableReactions> {
-        val function = TdApi.GetStoryAvailableReactions(
+        val function = GetStoryAvailableReactions(
             rowSize = rowSize,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getStoryInteractions(
@@ -5095,7 +6023,7 @@ internal class TdlClientImpl(
         offset: String,
         limit: Int,
     ): TdlResult<StoryInteractions> {
-        val function = TdApi.GetStoryInteractions(
+        val function = GetStoryInteractions(
             storyId = storyId,
             query = query,
             onlyContacts = onlyContacts,
@@ -5104,12 +6032,12 @@ internal class TdlClientImpl(
             offset = offset,
             limit = limit,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getStoryNotificationSettingsExceptions(): TdlResult<Chats> {
-        val function = TdApi.GetStoryNotificationSettingsExceptions()
-        return repository.send(function) { mapper.map(it) }
+        val function = GetStoryNotificationSettingsExceptions()
+        return repository.send(function = function)
     }
 
     override suspend fun getStoryPublicForwards(
@@ -5118,13 +6046,13 @@ internal class TdlClientImpl(
         offset: String,
         limit: Int,
     ): TdlResult<PublicForwards> {
-        val function = TdApi.GetStoryPublicForwards(
+        val function = GetStoryPublicForwards(
             storyPosterChatId = storyPosterChatId,
             storyId = storyId,
             offset = offset,
             limit = limit,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getStoryStatistics(
@@ -5132,51 +6060,51 @@ internal class TdlClientImpl(
         storyId: Int,
         isDark: Boolean,
     ): TdlResult<StoryStatistics> {
-        val function = TdApi.GetStoryStatistics(
+        val function = GetStoryStatistics(
             chatId = chatId,
             storyId = storyId,
             isDark = isDark,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getSuggestedFileName(fileId: Int, directory: String): TdlResult<Text> {
-        val function = TdApi.GetSuggestedFileName(
+        val function = GetSuggestedFileName(
             fileId = fileId,
             directory = directory,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getSuggestedStickerSetName(title: String): TdlResult<Text> {
-        val function = TdApi.GetSuggestedStickerSetName(
+        val function = GetSuggestedStickerSetName(
             title = title,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getSuitableDiscussionChats(): TdlResult<Chats> {
-        val function = TdApi.GetSuitableDiscussionChats()
-        return repository.send(function) { mapper.map(it) }
+        val function = GetSuitableDiscussionChats()
+        return repository.send(function = function)
     }
 
     override suspend fun getSuitablePersonalChats(): TdlResult<Chats> {
-        val function = TdApi.GetSuitablePersonalChats()
-        return repository.send(function) { mapper.map(it) }
+        val function = GetSuitablePersonalChats()
+        return repository.send(function = function)
     }
 
     override suspend fun getSupergroup(supergroupId: Long): TdlResult<Supergroup> {
-        val function = TdApi.GetSupergroup(
+        val function = GetSupergroup(
             supergroupId = supergroupId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getSupergroupFullInfo(supergroupId: Long): TdlResult<SupergroupFullInfo> {
-        val function = TdApi.GetSupergroupFullInfo(
+        val function = GetSupergroupFullInfo(
             supergroupId = supergroupId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getSupergroupMembers(
@@ -5185,65 +6113,78 @@ internal class TdlClientImpl(
         offset: Int,
         limit: Int,
     ): TdlResult<ChatMembers> {
-        val function = TdApi.GetSupergroupMembers(
+        val function = GetSupergroupMembers(
             supergroupId = supergroupId,
-            filter = filter?.let { mapper.map(it) },
+            filter = filter,
             offset = offset,
             limit = limit,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getSupportName(): TdlResult<Text> {
-        val function = TdApi.GetSupportName()
-        return repository.send(function) { mapper.map(it) }
+        val function = GetSupportName()
+        return repository.send(function = function)
     }
 
     override suspend fun getSupportUser(): TdlResult<User> {
-        val function = TdApi.GetSupportUser()
-        return repository.send(function) { mapper.map(it) }
+        val function = GetSupportUser()
+        return repository.send(function = function)
     }
 
     override suspend fun getTemporaryPasswordState(): TdlResult<TemporaryPasswordState> {
-        val function = TdApi.GetTemporaryPasswordState()
-        return repository.send(function) { mapper.map(it) }
+        val function = GetTemporaryPasswordState()
+        return repository.send(function = function)
     }
 
     override suspend fun getTextEntities(text: String): TdlResult<TextEntities> {
-        val function = TdApi.GetTextEntities(
+        val function = GetTextEntities(
             text = text,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getThemeParametersJsonString(theme: ThemeParameters): TdlResult<Text> {
-        val function = TdApi.GetThemeParametersJsonString(
-            theme = mapper.map(theme),
+        val function = GetThemeParametersJsonString(
+            theme = theme,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getThemedChatEmojiStatuses(): TdlResult<EmojiStatusCustomEmojis> {
-        val function = TdApi.GetThemedChatEmojiStatuses()
-        return repository.send(function) { mapper.map(it) }
+        val function = GetThemedChatEmojiStatuses()
+        return repository.send(function = function)
     }
 
     override suspend fun getThemedEmojiStatuses(): TdlResult<EmojiStatusCustomEmojis> {
-        val function = TdApi.GetThemedEmojiStatuses()
-        return repository.send(function) { mapper.map(it) }
+        val function = GetThemedEmojiStatuses()
+        return repository.send(function = function)
     }
 
     override suspend fun getTimeZones(): TdlResult<TimeZones> {
-        val function = TdApi.GetTimeZones()
-        return repository.send(function) { mapper.map(it) }
+        val function = GetTimeZones()
+        return repository.send(function = function)
+    }
+
+    override suspend fun getTonTransactions(
+        direction: TransactionDirection?,
+        offset: String,
+        limit: Int,
+    ): TdlResult<TonTransactions> {
+        val function = GetTonTransactions(
+            direction = direction,
+            offset = offset,
+            limit = limit,
+        )
+        return repository.send(function = function)
     }
 
     override suspend fun getTopChats(category: TopChatCategory, limit: Int): TdlResult<Chats> {
-        val function = TdApi.GetTopChats(
-            category = mapper.map(category),
+        val function = GetTopChats(
+            category = category,
             limit = limit,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getTrendingStickerSets(
@@ -5251,66 +6192,66 @@ internal class TdlClientImpl(
         offset: Int,
         limit: Int,
     ): TdlResult<TrendingStickerSets> {
-        val function = TdApi.GetTrendingStickerSets(
-            stickerType = mapper.map(stickerType),
+        val function = GetTrendingStickerSets(
+            stickerType = stickerType,
             offset = offset,
             limit = limit,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getUpgradedGift(name: String): TdlResult<UpgradedGift> {
-        val function = TdApi.GetUpgradedGift(
+        val function = GetUpgradedGift(
             name = name,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getUpgradedGiftEmojiStatuses(): TdlResult<EmojiStatuses> {
-        val function = TdApi.GetUpgradedGiftEmojiStatuses()
-        return repository.send(function) { mapper.map(it) }
+        val function = GetUpgradedGiftEmojiStatuses()
+        return repository.send(function = function)
     }
 
     override suspend fun getUpgradedGiftWithdrawalUrl(receivedGiftId: String, password: String): TdlResult<HttpUrl> {
-        val function = TdApi.GetUpgradedGiftWithdrawalUrl(
+        val function = GetUpgradedGiftWithdrawalUrl(
             receivedGiftId = receivedGiftId,
             password = password,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getUser(userId: Long): TdlResult<User> {
-        val function = TdApi.GetUser(
+        val function = GetUser(
             userId = userId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getUserChatBoosts(chatId: Long, userId: Long): TdlResult<FoundChatBoosts> {
-        val function = TdApi.GetUserChatBoosts(
+        val function = GetUserChatBoosts(
             chatId = chatId,
             userId = userId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getUserFullInfo(userId: Long): TdlResult<UserFullInfo> {
-        val function = TdApi.GetUserFullInfo(
+        val function = GetUserFullInfo(
             userId = userId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getUserLink(): TdlResult<UserLink> {
-        val function = TdApi.GetUserLink()
-        return repository.send(function) { mapper.map(it) }
+        val function = GetUserLink()
+        return repository.send(function = function)
     }
 
     override suspend fun getUserPrivacySettingRules(setting: UserPrivacySetting): TdlResult<UserPrivacySettingRules> {
-        val function = TdApi.GetUserPrivacySettingRules(
-            setting = mapper.map(setting),
+        val function = GetUserPrivacySettingRules(
+            setting = setting,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getUserProfilePhotos(
@@ -5318,41 +6259,41 @@ internal class TdlClientImpl(
         offset: Int,
         limit: Int,
     ): TdlResult<ChatPhotos> {
-        val function = TdApi.GetUserProfilePhotos(
+        val function = GetUserProfilePhotos(
             userId = userId,
             offset = offset,
             limit = limit,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getUserSupportInfo(userId: Long): TdlResult<UserSupportInfo> {
-        val function = TdApi.GetUserSupportInfo(
+        val function = GetUserSupportInfo(
             userId = userId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getVideoChatAvailableParticipants(chatId: Long): TdlResult<MessageSenders> {
-        val function = TdApi.GetVideoChatAvailableParticipants(
+        val function = GetVideoChatAvailableParticipants(
             chatId = chatId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getVideoChatInviteLink(groupCallId: Int, canSelfUnmute: Boolean): TdlResult<HttpUrl> {
-        val function = TdApi.GetVideoChatInviteLink(
+        val function = GetVideoChatInviteLink(
             groupCallId = groupCallId,
             canSelfUnmute = canSelfUnmute,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getVideoChatRtmpUrl(chatId: Long): TdlResult<RtmpUrl> {
-        val function = TdApi.GetVideoChatRtmpUrl(
+        val function = GetVideoChatRtmpUrl(
             chatId = chatId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getVideoChatStreamSegment(
@@ -5362,29 +6303,29 @@ internal class TdlClientImpl(
         channelId: Int,
         videoQuality: GroupCallVideoQuality?,
     ): TdlResult<Data> {
-        val function = TdApi.GetVideoChatStreamSegment(
+        val function = GetVideoChatStreamSegment(
             groupCallId = groupCallId,
             timeOffset = timeOffset,
             scale = scale,
             channelId = channelId,
-            videoQuality = videoQuality?.let { mapper.map(it) },
+            videoQuality = videoQuality,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getVideoChatStreams(groupCallId: Int): TdlResult<VideoChatStreams> {
-        val function = TdApi.GetVideoChatStreams(
+        val function = GetVideoChatStreams(
             groupCallId = groupCallId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getVideoMessageAdvertisements(chatId: Long, messageId: Long): TdlResult<VideoMessageAdvertisements> {
-        val function = TdApi.GetVideoMessageAdvertisements(
+        val function = GetVideoMessageAdvertisements(
             chatId = chatId,
             messageId = messageId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getWebAppLinkUrl(
@@ -5395,22 +6336,22 @@ internal class TdlClientImpl(
         allowWriteAccess: Boolean,
         parameters: WebAppOpenParameters,
     ): TdlResult<HttpUrl> {
-        val function = TdApi.GetWebAppLinkUrl(
+        val function = GetWebAppLinkUrl(
             chatId = chatId,
             botUserId = botUserId,
             webAppShortName = webAppShortName,
             startParameter = startParameter,
             allowWriteAccess = allowWriteAccess,
-            parameters = mapper.map(parameters),
+            parameters = parameters,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getWebAppPlaceholder(botUserId: Long): TdlResult<Outline> {
-        val function = TdApi.GetWebAppPlaceholder(
+        val function = GetWebAppPlaceholder(
             botUserId = botUserId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getWebAppUrl(
@@ -5418,20 +6359,20 @@ internal class TdlClientImpl(
         url: String,
         parameters: WebAppOpenParameters,
     ): TdlResult<HttpUrl> {
-        val function = TdApi.GetWebAppUrl(
+        val function = GetWebAppUrl(
             botUserId = botUserId,
             url = url,
-            parameters = mapper.map(parameters),
+            parameters = parameters,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun getWebPageInstantView(url: String, onlyLocal: Boolean): TdlResult<WebPageInstantView> {
-        val function = TdApi.GetWebPageInstantView(
+        val function = GetWebPageInstantView(
             url = url,
             onlyLocal = onlyLocal,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun giftPremiumWithStars(
@@ -5440,32 +6381,32 @@ internal class TdlClientImpl(
         monthCount: Int,
         text: FormattedText,
     ): TdlResult<Ok> {
-        val function = TdApi.GiftPremiumWithStars(
+        val function = GiftPremiumWithStars(
             userId = userId,
             starCount = starCount,
             monthCount = monthCount,
-            text = mapper.map(text),
+            text = text,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun hideContactCloseBirthdays(): TdlResult<Ok> {
-        val function = TdApi.HideContactCloseBirthdays()
-        return repository.send(function) { mapper.map(it) }
+        val function = HideContactCloseBirthdays()
+        return repository.send(function = function)
     }
 
     override suspend fun hideSuggestedAction(action: SuggestedAction): TdlResult<Ok> {
-        val function = TdApi.HideSuggestedAction(
-            action = mapper.map(action),
+        val function = HideSuggestedAction(
+            action = action,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun importContacts(contacts: Array<Contact>): TdlResult<ImportedContacts> {
-        val function = TdApi.ImportContacts(
-            contacts = contacts.mapArray { mapper.map(it) },
+        val function = ImportContacts(
+            contacts = contacts,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun importMessages(
@@ -5473,12 +6414,12 @@ internal class TdlClientImpl(
         messageFile: InputFile,
         attachedFiles: Array<InputFile>,
     ): TdlResult<Ok> {
-        val function = TdApi.ImportMessages(
+        val function = ImportMessages(
             chatId = chatId,
-            messageFile = mapper.map(messageFile),
-            attachedFiles = attachedFiles.mapArray { mapper.map(it) },
+            messageFile = messageFile,
+            attachedFiles = attachedFiles,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun inviteGroupCallParticipant(
@@ -5486,42 +6427,42 @@ internal class TdlClientImpl(
         userId: Long,
         isVideo: Boolean,
     ): TdlResult<InviteGroupCallParticipantResult> {
-        val function = TdApi.InviteGroupCallParticipant(
+        val function = InviteGroupCallParticipant(
             groupCallId = groupCallId,
             userId = userId,
             isVideo = isVideo,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun inviteVideoChatParticipants(groupCallId: Int, userIds: LongArray): TdlResult<Ok> {
-        val function = TdApi.InviteVideoChatParticipants(
+        val function = InviteVideoChatParticipants(
             groupCallId = groupCallId,
             userIds = userIds,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun joinChat(chatId: Long): TdlResult<Ok> {
-        val function = TdApi.JoinChat(
+        val function = JoinChat(
             chatId = chatId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun joinChatByInviteLink(inviteLink: String): TdlResult<Chat> {
-        val function = TdApi.JoinChatByInviteLink(
+        val function = JoinChatByInviteLink(
             inviteLink = inviteLink,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun joinGroupCall(inputGroupCall: InputGroupCall, joinParameters: GroupCallJoinParameters): TdlResult<GroupCallInfo> {
-        val function = TdApi.JoinGroupCall(
-            inputGroupCall = mapper.map(inputGroupCall),
-            joinParameters = mapper.map(joinParameters),
+        val function = JoinGroupCall(
+            inputGroupCall = inputGroupCall,
+            joinParameters = joinParameters,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun joinVideoChat(
@@ -5530,13 +6471,13 @@ internal class TdlClientImpl(
         joinParameters: GroupCallJoinParameters,
         inviteHash: String,
     ): TdlResult<Text> {
-        val function = TdApi.JoinVideoChat(
+        val function = JoinVideoChat(
             groupCallId = groupCallId,
-            participantId = participantId?.let { mapper.map(it) },
-            joinParameters = mapper.map(joinParameters),
+            participantId = participantId,
+            joinParameters = joinParameters,
             inviteHash = inviteHash,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun launchPrepaidGiveaway(
@@ -5545,82 +6486,82 @@ internal class TdlClientImpl(
         winnerCount: Int,
         starCount: Long,
     ): TdlResult<Ok> {
-        val function = TdApi.LaunchPrepaidGiveaway(
+        val function = LaunchPrepaidGiveaway(
             giveawayId = giveawayId,
-            parameters = mapper.map(parameters),
+            parameters = parameters,
             winnerCount = winnerCount,
             starCount = starCount,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun leaveChat(chatId: Long): TdlResult<Ok> {
-        val function = TdApi.LeaveChat(
+        val function = LeaveChat(
             chatId = chatId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun leaveGroupCall(groupCallId: Int): TdlResult<Ok> {
-        val function = TdApi.LeaveGroupCall(
+        val function = LeaveGroupCall(
             groupCallId = groupCallId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun loadActiveStories(storyList: StoryList): TdlResult<Ok> {
-        val function = TdApi.LoadActiveStories(
-            storyList = mapper.map(storyList),
+        val function = LoadActiveStories(
+            storyList = storyList,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun loadChats(chatList: ChatList?, limit: Int): TdlResult<Ok> {
-        val function = TdApi.LoadChats(
-            chatList = chatList?.let { mapper.map(it) },
+        val function = LoadChats(
+            chatList = chatList,
             limit = limit,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun loadDirectMessagesChatTopics(chatId: Long, limit: Int): TdlResult<Ok> {
-        val function = TdApi.LoadDirectMessagesChatTopics(
+        val function = LoadDirectMessagesChatTopics(
             chatId = chatId,
             limit = limit,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun loadGroupCallParticipants(groupCallId: Int, limit: Int): TdlResult<Ok> {
-        val function = TdApi.LoadGroupCallParticipants(
+        val function = LoadGroupCallParticipants(
             groupCallId = groupCallId,
             limit = limit,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun loadQuickReplyShortcutMessages(shortcutId: Int): TdlResult<Ok> {
-        val function = TdApi.LoadQuickReplyShortcutMessages(
+        val function = LoadQuickReplyShortcutMessages(
             shortcutId = shortcutId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun loadQuickReplyShortcuts(): TdlResult<Ok> {
-        val function = TdApi.LoadQuickReplyShortcuts()
-        return repository.send(function) { mapper.map(it) }
+        val function = LoadQuickReplyShortcuts()
+        return repository.send(function = function)
     }
 
     override suspend fun loadSavedMessagesTopics(limit: Int): TdlResult<Ok> {
-        val function = TdApi.LoadSavedMessagesTopics(
+        val function = LoadSavedMessagesTopics(
             limit = limit,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun logOut(): TdlResult<Ok> {
-        val function = TdApi.LogOut()
-        return repository.send(function) { mapper.map(it) }
+        val function = LogOut()
+        return repository.send(function = function)
     }
 
     override suspend fun markChecklistTasksAsDone(
@@ -5629,59 +6570,59 @@ internal class TdlClientImpl(
         markedAsDoneTaskIds: IntArray,
         markedAsNotDoneTaskIds: IntArray,
     ): TdlResult<Ok> {
-        val function = TdApi.MarkChecklistTasksAsDone(
+        val function = MarkChecklistTasksAsDone(
             chatId = chatId,
             messageId = messageId,
             markedAsDoneTaskIds = markedAsDoneTaskIds,
             markedAsNotDoneTaskIds = markedAsNotDoneTaskIds,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun openBotSimilarBot(botUserId: Long, openedBotUserId: Long): TdlResult<Ok> {
-        val function = TdApi.OpenBotSimilarBot(
+        val function = OpenBotSimilarBot(
             botUserId = botUserId,
             openedBotUserId = openedBotUserId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun openChat(chatId: Long): TdlResult<Ok> {
-        val function = TdApi.OpenChat(
+        val function = OpenChat(
             chatId = chatId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun openChatSimilarChat(chatId: Long, openedChatId: Long): TdlResult<Ok> {
-        val function = TdApi.OpenChatSimilarChat(
+        val function = OpenChatSimilarChat(
             chatId = chatId,
             openedChatId = openedChatId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun openMessageContent(chatId: Long, messageId: Long): TdlResult<Ok> {
-        val function = TdApi.OpenMessageContent(
+        val function = OpenMessageContent(
             chatId = chatId,
             messageId = messageId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun openSponsoredChat(sponsoredChatUniqueId: Long): TdlResult<Ok> {
-        val function = TdApi.OpenSponsoredChat(
+        val function = OpenSponsoredChat(
             sponsoredChatUniqueId = sponsoredChatUniqueId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun openStory(storyPosterChatId: Long, storyId: Int): TdlResult<Ok> {
-        val function = TdApi.OpenStory(
+        val function = OpenStory(
             storyPosterChatId = storyPosterChatId,
             storyId = storyId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun openWebApp(
@@ -5693,16 +6634,16 @@ internal class TdlClientImpl(
         replyTo: InputMessageReplyTo?,
         parameters: WebAppOpenParameters,
     ): TdlResult<WebAppInfo> {
-        val function = TdApi.OpenWebApp(
+        val function = OpenWebApp(
             chatId = chatId,
             botUserId = botUserId,
             url = url,
             messageThreadId = messageThreadId,
             directMessagesChatTopicId = directMessagesChatTopicId,
-            replyTo = replyTo?.let { mapper.map(it) },
-            parameters = mapper.map(parameters),
+            replyTo = replyTo,
+            parameters = parameters,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun optimizeStorage(
@@ -5716,33 +6657,33 @@ internal class TdlClientImpl(
         returnDeletedFileStatistics: Boolean,
         chatLimit: Int,
     ): TdlResult<StorageStatistics> {
-        val function = TdApi.OptimizeStorage(
+        val function = OptimizeStorage(
             size = size,
             ttl = ttl,
             count = count,
             immunityDelay = immunityDelay,
-            fileTypes = fileTypes.mapArray { mapper.map(it) },
+            fileTypes = fileTypes,
             chatIds = chatIds,
             excludeChatIds = excludeChatIds,
             returnDeletedFileStatistics = returnDeletedFileStatistics,
             chatLimit = chatLimit,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun parseMarkdown(text: FormattedText): TdlResult<FormattedText> {
-        val function = TdApi.ParseMarkdown(
-            text = mapper.map(text),
+        val function = ParseMarkdown(
+            text = text,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun parseTextEntities(text: String, parseMode: TextParseMode): TdlResult<FormattedText> {
-        val function = TdApi.ParseTextEntities(
+        val function = ParseTextEntities(
             text = text,
-            parseMode = mapper.map(parseMode),
+            parseMode = parseMode,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun pinChatMessage(
@@ -5751,20 +6692,20 @@ internal class TdlClientImpl(
         disableNotification: Boolean,
         onlyForSelf: Boolean,
     ): TdlResult<Ok> {
-        val function = TdApi.PinChatMessage(
+        val function = PinChatMessage(
             chatId = chatId,
             messageId = messageId,
             disableNotification = disableNotification,
             onlyForSelf = onlyForSelf,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun pingProxy(proxyId: Int): TdlResult<Seconds> {
-        val function = TdApi.PingProxy(
+        val function = PingProxy(
             proxyId = proxyId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun postStory(
@@ -5778,18 +6719,18 @@ internal class TdlClientImpl(
         isPostedToChatPage: Boolean,
         protectContent: Boolean,
     ): TdlResult<Story> {
-        val function = TdApi.PostStory(
+        val function = PostStory(
             chatId = chatId,
-            content = mapper.map(content),
-            areas = areas?.let { mapper.map(it) },
-            caption = caption?.let { mapper.map(it) },
-            privacySettings = mapper.map(privacySettings),
+            content = content,
+            areas = areas,
+            caption = caption,
+            privacySettings = privacySettings,
             activePeriod = activePeriod,
-            fromStoryFullId = fromStoryFullId?.let { mapper.map(it) },
+            fromStoryFullId = fromStoryFullId,
             isPostedToChatPage = isPostedToChatPage,
             protectContent = protectContent,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun preliminaryUploadFile(
@@ -5797,20 +6738,20 @@ internal class TdlClientImpl(
         fileType: FileType?,
         priority: Int,
     ): TdlResult<File> {
-        val function = TdApi.PreliminaryUploadFile(
-            file = mapper.map(file),
-            fileType = fileType?.let { mapper.map(it) },
+        val function = PreliminaryUploadFile(
+            file = file,
+            fileType = fileType,
             priority = priority,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun processChatFolderNewChats(chatFolderId: Int, addedChatIds: LongArray): TdlResult<Ok> {
-        val function = TdApi.ProcessChatFolderNewChats(
+        val function = ProcessChatFolderNewChats(
             chatFolderId = chatFolderId,
             addedChatIds = addedChatIds,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun processChatJoinRequest(
@@ -5818,12 +6759,12 @@ internal class TdlClientImpl(
         userId: Long,
         approve: Boolean,
     ): TdlResult<Ok> {
-        val function = TdApi.ProcessChatJoinRequest(
+        val function = ProcessChatJoinRequest(
             chatId = chatId,
             userId = userId,
             approve = approve,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun processChatJoinRequests(
@@ -5831,19 +6772,19 @@ internal class TdlClientImpl(
         inviteLink: String,
         approve: Boolean,
     ): TdlResult<Ok> {
-        val function = TdApi.ProcessChatJoinRequests(
+        val function = ProcessChatJoinRequests(
             chatId = chatId,
             inviteLink = inviteLink,
             approve = approve,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun processPushNotification(payload: String): TdlResult<Ok> {
-        val function = TdApi.ProcessPushNotification(
+        val function = ProcessPushNotification(
             payload = payload,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun rateSpeechRecognition(
@@ -5851,50 +6792,50 @@ internal class TdlClientImpl(
         messageId: Long,
         isGood: Boolean,
     ): TdlResult<Ok> {
-        val function = TdApi.RateSpeechRecognition(
+        val function = RateSpeechRecognition(
             chatId = chatId,
             messageId = messageId,
             isGood = isGood,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun readAllChatMentions(chatId: Long): TdlResult<Ok> {
-        val function = TdApi.ReadAllChatMentions(
+        val function = ReadAllChatMentions(
             chatId = chatId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun readAllChatReactions(chatId: Long): TdlResult<Ok> {
-        val function = TdApi.ReadAllChatReactions(
+        val function = ReadAllChatReactions(
             chatId = chatId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun readAllDirectMessagesChatTopicReactions(chatId: Long, topicId: Long): TdlResult<Ok> {
-        val function = TdApi.ReadAllDirectMessagesChatTopicReactions(
+        val function = ReadAllDirectMessagesChatTopicReactions(
             chatId = chatId,
             topicId = topicId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun readAllMessageThreadMentions(chatId: Long, messageThreadId: Long): TdlResult<Ok> {
-        val function = TdApi.ReadAllMessageThreadMentions(
+        val function = ReadAllMessageThreadMentions(
             chatId = chatId,
             messageThreadId = messageThreadId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun readAllMessageThreadReactions(chatId: Long, messageThreadId: Long): TdlResult<Ok> {
-        val function = TdApi.ReadAllMessageThreadReactions(
+        val function = ReadAllMessageThreadReactions(
             chatId = chatId,
             messageThreadId = messageThreadId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun readBusinessMessage(
@@ -5902,19 +6843,19 @@ internal class TdlClientImpl(
         chatId: Long,
         messageId: Long,
     ): TdlResult<Ok> {
-        val function = TdApi.ReadBusinessMessage(
+        val function = ReadBusinessMessage(
             businessConnectionId = businessConnectionId,
             chatId = chatId,
             messageId = messageId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun readChatList(chatList: ChatList): TdlResult<Ok> {
-        val function = TdApi.ReadChatList(
-            chatList = mapper.map(chatList),
+        val function = ReadChatList(
+            chatList = chatList,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun readFilePart(
@@ -5922,28 +6863,28 @@ internal class TdlClientImpl(
         offset: Long,
         count: Long,
     ): TdlResult<Data> {
-        val function = TdApi.ReadFilePart(
+        val function = ReadFilePart(
             fileId = fileId,
             offset = offset,
             count = count,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun readdQuickReplyShortcutMessages(shortcutName: String, messageIds: LongArray): TdlResult<QuickReplyMessages> {
-        val function = TdApi.ReaddQuickReplyShortcutMessages(
+        val function = ReaddQuickReplyShortcutMessages(
             shortcutName = shortcutName,
             messageIds = messageIds,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun recognizeSpeech(chatId: Long, messageId: Long): TdlResult<Ok> {
-        val function = TdApi.RecognizeSpeech(
+        val function = RecognizeSpeech(
             chatId = chatId,
             messageId = messageId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun recoverAuthenticationPassword(
@@ -5951,12 +6892,12 @@ internal class TdlClientImpl(
         newPassword: String,
         newHint: String,
     ): TdlResult<Ok> {
-        val function = TdApi.RecoverAuthenticationPassword(
+        val function = RecoverAuthenticationPassword(
             recoveryCode = recoveryCode,
             newPassword = newPassword,
             newHint = newHint,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun recoverPassword(
@@ -5964,28 +6905,28 @@ internal class TdlClientImpl(
         newPassword: String,
         newHint: String,
     ): TdlResult<PasswordState> {
-        val function = TdApi.RecoverPassword(
+        val function = RecoverPassword(
             recoveryCode = recoveryCode,
             newPassword = newPassword,
             newHint = newHint,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun refundStarPayment(userId: Long, telegramPaymentChargeId: String): TdlResult<Ok> {
-        val function = TdApi.RefundStarPayment(
+        val function = RefundStarPayment(
             userId = userId,
             telegramPaymentChargeId = telegramPaymentChargeId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun registerDevice(deviceToken: DeviceToken, otherUserIds: LongArray): TdlResult<PushReceiverId> {
-        val function = TdApi.RegisterDevice(
-            deviceToken = mapper.map(deviceToken),
+        val function = RegisterDevice(
+            deviceToken = deviceToken,
             otherUserIds = otherUserIds,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun registerUser(
@@ -5993,12 +6934,12 @@ internal class TdlClientImpl(
         lastName: String,
         disableNotification: Boolean,
     ): TdlResult<Ok> {
-        val function = TdApi.RegisterUser(
+        val function = RegisterUser(
             firstName = firstName,
             lastName = lastName,
             disableNotification = disableNotification,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun removeAllFilesFromDownloads(
@@ -6006,55 +6947,55 @@ internal class TdlClientImpl(
         onlyCompleted: Boolean,
         deleteFromCache: Boolean,
     ): TdlResult<Ok> {
-        val function = TdApi.RemoveAllFilesFromDownloads(
+        val function = RemoveAllFilesFromDownloads(
             onlyActive = onlyActive,
             onlyCompleted = onlyCompleted,
             deleteFromCache = deleteFromCache,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun removeBusinessConnectedBotFromChat(chatId: Long): TdlResult<Ok> {
-        val function = TdApi.RemoveBusinessConnectedBotFromChat(
+        val function = RemoveBusinessConnectedBotFromChat(
             chatId = chatId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun removeChatActionBar(chatId: Long): TdlResult<Ok> {
-        val function = TdApi.RemoveChatActionBar(
+        val function = RemoveChatActionBar(
             chatId = chatId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun removeContacts(userIds: LongArray): TdlResult<Ok> {
-        val function = TdApi.RemoveContacts(
+        val function = RemoveContacts(
             userIds = userIds,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun removeFavoriteSticker(sticker: InputFile): TdlResult<Ok> {
-        val function = TdApi.RemoveFavoriteSticker(
-            sticker = mapper.map(sticker),
+        val function = RemoveFavoriteSticker(
+            sticker = sticker,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun removeFileFromDownloads(fileId: Int, deleteFromCache: Boolean): TdlResult<Ok> {
-        val function = TdApi.RemoveFileFromDownloads(
+        val function = RemoveFileFromDownloads(
             fileId = fileId,
             deleteFromCache = deleteFromCache,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun removeInstalledBackground(backgroundId: Long): TdlResult<Ok> {
-        val function = TdApi.RemoveInstalledBackground(
+        val function = RemoveInstalledBackground(
             backgroundId = backgroundId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun removeMessageReaction(
@@ -6062,124 +7003,124 @@ internal class TdlClientImpl(
         messageId: Long,
         reactionType: ReactionType,
     ): TdlResult<Ok> {
-        val function = TdApi.RemoveMessageReaction(
+        val function = RemoveMessageReaction(
             chatId = chatId,
             messageId = messageId,
-            reactionType = mapper.map(reactionType),
+            reactionType = reactionType,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun removeMessageSenderBotVerification(botUserId: Long, verifiedId: MessageSender): TdlResult<Ok> {
-        val function = TdApi.RemoveMessageSenderBotVerification(
+        val function = RemoveMessageSenderBotVerification(
             botUserId = botUserId,
-            verifiedId = mapper.map(verifiedId),
+            verifiedId = verifiedId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun removeNotification(notificationGroupId: Int, notificationId: Int): TdlResult<Ok> {
-        val function = TdApi.RemoveNotification(
+        val function = RemoveNotification(
             notificationGroupId = notificationGroupId,
             notificationId = notificationId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun removeNotificationGroup(notificationGroupId: Int, maxNotificationId: Int): TdlResult<Ok> {
-        val function = TdApi.RemoveNotificationGroup(
+        val function = RemoveNotificationGroup(
             notificationGroupId = notificationGroupId,
             maxNotificationId = maxNotificationId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun removePendingPaidMessageReactions(chatId: Long, messageId: Long): TdlResult<Ok> {
-        val function = TdApi.RemovePendingPaidMessageReactions(
+        val function = RemovePendingPaidMessageReactions(
             chatId = chatId,
             messageId = messageId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun removeProxy(proxyId: Int): TdlResult<Ok> {
-        val function = TdApi.RemoveProxy(
+        val function = RemoveProxy(
             proxyId = proxyId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun removeRecentHashtag(hashtag: String): TdlResult<Ok> {
-        val function = TdApi.RemoveRecentHashtag(
+        val function = RemoveRecentHashtag(
             hashtag = hashtag,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun removeRecentSticker(isAttached: Boolean, sticker: InputFile): TdlResult<Ok> {
-        val function = TdApi.RemoveRecentSticker(
+        val function = RemoveRecentSticker(
             isAttached = isAttached,
-            sticker = mapper.map(sticker),
+            sticker = sticker,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun removeRecentlyFoundChat(chatId: Long): TdlResult<Ok> {
-        val function = TdApi.RemoveRecentlyFoundChat(
+        val function = RemoveRecentlyFoundChat(
             chatId = chatId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun removeSavedAnimation(animation: InputFile): TdlResult<Ok> {
-        val function = TdApi.RemoveSavedAnimation(
-            animation = mapper.map(animation),
+        val function = RemoveSavedAnimation(
+            animation = animation,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun removeSavedNotificationSound(notificationSoundId: Long): TdlResult<Ok> {
-        val function = TdApi.RemoveSavedNotificationSound(
+        val function = RemoveSavedNotificationSound(
             notificationSoundId = notificationSoundId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun removeSearchedForTag(tag: String): TdlResult<Ok> {
-        val function = TdApi.RemoveSearchedForTag(
+        val function = RemoveSearchedForTag(
             tag = tag,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun removeStickerFromSet(sticker: InputFile): TdlResult<Ok> {
-        val function = TdApi.RemoveStickerFromSet(
-            sticker = mapper.map(sticker),
+        val function = RemoveStickerFromSet(
+            sticker = sticker,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun removeTopChat(category: TopChatCategory, chatId: Long): TdlResult<Ok> {
-        val function = TdApi.RemoveTopChat(
-            category = mapper.map(category),
+        val function = RemoveTopChat(
+            category = category,
             chatId = chatId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun reorderActiveUsernames(usernames: Array<String>): TdlResult<Ok> {
-        val function = TdApi.ReorderActiveUsernames(
+        val function = ReorderActiveUsernames(
             usernames = usernames,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun reorderBotActiveUsernames(botUserId: Long, usernames: Array<String>): TdlResult<Ok> {
-        val function = TdApi.ReorderBotActiveUsernames(
+        val function = ReorderBotActiveUsernames(
             botUserId = botUserId,
             usernames = usernames,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun reorderBotMediaPreviews(
@@ -6187,50 +7128,50 @@ internal class TdlClientImpl(
         languageCode: String,
         fileIds: IntArray,
     ): TdlResult<Ok> {
-        val function = TdApi.ReorderBotMediaPreviews(
+        val function = ReorderBotMediaPreviews(
             botUserId = botUserId,
             languageCode = languageCode,
             fileIds = fileIds,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun reorderChatFolders(chatFolderIds: IntArray, mainChatListPosition: Int): TdlResult<Ok> {
-        val function = TdApi.ReorderChatFolders(
+        val function = ReorderChatFolders(
             chatFolderIds = chatFolderIds,
             mainChatListPosition = mainChatListPosition,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun reorderInstalledStickerSets(stickerType: StickerType, stickerSetIds: LongArray): TdlResult<Ok> {
-        val function = TdApi.ReorderInstalledStickerSets(
-            stickerType = mapper.map(stickerType),
+        val function = ReorderInstalledStickerSets(
+            stickerType = stickerType,
             stickerSetIds = stickerSetIds,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun reorderQuickReplyShortcuts(shortcutIds: IntArray): TdlResult<Ok> {
-        val function = TdApi.ReorderQuickReplyShortcuts(
+        val function = ReorderQuickReplyShortcuts(
             shortcutIds = shortcutIds,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun reorderSupergroupActiveUsernames(supergroupId: Long, usernames: Array<String>): TdlResult<Ok> {
-        val function = TdApi.ReorderSupergroupActiveUsernames(
+        val function = ReorderSupergroupActiveUsernames(
             supergroupId = supergroupId,
             usernames = usernames,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun replacePrimaryChatInviteLink(chatId: Long): TdlResult<ChatInviteLink> {
-        val function = TdApi.ReplacePrimaryChatInviteLink(
+        val function = ReplacePrimaryChatInviteLink(
             chatId = chatId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun replaceStickerInSet(
@@ -6239,27 +7180,27 @@ internal class TdlClientImpl(
         oldSticker: InputFile,
         newSticker: InputSticker,
     ): TdlResult<Ok> {
-        val function = TdApi.ReplaceStickerInSet(
+        val function = ReplaceStickerInSet(
             userId = userId,
             name = name,
-            oldSticker = mapper.map(oldSticker),
-            newSticker = mapper.map(newSticker),
+            oldSticker = oldSticker,
+            newSticker = newSticker,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun replaceVideoChatRtmpUrl(chatId: Long): TdlResult<RtmpUrl> {
-        val function = TdApi.ReplaceVideoChatRtmpUrl(
+        val function = ReplaceVideoChatRtmpUrl(
             chatId = chatId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun reportAuthenticationCodeMissing(mobileNetworkCode: String): TdlResult<Ok> {
-        val function = TdApi.ReportAuthenticationCodeMissing(
+        val function = ReportAuthenticationCodeMissing(
             mobileNetworkCode = mobileNetworkCode,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun reportChat(
@@ -6268,13 +7209,13 @@ internal class TdlClientImpl(
         messageIds: LongArray,
         text: String,
     ): TdlResult<ReportChatResult> {
-        val function = TdApi.ReportChat(
+        val function = ReportChat(
             chatId = chatId,
             optionId = optionId,
             messageIds = messageIds,
             text = text,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun reportChatPhoto(
@@ -6283,13 +7224,13 @@ internal class TdlClientImpl(
         reason: ReportReason,
         text: String,
     ): TdlResult<Ok> {
-        val function = TdApi.ReportChatPhoto(
+        val function = ReportChatPhoto(
             chatId = chatId,
             fileId = fileId,
-            reason = mapper.map(reason),
+            reason = reason,
             text = text,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun reportChatSponsoredMessage(
@@ -6297,12 +7238,12 @@ internal class TdlClientImpl(
         messageId: Long,
         optionId: ByteArray,
     ): TdlResult<ReportSponsoredResult> {
-        val function = TdApi.ReportChatSponsoredMessage(
+        val function = ReportChatSponsoredMessage(
             chatId = chatId,
             messageId = messageId,
             optionId = optionId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun reportMessageReactions(
@@ -6310,27 +7251,27 @@ internal class TdlClientImpl(
         messageId: Long,
         senderId: MessageSender,
     ): TdlResult<Ok> {
-        val function = TdApi.ReportMessageReactions(
+        val function = ReportMessageReactions(
             chatId = chatId,
             messageId = messageId,
-            senderId = mapper.map(senderId),
+            senderId = senderId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun reportPhoneNumberCodeMissing(mobileNetworkCode: String): TdlResult<Ok> {
-        val function = TdApi.ReportPhoneNumberCodeMissing(
+        val function = ReportPhoneNumberCodeMissing(
             mobileNetworkCode = mobileNetworkCode,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun reportSponsoredChat(sponsoredChatUniqueId: Long, optionId: ByteArray): TdlResult<ReportSponsoredResult> {
-        val function = TdApi.ReportSponsoredChat(
+        val function = ReportSponsoredChat(
             sponsoredChatUniqueId = sponsoredChatUniqueId,
             optionId = optionId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun reportStory(
@@ -6339,71 +7280,71 @@ internal class TdlClientImpl(
         optionId: ByteArray,
         text: String,
     ): TdlResult<ReportStoryResult> {
-        val function = TdApi.ReportStory(
+        val function = ReportStory(
             storyPosterChatId = storyPosterChatId,
             storyId = storyId,
             optionId = optionId,
             text = text,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun reportSupergroupAntiSpamFalsePositive(supergroupId: Long, messageId: Long): TdlResult<Ok> {
-        val function = TdApi.ReportSupergroupAntiSpamFalsePositive(
+        val function = ReportSupergroupAntiSpamFalsePositive(
             supergroupId = supergroupId,
             messageId = messageId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun reportSupergroupSpam(supergroupId: Long, messageIds: LongArray): TdlResult<Ok> {
-        val function = TdApi.ReportSupergroupSpam(
+        val function = ReportSupergroupSpam(
             supergroupId = supergroupId,
             messageIds = messageIds,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun reportVideoMessageAdvertisement(advertisementUniqueId: Long, optionId: ByteArray): TdlResult<ReportSponsoredResult> {
-        val function = TdApi.ReportVideoMessageAdvertisement(
+        val function = ReportVideoMessageAdvertisement(
             advertisementUniqueId = advertisementUniqueId,
             optionId = optionId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun requestAuthenticationPasswordRecovery(): TdlResult<Ok> {
-        val function = TdApi.RequestAuthenticationPasswordRecovery()
-        return repository.send(function) { mapper.map(it) }
+        val function = RequestAuthenticationPasswordRecovery()
+        return repository.send(function = function)
     }
 
     override suspend fun requestPasswordRecovery(): TdlResult<EmailAddressAuthenticationCodeInfo> {
-        val function = TdApi.RequestPasswordRecovery()
-        return repository.send(function) { mapper.map(it) }
+        val function = RequestPasswordRecovery()
+        return repository.send(function = function)
     }
 
     override suspend fun requestQrCodeAuthentication(otherUserIds: LongArray): TdlResult<Ok> {
-        val function = TdApi.RequestQrCodeAuthentication(
+        val function = RequestQrCodeAuthentication(
             otherUserIds = otherUserIds,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun resendAuthenticationCode(reason: ResendCodeReason?): TdlResult<Ok> {
-        val function = TdApi.ResendAuthenticationCode(
-            reason = reason?.let { mapper.map(it) },
+        val function = ResendAuthenticationCode(
+            reason = reason,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun resendEmailAddressVerificationCode(): TdlResult<EmailAddressAuthenticationCodeInfo> {
-        val function = TdApi.ResendEmailAddressVerificationCode()
-        return repository.send(function) { mapper.map(it) }
+        val function = ResendEmailAddressVerificationCode()
+        return repository.send(function = function)
     }
 
     override suspend fun resendLoginEmailAddressCode(): TdlResult<EmailAddressAuthenticationCodeInfo> {
-        val function = TdApi.ResendLoginEmailAddressCode()
-        return repository.send(function) { mapper.map(it) }
+        val function = ResendLoginEmailAddressCode()
+        return repository.send(function = function)
     }
 
     override suspend fun resendMessages(
@@ -6412,72 +7353,72 @@ internal class TdlClientImpl(
         quote: InputTextQuote?,
         paidMessageStarCount: Long,
     ): TdlResult<Messages> {
-        val function = TdApi.ResendMessages(
+        val function = ResendMessages(
             chatId = chatId,
             messageIds = messageIds,
-            quote = quote?.let { mapper.map(it) },
+            quote = quote,
             paidMessageStarCount = paidMessageStarCount,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun resendPhoneNumberCode(reason: ResendCodeReason?): TdlResult<AuthenticationCodeInfo> {
-        val function = TdApi.ResendPhoneNumberCode(
-            reason = reason?.let { mapper.map(it) },
+        val function = ResendPhoneNumberCode(
+            reason = reason,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun resendRecoveryEmailAddressCode(): TdlResult<PasswordState> {
-        val function = TdApi.ResendRecoveryEmailAddressCode()
-        return repository.send(function) { mapper.map(it) }
+        val function = ResendRecoveryEmailAddressCode()
+        return repository.send(function = function)
     }
 
     override suspend fun resetAllNotificationSettings(): TdlResult<Ok> {
-        val function = TdApi.ResetAllNotificationSettings()
-        return repository.send(function) { mapper.map(it) }
+        val function = ResetAllNotificationSettings()
+        return repository.send(function = function)
     }
 
     override suspend fun resetAuthenticationEmailAddress(): TdlResult<Ok> {
-        val function = TdApi.ResetAuthenticationEmailAddress()
-        return repository.send(function) { mapper.map(it) }
+        val function = ResetAuthenticationEmailAddress()
+        return repository.send(function = function)
     }
 
     override suspend fun resetInstalledBackgrounds(): TdlResult<Ok> {
-        val function = TdApi.ResetInstalledBackgrounds()
-        return repository.send(function) { mapper.map(it) }
+        val function = ResetInstalledBackgrounds()
+        return repository.send(function = function)
     }
 
     override suspend fun resetNetworkStatistics(): TdlResult<Ok> {
-        val function = TdApi.ResetNetworkStatistics()
-        return repository.send(function) { mapper.map(it) }
+        val function = ResetNetworkStatistics()
+        return repository.send(function = function)
     }
 
     override suspend fun resetPassword(): TdlResult<ResetPasswordResult> {
-        val function = TdApi.ResetPassword()
-        return repository.send(function) { mapper.map(it) }
+        val function = ResetPassword()
+        return repository.send(function = function)
     }
 
     override suspend fun reuseStarSubscription(subscriptionId: String): TdlResult<Ok> {
-        val function = TdApi.ReuseStarSubscription(
+        val function = ReuseStarSubscription(
             subscriptionId = subscriptionId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun revokeChatInviteLink(chatId: Long, inviteLink: String): TdlResult<ChatInviteLinks> {
-        val function = TdApi.RevokeChatInviteLink(
+        val function = RevokeChatInviteLink(
             chatId = chatId,
             inviteLink = inviteLink,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun revokeGroupCallInviteLink(groupCallId: Int): TdlResult<Ok> {
-        val function = TdApi.RevokeGroupCallInviteLink(
+        val function = RevokeGroupCallInviteLink(
             groupCallId = groupCallId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun saveApplicationLogEvent(
@@ -6485,12 +7426,12 @@ internal class TdlClientImpl(
         chatId: Long,
         data: JsonValue,
     ): TdlResult<Ok> {
-        val function = TdApi.SaveApplicationLogEvent(
+        val function = SaveApplicationLogEvent(
             type = type,
             chatId = chatId,
-            data = mapper.map(data),
+            data = data,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun savePreparedInlineMessage(
@@ -6498,12 +7439,12 @@ internal class TdlClientImpl(
         result: InputInlineQueryResult,
         chatTypes: TargetChatTypes,
     ): TdlResult<PreparedInlineMessageId> {
-        val function = TdApi.SavePreparedInlineMessage(
+        val function = SavePreparedInlineMessage(
             userId = userId,
-            result = mapper.map(result),
-            chatTypes = mapper.map(chatTypes),
+            result = result,
+            chatTypes = chatTypes,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun searchAffiliatePrograms(
@@ -6512,20 +7453,20 @@ internal class TdlClientImpl(
         offset: String,
         limit: Int,
     ): TdlResult<FoundAffiliatePrograms> {
-        val function = TdApi.SearchAffiliatePrograms(
-            affiliate = mapper.map(affiliate),
-            sortOrder = mapper.map(sortOrder),
+        val function = SearchAffiliatePrograms(
+            affiliate = affiliate,
+            sortOrder = sortOrder,
             offset = offset,
             limit = limit,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun searchBackground(name: String): TdlResult<Background> {
-        val function = TdApi.SearchBackground(
+        val function = SearchBackground(
             name = name,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun searchCallMessages(
@@ -6533,20 +7474,20 @@ internal class TdlClientImpl(
         limit: Int,
         onlyMissed: Boolean,
     ): TdlResult<FoundMessages> {
-        val function = TdApi.SearchCallMessages(
+        val function = SearchCallMessages(
             offset = offset,
             limit = limit,
             onlyMissed = onlyMissed,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun searchChatAffiliateProgram(username: String, referrer: String): TdlResult<Chat> {
-        val function = TdApi.SearchChatAffiliateProgram(
+        val function = SearchChatAffiliateProgram(
             username = username,
             referrer = referrer,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun searchChatMembers(
@@ -6555,13 +7496,13 @@ internal class TdlClientImpl(
         limit: Int,
         filter: ChatMembersFilter?,
     ): TdlResult<ChatMembers> {
-        val function = TdApi.SearchChatMembers(
+        val function = SearchChatMembers(
             chatId = chatId,
             query = query,
             limit = limit,
-            filter = filter?.let { mapper.map(it) },
+            filter = filter,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun searchChatMessages(
@@ -6574,57 +7515,57 @@ internal class TdlClientImpl(
         limit: Int,
         filter: SearchMessagesFilter?,
     ): TdlResult<FoundChatMessages> {
-        val function = TdApi.SearchChatMessages(
+        val function = SearchChatMessages(
             chatId = chatId,
-            topicId = topicId?.let { mapper.map(it) },
+            topicId = topicId,
             query = query,
-            senderId = senderId?.let { mapper.map(it) },
+            senderId = senderId,
             fromMessageId = fromMessageId,
             offset = offset,
             limit = limit,
-            filter = filter?.let { mapper.map(it) },
+            filter = filter,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun searchChatRecentLocationMessages(chatId: Long, limit: Int): TdlResult<Messages> {
-        val function = TdApi.SearchChatRecentLocationMessages(
+        val function = SearchChatRecentLocationMessages(
             chatId = chatId,
             limit = limit,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun searchChats(query: String, limit: Int): TdlResult<Chats> {
-        val function = TdApi.SearchChats(
+        val function = SearchChats(
             query = query,
             limit = limit,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun searchChatsOnServer(query: String, limit: Int): TdlResult<Chats> {
-        val function = TdApi.SearchChatsOnServer(
+        val function = SearchChatsOnServer(
             query = query,
             limit = limit,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun searchContacts(query: String, limit: Int): TdlResult<Users> {
-        val function = TdApi.SearchContacts(
+        val function = SearchContacts(
             query = query,
             limit = limit,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun searchEmojis(text: String, inputLanguageCodes: Array<String>): TdlResult<EmojiKeywords> {
-        val function = TdApi.SearchEmojis(
+        val function = SearchEmojis(
             text = text,
             inputLanguageCodes = inputLanguageCodes,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun searchFileDownloads(
@@ -6634,14 +7575,14 @@ internal class TdlClientImpl(
         offset: String,
         limit: Int,
     ): TdlResult<FoundFileDownloads> {
-        val function = TdApi.SearchFileDownloads(
+        val function = SearchFileDownloads(
             query = query,
             onlyActive = onlyActive,
             onlyCompleted = onlyCompleted,
             offset = offset,
             limit = limit,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun searchGiftsForResale(
@@ -6651,22 +7592,22 @@ internal class TdlClientImpl(
         offset: String,
         limit: Int,
     ): TdlResult<GiftsForResale> {
-        val function = TdApi.SearchGiftsForResale(
+        val function = SearchGiftsForResale(
             giftId = giftId,
-            order = mapper.map(order),
-            attributes = attributes.mapArray { mapper.map(it) },
+            order = order,
+            attributes = attributes,
             offset = offset,
             limit = limit,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun searchHashtags(prefix: String, limit: Int): TdlResult<Hashtags> {
-        val function = TdApi.SearchHashtags(
+        val function = SearchHashtags(
             prefix = prefix,
             limit = limit,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun searchInstalledStickerSets(
@@ -6674,12 +7615,12 @@ internal class TdlClientImpl(
         query: String,
         limit: Int,
     ): TdlResult<StickerSets> {
-        val function = TdApi.SearchInstalledStickerSets(
-            stickerType = mapper.map(stickerType),
+        val function = SearchInstalledStickerSets(
+            stickerType = stickerType,
             query = query,
             limit = limit,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun searchMessages(
@@ -6692,39 +7633,39 @@ internal class TdlClientImpl(
         minDate: Int,
         maxDate: Int,
     ): TdlResult<FoundMessages> {
-        val function = TdApi.SearchMessages(
-            chatList = chatList?.let { mapper.map(it) },
+        val function = SearchMessages(
+            chatList = chatList,
             query = query,
             offset = offset,
             limit = limit,
-            filter = filter?.let { mapper.map(it) },
-            chatTypeFilter = chatTypeFilter?.let { mapper.map(it) },
+            filter = filter,
+            chatTypeFilter = chatTypeFilter,
             minDate = minDate,
             maxDate = maxDate,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun searchOutgoingDocumentMessages(query: String, limit: Int): TdlResult<FoundMessages> {
-        val function = TdApi.SearchOutgoingDocumentMessages(
+        val function = SearchOutgoingDocumentMessages(
             query = query,
             limit = limit,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun searchPublicChat(username: String): TdlResult<Chat> {
-        val function = TdApi.SearchPublicChat(
+        val function = SearchPublicChat(
             username = username,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun searchPublicChats(query: String): TdlResult<Chats> {
-        val function = TdApi.SearchPublicChats(
+        val function = SearchPublicChats(
             query = query,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun searchPublicMessagesByTag(
@@ -6732,12 +7673,12 @@ internal class TdlClientImpl(
         offset: String,
         limit: Int,
     ): TdlResult<FoundMessages> {
-        val function = TdApi.SearchPublicMessagesByTag(
+        val function = SearchPublicMessagesByTag(
             tag = tag,
             offset = offset,
             limit = limit,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun searchPublicStoriesByLocation(
@@ -6745,12 +7686,12 @@ internal class TdlClientImpl(
         offset: String,
         limit: Int,
     ): TdlResult<FoundStories> {
-        val function = TdApi.SearchPublicStoriesByLocation(
-            address = mapper.map(address),
+        val function = SearchPublicStoriesByLocation(
+            address = address,
             offset = offset,
             limit = limit,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun searchPublicStoriesByTag(
@@ -6759,13 +7700,13 @@ internal class TdlClientImpl(
         offset: String,
         limit: Int,
     ): TdlResult<FoundStories> {
-        val function = TdApi.SearchPublicStoriesByTag(
+        val function = SearchPublicStoriesByTag(
             storyPosterChatId = storyPosterChatId,
             tag = tag,
             offset = offset,
             limit = limit,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun searchPublicStoriesByVenue(
@@ -6774,13 +7715,13 @@ internal class TdlClientImpl(
         offset: String,
         limit: Int,
     ): TdlResult<FoundStories> {
-        val function = TdApi.SearchPublicStoriesByVenue(
+        val function = SearchPublicStoriesByVenue(
             venueProvider = venueProvider,
             venueId = venueId,
             offset = offset,
             limit = limit,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun searchQuote(
@@ -6788,20 +7729,20 @@ internal class TdlClientImpl(
         quote: FormattedText,
         quotePosition: Int,
     ): TdlResult<FoundPosition> {
-        val function = TdApi.SearchQuote(
-            text = mapper.map(text),
-            quote = mapper.map(quote),
+        val function = SearchQuote(
+            text = text,
+            quote = quote,
             quotePosition = quotePosition,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun searchRecentlyFoundChats(query: String, limit: Int): TdlResult<Chats> {
-        val function = TdApi.SearchRecentlyFoundChats(
+        val function = SearchRecentlyFoundChats(
             query = query,
             limit = limit,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun searchSavedMessages(
@@ -6812,15 +7753,15 @@ internal class TdlClientImpl(
         offset: Int,
         limit: Int,
     ): TdlResult<FoundChatMessages> {
-        val function = TdApi.SearchSavedMessages(
+        val function = SearchSavedMessages(
             savedMessagesTopicId = savedMessagesTopicId,
-            tag = tag?.let { mapper.map(it) },
+            tag = tag,
             query = query,
             fromMessageId = fromMessageId,
             offset = offset,
             limit = limit,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun searchSecretMessages(
@@ -6830,30 +7771,30 @@ internal class TdlClientImpl(
         limit: Int,
         filter: SearchMessagesFilter?,
     ): TdlResult<FoundMessages> {
-        val function = TdApi.SearchSecretMessages(
+        val function = SearchSecretMessages(
             chatId = chatId,
             query = query,
             offset = offset,
             limit = limit,
-            filter = filter?.let { mapper.map(it) },
+            filter = filter,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun searchStickerSet(name: String, ignoreCache: Boolean): TdlResult<StickerSet> {
-        val function = TdApi.SearchStickerSet(
+        val function = SearchStickerSet(
             name = name,
             ignoreCache = ignoreCache,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun searchStickerSets(stickerType: StickerType, query: String): TdlResult<StickerSets> {
-        val function = TdApi.SearchStickerSets(
-            stickerType = mapper.map(stickerType),
+        val function = SearchStickerSets(
+            stickerType = stickerType,
             query = query,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun searchStickers(
@@ -6864,15 +7805,15 @@ internal class TdlClientImpl(
         offset: Int,
         limit: Int,
     ): TdlResult<Stickers> {
-        val function = TdApi.SearchStickers(
-            stickerType = mapper.map(stickerType),
+        val function = SearchStickers(
+            stickerType = stickerType,
             emojis = emojis,
             query = query,
             inputLanguageCodes = inputLanguageCodes,
             offset = offset,
             limit = limit,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun searchStringsByPrefix(
@@ -6881,51 +7822,51 @@ internal class TdlClientImpl(
         limit: Int,
         returnNoneForEmptyQuery: Boolean,
     ): TdlResult<FoundPositions> {
-        val function = TdApi.SearchStringsByPrefix(
+        val function = SearchStringsByPrefix(
             strings = strings,
             query = query,
             limit = limit,
             returnNoneForEmptyQuery = returnNoneForEmptyQuery,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun searchUserByPhoneNumber(phoneNumber: String, onlyLocal: Boolean): TdlResult<User> {
-        val function = TdApi.SearchUserByPhoneNumber(
+        val function = SearchUserByPhoneNumber(
             phoneNumber = phoneNumber,
             onlyLocal = onlyLocal,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun searchUserByToken(token: String): TdlResult<User> {
-        val function = TdApi.SearchUserByToken(
+        val function = SearchUserByToken(
             token = token,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun searchWebApp(botUserId: Long, webAppShortName: String): TdlResult<FoundWebApp> {
-        val function = TdApi.SearchWebApp(
+        val function = SearchWebApp(
             botUserId = botUserId,
             webAppShortName = webAppShortName,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun sellGift(businessConnectionId: String, receivedGiftId: String): TdlResult<Ok> {
-        val function = TdApi.SellGift(
+        val function = SellGift(
             businessConnectionId = businessConnectionId,
             receivedGiftId = receivedGiftId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun sendAuthenticationFirebaseSms(token: String): TdlResult<Ok> {
-        val function = TdApi.SendAuthenticationFirebaseSms(
+        val function = SendAuthenticationFirebaseSms(
             token = token,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun sendBotStartMessage(
@@ -6933,12 +7874,12 @@ internal class TdlClientImpl(
         chatId: Long,
         parameter: String,
     ): TdlResult<Message> {
-        val function = TdApi.SendBotStartMessage(
+        val function = SendBotStartMessage(
             botUserId = botUserId,
             chatId = chatId,
             parameter = parameter,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun sendBusinessMessage(
@@ -6951,17 +7892,17 @@ internal class TdlClientImpl(
         replyMarkup: ReplyMarkup?,
         inputMessageContent: InputMessageContent,
     ): TdlResult<BusinessMessage> {
-        val function = TdApi.SendBusinessMessage(
+        val function = SendBusinessMessage(
             businessConnectionId = businessConnectionId,
             chatId = chatId,
-            replyTo = replyTo?.let { mapper.map(it) },
+            replyTo = replyTo,
             disableNotification = disableNotification,
             protectContent = protectContent,
             effectId = effectId,
-            replyMarkup = replyMarkup?.let { mapper.map(it) },
-            inputMessageContent = mapper.map(inputMessageContent),
+            replyMarkup = replyMarkup,
+            inputMessageContent = inputMessageContent,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun sendBusinessMessageAlbum(
@@ -6973,32 +7914,32 @@ internal class TdlClientImpl(
         effectId: Long,
         inputMessageContents: Array<InputMessageContent>,
     ): TdlResult<BusinessMessages> {
-        val function = TdApi.SendBusinessMessageAlbum(
+        val function = SendBusinessMessageAlbum(
             businessConnectionId = businessConnectionId,
             chatId = chatId,
-            replyTo = replyTo?.let { mapper.map(it) },
+            replyTo = replyTo,
             disableNotification = disableNotification,
             protectContent = protectContent,
             effectId = effectId,
-            inputMessageContents = inputMessageContents.mapArray { mapper.map(it) },
+            inputMessageContents = inputMessageContents,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun sendCallDebugInformation(callId: Int, debugInformation: String): TdlResult<Ok> {
-        val function = TdApi.SendCallDebugInformation(
+        val function = SendCallDebugInformation(
             callId = callId,
             debugInformation = debugInformation,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun sendCallLog(callId: Int, logFile: InputFile): TdlResult<Ok> {
-        val function = TdApi.SendCallLog(
+        val function = SendCallLog(
             callId = callId,
-            logFile = mapper.map(logFile),
+            logFile = logFile,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun sendCallRating(
@@ -7007,21 +7948,21 @@ internal class TdlClientImpl(
         comment: String,
         problems: Array<CallProblem>,
     ): TdlResult<Ok> {
-        val function = TdApi.SendCallRating(
+        val function = SendCallRating(
             callId = callId,
             rating = rating,
             comment = comment,
-            problems = problems.mapArray { mapper.map(it) },
+            problems = problems,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun sendCallSignalingData(callId: Int, data: ByteArray): TdlResult<Ok> {
-        val function = TdApi.SendCallSignalingData(
+        val function = SendCallSignalingData(
             callId = callId,
             data = data,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun sendChatAction(
@@ -7030,28 +7971,28 @@ internal class TdlClientImpl(
         businessConnectionId: String,
         action: ChatAction?,
     ): TdlResult<Ok> {
-        val function = TdApi.SendChatAction(
+        val function = SendChatAction(
             chatId = chatId,
             messageThreadId = messageThreadId,
             businessConnectionId = businessConnectionId,
-            action = action?.let { mapper.map(it) },
+            action = action,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun sendCustomRequest(method: String, parameters: String): TdlResult<CustomRequestResult> {
-        val function = TdApi.SendCustomRequest(
+        val function = SendCustomRequest(
             method = method,
             parameters = parameters,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun sendEmailAddressVerificationCode(emailAddress: String): TdlResult<EmailAddressAuthenticationCodeInfo> {
-        val function = TdApi.SendEmailAddressVerificationCode(
+        val function = SendEmailAddressVerificationCode(
             emailAddress = emailAddress,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun sendGift(
@@ -7061,14 +8002,14 @@ internal class TdlClientImpl(
         isPrivate: Boolean,
         payForUpgrade: Boolean,
     ): TdlResult<Ok> {
-        val function = TdApi.SendGift(
+        val function = SendGift(
             giftId = giftId,
-            ownerId = mapper.map(ownerId),
-            text = mapper.map(text),
+            ownerId = ownerId,
+            text = text,
             isPrivate = isPrivate,
             payForUpgrade = payForUpgrade,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun sendInlineQueryResultMessage(
@@ -7080,16 +8021,16 @@ internal class TdlClientImpl(
         resultId: String,
         hideViaBot: Boolean,
     ): TdlResult<Message> {
-        val function = TdApi.SendInlineQueryResultMessage(
+        val function = SendInlineQueryResultMessage(
             chatId = chatId,
             messageThreadId = messageThreadId,
-            replyTo = replyTo?.let { mapper.map(it) },
-            options = options?.let { mapper.map(it) },
+            replyTo = replyTo,
+            options = options,
             queryId = queryId,
             resultId = resultId,
             hideViaBot = hideViaBot,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun sendMessage(
@@ -7100,15 +8041,15 @@ internal class TdlClientImpl(
         replyMarkup: ReplyMarkup?,
         inputMessageContent: InputMessageContent,
     ): TdlResult<Message> {
-        val function = TdApi.SendMessage(
+        val function = SendMessage(
             chatId = chatId,
             messageThreadId = messageThreadId,
-            replyTo = replyTo?.let { mapper.map(it) },
-            options = options?.let { mapper.map(it) },
-            replyMarkup = replyMarkup?.let { mapper.map(it) },
-            inputMessageContent = mapper.map(inputMessageContent),
+            replyTo = replyTo,
+            options = options,
+            replyMarkup = replyMarkup,
+            inputMessageContent = inputMessageContent,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun sendMessageAlbum(
@@ -7118,22 +8059,22 @@ internal class TdlClientImpl(
         options: MessageSendOptions?,
         inputMessageContents: Array<InputMessageContent>,
     ): TdlResult<Messages> {
-        val function = TdApi.SendMessageAlbum(
+        val function = SendMessageAlbum(
             chatId = chatId,
             messageThreadId = messageThreadId,
-            replyTo = replyTo?.let { mapper.map(it) },
-            options = options?.let { mapper.map(it) },
-            inputMessageContents = inputMessageContents.mapArray { mapper.map(it) },
+            replyTo = replyTo,
+            options = options,
+            inputMessageContents = inputMessageContents,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun sendPassportAuthorizationForm(authorizationFormId: Int, types: Array<PassportElementType>): TdlResult<Ok> {
-        val function = TdApi.SendPassportAuthorizationForm(
+        val function = SendPassportAuthorizationForm(
             authorizationFormId = authorizationFormId,
-            types = types.mapArray { mapper.map(it) },
+            types = types,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun sendPaymentForm(
@@ -7144,15 +8085,15 @@ internal class TdlClientImpl(
         credentials: InputCredentials?,
         tipAmount: Long,
     ): TdlResult<PaymentResult> {
-        val function = TdApi.SendPaymentForm(
-            inputInvoice = mapper.map(inputInvoice),
+        val function = SendPaymentForm(
+            inputInvoice = inputInvoice,
             paymentFormId = paymentFormId,
             orderInfoId = orderInfoId,
             shippingOptionId = shippingOptionId,
-            credentials = credentials?.let { mapper.map(it) },
+            credentials = credentials,
             tipAmount = tipAmount,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun sendPhoneNumberCode(
@@ -7160,19 +8101,19 @@ internal class TdlClientImpl(
         settings: PhoneNumberAuthenticationSettings?,
         type: PhoneNumberCodeType,
     ): TdlResult<AuthenticationCodeInfo> {
-        val function = TdApi.SendPhoneNumberCode(
+        val function = SendPhoneNumberCode(
             phoneNumber = phoneNumber,
-            settings = settings?.let { mapper.map(it) },
-            type = mapper.map(type),
+            settings = settings,
+            type = type,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun sendPhoneNumberFirebaseSms(token: String): TdlResult<Ok> {
-        val function = TdApi.SendPhoneNumberFirebaseSms(
+        val function = SendPhoneNumberFirebaseSms(
             token = token,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun sendQuickReplyShortcutMessages(
@@ -7180,12 +8121,12 @@ internal class TdlClientImpl(
         shortcutId: Int,
         sendingId: Int,
     ): TdlResult<Messages> {
-        val function = TdApi.SendQuickReplyShortcutMessages(
+        val function = SendQuickReplyShortcutMessages(
             chatId = chatId,
             shortcutId = shortcutId,
             sendingId = sendingId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun sendResoldGift(
@@ -7193,12 +8134,12 @@ internal class TdlClientImpl(
         ownerId: MessageSender,
         starCount: Long,
     ): TdlResult<Ok> {
-        val function = TdApi.SendResoldGift(
+        val function = SendResoldGift(
             giftName = giftName,
-            ownerId = mapper.map(ownerId),
+            ownerId = ownerId,
             starCount = starCount,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun sendWebAppCustomRequest(
@@ -7206,12 +8147,12 @@ internal class TdlClientImpl(
         method: String,
         parameters: String,
     ): TdlResult<CustomRequestResult> {
-        val function = TdApi.SendWebAppCustomRequest(
+        val function = SendWebAppCustomRequest(
             botUserId = botUserId,
             method = method,
             parameters = parameters,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun sendWebAppData(
@@ -7219,64 +8160,64 @@ internal class TdlClientImpl(
         buttonText: String,
         data: String,
     ): TdlResult<Ok> {
-        val function = TdApi.SendWebAppData(
+        val function = SendWebAppData(
             botUserId = botUserId,
             buttonText = buttonText,
             data = data,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun setAccentColor(accentColorId: Int, backgroundCustomEmojiId: Long): TdlResult<Ok> {
-        val function = TdApi.SetAccentColor(
+        val function = SetAccentColor(
             accentColorId = accentColorId,
             backgroundCustomEmojiId = backgroundCustomEmojiId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun setAccountTtl(ttl: AccountTtl): TdlResult<Ok> {
-        val function = TdApi.SetAccountTtl(
-            ttl = mapper.map(ttl),
+        val function = SetAccountTtl(
+            ttl = ttl,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun setAlarm(seconds: Double): TdlResult<Ok> {
-        val function = TdApi.SetAlarm(
+        val function = SetAlarm(
             seconds = seconds,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun setApplicationVerificationToken(verificationId: Long, token: String): TdlResult<Ok> {
-        val function = TdApi.SetApplicationVerificationToken(
+        val function = SetApplicationVerificationToken(
             verificationId = verificationId,
             token = token,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun setArchiveChatListSettings(settings: ArchiveChatListSettings): TdlResult<Ok> {
-        val function = TdApi.SetArchiveChatListSettings(
-            settings = mapper.map(settings),
+        val function = SetArchiveChatListSettings(
+            settings = settings,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun setAuthenticationEmailAddress(emailAddress: String): TdlResult<Ok> {
-        val function = TdApi.SetAuthenticationEmailAddress(
+        val function = SetAuthenticationEmailAddress(
             emailAddress = emailAddress,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun setAuthenticationPhoneNumber(phoneNumber: String, settings: PhoneNumberAuthenticationSettings?): TdlResult<Ok> {
-        val function = TdApi.SetAuthenticationPhoneNumber(
+        val function = SetAuthenticationPhoneNumber(
             phoneNumber = phoneNumber,
-            settings = settings?.let { mapper.map(it) },
+            settings = settings,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun setAuthenticationPremiumPurchaseTransaction(
@@ -7285,43 +8226,43 @@ internal class TdlClientImpl(
         currency: String,
         amount: Long,
     ): TdlResult<Ok> {
-        val function = TdApi.SetAuthenticationPremiumPurchaseTransaction(
-            transaction = mapper.map(transaction),
+        val function = SetAuthenticationPremiumPurchaseTransaction(
+            transaction = transaction,
             isRestore = isRestore,
             currency = currency,
             amount = amount,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun setAutoDownloadSettings(settings: AutoDownloadSettings, type: NetworkType): TdlResult<Ok> {
-        val function = TdApi.SetAutoDownloadSettings(
-            settings = mapper.map(settings),
-            type = mapper.map(type),
+        val function = SetAutoDownloadSettings(
+            settings = settings,
+            type = type,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun setAutosaveSettings(scope: AutosaveSettingsScope, settings: ScopeAutosaveSettings?): TdlResult<Ok> {
-        val function = TdApi.SetAutosaveSettings(
-            scope = mapper.map(scope),
-            settings = settings?.let { mapper.map(it) },
+        val function = SetAutosaveSettings(
+            scope = scope,
+            settings = settings,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun setBio(bio: String): TdlResult<Ok> {
-        val function = TdApi.SetBio(
+        val function = SetBio(
             bio = bio,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun setBirthdate(birthdate: Birthdate?): TdlResult<Ok> {
-        val function = TdApi.SetBirthdate(
-            birthdate = birthdate?.let { mapper.map(it) },
+        val function = SetBirthdate(
+            birthdate = birthdate,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun setBotInfoDescription(
@@ -7329,12 +8270,12 @@ internal class TdlClientImpl(
         languageCode: String,
         description: String,
     ): TdlResult<Ok> {
-        val function = TdApi.SetBotInfoDescription(
+        val function = SetBotInfoDescription(
             botUserId = botUserId,
             languageCode = languageCode,
             description = description,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun setBotInfoShortDescription(
@@ -7342,12 +8283,12 @@ internal class TdlClientImpl(
         languageCode: String,
         shortDescription: String,
     ): TdlResult<Ok> {
-        val function = TdApi.SetBotInfoShortDescription(
+        val function = SetBotInfoShortDescription(
             botUserId = botUserId,
             languageCode = languageCode,
             shortDescription = shortDescription,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun setBotName(
@@ -7355,44 +8296,44 @@ internal class TdlClientImpl(
         languageCode: String,
         name: String,
     ): TdlResult<Ok> {
-        val function = TdApi.SetBotName(
+        val function = SetBotName(
             botUserId = botUserId,
             languageCode = languageCode,
             name = name,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun setBotProfilePhoto(botUserId: Long, photo: InputChatPhoto?): TdlResult<Ok> {
-        val function = TdApi.SetBotProfilePhoto(
+        val function = SetBotProfilePhoto(
             botUserId = botUserId,
-            photo = photo?.let { mapper.map(it) },
+            photo = photo,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun setBotUpdatesStatus(pendingUpdateCount: Int, errorMessage: String): TdlResult<Ok> {
-        val function = TdApi.SetBotUpdatesStatus(
+        val function = SetBotUpdatesStatus(
             pendingUpdateCount = pendingUpdateCount,
             errorMessage = errorMessage,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun setBusinessAccountBio(businessConnectionId: String, bio: String): TdlResult<Ok> {
-        val function = TdApi.SetBusinessAccountBio(
+        val function = SetBusinessAccountBio(
             businessConnectionId = businessConnectionId,
             bio = bio,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun setBusinessAccountGiftSettings(businessConnectionId: String, settings: GiftSettings): TdlResult<Ok> {
-        val function = TdApi.SetBusinessAccountGiftSettings(
+        val function = SetBusinessAccountGiftSettings(
             businessConnectionId = businessConnectionId,
-            settings = mapper.map(settings),
+            settings = settings,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun setBusinessAccountName(
@@ -7400,12 +8341,12 @@ internal class TdlClientImpl(
         firstName: String,
         lastName: String,
     ): TdlResult<Ok> {
-        val function = TdApi.SetBusinessAccountName(
+        val function = SetBusinessAccountName(
             businessConnectionId = businessConnectionId,
             firstName = firstName,
             lastName = lastName,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun setBusinessAccountProfilePhoto(
@@ -7413,48 +8354,48 @@ internal class TdlClientImpl(
         photo: InputChatPhoto?,
         isPublic: Boolean,
     ): TdlResult<Ok> {
-        val function = TdApi.SetBusinessAccountProfilePhoto(
+        val function = SetBusinessAccountProfilePhoto(
             businessConnectionId = businessConnectionId,
-            photo = photo?.let { mapper.map(it) },
+            photo = photo,
             isPublic = isPublic,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun setBusinessAccountUsername(businessConnectionId: String, username: String): TdlResult<Ok> {
-        val function = TdApi.SetBusinessAccountUsername(
+        val function = SetBusinessAccountUsername(
             businessConnectionId = businessConnectionId,
             username = username,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun setBusinessAwayMessageSettings(awayMessageSettings: BusinessAwayMessageSettings?): TdlResult<Ok> {
-        val function = TdApi.SetBusinessAwayMessageSettings(
-            awayMessageSettings = awayMessageSettings?.let { mapper.map(it) },
+        val function = SetBusinessAwayMessageSettings(
+            awayMessageSettings = awayMessageSettings,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun setBusinessConnectedBot(bot: BusinessConnectedBot): TdlResult<Ok> {
-        val function = TdApi.SetBusinessConnectedBot(
-            bot = mapper.map(bot),
+        val function = SetBusinessConnectedBot(
+            bot = bot,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun setBusinessGreetingMessageSettings(greetingMessageSettings: BusinessGreetingMessageSettings?): TdlResult<Ok> {
-        val function = TdApi.SetBusinessGreetingMessageSettings(
-            greetingMessageSettings = greetingMessageSettings?.let { mapper.map(it) },
+        val function = SetBusinessGreetingMessageSettings(
+            greetingMessageSettings = greetingMessageSettings,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun setBusinessLocation(location: BusinessLocation?): TdlResult<Ok> {
-        val function = TdApi.SetBusinessLocation(
-            location = location?.let { mapper.map(it) },
+        val function = SetBusinessLocation(
+            location = location,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun setBusinessMessageIsPinned(
@@ -7463,27 +8404,27 @@ internal class TdlClientImpl(
         messageId: Long,
         isPinned: Boolean,
     ): TdlResult<Ok> {
-        val function = TdApi.SetBusinessMessageIsPinned(
+        val function = SetBusinessMessageIsPinned(
             businessConnectionId = businessConnectionId,
             chatId = chatId,
             messageId = messageId,
             isPinned = isPinned,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun setBusinessOpeningHours(openingHours: BusinessOpeningHours?): TdlResult<Ok> {
-        val function = TdApi.SetBusinessOpeningHours(
-            openingHours = openingHours?.let { mapper.map(it) },
+        val function = SetBusinessOpeningHours(
+            openingHours = openingHours,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun setBusinessStartPage(startPage: InputBusinessStartPage?): TdlResult<Ok> {
-        val function = TdApi.SetBusinessStartPage(
-            startPage = startPage?.let { mapper.map(it) },
+        val function = SetBusinessStartPage(
+            startPage = startPage,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun setChatAccentColor(
@@ -7491,36 +8432,36 @@ internal class TdlClientImpl(
         accentColorId: Int,
         backgroundCustomEmojiId: Long,
     ): TdlResult<Ok> {
-        val function = TdApi.SetChatAccentColor(
+        val function = SetChatAccentColor(
             chatId = chatId,
             accentColorId = accentColorId,
             backgroundCustomEmojiId = backgroundCustomEmojiId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun setChatActiveStoriesList(chatId: Long, storyList: StoryList): TdlResult<Ok> {
-        val function = TdApi.SetChatActiveStoriesList(
+        val function = SetChatActiveStoriesList(
             chatId = chatId,
-            storyList = mapper.map(storyList),
+            storyList = storyList,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun setChatAffiliateProgram(chatId: Long, parameters: AffiliateProgramParameters?): TdlResult<Ok> {
-        val function = TdApi.SetChatAffiliateProgram(
+        val function = SetChatAffiliateProgram(
             chatId = chatId,
-            parameters = parameters?.let { mapper.map(it) },
+            parameters = parameters,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun setChatAvailableReactions(chatId: Long, availableReactions: ChatAvailableReactions): TdlResult<Ok> {
-        val function = TdApi.SetChatAvailableReactions(
+        val function = SetChatAvailableReactions(
             chatId = chatId,
-            availableReactions = mapper.map(availableReactions),
+            availableReactions = availableReactions,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun setChatBackground(
@@ -7530,30 +8471,30 @@ internal class TdlClientImpl(
         darkThemeDimming: Int,
         onlyForSelf: Boolean,
     ): TdlResult<Ok> {
-        val function = TdApi.SetChatBackground(
+        val function = SetChatBackground(
             chatId = chatId,
-            background = background?.let { mapper.map(it) },
-            type = type?.let { mapper.map(it) },
+            background = background,
+            type = type,
             darkThemeDimming = darkThemeDimming,
             onlyForSelf = onlyForSelf,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun setChatClientData(chatId: Long, clientData: String): TdlResult<Ok> {
-        val function = TdApi.SetChatClientData(
+        val function = SetChatClientData(
             chatId = chatId,
             clientData = clientData,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun setChatDescription(chatId: Long, description: String): TdlResult<Ok> {
-        val function = TdApi.SetChatDescription(
+        val function = SetChatDescription(
             chatId = chatId,
             description = description,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun setChatDirectMessagesGroup(
@@ -7561,20 +8502,20 @@ internal class TdlClientImpl(
         isEnabled: Boolean,
         paidMessageStarCount: Long,
     ): TdlResult<Ok> {
-        val function = TdApi.SetChatDirectMessagesGroup(
+        val function = SetChatDirectMessagesGroup(
             chatId = chatId,
             isEnabled = isEnabled,
             paidMessageStarCount = paidMessageStarCount,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun setChatDiscussionGroup(chatId: Long, discussionChatId: Long): TdlResult<Ok> {
-        val function = TdApi.SetChatDiscussionGroup(
+        val function = SetChatDiscussionGroup(
             chatId = chatId,
             discussionChatId = discussionChatId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun setChatDraftMessage(
@@ -7582,28 +8523,28 @@ internal class TdlClientImpl(
         messageThreadId: Long,
         draftMessage: DraftMessage?,
     ): TdlResult<Ok> {
-        val function = TdApi.SetChatDraftMessage(
+        val function = SetChatDraftMessage(
             chatId = chatId,
             messageThreadId = messageThreadId,
-            draftMessage = draftMessage?.let { mapper.map(it) },
+            draftMessage = draftMessage,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun setChatEmojiStatus(chatId: Long, emojiStatus: EmojiStatus?): TdlResult<Ok> {
-        val function = TdApi.SetChatEmojiStatus(
+        val function = SetChatEmojiStatus(
             chatId = chatId,
-            emojiStatus = emojiStatus?.let { mapper.map(it) },
+            emojiStatus = emojiStatus,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun setChatLocation(chatId: Long, location: ChatLocation): TdlResult<Ok> {
-        val function = TdApi.SetChatLocation(
+        val function = SetChatLocation(
             chatId = chatId,
-            location = mapper.map(location),
+            location = location,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun setChatMemberStatus(
@@ -7611,68 +8552,68 @@ internal class TdlClientImpl(
         memberId: MessageSender,
         status: ChatMemberStatus,
     ): TdlResult<Ok> {
-        val function = TdApi.SetChatMemberStatus(
+        val function = SetChatMemberStatus(
             chatId = chatId,
-            memberId = mapper.map(memberId),
-            status = mapper.map(status),
+            memberId = memberId,
+            status = status,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun setChatMessageAutoDeleteTime(chatId: Long, messageAutoDeleteTime: Int): TdlResult<Ok> {
-        val function = TdApi.SetChatMessageAutoDeleteTime(
+        val function = SetChatMessageAutoDeleteTime(
             chatId = chatId,
             messageAutoDeleteTime = messageAutoDeleteTime,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun setChatMessageSender(chatId: Long, messageSenderId: MessageSender): TdlResult<Ok> {
-        val function = TdApi.SetChatMessageSender(
+        val function = SetChatMessageSender(
             chatId = chatId,
-            messageSenderId = mapper.map(messageSenderId),
+            messageSenderId = messageSenderId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun setChatNotificationSettings(chatId: Long, notificationSettings: ChatNotificationSettings): TdlResult<Ok> {
-        val function = TdApi.SetChatNotificationSettings(
+        val function = SetChatNotificationSettings(
             chatId = chatId,
-            notificationSettings = mapper.map(notificationSettings),
+            notificationSettings = notificationSettings,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun setChatPaidMessageStarCount(chatId: Long, paidMessageStarCount: Long): TdlResult<Ok> {
-        val function = TdApi.SetChatPaidMessageStarCount(
+        val function = SetChatPaidMessageStarCount(
             chatId = chatId,
             paidMessageStarCount = paidMessageStarCount,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun setChatPermissions(chatId: Long, permissions: ChatPermissions): TdlResult<Ok> {
-        val function = TdApi.SetChatPermissions(
+        val function = SetChatPermissions(
             chatId = chatId,
-            permissions = mapper.map(permissions),
+            permissions = permissions,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun setChatPhoto(chatId: Long, photo: InputChatPhoto?): TdlResult<Ok> {
-        val function = TdApi.SetChatPhoto(
+        val function = SetChatPhoto(
             chatId = chatId,
-            photo = photo?.let { mapper.map(it) },
+            photo = photo,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun setChatPinnedStories(chatId: Long, storyIds: IntArray): TdlResult<Ok> {
-        val function = TdApi.SetChatPinnedStories(
+        val function = SetChatPinnedStories(
             chatId = chatId,
             storyIds = storyIds,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun setChatProfileAccentColor(
@@ -7680,43 +8621,43 @@ internal class TdlClientImpl(
         profileAccentColorId: Int,
         profileBackgroundCustomEmojiId: Long,
     ): TdlResult<Ok> {
-        val function = TdApi.SetChatProfileAccentColor(
+        val function = SetChatProfileAccentColor(
             chatId = chatId,
             profileAccentColorId = profileAccentColorId,
             profileBackgroundCustomEmojiId = profileBackgroundCustomEmojiId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun setChatSlowModeDelay(chatId: Long, slowModeDelay: Int): TdlResult<Ok> {
-        val function = TdApi.SetChatSlowModeDelay(
+        val function = SetChatSlowModeDelay(
             chatId = chatId,
             slowModeDelay = slowModeDelay,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun setChatTheme(chatId: Long, themeName: String): TdlResult<Ok> {
-        val function = TdApi.SetChatTheme(
+        val function = SetChatTheme(
             chatId = chatId,
             themeName = themeName,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun setChatTitle(chatId: Long, title: String): TdlResult<Ok> {
-        val function = TdApi.SetChatTitle(
+        val function = SetChatTitle(
             chatId = chatId,
             title = title,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun setCloseFriends(userIds: LongArray): TdlResult<Ok> {
-        val function = TdApi.SetCloseFriends(
+        val function = SetCloseFriends(
             userIds = userIds,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun setCommands(
@@ -7724,43 +8665,43 @@ internal class TdlClientImpl(
         languageCode: String,
         commands: Array<BotCommand>,
     ): TdlResult<Ok> {
-        val function = TdApi.SetCommands(
-            scope = scope?.let { mapper.map(it) },
+        val function = SetCommands(
+            scope = scope,
             languageCode = languageCode,
-            commands = commands.mapArray { mapper.map(it) },
+            commands = commands,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun setCustomEmojiStickerSetThumbnail(name: String, customEmojiId: Long): TdlResult<Ok> {
-        val function = TdApi.SetCustomEmojiStickerSetThumbnail(
+        val function = SetCustomEmojiStickerSetThumbnail(
             name = name,
             customEmojiId = customEmojiId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun setCustomLanguagePack(info: LanguagePackInfo, strings: Array<LanguagePackString>): TdlResult<Ok> {
-        val function = TdApi.SetCustomLanguagePack(
-            info = mapper.map(info),
-            strings = strings.mapArray { mapper.map(it) },
+        val function = SetCustomLanguagePack(
+            info = info,
+            strings = strings,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun setCustomLanguagePackString(languagePackId: String, newString: LanguagePackString): TdlResult<Ok> {
-        val function = TdApi.SetCustomLanguagePackString(
+        val function = SetCustomLanguagePackString(
             languagePackId = languagePackId,
-            newString = mapper.map(newString),
+            newString = newString,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun setDatabaseEncryptionKey(newEncryptionKey: ByteArray): TdlResult<Ok> {
-        val function = TdApi.SetDatabaseEncryptionKey(
+        val function = SetDatabaseEncryptionKey(
             newEncryptionKey = newEncryptionKey,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun setDefaultBackground(
@@ -7768,40 +8709,40 @@ internal class TdlClientImpl(
         type: BackgroundType?,
         forDarkTheme: Boolean,
     ): TdlResult<Background> {
-        val function = TdApi.SetDefaultBackground(
-            background = background?.let { mapper.map(it) },
-            type = type?.let { mapper.map(it) },
+        val function = SetDefaultBackground(
+            background = background,
+            type = type,
             forDarkTheme = forDarkTheme,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun setDefaultChannelAdministratorRights(defaultChannelAdministratorRights: ChatAdministratorRights?): TdlResult<Ok> {
-        val function = TdApi.SetDefaultChannelAdministratorRights(
-            defaultChannelAdministratorRights = defaultChannelAdministratorRights?.let { mapper.map(it) },
+        val function = SetDefaultChannelAdministratorRights(
+            defaultChannelAdministratorRights = defaultChannelAdministratorRights,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun setDefaultGroupAdministratorRights(defaultGroupAdministratorRights: ChatAdministratorRights?): TdlResult<Ok> {
-        val function = TdApi.SetDefaultGroupAdministratorRights(
-            defaultGroupAdministratorRights = defaultGroupAdministratorRights?.let { mapper.map(it) },
+        val function = SetDefaultGroupAdministratorRights(
+            defaultGroupAdministratorRights = defaultGroupAdministratorRights,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun setDefaultMessageAutoDeleteTime(messageAutoDeleteTime: MessageAutoDeleteTime): TdlResult<Ok> {
-        val function = TdApi.SetDefaultMessageAutoDeleteTime(
-            messageAutoDeleteTime = mapper.map(messageAutoDeleteTime),
+        val function = SetDefaultMessageAutoDeleteTime(
+            messageAutoDeleteTime = messageAutoDeleteTime,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun setDefaultReactionType(reactionType: ReactionType): TdlResult<Ok> {
-        val function = TdApi.SetDefaultReactionType(
-            reactionType = mapper.map(reactionType),
+        val function = SetDefaultReactionType(
+            reactionType = reactionType,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun setDirectMessagesChatTopicDraftMessage(
@@ -7809,12 +8750,12 @@ internal class TdlClientImpl(
         topicId: Long,
         draftMessage: DraftMessage?,
     ): TdlResult<Ok> {
-        val function = TdApi.SetDirectMessagesChatTopicDraftMessage(
+        val function = SetDirectMessagesChatTopicDraftMessage(
             chatId = chatId,
             topicId = topicId,
-            draftMessage = draftMessage?.let { mapper.map(it) },
+            draftMessage = draftMessage,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun setDirectMessagesChatTopicIsMarkedAsUnread(
@@ -7822,19 +8763,19 @@ internal class TdlClientImpl(
         topicId: Long,
         isMarkedAsUnread: Boolean,
     ): TdlResult<Ok> {
-        val function = TdApi.SetDirectMessagesChatTopicIsMarkedAsUnread(
+        val function = SetDirectMessagesChatTopicIsMarkedAsUnread(
             chatId = chatId,
             topicId = topicId,
             isMarkedAsUnread = isMarkedAsUnread,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun setEmojiStatus(emojiStatus: EmojiStatus?): TdlResult<Ok> {
-        val function = TdApi.SetEmojiStatus(
-            emojiStatus = emojiStatus?.let { mapper.map(it) },
+        val function = SetEmojiStatus(
+            emojiStatus = emojiStatus,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun setFileGenerationProgress(
@@ -7842,12 +8783,12 @@ internal class TdlClientImpl(
         expectedSize: Long,
         localPrefixSize: Long,
     ): TdlResult<Ok> {
-        val function = TdApi.SetFileGenerationProgress(
+        val function = SetFileGenerationProgress(
             generationId = generationId,
             expectedSize = expectedSize,
             localPrefixSize = localPrefixSize,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun setForumTopicNotificationSettings(
@@ -7855,12 +8796,12 @@ internal class TdlClientImpl(
         messageThreadId: Long,
         notificationSettings: ChatNotificationSettings,
     ): TdlResult<Ok> {
-        val function = TdApi.SetForumTopicNotificationSettings(
+        val function = SetForumTopicNotificationSettings(
             chatId = chatId,
             messageThreadId = messageThreadId,
-            notificationSettings = mapper.map(notificationSettings),
+            notificationSettings = notificationSettings,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun setGameScore(
@@ -7871,7 +8812,7 @@ internal class TdlClientImpl(
         score: Int,
         force: Boolean,
     ): TdlResult<Message> {
-        val function = TdApi.SetGameScore(
+        val function = SetGameScore(
             chatId = chatId,
             messageId = messageId,
             editMessage = editMessage,
@@ -7879,22 +8820,22 @@ internal class TdlClientImpl(
             score = score,
             force = force,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun setGiftResalePrice(receivedGiftId: String, resaleStarCount: Long): TdlResult<Ok> {
-        val function = TdApi.SetGiftResalePrice(
+        val function = SetGiftResalePrice(
             receivedGiftId = receivedGiftId,
             resaleStarCount = resaleStarCount,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun setGiftSettings(settings: GiftSettings): TdlResult<Ok> {
-        val function = TdApi.SetGiftSettings(
-            settings = mapper.map(settings),
+        val function = SetGiftSettings(
+            settings = settings,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun setGroupCallParticipantIsSpeaking(
@@ -7902,12 +8843,12 @@ internal class TdlClientImpl(
         audioSource: Int,
         isSpeaking: Boolean,
     ): TdlResult<MessageSender> {
-        val function = TdApi.SetGroupCallParticipantIsSpeaking(
+        val function = SetGroupCallParticipantIsSpeaking(
             groupCallId = groupCallId,
             audioSource = audioSource,
             isSpeaking = isSpeaking,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun setGroupCallParticipantVolumeLevel(
@@ -7915,19 +8856,19 @@ internal class TdlClientImpl(
         participantId: MessageSender,
         volumeLevel: Int,
     ): TdlResult<Ok> {
-        val function = TdApi.SetGroupCallParticipantVolumeLevel(
+        val function = SetGroupCallParticipantVolumeLevel(
             groupCallId = groupCallId,
-            participantId = mapper.map(participantId),
+            participantId = participantId,
             volumeLevel = volumeLevel,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun setInactiveSessionTtl(inactiveSessionTtlDays: Int): TdlResult<Ok> {
-        val function = TdApi.SetInactiveSessionTtl(
+        val function = SetInactiveSessionTtl(
             inactiveSessionTtlDays = inactiveSessionTtlDays,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun setInlineGameScore(
@@ -7937,51 +8878,51 @@ internal class TdlClientImpl(
         score: Int,
         force: Boolean,
     ): TdlResult<Ok> {
-        val function = TdApi.SetInlineGameScore(
+        val function = SetInlineGameScore(
             inlineMessageId = inlineMessageId,
             editMessage = editMessage,
             userId = userId,
             score = score,
             force = force,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun setLogStream(logStream: LogStream): TdlResult<Ok> {
-        val function = TdApi.SetLogStream(
-            logStream = mapper.map(logStream),
+        val function = SetLogStream(
+            logStream = logStream,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun setLogTagVerbosityLevel(tag: String, newVerbosityLevel: Int): TdlResult<Ok> {
-        val function = TdApi.SetLogTagVerbosityLevel(
+        val function = SetLogTagVerbosityLevel(
             tag = tag,
             newVerbosityLevel = newVerbosityLevel,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun setLogVerbosityLevel(newVerbosityLevel: Int): TdlResult<Ok> {
-        val function = TdApi.SetLogVerbosityLevel(
+        val function = SetLogVerbosityLevel(
             newVerbosityLevel = newVerbosityLevel,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun setLoginEmailAddress(newLoginEmailAddress: String): TdlResult<EmailAddressAuthenticationCodeInfo> {
-        val function = TdApi.SetLoginEmailAddress(
+        val function = SetLoginEmailAddress(
             newLoginEmailAddress = newLoginEmailAddress,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun setMenuButton(userId: Long, menuButton: BotMenuButton): TdlResult<Ok> {
-        val function = TdApi.SetMenuButton(
+        val function = SetMenuButton(
             userId = userId,
-            menuButton = mapper.map(menuButton),
+            menuButton = menuButton,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun setMessageFactCheck(
@@ -7989,12 +8930,12 @@ internal class TdlClientImpl(
         messageId: Long,
         text: FormattedText?,
     ): TdlResult<Ok> {
-        val function = TdApi.SetMessageFactCheck(
+        val function = SetMessageFactCheck(
             chatId = chatId,
             messageId = messageId,
-            text = text?.let { mapper.map(it) },
+            text = text,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun setMessageReactions(
@@ -8003,21 +8944,21 @@ internal class TdlClientImpl(
         reactionTypes: Array<ReactionType>,
         isBig: Boolean,
     ): TdlResult<Ok> {
-        val function = TdApi.SetMessageReactions(
+        val function = SetMessageReactions(
             chatId = chatId,
             messageId = messageId,
-            reactionTypes = reactionTypes.mapArray { mapper.map(it) },
+            reactionTypes = reactionTypes,
             isBig = isBig,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun setMessageSenderBlockList(senderId: MessageSender, blockList: BlockList?): TdlResult<Ok> {
-        val function = TdApi.SetMessageSenderBlockList(
-            senderId = mapper.map(senderId),
-            blockList = blockList?.let { mapper.map(it) },
+        val function = SetMessageSenderBlockList(
+            senderId = senderId,
+            blockList = blockList,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun setMessageSenderBotVerification(
@@ -8025,42 +8966,42 @@ internal class TdlClientImpl(
         verifiedId: MessageSender,
         customDescription: String,
     ): TdlResult<Ok> {
-        val function = TdApi.SetMessageSenderBotVerification(
+        val function = SetMessageSenderBotVerification(
             botUserId = botUserId,
-            verifiedId = mapper.map(verifiedId),
+            verifiedId = verifiedId,
             customDescription = customDescription,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun setName(firstName: String, lastName: String): TdlResult<Ok> {
-        val function = TdApi.SetName(
+        val function = SetName(
             firstName = firstName,
             lastName = lastName,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun setNetworkType(type: NetworkType?): TdlResult<Ok> {
-        val function = TdApi.SetNetworkType(
-            type = type?.let { mapper.map(it) },
+        val function = SetNetworkType(
+            type = type,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun setNewChatPrivacySettings(settings: NewChatPrivacySettings): TdlResult<Ok> {
-        val function = TdApi.SetNewChatPrivacySettings(
-            settings = mapper.map(settings),
+        val function = SetNewChatPrivacySettings(
+            settings = settings,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun setOption(name: String, value: OptionValue?): TdlResult<Ok> {
-        val function = TdApi.SetOption(
+        val function = SetOption(
             name = name,
-            value = value?.let { mapper.map(it) },
+            value = value,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun setPaidMessageReactionType(
@@ -8068,28 +9009,28 @@ internal class TdlClientImpl(
         messageId: Long,
         type: PaidReactionType,
     ): TdlResult<Ok> {
-        val function = TdApi.SetPaidMessageReactionType(
+        val function = SetPaidMessageReactionType(
             chatId = chatId,
             messageId = messageId,
-            type = mapper.map(type),
+            type = type,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun setPassportElement(element: InputPassportElement, password: String): TdlResult<PassportElement> {
-        val function = TdApi.SetPassportElement(
-            element = mapper.map(element),
+        val function = SetPassportElement(
+            element = element,
             password = password,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun setPassportElementErrors(userId: Long, errors: Array<InputPassportElementError>): TdlResult<Ok> {
-        val function = TdApi.SetPassportElementErrors(
+        val function = SetPassportElementErrors(
             userId = userId,
-            errors = errors.mapArray { mapper.map(it) },
+            errors = errors,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun setPassword(
@@ -8099,52 +9040,52 @@ internal class TdlClientImpl(
         setRecoveryEmailAddress: Boolean,
         newRecoveryEmailAddress: String,
     ): TdlResult<PasswordState> {
-        val function = TdApi.SetPassword(
+        val function = SetPassword(
             oldPassword = oldPassword,
             newPassword = newPassword,
             newHint = newHint,
             setRecoveryEmailAddress = setRecoveryEmailAddress,
             newRecoveryEmailAddress = newRecoveryEmailAddress,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun setPersonalChat(chatId: Long): TdlResult<Ok> {
-        val function = TdApi.SetPersonalChat(
+        val function = SetPersonalChat(
             chatId = chatId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun setPinnedChats(chatList: ChatList, chatIds: LongArray): TdlResult<Ok> {
-        val function = TdApi.SetPinnedChats(
-            chatList = mapper.map(chatList),
+        val function = SetPinnedChats(
+            chatList = chatList,
             chatIds = chatIds,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun setPinnedForumTopics(chatId: Long, messageThreadIds: LongArray): TdlResult<Ok> {
-        val function = TdApi.SetPinnedForumTopics(
+        val function = SetPinnedForumTopics(
             chatId = chatId,
             messageThreadIds = messageThreadIds,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun setPinnedGifts(ownerId: MessageSender, receivedGiftIds: Array<String>): TdlResult<Ok> {
-        val function = TdApi.SetPinnedGifts(
-            ownerId = mapper.map(ownerId),
+        val function = SetPinnedGifts(
+            ownerId = ownerId,
             receivedGiftIds = receivedGiftIds,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun setPinnedSavedMessagesTopics(savedMessagesTopicIds: LongArray): TdlResult<Ok> {
-        val function = TdApi.SetPinnedSavedMessagesTopics(
+        val function = SetPinnedSavedMessagesTopics(
             savedMessagesTopicIds = savedMessagesTopicIds,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun setPollAnswer(
@@ -8152,106 +9093,106 @@ internal class TdlClientImpl(
         messageId: Long,
         optionIds: IntArray,
     ): TdlResult<Ok> {
-        val function = TdApi.SetPollAnswer(
+        val function = SetPollAnswer(
             chatId = chatId,
             messageId = messageId,
             optionIds = optionIds,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun setProfileAccentColor(profileAccentColorId: Int, profileBackgroundCustomEmojiId: Long): TdlResult<Ok> {
-        val function = TdApi.SetProfileAccentColor(
+        val function = SetProfileAccentColor(
             profileAccentColorId = profileAccentColorId,
             profileBackgroundCustomEmojiId = profileBackgroundCustomEmojiId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun setProfilePhoto(photo: InputChatPhoto, isPublic: Boolean): TdlResult<Ok> {
-        val function = TdApi.SetProfilePhoto(
-            photo = mapper.map(photo),
+        val function = SetProfilePhoto(
+            photo = photo,
             isPublic = isPublic,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun setQuickReplyShortcutName(shortcutId: Int, name: String): TdlResult<Ok> {
-        val function = TdApi.SetQuickReplyShortcutName(
+        val function = SetQuickReplyShortcutName(
             shortcutId = shortcutId,
             name = name,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun setReactionNotificationSettings(notificationSettings: ReactionNotificationSettings): TdlResult<Ok> {
-        val function = TdApi.SetReactionNotificationSettings(
-            notificationSettings = mapper.map(notificationSettings),
+        val function = SetReactionNotificationSettings(
+            notificationSettings = notificationSettings,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun setReadDatePrivacySettings(settings: ReadDatePrivacySettings): TdlResult<Ok> {
-        val function = TdApi.SetReadDatePrivacySettings(
-            settings = mapper.map(settings),
+        val function = SetReadDatePrivacySettings(
+            settings = settings,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun setRecoveryEmailAddress(password: String, newRecoveryEmailAddress: String): TdlResult<PasswordState> {
-        val function = TdApi.SetRecoveryEmailAddress(
+        val function = SetRecoveryEmailAddress(
             password = password,
             newRecoveryEmailAddress = newRecoveryEmailAddress,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun setSavedMessagesTagLabel(tag: ReactionType, label: String): TdlResult<Ok> {
-        val function = TdApi.SetSavedMessagesTagLabel(
-            tag = mapper.map(tag),
+        val function = SetSavedMessagesTagLabel(
+            tag = tag,
             label = label,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun setScopeNotificationSettings(scope: NotificationSettingsScope, notificationSettings: ScopeNotificationSettings): TdlResult<Ok> {
-        val function = TdApi.SetScopeNotificationSettings(
-            scope = mapper.map(scope),
-            notificationSettings = mapper.map(notificationSettings),
+        val function = SetScopeNotificationSettings(
+            scope = scope,
+            notificationSettings = notificationSettings,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun setStickerEmojis(sticker: InputFile, emojis: String): TdlResult<Ok> {
-        val function = TdApi.SetStickerEmojis(
-            sticker = mapper.map(sticker),
+        val function = SetStickerEmojis(
+            sticker = sticker,
             emojis = emojis,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun setStickerKeywords(sticker: InputFile, keywords: Array<String>): TdlResult<Ok> {
-        val function = TdApi.SetStickerKeywords(
-            sticker = mapper.map(sticker),
+        val function = SetStickerKeywords(
+            sticker = sticker,
             keywords = keywords,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun setStickerMaskPosition(sticker: InputFile, maskPosition: MaskPosition?): TdlResult<Ok> {
-        val function = TdApi.SetStickerMaskPosition(
-            sticker = mapper.map(sticker),
-            maskPosition = maskPosition?.let { mapper.map(it) },
+        val function = SetStickerMaskPosition(
+            sticker = sticker,
+            maskPosition = maskPosition,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun setStickerPositionInSet(sticker: InputFile, position: Int): TdlResult<Ok> {
-        val function = TdApi.SetStickerPositionInSet(
-            sticker = mapper.map(sticker),
+        val function = SetStickerPositionInSet(
+            sticker = sticker,
             position = position,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun setStickerSetThumbnail(
@@ -8260,29 +9201,29 @@ internal class TdlClientImpl(
         thumbnail: InputFile?,
         format: StickerFormat?,
     ): TdlResult<Ok> {
-        val function = TdApi.SetStickerSetThumbnail(
+        val function = SetStickerSetThumbnail(
             userId = userId,
             name = name,
-            thumbnail = thumbnail?.let { mapper.map(it) },
-            format = format?.let { mapper.map(it) },
+            thumbnail = thumbnail,
+            format = format,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun setStickerSetTitle(name: String, title: String): TdlResult<Ok> {
-        val function = TdApi.SetStickerSetTitle(
+        val function = SetStickerSetTitle(
             name = name,
             title = title,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun setStoryPrivacySettings(storyId: Int, privacySettings: StoryPrivacySettings): TdlResult<Ok> {
-        val function = TdApi.SetStoryPrivacySettings(
+        val function = SetStoryPrivacySettings(
             storyId = storyId,
-            privacySettings = mapper.map(privacySettings),
+            privacySettings = privacySettings,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun setStoryReaction(
@@ -8291,45 +9232,45 @@ internal class TdlClientImpl(
         reactionType: ReactionType?,
         updateRecentReactions: Boolean,
     ): TdlResult<Ok> {
-        val function = TdApi.SetStoryReaction(
+        val function = SetStoryReaction(
             storyPosterChatId = storyPosterChatId,
             storyId = storyId,
-            reactionType = reactionType?.let { mapper.map(it) },
+            reactionType = reactionType,
             updateRecentReactions = updateRecentReactions,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun setSupergroupCustomEmojiStickerSet(supergroupId: Long, customEmojiStickerSetId: Long): TdlResult<Ok> {
-        val function = TdApi.SetSupergroupCustomEmojiStickerSet(
+        val function = SetSupergroupCustomEmojiStickerSet(
             supergroupId = supergroupId,
             customEmojiStickerSetId = customEmojiStickerSetId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun setSupergroupStickerSet(supergroupId: Long, stickerSetId: Long): TdlResult<Ok> {
-        val function = TdApi.SetSupergroupStickerSet(
+        val function = SetSupergroupStickerSet(
             supergroupId = supergroupId,
             stickerSetId = stickerSetId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun setSupergroupUnrestrictBoostCount(supergroupId: Long, unrestrictBoostCount: Int): TdlResult<Ok> {
-        val function = TdApi.SetSupergroupUnrestrictBoostCount(
+        val function = SetSupergroupUnrestrictBoostCount(
             supergroupId = supergroupId,
             unrestrictBoostCount = unrestrictBoostCount,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun setSupergroupUsername(supergroupId: Long, username: String): TdlResult<Ok> {
-        val function = TdApi.SetSupergroupUsername(
+        val function = SetSupergroupUsername(
             supergroupId = supergroupId,
             username = username,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun setTdlibParameters(
@@ -8348,7 +9289,7 @@ internal class TdlClientImpl(
         systemVersion: String,
         applicationVersion: String,
     ): TdlResult<Ok> {
-        val function = TdApi.SetTdlibParameters(
+        val function = SetTdlibParameters(
             useTestDc = useTestDc,
             databaseDirectory = databaseDirectory,
             filesDirectory = filesDirectory,
@@ -8364,62 +9305,62 @@ internal class TdlClientImpl(
             systemVersion = systemVersion,
             applicationVersion = applicationVersion,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun setUserEmojiStatus(userId: Long, emojiStatus: EmojiStatus?): TdlResult<Ok> {
-        val function = TdApi.SetUserEmojiStatus(
+        val function = SetUserEmojiStatus(
             userId = userId,
-            emojiStatus = emojiStatus?.let { mapper.map(it) },
+            emojiStatus = emojiStatus,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun setUserPersonalProfilePhoto(userId: Long, photo: InputChatPhoto?): TdlResult<Ok> {
-        val function = TdApi.SetUserPersonalProfilePhoto(
+        val function = SetUserPersonalProfilePhoto(
             userId = userId,
-            photo = photo?.let { mapper.map(it) },
+            photo = photo,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun setUserPrivacySettingRules(setting: UserPrivacySetting, rules: UserPrivacySettingRules): TdlResult<Ok> {
-        val function = TdApi.SetUserPrivacySettingRules(
-            setting = mapper.map(setting),
-            rules = mapper.map(rules),
+        val function = SetUserPrivacySettingRules(
+            setting = setting,
+            rules = rules,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun setUserSupportInfo(userId: Long, message: FormattedText): TdlResult<UserSupportInfo> {
-        val function = TdApi.SetUserSupportInfo(
+        val function = SetUserSupportInfo(
             userId = userId,
-            message = mapper.map(message),
+            message = message,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun setUsername(username: String): TdlResult<Ok> {
-        val function = TdApi.SetUsername(
+        val function = SetUsername(
             username = username,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun setVideoChatDefaultParticipant(chatId: Long, defaultParticipantId: MessageSender): TdlResult<Ok> {
-        val function = TdApi.SetVideoChatDefaultParticipant(
+        val function = SetVideoChatDefaultParticipant(
             chatId = chatId,
-            defaultParticipantId = mapper.map(defaultParticipantId),
+            defaultParticipantId = defaultParticipantId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun setVideoChatTitle(groupCallId: Int, title: String): TdlResult<Ok> {
-        val function = TdApi.SetVideoChatTitle(
+        val function = SetVideoChatTitle(
             groupCallId = groupCallId,
             title = title,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun shareChatWithBot(
@@ -8429,21 +9370,21 @@ internal class TdlClientImpl(
         sharedChatId: Long,
         onlyCheck: Boolean,
     ): TdlResult<Ok> {
-        val function = TdApi.ShareChatWithBot(
+        val function = ShareChatWithBot(
             chatId = chatId,
             messageId = messageId,
             buttonId = buttonId,
             sharedChatId = sharedChatId,
             onlyCheck = onlyCheck,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun sharePhoneNumber(userId: Long): TdlResult<Ok> {
-        val function = TdApi.SharePhoneNumber(
+        val function = SharePhoneNumber(
             userId = userId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun shareUsersWithBot(
@@ -8453,14 +9394,14 @@ internal class TdlClientImpl(
         sharedUserIds: LongArray,
         onlyCheck: Boolean,
     ): TdlResult<Ok> {
-        val function = TdApi.ShareUsersWithBot(
+        val function = ShareUsersWithBot(
             chatId = chatId,
             messageId = messageId,
             buttonId = buttonId,
             sharedUserIds = sharedUserIds,
             onlyCheck = onlyCheck,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun startGroupCallRecording(
@@ -8469,13 +9410,13 @@ internal class TdlClientImpl(
         recordVideo: Boolean,
         usePortraitOrientation: Boolean,
     ): TdlResult<Ok> {
-        val function = TdApi.StartGroupCallRecording(
+        val function = StartGroupCallRecording(
             groupCallId = groupCallId,
             title = title,
             recordVideo = recordVideo,
             usePortraitOrientation = usePortraitOrientation,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun startGroupCallScreenSharing(
@@ -8483,19 +9424,19 @@ internal class TdlClientImpl(
         audioSourceId: Int,
         payload: String,
     ): TdlResult<Text> {
-        val function = TdApi.StartGroupCallScreenSharing(
+        val function = StartGroupCallScreenSharing(
             groupCallId = groupCallId,
             audioSourceId = audioSourceId,
             payload = payload,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun startScheduledVideoChat(groupCallId: Int): TdlResult<Ok> {
-        val function = TdApi.StartScheduledVideoChat(
+        val function = StartScheduledVideoChat(
             groupCallId = groupCallId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun stopBusinessPoll(
@@ -8504,13 +9445,13 @@ internal class TdlClientImpl(
         messageId: Long,
         replyMarkup: ReplyMarkup?,
     ): TdlResult<BusinessMessage> {
-        val function = TdApi.StopBusinessPoll(
+        val function = StopBusinessPoll(
             businessConnectionId = businessConnectionId,
             chatId = chatId,
             messageId = messageId,
-            replyMarkup = replyMarkup?.let { mapper.map(it) },
+            replyMarkup = replyMarkup,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun stopPoll(
@@ -8518,96 +9459,96 @@ internal class TdlClientImpl(
         messageId: Long,
         replyMarkup: ReplyMarkup?,
     ): TdlResult<Ok> {
-        val function = TdApi.StopPoll(
+        val function = StopPoll(
             chatId = chatId,
             messageId = messageId,
-            replyMarkup = replyMarkup?.let { mapper.map(it) },
+            replyMarkup = replyMarkup,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun suggestUserProfilePhoto(userId: Long, photo: InputChatPhoto): TdlResult<Ok> {
-        val function = TdApi.SuggestUserProfilePhoto(
+        val function = SuggestUserProfilePhoto(
             userId = userId,
-            photo = mapper.map(photo),
+            photo = photo,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun synchronizeLanguagePack(languagePackId: String): TdlResult<Ok> {
-        val function = TdApi.SynchronizeLanguagePack(
+        val function = SynchronizeLanguagePack(
             languagePackId = languagePackId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun terminateAllOtherSessions(): TdlResult<Ok> {
-        val function = TdApi.TerminateAllOtherSessions()
-        return repository.send(function) { mapper.map(it) }
+        val function = TerminateAllOtherSessions()
+        return repository.send(function = function)
     }
 
     override suspend fun terminateSession(sessionId: Long): TdlResult<Ok> {
-        val function = TdApi.TerminateSession(
+        val function = TerminateSession(
             sessionId = sessionId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun testCallBytes(x: ByteArray): TdlResult<TestBytes> {
-        val function = TdApi.TestCallBytes(
+        val function = TestCallBytes(
             x = x,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun testCallEmpty(): TdlResult<Ok> {
-        val function = TdApi.TestCallEmpty()
-        return repository.send(function) { mapper.map(it) }
+        val function = TestCallEmpty()
+        return repository.send(function = function)
     }
 
     override suspend fun testCallString(x: String): TdlResult<TestString> {
-        val function = TdApi.TestCallString(
+        val function = TestCallString(
             x = x,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun testCallVectorInt(x: IntArray): TdlResult<TestVectorInt> {
-        val function = TdApi.TestCallVectorInt(
+        val function = TestCallVectorInt(
             x = x,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun testCallVectorIntObject(x: Array<TestInt>): TdlResult<TestVectorIntObject> {
-        val function = TdApi.TestCallVectorIntObject(
-            x = x.mapArray { mapper.map(it) },
+        val function = TestCallVectorIntObject(
+            x = x,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun testCallVectorString(x: Array<String>): TdlResult<TestVectorString> {
-        val function = TdApi.TestCallVectorString(
+        val function = TestCallVectorString(
             x = x,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun testCallVectorStringObject(x: Array<TestString>): TdlResult<TestVectorStringObject> {
-        val function = TdApi.TestCallVectorStringObject(
-            x = x.mapArray { mapper.map(it) },
+        val function = TestCallVectorStringObject(
+            x = x,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun testGetDifference(): TdlResult<Ok> {
-        val function = TdApi.TestGetDifference()
-        return repository.send(function) { mapper.map(it) }
+        val function = TestGetDifference()
+        return repository.send(function = function)
     }
 
     override suspend fun testNetwork(): TdlResult<Ok> {
-        val function = TdApi.TestNetwork()
-        return repository.send(function) { mapper.map(it) }
+        val function = TestNetwork()
+        return repository.send(function = function)
     }
 
     override suspend fun testProxy(
@@ -8617,48 +9558,48 @@ internal class TdlClientImpl(
         dcId: Int,
         timeout: Double,
     ): TdlResult<Ok> {
-        val function = TdApi.TestProxy(
+        val function = TestProxy(
             server = server,
             port = port,
-            type = mapper.map(type),
+            type = type,
             dcId = dcId,
             timeout = timeout,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun testReturnError(error: Error): TdlResult<Error> {
-        val function = TdApi.TestReturnError(
-            error = mapper.map(error),
+        val function = TestReturnError(
+            error = error,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun testSquareInt(x: Int): TdlResult<TestInt> {
-        val function = TdApi.TestSquareInt(
+        val function = TestSquareInt(
             x = x,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun testUseUpdate(): TdlResult<Update> {
-        val function = TdApi.TestUseUpdate()
-        return repository.send(function) { mapper.map(it) }
+        val function = TestUseUpdate()
+        return repository.send(function = function)
     }
 
     override suspend fun toggleAllDownloadsArePaused(arePaused: Boolean): TdlResult<Ok> {
-        val function = TdApi.ToggleAllDownloadsArePaused(
+        val function = ToggleAllDownloadsArePaused(
             arePaused = arePaused,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun toggleBotCanManageEmojiStatus(botUserId: Long, canManageEmojiStatus: Boolean): TdlResult<Ok> {
-        val function = TdApi.ToggleBotCanManageEmojiStatus(
+        val function = ToggleBotCanManageEmojiStatus(
             botUserId = botUserId,
             canManageEmojiStatus = canManageEmojiStatus,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun toggleBotIsAddedToAttachmentMenu(
@@ -8666,12 +9607,12 @@ internal class TdlClientImpl(
         isAdded: Boolean,
         allowWriteAccess: Boolean,
     ): TdlResult<Ok> {
-        val function = TdApi.ToggleBotIsAddedToAttachmentMenu(
+        val function = ToggleBotIsAddedToAttachmentMenu(
             botUserId = botUserId,
             isAdded = isAdded,
             allowWriteAccess = allowWriteAccess,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun toggleBotUsernameIsActive(
@@ -8679,59 +9620,59 @@ internal class TdlClientImpl(
         username: String,
         isActive: Boolean,
     ): TdlResult<Ok> {
-        val function = TdApi.ToggleBotUsernameIsActive(
+        val function = ToggleBotUsernameIsActive(
             botUserId = botUserId,
             username = username,
             isActive = isActive,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun toggleBusinessConnectedBotChatIsPaused(chatId: Long, isPaused: Boolean): TdlResult<Ok> {
-        val function = TdApi.ToggleBusinessConnectedBotChatIsPaused(
+        val function = ToggleBusinessConnectedBotChatIsPaused(
             chatId = chatId,
             isPaused = isPaused,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun toggleChatDefaultDisableNotification(chatId: Long, defaultDisableNotification: Boolean): TdlResult<Ok> {
-        val function = TdApi.ToggleChatDefaultDisableNotification(
+        val function = ToggleChatDefaultDisableNotification(
             chatId = chatId,
             defaultDisableNotification = defaultDisableNotification,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun toggleChatFolderTags(areTagsEnabled: Boolean): TdlResult<Ok> {
-        val function = TdApi.ToggleChatFolderTags(
+        val function = ToggleChatFolderTags(
             areTagsEnabled = areTagsEnabled,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun toggleChatGiftNotifications(chatId: Long, areEnabled: Boolean): TdlResult<Ok> {
-        val function = TdApi.ToggleChatGiftNotifications(
+        val function = ToggleChatGiftNotifications(
             chatId = chatId,
             areEnabled = areEnabled,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun toggleChatHasProtectedContent(chatId: Long, hasProtectedContent: Boolean): TdlResult<Ok> {
-        val function = TdApi.ToggleChatHasProtectedContent(
+        val function = ToggleChatHasProtectedContent(
             chatId = chatId,
             hasProtectedContent = hasProtectedContent,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun toggleChatIsMarkedAsUnread(chatId: Long, isMarkedAsUnread: Boolean): TdlResult<Ok> {
-        val function = TdApi.ToggleChatIsMarkedAsUnread(
+        val function = ToggleChatIsMarkedAsUnread(
             chatId = chatId,
             isMarkedAsUnread = isMarkedAsUnread,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun toggleChatIsPinned(
@@ -8739,28 +9680,28 @@ internal class TdlClientImpl(
         chatId: Long,
         isPinned: Boolean,
     ): TdlResult<Ok> {
-        val function = TdApi.ToggleChatIsPinned(
-            chatList = mapper.map(chatList),
+        val function = ToggleChatIsPinned(
+            chatList = chatList,
             chatId = chatId,
             isPinned = isPinned,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun toggleChatIsTranslatable(chatId: Long, isTranslatable: Boolean): TdlResult<Ok> {
-        val function = TdApi.ToggleChatIsTranslatable(
+        val function = ToggleChatIsTranslatable(
             chatId = chatId,
             isTranslatable = isTranslatable,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun toggleChatViewAsTopics(chatId: Long, viewAsTopics: Boolean): TdlResult<Ok> {
-        val function = TdApi.ToggleChatViewAsTopics(
+        val function = ToggleChatViewAsTopics(
             chatId = chatId,
             viewAsTopics = viewAsTopics,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun toggleDirectMessagesChatTopicCanSendUnpaidMessages(
@@ -8769,21 +9710,21 @@ internal class TdlClientImpl(
         canSendUnpaidMessages: Boolean,
         refundPayments: Boolean,
     ): TdlResult<Ok> {
-        val function = TdApi.ToggleDirectMessagesChatTopicCanSendUnpaidMessages(
+        val function = ToggleDirectMessagesChatTopicCanSendUnpaidMessages(
             chatId = chatId,
             topicId = topicId,
             canSendUnpaidMessages = canSendUnpaidMessages,
             refundPayments = refundPayments,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun toggleDownloadIsPaused(fileId: Int, isPaused: Boolean): TdlResult<Ok> {
-        val function = TdApi.ToggleDownloadIsPaused(
+        val function = ToggleDownloadIsPaused(
             fileId = fileId,
             isPaused = isPaused,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun toggleForumTopicIsClosed(
@@ -8791,12 +9732,12 @@ internal class TdlClientImpl(
         messageThreadId: Long,
         isClosed: Boolean,
     ): TdlResult<Ok> {
-        val function = TdApi.ToggleForumTopicIsClosed(
+        val function = ToggleForumTopicIsClosed(
             chatId = chatId,
             messageThreadId = messageThreadId,
             isClosed = isClosed,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun toggleForumTopicIsPinned(
@@ -8804,44 +9745,44 @@ internal class TdlClientImpl(
         messageThreadId: Long,
         isPinned: Boolean,
     ): TdlResult<Ok> {
-        val function = TdApi.ToggleForumTopicIsPinned(
+        val function = ToggleForumTopicIsPinned(
             chatId = chatId,
             messageThreadId = messageThreadId,
             isPinned = isPinned,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun toggleGeneralForumTopicIsHidden(chatId: Long, isHidden: Boolean): TdlResult<Ok> {
-        val function = TdApi.ToggleGeneralForumTopicIsHidden(
+        val function = ToggleGeneralForumTopicIsHidden(
             chatId = chatId,
             isHidden = isHidden,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun toggleGiftIsSaved(receivedGiftId: String, isSaved: Boolean): TdlResult<Ok> {
-        val function = TdApi.ToggleGiftIsSaved(
+        val function = ToggleGiftIsSaved(
             receivedGiftId = receivedGiftId,
             isSaved = isSaved,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun toggleGroupCallIsMyVideoEnabled(groupCallId: Int, isMyVideoEnabled: Boolean): TdlResult<Ok> {
-        val function = TdApi.ToggleGroupCallIsMyVideoEnabled(
+        val function = ToggleGroupCallIsMyVideoEnabled(
             groupCallId = groupCallId,
             isMyVideoEnabled = isMyVideoEnabled,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun toggleGroupCallIsMyVideoPaused(groupCallId: Int, isMyVideoPaused: Boolean): TdlResult<Ok> {
-        val function = TdApi.ToggleGroupCallIsMyVideoPaused(
+        val function = ToggleGroupCallIsMyVideoPaused(
             groupCallId = groupCallId,
             isMyVideoPaused = isMyVideoPaused,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun toggleGroupCallParticipantIsHandRaised(
@@ -8849,12 +9790,12 @@ internal class TdlClientImpl(
         participantId: MessageSender,
         isHandRaised: Boolean,
     ): TdlResult<Ok> {
-        val function = TdApi.ToggleGroupCallParticipantIsHandRaised(
+        val function = ToggleGroupCallParticipantIsHandRaised(
             groupCallId = groupCallId,
-            participantId = mapper.map(participantId),
+            participantId = participantId,
             isHandRaised = isHandRaised,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun toggleGroupCallParticipantIsMuted(
@@ -8862,51 +9803,51 @@ internal class TdlClientImpl(
         participantId: MessageSender,
         isMuted: Boolean,
     ): TdlResult<Ok> {
-        val function = TdApi.ToggleGroupCallParticipantIsMuted(
+        val function = ToggleGroupCallParticipantIsMuted(
             groupCallId = groupCallId,
-            participantId = mapper.map(participantId),
+            participantId = participantId,
             isMuted = isMuted,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun toggleGroupCallScreenSharingIsPaused(groupCallId: Int, isPaused: Boolean): TdlResult<Ok> {
-        val function = TdApi.ToggleGroupCallScreenSharingIsPaused(
+        val function = ToggleGroupCallScreenSharingIsPaused(
             groupCallId = groupCallId,
             isPaused = isPaused,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun toggleHasSponsoredMessagesEnabled(hasSponsoredMessagesEnabled: Boolean): TdlResult<Ok> {
-        val function = TdApi.ToggleHasSponsoredMessagesEnabled(
+        val function = ToggleHasSponsoredMessagesEnabled(
             hasSponsoredMessagesEnabled = hasSponsoredMessagesEnabled,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun toggleSavedMessagesTopicIsPinned(savedMessagesTopicId: Long, isPinned: Boolean): TdlResult<Ok> {
-        val function = TdApi.ToggleSavedMessagesTopicIsPinned(
+        val function = ToggleSavedMessagesTopicIsPinned(
             savedMessagesTopicId = savedMessagesTopicId,
             isPinned = isPinned,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun toggleSessionCanAcceptCalls(sessionId: Long, canAcceptCalls: Boolean): TdlResult<Ok> {
-        val function = TdApi.ToggleSessionCanAcceptCalls(
+        val function = ToggleSessionCanAcceptCalls(
             sessionId = sessionId,
             canAcceptCalls = canAcceptCalls,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun toggleSessionCanAcceptSecretChats(sessionId: Long, canAcceptSecretChats: Boolean): TdlResult<Ok> {
-        val function = TdApi.ToggleSessionCanAcceptSecretChats(
+        val function = ToggleSessionCanAcceptSecretChats(
             sessionId = sessionId,
             canAcceptSecretChats = canAcceptSecretChats,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun toggleStoryIsPostedToChatPage(
@@ -8914,59 +9855,59 @@ internal class TdlClientImpl(
         storyId: Int,
         isPostedToChatPage: Boolean,
     ): TdlResult<Ok> {
-        val function = TdApi.ToggleStoryIsPostedToChatPage(
+        val function = ToggleStoryIsPostedToChatPage(
             storyPosterChatId = storyPosterChatId,
             storyId = storyId,
             isPostedToChatPage = isPostedToChatPage,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun toggleSupergroupCanHaveSponsoredMessages(supergroupId: Long, canHaveSponsoredMessages: Boolean): TdlResult<Ok> {
-        val function = TdApi.ToggleSupergroupCanHaveSponsoredMessages(
+        val function = ToggleSupergroupCanHaveSponsoredMessages(
             supergroupId = supergroupId,
             canHaveSponsoredMessages = canHaveSponsoredMessages,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun toggleSupergroupHasAggressiveAntiSpamEnabled(supergroupId: Long, hasAggressiveAntiSpamEnabled: Boolean): TdlResult<Ok> {
-        val function = TdApi.ToggleSupergroupHasAggressiveAntiSpamEnabled(
+        val function = ToggleSupergroupHasAggressiveAntiSpamEnabled(
             supergroupId = supergroupId,
             hasAggressiveAntiSpamEnabled = hasAggressiveAntiSpamEnabled,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun toggleSupergroupHasAutomaticTranslation(supergroupId: Long, hasAutomaticTranslation: Boolean): TdlResult<Ok> {
-        val function = TdApi.ToggleSupergroupHasAutomaticTranslation(
+        val function = ToggleSupergroupHasAutomaticTranslation(
             supergroupId = supergroupId,
             hasAutomaticTranslation = hasAutomaticTranslation,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun toggleSupergroupHasHiddenMembers(supergroupId: Long, hasHiddenMembers: Boolean): TdlResult<Ok> {
-        val function = TdApi.ToggleSupergroupHasHiddenMembers(
+        val function = ToggleSupergroupHasHiddenMembers(
             supergroupId = supergroupId,
             hasHiddenMembers = hasHiddenMembers,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun toggleSupergroupIsAllHistoryAvailable(supergroupId: Long, isAllHistoryAvailable: Boolean): TdlResult<Ok> {
-        val function = TdApi.ToggleSupergroupIsAllHistoryAvailable(
+        val function = ToggleSupergroupIsAllHistoryAvailable(
             supergroupId = supergroupId,
             isAllHistoryAvailable = isAllHistoryAvailable,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun toggleSupergroupIsBroadcastGroup(supergroupId: Long): TdlResult<Ok> {
-        val function = TdApi.ToggleSupergroupIsBroadcastGroup(
+        val function = ToggleSupergroupIsBroadcastGroup(
             supergroupId = supergroupId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun toggleSupergroupIsForum(
@@ -8974,28 +9915,28 @@ internal class TdlClientImpl(
         isForum: Boolean,
         hasForumTabs: Boolean,
     ): TdlResult<Ok> {
-        val function = TdApi.ToggleSupergroupIsForum(
+        val function = ToggleSupergroupIsForum(
             supergroupId = supergroupId,
             isForum = isForum,
             hasForumTabs = hasForumTabs,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun toggleSupergroupJoinByRequest(supergroupId: Long, joinByRequest: Boolean): TdlResult<Ok> {
-        val function = TdApi.ToggleSupergroupJoinByRequest(
+        val function = ToggleSupergroupJoinByRequest(
             supergroupId = supergroupId,
             joinByRequest = joinByRequest,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun toggleSupergroupJoinToSendMessages(supergroupId: Long, joinToSendMessages: Boolean): TdlResult<Ok> {
-        val function = TdApi.ToggleSupergroupJoinToSendMessages(
+        val function = ToggleSupergroupJoinToSendMessages(
             supergroupId = supergroupId,
             joinToSendMessages = joinToSendMessages,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun toggleSupergroupSignMessages(
@@ -9003,12 +9944,12 @@ internal class TdlClientImpl(
         signMessages: Boolean,
         showMessageSender: Boolean,
     ): TdlResult<Ok> {
-        val function = TdApi.ToggleSupergroupSignMessages(
+        val function = ToggleSupergroupSignMessages(
             supergroupId = supergroupId,
             signMessages = signMessages,
             showMessageSender = showMessageSender,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun toggleSupergroupUsernameIsActive(
@@ -9016,44 +9957,44 @@ internal class TdlClientImpl(
         username: String,
         isActive: Boolean,
     ): TdlResult<Ok> {
-        val function = TdApi.ToggleSupergroupUsernameIsActive(
+        val function = ToggleSupergroupUsernameIsActive(
             supergroupId = supergroupId,
             username = username,
             isActive = isActive,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun toggleUsernameIsActive(username: String, isActive: Boolean): TdlResult<Ok> {
-        val function = TdApi.ToggleUsernameIsActive(
+        val function = ToggleUsernameIsActive(
             username = username,
             isActive = isActive,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun toggleVideoChatEnabledStartNotification(groupCallId: Int, enabledStartNotification: Boolean): TdlResult<Ok> {
-        val function = TdApi.ToggleVideoChatEnabledStartNotification(
+        val function = ToggleVideoChatEnabledStartNotification(
             groupCallId = groupCallId,
             enabledStartNotification = enabledStartNotification,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun toggleVideoChatMuteNewParticipants(groupCallId: Int, muteNewParticipants: Boolean): TdlResult<Ok> {
-        val function = TdApi.ToggleVideoChatMuteNewParticipants(
+        val function = ToggleVideoChatMuteNewParticipants(
             groupCallId = groupCallId,
             muteNewParticipants = muteNewParticipants,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun transferBusinessAccountStars(businessConnectionId: String, starCount: Long): TdlResult<Ok> {
-        val function = TdApi.TransferBusinessAccountStars(
+        val function = TransferBusinessAccountStars(
             businessConnectionId = businessConnectionId,
             starCount = starCount,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun transferChatOwnership(
@@ -9061,12 +10002,12 @@ internal class TdlClientImpl(
         userId: Long,
         password: String,
     ): TdlResult<Ok> {
-        val function = TdApi.TransferChatOwnership(
+        val function = TransferChatOwnership(
             chatId = chatId,
             userId = userId,
             password = password,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun transferGift(
@@ -9075,13 +10016,13 @@ internal class TdlClientImpl(
         newOwnerId: MessageSender,
         starCount: Long,
     ): TdlResult<Ok> {
-        val function = TdApi.TransferGift(
+        val function = TransferGift(
             businessConnectionId = businessConnectionId,
             receivedGiftId = receivedGiftId,
-            newOwnerId = mapper.map(newOwnerId),
+            newOwnerId = newOwnerId,
             starCount = starCount,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun translateMessageText(
@@ -9089,58 +10030,58 @@ internal class TdlClientImpl(
         messageId: Long,
         toLanguageCode: String,
     ): TdlResult<FormattedText> {
-        val function = TdApi.TranslateMessageText(
+        val function = TranslateMessageText(
             chatId = chatId,
             messageId = messageId,
             toLanguageCode = toLanguageCode,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun translateText(text: FormattedText, toLanguageCode: String): TdlResult<FormattedText> {
-        val function = TdApi.TranslateText(
-            text = mapper.map(text),
+        val function = TranslateText(
+            text = text,
             toLanguageCode = toLanguageCode,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun unpinAllChatMessages(chatId: Long): TdlResult<Ok> {
-        val function = TdApi.UnpinAllChatMessages(
+        val function = UnpinAllChatMessages(
             chatId = chatId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun unpinAllDirectMessagesChatTopicMessages(chatId: Long, topicId: Long): TdlResult<Ok> {
-        val function = TdApi.UnpinAllDirectMessagesChatTopicMessages(
+        val function = UnpinAllDirectMessagesChatTopicMessages(
             chatId = chatId,
             topicId = topicId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun unpinAllMessageThreadMessages(chatId: Long, messageThreadId: Long): TdlResult<Ok> {
-        val function = TdApi.UnpinAllMessageThreadMessages(
+        val function = UnpinAllMessageThreadMessages(
             chatId = chatId,
             messageThreadId = messageThreadId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun unpinChatMessage(chatId: Long, messageId: Long): TdlResult<Ok> {
-        val function = TdApi.UnpinChatMessage(
+        val function = UnpinChatMessage(
             chatId = chatId,
             messageId = messageId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun upgradeBasicGroupChatToSupergroupChat(chatId: Long): TdlResult<Chat> {
-        val function = TdApi.UpgradeBasicGroupChatToSupergroupChat(
+        val function = UpgradeBasicGroupChatToSupergroupChat(
             chatId = chatId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun upgradeGift(
@@ -9149,13 +10090,13 @@ internal class TdlClientImpl(
         keepOriginalDetails: Boolean,
         starCount: Long,
     ): TdlResult<UpgradeGiftResult> {
-        val function = TdApi.UpgradeGift(
+        val function = UpgradeGift(
             businessConnectionId = businessConnectionId,
             receivedGiftId = receivedGiftId,
             keepOriginalDetails = keepOriginalDetails,
             starCount = starCount,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun uploadStickerFile(
@@ -9163,12 +10104,12 @@ internal class TdlClientImpl(
         stickerFormat: StickerFormat,
         sticker: InputFile,
     ): TdlResult<File> {
-        val function = TdApi.UploadStickerFile(
+        val function = UploadStickerFile(
             userId = userId,
-            stickerFormat = mapper.map(stickerFormat),
-            sticker = mapper.map(sticker),
+            stickerFormat = stickerFormat,
+            sticker = sticker,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun validateOrderInfo(
@@ -9176,12 +10117,12 @@ internal class TdlClientImpl(
         orderInfo: OrderInfo?,
         allowSave: Boolean,
     ): TdlResult<ValidatedOrderInfo> {
-        val function = TdApi.ValidateOrderInfo(
-            inputInvoice = mapper.map(inputInvoice),
-            orderInfo = orderInfo?.let { mapper.map(it) },
+        val function = ValidateOrderInfo(
+            inputInvoice = inputInvoice,
+            orderInfo = orderInfo,
             allowSave = allowSave,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun viewMessages(
@@ -9190,41 +10131,41 @@ internal class TdlClientImpl(
         source: MessageSource?,
         forceRead: Boolean,
     ): TdlResult<Ok> {
-        val function = TdApi.ViewMessages(
+        val function = ViewMessages(
             chatId = chatId,
             messageIds = messageIds,
-            source = source?.let { mapper.map(it) },
+            source = source,
             forceRead = forceRead,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun viewPremiumFeature(feature: PremiumFeature): TdlResult<Ok> {
-        val function = TdApi.ViewPremiumFeature(
-            feature = mapper.map(feature),
+        val function = ViewPremiumFeature(
+            feature = feature,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun viewSponsoredChat(sponsoredChatUniqueId: Long): TdlResult<Ok> {
-        val function = TdApi.ViewSponsoredChat(
+        val function = ViewSponsoredChat(
             sponsoredChatUniqueId = sponsoredChatUniqueId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun viewTrendingStickerSets(stickerSetIds: LongArray): TdlResult<Ok> {
-        val function = TdApi.ViewTrendingStickerSets(
+        val function = ViewTrendingStickerSets(
             stickerSetIds = stickerSetIds,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun viewVideoMessageAdvertisement(advertisementUniqueId: Long): TdlResult<Ok> {
-        val function = TdApi.ViewVideoMessageAdvertisement(
+        val function = ViewVideoMessageAdvertisement(
             advertisementUniqueId = advertisementUniqueId,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 
     override suspend fun writeGeneratedFilePart(
@@ -9232,11 +10173,11 @@ internal class TdlClientImpl(
         offset: Long,
         data: ByteArray,
     ): TdlResult<Ok> {
-        val function = TdApi.WriteGeneratedFilePart(
+        val function = WriteGeneratedFilePart(
             generationId = generationId,
             offset = offset,
             data = data,
         )
-        return repository.send(function) { mapper.map(it) }
+        return repository.send(function = function)
     }
 }

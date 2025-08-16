@@ -6,7 +6,63 @@ on:
       - update-td
 
 jobs:
+  run-generator:
+    if: true
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          lfs: true
+          submodules: true
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          java-version: 24
+          distribution: temurin
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: 8.14.3
+          cache-disabled: false
+
+      - name: Assemble generator
+        run: ./gradlew tdl-coroutines-generator:assemble
+
+      - name: Run generator
+        run: ./gradlew tdl-coroutines-generator:run
+
+      - name: Assemble libraries
+        run: |
+          ./gradlew tdl-coroutines:assembleRelease
+          ./gradlew tdl-coroutines:jvmJar
+
+      - name: Assemble examples
+        run: |
+          ./gradlew tdl-coroutines-example:assembleRelease
+          ./gradlew tdl-coroutines-example-jvm:assemble
+
+      - name: Commit and push code changes
+        uses: EndBug/add-and-commit@v9
+        with:
+          pull: --rebase --autostash
+          author_name: Georgii Ippolitov
+          author_email: detmmpmznb@g000sha256.dev
+          committer_name: GitHub
+          committer_email: noreply@github.com
+          message: Update API [skip ci]
+          add: |
+            - tdl-coroutines
+            - README.md
+
   build-android:
+    if: true
+    needs: run-generator
     runs-on: ubuntu-24.04
     permissions:
       contents: write
@@ -45,22 +101,26 @@ jobs:
       - name: Build TDLib
         run: |
           cd td/example/android
-          ./build-tdlib.sh
+          ./build-tdlib.sh '' '' '' '' 'JSONJava'
+
+      - name: Show files
+        run: find td/example/android/tdlib -name '*.so' -type f
 
       - name: SHA256 checksums
         run: |
-          shasum -a 256 td/example/android/tdlib/libs/arm64-v8a/libtdjni.so
-          shasum -a 256 td/example/android/tdlib/libs/armeabi-v7a/libtdjni.so
-          shasum -a 256 td/example/android/tdlib/libs/x86/libtdjni.so
-          shasum -a 256 td/example/android/tdlib/libs/x86_64/libtdjni.so
+          shasum -a 256 td/example/android/tdlib/libs/arm64-v8a/libtdjsonjava.so
+          shasum -a 256 td/example/android/tdlib/libs/armeabi-v7a/libtdjsonjava.so
+          shasum -a 256 td/example/android/tdlib/libs/x86/libtdjsonjava.so
+          shasum -a 256 td/example/android/tdlib/libs/x86_64/libtdjsonjava.so
 
       - name: Copy libs
         run: |
-          mkdir -p tdl-coroutines/src/androidMainGenerated/jniLibs/{arm64-v8a,armeabi-v7a,x86,x86_64}
-          cp td/example/android/tdlib/libs/arm64-v8a/libtdjni.so tdl-coroutines/src/androidMainGenerated/jniLibs/arm64-v8a/libtdjni.so
-          cp td/example/android/tdlib/libs/armeabi-v7a/libtdjni.so tdl-coroutines/src/androidMainGenerated/jniLibs/armeabi-v7a/libtdjni.so
-          cp td/example/android/tdlib/libs/x86/libtdjni.so tdl-coroutines/src/androidMainGenerated/jniLibs/x86/libtdjni.so
-          cp td/example/android/tdlib/libs/x86_64/libtdjni.so tdl-coroutines/src/androidMainGenerated/jniLibs/x86_64/libtdjni.so
+          rm -r tdl-coroutines/src/androidMainGenerated/jniLibs/{arm64-v8a,armeabi-v7a,x86,x86_64}
+          mkdir tdl-coroutines/src/androidMainGenerated/jniLibs/{arm64-v8a,armeabi-v7a,x86,x86_64}
+          cp td/example/android/tdlib/libs/arm64-v8a/libtdjsonjava.so tdl-coroutines/src/androidMainGenerated/jniLibs/arm64-v8a/libtdjsonjava.so
+          cp td/example/android/tdlib/libs/armeabi-v7a/libtdjsonjava.so tdl-coroutines/src/androidMainGenerated/jniLibs/armeabi-v7a/libtdjsonjava.so
+          cp td/example/android/tdlib/libs/x86/libtdjsonjava.so tdl-coroutines/src/androidMainGenerated/jniLibs/x86/libtdjsonjava.so
+          cp td/example/android/tdlib/libs/x86_64/libtdjsonjava.so tdl-coroutines/src/androidMainGenerated/jniLibs/x86_64/libtdjsonjava.so
 
       - name: Commit and push libs
         uses: EndBug/add-and-commit@v9
@@ -73,32 +133,9 @@ jobs:
           message: TDLib for Android [skip ci]
           add: tdl-coroutines
 
-      - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@v4
-        with:
-          gradle-version: 8.14.1
-          cache-disabled: false
-
-      - name: Assemble generator
-        run: ./gradlew tdl-coroutines-generator:assemble
-
-      - name: Run generator
-        run: ./gradlew tdl-coroutines-generator:run
-
-      - name: Commit and push code changes
-        uses: EndBug/add-and-commit@v9
-        with:
-          pull: --rebase --autostash
-          author_name: Georgii Ippolitov
-          author_email: detmmpmznb@g000sha256.dev
-          committer_name: GitHub
-          committer_email: noreply@github.com
-          message: Update API [skip ci]
-          add: |
-            - tdl-coroutines
-            - README.md
-
   build-jvm-linux-arm64:
+    if: true
+    needs: run-generator
     runs-on: ubuntu-24.04-arm
     permissions:
       contents: write
@@ -129,17 +166,20 @@ jobs:
           cd ../example/java
           mkdir build
           cd build
-          cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX:PATH=../../../tdlib -DTd_DIR:PATH=$(readlink -e ../td/lib/cmake/Td) ..
+          cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX:PATH=../../../tdlib -DTd_DIR:PATH=$(readlink -e ../td/lib/cmake/Td) -DTD_JSON_JAVA=ON ..
           cmake --build . --target install
 
+      - name: Show files
+        run: find td/tdlib/bin -name '*.so' -type f
+
       - name: SHA256 checksum
-        run: |
-          shasum -a 256 td/tdlib/bin/libtdjni.so
+        run: shasum -a 256 td/tdlib/bin/libtdjsonjava.so
 
       - name: Copy lib
         run: |
-          mkdir -p tdl-coroutines/src/jvmMainGenerated/resources/libs/linux-arm64
-          cp td/tdlib/bin/libtdjni.so tdl-coroutines/src/jvmMainGenerated/resources/libs/linux-arm64/libtdjni.so
+          rm -r tdl-coroutines/src/jvmMainGenerated/resources/libs/linux-arm64
+          mkdir tdl-coroutines/src/jvmMainGenerated/resources/libs/linux-arm64
+          cp td/tdlib/bin/libtdjsonjava.so tdl-coroutines/src/jvmMainGenerated/resources/libs/linux-arm64/libtdjsonjava.so
 
       - name: Commit and push lib
         uses: EndBug/add-and-commit@v9
@@ -153,6 +193,8 @@ jobs:
           add: tdl-coroutines
 
   build-jvm-linux-x64:
+    if: true
+    needs: run-generator
     runs-on: ubuntu-24.04
     permissions:
       contents: write
@@ -183,17 +225,20 @@ jobs:
           cd ../example/java
           mkdir build
           cd build
-          cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX:PATH=../../../tdlib -DTd_DIR:PATH=$(readlink -e ../td/lib/cmake/Td) ..
+          cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX:PATH=../../../tdlib -DTd_DIR:PATH=$(readlink -e ../td/lib/cmake/Td) -DTD_JSON_JAVA=ON ..
           cmake --build . --target install
 
+      - name: Show files
+        run: find td/tdlib/bin -name '*.so' -type f
+
       - name: SHA256 checksum
-        run: |
-          shasum -a 256 td/tdlib/bin/libtdjni.so
+        run: shasum -a 256 td/tdlib/bin/libtdjsonjava.so
 
       - name: Copy lib
         run: |
-          mkdir -p tdl-coroutines/src/jvmMainGenerated/resources/libs/linux-x64
-          cp td/tdlib/bin/libtdjni.so tdl-coroutines/src/jvmMainGenerated/resources/libs/linux-x64/libtdjni.so
+          rm -r tdl-coroutines/src/jvmMainGenerated/resources/libs/linux-x64
+          mkdir tdl-coroutines/src/jvmMainGenerated/resources/libs/linux-x64
+          cp td/tdlib/bin/libtdjsonjava.so tdl-coroutines/src/jvmMainGenerated/resources/libs/linux-x64/libtdjsonjava.so
 
       - name: Commit and push lib
         uses: EndBug/add-and-commit@v9
@@ -207,6 +252,8 @@ jobs:
           add: tdl-coroutines
 
   build-jvm-macos-arm64:
+    if: true
+    needs: run-generator
     runs-on: macos-15
     permissions:
       contents: write
@@ -218,14 +265,8 @@ jobs:
           lfs: true
           submodules: true
 
-      - name: Setup Java
-        uses: actions/setup-java@v4
-        with:
-          java-version: 24
-          distribution: temurin
-
       - name: Setup dependencies
-        run: brew install gperf cmake openssl coreutils
+        run: brew install gperf cmake openssl coreutils openjdk
 
       - name: Build TDLib
         run: |
@@ -237,17 +278,20 @@ jobs:
           cd ../example/java
           mkdir build
           cd build
-          cmake -DCMAKE_BUILD_TYPE=Release -DJAVA_HOME=/opt/homebrew/opt/openjdk/libexec/openjdk.jdk/Contents/Home/ -DCMAKE_INSTALL_PREFIX:PATH=../../../tdlib -DTd_DIR:PATH=$(greadlink -e ../td/lib/cmake/Td) ..
+          cmake -DCMAKE_BUILD_TYPE=Release -DJAVA_HOME=/opt/homebrew/opt/openjdk/libexec/openjdk.jdk/Contents/Home/ -DCMAKE_INSTALL_PREFIX:PATH=../../../tdlib -DTd_DIR:PATH=$(greadlink -e ../td/lib/cmake/Td) -DTD_JSON_JAVA=ON ..
           cmake --build . --target install
 
+      - name: Show files
+        run: find td/tdlib/bin -name '*.dylib' -type f
+
       - name: SHA256 checksum
-        run: |
-          shasum -a 256 td/tdlib/bin/libtdjni.dylib
+        run: shasum -a 256 td/tdlib/bin/libtdjsonjava.dylib
 
       - name: Copy lib
         run: |
-          mkdir -p tdl-coroutines/src/jvmMainGenerated/resources/libs/macos-arm64
-          cp td/tdlib/bin/libtdjni.dylib tdl-coroutines/src/jvmMainGenerated/resources/libs/macos-arm64/libtdjni.dylib
+          rm -r tdl-coroutines/src/jvmMainGenerated/resources/libs/macos-arm64
+          mkdir tdl-coroutines/src/jvmMainGenerated/resources/libs/macos-arm64
+          cp td/tdlib/bin/libtdjsonjava.dylib tdl-coroutines/src/jvmMainGenerated/resources/libs/macos-arm64/libtdjsonjava.dylib
 
       - name: Commit and push lib
         uses: EndBug/add-and-commit@v9
@@ -261,6 +305,8 @@ jobs:
           add: tdl-coroutines
 
   build-jvm-macos-x64:
+    if: true
+    needs: run-generator
     runs-on: macos-13
     permissions:
       contents: write
@@ -272,14 +318,8 @@ jobs:
           lfs: true
           submodules: true
 
-      - name: Setup Java
-        uses: actions/setup-java@v4
-        with:
-          java-version: 24
-          distribution: temurin
-
       - name: Setup dependencies
-        run: brew install gperf cmake openssl coreutils
+        run: brew install gperf cmake openssl coreutils openjdk
 
       - name: Build TDLib
         run: |
@@ -291,17 +331,20 @@ jobs:
           cd ../example/java
           mkdir build
           cd build
-          cmake -DCMAKE_BUILD_TYPE=Release -DJAVA_HOME=/opt/homebrew/opt/openjdk/libexec/openjdk.jdk/Contents/Home/ -DCMAKE_INSTALL_PREFIX:PATH=../../../tdlib -DTd_DIR:PATH=$(greadlink -e ../td/lib/cmake/Td) ..
+          cmake -DCMAKE_BUILD_TYPE=Release -DJAVA_HOME=/opt/homebrew/opt/openjdk/libexec/openjdk.jdk/Contents/Home/ -DCMAKE_INSTALL_PREFIX:PATH=../../../tdlib -DTd_DIR:PATH=$(greadlink -e ../td/lib/cmake/Td) -DTD_JSON_JAVA=ON ..
           cmake --build . --target install
 
+      - name: Show files
+        run: find td/tdlib/bin -name '*.dylib' -type f
+
       - name: SHA256 checksum
-        run: |
-          shasum -a 256 td/tdlib/bin/libtdjni.dylib
+        run: shasum -a 256 td/tdlib/bin/libtdjsonjava.dylib
 
       - name: Copy lib
         run: |
-          mkdir -p tdl-coroutines/src/jvmMainGenerated/resources/libs/macos-x64
-          cp td/tdlib/bin/libtdjni.dylib tdl-coroutines/src/jvmMainGenerated/resources/libs/macos-x64/libtdjni.dylib
+          rm -r tdl-coroutines/src/jvmMainGenerated/resources/libs/macos-x64
+          mkdir tdl-coroutines/src/jvmMainGenerated/resources/libs/macos-x64
+          cp td/tdlib/bin/libtdjsonjava.dylib tdl-coroutines/src/jvmMainGenerated/resources/libs/macos-x64/libtdjsonjava.dylib
 
       - name: Commit and push lib
         uses: EndBug/add-and-commit@v9
@@ -315,6 +358,8 @@ jobs:
           add: tdl-coroutines
 
   build-jvm-windows-arm64:
+    if: true
+    needs: run-generator
     runs-on: windows-11-arm
     permissions:
       contents: write
@@ -343,14 +388,17 @@ jobs:
           cd ../example/java
           mkdir build
           cd build
-          cmake -A ARM64 -DCMAKE_INSTALL_PREFIX:PATH=../../../tdlib -DCMAKE_TOOLCHAIN_FILE:FILEPATH=../../../../vcpkg/scripts/buildsystems/vcpkg.cmake -DTd_DIR:PATH=$(Resolve-Path ../td/lib/cmake/Td) ..
+          cmake -A ARM64 -DCMAKE_INSTALL_PREFIX:PATH=../../../tdlib -DCMAKE_TOOLCHAIN_FILE:FILEPATH=../../../../vcpkg/scripts/buildsystems/vcpkg.cmake -DTd_DIR:PATH=$(Resolve-Path ../td/lib/cmake/Td) -DTD_JSON_JAVA=ON ..
           cmake --build . --target install --config Release
+
+      - name: Show files
+        run: Get-ChildItem -Filter td/tdlib/bin/*.dll
 
       - name: SHA256 checksums
         run: |
           Get-FileHash td/tdlib/bin/libcrypto-3-arm64.dll -Algorithm SHA256
           Get-FileHash td/tdlib/bin/libssl-3-arm64.dll -Algorithm SHA256
-          Get-FileHash td/tdlib/bin/tdjni.dll -Algorithm SHA256
+          Get-FileHash td/tdlib/bin/tdjsonjava.dll -Algorithm SHA256
           Get-FileHash td/tdlib/bin/zlib1.dll -Algorithm SHA256
 
       - name: Copy libs
@@ -359,7 +407,7 @@ jobs:
           New-Item -ItemType Directory -Path tdl-coroutines/src/jvmMainGenerated/resources/libs/windows-arm64
           Copy-Item td/tdlib/bin/libcrypto-3-arm64.dll -Destination tdl-coroutines/src/jvmMainGenerated/resources/libs/windows-arm64/libcrypto-3-arm64.dll
           Copy-Item td/tdlib/bin/libssl-3-arm64.dll -Destination tdl-coroutines/src/jvmMainGenerated/resources/libs/windows-arm64/libssl-3-arm64.dll
-          Copy-Item td/tdlib/bin/tdjni.dll -Destination tdl-coroutines/src/jvmMainGenerated/resources/libs/windows-arm64/tdjni.dll
+          Copy-Item td/tdlib/bin/tdjsonjava.dll -Destination tdl-coroutines/src/jvmMainGenerated/resources/libs/windows-arm64/tdjsonjava.dll
           Copy-Item td/tdlib/bin/zlib1.dll -Destination tdl-coroutines/src/jvmMainGenerated/resources/libs/windows-arm64/zlib1.dll
 
       - name: Commit and push libs
@@ -374,6 +422,8 @@ jobs:
           add: tdl-coroutines
 
   build-jvm-windows-x64:
+    if: true
+    needs: run-generator
     runs-on: windows-2025
     permissions:
       contents: write
@@ -402,14 +452,17 @@ jobs:
           cd ../example/java
           mkdir build
           cd build
-          cmake -A x64 -DCMAKE_INSTALL_PREFIX:PATH=../../../tdlib -DCMAKE_TOOLCHAIN_FILE:FILEPATH=../../../../vcpkg/scripts/buildsystems/vcpkg.cmake -DTd_DIR:PATH=$(Resolve-Path ../td/lib/cmake/Td) ..
+          cmake -A x64 -DCMAKE_INSTALL_PREFIX:PATH=../../../tdlib -DCMAKE_TOOLCHAIN_FILE:FILEPATH=../../../../vcpkg/scripts/buildsystems/vcpkg.cmake -DTd_DIR:PATH=$(Resolve-Path ../td/lib/cmake/Td) -DTD_JSON_JAVA=ON ..
           cmake --build . --target install --config Release
+
+      - name: Show files
+        run: Get-ChildItem -Filter td/tdlib/bin/*.dll
 
       - name: SHA256 checksums
         run: |
           Get-FileHash td/tdlib/bin/libcrypto-3-x64.dll -Algorithm SHA256
           Get-FileHash td/tdlib/bin/libssl-3-x64.dll -Algorithm SHA256
-          Get-FileHash td/tdlib/bin/tdjni.dll -Algorithm SHA256
+          Get-FileHash td/tdlib/bin/tdjsonjava.dll -Algorithm SHA256
           Get-FileHash td/tdlib/bin/zlib1.dll -Algorithm SHA256
 
       - name: Copy libs
@@ -418,7 +471,7 @@ jobs:
           New-Item -ItemType Directory -Path tdl-coroutines/src/jvmMainGenerated/resources/libs/windows-x64
           Copy-Item td/tdlib/bin/libcrypto-3-x64.dll -Destination tdl-coroutines/src/jvmMainGenerated/resources/libs/windows-x64/libcrypto-3-x64.dll
           Copy-Item td/tdlib/bin/libssl-3-x64.dll -Destination tdl-coroutines/src/jvmMainGenerated/resources/libs/windows-x64/libssl-3-x64.dll
-          Copy-Item td/tdlib/bin/tdjni.dll -Destination tdl-coroutines/src/jvmMainGenerated/resources/libs/windows-x64/tdjni.dll
+          Copy-Item td/tdlib/bin/tdjsonjava.dll -Destination tdl-coroutines/src/jvmMainGenerated/resources/libs/windows-x64/tdjsonjava.dll
           Copy-Item td/tdlib/bin/zlib1.dll -Destination tdl-coroutines/src/jvmMainGenerated/resources/libs/windows-x64/zlib1.dll
 
       - name: Commit and push libs
@@ -431,45 +484,3 @@ jobs:
           committer_email: noreply@github.com
           message: TDLib for JVM Windows x64 [skip ci]
           add: tdl-coroutines
-
-  check:
-    needs:
-      - build-android
-      - build-jvm-linux-arm64
-      - build-jvm-linux-x64
-      - build-jvm-macos-arm64
-      - build-jvm-macos-x64
-      - build-jvm-windows-arm64
-      - build-jvm-windows-x64
-    runs-on: ubuntu-24.04
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-          ref: ${{ github.ref }}
-          lfs: true
-          submodules: false
-
-      - name: Setup Java
-        uses: actions/setup-java@v4
-        with:
-          java-version: 24
-          distribution: temurin
-
-      - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@v4
-        with:
-          gradle-version: 8.14.1
-          cache-disabled: false
-
-      - name: Assemble libraries
-        run: |
-          ./gradlew tdl-coroutines:assembleRelease
-          ./gradlew tdl-coroutines:jvmJar
-
-      - name: Assemble examples
-        run: |
-          ./gradlew tdl-coroutines-example:assembleRelease
-          ./gradlew tdl-coroutines-example-jvm:assemble

@@ -16,46 +16,89 @@
 
 package dev.g000sha256.tdl
 
+import dev.g000sha256.tdl.dto.Update
+import dev.g000sha256.tdl.util.buildJsonObjectString
+import dev.g000sha256.tdl.util.put
 import kotlin.time.Duration.Companion.hours
 import kotlinx.atomicfu.atomic
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.mapNotNull
 import kotlinx.coroutines.flow.onSubscription
 import kotlinx.coroutines.launch
-import org.drinkless.tdlib.TdApi
-
-private const val MAX_SIZE = 100
+import kotlinx.coroutines.withContext
+import kotlinx.serialization.json.putJsonObject
 
 private val MAX_TIMEOUT = 24.hours.inWholeSeconds.toDouble()
 
-internal class TdlEngine(private val coroutineScope: TdlCoroutineScope, private val native: TdlNative) {
+internal class TdlEngine(
+    private val coroutineDispatcherReceiver: CoroutineDispatcher,
+    private val coroutineDispatcherSender: CoroutineDispatcher,
+    private val coroutineScope: CoroutineScope,
+    private val native: TdlNative,
+    private val deserializer: TdlDeserializer,
+    private val serializer: TdlSerializer,
+) {
 
     private val initialized = atomic(initial = false)
     private val requestIdsCounter = atomic(initial = 0L)
-    private val responsesMutableSharedFlow = MutableSharedFlow<Pair<Long, TdApi.Object>>()
-    private val updatesMutableSharedFlow = MutableSharedFlow<Pair<Int, TdApi.Object>>(extraBufferCapacity = Int.MAX_VALUE)
+    private val responsesMutableSharedFlow = MutableSharedFlow<Triple<Int, Long, Any>>(extraBufferCapacity = Int.MAX_VALUE)
+
+    init {
+        native.execute(
+            request = buildJsonObjectString {
+                put(key = "@type", string = "setLogVerbosityLevel")
+                put(key = "new_verbosity_level", int = 0)
+            },
+        )
+        native.execute(
+            request = buildJsonObjectString {
+                put(key = "@type", string = "setLogStream")
+                putJsonObject(key = "log_stream") {
+                    put(key = "@type", string = "logStreamEmpty")
+                }
+            },
+        )
+    }
 
     fun createClientId(): Int {
         return native.createClientId()
     }
 
-    fun getUpdates(clientId: Int): Flow<TdApi.Object> {
-        return updatesMutableSharedFlow
-            .filter { update -> update.first == clientId }
-            .map { update -> update.second }
+    fun getUpdates(clientId: Int): Flow<Update> {
+        return responsesMutableSharedFlow.mapNotNull { triple ->
+            if (triple.first != clientId) {
+                return@mapNotNull null
+            }
+
+            if (triple.second > 0L) {
+                return@mapNotNull null
+            }
+
+            val dto = triple.third
+            if (dto !is Update) {
+                return@mapNotNull null
+            }
+
+            return@mapNotNull dto
+        }
     }
 
-    suspend fun send(clientId: Int, function: TdApi.Function<*>): TdApi.Object {
+    suspend fun <F : Any> send(function: F, clientId: Int): Any {
         startIfNeeded()
 
-        val requestId = requestIdsCounter.incrementAndGet()
-        return responsesMutableSharedFlow
-            .onSubscription { native.send(clientId, requestId, function) }
-            .first { update -> update.first == requestId }
-            .second
+        return withContext(context = coroutineDispatcherSender) {
+            val requestId = requestIdsCounter.incrementAndGet()
+            val json = serializer.serialize(function = function, requestId = requestId)
+
+            return@withContext responsesMutableSharedFlow
+                .onSubscription { native.send(clientId = clientId, request = json) }
+                .first { triple -> triple.first == clientId && triple.second == requestId }
+                .third
+        }
     }
 
     private fun startIfNeeded() {
@@ -64,33 +107,15 @@ internal class TdlEngine(private val coroutineScope: TdlCoroutineScope, private 
             return
         }
 
-        coroutineScope.launch {
-            val clientIds = IntArray(MAX_SIZE) { -1 }
-            val requestIds = LongArray(MAX_SIZE) { -1L }
-            val responses = Array<TdApi.Object?>(MAX_SIZE) { null }
-
+        coroutineScope.launch(context = coroutineDispatcherReceiver) {
             while (true) {
-                val responsesCount = native.receive(clientIds, requestIds, responses, MAX_TIMEOUT)
-                repeat(responsesCount) { index ->
-                    val clientId = clientIds.getAndSet(index, newValue = -1)
-                    val requestId = requestIds.getAndSet(index, newValue = -1L)
-                    val response = responses.getAndSet(index, newValue = null)!!
-
-                    if (requestId == 0L) {
-                        updatesMutableSharedFlow.emit(value = clientId to response)
-                    } else {
-                        responsesMutableSharedFlow.emit(value = requestId to response)
-                    }
+                val json = native.receive(timeoutInSeconds = MAX_TIMEOUT)
+                if (json != null) {
+                    val triple = deserializer.deserialize(json = json)
+                    responsesMutableSharedFlow.emit(value = triple)
                 }
             }
         }
-    }
-
-    companion object {
-
-        const val GIT_COMMIT_HASH = TdApi.GIT_COMMIT_HASH
-        const val VERSION = TdApi.VERSION
-
     }
 
 }

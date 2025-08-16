@@ -1,3 +1,19 @@
+/*
+ * Copyright 2025 Georgii Ippolitov (g000sha256)
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package dev.g000sha256.tdl
 
 import java.io.File
@@ -10,16 +26,16 @@ internal actual fun loadSystemLibrary() {
         is OsName.Linux -> {
             val osArch = getOsArch()
             when (osArch) {
-                is OsArch.Arm64 -> load(platform = "linux-arm64", libraryName = "libtdjni.so")
-                is OsArch.X64 -> load(platform = "linux-x64", libraryName = "libtdjni.so")
+                is OsArch.Arm64 -> load(platform = "linux-arm64", libraryName = "libtdjsonjava.so")
+                is OsArch.X64 -> load(platform = "linux-x64", libraryName = "libtdjsonjava.so")
                 is OsArch.Unknown -> error(message = "Unknown OS arch: ${osArch.arch}")
             }
         }
         is OsName.MacOs -> {
             val osArch = getOsArch()
             when (osArch) {
-                is OsArch.Arm64 -> load(platform = "macos-arm64", libraryName = "libtdjni.dylib")
-                is OsArch.X64 -> load(platform = "macos-x64", libraryName = "libtdjni.dylib")
+                is OsArch.Arm64 -> load(platform = "macos-arm64", libraryName = "libtdjsonjava.dylib")
+                is OsArch.X64 -> load(platform = "macos-x64", libraryName = "libtdjsonjava.dylib")
                 is OsArch.Unknown -> error(message = "Unknown OS arch: ${osArch.arch}")
             }
         }
@@ -29,23 +45,23 @@ internal actual fun loadSystemLibrary() {
                 is OsArch.Arm64 -> {
                     load(
                         platform = "windows-arm64",
-                        libraryNames = arrayOf(
-                            "libcrypto-3-arm64.dll",
-                            "libssl-3-arm64.dll",
-                            "zlib1.dll",
-                            "tdjni.dll",
-                        ),
+                        libraryNames = buildList {
+                            add(element = "libcrypto-3-arm64.dll")
+                            add(element = "libssl-3-arm64.dll")
+                            add(element = "zlib1.dll")
+                            add(element = "tdjsonjava.dll")
+                        },
                     )
                 }
                 is OsArch.X64 -> {
                     load(
                         platform = "windows-x64",
-                        libraryNames = arrayOf(
-                            "libcrypto-3-x64.dll",
-                            "libssl-3-x64.dll",
-                            "zlib1.dll",
-                            "tdjni.dll",
-                        ),
+                        libraryNames = buildList {
+                            add(element = "libcrypto-3-x64.dll")
+                            add(element = "libssl-3-x64.dll")
+                            add(element = "zlib1.dll")
+                            add(element = "tdjsonjava.dll")
+                        },
                     )
                 }
                 is OsArch.Unknown -> error(message = "Unknown OS arch: ${osArch.arch}")
@@ -84,11 +100,11 @@ private fun getSystemProperty(key: String): String {
 private fun load(platform: String, libraryName: String) {
     load(
         platform = platform,
-        libraryNames = arrayOf(libraryName),
+        libraryNames = listOf(element = libraryName),
     )
 }
 
-private fun load(platform: String, libraryNames: Array<String>) {
+private fun load(platform: String, libraryNames: List<String>) {
     createTempDirectory(prefix = platform)
         .toFile()
         .also { directory -> directory.deleteOnExit() }
@@ -96,7 +112,7 @@ private fun load(platform: String, libraryNames: Array<String>) {
 }
 
 @Suppress("UnsafeDynamicallyLoadedCode")
-private fun load(libraryNames: Array<String>, directory: File, platform: String) {
+private fun load(libraryNames: List<String>, directory: File, platform: String) {
     libraryNames.forEach { libraryName ->
         val file = File(directory, libraryName)
         file.deleteOnExit()

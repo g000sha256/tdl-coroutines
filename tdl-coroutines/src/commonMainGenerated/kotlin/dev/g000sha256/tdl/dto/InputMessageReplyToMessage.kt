@@ -27,10 +27,12 @@ import kotlin.String
  *
  * @property messageId The identifier of the message to be replied in the same chat and forum topic. A message can be replied in the same chat and forum topic only if messageProperties.canBeReplied.
  * @property quote Quote from the message to be replied; pass null if none. Must always be null for replies in secret chats.
+ * @property checklistTaskId Identifier of the checklist task in the message to be replied; pass 0 to reply to the whole message.
  */
 public class InputMessageReplyToMessage public constructor(
     public val messageId: Long,
     public val quote: InputTextQuote?,
+    public val checklistTaskId: Int,
 ) : InputMessageReplyTo() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
@@ -46,13 +48,17 @@ public class InputMessageReplyToMessage public constructor(
         if (other.messageId != messageId) {
             return false
         }
-        return other.quote == quote
+        if (other.quote != quote) {
+            return false
+        }
+        return other.checklistTaskId == checklistTaskId
     }
 
     override fun hashCode(): Int {
         var hashCode = this::class.hashCode()
         hashCode = 31 * hashCode + messageId.hashCode()
         hashCode = 31 * hashCode + quote.hashCode()
+        hashCode = 31 * hashCode + checklistTaskId.hashCode()
         return hashCode
     }
 
@@ -65,6 +71,9 @@ public class InputMessageReplyToMessage public constructor(
             append(", ")
             append("quote=")
             append(quote)
+            append(", ")
+            append("checklistTaskId=")
+            append(checklistTaskId)
             append(")")
         }
     }

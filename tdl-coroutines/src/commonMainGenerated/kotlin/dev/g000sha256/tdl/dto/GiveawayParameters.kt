@@ -27,7 +27,7 @@ import kotlin.String
 /**
  * Describes parameters of a giveaway.
  *
- * @property boostedChatId Identifier of the supergroup or channel chat, which will be automatically boosted by the winners of the giveaway for duration of the Telegram Premium subscription, or for the specified time. If the chat is a channel, then canPostMessages right is required in the channel, otherwise, the user must be an administrator in the supergroup.
+ * @property boostedChatId Identifier of the supergroup or channel chat, which will be automatically boosted by the winners of the giveaway for duration of the Telegram Premium subscription, or for the specified time. If the chat is a channel, then canPostMessages administrator right is required in the channel, otherwise, the user must be an administrator in the supergroup.
  * @property additionalChatIds Identifiers of other supergroup or channel chats that must be subscribed by the users to be eligible for the giveaway. There can be up to getOption(&quot;giveaway_additional_chat_count_max&quot;) additional chats.
  * @property winnersSelectionDate Point in time (Unix timestamp) when the giveaway is expected to be performed; must be 60-getOption(&quot;giveaway_duration_max&quot;) seconds in the future in scheduled giveaways.
  * @property onlyNewMembers True, if only new members of the chats will be eligible for the giveaway.

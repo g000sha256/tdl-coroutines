@@ -1,12 +1,14 @@
 # TDL Coroutines
 
 [![Maven Central](https://img.shields.io/maven-central/v/dev.g000sha256/tdl-coroutines?label=Maven%20Central&labelColor=171C35&color=E38E33)](https://central.sonatype.com/artifact/dev.g000sha256/tdl-coroutines)
-[![TDLib Version](https://img.shields.io/badge/TDLib-v1.8.51-blue?labelColor=19212A&color=53A5E3)](https://github.com/tdlib/td/tree/bb474a201baa798784d696d2d9d762a9d2807f96)
+[![TDLib Version](https://img.shields.io/badge/TDLib-v1.8.52-blue?labelColor=19212A&color=53A5E3)](https://github.com/tdlib/td/tree/bc32c4b20a92df817c45d8af675a7a9572b739bc)
 
 ![Platform](https://img.shields.io/static/v1?label=Platform&labelColor=black&message=Android&color=green)
 ![Platform](https://img.shields.io/static/v1?label=Platform&labelColor=black&message=JVM&color=orange)
 
-This library provides a `Kotlin Coroutines` client for the `Telegram Database Library` ([TDLib](https://github.com/tdlib/td)).
+`TDL Coroutines` is a `Kotlin Multiplatform` library that provides a coroutine-based client for the
+`Telegram Database Library` ([TDLib](https://github.com/tdlib/td)). It simplifies sending requests and handling updates, making
+integration with `TDLib` more straightforward and idiomatic for `Kotlin` and `Kotlin Multiplatform` projects.
 
 ## Gradle setup
 
@@ -18,7 +20,7 @@ repositories {
 
 ```kotlin
 dependencies {
-    implementation("dev.g000sha256:tdl-coroutines:1.4.0")
+    implementation("dev.g000sha256:tdl-coroutines:1.5.0")
 }
 ```
 
@@ -35,9 +37,12 @@ dependencies {
 val client = TdlClient.create()
 ```
 
+> [!IMPORTANT]
+> To start using `TdlClient`, you should first subscribe to important updates, and then call any request method.
+
 ### How to subscribe to updates
 
-The `TdlClient` provides 159 update flows, as well as one that includes all updates.
+The `TdlClient` provides 161 update flows, as well as one that includes all updates.
 
 ```kotlin
 coroutineScope.launch {
@@ -69,7 +74,7 @@ coroutineScope.launch {
 
 ### How to send a request
 
-The `TdlClient` provides 877 request methods.
+The `TdlClient` provides 881 request methods.
 
 ```kotlin
 coroutineScope.launch {
@@ -87,3 +92,6 @@ coroutineScope.launch {
     }
 }
 ```
+
+> [!TIP]
+> You can use the `.toResult()` extension to convert the `TdlResult<T>` into the standard `Kotlin` `Result<T>`.

@@ -38,6 +38,8 @@ import kotlin.String
  * @property canBeSaved True, if content of the message can be saved locally.
  * @property hasTimestampedMedia True, if media timestamp entities refers to a media in this message as opposed to a media in the replied message.
  * @property isChannelPost True, if the message is a channel post. All messages to channels are channel posts, all other messages are not channel posts.
+ * @property isPaidStarSuggestedPost True, if the message is a suggested channel post which was paid in Telegram Stars; a warning must be shown if the message is deleted in less than getOption(&quot;suggested_post_lifetime_min&quot;) seconds after sending.
+ * @property isPaidTonSuggestedPost True, if the message is a suggested channel post which was paid in Toncoins; a warning must be shown if the message is deleted in less than getOption(&quot;suggested_post_lifetime_min&quot;) seconds after sending.
  * @property containsUnreadMention True, if the message contains an unread mention for the current user.
  * @property date Point in time (Unix timestamp) when the message was sent; 0 for scheduled messages.
  * @property editDate Point in time (Unix timestamp) when the message was last edited; 0 for scheduled messages.
@@ -46,6 +48,7 @@ import kotlin.String
  * @property interactionInfo Information about interactions with the message; may be null if none.
  * @property unreadReactions Information about unread reactions added to the message.
  * @property factCheck Information about fact-check added to the message; may be null if none.
+ * @property suggestedPostInfo Information about the suggested post; may be null if the message isn't a suggested post.
  * @property replyTo Information about the message or the story this message is replying to; may be null if none.
  * @property messageThreadId If non-zero, the identifier of the message thread the message belongs to; unique within the chat to which the message belongs.
  * @property topicId Identifier of the topic within the chat to which the message belongs; may be null if none.
@@ -76,6 +79,8 @@ public class Message public constructor(
     public val canBeSaved: Boolean,
     public val hasTimestampedMedia: Boolean,
     public val isChannelPost: Boolean,
+    public val isPaidStarSuggestedPost: Boolean,
+    public val isPaidTonSuggestedPost: Boolean,
     public val containsUnreadMention: Boolean,
     public val date: Int,
     public val editDate: Int,
@@ -84,6 +89,7 @@ public class Message public constructor(
     public val interactionInfo: MessageInteractionInfo?,
     public val unreadReactions: Array<UnreadReaction>,
     public val factCheck: FactCheck?,
+    public val suggestedPostInfo: SuggestedPostInfo?,
     public val replyTo: MessageReplyTo?,
     public val messageThreadId: Long,
     public val topicId: MessageTopic?,
@@ -146,6 +152,12 @@ public class Message public constructor(
         if (other.isChannelPost != isChannelPost) {
             return false
         }
+        if (other.isPaidStarSuggestedPost != isPaidStarSuggestedPost) {
+            return false
+        }
+        if (other.isPaidTonSuggestedPost != isPaidTonSuggestedPost) {
+            return false
+        }
         if (other.containsUnreadMention != containsUnreadMention) {
             return false
         }
@@ -169,6 +181,9 @@ public class Message public constructor(
             return false
         }
         if (other.factCheck != factCheck) {
+            return false
+        }
+        if (other.suggestedPostInfo != suggestedPostInfo) {
             return false
         }
         if (other.replyTo != replyTo) {
@@ -235,6 +250,8 @@ public class Message public constructor(
         hashCode = 31 * hashCode + canBeSaved.hashCode()
         hashCode = 31 * hashCode + hasTimestampedMedia.hashCode()
         hashCode = 31 * hashCode + isChannelPost.hashCode()
+        hashCode = 31 * hashCode + isPaidStarSuggestedPost.hashCode()
+        hashCode = 31 * hashCode + isPaidTonSuggestedPost.hashCode()
         hashCode = 31 * hashCode + containsUnreadMention.hashCode()
         hashCode = 31 * hashCode + date.hashCode()
         hashCode = 31 * hashCode + editDate.hashCode()
@@ -243,6 +260,7 @@ public class Message public constructor(
         hashCode = 31 * hashCode + interactionInfo.hashCode()
         hashCode = 31 * hashCode + unreadReactions.contentDeepHashCode()
         hashCode = 31 * hashCode + factCheck.hashCode()
+        hashCode = 31 * hashCode + suggestedPostInfo.hashCode()
         hashCode = 31 * hashCode + replyTo.hashCode()
         hashCode = 31 * hashCode + messageThreadId.hashCode()
         hashCode = 31 * hashCode + topicId.hashCode()
@@ -300,6 +318,12 @@ public class Message public constructor(
             append("isChannelPost=")
             append(isChannelPost)
             append(", ")
+            append("isPaidStarSuggestedPost=")
+            append(isPaidStarSuggestedPost)
+            append(", ")
+            append("isPaidTonSuggestedPost=")
+            append(isPaidTonSuggestedPost)
+            append(", ")
             append("containsUnreadMention=")
             append(containsUnreadMention)
             append(", ")
@@ -325,6 +349,9 @@ public class Message public constructor(
             append(", ")
             append("factCheck=")
             append(factCheck)
+            append(", ")
+            append("suggestedPostInfo=")
+            append(suggestedPostInfo)
             append(", ")
             append("replyTo=")
             append(replyTo)

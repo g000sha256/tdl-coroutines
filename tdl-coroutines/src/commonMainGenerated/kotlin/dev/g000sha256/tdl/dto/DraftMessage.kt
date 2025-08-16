@@ -29,12 +29,14 @@ import kotlin.String
  * @property date Point in time (Unix timestamp) when the draft was created.
  * @property inputMessageText Content of the message draft; must be of the type inputMessageText, inputMessageVideoNote, or inputMessageVoiceNote.
  * @property effectId Identifier of the effect to apply to the message when it is sent; 0 if none.
+ * @property suggestedPostInfo Information about the suggested post; may be null if none.
  */
 public class DraftMessage public constructor(
     public val replyTo: InputMessageReplyTo?,
     public val date: Int,
     public val inputMessageText: InputMessageContent,
     public val effectId: Long,
+    public val suggestedPostInfo: InputSuggestedPostInfo?,
 ) {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
@@ -56,7 +58,10 @@ public class DraftMessage public constructor(
         if (other.inputMessageText != inputMessageText) {
             return false
         }
-        return other.effectId == effectId
+        if (other.effectId != effectId) {
+            return false
+        }
+        return other.suggestedPostInfo == suggestedPostInfo
     }
 
     override fun hashCode(): Int {
@@ -65,6 +70,7 @@ public class DraftMessage public constructor(
         hashCode = 31 * hashCode + date.hashCode()
         hashCode = 31 * hashCode + inputMessageText.hashCode()
         hashCode = 31 * hashCode + effectId.hashCode()
+        hashCode = 31 * hashCode + suggestedPostInfo.hashCode()
         return hashCode
     }
 
@@ -83,6 +89,9 @@ public class DraftMessage public constructor(
             append(", ")
             append("effectId=")
             append(effectId)
+            append(", ")
+            append("suggestedPostInfo=")
+            append(suggestedPostInfo)
             append(")")
         }
     }

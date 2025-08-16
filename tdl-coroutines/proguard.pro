@@ -38,6 +38,20 @@
 
 }
 
+-keepclasseswithmembers class dev.g000sha256.tdl.TdlResultKt {
+
+    toResult(dev.g000sha256.tdl.TdlResult);
+
+}
+
+-keepclasseswithmembers class dev.g000sha256.tdl.TdlThrowable {
+
+    getCode();
+
+    getMessage();
+
+}
+
 -keep class dev.g000sha256.tdl.dto.**
 
 -keepclassmembers class dev.g000sha256.tdl.dto.** {

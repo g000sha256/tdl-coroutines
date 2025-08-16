@@ -315,7 +315,6 @@ import dev.g000sha256.tdl.dto.StarPaymentOptions
 import dev.g000sha256.tdl.dto.StarRevenueStatistics
 import dev.g000sha256.tdl.dto.StarSubscriptionPricing
 import dev.g000sha256.tdl.dto.StarSubscriptions
-import dev.g000sha256.tdl.dto.StarTransactionDirection
 import dev.g000sha256.tdl.dto.StarTransactions
 import dev.g000sha256.tdl.dto.StatisticalGraph
 import dev.g000sha256.tdl.dto.Sticker
@@ -354,7 +353,9 @@ import dev.g000sha256.tdl.dto.TextEntities
 import dev.g000sha256.tdl.dto.TextParseMode
 import dev.g000sha256.tdl.dto.ThemeParameters
 import dev.g000sha256.tdl.dto.TimeZones
+import dev.g000sha256.tdl.dto.TonTransactions
 import dev.g000sha256.tdl.dto.TopChatCategory
+import dev.g000sha256.tdl.dto.TransactionDirection
 import dev.g000sha256.tdl.dto.TrendingStickerSets
 import dev.g000sha256.tdl.dto.Update
 import dev.g000sha256.tdl.dto.UpdateAccentColors
@@ -454,6 +455,7 @@ import dev.g000sha256.tdl.dto.UpdateMessageReactions
 import dev.g000sha256.tdl.dto.UpdateMessageSendAcknowledged
 import dev.g000sha256.tdl.dto.UpdateMessageSendFailed
 import dev.g000sha256.tdl.dto.UpdateMessageSendSucceeded
+import dev.g000sha256.tdl.dto.UpdateMessageSuggestedPostInfo
 import dev.g000sha256.tdl.dto.UpdateMessageUnreadReactions
 import dev.g000sha256.tdl.dto.UpdateNewBusinessCallbackQuery
 import dev.g000sha256.tdl.dto.UpdateNewBusinessMessage
@@ -473,6 +475,7 @@ import dev.g000sha256.tdl.dto.UpdateNotification
 import dev.g000sha256.tdl.dto.UpdateNotificationGroup
 import dev.g000sha256.tdl.dto.UpdateOption
 import dev.g000sha256.tdl.dto.UpdateOwnedStarCount
+import dev.g000sha256.tdl.dto.UpdateOwnedTonCount
 import dev.g000sha256.tdl.dto.UpdatePaidMediaPurchased
 import dev.g000sha256.tdl.dto.UpdatePoll
 import dev.g000sha256.tdl.dto.UpdatePollAnswer
@@ -619,6 +622,11 @@ public abstract class TdlClient internal constructor() {
      * A fact-check added to a message was changed.
      */
     public abstract val messageFactCheckUpdates: Flow<UpdateMessageFactCheck>
+
+    /**
+     * Information about suggested post of a message was changed.
+     */
+    public abstract val messageSuggestedPostInfoUpdates: Flow<UpdateMessageSuggestedPostInfo>
 
     /**
      * A message with a live location was viewed. When the update is received, the application is expected to update the live location.
@@ -1200,6 +1208,11 @@ public abstract class TdlClient internal constructor() {
     public abstract val ownedStarCountUpdates: Flow<UpdateOwnedStarCount>
 
     /**
+     * The number of Toncoins owned by the current user has changed.
+     */
+    public abstract val ownedTonCountUpdates: Flow<UpdateOwnedTonCount>
+
+    /**
      * The revenue earned from sponsored messages in a chat has changed. If chat revenue screen is opened, then getChatRevenueTransactions may be called to fetch new transactions.
      */
     public abstract val chatRevenueAmountUpdates: Flow<UpdateChatRevenueAmount>
@@ -1524,6 +1537,19 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun addNetworkStatistics(entry: NetworkStatisticsEntry): TdlResult<Ok>
 
     /**
+     * Sent a suggested post based on a previously sent message in a channel direct messages chat. Can be also used to suggest price or time change for an existing suggested post. Returns the sent message.
+     *
+     * @param chatId Identifier of the channel direct messages chat.
+     * @param messageId Identifier of the message in the chat which will be sent as suggested post. Use messageProperties.canAddOffer to check whether an offer can be added or messageProperties.canEditSuggestedPostInfo to check whether price or time of sending of the post can be changed.
+     * @param options Options to be used to send the message. New information about the suggested post must always be specified.
+     */
+    public abstract suspend fun addOffer(
+        chatId: Long,
+        messageId: Long,
+        options: MessageSendOptions,
+    ): TdlResult<Message>
+
+    /**
      * Adds the paid message reaction to a message. Use getMessageAvailableReactions to check whether the reaction is available for the message.
      *
      * @param chatId Identifier of the chat to which the message belongs.
@@ -1732,6 +1758,19 @@ public abstract class TdlClient internal constructor() {
      * @param code The code to apply.
      */
     public abstract suspend fun applyPremiumGiftCode(code: String): TdlResult<Ok>
+
+    /**
+     * Approves a suggested post in a channel direct messages chat.
+     *
+     * @param chatId Chat identifier of the channel direct messages chat.
+     * @param messageId Identifier of the message with the suggested post. Use messageProperties.canBeApproved to check whether the suggested post can be approved.
+     * @param sendDate Point in time (Unix timestamp) when the post is expected to be published; pass 0 if the date has already been chosen.
+     */
+    public abstract suspend fun approveSuggestedPost(
+        chatId: Long,
+        messageId: Long,
+        sendDate: Int,
+    ): TdlResult<Ok>
 
     /**
      * Informs server about an in-store purchase. For official applications only.
@@ -2382,6 +2421,19 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun declineGroupCallInvitation(chatId: Long, messageId: Long): TdlResult<Ok>
 
     /**
+     * Declines a suggested post in a channel direct messages chat.
+     *
+     * @param chatId Chat identifier of the channel direct messages chat.
+     * @param messageId Identifier of the message with the suggested post. Use messageProperties.canBeDeclined to check whether the suggested post can be declined.
+     * @param comment Comment for the creator of the suggested post; 0-128 characters.
+     */
+    public abstract suspend fun declineSuggestedPost(
+        chatId: Long,
+        messageId: Long,
+        comment: String,
+    ): TdlResult<Ok>
+
+    /**
      * Decrypts group call data received by tgcalls.
      *
      * @param groupCallId Group call identifier. The call must not be a video chat.
@@ -2978,7 +3030,7 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun editCustomLanguagePackInfo(info: LanguagePackInfo): TdlResult<Ok>
 
     /**
-     * Edits title and icon of a topic in a forum supergroup chat; requires canManageTopics right in the supergroup unless the user is creator of the topic.
+     * Edits title and icon of a topic in a forum supergroup chat; requires canManageTopics administrator right in the supergroup unless the user is creator of the topic.
      *
      * @param chatId Identifier of the chat.
      * @param messageThreadId Message thread identifier of the forum topic.
@@ -3755,8 +3807,8 @@ public abstract class TdlClient internal constructor() {
      *
      * @param chatId Chat identifier.
      * @param fromMessageId Identifier of the message starting from which history must be fetched; use 0 to get results from the last message.
-     * @param offset Specify 0 to get results from exactly the message fromMessageId or a negative offset up to 99 to get additionally some newer messages.
-     * @param limit The maximum number of messages to be returned; must be positive and can't be greater than 100. If the offset is negative, the limit must be greater than or equal to -offset. For optimal performance, the number of returned messages is chosen by TDLib and can be smaller than the specified limit.
+     * @param offset Specify 0 to get results from exactly the message fromMessageId or a negative number from -99 to -1 to get additionally -offset newer messages.
+     * @param limit The maximum number of messages to be returned; must be positive and can't be greater than 100. If the offset is negative, then the limit must be greater than or equal to -offset. For optimal performance, the number of returned messages is chosen by TDLib and can be smaller than the specified limit.
      * @param onlyLocal Pass true to get only messages that are available without sending network requests.
      */
     public abstract suspend fun getChatHistory(
@@ -3943,12 +3995,12 @@ public abstract class TdlClient internal constructor() {
      * Returns the list of revenue transactions for a chat. Currently, this method can be used only for channels if supergroupFullInfo.canGetRevenueStatistics == true or bots if userFullInfo.botInfo.canGetRevenueStatistics == true.
      *
      * @param chatId Chat identifier.
-     * @param offset Number of transactions to skip.
-     * @param limit The maximum number of transactions to be returned; up to 200.
+     * @param offset Offset of the first transaction to return as received from the previous request; use empty string to get the first chunk of results.
+     * @param limit The maximum number of transactions to be returned; up to 100.
      */
     public abstract suspend fun getChatRevenueTransactions(
         chatId: Long,
-        offset: Int,
+        offset: String,
         limit: Int,
     ): TdlResult<ChatRevenueTransactions>
 
@@ -4208,8 +4260,8 @@ public abstract class TdlClient internal constructor() {
      * @param chatId Chat identifier of the channel direct messages chat.
      * @param topicId Identifier of the topic which messages will be fetched.
      * @param fromMessageId Identifier of the message starting from which messages must be fetched; use 0 to get results from the last message.
-     * @param offset Specify 0 to get results from exactly the message fromMessageId or a negative offset up to 99 to get additionally some newer messages.
-     * @param limit The maximum number of messages to be returned; must be positive and can't be greater than 100. If the offset is negative, the limit must be greater than or equal to -offset. For optimal performance, the number of returned messages is chosen by TDLib and can be smaller than the specified limit.
+     * @param offset Specify 0 to get results from exactly the message fromMessageId or a negative number from -99 to -1 to get additionally -offset newer messages.
+     * @param limit The maximum number of messages to be returned; must be positive and can't be greater than 100. If the offset is negative, then the limit must be greater than or equal to -offset. For optimal performance, the number of returned messages is chosen by TDLib and can be smaller than the specified limit.
      */
     public abstract suspend fun getDirectMessagesChatTopicHistory(
         chatId: Long,
@@ -4241,7 +4293,7 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun getDirectMessagesChatTopicRevenue(chatId: Long, topicId: Long): TdlResult<StarCount>
 
     /**
-     * Returns the list of emoji statuses, which can't be used as chat emoji status, even they are from a sticker set with isAllowedAsChatEmojiStatus == true.
+     * Returns the list of emoji statuses, which can't be used as chat emoji status, even if they are from a sticker set with isAllowedAsChatEmojiStatus == true.
      */
     public abstract suspend fun getDisallowedChatEmojiStatuses(): TdlResult<EmojiStatusCustomEmojis>
 
@@ -4828,8 +4880,8 @@ public abstract class TdlClient internal constructor() {
      * @param chatId Chat identifier.
      * @param messageId Message identifier, which thread history needs to be returned.
      * @param fromMessageId Identifier of the message starting from which history must be fetched; use 0 to get results from the last message.
-     * @param offset Specify 0 to get results from exactly the message fromMessageId or a negative offset up to 99 to get additionally some newer messages.
-     * @param limit The maximum number of messages to be returned; must be positive and can't be greater than 100. If the offset is negative, the limit must be greater than or equal to -offset. For optimal performance, the number of returned messages is chosen by TDLib and can be smaller than the specified limit.
+     * @param offset Specify 0 to get results from exactly the message fromMessageId or a negative number from -99 to -1 to get additionally -offset newer messages.
+     * @param limit The maximum number of messages to be returned; must be positive and can't be greater than 100. If the offset is negative, then the limit must be greater than or equal to -offset. For optimal performance, the number of returned messages is chosen by TDLib and can be smaller than the specified limit.
      */
     public abstract suspend fun getMessageThreadHistory(
         chatId: Long,
@@ -5158,7 +5210,7 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun getRemoteFile(remoteFileId: String, fileType: FileType? = null): TdlResult<File>
 
     /**
-     * Returns information about a non-bundled message that is replied by a given message. Also, returns the pinned message, the game message, the invoice message, the message with a previously set same background, the giveaway message, the checklist message, and the topic creation message for messages of the types messagePinMessage, messageGameScore, messagePaymentSuccessful, messageChatSetBackground, messageGiveawayCompleted, messageChecklistTasksDone and messageChecklistTasksAdded, and topic messages without non-bundled replied message respectively. Returns a 404 error if the message doesn't exist.
+     * Returns information about a non-bundled message that is replied by a given message. Also, returns the pinned message for messagePinMessage, the game message for messageGameScore, the invoice message for messagePaymentSuccessful, the message with a previously set same background for messageChatSetBackground, the giveaway message for messageGiveawayCompleted, the checklist message for messageChecklistTasksDone, messageChecklistTasksAdded, the message with suggested post information for messageSuggestedPostApprovalFailed, messageSuggestedPostApproved, messageSuggestedPostDeclined, messageSuggestedPostPaid, messageSuggestedPostRefunded, the message with the regular gift that was upgraded for messageUpgradedGift with origin of the type upgradedGiftOriginUpgrade, and the topic creation message for topic messages without non-bundled replied message. Returns a 404 error if the message doesn't exist.
      *
      * @param chatId Identifier of the chat the message belongs to.
      * @param messageId Identifier of the reply message.
@@ -5182,8 +5234,8 @@ public abstract class TdlClient internal constructor() {
      *
      * @param savedMessagesTopicId Identifier of Saved Messages topic which messages will be fetched.
      * @param fromMessageId Identifier of the message starting from which messages must be fetched; use 0 to get results from the last message.
-     * @param offset Specify 0 to get results from exactly the message fromMessageId or a negative offset up to 99 to get additionally some newer messages.
-     * @param limit The maximum number of messages to be returned; must be positive and can't be greater than 100. If the offset is negative, the limit must be greater than or equal to -offset. For optimal performance, the number of returned messages is chosen by TDLib and can be smaller than the specified limit.
+     * @param offset Specify 0 to get results from exactly the message fromMessageId or a negative number from -99 to -1 to get additionally -offset newer messages.
+     * @param limit The maximum number of messages to be returned; must be positive and can't be greater than 100. If the offset is negative, then the limit must be greater than or equal to -offset. For optimal performance, the number of returned messages is chosen by TDLib and can be smaller than the specified limit.
      */
     public abstract suspend fun getSavedMessagesTopicHistory(
         savedMessagesTopicId: Long,
@@ -5298,7 +5350,7 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun getStarTransactions(
         ownerId: MessageSender,
         subscriptionId: String,
-        direction: StarTransactionDirection? = null,
+        direction: TransactionDirection? = null,
         offset: String,
         limit: Int,
     ): TdlResult<StarTransactions>
@@ -5307,7 +5359,7 @@ public abstract class TdlClient internal constructor() {
      * Returns a URL for Telegram Star withdrawal.
      *
      * @param ownerId Identifier of the owner of the Telegram Stars; can be identifier of the current user, an owned bot, or an owned supergroup or channel chat.
-     * @param starCount The number of Telegram Stars to withdraw. Must be at least getOption(&quot;star_withdrawal_count_min&quot;).
+     * @param starCount The number of Telegram Stars to withdraw; must be between getOption(&quot;star_withdrawal_count_min&quot;) and getOption(&quot;star_withdrawal_count_max&quot;).
      * @param password The 2-step verification password of the current user.
      */
     public abstract suspend fun getStarWithdrawalUrl(
@@ -5561,6 +5613,19 @@ public abstract class TdlClient internal constructor() {
      * Returns the list of supported time zones.
      */
     public abstract suspend fun getTimeZones(): TdlResult<TimeZones>
+
+    /**
+     * Returns the list of Toncoin transactions of the current user.
+     *
+     * @param direction Direction of the transactions to receive; pass null to get all transactions.
+     * @param offset Offset of the first transaction to return as received from the previous request; use empty string to get the first chunk of results.
+     * @param limit The maximum number of transactions to return.
+     */
+    public abstract suspend fun getTonTransactions(
+        direction: TransactionDirection? = null,
+        offset: String,
+        limit: Int,
+    ): TdlResult<TonTransactions>
 
     /**
      * Returns a list of frequently used chats.
@@ -6896,8 +6961,8 @@ public abstract class TdlClient internal constructor() {
      * @param query Query to search for.
      * @param senderId Identifier of the sender of messages to search for; pass null to search for messages from any sender. Not supported in secret chats.
      * @param fromMessageId Identifier of the message starting from which history must be fetched; use 0 to get results from the last message.
-     * @param offset Specify 0 to get results from exactly the message fromMessageId or a negative offset to get the specified message and some newer messages.
-     * @param limit The maximum number of messages to be returned; must be positive and can't be greater than 100. If the offset is negative, the limit must be greater than -offset. For optimal performance, the number of returned messages is chosen by TDLib and can be smaller than the specified limit.
+     * @param offset Specify 0 to get results from exactly the message fromMessageId or a negative number to get the specified message and some newer messages.
+     * @param limit The maximum number of messages to be returned; must be positive and can't be greater than 100. If the offset is negative, then the limit must be greater than -offset. For optimal performance, the number of returned messages is chosen by TDLib and can be smaller than the specified limit.
      * @param filter Additional filter for messages to search; pass null to search for all messages.
      */
     public abstract suspend fun searchChatMessages(
@@ -6969,7 +7034,7 @@ public abstract class TdlClient internal constructor() {
     ): TdlResult<FoundFileDownloads>
 
     /**
-     * Returns upgraded gifts that can be bought from other owners.
+     * Returns upgraded gifts that can be bought from other owners using sendResoldGift.
      *
      * @param giftId Identifier of the regular gift that was upgraded to a unique gift.
      * @param order Order in which the results will be sorted.
@@ -7135,8 +7200,8 @@ public abstract class TdlClient internal constructor() {
      * @param tag Tag to search for; pass null to return all suitable messages.
      * @param query Query to search for.
      * @param fromMessageId Identifier of the message starting from which messages must be fetched; use 0 to get results from the last message.
-     * @param offset Specify 0 to get results from exactly the message fromMessageId or a negative offset to get the specified message and some newer messages.
-     * @param limit The maximum number of messages to be returned; must be positive and can't be greater than 100. If the offset is negative, the limit must be greater than -offset. For optimal performance, the number of returned messages is chosen by TDLib and can be smaller than the specified limit.
+     * @param offset Specify 0 to get results from exactly the message fromMessageId or a negative number to get the specified message and some newer messages.
+     * @param limit The maximum number of messages to be returned; must be positive and can't be greater than 100. If the offset is negative, then the limit must be greater than -offset. For optimal performance, the number of returned messages is chosen by TDLib and can be smaller than the specified limit.
      */
     public abstract suspend fun searchSavedMessages(
         savedMessagesTopicId: Long,
@@ -7238,7 +7303,7 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun searchWebApp(botUserId: Long, webAppShortName: String): TdlResult<FoundWebApp>
 
     /**
-     * Sells a gift for Telegram Stars.
+     * Sells a gift for Telegram Stars; requires owner privileges for gifts owned by a chat.
      *
      * @param businessConnectionId Unique identifier of business connection on behalf of which to send the request; for bots only.
      * @param receivedGiftId Identifier of the gift.
@@ -7737,7 +7802,7 @@ public abstract class TdlClient internal constructor() {
      *
      * @param businessConnectionId Unique identifier of business connection.
      * @param photo Profile photo to set; pass null to remove the photo.
-     * @param isPublic Pass true to set the public photo, which will be visible even the main photo is hidden by privacy settings.
+     * @param isPublic Pass true to set the public photo, which will be visible even if the main photo is hidden by privacy settings.
      */
     public abstract suspend fun setBusinessAccountProfilePhoto(
         businessConnectionId: String,
@@ -8449,7 +8514,7 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun setPinnedChats(chatList: ChatList, chatIds: LongArray): TdlResult<Ok>
 
     /**
-     * Changes the order of pinned forum topics; requires canManageTopics right in the supergroup.
+     * Changes the order of pinned forum topics; requires canManageTopics administrator right in the supergroup.
      *
      * @param chatId Chat identifier.
      * @param messageThreadIds The new list of pinned forum topics.
@@ -8496,7 +8561,7 @@ public abstract class TdlClient internal constructor() {
      * Changes a profile photo for the current user.
      *
      * @param photo Profile photo to set.
-     * @param isPublic Pass true to set the public photo, which will be visible even the main photo is hidden by privacy settings.
+     * @param isPublic Pass true to set the public photo, which will be visible even if the main photo is hidden by privacy settings.
      */
     public abstract suspend fun setProfilePhoto(photo: InputChatPhoto, isPublic: Boolean): TdlResult<Ok>
 
@@ -9111,7 +9176,7 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun toggleDownloadIsPaused(fileId: Int, isPaused: Boolean): TdlResult<Ok>
 
     /**
-     * Toggles whether a topic is closed in a forum supergroup chat; requires canManageTopics right in the supergroup unless the user is creator of the topic.
+     * Toggles whether a topic is closed in a forum supergroup chat; requires canManageTopics administrator right in the supergroup unless the user is creator of the topic.
      *
      * @param chatId Identifier of the chat.
      * @param messageThreadId Message thread identifier of the forum topic.
@@ -9124,7 +9189,7 @@ public abstract class TdlClient internal constructor() {
     ): TdlResult<Ok>
 
     /**
-     * Changes the pinned state of a forum topic; requires canManageTopics right in the supergroup. There can be up to getOption(&quot;pinned_forum_topic_count_max&quot;) pinned forum topics.
+     * Changes the pinned state of a forum topic; requires canManageTopics administrator right in the supergroup. There can be up to getOption(&quot;pinned_forum_topic_count_max&quot;) pinned forum topics.
      *
      * @param chatId Chat identifier.
      * @param messageThreadId Message thread identifier of the forum topic.
@@ -9137,7 +9202,7 @@ public abstract class TdlClient internal constructor() {
     ): TdlResult<Ok>
 
     /**
-     * Toggles whether a General topic is hidden in a forum supergroup chat; requires canManageTopics right in the supergroup.
+     * Toggles whether a General topic is hidden in a forum supergroup chat; requires canManageTopics administrator right in the supergroup.
      *
      * @param chatId Identifier of the chat.
      * @param isHidden Pass true to hide and close the General topic; pass false to unhide it.
@@ -9514,7 +9579,7 @@ public abstract class TdlClient internal constructor() {
      * @param chatId Chat identifier.
      * @param messageIds The identifiers of the messages being viewed.
      * @param source Source of the message view; pass null to guess the source based on chat open state.
-     * @param forceRead Pass true to mark as read the specified messages even the chat is closed.
+     * @param forceRead Pass true to mark as read the specified messages even if the chat is closed.
      */
     public abstract suspend fun viewMessages(
         chatId: Long,
@@ -9568,18 +9633,18 @@ public abstract class TdlClient internal constructor() {
         /**
          * The Git commit hash of the TDLib.
          */
-        public const val TDL_GIT_COMMIT_HASH: String = TdlEngine.GIT_COMMIT_HASH
+        public const val TDL_GIT_COMMIT_HASH: String = "bc32c4b20a92df817c45d8af675a7a9572b739bc"
 
         /**
          * The version of the TDLib.
          */
-        public const val TDL_VERSION: String = TdlEngine.VERSION
+        public const val TDL_VERSION: String = "1.8.52"
 
         /**
          * Creates a new instance of the [TdlClient].
          */
         public fun create(): TdlClient {
-            return serviceLocator.createClient()
+            return createClient()
         }
     }
 }

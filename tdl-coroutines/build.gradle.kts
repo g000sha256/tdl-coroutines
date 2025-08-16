@@ -1,7 +1,7 @@
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 group = "dev.g000sha256"
-version = "1.4.0"
+version = "1.5.0"
 
 plugins {
     alias(catalog.plugins.android.library)
@@ -77,6 +77,7 @@ kotlin {
 
                 implementation(catalog.libs.jetBrains.atomic)
                 implementation(catalog.libs.jetBrains.coroutinesCore)
+                implementation(catalog.libs.jetBrains.kotlinSerialization)
             }
         }
 
