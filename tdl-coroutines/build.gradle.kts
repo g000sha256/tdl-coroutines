@@ -81,12 +81,7 @@ kotlin {
             }
         }
 
-        androidMain {
-            kotlin.srcDirs("src/androidMainGenerated/kotlin")
-        }
-
         jvmMain {
-            kotlin.srcDirs("src/jvmMainGenerated/kotlin")
             resources.srcDirs("src/jvmMainGenerated/resources")
         }
     }
