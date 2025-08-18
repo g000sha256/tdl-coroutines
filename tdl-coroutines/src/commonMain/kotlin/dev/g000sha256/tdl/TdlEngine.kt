@@ -101,6 +101,12 @@ internal class TdlEngine(
         }
     }
 
+    fun <F : Any> execute(function: F): Any {
+        val requestJson = serializer.serialize(function = function)
+        val responseJson = native.execute(request = requestJson)
+        return deserializer.deserialize(json = responseJson)
+    }
+
     private fun startIfNeeded() {
         val notInitialized = initialized.compareAndSet(expect = false, update = true)
         if (!notInitialized) {

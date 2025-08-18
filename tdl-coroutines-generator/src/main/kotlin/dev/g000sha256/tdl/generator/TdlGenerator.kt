@@ -729,6 +729,55 @@ private fun writeClientInterface(functionCommonElements: List<CommonElement>, up
                                 )
                                 .build()
                         )
+                        .addFunctions(
+                            funSpecs = functionCommonElements
+                                .filter { it.description.text.contains(other = "Can be called synchronously") }
+                                .map { commonElement ->
+                                    val functionName = commonElement.name
+
+                                    val properties = createProperties(
+                                        properties = commonElement.properties,
+                                        fields = commonElement.description.fields
+                                    )
+
+                                    return@map FunSpec
+                                        .builder(name = functionName)
+                                        .addKdoc(format = commonElement.description.text.withDotIfNeeded.withReplacedSnakeCases2.withReplacedSymbols)
+                                        .apply {
+                                            val fields = commonElement.description.fields
+                                            if (fields.size > 0) {
+                                                addKdoc(format = "\n")
+
+                                                fields.forEach { field ->
+                                                    addKdoc(format = "\n")
+                                                    addKdoc(format = "@param ")
+                                                    addKdoc(format = field.name.withReplacedSnakeCases1)
+                                                    addKdoc(format = " ")
+                                                    addKdoc(format = field.description.withDotIfNeeded.withReplacedSnakeCases2.withReplacedSymbols)
+                                                }
+                                            }
+                                        }
+                                        .addModifier(modifier = KModifier.PUBLIC)
+                                        .addParameters(
+                                            parameterSpecs = properties.map mapProperty@{ property ->
+                                                return@mapProperty ParameterSpec
+                                                    .builder(name = property.name, type = property.type)
+                                                    .apply {
+                                                        if (property.type.isNullable) {
+                                                            defaultValue(format = "null")
+                                                        }
+                                                    }
+                                                    .build()
+                                            }
+                                        )
+                                        .returns(
+                                            returnType = dtoTypeName(simpleName = commonElement.returns),
+                                        )
+                                        .addStatement(format = "REMOVE_LINE")
+                                        .addStatement(format = "return native.execute()")
+                                        .build()
+                                }
+                        )
                         .build()
                 )
                 .build()

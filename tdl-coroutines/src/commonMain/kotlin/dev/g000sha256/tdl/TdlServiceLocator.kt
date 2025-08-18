@@ -26,7 +26,6 @@ private val coroutineDispatcherReceiver by lazy { createSingleThreadCoroutineDis
 private val coroutineDispatcherSender by lazy { createSingleThreadCoroutineDispatcher(name = "TDL-Sender-Thread") }
 private val coroutineScope by lazy { createCoroutineScope() }
 
-private val engine by lazy { createEngine() }
 private val native by lazy { TdlNative() }
 
 private val deserializer by lazy { TdlDeserializer() }
@@ -34,6 +33,8 @@ private val serializer by lazy { TdlSerializer() }
 
 private val repository: TdlRepository
     get() = TdlRepository(engine = engine)
+
+internal val engine by lazy { createEngine() }
 
 internal fun createClient(): TdlClient {
     return TdlClientImpl(repository = repository)

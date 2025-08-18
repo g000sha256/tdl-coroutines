@@ -55,6 +55,15 @@ internal class TdlRepository(private val engine: TdlEngine) {
         }
     }
 
+    @Suppress("UNCHECKED_CAST")
+    fun <F : Any, M> execute(function: F): TdlResult<M> {
+        val dto = engine.execute(function = function)
+        when {
+            dto is Error -> return TdlResult.Failure(code = dto.code, message = dto.message)
+            else -> return TdlResult.Success(result = dto as M)
+        }
+    }
+
     private suspend fun FlowCollector<Update>.transform(update: Update) {
         emit(value = update)
 

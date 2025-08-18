@@ -9900,5 +9900,277 @@ public abstract class TdlClient internal constructor() {
         public fun create(): TdlClient {
             return createClient()
         }
+
+        /**
+         * Adds a message to TDLib internal log. Can be called synchronously.
+         *
+         * @param verbosityLevel The minimum verbosity level needed for the message to be logged; 0-1023.
+         * @param text Text of a message to log.
+         */
+        public fun addLogMessage(verbosityLevel: Int, text: String): Ok {
+            return native.execute()
+        }
+
+        /**
+         * Checks validness of a name for a quick reply shortcut. Can be called synchronously.
+         *
+         * @param name The name of the shortcut; 1-32 characters.
+         */
+        public fun checkQuickReplyShortcutName(name: String): Ok {
+            return native.execute()
+        }
+
+        /**
+         * Removes potentially dangerous characters from the name of a file. Returns an empty string on failure. Can be called synchronously.
+         *
+         * @param fileName File name or path to the file.
+         */
+        public fun cleanFileName(fileName: String): Text {
+            return native.execute()
+        }
+
+        /**
+         * Returns default icon name for a folder. Can be called synchronously.
+         *
+         * @param folder Chat folder.
+         */
+        public fun getChatFolderDefaultIconName(folder: ChatFolder): ChatFolderIcon {
+            return native.execute()
+        }
+
+        /**
+         * Returns an emoji for the given country. Returns an empty string on failure. Can be called synchronously.
+         *
+         * @param countryCode A two-letter ISO 3166-1 alpha-2 country code as received from getCountries.
+         */
+        public fun getCountryFlagEmoji(countryCode: String): Text {
+            return native.execute()
+        }
+
+        /**
+         * Returns the extension of a file, guessed by its MIME type. Returns an empty string on failure. Can be called synchronously.
+         *
+         * @param mimeType The MIME type of the file.
+         */
+        public fun getFileExtension(mimeType: String): Text {
+            return native.execute()
+        }
+
+        /**
+         * Returns the MIME type of a file, guessed by its extension. Returns an empty string on failure. Can be called synchronously.
+         *
+         * @param fileName The name of the file or path to the file.
+         */
+        public fun getFileMimeType(fileName: String): Text {
+            return native.execute()
+        }
+
+        /**
+         * Converts a JsonValue object to corresponding JSON-serialized string. Can be called synchronously.
+         *
+         * @param jsonValue The JsonValue object.
+         */
+        public fun getJsonString(jsonValue: JsonValue): Text {
+            return native.execute()
+        }
+
+        /**
+         * Converts a JSON-serialized string to corresponding JsonValue object. Can be called synchronously.
+         *
+         * @param json The JSON-serialized string.
+         */
+        public fun getJsonValue(json: String): JsonValue {
+            return native.execute()
+        }
+
+        /**
+         * Returns a string stored in the local database from the specified localization target and language pack by its key. Returns a 404 error if the string is not found. Can be called synchronously.
+         *
+         * @param languagePackDatabasePath Path to the language pack database in which strings are stored.
+         * @param localizationTarget Localization target to which the language pack belongs.
+         * @param languagePackId Language pack identifier.
+         * @param key Language pack key of the string to be returned.
+         */
+        public fun getLanguagePackString(
+            languagePackDatabasePath: String,
+            localizationTarget: String,
+            languagePackId: String,
+            key: String,
+        ): LanguagePackStringValue {
+            return native.execute()
+        }
+
+        /**
+         * Returns information about currently used log stream for internal logging of TDLib. Can be called synchronously.
+         */
+        public fun getLogStream(): LogStream {
+            return native.execute()
+        }
+
+        /**
+         * Returns current verbosity level for a specified TDLib internal log tag. Can be called synchronously.
+         *
+         * @param tag Logging tag to change verbosity level.
+         */
+        public fun getLogTagVerbosityLevel(tag: String): LogVerbosityLevel {
+            return native.execute()
+        }
+
+        /**
+         * Returns the list of available TDLib internal log tags, for example, [&quot;actor&quot;, &quot;binlog&quot;, &quot;connections&quot;, &quot;notifications&quot;, &quot;proxy&quot;]. Can be called synchronously.
+         */
+        public fun getLogTags(): LogTags {
+            return native.execute()
+        }
+
+        /**
+         * Returns current verbosity level of the internal logging of TDLib. Can be called synchronously.
+         */
+        public fun getLogVerbosityLevel(): LogVerbosityLevel {
+            return native.execute()
+        }
+
+        /**
+         * Replaces text entities with Markdown formatting in a human-friendly format. Entities that can't be represented in Markdown unambiguously are kept as is. Can be called synchronously.
+         *
+         * @param text The text.
+         */
+        public fun getMarkdownText(text: FormattedText): FormattedText {
+            return native.execute()
+        }
+
+        /**
+         * Returns the value of an option by its name. (Check the list of available options on https://core.telegram.org/tdlib/options.) Can be called before authorization. Can be called synchronously for options &quot;version&quot; and &quot;commit_hash&quot;.
+         *
+         * @param name The name of the option.
+         */
+        public fun getOption(name: String): OptionValue {
+            return native.execute()
+        }
+
+        /**
+         * Returns information about a phone number by its prefix synchronously. getCountries must be called at least once after changing localization to the specified language if properly localized country information is expected. Can be called synchronously.
+         *
+         * @param languageCode A two-letter ISO 639-1 language code for country information localization.
+         * @param phoneNumberPrefix The phone number prefix.
+         */
+        public fun getPhoneNumberInfoSync(languageCode: String, phoneNumberPrefix: String): PhoneNumberInfo {
+            return native.execute()
+        }
+
+        /**
+         * Returns a globally unique push notification subscription identifier for identification of an account, which has received a push notification. Can be called synchronously.
+         *
+         * @param payload JSON-encoded push notification payload.
+         */
+        public fun getPushReceiverId(payload: String): PushReceiverId {
+            return native.execute()
+        }
+
+        /**
+         * Returns all entities (mentions, hashtags, cashtags, bot commands, bank card numbers, URLs, and email addresses) found in the text. Can be called synchronously.
+         *
+         * @param text The text in which to look for entities.
+         */
+        public fun getTextEntities(text: String): TextEntities {
+            return native.execute()
+        }
+
+        /**
+         * Converts a themeParameters object to corresponding JSON-serialized string. Can be called synchronously.
+         *
+         * @param theme Theme parameters to convert to JSON.
+         */
+        public fun getThemeParametersJsonString(theme: ThemeParameters): Text {
+            return native.execute()
+        }
+
+        /**
+         * Parses Markdown entities in a human-friendly format, ignoring markup errors. Can be called synchronously.
+         *
+         * @param text The text to parse. For example, &quot;__italic__ ~~strikethrough~~ ||spoiler|| **bold** `code` ```pre``` __[italic__ textUrl](telegram.org) __italic**bold italic__bold**&quot;.
+         */
+        public fun parseMarkdown(text: FormattedText): FormattedText {
+            return native.execute()
+        }
+
+        /**
+         * Parses Bold, Italic, Underline, Strikethrough, Spoiler, CustomEmoji, BlockQuote, ExpandableBlockQuote, Code, Pre, PreCode, TextUrl and MentionName entities from a marked-up text. Can be called synchronously.
+         *
+         * @param text The text to parse.
+         * @param parseMode Text parse mode.
+         */
+        public fun parseTextEntities(text: String, parseMode: TextParseMode): FormattedText {
+            return native.execute()
+        }
+
+        /**
+         * Searches for a given quote in a text. Returns found quote start position in UTF-16 code units. Returns a 404 error if the quote is not found. Can be called synchronously.
+         *
+         * @param text Text in which to search for the quote.
+         * @param quote Quote to search for.
+         * @param quotePosition Approximate quote position in UTF-16 code units.
+         */
+        public fun searchQuote(
+            text: FormattedText,
+            quote: FormattedText,
+            quotePosition: Int,
+        ): FoundPosition {
+            return native.execute()
+        }
+
+        /**
+         * Searches specified query by word prefixes in the provided strings. Returns 0-based positions of strings that matched. Can be called synchronously.
+         *
+         * @param strings The strings to search in for the query.
+         * @param query Query to search for.
+         * @param limit The maximum number of objects to return.
+         * @param returnNoneForEmptyQuery Pass true to receive no results for an empty query.
+         */
+        public fun searchStringsByPrefix(
+            strings: Array<String>,
+            query: String,
+            limit: Int,
+            returnNoneForEmptyQuery: Boolean,
+        ): FoundPositions {
+            return native.execute()
+        }
+
+        /**
+         * Sets new log stream for internal logging of TDLib. Can be called synchronously.
+         *
+         * @param logStream New log stream.
+         */
+        public fun setLogStream(logStream: LogStream): Ok {
+            return native.execute()
+        }
+
+        /**
+         * Sets the verbosity level for a specified TDLib internal log tag. Can be called synchronously.
+         *
+         * @param tag Logging tag to change verbosity level.
+         * @param newVerbosityLevel New verbosity level; 1-1024.
+         */
+        public fun setLogTagVerbosityLevel(tag: String, newVerbosityLevel: Int): Ok {
+            return native.execute()
+        }
+
+        /**
+         * Sets the verbosity level of the internal logging of TDLib. Can be called synchronously.
+         *
+         * @param newVerbosityLevel New value of the verbosity level for logging. Value 0 corresponds to fatal errors, value 1 corresponds to errors, value 2 corresponds to warnings and debug warnings, value 3 corresponds to informational, value 4 corresponds to debug, value 5 corresponds to verbose debug, value greater than 5 and up to 1023 can be used to enable even more logging.
+         */
+        public fun setLogVerbosityLevel(newVerbosityLevel: Int): Ok {
+            return native.execute()
+        }
+
+        /**
+         * Returns the specified error and ensures that the Error object is used; for testing only. Can be called synchronously.
+         *
+         * @param error The error to be returned.
+         */
+        public fun testReturnError(error: Error): Error {
+            return native.execute()
+        }
     }
 }
