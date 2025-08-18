@@ -21,6 +21,7 @@ import dev.g000sha256.tdl.util.buildJsonObjectString
 import dev.g000sha256.tdl.util.put
 import kotlin.time.Duration.Companion.hours
 import kotlinx.atomicfu.atomic
+import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
@@ -43,8 +44,8 @@ internal class TdlEngine(
     private val serializer: TdlSerializer,
 ) {
 
-    private val initialized = atomic(initial = false)
     private val requestIdsCounter = atomic(initial = 0L)
+    private val startedCompletableDeferred = CompletableDeferred<Unit>()
     private val responsesMutableSharedFlow = MutableSharedFlow<Triple<Int, Long, Any>>(extraBufferCapacity = Int.MAX_VALUE)
 
     init {
@@ -62,6 +63,18 @@ internal class TdlEngine(
                 }
             },
         )
+
+        coroutineScope.launch(context = coroutineDispatcherReceiver) {
+            startedCompletableDeferred.complete(value = Unit)
+
+            while (true) {
+                native
+                    .receive(timeoutInSeconds = MAX_TIMEOUT)
+                    .let { json -> json ?: continue }
+                    .let { json -> deserializer.deserialize(json = json) }
+                    .also { triple -> responsesMutableSharedFlow.emit(value = triple) }
+            }
+        }
     }
 
     fun createClientId(): Int {
@@ -88,33 +101,17 @@ internal class TdlEngine(
     }
 
     suspend fun <F : Any> send(function: F, clientId: Int): Any {
-        startIfNeeded()
+        startedCompletableDeferred.await()
 
         return withContext(context = coroutineDispatcherSender) {
             val requestId = requestIdsCounter.incrementAndGet()
+
             val json = serializer.serialize(function = function, requestId = requestId)
 
             return@withContext responsesMutableSharedFlow
                 .onSubscription { native.send(clientId = clientId, request = json) }
                 .first { triple -> triple.first == clientId && triple.second == requestId }
                 .third
-        }
-    }
-
-    private fun startIfNeeded() {
-        val notInitialized = initialized.compareAndSet(expect = false, update = true)
-        if (!notInitialized) {
-            return
-        }
-
-        coroutineScope.launch(context = coroutineDispatcherReceiver) {
-            while (true) {
-                val json = native.receive(timeoutInSeconds = MAX_TIMEOUT)
-                if (json != null) {
-                    val triple = deserializer.deserialize(json = json)
-                    responsesMutableSharedFlow.emit(value = triple)
-                }
-            }
         }
     }
 
