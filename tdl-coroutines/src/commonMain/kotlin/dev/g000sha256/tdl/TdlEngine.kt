@@ -21,6 +21,7 @@ import dev.g000sha256.tdl.util.buildJsonObjectString
 import dev.g000sha256.tdl.util.put
 import kotlin.time.Duration.Companion.hours
 import kotlinx.atomicfu.atomic
+import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
@@ -43,8 +44,8 @@ internal class TdlEngine(
     private val serializer: TdlSerializer,
 ) {
 
-    private val initialized = atomic(initial = false)
     private val requestIdsCounter = atomic(initial = 0L)
+    private val startedCompletableDeferred = CompletableDeferred<Unit>()
     private val responsesMutableSharedFlow = MutableSharedFlow<Triple<Int, Long, Any>>(extraBufferCapacity = Int.MAX_VALUE)
 
     init {
@@ -62,6 +63,8 @@ internal class TdlEngine(
                 }
             },
         )
+
+        start()
     }
 
     fun createClientId(): Int {
@@ -88,7 +91,7 @@ internal class TdlEngine(
     }
 
     suspend fun <F : Any> send(function: F, clientId: Int): Any {
-        startIfNeeded()
+        startedCompletableDeferred.await()
 
         return withContext(context = coroutineDispatcherSender) {
             val requestId = requestIdsCounter.incrementAndGet()
@@ -101,13 +104,10 @@ internal class TdlEngine(
         }
     }
 
-    private fun startIfNeeded() {
-        val notInitialized = initialized.compareAndSet(expect = false, update = true)
-        if (!notInitialized) {
-            return
-        }
-
+    private fun start() {
         coroutineScope.launch(context = coroutineDispatcherReceiver) {
+            startedCompletableDeferred.complete(value = Unit)
+
             while (true) {
                 val json = native.receive(timeoutInSeconds = MAX_TIMEOUT)
                 if (json != null) {
