@@ -24,6 +24,7 @@ import kotlin.String
 internal class GetReceivedGifts internal constructor(
     internal val businessConnectionId: String,
     internal val ownerId: MessageSender,
+    internal val collectionId: Int,
     internal val excludeUnsaved: Boolean,
     internal val excludeSaved: Boolean,
     internal val excludeUnlimited: Boolean,

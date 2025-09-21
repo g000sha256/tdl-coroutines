@@ -27,7 +27,7 @@ import kotlin.String
  *
  * @property gift The gift.
  * @property resaleCount Number of gifts that are available for resale.
- * @property minResaleStarCount The minimum price for the gifts available for resale; 0 if there are no such gifts.
+ * @property minResaleStarCount The minimum price for the gifts available for resale in Telegram Star equivalent; 0 if there are no such gifts.
  * @property title The title of the upgraded gift; empty if the gift isn't available for resale.
  */
 public class AvailableGift public constructor(

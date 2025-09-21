@@ -27,7 +27,7 @@ import kotlin.String
  *
  * @property chatId Identifier of the chat in topic of which the number of messages has changed.
  * @property topicId Identifier of the topic.
- * @property messageCount Approximate number of messages in the topics.
+ * @property messageCount Approximate number of messages in the topic.
  */
 public class UpdateTopicMessageCount public constructor(
     public val chatId: Long,

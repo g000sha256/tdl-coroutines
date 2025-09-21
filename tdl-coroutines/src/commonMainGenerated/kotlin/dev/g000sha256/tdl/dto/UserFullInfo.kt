@@ -47,6 +47,9 @@ import kotlin.String
  * @property outgoingPaidMessageStarCount Number of Telegram Stars that must be paid by the current user for each sent message to the user.
  * @property giftSettings Settings for gift receiving for the user.
  * @property botVerification Information about verification status of the user provided by a bot; may be null if none or unknown.
+ * @property rating The current rating of the user; may be null if none.
+ * @property pendingRating The rating of the user after the next change; may be null if the user isn't the current user or there are no pending rating changes.
+ * @property pendingRatingDate Unix timestamp when rating of the user will change to pendingRating; 0 if the user isn't the current user or there are no pending rating changes.
  * @property businessInfo Information about business settings for Telegram Business accounts; may be null if none.
  * @property botInfo For bots, information about the bot; may be null if the user isn't a bot.
  */
@@ -73,6 +76,9 @@ public class UserFullInfo public constructor(
     public val outgoingPaidMessageStarCount: Long,
     public val giftSettings: GiftSettings,
     public val botVerification: BotVerification?,
+    public val rating: UserRating?,
+    public val pendingRating: UserRating?,
+    public val pendingRatingDate: Int,
     public val businessInfo: BusinessInfo?,
     public val botInfo: BotInfo?,
 ) {
@@ -153,6 +159,15 @@ public class UserFullInfo public constructor(
         if (other.botVerification != botVerification) {
             return false
         }
+        if (other.rating != rating) {
+            return false
+        }
+        if (other.pendingRating != pendingRating) {
+            return false
+        }
+        if (other.pendingRatingDate != pendingRatingDate) {
+            return false
+        }
         if (other.businessInfo != businessInfo) {
             return false
         }
@@ -183,6 +198,9 @@ public class UserFullInfo public constructor(
         hashCode = 31 * hashCode + outgoingPaidMessageStarCount.hashCode()
         hashCode = 31 * hashCode + giftSettings.hashCode()
         hashCode = 31 * hashCode + botVerification.hashCode()
+        hashCode = 31 * hashCode + rating.hashCode()
+        hashCode = 31 * hashCode + pendingRating.hashCode()
+        hashCode = 31 * hashCode + pendingRatingDate.hashCode()
         hashCode = 31 * hashCode + businessInfo.hashCode()
         hashCode = 31 * hashCode + botInfo.hashCode()
         return hashCode
@@ -257,6 +275,15 @@ public class UserFullInfo public constructor(
             append(", ")
             append("botVerification=")
             append(botVerification)
+            append(", ")
+            append("rating=")
+            append(rating)
+            append(", ")
+            append("pendingRating=")
+            append(pendingRating)
+            append(", ")
+            append("pendingRatingDate=")
+            append(pendingRatingDate)
             append(", ")
             append("businessInfo=")
             append(businessInfo)

@@ -47,8 +47,7 @@ import kotlin.String
  * @property verificationStatus Information about verification status of the supergroup or channel; may be null if none.
  * @property hasDirectMessagesGroup True, if the channel has direct messages group.
  * @property hasForumTabs True, if the supergroup is a forum, which topics are shown in the same way as in channel direct messages groups.
- * @property hasSensitiveContent True, if content of media messages in the supergroup or channel chat must be hidden with 18+ spoiler.
- * @property restrictionReason If non-empty, contains a human-readable description of the reason why access to this supergroup or channel must be restricted.
+ * @property restrictionInfo Information about the restrictions that must be applied to the corresponding supergroup or channel chat; may be null if none.
  * @property paidMessageStarCount Number of Telegram Stars that must be paid by non-administrator users of the supergroup chat for each sent message.
  * @property hasActiveStories True, if the supergroup or channel has non-expired stories available to the current user.
  * @property hasUnreadActiveStories True, if the supergroup or channel has unread non-expired stories available to the current user.
@@ -76,8 +75,7 @@ public class Supergroup public constructor(
     public val verificationStatus: VerificationStatus?,
     public val hasDirectMessagesGroup: Boolean,
     public val hasForumTabs: Boolean,
-    public val hasSensitiveContent: Boolean,
-    public val restrictionReason: String,
+    public val restrictionInfo: RestrictionInfo?,
     public val paidMessageStarCount: Long,
     public val hasActiveStories: Boolean,
     public val hasUnreadActiveStories: Boolean,
@@ -159,10 +157,7 @@ public class Supergroup public constructor(
         if (other.hasForumTabs != hasForumTabs) {
             return false
         }
-        if (other.hasSensitiveContent != hasSensitiveContent) {
-            return false
-        }
-        if (other.restrictionReason != restrictionReason) {
+        if (other.restrictionInfo != restrictionInfo) {
             return false
         }
         if (other.paidMessageStarCount != paidMessageStarCount) {
@@ -198,8 +193,7 @@ public class Supergroup public constructor(
         hashCode = 31 * hashCode + verificationStatus.hashCode()
         hashCode = 31 * hashCode + hasDirectMessagesGroup.hashCode()
         hashCode = 31 * hashCode + hasForumTabs.hashCode()
-        hashCode = 31 * hashCode + hasSensitiveContent.hashCode()
-        hashCode = 31 * hashCode + restrictionReason.hashCode()
+        hashCode = 31 * hashCode + restrictionInfo.hashCode()
         hashCode = 31 * hashCode + paidMessageStarCount.hashCode()
         hashCode = 31 * hashCode + hasActiveStories.hashCode()
         hashCode = 31 * hashCode + hasUnreadActiveStories.hashCode()
@@ -276,11 +270,8 @@ public class Supergroup public constructor(
             append("hasForumTabs=")
             append(hasForumTabs)
             append(", ")
-            append("hasSensitiveContent=")
-            append(hasSensitiveContent)
-            append(", ")
-            append("restrictionReason=")
-            append(restrictionReason)
+            append("restrictionInfo=")
+            append(restrictionInfo)
             append(", ")
             append("paidMessageStarCount=")
             append(paidMessageStarCount)

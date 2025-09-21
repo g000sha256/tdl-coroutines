@@ -23,6 +23,7 @@ import dev.g000sha256.tdl.dto.StoryFullId
 import dev.g000sha256.tdl.dto.StoryPrivacySettings
 import kotlin.Boolean
 import kotlin.Int
+import kotlin.IntArray
 import kotlin.Long
 
 internal class PostStory internal constructor(
@@ -31,6 +32,7 @@ internal class PostStory internal constructor(
     internal val areas: InputStoryAreas?,
     internal val caption: FormattedText?,
     internal val privacySettings: StoryPrivacySettings,
+    internal val albumIds: IntArray,
     internal val activePeriod: Int,
     internal val fromStoryFullId: StoryFullId?,
     internal val isPostedToChatPage: Boolean,

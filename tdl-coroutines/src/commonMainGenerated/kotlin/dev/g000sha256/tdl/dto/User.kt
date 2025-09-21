@@ -43,7 +43,7 @@ import kotlin.String
  * @property verificationStatus Information about verification status of the user; may be null if none.
  * @property isPremium True, if the user is a Telegram Premium user.
  * @property isSupport True, if the user is Telegram support account.
- * @property restrictionReason If non-empty, it contains a human-readable description of the reason why access to this user must be restricted.
+ * @property restrictionInfo Information about restrictions that must be applied to the corresponding private chat; may be null if none.
  * @property hasActiveStories True, if the user has non-expired stories available to the current user.
  * @property hasUnreadActiveStories True, if the user has unread non-expired stories available to the current user.
  * @property restrictsNewChats True, if the user may restrict new chats with non-contacts. Use canSendMessageToUser to check whether the current user can message the user or try to create a chat with them.
@@ -72,7 +72,7 @@ public class User public constructor(
     public val verificationStatus: VerificationStatus?,
     public val isPremium: Boolean,
     public val isSupport: Boolean,
-    public val restrictionReason: String,
+    public val restrictionInfo: RestrictionInfo?,
     public val hasActiveStories: Boolean,
     public val hasUnreadActiveStories: Boolean,
     public val restrictsNewChats: Boolean,
@@ -147,7 +147,7 @@ public class User public constructor(
         if (other.isSupport != isSupport) {
             return false
         }
-        if (other.restrictionReason != restrictionReason) {
+        if (other.restrictionInfo != restrictionInfo) {
             return false
         }
         if (other.hasActiveStories != hasActiveStories) {
@@ -194,7 +194,7 @@ public class User public constructor(
         hashCode = 31 * hashCode + verificationStatus.hashCode()
         hashCode = 31 * hashCode + isPremium.hashCode()
         hashCode = 31 * hashCode + isSupport.hashCode()
-        hashCode = 31 * hashCode + restrictionReason.hashCode()
+        hashCode = 31 * hashCode + restrictionInfo.hashCode()
         hashCode = 31 * hashCode + hasActiveStories.hashCode()
         hashCode = 31 * hashCode + hasUnreadActiveStories.hashCode()
         hashCode = 31 * hashCode + restrictsNewChats.hashCode()
@@ -264,8 +264,8 @@ public class User public constructor(
             append("isSupport=")
             append(isSupport)
             append(", ")
-            append("restrictionReason=")
-            append(restrictionReason)
+            append("restrictionInfo=")
+            append(restrictionInfo)
             append(", ")
             append("hasActiveStories=")
             append(hasActiveStories)

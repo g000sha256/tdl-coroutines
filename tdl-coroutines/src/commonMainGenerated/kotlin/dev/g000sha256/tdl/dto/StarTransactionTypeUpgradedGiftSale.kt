@@ -27,12 +27,14 @@ import kotlin.String
  *
  * @property userId Identifier of the user that bought the gift.
  * @property gift The gift.
- * @property affiliate Information about commission received by Telegram from the transaction.
+ * @property commissionPerMille The number of Telegram Stars received by the Telegram for each 1000 Telegram Stars received by the seller of the gift.
+ * @property commissionStarAmount The amount of Telegram Stars that were received by Telegram; can be negative for refunds.
  */
 public class StarTransactionTypeUpgradedGiftSale public constructor(
     public val userId: Long,
     public val gift: UpgradedGift,
-    public val affiliate: AffiliateInfo,
+    public val commissionPerMille: Int,
+    public val commissionStarAmount: StarAmount,
 ) : StarTransactionType() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
@@ -51,14 +53,18 @@ public class StarTransactionTypeUpgradedGiftSale public constructor(
         if (other.gift != gift) {
             return false
         }
-        return other.affiliate == affiliate
+        if (other.commissionPerMille != commissionPerMille) {
+            return false
+        }
+        return other.commissionStarAmount == commissionStarAmount
     }
 
     override fun hashCode(): Int {
         var hashCode = this::class.hashCode()
         hashCode = 31 * hashCode + userId.hashCode()
         hashCode = 31 * hashCode + gift.hashCode()
-        hashCode = 31 * hashCode + affiliate.hashCode()
+        hashCode = 31 * hashCode + commissionPerMille.hashCode()
+        hashCode = 31 * hashCode + commissionStarAmount.hashCode()
         return hashCode
     }
 
@@ -72,8 +78,11 @@ public class StarTransactionTypeUpgradedGiftSale public constructor(
             append("gift=")
             append(gift)
             append(", ")
-            append("affiliate=")
-            append(affiliate)
+            append("commissionPerMille=")
+            append(commissionPerMille)
+            append(", ")
+            append("commissionStarAmount=")
+            append(commissionStarAmount)
             append(")")
         }
     }
