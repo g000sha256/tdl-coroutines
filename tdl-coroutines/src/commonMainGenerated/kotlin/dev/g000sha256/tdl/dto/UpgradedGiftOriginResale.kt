@@ -19,16 +19,15 @@ package dev.g000sha256.tdl.dto
 import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
-import kotlin.Long
 import kotlin.String
 
 /**
  * The gift was bought from another user.
  *
- * @property starCount Number of Telegram Stars that were paid by the sender for the gift.
+ * @property price Price paid by the sender for the gift.
  */
 public class UpgradedGiftOriginResale public constructor(
-    public val starCount: Long,
+    public val price: GiftResalePrice,
 ) : UpgradedGiftOrigin() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
@@ -41,12 +40,12 @@ public class UpgradedGiftOriginResale public constructor(
             return false
         }
         other as UpgradedGiftOriginResale
-        return other.starCount == starCount
+        return other.price == price
     }
 
     override fun hashCode(): Int {
         var hashCode = this::class.hashCode()
-        hashCode = 31 * hashCode + starCount.hashCode()
+        hashCode = 31 * hashCode + price.hashCode()
         return hashCode
     }
 
@@ -54,8 +53,8 @@ public class UpgradedGiftOriginResale public constructor(
         return buildString {
             append("UpgradedGiftOriginResale")
             append("(")
-            append("starCount=")
-            append(starCount)
+            append("price=")
+            append(price)
             append(")")
         }
     }

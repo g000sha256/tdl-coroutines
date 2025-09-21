@@ -158,11 +158,16 @@ import dev.g000sha256.tdl.dto.FoundFileDownloads
 import dev.g000sha256.tdl.dto.FoundMessages
 import dev.g000sha256.tdl.dto.FoundPosition
 import dev.g000sha256.tdl.dto.FoundPositions
+import dev.g000sha256.tdl.dto.FoundPublicPosts
 import dev.g000sha256.tdl.dto.FoundStories
 import dev.g000sha256.tdl.dto.FoundUsers
 import dev.g000sha256.tdl.dto.FoundWebApp
 import dev.g000sha256.tdl.dto.GameHighScores
+import dev.g000sha256.tdl.dto.GiftCollection
+import dev.g000sha256.tdl.dto.GiftCollections
 import dev.g000sha256.tdl.dto.GiftForResaleOrder
+import dev.g000sha256.tdl.dto.GiftResalePrice
+import dev.g000sha256.tdl.dto.GiftResaleResult
 import dev.g000sha256.tdl.dto.GiftSettings
 import dev.g000sha256.tdl.dto.GiftUpgradePreview
 import dev.g000sha256.tdl.dto.GiftsForResale
@@ -277,6 +282,7 @@ import dev.g000sha256.tdl.dto.Proxy
 import dev.g000sha256.tdl.dto.ProxyType
 import dev.g000sha256.tdl.dto.PublicChatType
 import dev.g000sha256.tdl.dto.PublicForwards
+import dev.g000sha256.tdl.dto.PublicPostSearchLimits
 import dev.g000sha256.tdl.dto.PushReceiverId
 import dev.g000sha256.tdl.dto.QuickReplyMessage
 import dev.g000sha256.tdl.dto.QuickReplyMessages
@@ -329,6 +335,8 @@ import dev.g000sha256.tdl.dto.StorePaymentPurpose
 import dev.g000sha256.tdl.dto.StoreTransaction
 import dev.g000sha256.tdl.dto.Stories
 import dev.g000sha256.tdl.dto.Story
+import dev.g000sha256.tdl.dto.StoryAlbum
+import dev.g000sha256.tdl.dto.StoryAlbums
 import dev.g000sha256.tdl.dto.StoryFullId
 import dev.g000sha256.tdl.dto.StoryInteractions
 import dev.g000sha256.tdl.dto.StoryList
@@ -362,6 +370,7 @@ import dev.g000sha256.tdl.dto.UpdateAccentColors
 import dev.g000sha256.tdl.dto.UpdateActiveEmojiReactions
 import dev.g000sha256.tdl.dto.UpdateActiveLiveLocationMessages
 import dev.g000sha256.tdl.dto.UpdateActiveNotifications
+import dev.g000sha256.tdl.dto.UpdateAgeVerificationParameters
 import dev.g000sha256.tdl.dto.UpdateAnimatedEmojiMessageClicked
 import dev.g000sha256.tdl.dto.UpdateAnimationSearchParameters
 import dev.g000sha256.tdl.dto.UpdateApplicationRecaptchaVerificationRequired
@@ -549,6 +558,7 @@ import dev.g000sha256.tdl.function.AddContact
 import dev.g000sha256.tdl.function.AddCustomServerLanguagePack
 import dev.g000sha256.tdl.function.AddFavoriteSticker
 import dev.g000sha256.tdl.function.AddFileToDownloads
+import dev.g000sha256.tdl.function.AddGiftCollectionGifts
 import dev.g000sha256.tdl.function.AddLocalMessage
 import dev.g000sha256.tdl.function.AddLogMessage
 import dev.g000sha256.tdl.function.AddMessageReaction
@@ -564,6 +574,7 @@ import dev.g000sha256.tdl.function.AddRecentlyFoundChat
 import dev.g000sha256.tdl.function.AddSavedAnimation
 import dev.g000sha256.tdl.function.AddSavedNotificationSound
 import dev.g000sha256.tdl.function.AddStickerToSet
+import dev.g000sha256.tdl.function.AddStoryAlbumStories
 import dev.g000sha256.tdl.function.AllowBotToSendMessages
 import dev.g000sha256.tdl.function.AllowUnpaidMessagesFromUser
 import dev.g000sha256.tdl.function.AnswerCallbackQuery
@@ -639,6 +650,7 @@ import dev.g000sha256.tdl.function.CreateChatFolderInviteLink
 import dev.g000sha256.tdl.function.CreateChatInviteLink
 import dev.g000sha256.tdl.function.CreateChatSubscriptionInviteLink
 import dev.g000sha256.tdl.function.CreateForumTopic
+import dev.g000sha256.tdl.function.CreateGiftCollection
 import dev.g000sha256.tdl.function.CreateGroupCall
 import dev.g000sha256.tdl.function.CreateInvoiceLink
 import dev.g000sha256.tdl.function.CreateNewBasicGroupChat
@@ -647,6 +659,7 @@ import dev.g000sha256.tdl.function.CreateNewStickerSet
 import dev.g000sha256.tdl.function.CreateNewSupergroupChat
 import dev.g000sha256.tdl.function.CreatePrivateChat
 import dev.g000sha256.tdl.function.CreateSecretChat
+import dev.g000sha256.tdl.function.CreateStoryAlbum
 import dev.g000sha256.tdl.function.CreateSupergroupChat
 import dev.g000sha256.tdl.function.CreateTemporaryPassword
 import dev.g000sha256.tdl.function.CreateVideoChat
@@ -675,6 +688,7 @@ import dev.g000sha256.tdl.function.DeleteDirectMessagesChatTopicHistory
 import dev.g000sha256.tdl.function.DeleteDirectMessagesChatTopicMessagesByDate
 import dev.g000sha256.tdl.function.DeleteFile
 import dev.g000sha256.tdl.function.DeleteForumTopic
+import dev.g000sha256.tdl.function.DeleteGiftCollection
 import dev.g000sha256.tdl.function.DeleteLanguagePack
 import dev.g000sha256.tdl.function.DeleteMessages
 import dev.g000sha256.tdl.function.DeletePassportElement
@@ -688,6 +702,7 @@ import dev.g000sha256.tdl.function.DeleteSavedMessagesTopicMessagesByDate
 import dev.g000sha256.tdl.function.DeleteSavedOrderInfo
 import dev.g000sha256.tdl.function.DeleteStickerSet
 import dev.g000sha256.tdl.function.DeleteStory
+import dev.g000sha256.tdl.function.DeleteStoryAlbum
 import dev.g000sha256.tdl.function.Destroy
 import dev.g000sha256.tdl.function.DisableAllSupergroupUsernames
 import dev.g000sha256.tdl.function.DisableProxy
@@ -815,6 +830,7 @@ import dev.g000sha256.tdl.function.GetChatSimilarChats
 import dev.g000sha256.tdl.function.GetChatSparseMessagePositions
 import dev.g000sha256.tdl.function.GetChatSponsoredMessages
 import dev.g000sha256.tdl.function.GetChatStatistics
+import dev.g000sha256.tdl.function.GetChatStoryAlbums
 import dev.g000sha256.tdl.function.GetChatStoryInteractions
 import dev.g000sha256.tdl.function.GetChats
 import dev.g000sha256.tdl.function.GetChatsForChatFolderInviteLink
@@ -862,6 +878,7 @@ import dev.g000sha256.tdl.function.GetForumTopicDefaultIcons
 import dev.g000sha256.tdl.function.GetForumTopicLink
 import dev.g000sha256.tdl.function.GetForumTopics
 import dev.g000sha256.tdl.function.GetGameHighScores
+import dev.g000sha256.tdl.function.GetGiftCollections
 import dev.g000sha256.tdl.function.GetGiftUpgradePreview
 import dev.g000sha256.tdl.function.GetGiveawayInfo
 import dev.g000sha256.tdl.function.GetGreetingStickers
@@ -942,6 +959,7 @@ import dev.g000sha256.tdl.function.GetPremiumStickers
 import dev.g000sha256.tdl.function.GetPreparedInlineMessage
 import dev.g000sha256.tdl.function.GetProxies
 import dev.g000sha256.tdl.function.GetProxyLink
+import dev.g000sha256.tdl.function.GetPublicPostSearchLimits
 import dev.g000sha256.tdl.function.GetPushReceiverId
 import dev.g000sha256.tdl.function.GetReadDatePrivacySettings
 import dev.g000sha256.tdl.function.GetReceivedGift
@@ -984,6 +1002,7 @@ import dev.g000sha256.tdl.function.GetStickers
 import dev.g000sha256.tdl.function.GetStorageStatistics
 import dev.g000sha256.tdl.function.GetStorageStatisticsFast
 import dev.g000sha256.tdl.function.GetStory
+import dev.g000sha256.tdl.function.GetStoryAlbumStories
 import dev.g000sha256.tdl.function.GetStoryAvailableReactions
 import dev.g000sha256.tdl.function.GetStoryInteractions
 import dev.g000sha256.tdl.function.GetStoryNotificationSettingsExceptions
@@ -1090,6 +1109,7 @@ import dev.g000sha256.tdl.function.RemoveChatActionBar
 import dev.g000sha256.tdl.function.RemoveContacts
 import dev.g000sha256.tdl.function.RemoveFavoriteSticker
 import dev.g000sha256.tdl.function.RemoveFileFromDownloads
+import dev.g000sha256.tdl.function.RemoveGiftCollectionGifts
 import dev.g000sha256.tdl.function.RemoveInstalledBackground
 import dev.g000sha256.tdl.function.RemoveMessageReaction
 import dev.g000sha256.tdl.function.RemoveMessageSenderBotVerification
@@ -1104,13 +1124,18 @@ import dev.g000sha256.tdl.function.RemoveSavedAnimation
 import dev.g000sha256.tdl.function.RemoveSavedNotificationSound
 import dev.g000sha256.tdl.function.RemoveSearchedForTag
 import dev.g000sha256.tdl.function.RemoveStickerFromSet
+import dev.g000sha256.tdl.function.RemoveStoryAlbumStories
 import dev.g000sha256.tdl.function.RemoveTopChat
 import dev.g000sha256.tdl.function.ReorderActiveUsernames
 import dev.g000sha256.tdl.function.ReorderBotActiveUsernames
 import dev.g000sha256.tdl.function.ReorderBotMediaPreviews
 import dev.g000sha256.tdl.function.ReorderChatFolders
+import dev.g000sha256.tdl.function.ReorderGiftCollectionGifts
+import dev.g000sha256.tdl.function.ReorderGiftCollections
 import dev.g000sha256.tdl.function.ReorderInstalledStickerSets
 import dev.g000sha256.tdl.function.ReorderQuickReplyShortcuts
+import dev.g000sha256.tdl.function.ReorderStoryAlbumStories
+import dev.g000sha256.tdl.function.ReorderStoryAlbums
 import dev.g000sha256.tdl.function.ReorderSupergroupActiveUsernames
 import dev.g000sha256.tdl.function.ReplacePrimaryChatInviteLink
 import dev.g000sha256.tdl.function.ReplaceStickerInSet
@@ -1165,6 +1190,7 @@ import dev.g000sha256.tdl.function.SearchOutgoingDocumentMessages
 import dev.g000sha256.tdl.function.SearchPublicChat
 import dev.g000sha256.tdl.function.SearchPublicChats
 import dev.g000sha256.tdl.function.SearchPublicMessagesByTag
+import dev.g000sha256.tdl.function.SearchPublicPosts
 import dev.g000sha256.tdl.function.SearchPublicStoriesByLocation
 import dev.g000sha256.tdl.function.SearchPublicStoriesByTag
 import dev.g000sha256.tdl.function.SearchPublicStoriesByVenue
@@ -1273,6 +1299,7 @@ import dev.g000sha256.tdl.function.SetEmojiStatus
 import dev.g000sha256.tdl.function.SetFileGenerationProgress
 import dev.g000sha256.tdl.function.SetForumTopicNotificationSettings
 import dev.g000sha256.tdl.function.SetGameScore
+import dev.g000sha256.tdl.function.SetGiftCollectionName
 import dev.g000sha256.tdl.function.SetGiftResalePrice
 import dev.g000sha256.tdl.function.SetGiftSettings
 import dev.g000sha256.tdl.function.SetGroupCallParticipantIsSpeaking
@@ -1316,6 +1343,7 @@ import dev.g000sha256.tdl.function.SetStickerMaskPosition
 import dev.g000sha256.tdl.function.SetStickerPositionInSet
 import dev.g000sha256.tdl.function.SetStickerSetThumbnail
 import dev.g000sha256.tdl.function.SetStickerSetTitle
+import dev.g000sha256.tdl.function.SetStoryAlbumName
 import dev.g000sha256.tdl.function.SetStoryPrivacySettings
 import dev.g000sha256.tdl.function.SetStoryReaction
 import dev.g000sha256.tdl.function.SetSupergroupCustomEmojiStickerSet
@@ -1790,6 +1818,9 @@ internal class TdlClientImpl internal constructor(
     override val freezeStateUpdates: Flow<UpdateFreezeState>
         get() = repository.updates.filterIsInstance()
 
+    override val ageVerificationParametersUpdates: Flow<UpdateAgeVerificationParameters>
+        get() = repository.updates.filterIsInstance()
+
     override val termsOfServiceUpdates: Flow<UpdateTermsOfService>
         get() = repository.updates.filterIsInstance()
 
@@ -2039,6 +2070,19 @@ internal class TdlClientImpl internal constructor(
         return repository.send(function = function)
     }
 
+    override suspend fun addGiftCollectionGifts(
+        ownerId: MessageSender,
+        collectionId: Int,
+        receivedGiftIds: Array<String>,
+    ): TdlResult<GiftCollection> {
+        val function = AddGiftCollectionGifts(
+            ownerId = ownerId,
+            collectionId = collectionId,
+            receivedGiftIds = receivedGiftIds,
+        )
+        return repository.send(function = function)
+    }
+
     override suspend fun addLocalMessage(
         chatId: Long,
         senderId: MessageSender,
@@ -2212,6 +2256,19 @@ internal class TdlClientImpl internal constructor(
             userId = userId,
             name = name,
             sticker = sticker,
+        )
+        return repository.send(function = function)
+    }
+
+    override suspend fun addStoryAlbumStories(
+        chatId: Long,
+        storyAlbumId: Int,
+        storyIds: IntArray,
+    ): TdlResult<StoryAlbum> {
+        val function = AddStoryAlbumStories(
+            chatId = chatId,
+            storyAlbumId = storyAlbumId,
+            storyIds = storyIds,
         )
         return repository.send(function = function)
     }
@@ -2841,6 +2898,19 @@ internal class TdlClientImpl internal constructor(
         return repository.send(function = function)
     }
 
+    override suspend fun createGiftCollection(
+        ownerId: MessageSender,
+        name: String,
+        receivedGiftIds: Array<String>,
+    ): TdlResult<GiftCollection> {
+        val function = CreateGiftCollection(
+            ownerId = ownerId,
+            name = name,
+            receivedGiftIds = receivedGiftIds,
+        )
+        return repository.send(function = function)
+    }
+
     override suspend fun createGroupCall(joinParameters: GroupCallJoinParameters?): TdlResult<GroupCallInfo> {
         val function = CreateGroupCall(
             joinParameters = joinParameters,
@@ -2929,6 +2999,19 @@ internal class TdlClientImpl internal constructor(
     override suspend fun createSecretChat(secretChatId: Int): TdlResult<Chat> {
         val function = CreateSecretChat(
             secretChatId = secretChatId,
+        )
+        return repository.send(function = function)
+    }
+
+    override suspend fun createStoryAlbum(
+        storyPosterChatId: Long,
+        name: String,
+        storyIds: IntArray,
+    ): TdlResult<StoryAlbum> {
+        val function = CreateStoryAlbum(
+            storyPosterChatId = storyPosterChatId,
+            name = name,
+            storyIds = storyIds,
         )
         return repository.send(function = function)
     }
@@ -3194,6 +3277,14 @@ internal class TdlClientImpl internal constructor(
         return repository.send(function = function)
     }
 
+    override suspend fun deleteGiftCollection(ownerId: MessageSender, collectionId: Int): TdlResult<Ok> {
+        val function = DeleteGiftCollection(
+            ownerId = ownerId,
+            collectionId = collectionId,
+        )
+        return repository.send(function = function)
+    }
+
     override suspend fun deleteLanguagePack(languagePackId: String): TdlResult<Ok> {
         val function = DeleteLanguagePack(
             languagePackId = languagePackId,
@@ -3292,6 +3383,14 @@ internal class TdlClientImpl internal constructor(
         val function = DeleteStory(
             storyPosterChatId = storyPosterChatId,
             storyId = storyId,
+        )
+        return repository.send(function = function)
+    }
+
+    override suspend fun deleteStoryAlbum(chatId: Long, storyAlbumId: Int): TdlResult<Ok> {
+        val function = DeleteStoryAlbum(
+            chatId = chatId,
+            storyAlbumId = storyAlbumId,
         )
         return repository.send(function = function)
     }
@@ -4618,6 +4717,13 @@ internal class TdlClientImpl internal constructor(
         return repository.send(function = function)
     }
 
+    override suspend fun getChatStoryAlbums(chatId: Long): TdlResult<StoryAlbums> {
+        val function = GetChatStoryAlbums(
+            chatId = chatId,
+        )
+        return repository.send(function = function)
+    }
+
     override suspend fun getChatStoryInteractions(
         storyPosterChatId: Long,
         storyId: Int,
@@ -4968,6 +5074,13 @@ internal class TdlClientImpl internal constructor(
             chatId = chatId,
             messageId = messageId,
             userId = userId,
+        )
+        return repository.send(function = function)
+    }
+
+    override suspend fun getGiftCollections(ownerId: MessageSender): TdlResult<GiftCollections> {
+        val function = GetGiftCollections(
+            ownerId = ownerId,
         )
         return repository.send(function = function)
     }
@@ -5659,6 +5772,13 @@ internal class TdlClientImpl internal constructor(
         return repository.send(function = function)
     }
 
+    override suspend fun getPublicPostSearchLimits(query: String): TdlResult<PublicPostSearchLimits> {
+        val function = GetPublicPostSearchLimits(
+            query = query,
+        )
+        return repository.send(function = function)
+    }
+
     override suspend fun getPushReceiverId(payload: String): TdlResult<PushReceiverId> {
         val function = GetPushReceiverId(
             payload = payload,
@@ -5681,6 +5801,7 @@ internal class TdlClientImpl internal constructor(
     override suspend fun getReceivedGifts(
         businessConnectionId: String,
         ownerId: MessageSender,
+        collectionId: Int,
         excludeUnsaved: Boolean,
         excludeSaved: Boolean,
         excludeUnlimited: Boolean,
@@ -5693,6 +5814,7 @@ internal class TdlClientImpl internal constructor(
         val function = GetReceivedGifts(
             businessConnectionId = businessConnectionId,
             ownerId = ownerId,
+            collectionId = collectionId,
             excludeUnsaved = excludeUnsaved,
             excludeSaved = excludeSaved,
             excludeUnlimited = excludeUnlimited,
@@ -6003,6 +6125,21 @@ internal class TdlClientImpl internal constructor(
             storyPosterChatId = storyPosterChatId,
             storyId = storyId,
             onlyLocal = onlyLocal,
+        )
+        return repository.send(function = function)
+    }
+
+    override suspend fun getStoryAlbumStories(
+        chatId: Long,
+        storyAlbumId: Int,
+        offset: Int,
+        limit: Int,
+    ): TdlResult<Stories> {
+        val function = GetStoryAlbumStories(
+            chatId = chatId,
+            storyAlbumId = storyAlbumId,
+            offset = offset,
+            limit = limit,
         )
         return repository.send(function = function)
     }
@@ -6714,6 +6851,7 @@ internal class TdlClientImpl internal constructor(
         areas: InputStoryAreas?,
         caption: FormattedText?,
         privacySettings: StoryPrivacySettings,
+        albumIds: IntArray,
         activePeriod: Int,
         fromStoryFullId: StoryFullId?,
         isPostedToChatPage: Boolean,
@@ -6725,6 +6863,7 @@ internal class TdlClientImpl internal constructor(
             areas = areas,
             caption = caption,
             privacySettings = privacySettings,
+            albumIds = albumIds,
             activePeriod = activePeriod,
             fromStoryFullId = fromStoryFullId,
             isPostedToChatPage = isPostedToChatPage,
@@ -6991,6 +7130,19 @@ internal class TdlClientImpl internal constructor(
         return repository.send(function = function)
     }
 
+    override suspend fun removeGiftCollectionGifts(
+        ownerId: MessageSender,
+        collectionId: Int,
+        receivedGiftIds: Array<String>,
+    ): TdlResult<GiftCollection> {
+        val function = RemoveGiftCollectionGifts(
+            ownerId = ownerId,
+            collectionId = collectionId,
+            receivedGiftIds = receivedGiftIds,
+        )
+        return repository.send(function = function)
+    }
+
     override suspend fun removeInstalledBackground(backgroundId: Long): TdlResult<Ok> {
         val function = RemoveInstalledBackground(
             backgroundId = backgroundId,
@@ -7100,6 +7252,19 @@ internal class TdlClientImpl internal constructor(
         return repository.send(function = function)
     }
 
+    override suspend fun removeStoryAlbumStories(
+        chatId: Long,
+        storyAlbumId: Int,
+        storyIds: IntArray,
+    ): TdlResult<StoryAlbum> {
+        val function = RemoveStoryAlbumStories(
+            chatId = chatId,
+            storyAlbumId = storyAlbumId,
+            storyIds = storyIds,
+        )
+        return repository.send(function = function)
+    }
+
     override suspend fun removeTopChat(category: TopChatCategory, chatId: Long): TdlResult<Ok> {
         val function = RemoveTopChat(
             category = category,
@@ -7144,6 +7309,27 @@ internal class TdlClientImpl internal constructor(
         return repository.send(function = function)
     }
 
+    override suspend fun reorderGiftCollectionGifts(
+        ownerId: MessageSender,
+        collectionId: Int,
+        receivedGiftIds: Array<String>,
+    ): TdlResult<GiftCollection> {
+        val function = ReorderGiftCollectionGifts(
+            ownerId = ownerId,
+            collectionId = collectionId,
+            receivedGiftIds = receivedGiftIds,
+        )
+        return repository.send(function = function)
+    }
+
+    override suspend fun reorderGiftCollections(ownerId: MessageSender, collectionIds: IntArray): TdlResult<Ok> {
+        val function = ReorderGiftCollections(
+            ownerId = ownerId,
+            collectionIds = collectionIds,
+        )
+        return repository.send(function = function)
+    }
+
     override suspend fun reorderInstalledStickerSets(stickerType: StickerType, stickerSetIds: LongArray): TdlResult<Ok> {
         val function = ReorderInstalledStickerSets(
             stickerType = stickerType,
@@ -7155,6 +7341,27 @@ internal class TdlClientImpl internal constructor(
     override suspend fun reorderQuickReplyShortcuts(shortcutIds: IntArray): TdlResult<Ok> {
         val function = ReorderQuickReplyShortcuts(
             shortcutIds = shortcutIds,
+        )
+        return repository.send(function = function)
+    }
+
+    override suspend fun reorderStoryAlbumStories(
+        chatId: Long,
+        storyAlbumId: Int,
+        storyIds: IntArray,
+    ): TdlResult<StoryAlbum> {
+        val function = ReorderStoryAlbumStories(
+            chatId = chatId,
+            storyAlbumId = storyAlbumId,
+            storyIds = storyIds,
+        )
+        return repository.send(function = function)
+    }
+
+    override suspend fun reorderStoryAlbums(chatId: Long, storyAlbumIds: IntArray): TdlResult<Ok> {
+        val function = ReorderStoryAlbums(
+            chatId = chatId,
+            storyAlbumIds = storyAlbumIds,
         )
         return repository.send(function = function)
     }
@@ -7681,6 +7888,21 @@ internal class TdlClientImpl internal constructor(
         return repository.send(function = function)
     }
 
+    override suspend fun searchPublicPosts(
+        query: String,
+        offset: String,
+        limit: Int,
+        starCount: Long,
+    ): TdlResult<FoundPublicPosts> {
+        val function = SearchPublicPosts(
+            query = query,
+            offset = offset,
+            limit = limit,
+            starCount = starCount,
+        )
+        return repository.send(function = function)
+    }
+
     override suspend fun searchPublicStoriesByLocation(
         address: LocationAddress,
         offset: String,
@@ -8132,12 +8354,12 @@ internal class TdlClientImpl internal constructor(
     override suspend fun sendResoldGift(
         giftName: String,
         ownerId: MessageSender,
-        starCount: Long,
-    ): TdlResult<Ok> {
+        price: GiftResalePrice,
+    ): TdlResult<GiftResaleResult> {
         val function = SendResoldGift(
             giftName = giftName,
             ownerId = ownerId,
-            starCount = starCount,
+            price = price,
         )
         return repository.send(function = function)
     }
@@ -8823,10 +9045,23 @@ internal class TdlClientImpl internal constructor(
         return repository.send(function = function)
     }
 
-    override suspend fun setGiftResalePrice(receivedGiftId: String, resaleStarCount: Long): TdlResult<Ok> {
+    override suspend fun setGiftCollectionName(
+        ownerId: MessageSender,
+        collectionId: Int,
+        name: String,
+    ): TdlResult<GiftCollection> {
+        val function = SetGiftCollectionName(
+            ownerId = ownerId,
+            collectionId = collectionId,
+            name = name,
+        )
+        return repository.send(function = function)
+    }
+
+    override suspend fun setGiftResalePrice(receivedGiftId: String, price: GiftResalePrice?): TdlResult<Ok> {
         val function = SetGiftResalePrice(
             receivedGiftId = receivedGiftId,
-            resaleStarCount = resaleStarCount,
+            price = price,
         )
         return repository.send(function = function)
     }
@@ -9214,6 +9449,19 @@ internal class TdlClientImpl internal constructor(
         val function = SetStickerSetTitle(
             name = name,
             title = title,
+        )
+        return repository.send(function = function)
+    }
+
+    override suspend fun setStoryAlbumName(
+        chatId: Long,
+        storyAlbumId: Int,
+        name: String,
+    ): TdlResult<StoryAlbum> {
+        val function = SetStoryAlbumName(
+            chatId = chatId,
+            storyAlbumId = storyAlbumId,
+            name = name,
         )
         return repository.send(function = function)
     }

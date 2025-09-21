@@ -158,11 +158,16 @@ import dev.g000sha256.tdl.dto.FoundFileDownloads
 import dev.g000sha256.tdl.dto.FoundMessages
 import dev.g000sha256.tdl.dto.FoundPosition
 import dev.g000sha256.tdl.dto.FoundPositions
+import dev.g000sha256.tdl.dto.FoundPublicPosts
 import dev.g000sha256.tdl.dto.FoundStories
 import dev.g000sha256.tdl.dto.FoundUsers
 import dev.g000sha256.tdl.dto.FoundWebApp
 import dev.g000sha256.tdl.dto.GameHighScores
+import dev.g000sha256.tdl.dto.GiftCollection
+import dev.g000sha256.tdl.dto.GiftCollections
 import dev.g000sha256.tdl.dto.GiftForResaleOrder
+import dev.g000sha256.tdl.dto.GiftResalePrice
+import dev.g000sha256.tdl.dto.GiftResaleResult
 import dev.g000sha256.tdl.dto.GiftSettings
 import dev.g000sha256.tdl.dto.GiftUpgradePreview
 import dev.g000sha256.tdl.dto.GiftsForResale
@@ -277,6 +282,7 @@ import dev.g000sha256.tdl.dto.Proxy
 import dev.g000sha256.tdl.dto.ProxyType
 import dev.g000sha256.tdl.dto.PublicChatType
 import dev.g000sha256.tdl.dto.PublicForwards
+import dev.g000sha256.tdl.dto.PublicPostSearchLimits
 import dev.g000sha256.tdl.dto.PushReceiverId
 import dev.g000sha256.tdl.dto.QuickReplyMessage
 import dev.g000sha256.tdl.dto.QuickReplyMessages
@@ -329,6 +335,8 @@ import dev.g000sha256.tdl.dto.StorePaymentPurpose
 import dev.g000sha256.tdl.dto.StoreTransaction
 import dev.g000sha256.tdl.dto.Stories
 import dev.g000sha256.tdl.dto.Story
+import dev.g000sha256.tdl.dto.StoryAlbum
+import dev.g000sha256.tdl.dto.StoryAlbums
 import dev.g000sha256.tdl.dto.StoryFullId
 import dev.g000sha256.tdl.dto.StoryInteractions
 import dev.g000sha256.tdl.dto.StoryList
@@ -362,6 +370,7 @@ import dev.g000sha256.tdl.dto.UpdateAccentColors
 import dev.g000sha256.tdl.dto.UpdateActiveEmojiReactions
 import dev.g000sha256.tdl.dto.UpdateActiveLiveLocationMessages
 import dev.g000sha256.tdl.dto.UpdateActiveNotifications
+import dev.g000sha256.tdl.dto.UpdateAgeVerificationParameters
 import dev.g000sha256.tdl.dto.UpdateAnimatedEmojiMessageClicked
 import dev.g000sha256.tdl.dto.UpdateAnimationSearchParameters
 import dev.g000sha256.tdl.dto.UpdateApplicationRecaptchaVerificationRequired
@@ -1153,6 +1162,11 @@ public abstract class TdlClient internal constructor() {
     public abstract val freezeStateUpdates: Flow<UpdateFreezeState>
 
     /**
+     * The parameters for age verification of the current user's account has changed.
+     */
+    public abstract val ageVerificationParametersUpdates: Flow<UpdateAgeVerificationParameters>
+
+    /**
      * New terms of service must be accepted by the user. If the terms of service are declined, then the deleteAccount method must be called with the reason &quot;Decline ToS update&quot;.
      */
     public abstract val termsOfServiceUpdates: Flow<UpdateTermsOfService>
@@ -1488,6 +1502,19 @@ public abstract class TdlClient internal constructor() {
     ): TdlResult<File>
 
     /**
+     * Adds gifts to the beginning of a previously created collection. If the collection is owned by a channel chat, then requires canPostMessages administrator right in the channel chat. Returns the changed collection.
+     *
+     * @param ownerId Identifier of the user or the channel chat that owns the collection.
+     * @param collectionId Identifier of the gift collection.
+     * @param receivedGiftIds Identifier of the gifts to add to the collection; 1-getOption(&quot;gift_collection_gift_count_max&quot;) identifiers. If after addition the collection has more than getOption(&quot;gift_collection_gift_count_max&quot;) gifts, then the last one are removed from the collection.
+     */
+    public abstract suspend fun addGiftCollectionGifts(
+        ownerId: MessageSender,
+        collectionId: Int,
+        receivedGiftIds: Array<String>,
+    ): TdlResult<GiftCollection>
+
+    /**
      * Adds a local message to a chat. The message is persistent across application restarts only if the message database is used. Returns the added message.
      *
      * @param chatId Target chat; channel direct messages chats aren't supported.
@@ -1665,6 +1692,19 @@ public abstract class TdlClient internal constructor() {
     ): TdlResult<Ok>
 
     /**
+     * Adds stories to the beginning of a previously created story album. If the album is owned by a supergroup or a channel chat, then requires canEditStories administrator right in the chat. Returns the changed album.
+     *
+     * @param chatId Identifier of the chat that owns the stories.
+     * @param storyAlbumId Identifier of the story album.
+     * @param storyIds Identifier of the stories to add to the album; 1-getOption(&quot;story_album_story_count_max&quot;) identifiers. If after addition the album has more than getOption(&quot;story_album_story_count_max&quot;) stories, then the last one are removed from the album.
+     */
+    public abstract suspend fun addStoryAlbumStories(
+        chatId: Long,
+        storyAlbumId: Int,
+        storyIds: IntArray,
+    ): TdlResult<StoryAlbum>
+
+    /**
      * Allows the specified bot to send messages to the user.
      *
      * @param botUserId Identifier of the target bot.
@@ -1764,7 +1804,7 @@ public abstract class TdlClient internal constructor() {
      *
      * @param chatId Chat identifier of the channel direct messages chat.
      * @param messageId Identifier of the message with the suggested post. Use messageProperties.canBeApproved to check whether the suggested post can be approved.
-     * @param sendDate Point in time (Unix timestamp) when the post is expected to be published; pass 0 if the date has already been chosen.
+     * @param sendDate Point in time (Unix timestamp) when the post is expected to be published; pass 0 if the date has already been chosen. If specified, then the date must be in the future, but at most getOption(&quot;suggested_post_send_delay_max&quot;) seconds in the future.
      */
     public abstract suspend fun approveSuggestedPost(
         chatId: Long,
@@ -1834,7 +1874,7 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun canBotSendMessages(botUserId: Long): TdlResult<Ok>
 
     /**
-     * Checks whether the current user can post a story on behalf of a chat; requires canPostStories right for supergroup and channel chats.
+     * Checks whether the current user can post a story on behalf of a chat; requires canPostStories administrator right for supergroup and channel chats.
      *
      * @param chatId Chat identifier. Pass Saved Messages chat identifier when posting a story on behalf of the current user.
      */
@@ -2290,6 +2330,19 @@ public abstract class TdlClient internal constructor() {
     ): TdlResult<ForumTopicInfo>
 
     /**
+     * Creates a collection from gifts on the current user's or a channel's profile page; requires canPostMessages administrator right in the channel chat. An owner can have up to getOption(&quot;gift_collection_count_max&quot;) gift collections. The new collection will be added to the end of the gift collection list of the owner. Returns the created collection.
+     *
+     * @param ownerId Identifier of the user or the channel chat that received the gifts.
+     * @param name Name of the collection; 1-12 characters.
+     * @param receivedGiftIds Identifier of the gifts to add to the collection; 0-getOption(&quot;gift_collection_gift_count_max&quot;) identifiers.
+     */
+    public abstract suspend fun createGiftCollection(
+        ownerId: MessageSender,
+        name: String,
+        receivedGiftIds: Array<String>,
+    ): TdlResult<GiftCollection>
+
+    /**
      * Creates a new group call that isn't bound to a chat.
      *
      * @param joinParameters Parameters to join the call; pass null to only create call link without joining the call.
@@ -2380,6 +2433,19 @@ public abstract class TdlClient internal constructor() {
      * @param secretChatId Secret chat identifier.
      */
     public abstract suspend fun createSecretChat(secretChatId: Int): TdlResult<Chat>
+
+    /**
+     * Creates an album of stories; requires canEditStories administrator right for supergroup and channel chats.
+     *
+     * @param storyPosterChatId Identifier of the chat that posted the stories.
+     * @param name Name of the album; 1-12 characters.
+     * @param storyIds Identifiers of stories to add to the album; 0-getOption(&quot;story_album_story_count_max&quot;) identifiers.
+     */
+    public abstract suspend fun createStoryAlbum(
+        storyPosterChatId: Long,
+        name: String,
+        storyIds: IntArray,
+    ): TdlResult<StoryAlbum>
 
     /**
      * Returns an existing chat corresponding to a known supergroup or channel.
@@ -2643,6 +2709,14 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun deleteForumTopic(chatId: Long, messageThreadId: Long): TdlResult<Ok>
 
     /**
+     * Deletes a gift collection. If the collection is owned by a channel chat, then requires canPostMessages administrator right in the channel chat.
+     *
+     * @param ownerId Identifier of the user or the channel chat that owns the collection.
+     * @param collectionId Identifier of the gift collection.
+     */
+    public abstract suspend fun deleteGiftCollection(ownerId: MessageSender, collectionId: Int): TdlResult<Ok>
+
+    /**
      * Deletes all information about a language pack in the current localization target. The language pack which is currently in use (including base language pack) or is being synchronized can't be deleted. Can be called before authorization.
      *
      * @param languagePackId Identifier of the language pack to delete.
@@ -2743,6 +2817,14 @@ public abstract class TdlClient internal constructor() {
      * @param storyId Identifier of the story to delete.
      */
     public abstract suspend fun deleteStory(storyPosterChatId: Long, storyId: Int): TdlResult<Ok>
+
+    /**
+     * Deletes a story album. If the album is owned by a supergroup or a channel chat, then requires canEditStories administrator right in the chat.
+     *
+     * @param chatId Identifier of the chat that owns the stories.
+     * @param storyAlbumId Identifier of the story album.
+     */
+    public abstract suspend fun deleteStoryAlbum(chatId: Long, storyAlbumId: Int): TdlResult<Ok>
 
     /**
      * Closes the TDLib instance, destroying all local data without a proper logout. The current user session will remain in the list of all active sessions. All local data will be destroyed. After the destruction completes updateAuthorizationState with authorizationStateClosed will be sent. Can be called before authorization.
@@ -3664,7 +3746,7 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun getChatAdministrators(chatId: Long): TdlResult<ChatAdministrators>
 
     /**
-     * Returns the list of all stories posted by the given chat; requires canEditStories right in the chat. The stories are returned in reverse chronological order (i.e., in order of decreasing storyId). For optimal performance, the number of returned stories is chosen by TDLib.
+     * Returns the list of all stories posted by the given chat; requires canEditStories administrator right in the chat. The stories are returned in reverse chronological order (i.e., in order of decreasing storyId). For optimal performance, the number of returned stories is chosen by TDLib.
      *
      * @param chatId Chat identifier.
      * @param fromStoryId Identifier of the story starting from which stories must be returned; use 0 to get results from the last story.
@@ -4067,6 +4149,13 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun getChatStatistics(chatId: Long, isDark: Boolean): TdlResult<ChatStatistics>
 
     /**
+     * Returns the list of story albums owned by the given chat.
+     *
+     * @param chatId Chat identifier.
+     */
+    public abstract suspend fun getChatStoryAlbums(chatId: Long): TdlResult<StoryAlbums>
+
+    /**
      * Returns interactions with a story posted in a chat. Can be used only if story is posted on behalf of a chat and the user is an administrator in the chat.
      *
      * @param storyPosterChatId The identifier of the poster of the story.
@@ -4419,6 +4508,13 @@ public abstract class TdlClient internal constructor() {
         messageId: Long,
         userId: Long,
     ): TdlResult<GameHighScores>
+
+    /**
+     * Returns collections of gifts owned by the given user or chat.
+     *
+     * @param ownerId Identifier of the user or the channel chat that received the gifts.
+     */
+    public abstract suspend fun getGiftCollections(ownerId: MessageSender): TdlResult<GiftCollections>
 
     /**
      * Returns examples of possible upgraded gifts for a regular gift.
@@ -5108,6 +5204,13 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun getProxyLink(proxyId: Int): TdlResult<HttpUrl>
 
     /**
+     * Checks public post search limits without actually performing the search.
+     *
+     * @param query Query that will be searched for.
+     */
+    public abstract suspend fun getPublicPostSearchLimits(query: String): TdlResult<PublicPostSearchLimits>
+
+    /**
      * Returns a globally unique push notification subscription identifier for identification of an account, which has received a push notification. Can be called synchronously.
      *
      * @param payload JSON-encoded push notification payload.
@@ -5131,6 +5234,7 @@ public abstract class TdlClient internal constructor() {
      *
      * @param businessConnectionId Unique identifier of business connection on behalf of which to send the request; for bots only.
      * @param ownerId Identifier of the gift receiver.
+     * @param collectionId Pass collection identifier to get gifts only from the specified collection; pass 0 to get gifts regardless of collections.
      * @param excludeUnsaved Pass true to exclude gifts that aren't saved to the chat's profile page. Always true for gifts received by other users and channel chats without canPostMessages administrator right.
      * @param excludeSaved Pass true to exclude gifts that are saved to the chat's profile page. Always false for gifts received by other users and channel chats without canPostMessages administrator right.
      * @param excludeUnlimited Pass true to exclude gifts that can be purchased unlimited number of times.
@@ -5143,6 +5247,7 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun getReceivedGifts(
         businessConnectionId: String,
         ownerId: MessageSender,
+        collectionId: Int,
         excludeUnsaved: Boolean,
         excludeSaved: Boolean,
         excludeUnlimited: Boolean,
@@ -5454,6 +5559,21 @@ public abstract class TdlClient internal constructor() {
         storyId: Int,
         onlyLocal: Boolean,
     ): TdlResult<Story>
+
+    /**
+     * Returns the list of stories added to the given story album. For optimal performance, the number of returned stories is chosen by TDLib.
+     *
+     * @param chatId Chat identifier.
+     * @param storyAlbumId Story album identifier.
+     * @param offset Offset of the first entry to return; use 0 to get results from the first album story.
+     * @param limit The maximum number of stories to be returned. For optimal performance, the number of returned stories is chosen by TDLib and can be smaller than the specified limit.
+     */
+    public abstract suspend fun getStoryAlbumStories(
+        chatId: Long,
+        storyAlbumId: Int,
+        offset: Int,
+        limit: Int,
+    ): TdlResult<Stories>
 
     /**
      * Returns reactions, which can be chosen for a story.
@@ -6157,13 +6277,14 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun pingProxy(proxyId: Int): TdlResult<Seconds>
 
     /**
-     * Posts a new story on behalf of a chat; requires canPostStories right for supergroup and channel chats. Returns a temporary story.
+     * Posts a new story on behalf of a chat; requires canPostStories administrator right for supergroup and channel chats. Returns a temporary story.
      *
      * @param chatId Identifier of the chat that will post the story. Pass Saved Messages chat identifier when posting a story on behalf of the current user.
      * @param content Content of the story.
      * @param areas Clickable rectangle areas to be shown on the story media; pass null if none.
      * @param caption Story caption; pass null to use an empty caption; 0-getOption(&quot;story_caption_length_max&quot;) characters; can have entities only if getOption(&quot;can_use_text_entities_in_story_caption&quot;).
      * @param privacySettings The privacy settings for the story; ignored for stories posted on behalf of supergroup and channel chats.
+     * @param albumIds Identifiers of story albums to which the story will be added upon posting. An album can have up to getOption(&quot;story_album_story_count_max&quot;).
      * @param activePeriod Period after which the story is moved to archive, in seconds; must be one of 6 * 3600, 12 * 3600, 86400, or 2 * 86400 for Telegram Premium users, and 86400 otherwise.
      * @param fromStoryFullId Full identifier of the original story, which content was used to create the story; pass null if the story isn't repost of another story.
      * @param isPostedToChatPage Pass true to keep the story accessible after expiration.
@@ -6175,6 +6296,7 @@ public abstract class TdlClient internal constructor() {
         areas: InputStoryAreas? = null,
         caption: FormattedText? = null,
         privacySettings: StoryPrivacySettings,
+        albumIds: IntArray,
         activePeriod: Int,
         fromStoryFullId: StoryFullId? = null,
         isPostedToChatPage: Boolean,
@@ -6440,6 +6562,19 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun removeFileFromDownloads(fileId: Int, deleteFromCache: Boolean): TdlResult<Ok>
 
     /**
+     * Removes gifts from a collection. If the collection is owned by a channel chat, then requires canPostMessages administrator right in the channel chat. Returns the changed collection.
+     *
+     * @param ownerId Identifier of the user or the channel chat that owns the collection.
+     * @param collectionId Identifier of the gift collection.
+     * @param receivedGiftIds Identifier of the gifts to remove from the collection.
+     */
+    public abstract suspend fun removeGiftCollectionGifts(
+        ownerId: MessageSender,
+        collectionId: Int,
+        receivedGiftIds: Array<String>,
+    ): TdlResult<GiftCollection>
+
+    /**
      * Removes background from the list of installed backgrounds.
      *
      * @param backgroundId The background identifier.
@@ -6549,6 +6684,19 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun removeStickerFromSet(sticker: InputFile): TdlResult<Ok>
 
     /**
+     * Removes stories from an album. If the album is owned by a supergroup or a channel chat, then requires canEditStories administrator right in the chat. Returns the changed album.
+     *
+     * @param chatId Identifier of the chat that owns the stories.
+     * @param storyAlbumId Identifier of the story album.
+     * @param storyIds Identifier of the stories to remove from the album.
+     */
+    public abstract suspend fun removeStoryAlbumStories(
+        chatId: Long,
+        storyAlbumId: Int,
+        storyIds: IntArray,
+    ): TdlResult<StoryAlbum>
+
+    /**
      * Removes a chat from the list of frequently used chats. Supported only if the chat info database is enabled.
      *
      * @param category Category of frequently used chats.
@@ -6593,6 +6741,27 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun reorderChatFolders(chatFolderIds: IntArray, mainChatListPosition: Int): TdlResult<Ok>
 
     /**
+     * Changes order of gifts in a collection. If the collection is owned by a channel chat, then requires canPostMessages administrator right in the channel chat. Returns the changed collection.
+     *
+     * @param ownerId Identifier of the user or the channel chat that owns the collection.
+     * @param collectionId Identifier of the gift collection.
+     * @param receivedGiftIds Identifier of the gifts to move to the beginning of the collection. All other gifts are placed in the current order after the specified gifts.
+     */
+    public abstract suspend fun reorderGiftCollectionGifts(
+        ownerId: MessageSender,
+        collectionId: Int,
+        receivedGiftIds: Array<String>,
+    ): TdlResult<GiftCollection>
+
+    /**
+     * Changes order of gift collections. If the collections are owned by a channel chat, then requires canPostMessages administrator right in the channel chat.
+     *
+     * @param ownerId Identifier of the user or the channel chat that owns the collection.
+     * @param collectionIds New order of gift collections.
+     */
+    public abstract suspend fun reorderGiftCollections(ownerId: MessageSender, collectionIds: IntArray): TdlResult<Ok>
+
+    /**
      * Changes the order of installed sticker sets.
      *
      * @param stickerType Type of the sticker sets to reorder.
@@ -6606,6 +6775,27 @@ public abstract class TdlClient internal constructor() {
      * @param shortcutIds The new order of quick reply shortcuts.
      */
     public abstract suspend fun reorderQuickReplyShortcuts(shortcutIds: IntArray): TdlResult<Ok>
+
+    /**
+     * Changes order of stories in an album. If the album is owned by a supergroup or a channel chat, then requires canEditStories administrator right in the chat. Returns the changed album.
+     *
+     * @param chatId Identifier of the chat that owns the stories.
+     * @param storyAlbumId Identifier of the story album.
+     * @param storyIds Identifier of the stories to move to the beginning of the album. All other stories are placed in the current order after the specified stories.
+     */
+    public abstract suspend fun reorderStoryAlbumStories(
+        chatId: Long,
+        storyAlbumId: Int,
+        storyIds: IntArray,
+    ): TdlResult<StoryAlbum>
+
+    /**
+     * Changes order of story albums. If the albums are owned by a supergroup or a channel chat, then requires canEditStories administrator right in the chat.
+     *
+     * @param chatId Identifier of the chat that owns the stories.
+     * @param storyAlbumIds New order of story albums.
+     */
+    public abstract suspend fun reorderStoryAlbums(chatId: Long, storyAlbumIds: IntArray): TdlResult<Ok>
 
     /**
      * Changes order of active usernames of a supergroup or channel, requires owner privileges in the supergroup or channel.
@@ -7130,6 +7320,21 @@ public abstract class TdlClient internal constructor() {
     ): TdlResult<FoundMessages>
 
     /**
+     * Searches for public channel posts using the given query. For optimal performance, the number of returned messages is chosen by TDLib and can be smaller than the specified limit.
+     *
+     * @param query Query to search for.
+     * @param offset Offset of the first entry to return as received from the previous request; use empty string to get the first chunk of results.
+     * @param limit The maximum number of messages to be returned; up to 100. For optimal performance, the number of returned messages is chosen by TDLib and can be smaller than the specified limit.
+     * @param starCount The amount of Telegram Stars the user agreed to pay for the search; pass 0 for free searches.
+     */
+    public abstract suspend fun searchPublicPosts(
+        query: String,
+        offset: String,
+        limit: Int,
+        starCount: Long,
+    ): TdlResult<FoundPublicPosts>
+
+    /**
      * Searches for public stories by the given address location. For optimal performance, the number of returned stories is chosen by TDLib and can be smaller than the specified limit.
      *
      * @param address Address of the location.
@@ -7582,13 +7787,13 @@ public abstract class TdlClient internal constructor() {
      *
      * @param giftName Name of the upgraded gift to send.
      * @param ownerId Identifier of the user or the channel chat that will receive the gift.
-     * @param starCount The amount of Telegram Stars required to pay for the gift.
+     * @param price The price that the user agreed to pay for the gift.
      */
     public abstract suspend fun sendResoldGift(
         giftName: String,
         ownerId: MessageSender,
-        starCount: Long,
-    ): TdlResult<Ok>
+        price: GiftResalePrice,
+    ): TdlResult<GiftResaleResult>
 
     /**
      * Sends a custom request from a Web App.
@@ -8057,7 +8262,7 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun setChatPhoto(chatId: Long, photo: InputChatPhoto? = null): TdlResult<Ok>
 
     /**
-     * Changes the list of pinned stories on a chat page; requires canEditStories right in the chat.
+     * Changes the list of pinned stories on a chat page; requires canEditStories administrator right in the chat.
      *
      * @param chatId Identifier of the chat that posted the stories.
      * @param storyIds New list of pinned stories. All stories must be posted to the chat page first. There can be up to getOption(&quot;pinned_story_count_max&quot;) pinned stories on a chat page.
@@ -8078,7 +8283,7 @@ public abstract class TdlClient internal constructor() {
     ): TdlResult<Ok>
 
     /**
-     * Changes the slow mode delay of a chat. Available only for supergroups; requires canRestrictMembers right.
+     * Changes the slow mode delay of a chat. Available only for supergroups; requires canRestrictMembers administrator right.
      *
      * @param chatId Chat identifier.
      * @param slowModeDelay New slow mode delay for the chat, in seconds; must be one of 0, 10, 30, 60, 300, 900, 3600.
@@ -8272,12 +8477,25 @@ public abstract class TdlClient internal constructor() {
     ): TdlResult<Message>
 
     /**
+     * Changes name of a gift collection. If the collection is owned by a channel chat, then requires canPostMessages administrator right in the channel chat. Returns the changed collection.
+     *
+     * @param ownerId Identifier of the user or the channel chat that owns the collection.
+     * @param collectionId Identifier of the gift collection.
+     * @param name New name of the collection; 1-12 characters.
+     */
+    public abstract suspend fun setGiftCollectionName(
+        ownerId: MessageSender,
+        collectionId: Int,
+        name: String,
+    ): TdlResult<GiftCollection>
+
+    /**
      * Changes resale price of a unique gift owned by the current user.
      *
      * @param receivedGiftId Identifier of the unique gift.
-     * @param resaleStarCount The new price for the unique gift; 0 or getOption(&quot;gift_resale_star_count_min&quot;)-getOption(&quot;gift_resale_star_count_max&quot;). Pass 0 to disallow gift resale. The current user will receive getOption(&quot;gift_resale_earnings_per_mille&quot;) Telegram Stars for each 1000 Telegram Stars paid for the gift.
+     * @param price The new price for the unique gift; pass null to disallow gift resale. The current user will receive getOption(&quot;gift_resale_star_earnings_per_mille&quot;) Telegram Stars for each 1000 Telegram Stars paid for the gift if the gift price is in Telegram Stars or getOption(&quot;gift_resale_ton_earnings_per_mille&quot;) Toncoins for each 1000 Toncoins paid for the gift if the gift price is in Toncoins.
      */
-    public abstract suspend fun setGiftResalePrice(receivedGiftId: String, resaleStarCount: Long): TdlResult<Ok>
+    public abstract suspend fun setGiftResalePrice(receivedGiftId: String, price: GiftResalePrice? = null): TdlResult<Ok>
 
     /**
      * Changes settings for gift receiving for the current user.
@@ -8665,6 +8883,19 @@ public abstract class TdlClient internal constructor() {
      * @param title New sticker set title.
      */
     public abstract suspend fun setStickerSetTitle(name: String, title: String): TdlResult<Ok>
+
+    /**
+     * Changes name of an album of stories. If the album is owned by a supergroup or a channel chat, then requires canEditStories administrator right in the chat. Returns the changed album.
+     *
+     * @param chatId Identifier of the chat that owns the stories.
+     * @param storyAlbumId Identifier of the story album.
+     * @param name New name of the album; 1-12 characters.
+     */
+    public abstract suspend fun setStoryAlbumName(
+        chatId: Long,
+        storyAlbumId: Int,
+        name: String,
+    ): TdlResult<StoryAlbum>
 
     /**
      * Changes privacy settings of a story. The method can be called only for stories posted on behalf of the current user and if story.canBeEdited == true.
@@ -9633,12 +9864,12 @@ public abstract class TdlClient internal constructor() {
         /**
          * The Git commit hash of the TDLib.
          */
-        public const val TDL_GIT_COMMIT_HASH: String = "bc32c4b20a92df817c45d8af675a7a9572b739bc"
+        public const val TDL_GIT_COMMIT_HASH: String = "bdec6af5d70dd51dd8ee9c0565a8a81deb9d169b"
 
         /**
          * The version of the TDLib.
          */
-        public const val TDL_VERSION: String = "1.8.52"
+        public const val TDL_VERSION: String = "1.8.53"
 
         /**
          * Creates a new instance of the [TdlClient].

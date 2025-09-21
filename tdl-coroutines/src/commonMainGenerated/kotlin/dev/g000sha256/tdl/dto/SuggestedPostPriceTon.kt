@@ -25,7 +25,7 @@ import kotlin.String
 /**
  * Describes price of a suggested post in Toncoins.
  *
- * @property toncoinCentCount The amount of 1/100 of Toncoin agreed to pay for the post; getOption(&quot;suggested_post_toncoin_cent_count_min&quot;)-getOption(&quot;suggested_post_toncoin_cent_count_max&quot;).
+ * @property toncoinCentCount The amount of 1/100 of Toncoin expected to be paid for the post; getOption(&quot;suggested_post_toncoin_cent_count_min&quot;)-getOption(&quot;suggested_post_toncoin_cent_count_max&quot;).
  */
 public class SuggestedPostPriceTon public constructor(
     public val toncoinCentCount: Long,
