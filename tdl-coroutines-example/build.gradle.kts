@@ -1,8 +1,8 @@
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
-    alias(catalog.plugins.android.application)
-    alias(catalog.plugins.jetBrains.kotlin.android)
+    alias(notation = catalog.plugins.android.application)
+    alias(notation = catalog.plugins.jetBrains.kotlin.android)
 }
 
 android {
@@ -69,14 +69,15 @@ kotlin {
 }
 
 dependencies {
-    implementation(catalog.libs.jetBrains.annotations)
-    implementation(catalog.libs.jetBrains.kotlin)
+    implementation(dependencyNotation = catalog.libraries.jetBrains.annotations)
+    implementation(dependencyNotation = catalog.libraries.jetBrains.kotlin)
 
-    implementation(catalog.libs.androidX.activity)
-    implementation(catalog.libs.androidX.viewModel)
-    implementation(catalog.libs.jetBrains.coroutinesAndroid)
-    implementation(catalog.libs.jetBrains.coroutinesCore)
+    implementation(dependencyNotation = catalog.libraries.androidX.activity)
+    implementation(dependencyNotation = catalog.libraries.androidX.lifecycle.common)
+    implementation(dependencyNotation = catalog.libraries.androidX.lifecycle.viewModel)
+    implementation(dependencyNotation = catalog.libraries.jetBrains.coroutines.android)
+    implementation(dependencyNotation = catalog.libraries.jetBrains.coroutines.core)
 
     val libProject = project(":tdl-coroutines")
-    implementation(libProject)
+    implementation(dependencyNotation = libProject)
 }
