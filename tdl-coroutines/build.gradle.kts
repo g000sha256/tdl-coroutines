@@ -1,16 +1,16 @@
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 group = "dev.g000sha256"
-version = "1.5.0"
+version = "2.0.0"
 
 plugins {
-    alias(catalog.plugins.android.library)
-    alias(catalog.plugins.g000sha256.sonatypeMavenCentral)
-    alias(catalog.plugins.jetBrains.binaryCompatibilityValidator)
-    alias(catalog.plugins.jetBrains.dokka)
-    alias(catalog.plugins.jetBrains.kotlin.multiplatform)
-    id("org.gradle.maven-publish")
-    id("org.gradle.signing")
+    alias(notation = catalog.plugins.android.library)
+    alias(notation = catalog.plugins.g000sha256.sonatypeMavenCentral)
+    alias(notation = catalog.plugins.gradle.mavenPublish)
+    alias(notation = catalog.plugins.gradle.signing)
+    alias(notation = catalog.plugins.jetBrains.binaryCompatibilityValidator)
+    alias(notation = catalog.plugins.jetBrains.dokka)
+    alias(notation = catalog.plugins.jetBrains.kotlin.multiplatform)
 }
 
 android {
@@ -72,12 +72,13 @@ kotlin {
             kotlin.srcDirs("src/commonMainGenerated/kotlin")
 
             dependencies {
-                implementation(catalog.libs.jetBrains.annotations)
-                implementation(catalog.libs.jetBrains.kotlin)
+                implementation(dependencyNotation = catalog.libraries.jetBrains.annotations)
+                implementation(dependencyNotation = catalog.libraries.jetBrains.kotlin)
 
-                implementation(catalog.libs.jetBrains.atomic)
-                implementation(catalog.libs.jetBrains.coroutinesCore)
-                implementation(catalog.libs.jetBrains.kotlinSerialization)
+                implementation(dependencyNotation = catalog.libraries.jetBrains.atomic)
+                implementation(dependencyNotation = catalog.libraries.jetBrains.coroutines.core)
+                implementation(dependencyNotation = catalog.libraries.jetBrains.kotlinSerialization.core)
+                implementation(dependencyNotation = catalog.libraries.jetBrains.kotlinSerialization.json)
             }
         }
 

@@ -16,12 +16,12 @@
 
 package dev.g000sha256.tdl.function
 
+import dev.g000sha256.tdl.dto.GiftResalePrice
 import dev.g000sha256.tdl.dto.MessageSender
-import kotlin.Long
 import kotlin.String
 
 internal class SendResoldGift internal constructor(
     internal val giftName: String,
     internal val ownerId: MessageSender,
-    internal val starCount: Long,
+    internal val price: GiftResalePrice,
 )

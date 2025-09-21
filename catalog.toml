@@ -1,27 +1,43 @@
 [versions]
-android = "8.12.0"
+android = "8.13.0"
+androidX-activity = "1.11.0"
+androidX-lifecycle = "2.9.4"
+annotations = "26.0.2"
+atomic = "0.29.0"
+binaryCompatibilityValidator = "0.18.1"
+buildConfig = "5.6.8"
 coroutines = "1.10.2"
-kotlin = "2.2.0"
-
-[libraries]
-libs-androidX-activity = { module = "androidx.activity:activity", version = "1.10.1" }
-libs-androidX-viewModel = { module = "androidx.lifecycle:lifecycle-viewmodel", version = "2.9.2" }
-libs-jetBrains-annotations = { module = "org.jetbrains:annotations", version = "26.0.2" }
-libs-jetBrains-atomic = { module = "org.jetbrains.kotlinx:atomicfu", version = "0.29.0" }
-libs-jetBrains-coroutinesAndroid = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutines" }
-libs-jetBrains-coroutinesCore = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
-libs-jetBrains-kotlin = { module = "org.jetbrains.kotlin:kotlin-stdlib", version.ref = "kotlin" }
-libs-jetBrains-kotlinSerialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version = "1.9.0" }
-libs-squareUp-kotlinPoet = { module = "com.squareup:kotlinpoet", version = "2.2.0" }
+dokka = "2.0.0"
+kotlin = "2.2.20"
+kotlinPoet = "2.2.0"
+kotlinSerialization = "1.9.0"
+shadow = "8.1.1"
+sonatypeMavenCentral = "1.1.1"
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "android" }
 android-library = { id = "com.android.library", version.ref = "android" }
-g000sha256-sonatypeMavenCentral = { id = "dev.g000sha256.sonatype-maven-central", version = "1.0.0" }
-gmazzo-buildConfig = { id = "com.github.gmazzo.buildconfig", version = "5.6.7" }
-jetBrains-binaryCompatibilityValidator = { id = "org.jetbrains.kotlinx.binary-compatibility-validator", version = "0.18.1" }
-jetBrains-dokka = { id = "org.jetbrains.dokka", version = "2.0.0" }
+g000sha256-sonatypeMavenCentral = { id = "dev.g000sha256.sonatype-maven-central", version.ref = "sonatypeMavenCentral" }
+gmazzo-buildConfig = { id = "com.github.gmazzo.buildconfig", version.ref = "buildConfig" }
+gradle-application = { id = "application" }
+gradle-mavenPublish = { id = "org.gradle.maven-publish" }
+gradle-signing = { id = "org.gradle.signing" }
+jetBrains-binaryCompatibilityValidator = { id = "org.jetbrains.kotlinx.binary-compatibility-validator", version.ref = "binaryCompatibilityValidator" }
+jetBrains-dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }
 jetBrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 jetBrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 jetBrains-kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
-johnRengelman-shadow = { id = "com.github.johnrengelman.shadow", version = "8.1.1" }
+johnRengelman-shadow = { id = "com.github.johnrengelman.shadow", version.ref = "shadow" }
+
+[libraries]
+libraries-androidX-activity = { module = "androidx.activity:activity", version.ref = "androidX-activity" }
+libraries-androidX-lifecycle-common = { module = "androidx.lifecycle:lifecycle-common", version.ref = "androidX-lifecycle" }
+libraries-androidX-lifecycle-viewModel = { module = "androidx.lifecycle:lifecycle-viewmodel", version.ref = "androidX-lifecycle" }
+libraries-jetBrains-annotations = { module = "org.jetbrains:annotations", version.ref = "annotations" }
+libraries-jetBrains-atomic = { module = "org.jetbrains.kotlinx:atomicfu", version.ref = "atomic" }
+libraries-jetBrains-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutines" }
+libraries-jetBrains-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
+libraries-jetBrains-kotlin = { module = "org.jetbrains.kotlin:kotlin-stdlib", version.ref = "kotlin" }
+libraries-jetBrains-kotlinSerialization-core = { module = "org.jetbrains.kotlinx:kotlinx-serialization-core", version.ref = "kotlinSerialization" }
+libraries-jetBrains-kotlinSerialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinSerialization" }
+libraries-squareUp-kotlinPoet = { module = "com.squareup:kotlinpoet", version.ref = "kotlinPoet" }

@@ -32,6 +32,7 @@ import kotlin.String
  * @property number Unique number of the upgraded gift among gifts upgraded from the same gift.
  * @property totalUpgradedCount Total number of gifts that were upgraded from the same gift.
  * @property maxUpgradedCount The maximum number of gifts that can be upgraded from the same gift.
+ * @property isPremium True, if the original gift could have been bought only by Telegram Premium subscribers.
  * @property ownerId Identifier of the user or the chat that owns the upgraded gift; may be null if none or unknown.
  * @property ownerAddress Address of the gift NFT owner in TON blockchain; may be empty if none. Append the address to getOption(&quot;ton_blockchain_explorer_url&quot;) to get a link with information about the address.
  * @property ownerName Name of the owner for the case when owner identifier and address aren't known.
@@ -40,7 +41,7 @@ import kotlin.String
  * @property symbol Symbol of the upgraded gift.
  * @property backdrop Backdrop of the upgraded gift.
  * @property originalDetails Information about the originally sent gift; may be null if unknown.
- * @property resaleStarCount Number of Telegram Stars that must be paid to buy the gift and send it to someone else; 0 if resale isn't possible.
+ * @property resaleParameters Resale parameters of the gift; may be null if resale isn't possible.
  */
 public class UpgradedGift public constructor(
     public val id: Long,
@@ -50,6 +51,7 @@ public class UpgradedGift public constructor(
     public val number: Int,
     public val totalUpgradedCount: Int,
     public val maxUpgradedCount: Int,
+    public val isPremium: Boolean,
     public val ownerId: MessageSender?,
     public val ownerAddress: String,
     public val ownerName: String,
@@ -58,7 +60,7 @@ public class UpgradedGift public constructor(
     public val symbol: UpgradedGiftSymbol,
     public val backdrop: UpgradedGiftBackdrop,
     public val originalDetails: UpgradedGiftOriginalDetails?,
-    public val resaleStarCount: Long,
+    public val resaleParameters: GiftResaleParameters?,
 ) {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
@@ -92,6 +94,9 @@ public class UpgradedGift public constructor(
         if (other.maxUpgradedCount != maxUpgradedCount) {
             return false
         }
+        if (other.isPremium != isPremium) {
+            return false
+        }
         if (other.ownerId != ownerId) {
             return false
         }
@@ -116,7 +121,7 @@ public class UpgradedGift public constructor(
         if (other.originalDetails != originalDetails) {
             return false
         }
-        return other.resaleStarCount == resaleStarCount
+        return other.resaleParameters == resaleParameters
     }
 
     override fun hashCode(): Int {
@@ -128,6 +133,7 @@ public class UpgradedGift public constructor(
         hashCode = 31 * hashCode + number.hashCode()
         hashCode = 31 * hashCode + totalUpgradedCount.hashCode()
         hashCode = 31 * hashCode + maxUpgradedCount.hashCode()
+        hashCode = 31 * hashCode + isPremium.hashCode()
         hashCode = 31 * hashCode + ownerId.hashCode()
         hashCode = 31 * hashCode + ownerAddress.hashCode()
         hashCode = 31 * hashCode + ownerName.hashCode()
@@ -136,7 +142,7 @@ public class UpgradedGift public constructor(
         hashCode = 31 * hashCode + symbol.hashCode()
         hashCode = 31 * hashCode + backdrop.hashCode()
         hashCode = 31 * hashCode + originalDetails.hashCode()
-        hashCode = 31 * hashCode + resaleStarCount.hashCode()
+        hashCode = 31 * hashCode + resaleParameters.hashCode()
         return hashCode
     }
 
@@ -165,6 +171,9 @@ public class UpgradedGift public constructor(
             append("maxUpgradedCount=")
             append(maxUpgradedCount)
             append(", ")
+            append("isPremium=")
+            append(isPremium)
+            append(", ")
             append("ownerId=")
             append(ownerId)
             append(", ")
@@ -189,8 +198,8 @@ public class UpgradedGift public constructor(
             append("originalDetails=")
             append(originalDetails)
             append(", ")
-            append("resaleStarCount=")
-            append(resaleStarCount)
+            append("resaleParameters=")
+            append(resaleParameters)
             append(")")
         }
     }

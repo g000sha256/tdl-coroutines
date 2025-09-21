@@ -32,8 +32,9 @@ import kotlin.String
  * @property defaultSellStarCount Number of Telegram Stars that can be claimed by the receiver instead of the regular gift by default. If the gift was paid with just bought Telegram Stars, then full value can be claimed.
  * @property upgradeStarCount Number of Telegram Stars that must be paid to upgrade the gift; 0 if upgrade isn't possible.
  * @property isForBirthday True, if the gift is a birthday gift.
- * @property remainingCount Number of remaining times the gift can be purchased; 0 if not limited or the gift was sold out.
- * @property totalCount Number of total times the gift can be purchased; 0 if not limited.
+ * @property isPremium True, if the gift can be bought only by Telegram Premium subscribers.
+ * @property userLimits Number of times the gift can be purchased by the current user; may be null if not limited.
+ * @property overallLimits Number of times the gift can be purchased all users; may be null if not limited.
  * @property firstSendDate Point in time (Unix timestamp) when the gift was send for the first time; for sold out gifts only.
  * @property lastSendDate Point in time (Unix timestamp) when the gift was send for the last time; for sold out gifts only.
  */
@@ -45,8 +46,9 @@ public class Gift public constructor(
     public val defaultSellStarCount: Long,
     public val upgradeStarCount: Long,
     public val isForBirthday: Boolean,
-    public val remainingCount: Int,
-    public val totalCount: Int,
+    public val isPremium: Boolean,
+    public val userLimits: GiftPurchaseLimits?,
+    public val overallLimits: GiftPurchaseLimits?,
     public val firstSendDate: Int,
     public val lastSendDate: Int,
 ) {
@@ -82,10 +84,13 @@ public class Gift public constructor(
         if (other.isForBirthday != isForBirthday) {
             return false
         }
-        if (other.remainingCount != remainingCount) {
+        if (other.isPremium != isPremium) {
             return false
         }
-        if (other.totalCount != totalCount) {
+        if (other.userLimits != userLimits) {
+            return false
+        }
+        if (other.overallLimits != overallLimits) {
             return false
         }
         if (other.firstSendDate != firstSendDate) {
@@ -103,8 +108,9 @@ public class Gift public constructor(
         hashCode = 31 * hashCode + defaultSellStarCount.hashCode()
         hashCode = 31 * hashCode + upgradeStarCount.hashCode()
         hashCode = 31 * hashCode + isForBirthday.hashCode()
-        hashCode = 31 * hashCode + remainingCount.hashCode()
-        hashCode = 31 * hashCode + totalCount.hashCode()
+        hashCode = 31 * hashCode + isPremium.hashCode()
+        hashCode = 31 * hashCode + userLimits.hashCode()
+        hashCode = 31 * hashCode + overallLimits.hashCode()
         hashCode = 31 * hashCode + firstSendDate.hashCode()
         hashCode = 31 * hashCode + lastSendDate.hashCode()
         return hashCode
@@ -135,11 +141,14 @@ public class Gift public constructor(
             append("isForBirthday=")
             append(isForBirthday)
             append(", ")
-            append("remainingCount=")
-            append(remainingCount)
+            append("isPremium=")
+            append(isPremium)
             append(", ")
-            append("totalCount=")
-            append(totalCount)
+            append("userLimits=")
+            append(userLimits)
+            append(", ")
+            append("overallLimits=")
+            append(overallLimits)
             append(", ")
             append("firstSendDate=")
             append(firstSendDate)

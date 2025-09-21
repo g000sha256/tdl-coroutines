@@ -20,6 +20,7 @@ import kotlin.Any
 import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
+import kotlin.IntArray
 import kotlin.Long
 import kotlin.String
 
@@ -35,6 +36,7 @@ import kotlin.String
  * @property isEdited True, if the story was edited.
  * @property isPostedToChatPage True, if the story is saved in the profile of the chat that posted it and will be available there after expiration.
  * @property isVisibleOnlyForSelf True, if the story is visible only for the current user.
+ * @property canBeAddedToAlbum True, if the story can be added to an album.
  * @property canBeDeleted True, if the story can be deleted.
  * @property canBeEdited True, if the story can be edited.
  * @property canBeForwarded True, if the story can be forwarded as a message. Otherwise, screenshots and saving of the story content must be also forbidden.
@@ -50,6 +52,7 @@ import kotlin.String
  * @property content Content of the story.
  * @property areas Clickable areas to be shown on the story content.
  * @property caption Caption of the story.
+ * @property albumIds Identifiers of story albums to which the story is added; only for manageable stories.
  */
 public class Story public constructor(
     public val id: Int,
@@ -61,6 +64,7 @@ public class Story public constructor(
     public val isEdited: Boolean,
     public val isPostedToChatPage: Boolean,
     public val isVisibleOnlyForSelf: Boolean,
+    public val canBeAddedToAlbum: Boolean,
     public val canBeDeleted: Boolean,
     public val canBeEdited: Boolean,
     public val canBeForwarded: Boolean,
@@ -76,6 +80,7 @@ public class Story public constructor(
     public val content: StoryContent,
     public val areas: Array<StoryArea>,
     public val caption: FormattedText,
+    public val albumIds: IntArray,
 ) {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
@@ -113,6 +118,9 @@ public class Story public constructor(
             return false
         }
         if (other.isVisibleOnlyForSelf != isVisibleOnlyForSelf) {
+            return false
+        }
+        if (other.canBeAddedToAlbum != canBeAddedToAlbum) {
             return false
         }
         if (other.canBeDeleted != canBeDeleted) {
@@ -158,7 +166,10 @@ public class Story public constructor(
         if (!areasEquals) {
             return false
         }
-        return other.caption == caption
+        if (other.caption != caption) {
+            return false
+        }
+        return other.albumIds.contentEquals(albumIds)
     }
 
     override fun hashCode(): Int {
@@ -172,6 +183,7 @@ public class Story public constructor(
         hashCode = 31 * hashCode + isEdited.hashCode()
         hashCode = 31 * hashCode + isPostedToChatPage.hashCode()
         hashCode = 31 * hashCode + isVisibleOnlyForSelf.hashCode()
+        hashCode = 31 * hashCode + canBeAddedToAlbum.hashCode()
         hashCode = 31 * hashCode + canBeDeleted.hashCode()
         hashCode = 31 * hashCode + canBeEdited.hashCode()
         hashCode = 31 * hashCode + canBeForwarded.hashCode()
@@ -187,6 +199,7 @@ public class Story public constructor(
         hashCode = 31 * hashCode + content.hashCode()
         hashCode = 31 * hashCode + areas.contentDeepHashCode()
         hashCode = 31 * hashCode + caption.hashCode()
+        hashCode = 31 * hashCode + albumIds.contentHashCode()
         return hashCode
     }
 
@@ -220,6 +233,9 @@ public class Story public constructor(
             append(", ")
             append("isVisibleOnlyForSelf=")
             append(isVisibleOnlyForSelf)
+            append(", ")
+            append("canBeAddedToAlbum=")
+            append(canBeAddedToAlbum)
             append(", ")
             append("canBeDeleted=")
             append(canBeDeleted)
@@ -267,6 +283,11 @@ public class Story public constructor(
             append(", ")
             append("caption=")
             append(caption)
+            append(", ")
+            append("albumIds=")
+            albumIds
+                .contentToString()
+                .also { append(it) }
             append(")")
         }
     }

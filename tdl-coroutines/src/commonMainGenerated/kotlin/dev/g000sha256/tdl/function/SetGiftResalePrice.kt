@@ -16,10 +16,10 @@
 
 package dev.g000sha256.tdl.function
 
-import kotlin.Long
+import dev.g000sha256.tdl.dto.GiftResalePrice
 import kotlin.String
 
 internal class SetGiftResalePrice internal constructor(
     internal val receivedGiftId: String,
-    internal val resaleStarCount: Long,
+    internal val price: GiftResalePrice?,
 )

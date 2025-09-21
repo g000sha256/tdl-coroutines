@@ -1,10 +1,10 @@
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
-    alias(catalog.plugins.gmazzo.buildConfig)
-    alias(catalog.plugins.jetBrains.kotlin.jvm)
-    alias(catalog.plugins.johnRengelman.shadow)
-    id("application")
+    alias(notation = catalog.plugins.gmazzo.buildConfig)
+    alias(notation = catalog.plugins.gradle.application)
+    alias(notation = catalog.plugins.jetBrains.kotlin.jvm)
+    alias(notation = catalog.plugins.johnRengelman.shadow)
 }
 
 application {
@@ -26,13 +26,13 @@ kotlin {
 }
 
 dependencies {
-    implementation(catalog.libs.jetBrains.annotations)
-    implementation(catalog.libs.jetBrains.kotlin)
+    implementation(dependencyNotation = catalog.libraries.jetBrains.annotations)
+    implementation(dependencyNotation = catalog.libraries.jetBrains.kotlin)
 
-    implementation(catalog.libs.jetBrains.coroutinesCore)
+    implementation(dependencyNotation = catalog.libraries.jetBrains.coroutines.core)
 
     val libProject = project(":tdl-coroutines")
-    implementation(libProject)
+    implementation(dependencyNotation = libProject)
 }
 
 buildConfig {

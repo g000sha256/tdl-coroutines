@@ -62,8 +62,7 @@ import kotlin.String
  * @property authorSignature For channel posts and anonymous group messages, optional author signature.
  * @property mediaAlbumId Unique identifier of an album this message belongs to; 0 if none. Only audios, documents, photos and videos can be grouped together in albums.
  * @property effectId Unique identifier of the effect added to the message; 0 if none.
- * @property hasSensitiveContent True, if media content of the message must be hidden with 18+ spoiler.
- * @property restrictionReason If non-empty, contains a human-readable description of the reason why access to this message must be restricted.
+ * @property restrictionInfo Information about the restrictions that must be applied to the message content; may be null if none.
  * @property content Content of the message.
  * @property replyMarkup Reply markup for the message; may be null if none.
  */
@@ -103,8 +102,7 @@ public class Message public constructor(
     public val authorSignature: String,
     public val mediaAlbumId: Long,
     public val effectId: Long,
-    public val hasSensitiveContent: Boolean,
-    public val restrictionReason: String,
+    public val restrictionInfo: RestrictionInfo?,
     public val content: MessageContent,
     public val replyMarkup: ReplyMarkup?,
 ) {
@@ -225,10 +223,7 @@ public class Message public constructor(
         if (other.effectId != effectId) {
             return false
         }
-        if (other.hasSensitiveContent != hasSensitiveContent) {
-            return false
-        }
-        if (other.restrictionReason != restrictionReason) {
+        if (other.restrictionInfo != restrictionInfo) {
             return false
         }
         if (other.content != content) {
@@ -274,8 +269,7 @@ public class Message public constructor(
         hashCode = 31 * hashCode + authorSignature.hashCode()
         hashCode = 31 * hashCode + mediaAlbumId.hashCode()
         hashCode = 31 * hashCode + effectId.hashCode()
-        hashCode = 31 * hashCode + hasSensitiveContent.hashCode()
-        hashCode = 31 * hashCode + restrictionReason.hashCode()
+        hashCode = 31 * hashCode + restrictionInfo.hashCode()
         hashCode = 31 * hashCode + content.hashCode()
         hashCode = 31 * hashCode + replyMarkup.hashCode()
         return hashCode
@@ -392,11 +386,8 @@ public class Message public constructor(
             append("effectId=")
             append(effectId)
             append(", ")
-            append("hasSensitiveContent=")
-            append(hasSensitiveContent)
-            append(", ")
-            append("restrictionReason=")
-            append(restrictionReason)
+            append("restrictionInfo=")
+            append(restrictionInfo)
             append(", ")
             append("content=")
             append(content)
