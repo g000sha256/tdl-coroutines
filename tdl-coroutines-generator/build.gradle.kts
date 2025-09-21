@@ -1,8 +1,8 @@
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
-    alias(catalog.plugins.jetBrains.kotlin.jvm)
-    id("application")
+    alias(notation = catalog.plugins.gradle.application)
+    alias(notation = catalog.plugins.jetBrains.kotlin.jvm)
 }
 
 application {
@@ -23,8 +23,8 @@ kotlin {
 }
 
 dependencies {
-    implementation(catalog.libs.jetBrains.annotations)
-    implementation(catalog.libs.jetBrains.kotlin)
+    implementation(dependencyNotation = catalog.libraries.jetBrains.annotations)
+    implementation(dependencyNotation = catalog.libraries.jetBrains.kotlin)
 
-    implementation(catalog.libs.squareUp.kotlinPoet)
+    implementation(dependencyNotation = catalog.libraries.squareUp.kotlinPoet)
 }
