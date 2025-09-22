@@ -1,7 +1,7 @@
 # TDL Coroutines
 
 [![Maven Central](https://img.shields.io/maven-central/v/dev.g000sha256/tdl-coroutines?label=Maven%20Central&labelColor=171C35&color=E38E33)](https://central.sonatype.com/artifact/dev.g000sha256/tdl-coroutines)
-[![TDLib Version](https://img.shields.io/badge/TDLib-v1.8.53-blue?labelColor=19212A&color=53A5E3)](https://github.com/tdlib/td/tree/bdec6af5d70dd51dd8ee9c0565a8a81deb9d169b)
+[![TDLib Version](https://img.shields.io/badge/TDLib-v1.8.54-blue?labelColor=19212A&color=53A5E3)](https://github.com/tdlib/td/tree/6dca40bdaac8b5e66c7a793727bf3f81e9711f70)
 
 ![Platform](https://img.shields.io/static/v1?label=Platform&labelColor=black&message=Android&color=green)
 ![Platform](https://img.shields.io/static/v1?label=Platform&labelColor=black&message=JVM&color=orange)
@@ -74,7 +74,7 @@ coroutineScope.launch {
 
 ### How to send a request
 
-The `TdlClient` provides 900 request methods.
+The `TdlClient` provides 902 request methods.
 
 ```kotlin
 coroutineScope.launch {

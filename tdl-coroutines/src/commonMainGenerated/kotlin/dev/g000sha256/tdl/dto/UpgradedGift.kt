@@ -26,6 +26,7 @@ import kotlin.String
  * Describes an upgraded gift that can be transferred to another owner or transferred to the TON blockchain as an NFT.
  *
  * @property id Unique identifier of the gift.
+ * @property regularGiftId Unique identifier of the regular gift from which the gift was upgraded; may be 0 for short period of time for old gifts from database.
  * @property publisherChatId Identifier of the chat that published the gift; 0 if none.
  * @property title The title of the upgraded gift.
  * @property name Unique name of the upgraded gift that can be used with internalLinkTypeUpgradedGift or sendResoldGift.
@@ -42,9 +43,12 @@ import kotlin.String
  * @property backdrop Backdrop of the upgraded gift.
  * @property originalDetails Information about the originally sent gift; may be null if unknown.
  * @property resaleParameters Resale parameters of the gift; may be null if resale isn't possible.
+ * @property valueCurrency ISO 4217 currency code of the currency in which value of the gift is represented; may be empty if unavailable.
+ * @property valueAmount Estimated value of the gift; in the smallest units of the currency; 0 if unavailable.
  */
 public class UpgradedGift public constructor(
     public val id: Long,
+    public val regularGiftId: Long,
     public val publisherChatId: Long,
     public val title: String,
     public val name: String,
@@ -61,6 +65,8 @@ public class UpgradedGift public constructor(
     public val backdrop: UpgradedGiftBackdrop,
     public val originalDetails: UpgradedGiftOriginalDetails?,
     public val resaleParameters: GiftResaleParameters?,
+    public val valueCurrency: String,
+    public val valueAmount: Long,
 ) {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
@@ -74,6 +80,9 @@ public class UpgradedGift public constructor(
         }
         other as UpgradedGift
         if (other.id != id) {
+            return false
+        }
+        if (other.regularGiftId != regularGiftId) {
             return false
         }
         if (other.publisherChatId != publisherChatId) {
@@ -121,12 +130,19 @@ public class UpgradedGift public constructor(
         if (other.originalDetails != originalDetails) {
             return false
         }
-        return other.resaleParameters == resaleParameters
+        if (other.resaleParameters != resaleParameters) {
+            return false
+        }
+        if (other.valueCurrency != valueCurrency) {
+            return false
+        }
+        return other.valueAmount == valueAmount
     }
 
     override fun hashCode(): Int {
         var hashCode = this::class.hashCode()
         hashCode = 31 * hashCode + id.hashCode()
+        hashCode = 31 * hashCode + regularGiftId.hashCode()
         hashCode = 31 * hashCode + publisherChatId.hashCode()
         hashCode = 31 * hashCode + title.hashCode()
         hashCode = 31 * hashCode + name.hashCode()
@@ -143,6 +159,8 @@ public class UpgradedGift public constructor(
         hashCode = 31 * hashCode + backdrop.hashCode()
         hashCode = 31 * hashCode + originalDetails.hashCode()
         hashCode = 31 * hashCode + resaleParameters.hashCode()
+        hashCode = 31 * hashCode + valueCurrency.hashCode()
+        hashCode = 31 * hashCode + valueAmount.hashCode()
         return hashCode
     }
 
@@ -152,6 +170,9 @@ public class UpgradedGift public constructor(
             append("(")
             append("id=")
             append(id)
+            append(", ")
+            append("regularGiftId=")
+            append(regularGiftId)
             append(", ")
             append("publisherChatId=")
             append(publisherChatId)
@@ -200,6 +221,12 @@ public class UpgradedGift public constructor(
             append(", ")
             append("resaleParameters=")
             append(resaleParameters)
+            append(", ")
+            append("valueCurrency=")
+            append(valueCurrency)
+            append(", ")
+            append("valueAmount=")
+            append(valueAmount)
             append(")")
         }
     }

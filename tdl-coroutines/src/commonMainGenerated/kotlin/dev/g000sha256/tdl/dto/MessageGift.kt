@@ -26,7 +26,7 @@ import kotlin.String
  * A regular gift was received or sent by the current user, or the current user was notified about a channel gift.
  *
  * @property gift The gift.
- * @property senderId Sender of the gift.
+ * @property senderId Sender of the gift; may be null for outgoing messages about prepaid upgrade of gifts from unknown users.
  * @property receiverId Receiver of the gift.
  * @property receivedGiftId Unique identifier of the received gift for the current user; only for the receiver of the gift.
  * @property text Message added to the gift.
@@ -34,15 +34,17 @@ import kotlin.String
  * @property prepaidUpgradeStarCount Number of Telegram Stars that were paid by the sender for the ability to upgrade the gift.
  * @property isPrivate True, if the sender and gift text are shown only to the gift receiver; otherwise, everyone will be able to see them.
  * @property isSaved True, if the gift is displayed on the user's or the channel's profile page; only for the receiver of the gift.
+ * @property isPrepaidUpgrade True, if the message is about prepaid upgrade of the gift by another user.
  * @property canBeUpgraded True, if the gift can be upgraded to a unique gift; only for the receiver of the gift.
  * @property wasConverted True, if the gift was converted to Telegram Stars; only for the receiver of the gift.
  * @property wasUpgraded True, if the gift was upgraded to a unique gift.
  * @property wasRefunded True, if the gift was refunded and isn't available anymore.
  * @property upgradedReceivedGiftId Identifier of the corresponding upgraded gift; may be empty if unknown. Use getReceivedGift to get information about the gift.
+ * @property prepaidUpgradeHash If non-empty, then the user can pay for an upgrade of the gift using buyGiftUpgrade.
  */
 public class MessageGift public constructor(
     public val gift: Gift,
-    public val senderId: MessageSender,
+    public val senderId: MessageSender?,
     public val receiverId: MessageSender,
     public val receivedGiftId: String,
     public val text: FormattedText,
@@ -50,11 +52,13 @@ public class MessageGift public constructor(
     public val prepaidUpgradeStarCount: Long,
     public val isPrivate: Boolean,
     public val isSaved: Boolean,
+    public val isPrepaidUpgrade: Boolean,
     public val canBeUpgraded: Boolean,
     public val wasConverted: Boolean,
     public val wasUpgraded: Boolean,
     public val wasRefunded: Boolean,
     public val upgradedReceivedGiftId: String,
+    public val prepaidUpgradeHash: String,
 ) : MessageContent() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
@@ -94,6 +98,9 @@ public class MessageGift public constructor(
         if (other.isSaved != isSaved) {
             return false
         }
+        if (other.isPrepaidUpgrade != isPrepaidUpgrade) {
+            return false
+        }
         if (other.canBeUpgraded != canBeUpgraded) {
             return false
         }
@@ -106,7 +113,10 @@ public class MessageGift public constructor(
         if (other.wasRefunded != wasRefunded) {
             return false
         }
-        return other.upgradedReceivedGiftId == upgradedReceivedGiftId
+        if (other.upgradedReceivedGiftId != upgradedReceivedGiftId) {
+            return false
+        }
+        return other.prepaidUpgradeHash == prepaidUpgradeHash
     }
 
     override fun hashCode(): Int {
@@ -120,11 +130,13 @@ public class MessageGift public constructor(
         hashCode = 31 * hashCode + prepaidUpgradeStarCount.hashCode()
         hashCode = 31 * hashCode + isPrivate.hashCode()
         hashCode = 31 * hashCode + isSaved.hashCode()
+        hashCode = 31 * hashCode + isPrepaidUpgrade.hashCode()
         hashCode = 31 * hashCode + canBeUpgraded.hashCode()
         hashCode = 31 * hashCode + wasConverted.hashCode()
         hashCode = 31 * hashCode + wasUpgraded.hashCode()
         hashCode = 31 * hashCode + wasRefunded.hashCode()
         hashCode = 31 * hashCode + upgradedReceivedGiftId.hashCode()
+        hashCode = 31 * hashCode + prepaidUpgradeHash.hashCode()
         return hashCode
     }
 
@@ -159,6 +171,9 @@ public class MessageGift public constructor(
             append("isSaved=")
             append(isSaved)
             append(", ")
+            append("isPrepaidUpgrade=")
+            append(isPrepaidUpgrade)
+            append(", ")
             append("canBeUpgraded=")
             append(canBeUpgraded)
             append(", ")
@@ -173,6 +188,9 @@ public class MessageGift public constructor(
             append(", ")
             append("upgradedReceivedGiftId=")
             append(upgradedReceivedGiftId)
+            append(", ")
+            append("prepaidUpgradeHash=")
+            append(prepaidUpgradeHash)
             append(")")
         }
     }
