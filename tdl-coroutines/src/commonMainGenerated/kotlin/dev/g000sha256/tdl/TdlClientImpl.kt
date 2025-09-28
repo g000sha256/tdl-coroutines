@@ -532,6 +532,7 @@ import dev.g000sha256.tdl.dto.Updates
 import dev.g000sha256.tdl.dto.UpgradeGiftResult
 import dev.g000sha256.tdl.dto.UpgradedGift
 import dev.g000sha256.tdl.dto.UpgradedGiftAttributeId
+import dev.g000sha256.tdl.dto.UpgradedGiftValueInfo
 import dev.g000sha256.tdl.dto.User
 import dev.g000sha256.tdl.dto.UserFullInfo
 import dev.g000sha256.tdl.dto.UserLink
@@ -590,6 +591,7 @@ import dev.g000sha256.tdl.function.BanChatMember
 import dev.g000sha256.tdl.function.BanGroupCallParticipants
 import dev.g000sha256.tdl.function.BlockMessageSenderFromReplies
 import dev.g000sha256.tdl.function.BoostChat
+import dev.g000sha256.tdl.function.BuyGiftUpgrade
 import dev.g000sha256.tdl.function.CanBotSendMessages
 import dev.g000sha256.tdl.function.CanPostStory
 import dev.g000sha256.tdl.function.CanPurchaseFromStore
@@ -1028,6 +1030,7 @@ import dev.g000sha256.tdl.function.GetTopChats
 import dev.g000sha256.tdl.function.GetTrendingStickerSets
 import dev.g000sha256.tdl.function.GetUpgradedGift
 import dev.g000sha256.tdl.function.GetUpgradedGiftEmojiStatuses
+import dev.g000sha256.tdl.function.GetUpgradedGiftValueInfo
 import dev.g000sha256.tdl.function.GetUpgradedGiftWithdrawalUrl
 import dev.g000sha256.tdl.function.GetUser
 import dev.g000sha256.tdl.function.GetUserChatBoosts
@@ -2431,6 +2434,19 @@ internal class TdlClientImpl internal constructor(
         val function = BoostChat(
             chatId = chatId,
             slotIds = slotIds,
+        )
+        return repository.send(function = function)
+    }
+
+    override suspend fun buyGiftUpgrade(
+        ownerId: MessageSender,
+        prepaidUpgradeHash: String,
+        starCount: Long,
+    ): TdlResult<Ok> {
+        val function = BuyGiftUpgrade(
+            ownerId = ownerId,
+            prepaidUpgradeHash = prepaidUpgradeHash,
+            starCount = starCount,
         )
         return repository.send(function = function)
     }
@@ -5805,7 +5821,8 @@ internal class TdlClientImpl internal constructor(
         excludeUnsaved: Boolean,
         excludeSaved: Boolean,
         excludeUnlimited: Boolean,
-        excludeLimited: Boolean,
+        excludeUpgradable: Boolean,
+        excludeNonUpgradable: Boolean,
         excludeUpgraded: Boolean,
         sortByPrice: Boolean,
         offset: String,
@@ -5818,7 +5835,8 @@ internal class TdlClientImpl internal constructor(
             excludeUnsaved = excludeUnsaved,
             excludeSaved = excludeSaved,
             excludeUnlimited = excludeUnlimited,
-            excludeLimited = excludeLimited,
+            excludeUpgradable = excludeUpgradable,
+            excludeNonUpgradable = excludeNonUpgradable,
             excludeUpgraded = excludeUpgraded,
             sortByPrice = sortByPrice,
             offset = offset,
@@ -6346,6 +6364,13 @@ internal class TdlClientImpl internal constructor(
 
     override suspend fun getUpgradedGiftEmojiStatuses(): TdlResult<EmojiStatuses> {
         val function = GetUpgradedGiftEmojiStatuses()
+        return repository.send(function = function)
+    }
+
+    override suspend fun getUpgradedGiftValueInfo(name: String): TdlResult<UpgradedGiftValueInfo> {
+        val function = GetUpgradedGiftValueInfo(
+            name = name,
+        )
         return repository.send(function = function)
     }
 

@@ -532,6 +532,7 @@ import dev.g000sha256.tdl.dto.Updates
 import dev.g000sha256.tdl.dto.UpgradeGiftResult
 import dev.g000sha256.tdl.dto.UpgradedGift
 import dev.g000sha256.tdl.dto.UpgradedGiftAttributeId
+import dev.g000sha256.tdl.dto.UpgradedGiftValueInfo
 import dev.g000sha256.tdl.dto.User
 import dev.g000sha256.tdl.dto.UserFullInfo
 import dev.g000sha256.tdl.dto.UserLink
@@ -1865,6 +1866,19 @@ public abstract class TdlClient internal constructor() {
      * @param slotIds Identifiers of boost slots of the current user from which to apply boosts to the chat.
      */
     public abstract suspend fun boostChat(chatId: Long, slotIds: IntArray): TdlResult<ChatBoostSlots>
+
+    /**
+     * Pays for upgrade of a regular gift that is owned by another user or channel chat.
+     *
+     * @param ownerId Identifier of the user or the channel chat that owns the gift.
+     * @param prepaidUpgradeHash Prepaid upgrade hash as received along with the gift.
+     * @param starCount The amount of Telegram Stars the user agreed to pay for the upgrade; must be equal to gift.upgradeStarCount.
+     */
+    public abstract suspend fun buyGiftUpgrade(
+        ownerId: MessageSender,
+        prepaidUpgradeHash: String,
+        starCount: Long,
+    ): TdlResult<Ok>
 
     /**
      * Checks whether the specified bot can send messages to the user. Returns a 404 error if can't and the access can be granted by call to allowBotToSendMessages.
@@ -5238,7 +5252,8 @@ public abstract class TdlClient internal constructor() {
      * @param excludeUnsaved Pass true to exclude gifts that aren't saved to the chat's profile page. Always true for gifts received by other users and channel chats without canPostMessages administrator right.
      * @param excludeSaved Pass true to exclude gifts that are saved to the chat's profile page. Always false for gifts received by other users and channel chats without canPostMessages administrator right.
      * @param excludeUnlimited Pass true to exclude gifts that can be purchased unlimited number of times.
-     * @param excludeLimited Pass true to exclude gifts that can be purchased limited number of times.
+     * @param excludeUpgradable Pass true to exclude gifts that can be purchased limited number of times and can be upgraded.
+     * @param excludeNonUpgradable Pass true to exclude gifts that can be purchased limited number of times and can't be upgraded.
      * @param excludeUpgraded Pass true to exclude upgraded gifts.
      * @param sortByPrice Pass true to sort results by gift price instead of send date.
      * @param offset Offset of the first entry to return as received from the previous request; use empty string to get the first chunk of results.
@@ -5251,7 +5266,8 @@ public abstract class TdlClient internal constructor() {
         excludeUnsaved: Boolean,
         excludeSaved: Boolean,
         excludeUnlimited: Boolean,
-        excludeLimited: Boolean,
+        excludeUpgradable: Boolean,
+        excludeNonUpgradable: Boolean,
         excludeUpgraded: Boolean,
         sortByPrice: Boolean,
         offset: String,
@@ -5779,6 +5795,13 @@ public abstract class TdlClient internal constructor() {
      * Returns available upgraded gift emoji statuses for self status.
      */
     public abstract suspend fun getUpgradedGiftEmojiStatuses(): TdlResult<EmojiStatuses>
+
+    /**
+     * Returns information about value of an upgraded gift by its name.
+     *
+     * @param name Unique name of the upgraded gift.
+     */
+    public abstract suspend fun getUpgradedGiftValueInfo(name: String): TdlResult<UpgradedGiftValueInfo>
 
     /**
      * Returns a URL for upgraded gift withdrawal in the TON blockchain as an NFT; requires owner privileges for gifts owned by a chat.
@@ -7652,7 +7675,7 @@ public abstract class TdlClient internal constructor() {
      * Sends a gift to another user or channel chat. May return an error with a message &quot;STARGIFT_USAGE_LIMITED&quot; if the gift was sold out.
      *
      * @param giftId Identifier of the gift to send.
-     * @param ownerId Identifier of the user or the channel chat that will receive the gift.
+     * @param ownerId Identifier of the user or the channel chat that will receive the gift; limited gifts can't be sent to channel chats.
      * @param text Text to show along with the gift; 0-getOption(&quot;gift_text_length_max&quot;) characters. Only Bold, Italic, Underline, Strikethrough, Spoiler, and CustomEmoji entities are allowed. Must be empty if the receiver enabled paid messages.
      * @param isPrivate Pass true to show gift text and sender only to the gift receiver; otherwise, everyone will be able to see them.
      * @param payForUpgrade Pass true to additionally pay for the gift upgrade and allow the receiver to upgrade it for free.
@@ -9690,7 +9713,7 @@ public abstract class TdlClient internal constructor() {
     ): TdlResult<Ok>
 
     /**
-     * Sends an upgraded gift to another user or a channel chat.
+     * Sends an upgraded gift to another user or channel chat.
      *
      * @param businessConnectionId Unique identifier of business connection on behalf of which to send the request; for bots only.
      * @param receivedGiftId Identifier of the gift.
@@ -9864,12 +9887,12 @@ public abstract class TdlClient internal constructor() {
         /**
          * The Git commit hash of the TDLib.
          */
-        public const val TDL_GIT_COMMIT_HASH: String = "bdec6af5d70dd51dd8ee9c0565a8a81deb9d169b"
+        public const val TDL_GIT_COMMIT_HASH: String = "6dca40bdaac8b5e66c7a793727bf3f81e9711f70"
 
         /**
          * The version of the TDLib.
          */
-        public const val TDL_VERSION: String = "1.8.53"
+        public const val TDL_VERSION: String = "1.8.54"
 
         /**
          * Creates a new instance of the [TdlClient].

@@ -1562,6 +1562,7 @@ import dev.g000sha256.tdl.dto.StarTransactionTypeGiftPurchase
 import dev.g000sha256.tdl.dto.StarTransactionTypeGiftSale
 import dev.g000sha256.tdl.dto.StarTransactionTypeGiftTransfer
 import dev.g000sha256.tdl.dto.StarTransactionTypeGiftUpgrade
+import dev.g000sha256.tdl.dto.StarTransactionTypeGiftUpgradePurchase
 import dev.g000sha256.tdl.dto.StarTransactionTypeGiveawayDeposit
 import dev.g000sha256.tdl.dto.StarTransactionTypeGooglePlayDeposit
 import dev.g000sha256.tdl.dto.StarTransactionTypePaidMessageReceive
@@ -1965,12 +1966,14 @@ import dev.g000sha256.tdl.dto.UpgradedGiftBackdropCount
 import dev.g000sha256.tdl.dto.UpgradedGiftModel
 import dev.g000sha256.tdl.dto.UpgradedGiftModelCount
 import dev.g000sha256.tdl.dto.UpgradedGiftOrigin
+import dev.g000sha256.tdl.dto.UpgradedGiftOriginPrepaidUpgrade
 import dev.g000sha256.tdl.dto.UpgradedGiftOriginResale
 import dev.g000sha256.tdl.dto.UpgradedGiftOriginTransfer
 import dev.g000sha256.tdl.dto.UpgradedGiftOriginUpgrade
 import dev.g000sha256.tdl.dto.UpgradedGiftOriginalDetails
 import dev.g000sha256.tdl.dto.UpgradedGiftSymbol
 import dev.g000sha256.tdl.dto.UpgradedGiftSymbolCount
+import dev.g000sha256.tdl.dto.UpgradedGiftValueInfo
 import dev.g000sha256.tdl.dto.User
 import dev.g000sha256.tdl.dto.UserFullInfo
 import dev.g000sha256.tdl.dto.UserLink
@@ -2085,6 +2088,7 @@ import dev.g000sha256.tdl.function.BanChatMember
 import dev.g000sha256.tdl.function.BanGroupCallParticipants
 import dev.g000sha256.tdl.function.BlockMessageSenderFromReplies
 import dev.g000sha256.tdl.function.BoostChat
+import dev.g000sha256.tdl.function.BuyGiftUpgrade
 import dev.g000sha256.tdl.function.CanBotSendMessages
 import dev.g000sha256.tdl.function.CanPostStory
 import dev.g000sha256.tdl.function.CanPurchaseFromStore
@@ -2523,6 +2527,7 @@ import dev.g000sha256.tdl.function.GetTopChats
 import dev.g000sha256.tdl.function.GetTrendingStickerSets
 import dev.g000sha256.tdl.function.GetUpgradedGift
 import dev.g000sha256.tdl.function.GetUpgradedGiftEmojiStatuses
+import dev.g000sha256.tdl.function.GetUpgradedGiftValueInfo
 import dev.g000sha256.tdl.function.GetUpgradedGiftWithdrawalUrl
 import dev.g000sha256.tdl.function.GetUser
 import dev.g000sha256.tdl.function.GetUserChatBoosts
@@ -2997,6 +3002,7 @@ internal class TdlSerializer internal constructor() {
             is BanGroupCallParticipants -> return serialize(requestId = requestId, function = function)
             is BlockMessageSenderFromReplies -> return serialize(requestId = requestId, function = function)
             is BoostChat -> return serialize(requestId = requestId, function = function)
+            is BuyGiftUpgrade -> return serialize(requestId = requestId, function = function)
             is CanBotSendMessages -> return serialize(requestId = requestId, function = function)
             is CanPostStory -> return serialize(requestId = requestId, function = function)
             is CanPurchaseFromStore -> return serialize(requestId = requestId, function = function)
@@ -3435,6 +3441,7 @@ internal class TdlSerializer internal constructor() {
             is GetTrendingStickerSets -> return serialize(requestId = requestId, function = function)
             is GetUpgradedGift -> return serialize(requestId = requestId, function = function)
             is GetUpgradedGiftEmojiStatuses -> return serialize(requestId = requestId, function = function)
+            is GetUpgradedGiftValueInfo -> return serialize(requestId = requestId, function = function)
             is GetUpgradedGiftWithdrawalUrl -> return serialize(requestId = requestId, function = function)
             is GetUser -> return serialize(requestId = requestId, function = function)
             is GetUserChatBoosts -> return serialize(requestId = requestId, function = function)
@@ -4284,6 +4291,16 @@ internal class TdlSerializer internal constructor() {
             put(key = "@extra", long = requestId)
             put(key = "chat_id", long = function.chatId)
             put(key = "slot_ids", ints = function.slotIds)
+        }
+    }
+
+    private fun serialize(requestId: Long, function: BuyGiftUpgrade): String {
+        return buildJsonObjectString {
+            put(key = "@type", string = "buyGiftUpgrade")
+            put(key = "@extra", long = requestId)
+            put(key = "owner_id", value = function.ownerId) { data -> serialize(dto = data) }
+            put(key = "prepaid_upgrade_hash", string = function.prepaidUpgradeHash)
+            put(key = "star_count", long = function.starCount)
         }
     }
 
@@ -7605,7 +7622,8 @@ internal class TdlSerializer internal constructor() {
             put(key = "exclude_unsaved", boolean = function.excludeUnsaved)
             put(key = "exclude_saved", boolean = function.excludeSaved)
             put(key = "exclude_unlimited", boolean = function.excludeUnlimited)
-            put(key = "exclude_limited", boolean = function.excludeLimited)
+            put(key = "exclude_upgradable", boolean = function.excludeUpgradable)
+            put(key = "exclude_non_upgradable", boolean = function.excludeNonUpgradable)
             put(key = "exclude_upgraded", boolean = function.excludeUpgraded)
             put(key = "sort_by_price", boolean = function.sortByPrice)
             put(key = "offset", string = function.offset)
@@ -8149,6 +8167,14 @@ internal class TdlSerializer internal constructor() {
         return buildJsonObjectString {
             put(key = "@type", string = "getUpgradedGiftEmojiStatuses")
             put(key = "@extra", long = requestId)
+        }
+    }
+
+    private fun serialize(requestId: Long, function: GetUpgradedGiftValueInfo): String {
+        return buildJsonObjectString {
+            put(key = "@type", string = "getUpgradedGiftValueInfo")
+            put(key = "@extra", long = requestId)
+            put(key = "name", string = function.name)
         }
     }
 
@@ -12220,6 +12246,7 @@ internal class TdlSerializer internal constructor() {
             is UpgradedGiftOriginUpgrade -> return serialize(dto = dto)
             is UpgradedGiftOriginTransfer -> return serialize(dto = dto)
             is UpgradedGiftOriginResale -> return serialize(dto = dto)
+            is UpgradedGiftOriginPrepaidUpgrade -> return serialize(dto = dto)
         }
     }
 
@@ -12285,6 +12312,7 @@ internal class TdlSerializer internal constructor() {
             is StarTransactionTypeGiftTransfer -> return serialize(dto = dto)
             is StarTransactionTypeGiftSale -> return serialize(dto = dto)
             is StarTransactionTypeGiftUpgrade -> return serialize(dto = dto)
+            is StarTransactionTypeGiftUpgradePurchase -> return serialize(dto = dto)
             is StarTransactionTypeUpgradedGiftPurchase -> return serialize(dto = dto)
             is StarTransactionTypeUpgradedGiftSale -> return serialize(dto = dto)
             is StarTransactionTypeChannelPaidReactionSend -> return serialize(dto = dto)
@@ -16014,6 +16042,12 @@ internal class TdlSerializer internal constructor() {
         }
     }
 
+    private fun serialize(dto: UpgradedGiftOriginPrepaidUpgrade): JsonElement {
+        return buildJsonObject {
+            put(key = "@type", string = "upgradedGiftOriginPrepaidUpgrade")
+        }
+    }
+
     private fun serialize(dto: UpgradedGiftModel): JsonElement {
         return buildJsonObject {
             put(key = "@type", string = "upgradedGiftModel")
@@ -16084,6 +16118,7 @@ internal class TdlSerializer internal constructor() {
         return buildJsonObject {
             put(key = "@type", string = "upgradedGift")
             put(key = "id", long = dto.id)
+            put(key = "regular_gift_id", long = dto.regularGiftId)
             put(key = "publisher_chat_id", long = dto.publisherChatId)
             put(key = "title", string = dto.title)
             put(key = "name", string = dto.name)
@@ -16100,6 +16135,28 @@ internal class TdlSerializer internal constructor() {
             put(key = "backdrop", value = dto.backdrop) { data -> serialize(dto = data) }
             put(key = "original_details", value = dto.originalDetails) { data -> serialize(dto = data) }
             put(key = "resale_parameters", value = dto.resaleParameters) { data -> serialize(dto = data) }
+            put(key = "value_currency", string = dto.valueCurrency)
+            put(key = "value_amount", long = dto.valueAmount)
+        }
+    }
+
+    private fun serialize(dto: UpgradedGiftValueInfo): JsonElement {
+        return buildJsonObject {
+            put(key = "@type", string = "upgradedGiftValueInfo")
+            put(key = "currency", string = dto.currency)
+            put(key = "value", long = dto.value)
+            put(key = "is_value_average", boolean = dto.isValueAverage)
+            put(key = "initial_sale_date", int = dto.initialSaleDate)
+            put(key = "initial_sale_star_count", long = dto.initialSaleStarCount)
+            put(key = "initial_sale_price", long = dto.initialSalePrice)
+            put(key = "last_sale_date", int = dto.lastSaleDate)
+            put(key = "last_sale_price", long = dto.lastSalePrice)
+            put(key = "is_last_sale_on_fragment", boolean = dto.isLastSaleOnFragment)
+            put(key = "minimum_price", long = dto.minimumPrice)
+            put(key = "average_sale_price", long = dto.averageSalePrice)
+            put(key = "telegram_listed_gift_count", int = dto.telegramListedGiftCount)
+            put(key = "fragment_listed_gift_count", int = dto.fragmentListedGiftCount)
+            put(key = "fragment_url", string = dto.fragmentUrl)
         }
     }
 
@@ -16265,6 +16322,7 @@ internal class TdlSerializer internal constructor() {
             put(key = "next_transfer_date", int = dto.nextTransferDate)
             put(key = "next_resale_date", int = dto.nextResaleDate)
             put(key = "export_date", int = dto.exportDate)
+            put(key = "prepaid_upgrade_hash", string = dto.prepaidUpgradeHash)
         }
     }
 
@@ -16477,6 +16535,14 @@ internal class TdlSerializer internal constructor() {
         return buildJsonObject {
             put(key = "@type", string = "starTransactionTypeGiftUpgrade")
             put(key = "user_id", long = dto.userId)
+            put(key = "gift", value = dto.gift) { data -> serialize(dto = data) }
+        }
+    }
+
+    private fun serialize(dto: StarTransactionTypeGiftUpgradePurchase): JsonElement {
+        return buildJsonObject {
+            put(key = "@type", string = "starTransactionTypeGiftUpgradePurchase")
+            put(key = "owner_id", value = dto.ownerId) { data -> serialize(dto = data) }
             put(key = "gift", value = dto.gift) { data -> serialize(dto = data) }
         }
     }
@@ -21294,11 +21360,13 @@ internal class TdlSerializer internal constructor() {
             put(key = "prepaid_upgrade_star_count", long = dto.prepaidUpgradeStarCount)
             put(key = "is_private", boolean = dto.isPrivate)
             put(key = "is_saved", boolean = dto.isSaved)
+            put(key = "is_prepaid_upgrade", boolean = dto.isPrepaidUpgrade)
             put(key = "can_be_upgraded", boolean = dto.canBeUpgraded)
             put(key = "was_converted", boolean = dto.wasConverted)
             put(key = "was_upgraded", boolean = dto.wasUpgraded)
             put(key = "was_refunded", boolean = dto.wasRefunded)
             put(key = "upgraded_received_gift_id", string = dto.upgradedReceivedGiftId)
+            put(key = "prepaid_upgrade_hash", string = dto.prepaidUpgradeHash)
         }
     }
 

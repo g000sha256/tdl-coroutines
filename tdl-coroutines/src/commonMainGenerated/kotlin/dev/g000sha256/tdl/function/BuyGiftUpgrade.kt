@@ -17,21 +17,11 @@
 package dev.g000sha256.tdl.function
 
 import dev.g000sha256.tdl.dto.MessageSender
-import kotlin.Boolean
-import kotlin.Int
+import kotlin.Long
 import kotlin.String
 
-internal class GetReceivedGifts internal constructor(
-    internal val businessConnectionId: String,
+internal class BuyGiftUpgrade internal constructor(
     internal val ownerId: MessageSender,
-    internal val collectionId: Int,
-    internal val excludeUnsaved: Boolean,
-    internal val excludeSaved: Boolean,
-    internal val excludeUnlimited: Boolean,
-    internal val excludeUpgradable: Boolean,
-    internal val excludeNonUpgradable: Boolean,
-    internal val excludeUpgraded: Boolean,
-    internal val sortByPrice: Boolean,
-    internal val offset: String,
-    internal val limit: Int,
+    internal val prepaidUpgradeHash: String,
+    internal val starCount: Long,
 )

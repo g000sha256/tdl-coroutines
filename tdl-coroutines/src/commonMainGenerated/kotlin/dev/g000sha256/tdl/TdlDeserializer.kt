@@ -1562,6 +1562,7 @@ import dev.g000sha256.tdl.dto.StarTransactionTypeGiftPurchase
 import dev.g000sha256.tdl.dto.StarTransactionTypeGiftSale
 import dev.g000sha256.tdl.dto.StarTransactionTypeGiftTransfer
 import dev.g000sha256.tdl.dto.StarTransactionTypeGiftUpgrade
+import dev.g000sha256.tdl.dto.StarTransactionTypeGiftUpgradePurchase
 import dev.g000sha256.tdl.dto.StarTransactionTypeGiveawayDeposit
 import dev.g000sha256.tdl.dto.StarTransactionTypeGooglePlayDeposit
 import dev.g000sha256.tdl.dto.StarTransactionTypePaidMessageReceive
@@ -1965,12 +1966,14 @@ import dev.g000sha256.tdl.dto.UpgradedGiftBackdropCount
 import dev.g000sha256.tdl.dto.UpgradedGiftModel
 import dev.g000sha256.tdl.dto.UpgradedGiftModelCount
 import dev.g000sha256.tdl.dto.UpgradedGiftOrigin
+import dev.g000sha256.tdl.dto.UpgradedGiftOriginPrepaidUpgrade
 import dev.g000sha256.tdl.dto.UpgradedGiftOriginResale
 import dev.g000sha256.tdl.dto.UpgradedGiftOriginTransfer
 import dev.g000sha256.tdl.dto.UpgradedGiftOriginUpgrade
 import dev.g000sha256.tdl.dto.UpgradedGiftOriginalDetails
 import dev.g000sha256.tdl.dto.UpgradedGiftSymbol
 import dev.g000sha256.tdl.dto.UpgradedGiftSymbolCount
+import dev.g000sha256.tdl.dto.UpgradedGiftValueInfo
 import dev.g000sha256.tdl.dto.User
 import dev.g000sha256.tdl.dto.UserFullInfo
 import dev.g000sha256.tdl.dto.UserLink
@@ -3479,6 +3482,7 @@ internal class TdlDeserializer internal constructor() {
             "starTransactionTypeGiftSale" -> return deserializeStarTransactionTypeGiftSale(jsonObject = jsonObject)
             "starTransactionTypeGiftTransfer" -> return deserializeStarTransactionTypeGiftTransfer(jsonObject = jsonObject)
             "starTransactionTypeGiftUpgrade" -> return deserializeStarTransactionTypeGiftUpgrade(jsonObject = jsonObject)
+            "starTransactionTypeGiftUpgradePurchase" -> return deserializeStarTransactionTypeGiftUpgradePurchase(jsonObject = jsonObject)
             "starTransactionTypeGiveawayDeposit" -> return deserializeStarTransactionTypeGiveawayDeposit(jsonObject = jsonObject)
             "starTransactionTypeGooglePlayDeposit" -> return deserializeStarTransactionTypeGooglePlayDeposit(jsonObject = jsonObject)
             "starTransactionTypePaidMessageReceive" -> return deserializeStarTransactionTypePaidMessageReceive(jsonObject = jsonObject)
@@ -3853,12 +3857,14 @@ internal class TdlDeserializer internal constructor() {
             "upgradedGiftBackdropCount" -> return deserializeUpgradedGiftBackdropCount(jsonObject = jsonObject)
             "upgradedGiftModel" -> return deserializeUpgradedGiftModel(jsonObject = jsonObject)
             "upgradedGiftModelCount" -> return deserializeUpgradedGiftModelCount(jsonObject = jsonObject)
+            "upgradedGiftOriginPrepaidUpgrade" -> return deserializeUpgradedGiftOriginPrepaidUpgrade(jsonObject = jsonObject)
             "upgradedGiftOriginResale" -> return deserializeUpgradedGiftOriginResale(jsonObject = jsonObject)
             "upgradedGiftOriginTransfer" -> return deserializeUpgradedGiftOriginTransfer(jsonObject = jsonObject)
             "upgradedGiftOriginUpgrade" -> return deserializeUpgradedGiftOriginUpgrade(jsonObject = jsonObject)
             "upgradedGiftOriginalDetails" -> return deserializeUpgradedGiftOriginalDetails(jsonObject = jsonObject)
             "upgradedGiftSymbol" -> return deserializeUpgradedGiftSymbol(jsonObject = jsonObject)
             "upgradedGiftSymbolCount" -> return deserializeUpgradedGiftSymbolCount(jsonObject = jsonObject)
+            "upgradedGiftValueInfo" -> return deserializeUpgradedGiftValueInfo(jsonObject = jsonObject)
             "user" -> return deserializeUser(jsonObject = jsonObject)
             "userFullInfo" -> return deserializeUserFullInfo(jsonObject = jsonObject)
             "userLink" -> return deserializeUserLink(jsonObject = jsonObject)
@@ -5954,6 +5960,7 @@ internal class TdlDeserializer internal constructor() {
             "starTransactionTypeGiftSale" -> return deserializeStarTransactionTypeGiftSale(jsonObject = jsonObject)
             "starTransactionTypeGiftTransfer" -> return deserializeStarTransactionTypeGiftTransfer(jsonObject = jsonObject)
             "starTransactionTypeGiftUpgrade" -> return deserializeStarTransactionTypeGiftUpgrade(jsonObject = jsonObject)
+            "starTransactionTypeGiftUpgradePurchase" -> return deserializeStarTransactionTypeGiftUpgradePurchase(jsonObject = jsonObject)
             "starTransactionTypeGiveawayDeposit" -> return deserializeStarTransactionTypeGiveawayDeposit(jsonObject = jsonObject)
             "starTransactionTypeGooglePlayDeposit" -> return deserializeStarTransactionTypeGooglePlayDeposit(jsonObject = jsonObject)
             "starTransactionTypePaidMessageReceive" -> return deserializeStarTransactionTypePaidMessageReceive(jsonObject = jsonObject)
@@ -6469,6 +6476,7 @@ internal class TdlDeserializer internal constructor() {
     private fun deserializeUpgradedGiftOrigin(jsonObject: JsonObject): UpgradedGiftOrigin {
         val type = jsonObject.getString(key = "@type")
         when(type) {
+            "upgradedGiftOriginPrepaidUpgrade" -> return deserializeUpgradedGiftOriginPrepaidUpgrade(jsonObject = jsonObject)
             "upgradedGiftOriginResale" -> return deserializeUpgradedGiftOriginResale(jsonObject = jsonObject)
             "upgradedGiftOriginTransfer" -> return deserializeUpgradedGiftOriginTransfer(jsonObject = jsonObject)
             "upgradedGiftOriginUpgrade" -> return deserializeUpgradedGiftOriginUpgrade(jsonObject = jsonObject)
@@ -12653,7 +12661,7 @@ internal class TdlDeserializer internal constructor() {
     private fun deserializeMessageGift(jsonObject: JsonObject): MessageGift {
         return MessageGift(
             gift = jsonObject.getObject(key = "gift") { data -> deserializeGift(jsonObject = data) },
-            senderId = jsonObject.getObject(key = "sender_id") { data -> deserializeMessageSender(jsonObject = data) },
+            senderId = jsonObject.getObjectNullable(key = "sender_id") { data -> deserializeMessageSender(jsonObject = data) },
             receiverId = jsonObject.getObject(key = "receiver_id") { data -> deserializeMessageSender(jsonObject = data) },
             receivedGiftId = jsonObject.getString(key = "received_gift_id"),
             text = jsonObject.getObject(key = "text") { data -> deserializeFormattedText(jsonObject = data) },
@@ -12661,11 +12669,13 @@ internal class TdlDeserializer internal constructor() {
             prepaidUpgradeStarCount = jsonObject.getLong(key = "prepaid_upgrade_star_count"),
             isPrivate = jsonObject.getBoolean(key = "is_private"),
             isSaved = jsonObject.getBoolean(key = "is_saved"),
+            isPrepaidUpgrade = jsonObject.getBoolean(key = "is_prepaid_upgrade"),
             canBeUpgraded = jsonObject.getBoolean(key = "can_be_upgraded"),
             wasConverted = jsonObject.getBoolean(key = "was_converted"),
             wasUpgraded = jsonObject.getBoolean(key = "was_upgraded"),
             wasRefunded = jsonObject.getBoolean(key = "was_refunded"),
             upgradedReceivedGiftId = jsonObject.getString(key = "upgraded_received_gift_id"),
+            prepaidUpgradeHash = jsonObject.getString(key = "prepaid_upgrade_hash"),
         )
     }
 
@@ -15288,6 +15298,7 @@ internal class TdlDeserializer internal constructor() {
             nextTransferDate = jsonObject.getInt(key = "next_transfer_date"),
             nextResaleDate = jsonObject.getInt(key = "next_resale_date"),
             exportDate = jsonObject.getInt(key = "export_date"),
+            prepaidUpgradeHash = jsonObject.getString(key = "prepaid_upgrade_hash"),
         )
     }
 
@@ -16291,6 +16302,13 @@ internal class TdlDeserializer internal constructor() {
         return StarTransactionTypeGiftUpgrade(
             userId = jsonObject.getLong(key = "user_id"),
             gift = jsonObject.getObject(key = "gift") { data -> deserializeUpgradedGift(jsonObject = data) },
+        )
+    }
+
+    private fun deserializeStarTransactionTypeGiftUpgradePurchase(jsonObject: JsonObject): StarTransactionTypeGiftUpgradePurchase {
+        return StarTransactionTypeGiftUpgradePurchase(
+            ownerId = jsonObject.getObject(key = "owner_id") { data -> deserializeMessageSender(jsonObject = data) },
+            gift = jsonObject.getObject(key = "gift") { data -> deserializeGift(jsonObject = data) },
         )
     }
 
@@ -18868,6 +18886,7 @@ internal class TdlDeserializer internal constructor() {
     private fun deserializeUpgradedGift(jsonObject: JsonObject): UpgradedGift {
         return UpgradedGift(
             id = jsonObject.getLong(key = "id"),
+            regularGiftId = jsonObject.getLong(key = "regular_gift_id"),
             publisherChatId = jsonObject.getLong(key = "publisher_chat_id"),
             title = jsonObject.getString(key = "title"),
             name = jsonObject.getString(key = "name"),
@@ -18884,6 +18903,8 @@ internal class TdlDeserializer internal constructor() {
             backdrop = jsonObject.getObject(key = "backdrop") { data -> deserializeUpgradedGiftBackdrop(jsonObject = data) },
             originalDetails = jsonObject.getObjectNullable(key = "original_details") { data -> deserializeUpgradedGiftOriginalDetails(jsonObject = data) },
             resaleParameters = jsonObject.getObjectNullable(key = "resale_parameters") { data -> deserializeGiftResaleParameters(jsonObject = data) },
+            valueCurrency = jsonObject.getString(key = "value_currency"),
+            valueAmount = jsonObject.getLong(key = "value_amount"),
         )
     }
 
@@ -18945,6 +18966,10 @@ internal class TdlDeserializer internal constructor() {
         )
     }
 
+    private fun deserializeUpgradedGiftOriginPrepaidUpgrade(jsonObject: JsonObject): UpgradedGiftOriginPrepaidUpgrade {
+        return UpgradedGiftOriginPrepaidUpgrade()
+    }
+
     private fun deserializeUpgradedGiftOriginResale(jsonObject: JsonObject): UpgradedGiftOriginResale {
         return UpgradedGiftOriginResale(
             price = jsonObject.getObject(key = "price") { data -> deserializeGiftResalePrice(jsonObject = data) },
@@ -18982,6 +19007,25 @@ internal class TdlDeserializer internal constructor() {
         return UpgradedGiftSymbolCount(
             symbol = jsonObject.getObject(key = "symbol") { data -> deserializeUpgradedGiftSymbol(jsonObject = data) },
             totalCount = jsonObject.getInt(key = "total_count"),
+        )
+    }
+
+    private fun deserializeUpgradedGiftValueInfo(jsonObject: JsonObject): UpgradedGiftValueInfo {
+        return UpgradedGiftValueInfo(
+            currency = jsonObject.getString(key = "currency"),
+            value = jsonObject.getLong(key = "value"),
+            isValueAverage = jsonObject.getBoolean(key = "is_value_average"),
+            initialSaleDate = jsonObject.getInt(key = "initial_sale_date"),
+            initialSaleStarCount = jsonObject.getLong(key = "initial_sale_star_count"),
+            initialSalePrice = jsonObject.getLong(key = "initial_sale_price"),
+            lastSaleDate = jsonObject.getInt(key = "last_sale_date"),
+            lastSalePrice = jsonObject.getLong(key = "last_sale_price"),
+            isLastSaleOnFragment = jsonObject.getBoolean(key = "is_last_sale_on_fragment"),
+            minimumPrice = jsonObject.getLong(key = "minimum_price"),
+            averageSalePrice = jsonObject.getLong(key = "average_sale_price"),
+            telegramListedGiftCount = jsonObject.getInt(key = "telegram_listed_gift_count"),
+            fragmentListedGiftCount = jsonObject.getInt(key = "fragment_listed_gift_count"),
+            fragmentUrl = jsonObject.getString(key = "fragment_url"),
         )
     }
 

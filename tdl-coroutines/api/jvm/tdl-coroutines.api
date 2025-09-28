@@ -50,6 +50,7 @@ public abstract class dev/g000sha256/tdl/TdlClient {
 	public abstract fun banGroupCallParticipants (I[JLkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun blockMessageSenderFromReplies (JZZZLkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun boostChat (J[ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun buyGiftUpgrade (Ldev/g000sha256/tdl/dto/MessageSender;Ljava/lang/String;JLkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun canBotSendMessages (JLkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun canPostStory (JLkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun canPurchaseFromStore (Ldev/g000sha256/tdl/dto/StorePaymentPurpose;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
@@ -594,7 +595,7 @@ public abstract class dev/g000sha256/tdl/TdlClient {
 	public abstract fun getReactionNotificationSettingsUpdates ()Lkotlinx/coroutines/flow/Flow;
 	public abstract fun getReadDatePrivacySettings (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun getReceivedGift (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public abstract fun getReceivedGifts (Ljava/lang/String;Ldev/g000sha256/tdl/dto/MessageSender;IZZZZZZLjava/lang/String;ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun getReceivedGifts (Ljava/lang/String;Ldev/g000sha256/tdl/dto/MessageSender;IZZZZZZZLjava/lang/String;ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun getRecentEmojiStatuses (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun getRecentInlineBots (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun getRecentStickers (ZLkotlin/coroutines/Continuation;)Ljava/lang/Object;
@@ -691,6 +692,7 @@ public abstract class dev/g000sha256/tdl/TdlClient {
 	public abstract fun getUnreadMessageCountUpdates ()Lkotlinx/coroutines/flow/Flow;
 	public abstract fun getUpgradedGift (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun getUpgradedGiftEmojiStatuses (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun getUpgradedGiftValueInfo (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun getUpgradedGiftWithdrawalUrl (Ljava/lang/String;Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun getUser (JLkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun getUserChatBoosts (JJLkotlin/coroutines/Continuation;)Ljava/lang/Object;
@@ -9433,10 +9435,11 @@ public final class dev/g000sha256/tdl/dto/MessageGameScore : dev/g000sha256/tdl/
 }
 
 public final class dev/g000sha256/tdl/dto/MessageGift : dev/g000sha256/tdl/dto/MessageContent {
-	public fun <init> (Ldev/g000sha256/tdl/dto/Gift;Ldev/g000sha256/tdl/dto/MessageSender;Ldev/g000sha256/tdl/dto/MessageSender;Ljava/lang/String;Ldev/g000sha256/tdl/dto/FormattedText;JJZZZZZZLjava/lang/String;)V
+	public fun <init> (Ldev/g000sha256/tdl/dto/Gift;Ldev/g000sha256/tdl/dto/MessageSender;Ldev/g000sha256/tdl/dto/MessageSender;Ljava/lang/String;Ldev/g000sha256/tdl/dto/FormattedText;JJZZZZZZZLjava/lang/String;Ljava/lang/String;)V
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getCanBeUpgraded ()Z
 	public final fun getGift ()Ldev/g000sha256/tdl/dto/Gift;
+	public final fun getPrepaidUpgradeHash ()Ljava/lang/String;
 	public final fun getPrepaidUpgradeStarCount ()J
 	public final fun getReceivedGiftId ()Ljava/lang/String;
 	public final fun getReceiverId ()Ldev/g000sha256/tdl/dto/MessageSender;
@@ -9448,6 +9451,7 @@ public final class dev/g000sha256/tdl/dto/MessageGift : dev/g000sha256/tdl/dto/M
 	public final fun getWasRefunded ()Z
 	public final fun getWasUpgraded ()Z
 	public fun hashCode ()I
+	public final fun isPrepaidUpgrade ()Z
 	public final fun isPrivate ()Z
 	public final fun isSaved ()Z
 	public fun toString ()Ljava/lang/String;
@@ -13086,7 +13090,7 @@ public final class dev/g000sha256/tdl/dto/ReadDatePrivacySettings {
 }
 
 public final class dev/g000sha256/tdl/dto/ReceivedGift {
-	public fun <init> (Ljava/lang/String;Ldev/g000sha256/tdl/dto/MessageSender;Ldev/g000sha256/tdl/dto/FormattedText;ZZZZZZILdev/g000sha256/tdl/dto/SentGift;[IJJJIII)V
+	public fun <init> (Ljava/lang/String;Ldev/g000sha256/tdl/dto/MessageSender;Ldev/g000sha256/tdl/dto/FormattedText;ZZZZZZILdev/g000sha256/tdl/dto/SentGift;[IJJJIIILjava/lang/String;)V
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getCanBeTransferred ()Z
 	public final fun getCanBeUpgraded ()Z
@@ -13096,6 +13100,7 @@ public final class dev/g000sha256/tdl/dto/ReceivedGift {
 	public final fun getGift ()Ldev/g000sha256/tdl/dto/SentGift;
 	public final fun getNextResaleDate ()I
 	public final fun getNextTransferDate ()I
+	public final fun getPrepaidUpgradeHash ()Ljava/lang/String;
 	public final fun getPrepaidUpgradeStarCount ()J
 	public final fun getReceivedGiftId ()Ljava/lang/String;
 	public final fun getSellStarCount ()J
@@ -14552,6 +14557,15 @@ public final class dev/g000sha256/tdl/dto/StarTransactionTypeGiftUpgrade : dev/g
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getGift ()Ldev/g000sha256/tdl/dto/UpgradedGift;
 	public final fun getUserId ()J
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class dev/g000sha256/tdl/dto/StarTransactionTypeGiftUpgradePurchase : dev/g000sha256/tdl/dto/StarTransactionType {
+	public fun <init> (Ldev/g000sha256/tdl/dto/MessageSender;Ldev/g000sha256/tdl/dto/Gift;)V
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getGift ()Ldev/g000sha256/tdl/dto/Gift;
+	public final fun getOwnerId ()Ldev/g000sha256/tdl/dto/MessageSender;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
 }
@@ -18010,7 +18024,7 @@ public final class dev/g000sha256/tdl/dto/UpgradeGiftResult {
 }
 
 public final class dev/g000sha256/tdl/dto/UpgradedGift {
-	public fun <init> (JJLjava/lang/String;Ljava/lang/String;IIIZLdev/g000sha256/tdl/dto/MessageSender;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ldev/g000sha256/tdl/dto/UpgradedGiftModel;Ldev/g000sha256/tdl/dto/UpgradedGiftSymbol;Ldev/g000sha256/tdl/dto/UpgradedGiftBackdrop;Ldev/g000sha256/tdl/dto/UpgradedGiftOriginalDetails;Ldev/g000sha256/tdl/dto/GiftResaleParameters;)V
+	public fun <init> (JJJLjava/lang/String;Ljava/lang/String;IIIZLdev/g000sha256/tdl/dto/MessageSender;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ldev/g000sha256/tdl/dto/UpgradedGiftModel;Ldev/g000sha256/tdl/dto/UpgradedGiftSymbol;Ldev/g000sha256/tdl/dto/UpgradedGiftBackdrop;Ldev/g000sha256/tdl/dto/UpgradedGiftOriginalDetails;Ldev/g000sha256/tdl/dto/GiftResaleParameters;Ljava/lang/String;J)V
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getBackdrop ()Ldev/g000sha256/tdl/dto/UpgradedGiftBackdrop;
 	public final fun getGiftAddress ()Ljava/lang/String;
@@ -18024,10 +18038,13 @@ public final class dev/g000sha256/tdl/dto/UpgradedGift {
 	public final fun getOwnerId ()Ldev/g000sha256/tdl/dto/MessageSender;
 	public final fun getOwnerName ()Ljava/lang/String;
 	public final fun getPublisherChatId ()J
+	public final fun getRegularGiftId ()J
 	public final fun getResaleParameters ()Ldev/g000sha256/tdl/dto/GiftResaleParameters;
 	public final fun getSymbol ()Ldev/g000sha256/tdl/dto/UpgradedGiftSymbol;
 	public final fun getTitle ()Ljava/lang/String;
 	public final fun getTotalUpgradedCount ()I
+	public final fun getValueAmount ()J
+	public final fun getValueCurrency ()Ljava/lang/String;
 	public fun hashCode ()I
 	public final fun isPremium ()Z
 	public fun toString ()Ljava/lang/String;
@@ -18113,6 +18130,13 @@ public final class dev/g000sha256/tdl/dto/UpgradedGiftModelCount {
 public abstract class dev/g000sha256/tdl/dto/UpgradedGiftOrigin {
 }
 
+public final class dev/g000sha256/tdl/dto/UpgradedGiftOriginPrepaidUpgrade : dev/g000sha256/tdl/dto/UpgradedGiftOrigin {
+	public fun <init> ()V
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
 public final class dev/g000sha256/tdl/dto/UpgradedGiftOriginResale : dev/g000sha256/tdl/dto/UpgradedGiftOrigin {
 	public fun <init> (Ldev/g000sha256/tdl/dto/GiftResalePrice;)V
 	public fun equals (Ljava/lang/Object;)Z
@@ -18163,6 +18187,27 @@ public final class dev/g000sha256/tdl/dto/UpgradedGiftSymbolCount {
 	public final fun getSymbol ()Ldev/g000sha256/tdl/dto/UpgradedGiftSymbol;
 	public final fun getTotalCount ()I
 	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class dev/g000sha256/tdl/dto/UpgradedGiftValueInfo {
+	public fun <init> (Ljava/lang/String;JZIJJIJZJJIILjava/lang/String;)V
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAverageSalePrice ()J
+	public final fun getCurrency ()Ljava/lang/String;
+	public final fun getFragmentListedGiftCount ()I
+	public final fun getFragmentUrl ()Ljava/lang/String;
+	public final fun getInitialSaleDate ()I
+	public final fun getInitialSalePrice ()J
+	public final fun getInitialSaleStarCount ()J
+	public final fun getLastSaleDate ()I
+	public final fun getLastSalePrice ()J
+	public final fun getMinimumPrice ()J
+	public final fun getTelegramListedGiftCount ()I
+	public final fun getValue ()J
+	public fun hashCode ()I
+	public final fun isLastSaleOnFragment ()Z
+	public final fun isValueAverage ()Z
 	public fun toString ()Ljava/lang/String;
 }
 
