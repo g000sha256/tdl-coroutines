@@ -1,7 +1,7 @@
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 group = "dev.g000sha256"
-version = "2.0.0"
+version = "3.0.0"
 
 plugins {
     alias(notation = catalog.plugins.android.library)
