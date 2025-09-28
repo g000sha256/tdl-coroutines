@@ -30,9 +30,9 @@ import kotlin.String
  * @property isSaved True, if the gift is displayed on the user's or the channel's profile page.
  * @property canBeTransferred True, if the gift can be transferred to another owner.
  * @property transferStarCount Number of Telegram Stars that must be paid to transfer the upgraded gift.
- * @property nextTransferDate Point in time (Unix timestamp) when the gift can be transferred to another owner; 0 if the gift can be transferred immediately or transfer isn't possible.
- * @property nextResaleDate Point in time (Unix timestamp) when the gift can be resold to another user; 0 if the gift can't be resold; only for the receiver of the gift.
- * @property exportDate Point in time (Unix timestamp) when the gift can be transferred to the TON blockchain as an NFT.
+ * @property nextTransferDate Point in time (Unix timestamp) when the gift can be transferred to another owner; can be in the past; 0 if the gift can be transferred immediately or transfer isn't possible.
+ * @property nextResaleDate Point in time (Unix timestamp) when the gift can be resold to another user; can be in the past; 0 if the gift can't be resold; only for the receiver of the gift.
+ * @property exportDate Point in time (Unix timestamp) when the gift can be transferred to the TON blockchain as an NFT; can be in the past.
  */
 public class UpgradeGiftResult public constructor(
     public val gift: UpgradedGift,
