@@ -64,6 +64,7 @@ import kotlin.String
  * @property inviteLink Primary invite link for the chat; may be null. For chat administrators with canInviteUsers right only.
  * @property botCommands List of commands of bots in the group.
  * @property botVerification Information about verification status of the supergroup or the channel provided by a bot; may be null if none or unknown.
+ * @property mainProfileTab The main tab chosen by the administrators of the channel; may be null if not chosen manually.
  * @property upgradedFromBasicGroupId Identifier of the basic group from which supergroup was upgraded; 0 if none.
  * @property upgradedFromMaxMessageId Identifier of the last message in the basic group from which supergroup was upgraded; 0 if none.
  */
@@ -105,6 +106,7 @@ public class SupergroupFullInfo public constructor(
     public val inviteLink: ChatInviteLink?,
     public val botCommands: Array<BotCommands>,
     public val botVerification: BotVerification?,
+    public val mainProfileTab: ProfileTab?,
     public val upgradedFromBasicGroupId: Long,
     public val upgradedFromMaxMessageId: Long,
 ) {
@@ -231,6 +233,9 @@ public class SupergroupFullInfo public constructor(
         if (other.botVerification != botVerification) {
             return false
         }
+        if (other.mainProfileTab != mainProfileTab) {
+            return false
+        }
         if (other.upgradedFromBasicGroupId != upgradedFromBasicGroupId) {
             return false
         }
@@ -276,6 +281,7 @@ public class SupergroupFullInfo public constructor(
         hashCode = 31 * hashCode + inviteLink.hashCode()
         hashCode = 31 * hashCode + botCommands.contentDeepHashCode()
         hashCode = 31 * hashCode + botVerification.hashCode()
+        hashCode = 31 * hashCode + mainProfileTab.hashCode()
         hashCode = 31 * hashCode + upgradedFromBasicGroupId.hashCode()
         hashCode = 31 * hashCode + upgradedFromMaxMessageId.hashCode()
         return hashCode
@@ -397,6 +403,9 @@ public class SupergroupFullInfo public constructor(
             append(", ")
             append("botVerification=")
             append(botVerification)
+            append(", ")
+            append("mainProfileTab=")
+            append(mainProfileTab)
             append(", ")
             append("upgradedFromBasicGroupId=")
             append(upgradedFromBasicGroupId)

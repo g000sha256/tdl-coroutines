@@ -59,7 +59,7 @@ import kotlin.String
  * @property messageAutoDeleteTime Current message auto-delete or self-destruct timer setting for the chat, in seconds; 0 if disabled. Self-destruct timer in secret chats starts after the message or its content is viewed. Auto-delete timer in other chats starts from the send date.
  * @property emojiStatus Emoji status to be shown along with chat title; may be null.
  * @property background Background set for the chat; may be null if none.
- * @property themeName If non-empty, name of a theme, set for the chat.
+ * @property theme Theme set for the chat; may be null if none.
  * @property actionBar Information about actions which must be possible to do through the chat action bar; may be null if none.
  * @property businessBotManageBar Information about bar for managing a business bot in the chat; may be null if none.
  * @property videoChat Information about video chat of the chat.
@@ -102,7 +102,7 @@ public class Chat public constructor(
     public val messageAutoDeleteTime: Int,
     public val emojiStatus: EmojiStatus?,
     public val background: ChatBackground?,
-    public val themeName: String,
+    public val theme: ChatTheme?,
     public val actionBar: ChatActionBar?,
     public val businessBotManageBar: BusinessBotManageBar?,
     public val videoChat: VideoChat,
@@ -223,7 +223,7 @@ public class Chat public constructor(
         if (other.background != background) {
             return false
         }
-        if (other.themeName != themeName) {
+        if (other.theme != theme) {
             return false
         }
         if (other.actionBar != actionBar) {
@@ -282,7 +282,7 @@ public class Chat public constructor(
         hashCode = 31 * hashCode + messageAutoDeleteTime.hashCode()
         hashCode = 31 * hashCode + emojiStatus.hashCode()
         hashCode = 31 * hashCode + background.hashCode()
-        hashCode = 31 * hashCode + themeName.hashCode()
+        hashCode = 31 * hashCode + theme.hashCode()
         hashCode = 31 * hashCode + actionBar.hashCode()
         hashCode = 31 * hashCode + businessBotManageBar.hashCode()
         hashCode = 31 * hashCode + videoChat.hashCode()
@@ -400,8 +400,8 @@ public class Chat public constructor(
             append("background=")
             append(background)
             append(", ")
-            append("themeName=")
-            append(themeName)
+            append("theme=")
+            append(theme)
             append(", ")
             append("actionBar=")
             append(actionBar)

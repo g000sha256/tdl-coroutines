@@ -22,9 +22,9 @@ import kotlin.Int
 import kotlin.String
 
 /**
- * A background from a chat theme; can be used only as a chat background in channels.
+ * A background from a chat theme based on an emoji; can be used only as a chat background in channels.
  *
- * @property themeName Name of the chat theme.
+ * @property themeName Name of the emoji chat theme.
  */
 public class BackgroundTypeChatTheme public constructor(
     public val themeName: String,

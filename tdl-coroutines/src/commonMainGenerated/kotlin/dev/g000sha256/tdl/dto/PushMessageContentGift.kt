@@ -26,9 +26,11 @@ import kotlin.String
  * A message with a gift.
  *
  * @property starCount Number of Telegram Stars that sender paid for the gift.
+ * @property isPrepaidUpgrade True, if the message is about prepaid upgrade of the gift by another user instead of actual receiving of a new gift.
  */
 public class PushMessageContentGift public constructor(
     public val starCount: Long,
+    public val isPrepaidUpgrade: Boolean,
 ) : PushMessageContent() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
@@ -41,12 +43,16 @@ public class PushMessageContentGift public constructor(
             return false
         }
         other as PushMessageContentGift
-        return other.starCount == starCount
+        if (other.starCount != starCount) {
+            return false
+        }
+        return other.isPrepaidUpgrade == isPrepaidUpgrade
     }
 
     override fun hashCode(): Int {
         var hashCode = this::class.hashCode()
         hashCode = 31 * hashCode + starCount.hashCode()
+        hashCode = 31 * hashCode + isPrepaidUpgrade.hashCode()
         return hashCode
     }
 
@@ -56,6 +62,9 @@ public class PushMessageContentGift public constructor(
             append("(")
             append("starCount=")
             append(starCount)
+            append(", ")
+            append("isPrepaidUpgrade=")
+            append(isPrepaidUpgrade)
             append(")")
         }
     }

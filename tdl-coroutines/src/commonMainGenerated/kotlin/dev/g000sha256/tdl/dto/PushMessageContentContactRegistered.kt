@@ -23,8 +23,12 @@ import kotlin.String
 
 /**
  * A contact has registered with Telegram.
+ *
+ * @property asPremiumAccount True, if the user joined Telegram as a Telegram Premium account.
  */
-public class PushMessageContentContactRegistered public constructor() : PushMessageContent() {
+public class PushMessageContentContactRegistered public constructor(
+    public val asPremiumAccount: Boolean,
+) : PushMessageContent() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true
@@ -32,14 +36,26 @@ public class PushMessageContentContactRegistered public constructor() : PushMess
         if (other == null) {
             return false
         }
-        return this::class == other::class
+        if (other::class != this::class) {
+            return false
+        }
+        other as PushMessageContentContactRegistered
+        return other.asPremiumAccount == asPremiumAccount
     }
 
     override fun hashCode(): Int {
-        return this::class.hashCode()
+        var hashCode = this::class.hashCode()
+        hashCode = 31 * hashCode + asPremiumAccount.hashCode()
+        return hashCode
     }
 
     override fun toString(): String {
-        return "PushMessageContentContactRegistered()"
+        return buildString {
+            append("PushMessageContentContactRegistered")
+            append("(")
+            append("asPremiumAccount=")
+            append(asPremiumAccount)
+            append(")")
+        }
     }
 }

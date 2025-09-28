@@ -25,6 +25,7 @@ import dev.g000sha256.tdl.dto.AnimatedEmoji
 import dev.g000sha256.tdl.dto.Animations
 import dev.g000sha256.tdl.dto.ArchiveChatListSettings
 import dev.g000sha256.tdl.dto.AttachmentMenuBot
+import dev.g000sha256.tdl.dto.Audios
 import dev.g000sha256.tdl.dto.AuthenticationCodeInfo
 import dev.g000sha256.tdl.dto.AuthorizationState
 import dev.g000sha256.tdl.dto.AutoDownloadSettings
@@ -67,6 +68,7 @@ import dev.g000sha256.tdl.dto.CallProtocol
 import dev.g000sha256.tdl.dto.CallbackQueryAnswer
 import dev.g000sha256.tdl.dto.CallbackQueryPayload
 import dev.g000sha256.tdl.dto.CanPostStoryResult
+import dev.g000sha256.tdl.dto.CanSendGiftResult
 import dev.g000sha256.tdl.dto.CanSendMessageToUserResult
 import dev.g000sha256.tdl.dto.CanTransferOwnershipResult
 import dev.g000sha256.tdl.dto.Chat
@@ -163,6 +165,7 @@ import dev.g000sha256.tdl.dto.FoundStories
 import dev.g000sha256.tdl.dto.FoundUsers
 import dev.g000sha256.tdl.dto.FoundWebApp
 import dev.g000sha256.tdl.dto.GameHighScores
+import dev.g000sha256.tdl.dto.GiftChatThemes
 import dev.g000sha256.tdl.dto.GiftCollection
 import dev.g000sha256.tdl.dto.GiftCollections
 import dev.g000sha256.tdl.dto.GiftForResaleOrder
@@ -189,6 +192,7 @@ import dev.g000sha256.tdl.dto.InputBackground
 import dev.g000sha256.tdl.dto.InputBusinessChatLink
 import dev.g000sha256.tdl.dto.InputBusinessStartPage
 import dev.g000sha256.tdl.dto.InputChatPhoto
+import dev.g000sha256.tdl.dto.InputChatTheme
 import dev.g000sha256.tdl.dto.InputChecklist
 import dev.g000sha256.tdl.dto.InputChecklistTask
 import dev.g000sha256.tdl.dto.InputCredentials
@@ -277,6 +281,7 @@ import dev.g000sha256.tdl.dto.PremiumSource
 import dev.g000sha256.tdl.dto.PremiumState
 import dev.g000sha256.tdl.dto.PreparedInlineMessage
 import dev.g000sha256.tdl.dto.PreparedInlineMessageId
+import dev.g000sha256.tdl.dto.ProfileTab
 import dev.g000sha256.tdl.dto.Proxies
 import dev.g000sha256.tdl.dto.Proxy
 import dev.g000sha256.tdl.dto.ProxyType
@@ -361,6 +366,7 @@ import dev.g000sha256.tdl.dto.TextEntities
 import dev.g000sha256.tdl.dto.TextParseMode
 import dev.g000sha256.tdl.dto.ThemeParameters
 import dev.g000sha256.tdl.dto.TimeZones
+import dev.g000sha256.tdl.dto.TonRevenueStatistics
 import dev.g000sha256.tdl.dto.TonTransactions
 import dev.g000sha256.tdl.dto.TopChatCategory
 import dev.g000sha256.tdl.dto.TransactionDirection
@@ -419,7 +425,6 @@ import dev.g000sha256.tdl.dto.UpdateChatRemovedFromList
 import dev.g000sha256.tdl.dto.UpdateChatReplyMarkup
 import dev.g000sha256.tdl.dto.UpdateChatRevenueAmount
 import dev.g000sha256.tdl.dto.UpdateChatTheme
-import dev.g000sha256.tdl.dto.UpdateChatThemes
 import dev.g000sha256.tdl.dto.UpdateChatTitle
 import dev.g000sha256.tdl.dto.UpdateChatUnreadMentionCount
 import dev.g000sha256.tdl.dto.UpdateChatUnreadReactionCount
@@ -433,6 +438,7 @@ import dev.g000sha256.tdl.dto.UpdateDefaultReactionType
 import dev.g000sha256.tdl.dto.UpdateDeleteMessages
 import dev.g000sha256.tdl.dto.UpdateDiceEmojis
 import dev.g000sha256.tdl.dto.UpdateDirectMessagesChatTopic
+import dev.g000sha256.tdl.dto.UpdateEmojiChatThemes
 import dev.g000sha256.tdl.dto.UpdateFavoriteStickers
 import dev.g000sha256.tdl.dto.UpdateFile
 import dev.g000sha256.tdl.dto.UpdateFileAddedToDownloads
@@ -517,6 +523,7 @@ import dev.g000sha256.tdl.dto.UpdateSuggestedActions
 import dev.g000sha256.tdl.dto.UpdateSupergroup
 import dev.g000sha256.tdl.dto.UpdateSupergroupFullInfo
 import dev.g000sha256.tdl.dto.UpdateTermsOfService
+import dev.g000sha256.tdl.dto.UpdateTonRevenueStatus
 import dev.g000sha256.tdl.dto.UpdateTopicMessageCount
 import dev.g000sha256.tdl.dto.UpdateTrendingStickerSets
 import dev.g000sha256.tdl.dto.UpdateUnconfirmedSession
@@ -1133,9 +1140,9 @@ public abstract class TdlClient internal constructor() {
     public abstract val defaultBackgroundUpdates: Flow<UpdateDefaultBackground>
 
     /**
-     * The list of available chat themes has changed.
+     * The list of available emoji chat themes has changed.
      */
-    public abstract val chatThemesUpdates: Flow<UpdateChatThemes>
+    public abstract val emojiChatThemesUpdates: Flow<UpdateEmojiChatThemes>
 
     /**
      * The list of supported accent colors has changed.
@@ -1233,9 +1240,14 @@ public abstract class TdlClient internal constructor() {
     public abstract val chatRevenueAmountUpdates: Flow<UpdateChatRevenueAmount>
 
     /**
-     * The Telegram Star revenue earned by a bot or a chat has changed. If Telegram Star transaction screen of the chat is opened, then getStarTransactions may be called to fetch new transactions.
+     * The Telegram Star revenue earned by a user or a chat has changed. If Telegram Star transaction screen of the chat is opened, then getStarTransactions may be called to fetch new transactions.
      */
     public abstract val starRevenueStatusUpdates: Flow<UpdateStarRevenueStatus>
+
+    /**
+     * The Toncoin revenue earned by the current user has changed. If Toncoin transaction screen of the chat is opened, then getTonTransactions may be called to fetch new transactions.
+     */
+    public abstract val tonRevenueStatusUpdates: Flow<UpdateTonRevenueStatus>
 
     /**
      * The parameters of speech recognition without Telegram Premium subscription has changed.
@@ -1593,6 +1605,13 @@ public abstract class TdlClient internal constructor() {
     ): TdlResult<Ok>
 
     /**
+     * Adds an audio file to the beginning of the profile audio files of the current user.
+     *
+     * @param fileId Identifier of the audio file to be added. The file must have been uploaded to the server.
+     */
+    public abstract suspend fun addProfileAudio(fileId: Int): TdlResult<Ok>
+
+    /**
      * Adds a proxy server for network requests. Can be called before authorization.
      *
      * @param server Proxy server domain or IP address.
@@ -1900,6 +1919,13 @@ public abstract class TdlClient internal constructor() {
      * @param purpose Transaction purpose.
      */
     public abstract suspend fun canPurchaseFromStore(purpose: StorePaymentPurpose): TdlResult<Ok>
+
+    /**
+     * Checks whether a gift with nextSendDate in the future can be sent already.
+     *
+     * @param giftId Identifier of the gift to send.
+     */
+    public abstract suspend fun canSendGift(giftId: Long): TdlResult<CanSendGiftResult>
 
     /**
      * Check whether the current user can message another user or try to create a chat with them.
@@ -4524,6 +4550,14 @@ public abstract class TdlClient internal constructor() {
     ): TdlResult<GameHighScores>
 
     /**
+     * Returns available to the current user gift chat themes.
+     *
+     * @param offset Offset of the first entry to return as received from the previous request; use empty string to get the first chunk of results.
+     * @param limit The maximum number of chat themes to return.
+     */
+    public abstract suspend fun getGiftChatThemes(offset: String, limit: Int): TdlResult<GiftChatThemes>
+
+    /**
      * Returns collections of gifts owned by the given user or chat.
      *
      * @param ownerId Identifier of the user or the channel chat that received the gifts.
@@ -5751,6 +5785,13 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun getTimeZones(): TdlResult<TimeZones>
 
     /**
+     * Returns detailed Toncoin revenue statistics of the current user.
+     *
+     * @param isDark Pass true if a dark theme is used by the application.
+     */
+    public abstract suspend fun getTonRevenueStatistics(isDark: Boolean): TdlResult<TonRevenueStatistics>
+
+    /**
      * Returns the list of Toncoin transactions of the current user.
      *
      * @param direction Direction of the transactions to receive; pass null to get all transactions.
@@ -5762,6 +5803,13 @@ public abstract class TdlClient internal constructor() {
         offset: String,
         limit: Int,
     ): TdlResult<TonTransactions>
+
+    /**
+     * Returns a URL for Toncoin withdrawal from the current user's account. The user must have at least 10 toncoins to withdraw and can withdraw up to 100000 Toncoins in one transaction.
+     *
+     * @param password The 2-step verification password of the current user.
+     */
+    public abstract suspend fun getTonWithdrawalUrl(password: String): TdlResult<HttpUrl>
 
     /**
      * Returns a list of frequently used chats.
@@ -5844,6 +5892,19 @@ public abstract class TdlClient internal constructor() {
      * @param setting The privacy setting.
      */
     public abstract suspend fun getUserPrivacySettingRules(setting: UserPrivacySetting): TdlResult<UserPrivacySettingRules>
+
+    /**
+     * Returns the list of profile audio files of a user.
+     *
+     * @param userId User identifier.
+     * @param offset The number of audio files to skip; must be non-negative.
+     * @param limit The maximum number of audio files to be returned; up to 100.
+     */
+    public abstract suspend fun getUserProfileAudios(
+        userId: Long,
+        offset: Int,
+        limit: Int,
+    ): TdlResult<Audios>
 
     /**
      * Returns the profile photos of a user. Personal and public photo aren't returned.
@@ -6033,6 +6094,13 @@ public abstract class TdlClient internal constructor() {
      * @param userIds User identifiers. At most 10 users can be invited simultaneously.
      */
     public abstract suspend fun inviteVideoChatParticipants(groupCallId: Int, userIds: LongArray): TdlResult<Ok>
+
+    /**
+     * Checks whether a file is in the profile audio files of the current user. Returns a 404 error if it isn't.
+     *
+     * @param fileId Identifier of the audio file to check.
+     */
+    public abstract suspend fun isProfileAudio(fileId: Int): TdlResult<Ok>
 
     /**
      * Adds the current user as a new member to a chat. Private and secret chats can't be joined using this method. May return an error with a message &quot;INVITE_REQUEST_SENT&quot; if only a join request was created.
@@ -6648,6 +6716,13 @@ public abstract class TdlClient internal constructor() {
      * @param messageId Identifier of the message.
      */
     public abstract suspend fun removePendingPaidMessageReactions(chatId: Long, messageId: Long): TdlResult<Ok>
+
+    /**
+     * Removes an audio file from the profile audio files of the current user.
+     *
+     * @param fileId Identifier of the audio file to be removed.
+     */
+    public abstract suspend fun removeProfileAudio(fileId: Int): TdlResult<Ok>
 
     /**
      * Removes a proxy server. Can be called before authorization.
@@ -8317,9 +8392,9 @@ public abstract class TdlClient internal constructor() {
      * Changes the chat theme. Supported only in private and secret chats.
      *
      * @param chatId Chat identifier.
-     * @param themeName Name of the new chat theme; pass an empty string to return the default theme.
+     * @param theme New chat theme; pass null to return the default theme.
      */
-    public abstract suspend fun setChatTheme(chatId: Long, themeName: String): TdlResult<Ok>
+    public abstract suspend fun setChatTheme(chatId: Long, theme: InputChatTheme? = null): TdlResult<Ok>
 
     /**
      * Changes the chat title. Supported only for basic groups, supergroups and channels. Requires canChangeInfo member right.
@@ -8607,6 +8682,13 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun setLoginEmailAddress(newLoginEmailAddress: String): TdlResult<EmailAddressAuthenticationCodeInfo>
 
     /**
+     * Changes the main profile tab of the current user.
+     *
+     * @param mainProfileTab The new value of the main profile tab.
+     */
+    public abstract suspend fun setMainProfileTab(mainProfileTab: ProfileTab): TdlResult<Ok>
+
+    /**
      * Sets menu button for the given user or for all users; for bots only.
      *
      * @param userId Identifier of the user or 0 to set menu button for all users.
@@ -8799,6 +8881,14 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun setProfileAccentColor(profileAccentColorId: Int, profileBackgroundCustomEmojiId: Long): TdlResult<Ok>
 
     /**
+     * Changes position of an audio file in the profile audio files of the current user.
+     *
+     * @param fileId Identifier of the file from profile audio files, which position will be changed.
+     * @param afterFileId Identifier of the file from profile audio files after which the file will be positioned; pass 0 to move the file to the beginning of the list.
+     */
+    public abstract suspend fun setProfileAudioPosition(fileId: Int, afterFileId: Int): TdlResult<Ok>
+
+    /**
      * Changes a profile photo for the current user.
      *
      * @param photo Profile photo to set.
@@ -8950,6 +9040,14 @@ public abstract class TdlClient internal constructor() {
      * @param customEmojiStickerSetId New value of the custom emoji sticker set identifier for the supergroup. Use 0 to remove the custom emoji sticker set in the supergroup.
      */
     public abstract suspend fun setSupergroupCustomEmojiStickerSet(supergroupId: Long, customEmojiStickerSetId: Long): TdlResult<Ok>
+
+    /**
+     * Changes the main profile tab of the channel; requires canChangeInfo administrator right.
+     *
+     * @param supergroupId Identifier of the channel.
+     * @param mainProfileTab The new value of the main profile tab.
+     */
+    public abstract suspend fun setSupergroupMainProfileTab(supergroupId: Long, mainProfileTab: ProfileTab): TdlResult<Ok>
 
     /**
      * Changes the sticker set of a supergroup; requires canChangeInfo administrator right.
@@ -9887,12 +9985,12 @@ public abstract class TdlClient internal constructor() {
         /**
          * The Git commit hash of the TDLib.
          */
-        public const val TDL_GIT_COMMIT_HASH: String = "6dca40bdaac8b5e66c7a793727bf3f81e9711f70"
+        public const val TDL_GIT_COMMIT_HASH: String = "7d257dcda5dd2c616c1146540ef51147c5bb2c69"
 
         /**
          * The version of the TDLib.
          */
-        public const val TDL_VERSION: String = "1.8.54"
+        public const val TDL_VERSION: String = "1.8.55"
 
         /**
          * Creates a new instance of the [TdlClient].

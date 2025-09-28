@@ -28,11 +28,13 @@ import kotlin.String
  * @property currency ISO 4217 currency code of the payment currency.
  * @property amount Paid amount, in the smallest units of the currency.
  * @property starCount Number of bought Telegram Stars.
+ * @property chatId Identifier of the chat that is supposed to receive the Telegram Stars; pass 0 if none.
  */
 public class TelegramPaymentPurposeStars public constructor(
     public val currency: String,
     public val amount: Long,
     public val starCount: Long,
+    public val chatId: Long,
 ) : TelegramPaymentPurpose() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
@@ -51,7 +53,10 @@ public class TelegramPaymentPurposeStars public constructor(
         if (other.amount != amount) {
             return false
         }
-        return other.starCount == starCount
+        if (other.starCount != starCount) {
+            return false
+        }
+        return other.chatId == chatId
     }
 
     override fun hashCode(): Int {
@@ -59,6 +64,7 @@ public class TelegramPaymentPurposeStars public constructor(
         hashCode = 31 * hashCode + currency.hashCode()
         hashCode = 31 * hashCode + amount.hashCode()
         hashCode = 31 * hashCode + starCount.hashCode()
+        hashCode = 31 * hashCode + chatId.hashCode()
         return hashCode
     }
 
@@ -74,6 +80,9 @@ public class TelegramPaymentPurposeStars public constructor(
             append(", ")
             append("starCount=")
             append(starCount)
+            append(", ")
+            append("chatId=")
+            append(chatId)
             append(")")
         }
     }
