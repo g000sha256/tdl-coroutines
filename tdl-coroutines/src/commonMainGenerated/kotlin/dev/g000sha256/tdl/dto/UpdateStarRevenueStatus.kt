@@ -22,7 +22,7 @@ import kotlin.Int
 import kotlin.String
 
 /**
- * The Telegram Star revenue earned by a bot or a chat has changed. If Telegram Star transaction screen of the chat is opened, then getStarTransactions may be called to fetch new transactions.
+ * The Telegram Star revenue earned by a user or a chat has changed. If Telegram Star transaction screen of the chat is opened, then getStarTransactions may be called to fetch new transactions.
  *
  * @property ownerId Identifier of the owner of the Telegram Stars.
  * @property status New Telegram Star revenue status.

@@ -32,6 +32,7 @@ import kotlin.String
  * @property text Message added to the gift.
  * @property sellStarCount Number of Telegram Stars that can be claimed by the receiver instead of the regular gift; 0 if the gift can't be sold by the receiver.
  * @property prepaidUpgradeStarCount Number of Telegram Stars that were paid by the sender for the ability to upgrade the gift.
+ * @property isUpgradeSeparate True, if the upgrade was bought after the gift was sent. In this case, prepaid upgrade cost must not be added to the gift cost.
  * @property isPrivate True, if the sender and gift text are shown only to the gift receiver; otherwise, everyone will be able to see them.
  * @property isSaved True, if the gift is displayed on the user's or the channel's profile page; only for the receiver of the gift.
  * @property isPrepaidUpgrade True, if the message is about prepaid upgrade of the gift by another user.
@@ -50,6 +51,7 @@ public class MessageGift public constructor(
     public val text: FormattedText,
     public val sellStarCount: Long,
     public val prepaidUpgradeStarCount: Long,
+    public val isUpgradeSeparate: Boolean,
     public val isPrivate: Boolean,
     public val isSaved: Boolean,
     public val isPrepaidUpgrade: Boolean,
@@ -92,6 +94,9 @@ public class MessageGift public constructor(
         if (other.prepaidUpgradeStarCount != prepaidUpgradeStarCount) {
             return false
         }
+        if (other.isUpgradeSeparate != isUpgradeSeparate) {
+            return false
+        }
         if (other.isPrivate != isPrivate) {
             return false
         }
@@ -128,6 +133,7 @@ public class MessageGift public constructor(
         hashCode = 31 * hashCode + text.hashCode()
         hashCode = 31 * hashCode + sellStarCount.hashCode()
         hashCode = 31 * hashCode + prepaidUpgradeStarCount.hashCode()
+        hashCode = 31 * hashCode + isUpgradeSeparate.hashCode()
         hashCode = 31 * hashCode + isPrivate.hashCode()
         hashCode = 31 * hashCode + isSaved.hashCode()
         hashCode = 31 * hashCode + isPrepaidUpgrade.hashCode()
@@ -164,6 +170,9 @@ public class MessageGift public constructor(
             append(", ")
             append("prepaidUpgradeStarCount=")
             append(prepaidUpgradeStarCount)
+            append(", ")
+            append("isUpgradeSeparate=")
+            append(isUpgradeSeparate)
             append(", ")
             append("isPrivate=")
             append(isPrivate)

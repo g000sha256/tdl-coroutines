@@ -33,6 +33,7 @@ import kotlin.String
  * @property upgradeStarCount Number of Telegram Stars that must be paid to upgrade the gift; 0 if upgrade isn't possible.
  * @property isForBirthday True, if the gift is a birthday gift.
  * @property isPremium True, if the gift can be bought only by Telegram Premium subscribers.
+ * @property nextSendDate Point in time (Unix timestamp) when the gift can be sent next time by the current user; can be 0 or a date in the past. If the date is in the future, then call canSendGift to get the reason, why the gift can't be sent now.
  * @property userLimits Number of times the gift can be purchased by the current user; may be null if not limited.
  * @property overallLimits Number of times the gift can be purchased all users; may be null if not limited.
  * @property firstSendDate Point in time (Unix timestamp) when the gift was send for the first time; for sold out gifts only.
@@ -47,6 +48,7 @@ public class Gift public constructor(
     public val upgradeStarCount: Long,
     public val isForBirthday: Boolean,
     public val isPremium: Boolean,
+    public val nextSendDate: Int,
     public val userLimits: GiftPurchaseLimits?,
     public val overallLimits: GiftPurchaseLimits?,
     public val firstSendDate: Int,
@@ -87,6 +89,9 @@ public class Gift public constructor(
         if (other.isPremium != isPremium) {
             return false
         }
+        if (other.nextSendDate != nextSendDate) {
+            return false
+        }
         if (other.userLimits != userLimits) {
             return false
         }
@@ -109,6 +114,7 @@ public class Gift public constructor(
         hashCode = 31 * hashCode + upgradeStarCount.hashCode()
         hashCode = 31 * hashCode + isForBirthday.hashCode()
         hashCode = 31 * hashCode + isPremium.hashCode()
+        hashCode = 31 * hashCode + nextSendDate.hashCode()
         hashCode = 31 * hashCode + userLimits.hashCode()
         hashCode = 31 * hashCode + overallLimits.hashCode()
         hashCode = 31 * hashCode + firstSendDate.hashCode()
@@ -143,6 +149,9 @@ public class Gift public constructor(
             append(", ")
             append("isPremium=")
             append(isPremium)
+            append(", ")
+            append("nextSendDate=")
+            append(nextSendDate)
             append(", ")
             append("userLimits=")
             append(userLimits)

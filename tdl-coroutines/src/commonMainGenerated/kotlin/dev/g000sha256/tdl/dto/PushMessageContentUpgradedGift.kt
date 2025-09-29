@@ -24,10 +24,12 @@ import kotlin.String
 /**
  * A message with an upgraded gift.
  *
- * @property isUpgrade True, if the gift was obtained by upgrading of a previously received gift; otherwise, this is a transferred or resold gift.
+ * @property isUpgrade True, if the gift was obtained by upgrading of a previously received gift; otherwise, if isPrepaidUpgrade == false, then this is a transferred or resold gift.
+ * @property isPrepaidUpgrade True, if the message is about completion of prepaid upgrade of the gift instead of actual receiving of a new gift.
  */
 public class PushMessageContentUpgradedGift public constructor(
     public val isUpgrade: Boolean,
+    public val isPrepaidUpgrade: Boolean,
 ) : PushMessageContent() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
@@ -40,12 +42,16 @@ public class PushMessageContentUpgradedGift public constructor(
             return false
         }
         other as PushMessageContentUpgradedGift
-        return other.isUpgrade == isUpgrade
+        if (other.isUpgrade != isUpgrade) {
+            return false
+        }
+        return other.isPrepaidUpgrade == isPrepaidUpgrade
     }
 
     override fun hashCode(): Int {
         var hashCode = this::class.hashCode()
         hashCode = 31 * hashCode + isUpgrade.hashCode()
+        hashCode = 31 * hashCode + isPrepaidUpgrade.hashCode()
         return hashCode
     }
 
@@ -55,6 +61,9 @@ public class PushMessageContentUpgradedGift public constructor(
             append("(")
             append("isUpgrade=")
             append(isUpgrade)
+            append(", ")
+            append("isPrepaidUpgrade=")
+            append(isPrepaidUpgrade)
             append(")")
         }
     }

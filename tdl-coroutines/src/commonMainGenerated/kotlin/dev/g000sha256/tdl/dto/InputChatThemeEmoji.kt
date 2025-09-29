@@ -17,19 +17,18 @@
 package dev.g000sha256.tdl.dto
 
 import kotlin.Any
-import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
 
 /**
- * The list of available chat themes has changed.
+ * A theme based on an emoji.
  *
- * @property chatThemes The new list of chat themes.
+ * @property name Name of the theme.
  */
-public class UpdateChatThemes public constructor(
-    public val chatThemes: Array<ChatTheme>,
-) : Update() {
+public class InputChatThemeEmoji public constructor(
+    public val name: String,
+) : InputChatTheme() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true
@@ -40,24 +39,22 @@ public class UpdateChatThemes public constructor(
         if (other::class != this::class) {
             return false
         }
-        other as UpdateChatThemes
-        return other.chatThemes.contentDeepEquals(chatThemes)
+        other as InputChatThemeEmoji
+        return other.name == name
     }
 
     override fun hashCode(): Int {
         var hashCode = this::class.hashCode()
-        hashCode = 31 * hashCode + chatThemes.contentDeepHashCode()
+        hashCode = 31 * hashCode + name.hashCode()
         return hashCode
     }
 
     override fun toString(): String {
         return buildString {
-            append("UpdateChatThemes")
+            append("InputChatThemeEmoji")
             append("(")
-            append("chatThemes=")
-            chatThemes
-                .contentDeepToString()
-                .also { append(it) }
+            append("name=")
+            append(name)
             append(")")
         }
     }

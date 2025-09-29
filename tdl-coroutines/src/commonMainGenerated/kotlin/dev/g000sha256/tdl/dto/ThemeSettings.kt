@@ -24,16 +24,18 @@ import kotlin.String
 /**
  * Describes theme settings.
  *
+ * @property baseTheme Base theme for this theme.
  * @property accentColor Theme accent color in ARGB format.
  * @property background The background to be used in chats; may be null.
- * @property outgoingMessageFill The fill to be used as a background for outgoing messages.
+ * @property outgoingMessageFill The fill to be used as a background for outgoing messages; may be null if the fill from the base theme must be used instead.
  * @property animateOutgoingMessageFill If true, the freeform gradient fill needs to be animated on every sent message.
  * @property outgoingMessageAccentColor Accent color of outgoing messages in ARGB format.
  */
 public class ThemeSettings public constructor(
+    public val baseTheme: BuiltInTheme,
     public val accentColor: Int,
     public val background: Background?,
-    public val outgoingMessageFill: BackgroundFill,
+    public val outgoingMessageFill: BackgroundFill?,
     public val animateOutgoingMessageFill: Boolean,
     public val outgoingMessageAccentColor: Int,
 ) {
@@ -48,6 +50,9 @@ public class ThemeSettings public constructor(
             return false
         }
         other as ThemeSettings
+        if (other.baseTheme != baseTheme) {
+            return false
+        }
         if (other.accentColor != accentColor) {
             return false
         }
@@ -65,6 +70,7 @@ public class ThemeSettings public constructor(
 
     override fun hashCode(): Int {
         var hashCode = this::class.hashCode()
+        hashCode = 31 * hashCode + baseTheme.hashCode()
         hashCode = 31 * hashCode + accentColor.hashCode()
         hashCode = 31 * hashCode + background.hashCode()
         hashCode = 31 * hashCode + outgoingMessageFill.hashCode()
@@ -77,6 +83,9 @@ public class ThemeSettings public constructor(
         return buildString {
             append("ThemeSettings")
             append("(")
+            append("baseTheme=")
+            append(baseTheme)
+            append(", ")
             append("accentColor=")
             append(accentColor)
             append(", ")

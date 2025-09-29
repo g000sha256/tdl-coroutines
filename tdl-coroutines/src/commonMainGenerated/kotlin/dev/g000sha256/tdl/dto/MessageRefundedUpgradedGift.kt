@@ -27,13 +27,13 @@ import kotlin.String
  * @property gift The gift.
  * @property senderId Sender of the gift.
  * @property receiverId Receiver of the gift.
- * @property isUpgrade True, if the gift was obtained by upgrading of a previously received gift; otherwise, this is a transferred or resold gift.
+ * @property origin Origin of the upgraded gift.
  */
 public class MessageRefundedUpgradedGift public constructor(
     public val gift: Gift,
     public val senderId: MessageSender,
     public val receiverId: MessageSender,
-    public val isUpgrade: Boolean,
+    public val origin: UpgradedGiftOrigin,
 ) : MessageContent() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
@@ -55,7 +55,7 @@ public class MessageRefundedUpgradedGift public constructor(
         if (other.receiverId != receiverId) {
             return false
         }
-        return other.isUpgrade == isUpgrade
+        return other.origin == origin
     }
 
     override fun hashCode(): Int {
@@ -63,7 +63,7 @@ public class MessageRefundedUpgradedGift public constructor(
         hashCode = 31 * hashCode + gift.hashCode()
         hashCode = 31 * hashCode + senderId.hashCode()
         hashCode = 31 * hashCode + receiverId.hashCode()
-        hashCode = 31 * hashCode + isUpgrade.hashCode()
+        hashCode = 31 * hashCode + origin.hashCode()
         return hashCode
     }
 
@@ -80,8 +80,8 @@ public class MessageRefundedUpgradedGift public constructor(
             append("receiverId=")
             append(receiverId)
             append(", ")
-            append("isUpgrade=")
-            append(isUpgrade)
+            append("origin=")
+            append(origin)
             append(")")
         }
     }

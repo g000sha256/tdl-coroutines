@@ -40,6 +40,7 @@ import kotlin.String
  * @property collectionIds Identifiers of collections to which the gift is added; only for the receiver of the gift.
  * @property sellStarCount Number of Telegram Stars that can be claimed by the receiver instead of the regular gift; 0 if the gift can't be sold by the current user.
  * @property prepaidUpgradeStarCount Number of Telegram Stars that were paid by the sender for the ability to upgrade the gift.
+ * @property isUpgradeSeparate True, if the upgrade was bought after the gift was sent. In this case, prepaid upgrade cost must not be added to the gift cost.
  * @property transferStarCount Number of Telegram Stars that must be paid to transfer the upgraded gift; only for the receiver of the gift.
  * @property nextTransferDate Point in time (Unix timestamp) when the gift can be transferred to another owner; can be in the past; 0 if the gift can be transferred immediately or transfer isn't possible; only for the receiver of the gift.
  * @property nextResaleDate Point in time (Unix timestamp) when the gift can be resold to another user; can be in the past; 0 if the gift can't be resold; only for the receiver of the gift.
@@ -61,6 +62,7 @@ public class ReceivedGift public constructor(
     public val collectionIds: IntArray,
     public val sellStarCount: Long,
     public val prepaidUpgradeStarCount: Long,
+    public val isUpgradeSeparate: Boolean,
     public val transferStarCount: Long,
     public val nextTransferDate: Int,
     public val nextResaleDate: Int,
@@ -121,6 +123,9 @@ public class ReceivedGift public constructor(
         if (other.prepaidUpgradeStarCount != prepaidUpgradeStarCount) {
             return false
         }
+        if (other.isUpgradeSeparate != isUpgradeSeparate) {
+            return false
+        }
         if (other.transferStarCount != transferStarCount) {
             return false
         }
@@ -152,6 +157,7 @@ public class ReceivedGift public constructor(
         hashCode = 31 * hashCode + collectionIds.contentHashCode()
         hashCode = 31 * hashCode + sellStarCount.hashCode()
         hashCode = 31 * hashCode + prepaidUpgradeStarCount.hashCode()
+        hashCode = 31 * hashCode + isUpgradeSeparate.hashCode()
         hashCode = 31 * hashCode + transferStarCount.hashCode()
         hashCode = 31 * hashCode + nextTransferDate.hashCode()
         hashCode = 31 * hashCode + nextResaleDate.hashCode()
@@ -207,6 +213,9 @@ public class ReceivedGift public constructor(
             append(", ")
             append("prepaidUpgradeStarCount=")
             append(prepaidUpgradeStarCount)
+            append(", ")
+            append("isUpgradeSeparate=")
+            append(isUpgradeSeparate)
             append(", ")
             append("transferStarCount=")
             append(transferStarCount)

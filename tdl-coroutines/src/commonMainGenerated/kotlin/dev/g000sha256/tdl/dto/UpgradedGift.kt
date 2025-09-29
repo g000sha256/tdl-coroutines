@@ -34,6 +34,8 @@ import kotlin.String
  * @property totalUpgradedCount Total number of gifts that were upgraded from the same gift.
  * @property maxUpgradedCount The maximum number of gifts that can be upgraded from the same gift.
  * @property isPremium True, if the original gift could have been bought only by Telegram Premium subscribers.
+ * @property isThemeAvailable True, if the gift can be used to set a theme in a chat.
+ * @property usedThemeChatId Identifier of the chat for which the gift is used to set a theme; 0 if none or the gift isn't owned by the current user.
  * @property ownerId Identifier of the user or the chat that owns the upgraded gift; may be null if none or unknown.
  * @property ownerAddress Address of the gift NFT owner in TON blockchain; may be empty if none. Append the address to getOption(&quot;ton_blockchain_explorer_url&quot;) to get a link with information about the address.
  * @property ownerName Name of the owner for the case when owner identifier and address aren't known.
@@ -56,6 +58,8 @@ public class UpgradedGift public constructor(
     public val totalUpgradedCount: Int,
     public val maxUpgradedCount: Int,
     public val isPremium: Boolean,
+    public val isThemeAvailable: Boolean,
+    public val usedThemeChatId: Long,
     public val ownerId: MessageSender?,
     public val ownerAddress: String,
     public val ownerName: String,
@@ -106,6 +110,12 @@ public class UpgradedGift public constructor(
         if (other.isPremium != isPremium) {
             return false
         }
+        if (other.isThemeAvailable != isThemeAvailable) {
+            return false
+        }
+        if (other.usedThemeChatId != usedThemeChatId) {
+            return false
+        }
         if (other.ownerId != ownerId) {
             return false
         }
@@ -150,6 +160,8 @@ public class UpgradedGift public constructor(
         hashCode = 31 * hashCode + totalUpgradedCount.hashCode()
         hashCode = 31 * hashCode + maxUpgradedCount.hashCode()
         hashCode = 31 * hashCode + isPremium.hashCode()
+        hashCode = 31 * hashCode + isThemeAvailable.hashCode()
+        hashCode = 31 * hashCode + usedThemeChatId.hashCode()
         hashCode = 31 * hashCode + ownerId.hashCode()
         hashCode = 31 * hashCode + ownerAddress.hashCode()
         hashCode = 31 * hashCode + ownerName.hashCode()
@@ -194,6 +206,12 @@ public class UpgradedGift public constructor(
             append(", ")
             append("isPremium=")
             append(isPremium)
+            append(", ")
+            append("isThemeAvailable=")
+            append(isThemeAvailable)
+            append(", ")
+            append("usedThemeChatId=")
+            append(usedThemeChatId)
             append(", ")
             append("ownerId=")
             append(ownerId)
