@@ -24,6 +24,7 @@ public abstract class dev/g000sha256/tdl/TdlClient {
 	public abstract fun addOffer (JJLdev/g000sha256/tdl/dto/MessageSendOptions;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun addPendingPaidMessageReaction (JJJLdev/g000sha256/tdl/dto/PaidReactionType;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static synthetic fun addPendingPaidMessageReaction$default (Ldev/g000sha256/tdl/TdlClient;JJJLdev/g000sha256/tdl/dto/PaidReactionType;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public abstract fun addProfileAudio (ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun addProxy (Ljava/lang/String;IZLdev/g000sha256/tdl/dto/ProxyType;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun addQuickReplyShortcutInlineQueryResultMessage (Ljava/lang/String;JJLjava/lang/String;ZLkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun addQuickReplyShortcutMessage (Ljava/lang/String;JLdev/g000sha256/tdl/dto/InputMessageContent;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
@@ -54,6 +55,7 @@ public abstract class dev/g000sha256/tdl/TdlClient {
 	public abstract fun canBotSendMessages (JLkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun canPostStory (JLkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun canPurchaseFromStore (Ldev/g000sha256/tdl/dto/StorePaymentPurpose;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun canSendGift (JLkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun canSendMessageToUser (JZLkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun canTransferOwnership (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun cancelDownloadFile (IZLkotlin/coroutines/Continuation;)Ljava/lang/Object;
@@ -381,7 +383,6 @@ public abstract class dev/g000sha256/tdl/TdlClient {
 	public abstract fun getChatStoryInteractions (JILdev/g000sha256/tdl/dto/ReactionType;ZLjava/lang/String;ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static synthetic fun getChatStoryInteractions$default (Ldev/g000sha256/tdl/TdlClient;JILdev/g000sha256/tdl/dto/ReactionType;ZLjava/lang/String;ILkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
 	public abstract fun getChatThemeUpdates ()Lkotlinx/coroutines/flow/Flow;
-	public abstract fun getChatThemesUpdates ()Lkotlinx/coroutines/flow/Flow;
 	public abstract fun getChatTitleUpdates ()Lkotlinx/coroutines/flow/Flow;
 	public abstract fun getChatUnreadMentionCountUpdates ()Lkotlinx/coroutines/flow/Flow;
 	public abstract fun getChatUnreadReactionCountUpdates ()Lkotlinx/coroutines/flow/Flow;
@@ -430,6 +431,7 @@ public abstract class dev/g000sha256/tdl/TdlClient {
 	public abstract fun getDisallowedChatEmojiStatuses (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun getEmojiCategories (Ldev/g000sha256/tdl/dto/EmojiCategoryType;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static synthetic fun getEmojiCategories$default (Ldev/g000sha256/tdl/TdlClient;Ldev/g000sha256/tdl/dto/EmojiCategoryType;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public abstract fun getEmojiChatThemesUpdates ()Lkotlinx/coroutines/flow/Flow;
 	public abstract fun getEmojiReaction (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun getEmojiSuggestionsUrl (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun getExternalLink (Ljava/lang/String;ZLkotlin/coroutines/Continuation;)Ljava/lang/Object;
@@ -455,6 +457,7 @@ public abstract class dev/g000sha256/tdl/TdlClient {
 	public abstract fun getForumTopics (JLjava/lang/String;IJJILkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun getFreezeStateUpdates ()Lkotlinx/coroutines/flow/Flow;
 	public abstract fun getGameHighScores (JJJLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun getGiftChatThemes (Ljava/lang/String;ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun getGiftCollections (Ldev/g000sha256/tdl/dto/MessageSender;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun getGiftUpgradePreview (JLkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun getGiveawayInfo (JJLkotlin/coroutines/Continuation;)Ljava/lang/Object;
@@ -681,8 +684,11 @@ public abstract class dev/g000sha256/tdl/TdlClient {
 	public abstract fun getThemedChatEmojiStatuses (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun getThemedEmojiStatuses (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun getTimeZones (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun getTonRevenueStatistics (ZLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun getTonRevenueStatusUpdates ()Lkotlinx/coroutines/flow/Flow;
 	public abstract fun getTonTransactions (Ldev/g000sha256/tdl/dto/TransactionDirection;Ljava/lang/String;ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static synthetic fun getTonTransactions$default (Ldev/g000sha256/tdl/TdlClient;Ldev/g000sha256/tdl/dto/TransactionDirection;Ljava/lang/String;ILkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public abstract fun getTonWithdrawalUrl (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun getTopChats (Ldev/g000sha256/tdl/dto/TopChatCategory;ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun getTopicMessageCountUpdates ()Lkotlinx/coroutines/flow/Flow;
 	public abstract fun getTrendingStickerSets (Ldev/g000sha256/tdl/dto/StickerType;IILkotlin/coroutines/Continuation;)Ljava/lang/Object;
@@ -701,6 +707,7 @@ public abstract class dev/g000sha256/tdl/TdlClient {
 	public abstract fun getUserLink (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun getUserPrivacySettingRules (Ldev/g000sha256/tdl/dto/UserPrivacySetting;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun getUserPrivacySettingRulesUpdates ()Lkotlinx/coroutines/flow/Flow;
+	public abstract fun getUserProfileAudios (JIILkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun getUserProfilePhotos (JIILkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun getUserStatusUpdates ()Lkotlinx/coroutines/flow/Flow;
 	public abstract fun getUserSupportInfo (JLkotlin/coroutines/Continuation;)Ljava/lang/Object;
@@ -725,6 +732,7 @@ public abstract class dev/g000sha256/tdl/TdlClient {
 	public abstract fun importMessages (JLdev/g000sha256/tdl/dto/InputFile;[Ldev/g000sha256/tdl/dto/InputFile;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun inviteGroupCallParticipant (IJZLkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun inviteVideoChatParticipants (I[JLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun isProfileAudio (ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun joinChat (JLkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun joinChatByInviteLink (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun joinGroupCall (Ldev/g000sha256/tdl/dto/InputGroupCall;Ldev/g000sha256/tdl/dto/GroupCallJoinParameters;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
@@ -793,6 +801,7 @@ public abstract class dev/g000sha256/tdl/TdlClient {
 	public abstract fun removeNotification (IILkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun removeNotificationGroup (IILkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun removePendingPaidMessageReactions (JJLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun removeProfileAudio (ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun removeProxy (ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun removeRecentHashtag (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun removeRecentSticker (ZLdev/g000sha256/tdl/dto/InputFile;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
@@ -988,7 +997,8 @@ public abstract class dev/g000sha256/tdl/TdlClient {
 	public abstract fun setChatPinnedStories (J[ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun setChatProfileAccentColor (JIJLkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun setChatSlowModeDelay (JILkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public abstract fun setChatTheme (JLjava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun setChatTheme (JLdev/g000sha256/tdl/dto/InputChatTheme;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun setChatTheme$default (Ldev/g000sha256/tdl/TdlClient;JLdev/g000sha256/tdl/dto/InputChatTheme;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
 	public abstract fun setChatTitle (JLjava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun setCloseFriends ([JLkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun setCommands (Ldev/g000sha256/tdl/dto/BotCommandScope;Ljava/lang/String;[Ldev/g000sha256/tdl/dto/BotCommand;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
@@ -1025,6 +1035,7 @@ public abstract class dev/g000sha256/tdl/TdlClient {
 	public abstract fun setLogTagVerbosityLevel (Ljava/lang/String;ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun setLogVerbosityLevel (ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun setLoginEmailAddress (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun setMainProfileTab (Ldev/g000sha256/tdl/dto/ProfileTab;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun setMenuButton (JLdev/g000sha256/tdl/dto/BotMenuButton;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun setMessageFactCheck (JJLdev/g000sha256/tdl/dto/FormattedText;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static synthetic fun setMessageFactCheck$default (Ldev/g000sha256/tdl/TdlClient;JJLdev/g000sha256/tdl/dto/FormattedText;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
@@ -1049,6 +1060,7 @@ public abstract class dev/g000sha256/tdl/TdlClient {
 	public abstract fun setPinnedSavedMessagesTopics ([JLkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun setPollAnswer (JJ[ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun setProfileAccentColor (IJLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun setProfileAudioPosition (IILkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun setProfilePhoto (Ldev/g000sha256/tdl/dto/InputChatPhoto;ZLkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun setQuickReplyShortcutName (ILjava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun setReactionNotificationSettings (Ldev/g000sha256/tdl/dto/ReactionNotificationSettings;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
@@ -1069,6 +1081,7 @@ public abstract class dev/g000sha256/tdl/TdlClient {
 	public abstract fun setStoryReaction (JILdev/g000sha256/tdl/dto/ReactionType;ZLkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static synthetic fun setStoryReaction$default (Ldev/g000sha256/tdl/TdlClient;JILdev/g000sha256/tdl/dto/ReactionType;ZLkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
 	public abstract fun setSupergroupCustomEmojiStickerSet (JJLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun setSupergroupMainProfileTab (JLdev/g000sha256/tdl/dto/ProfileTab;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun setSupergroupStickerSet (JJLkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun setSupergroupUnrestrictBoostCount (JILkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun setSupergroupUsername (JLjava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
@@ -1500,6 +1513,15 @@ public final class dev/g000sha256/tdl/dto/Audio {
 	public fun toString ()Ljava/lang/String;
 }
 
+public final class dev/g000sha256/tdl/dto/Audios {
+	public fun <init> (I[Ldev/g000sha256/tdl/dto/Audio;)V
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAudios ()[Ldev/g000sha256/tdl/dto/Audio;
+	public final fun getTotalCount ()I
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
 public final class dev/g000sha256/tdl/dto/AuthenticationCodeInfo {
 	public fun <init> (Ljava/lang/String;Ldev/g000sha256/tdl/dto/AuthenticationCodeType;Ldev/g000sha256/tdl/dto/AuthenticationCodeType;I)V
 	public fun equals (Ljava/lang/Object;)Z
@@ -1685,9 +1707,11 @@ public final class dev/g000sha256/tdl/dto/AuthorizationStateWaitPhoneNumber : de
 }
 
 public final class dev/g000sha256/tdl/dto/AuthorizationStateWaitPremiumPurchase : dev/g000sha256/tdl/dto/AuthorizationState {
-	public fun <init> (Ljava/lang/String;)V
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getStoreProductId ()Ljava/lang/String;
+	public final fun getSupportEmailAddress ()Ljava/lang/String;
+	public final fun getSupportEmailSubject ()Ljava/lang/String;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
 }
@@ -2175,6 +2199,44 @@ public final class dev/g000sha256/tdl/dto/BotWriteAccessAllowReasonLaunchedWebAp
 	public fun <init> (Ldev/g000sha256/tdl/dto/WebApp;)V
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getWebApp ()Ldev/g000sha256/tdl/dto/WebApp;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public abstract class dev/g000sha256/tdl/dto/BuiltInTheme {
+}
+
+public final class dev/g000sha256/tdl/dto/BuiltInThemeArctic : dev/g000sha256/tdl/dto/BuiltInTheme {
+	public fun <init> ()V
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class dev/g000sha256/tdl/dto/BuiltInThemeClassic : dev/g000sha256/tdl/dto/BuiltInTheme {
+	public fun <init> ()V
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class dev/g000sha256/tdl/dto/BuiltInThemeDay : dev/g000sha256/tdl/dto/BuiltInTheme {
+	public fun <init> ()V
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class dev/g000sha256/tdl/dto/BuiltInThemeNight : dev/g000sha256/tdl/dto/BuiltInTheme {
+	public fun <init> ()V
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class dev/g000sha256/tdl/dto/BuiltInThemeTinted : dev/g000sha256/tdl/dto/BuiltInTheme {
+	public fun <init> ()V
+	public fun equals (Ljava/lang/Object;)Z
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
 }
@@ -2814,6 +2876,24 @@ public final class dev/g000sha256/tdl/dto/CanPostStoryResultWeeklyLimitExceeded 
 	public fun toString ()Ljava/lang/String;
 }
 
+public abstract class dev/g000sha256/tdl/dto/CanSendGiftResult {
+}
+
+public final class dev/g000sha256/tdl/dto/CanSendGiftResultFail : dev/g000sha256/tdl/dto/CanSendGiftResult {
+	public fun <init> (Ldev/g000sha256/tdl/dto/FormattedText;)V
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getReason ()Ldev/g000sha256/tdl/dto/FormattedText;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class dev/g000sha256/tdl/dto/CanSendGiftResultOk : dev/g000sha256/tdl/dto/CanSendGiftResult {
+	public fun <init> ()V
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
 public abstract class dev/g000sha256/tdl/dto/CanSendMessageToUserResult {
 }
 
@@ -2880,7 +2960,7 @@ public final class dev/g000sha256/tdl/dto/CanTransferOwnershipResultSessionTooFr
 }
 
 public final class dev/g000sha256/tdl/dto/Chat {
-	public fun <init> (JLdev/g000sha256/tdl/dto/ChatType;Ljava/lang/String;Ldev/g000sha256/tdl/dto/ChatPhotoInfo;IJIJLdev/g000sha256/tdl/dto/ChatPermissions;Ldev/g000sha256/tdl/dto/Message;[Ldev/g000sha256/tdl/dto/ChatPosition;[Ldev/g000sha256/tdl/dto/ChatList;Ldev/g000sha256/tdl/dto/MessageSender;Ldev/g000sha256/tdl/dto/BlockList;ZZZZZZZZZIJJIILdev/g000sha256/tdl/dto/ChatNotificationSettings;Ldev/g000sha256/tdl/dto/ChatAvailableReactions;ILdev/g000sha256/tdl/dto/EmojiStatus;Ldev/g000sha256/tdl/dto/ChatBackground;Ljava/lang/String;Ldev/g000sha256/tdl/dto/ChatActionBar;Ldev/g000sha256/tdl/dto/BusinessBotManageBar;Ldev/g000sha256/tdl/dto/VideoChat;Ldev/g000sha256/tdl/dto/ChatJoinRequestsInfo;JLdev/g000sha256/tdl/dto/DraftMessage;Ljava/lang/String;)V
+	public fun <init> (JLdev/g000sha256/tdl/dto/ChatType;Ljava/lang/String;Ldev/g000sha256/tdl/dto/ChatPhotoInfo;IJIJLdev/g000sha256/tdl/dto/ChatPermissions;Ldev/g000sha256/tdl/dto/Message;[Ldev/g000sha256/tdl/dto/ChatPosition;[Ldev/g000sha256/tdl/dto/ChatList;Ldev/g000sha256/tdl/dto/MessageSender;Ldev/g000sha256/tdl/dto/BlockList;ZZZZZZZZZIJJIILdev/g000sha256/tdl/dto/ChatNotificationSettings;Ldev/g000sha256/tdl/dto/ChatAvailableReactions;ILdev/g000sha256/tdl/dto/EmojiStatus;Ldev/g000sha256/tdl/dto/ChatBackground;Ldev/g000sha256/tdl/dto/ChatTheme;Ldev/g000sha256/tdl/dto/ChatActionBar;Ldev/g000sha256/tdl/dto/BusinessBotManageBar;Ldev/g000sha256/tdl/dto/VideoChat;Ldev/g000sha256/tdl/dto/ChatJoinRequestsInfo;JLdev/g000sha256/tdl/dto/DraftMessage;Ljava/lang/String;)V
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getAccentColorId ()I
 	public final fun getActionBar ()Ldev/g000sha256/tdl/dto/ChatActionBar;
@@ -2913,7 +2993,7 @@ public final class dev/g000sha256/tdl/dto/Chat {
 	public final fun getProfileAccentColorId ()I
 	public final fun getProfileBackgroundCustomEmojiId ()J
 	public final fun getReplyMarkupMessageId ()J
-	public final fun getThemeName ()Ljava/lang/String;
+	public final fun getTheme ()Ldev/g000sha256/tdl/dto/ChatTheme;
 	public final fun getTitle ()Ljava/lang/String;
 	public final fun getType ()Ldev/g000sha256/tdl/dto/ChatType;
 	public final fun getUnreadCount ()I
@@ -4541,12 +4621,21 @@ public final class dev/g000sha256/tdl/dto/ChatStatisticsSupergroup : dev/g000sha
 	public fun toString ()Ljava/lang/String;
 }
 
-public final class dev/g000sha256/tdl/dto/ChatTheme {
-	public fun <init> (Ljava/lang/String;Ldev/g000sha256/tdl/dto/ThemeSettings;Ldev/g000sha256/tdl/dto/ThemeSettings;)V
+public abstract class dev/g000sha256/tdl/dto/ChatTheme {
+}
+
+public final class dev/g000sha256/tdl/dto/ChatThemeEmoji : dev/g000sha256/tdl/dto/ChatTheme {
+	public fun <init> (Ljava/lang/String;)V
 	public fun equals (Ljava/lang/Object;)Z
-	public final fun getDarkSettings ()Ldev/g000sha256/tdl/dto/ThemeSettings;
-	public final fun getLightSettings ()Ldev/g000sha256/tdl/dto/ThemeSettings;
 	public final fun getName ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class dev/g000sha256/tdl/dto/ChatThemeGift : dev/g000sha256/tdl/dto/ChatTheme {
+	public fun <init> (Ldev/g000sha256/tdl/dto/GiftChatTheme;)V
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getGiftTheme ()Ldev/g000sha256/tdl/dto/GiftChatTheme;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
 }
@@ -5249,6 +5338,16 @@ public final class dev/g000sha256/tdl/dto/EmojiCategoryTypeRegularStickers : dev
 	public fun toString ()Ljava/lang/String;
 }
 
+public final class dev/g000sha256/tdl/dto/EmojiChatTheme {
+	public fun <init> (Ljava/lang/String;Ldev/g000sha256/tdl/dto/ThemeSettings;Ldev/g000sha256/tdl/dto/ThemeSettings;)V
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getDarkSettings ()Ldev/g000sha256/tdl/dto/ThemeSettings;
+	public final fun getLightSettings ()Ldev/g000sha256/tdl/dto/ThemeSettings;
+	public final fun getName ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
 public final class dev/g000sha256/tdl/dto/EmojiKeyword {
 	public fun <init> (Ljava/lang/String;Ljava/lang/String;)V
 	public fun equals (Ljava/lang/Object;)Z
@@ -5865,12 +5964,13 @@ public final class dev/g000sha256/tdl/dto/GameHighScores {
 }
 
 public final class dev/g000sha256/tdl/dto/Gift {
-	public fun <init> (JJLdev/g000sha256/tdl/dto/Sticker;JJJZZLdev/g000sha256/tdl/dto/GiftPurchaseLimits;Ldev/g000sha256/tdl/dto/GiftPurchaseLimits;II)V
+	public fun <init> (JJLdev/g000sha256/tdl/dto/Sticker;JJJZZILdev/g000sha256/tdl/dto/GiftPurchaseLimits;Ldev/g000sha256/tdl/dto/GiftPurchaseLimits;II)V
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getDefaultSellStarCount ()J
 	public final fun getFirstSendDate ()I
 	public final fun getId ()J
 	public final fun getLastSendDate ()I
+	public final fun getNextSendDate ()I
 	public final fun getOverallLimits ()Ldev/g000sha256/tdl/dto/GiftPurchaseLimits;
 	public final fun getPublisherChatId ()J
 	public final fun getStarCount ()J
@@ -5880,6 +5980,25 @@ public final class dev/g000sha256/tdl/dto/Gift {
 	public fun hashCode ()I
 	public final fun isForBirthday ()Z
 	public final fun isPremium ()Z
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class dev/g000sha256/tdl/dto/GiftChatTheme {
+	public fun <init> (Ldev/g000sha256/tdl/dto/UpgradedGift;Ldev/g000sha256/tdl/dto/ThemeSettings;Ldev/g000sha256/tdl/dto/ThemeSettings;)V
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getDarkSettings ()Ldev/g000sha256/tdl/dto/ThemeSettings;
+	public final fun getGift ()Ldev/g000sha256/tdl/dto/UpgradedGift;
+	public final fun getLightSettings ()Ldev/g000sha256/tdl/dto/ThemeSettings;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class dev/g000sha256/tdl/dto/GiftChatThemes {
+	public fun <init> ([Ldev/g000sha256/tdl/dto/GiftChatTheme;Ljava/lang/String;)V
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getNextOffset ()Ljava/lang/String;
+	public final fun getThemes ()[Ldev/g000sha256/tdl/dto/GiftChatTheme;
+	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
 }
 
@@ -6661,6 +6780,25 @@ public final class dev/g000sha256/tdl/dto/InputChatPhotoSticker : dev/g000sha256
 	public fun <init> (Ldev/g000sha256/tdl/dto/ChatPhotoSticker;)V
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getSticker ()Ldev/g000sha256/tdl/dto/ChatPhotoSticker;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public abstract class dev/g000sha256/tdl/dto/InputChatTheme {
+}
+
+public final class dev/g000sha256/tdl/dto/InputChatThemeEmoji : dev/g000sha256/tdl/dto/InputChatTheme {
+	public fun <init> (Ljava/lang/String;)V
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getName ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class dev/g000sha256/tdl/dto/InputChatThemeGift : dev/g000sha256/tdl/dto/InputChatTheme {
+	public fun <init> (Ljava/lang/String;)V
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getName ()Ljava/lang/String;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
 }
@@ -9157,9 +9295,9 @@ public final class dev/g000sha256/tdl/dto/MessageChatSetMessageAutoDeleteTime : 
 }
 
 public final class dev/g000sha256/tdl/dto/MessageChatSetTheme : dev/g000sha256/tdl/dto/MessageContent {
-	public fun <init> (Ljava/lang/String;)V
+	public fun <init> (Ldev/g000sha256/tdl/dto/ChatTheme;)V
 	public fun equals (Ljava/lang/Object;)Z
-	public final fun getThemeName ()Ljava/lang/String;
+	public final fun getTheme ()Ldev/g000sha256/tdl/dto/ChatTheme;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
 }
@@ -9435,7 +9573,7 @@ public final class dev/g000sha256/tdl/dto/MessageGameScore : dev/g000sha256/tdl/
 }
 
 public final class dev/g000sha256/tdl/dto/MessageGift : dev/g000sha256/tdl/dto/MessageContent {
-	public fun <init> (Ldev/g000sha256/tdl/dto/Gift;Ldev/g000sha256/tdl/dto/MessageSender;Ldev/g000sha256/tdl/dto/MessageSender;Ljava/lang/String;Ldev/g000sha256/tdl/dto/FormattedText;JJZZZZZZZLjava/lang/String;Ljava/lang/String;)V
+	public fun <init> (Ldev/g000sha256/tdl/dto/Gift;Ldev/g000sha256/tdl/dto/MessageSender;Ldev/g000sha256/tdl/dto/MessageSender;Ljava/lang/String;Ldev/g000sha256/tdl/dto/FormattedText;JJZZZZZZZZLjava/lang/String;Ljava/lang/String;)V
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getCanBeUpgraded ()Z
 	public final fun getGift ()Ldev/g000sha256/tdl/dto/Gift;
@@ -9454,6 +9592,7 @@ public final class dev/g000sha256/tdl/dto/MessageGift : dev/g000sha256/tdl/dto/M
 	public final fun isPrepaidUpgrade ()Z
 	public final fun isPrivate ()Z
 	public final fun isSaved ()Z
+	public final fun isUpgradeSeparate ()Z
 	public fun toString ()Ljava/lang/String;
 }
 
@@ -9961,13 +10100,13 @@ public final class dev/g000sha256/tdl/dto/MessageReadDateUserPrivacyRestricted :
 }
 
 public final class dev/g000sha256/tdl/dto/MessageRefundedUpgradedGift : dev/g000sha256/tdl/dto/MessageContent {
-	public fun <init> (Ldev/g000sha256/tdl/dto/Gift;Ldev/g000sha256/tdl/dto/MessageSender;Ldev/g000sha256/tdl/dto/MessageSender;Z)V
+	public fun <init> (Ldev/g000sha256/tdl/dto/Gift;Ldev/g000sha256/tdl/dto/MessageSender;Ldev/g000sha256/tdl/dto/MessageSender;Ldev/g000sha256/tdl/dto/UpgradedGiftOrigin;)V
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getGift ()Ldev/g000sha256/tdl/dto/Gift;
+	public final fun getOrigin ()Ldev/g000sha256/tdl/dto/UpgradedGiftOrigin;
 	public final fun getReceiverId ()Ldev/g000sha256/tdl/dto/MessageSender;
 	public final fun getSenderId ()Ldev/g000sha256/tdl/dto/MessageSender;
 	public fun hashCode ()I
-	public final fun isUpgrade ()Z
 	public fun toString ()Ljava/lang/String;
 }
 
@@ -12470,6 +12609,65 @@ public final class dev/g000sha256/tdl/dto/ProfilePhoto {
 	public fun toString ()Ljava/lang/String;
 }
 
+public abstract class dev/g000sha256/tdl/dto/ProfileTab {
+}
+
+public final class dev/g000sha256/tdl/dto/ProfileTabFiles : dev/g000sha256/tdl/dto/ProfileTab {
+	public fun <init> ()V
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class dev/g000sha256/tdl/dto/ProfileTabGifs : dev/g000sha256/tdl/dto/ProfileTab {
+	public fun <init> ()V
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class dev/g000sha256/tdl/dto/ProfileTabGifts : dev/g000sha256/tdl/dto/ProfileTab {
+	public fun <init> ()V
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class dev/g000sha256/tdl/dto/ProfileTabLinks : dev/g000sha256/tdl/dto/ProfileTab {
+	public fun <init> ()V
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class dev/g000sha256/tdl/dto/ProfileTabMedia : dev/g000sha256/tdl/dto/ProfileTab {
+	public fun <init> ()V
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class dev/g000sha256/tdl/dto/ProfileTabMusic : dev/g000sha256/tdl/dto/ProfileTab {
+	public fun <init> ()V
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class dev/g000sha256/tdl/dto/ProfileTabPosts : dev/g000sha256/tdl/dto/ProfileTab {
+	public fun <init> ()V
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class dev/g000sha256/tdl/dto/ProfileTabVoice : dev/g000sha256/tdl/dto/ProfileTab {
+	public fun <init> ()V
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
 public final class dev/g000sha256/tdl/dto/Proxies {
 	public fun <init> ([Ldev/g000sha256/tdl/dto/Proxy;)V
 	public fun equals (Ljava/lang/Object;)Z
@@ -12668,7 +12866,7 @@ public final class dev/g000sha256/tdl/dto/PushMessageContentChatSetBackground : 
 public final class dev/g000sha256/tdl/dto/PushMessageContentChatSetTheme : dev/g000sha256/tdl/dto/PushMessageContent {
 	public fun <init> (Ljava/lang/String;)V
 	public fun equals (Ljava/lang/Object;)Z
-	public final fun getThemeName ()Ljava/lang/String;
+	public final fun getName ()Ljava/lang/String;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
 }
@@ -12708,8 +12906,9 @@ public final class dev/g000sha256/tdl/dto/PushMessageContentContact : dev/g000sh
 }
 
 public final class dev/g000sha256/tdl/dto/PushMessageContentContactRegistered : dev/g000sha256/tdl/dto/PushMessageContent {
-	public fun <init> ()V
+	public fun <init> (Z)V
 	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAsPremiumAccount ()Z
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
 }
@@ -12743,10 +12942,11 @@ public final class dev/g000sha256/tdl/dto/PushMessageContentGameScore : dev/g000
 }
 
 public final class dev/g000sha256/tdl/dto/PushMessageContentGift : dev/g000sha256/tdl/dto/PushMessageContent {
-	public fun <init> (J)V
+	public fun <init> (JZ)V
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getStarCount ()J
 	public fun hashCode ()I
+	public final fun isPrepaidUpgrade ()Z
 	public fun toString ()Ljava/lang/String;
 }
 
@@ -12911,9 +13111,10 @@ public final class dev/g000sha256/tdl/dto/PushMessageContentText : dev/g000sha25
 }
 
 public final class dev/g000sha256/tdl/dto/PushMessageContentUpgradedGift : dev/g000sha256/tdl/dto/PushMessageContent {
-	public fun <init> (Z)V
+	public fun <init> (ZZ)V
 	public fun equals (Ljava/lang/Object;)Z
 	public fun hashCode ()I
+	public final fun isPrepaidUpgrade ()Z
 	public final fun isUpgrade ()Z
 	public fun toString ()Ljava/lang/String;
 }
@@ -13090,7 +13291,7 @@ public final class dev/g000sha256/tdl/dto/ReadDatePrivacySettings {
 }
 
 public final class dev/g000sha256/tdl/dto/ReceivedGift {
-	public fun <init> (Ljava/lang/String;Ldev/g000sha256/tdl/dto/MessageSender;Ldev/g000sha256/tdl/dto/FormattedText;ZZZZZZILdev/g000sha256/tdl/dto/SentGift;[IJJJIIILjava/lang/String;)V
+	public fun <init> (Ljava/lang/String;Ldev/g000sha256/tdl/dto/MessageSender;Ldev/g000sha256/tdl/dto/FormattedText;ZZZZZZILdev/g000sha256/tdl/dto/SentGift;[IJJZJIIILjava/lang/String;)V
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getCanBeTransferred ()Z
 	public final fun getCanBeUpgraded ()Z
@@ -13112,6 +13313,7 @@ public final class dev/g000sha256/tdl/dto/ReceivedGift {
 	public final fun isPinned ()Z
 	public final fun isPrivate ()Z
 	public final fun isSaved ()Z
+	public final fun isUpgradeSeparate ()Z
 	public fun toString ()Ljava/lang/String;
 }
 
@@ -15010,9 +15212,10 @@ public final class dev/g000sha256/tdl/dto/StorePaymentPurposeStarGiveaway : dev/
 }
 
 public final class dev/g000sha256/tdl/dto/StorePaymentPurposeStars : dev/g000sha256/tdl/dto/StorePaymentPurpose {
-	public fun <init> (Ljava/lang/String;JJ)V
+	public fun <init> (Ljava/lang/String;JJJ)V
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getAmount ()J
+	public final fun getChatId ()J
 	public final fun getCurrency ()Ljava/lang/String;
 	public final fun getStarCount ()J
 	public fun hashCode ()I
@@ -15624,7 +15827,7 @@ public final class dev/g000sha256/tdl/dto/Supergroup {
 }
 
 public final class dev/g000sha256/tdl/dto/SupergroupFullInfo {
-	public fun <init> (Ldev/g000sha256/tdl/dto/ChatPhoto;Ljava/lang/String;IIIIJJIDZZZZZZZZZZZZZZZZZIIIJJJLdev/g000sha256/tdl/dto/ChatLocation;Ldev/g000sha256/tdl/dto/ChatInviteLink;[Ldev/g000sha256/tdl/dto/BotCommands;Ldev/g000sha256/tdl/dto/BotVerification;JJ)V
+	public fun <init> (Ldev/g000sha256/tdl/dto/ChatPhoto;Ljava/lang/String;IIIIJJIDZZZZZZZZZZZZZZZZZIIIJJJLdev/g000sha256/tdl/dto/ChatLocation;Ldev/g000sha256/tdl/dto/ChatInviteLink;[Ldev/g000sha256/tdl/dto/BotCommands;Ldev/g000sha256/tdl/dto/BotVerification;Ldev/g000sha256/tdl/dto/ProfileTab;JJ)V
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getAdministratorCount ()I
 	public final fun getBannedCount ()I
@@ -15653,6 +15856,7 @@ public final class dev/g000sha256/tdl/dto/SupergroupFullInfo {
 	public final fun getInviteLink ()Ldev/g000sha256/tdl/dto/ChatInviteLink;
 	public final fun getLinkedChatId ()J
 	public final fun getLocation ()Ldev/g000sha256/tdl/dto/ChatLocation;
+	public final fun getMainProfileTab ()Ldev/g000sha256/tdl/dto/ProfileTab;
 	public final fun getMemberCount ()I
 	public final fun getMyBoostCount ()I
 	public final fun getOutgoingPaidMessageStarCount ()J
@@ -15895,9 +16099,10 @@ public final class dev/g000sha256/tdl/dto/TelegramPaymentPurposeStarGiveaway : d
 }
 
 public final class dev/g000sha256/tdl/dto/TelegramPaymentPurposeStars : dev/g000sha256/tdl/dto/TelegramPaymentPurpose {
-	public fun <init> (Ljava/lang/String;JJ)V
+	public fun <init> (Ljava/lang/String;JJJ)V
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getAmount ()J
+	public final fun getChatId ()J
 	public final fun getCurrency ()Ljava/lang/String;
 	public final fun getStarCount ()J
 	public fun hashCode ()I
@@ -16218,11 +16423,12 @@ public final class dev/g000sha256/tdl/dto/ThemeParameters {
 }
 
 public final class dev/g000sha256/tdl/dto/ThemeSettings {
-	public fun <init> (ILdev/g000sha256/tdl/dto/Background;Ldev/g000sha256/tdl/dto/BackgroundFill;ZI)V
+	public fun <init> (Ldev/g000sha256/tdl/dto/BuiltInTheme;ILdev/g000sha256/tdl/dto/Background;Ldev/g000sha256/tdl/dto/BackgroundFill;ZI)V
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getAccentColor ()I
 	public final fun getAnimateOutgoingMessageFill ()Z
 	public final fun getBackground ()Ldev/g000sha256/tdl/dto/Background;
+	public final fun getBaseTheme ()Ldev/g000sha256/tdl/dto/BuiltInTheme;
 	public final fun getOutgoingMessageAccentColor ()I
 	public final fun getOutgoingMessageFill ()Ldev/g000sha256/tdl/dto/BackgroundFill;
 	public fun hashCode ()I
@@ -16306,6 +16512,27 @@ public final class dev/g000sha256/tdl/dto/TimeZones {
 	public fun <init> ([Ldev/g000sha256/tdl/dto/TimeZone;)V
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getTimeZones ()[Ldev/g000sha256/tdl/dto/TimeZone;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class dev/g000sha256/tdl/dto/TonRevenueStatistics {
+	public fun <init> (Ldev/g000sha256/tdl/dto/StatisticalGraph;Ldev/g000sha256/tdl/dto/TonRevenueStatus;D)V
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getRevenueByDayGraph ()Ldev/g000sha256/tdl/dto/StatisticalGraph;
+	public final fun getStatus ()Ldev/g000sha256/tdl/dto/TonRevenueStatus;
+	public final fun getUsdRate ()D
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class dev/g000sha256/tdl/dto/TonRevenueStatus {
+	public fun <init> (JJJZ)V
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAvailableAmount ()J
+	public final fun getBalanceAmount ()J
+	public final fun getTotalAmount ()J
+	public final fun getWithdrawalEnabled ()Z
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
 }
@@ -16967,18 +17194,10 @@ public final class dev/g000sha256/tdl/dto/UpdateChatRevenueAmount : dev/g000sha2
 }
 
 public final class dev/g000sha256/tdl/dto/UpdateChatTheme : dev/g000sha256/tdl/dto/Update {
-	public fun <init> (JLjava/lang/String;)V
+	public fun <init> (JLdev/g000sha256/tdl/dto/ChatTheme;)V
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getChatId ()J
-	public final fun getThemeName ()Ljava/lang/String;
-	public fun hashCode ()I
-	public fun toString ()Ljava/lang/String;
-}
-
-public final class dev/g000sha256/tdl/dto/UpdateChatThemes : dev/g000sha256/tdl/dto/Update {
-	public fun <init> ([Ldev/g000sha256/tdl/dto/ChatTheme;)V
-	public fun equals (Ljava/lang/Object;)Z
-	public final fun getChatThemes ()[Ldev/g000sha256/tdl/dto/ChatTheme;
+	public final fun getTheme ()Ldev/g000sha256/tdl/dto/ChatTheme;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
 }
@@ -17092,6 +17311,14 @@ public final class dev/g000sha256/tdl/dto/UpdateDirectMessagesChatTopic : dev/g0
 	public fun <init> (Ldev/g000sha256/tdl/dto/DirectMessagesChatTopic;)V
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getTopic ()Ldev/g000sha256/tdl/dto/DirectMessagesChatTopic;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class dev/g000sha256/tdl/dto/UpdateEmojiChatThemes : dev/g000sha256/tdl/dto/Update {
+	public fun <init> ([Ldev/g000sha256/tdl/dto/EmojiChatTheme;)V
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getChatThemes ()[Ldev/g000sha256/tdl/dto/EmojiChatTheme;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
 }
@@ -17898,6 +18125,14 @@ public final class dev/g000sha256/tdl/dto/UpdateTermsOfService : dev/g000sha256/
 	public fun toString ()Ljava/lang/String;
 }
 
+public final class dev/g000sha256/tdl/dto/UpdateTonRevenueStatus : dev/g000sha256/tdl/dto/Update {
+	public fun <init> (Ldev/g000sha256/tdl/dto/TonRevenueStatus;)V
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getStatus ()Ldev/g000sha256/tdl/dto/TonRevenueStatus;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
 public final class dev/g000sha256/tdl/dto/UpdateTopicMessageCount : dev/g000sha256/tdl/dto/Update {
 	public fun <init> (JLdev/g000sha256/tdl/dto/MessageTopic;I)V
 	public fun equals (Ljava/lang/Object;)Z
@@ -18024,7 +18259,7 @@ public final class dev/g000sha256/tdl/dto/UpgradeGiftResult {
 }
 
 public final class dev/g000sha256/tdl/dto/UpgradedGift {
-	public fun <init> (JJJLjava/lang/String;Ljava/lang/String;IIIZLdev/g000sha256/tdl/dto/MessageSender;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ldev/g000sha256/tdl/dto/UpgradedGiftModel;Ldev/g000sha256/tdl/dto/UpgradedGiftSymbol;Ldev/g000sha256/tdl/dto/UpgradedGiftBackdrop;Ldev/g000sha256/tdl/dto/UpgradedGiftOriginalDetails;Ldev/g000sha256/tdl/dto/GiftResaleParameters;Ljava/lang/String;J)V
+	public fun <init> (JJJLjava/lang/String;Ljava/lang/String;IIIZZJLdev/g000sha256/tdl/dto/MessageSender;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ldev/g000sha256/tdl/dto/UpgradedGiftModel;Ldev/g000sha256/tdl/dto/UpgradedGiftSymbol;Ldev/g000sha256/tdl/dto/UpgradedGiftBackdrop;Ldev/g000sha256/tdl/dto/UpgradedGiftOriginalDetails;Ldev/g000sha256/tdl/dto/GiftResaleParameters;Ljava/lang/String;J)V
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getBackdrop ()Ldev/g000sha256/tdl/dto/UpgradedGiftBackdrop;
 	public final fun getGiftAddress ()Ljava/lang/String;
@@ -18043,10 +18278,12 @@ public final class dev/g000sha256/tdl/dto/UpgradedGift {
 	public final fun getSymbol ()Ldev/g000sha256/tdl/dto/UpgradedGiftSymbol;
 	public final fun getTitle ()Ljava/lang/String;
 	public final fun getTotalUpgradedCount ()I
+	public final fun getUsedThemeChatId ()J
 	public final fun getValueAmount ()J
 	public final fun getValueCurrency ()Ljava/lang/String;
 	public fun hashCode ()I
 	public final fun isPremium ()Z
+	public final fun isThemeAvailable ()Z
 	public fun toString ()Ljava/lang/String;
 }
 
@@ -18246,7 +18483,7 @@ public final class dev/g000sha256/tdl/dto/User {
 }
 
 public final class dev/g000sha256/tdl/dto/UserFullInfo {
-	public fun <init> (Ldev/g000sha256/tdl/dto/ChatPhoto;Ldev/g000sha256/tdl/dto/ChatPhoto;Ldev/g000sha256/tdl/dto/ChatPhoto;Ldev/g000sha256/tdl/dto/BlockList;ZZZZZZZZZLdev/g000sha256/tdl/dto/FormattedText;Ldev/g000sha256/tdl/dto/Birthdate;JIIJJLdev/g000sha256/tdl/dto/GiftSettings;Ldev/g000sha256/tdl/dto/BotVerification;Ldev/g000sha256/tdl/dto/UserRating;Ldev/g000sha256/tdl/dto/UserRating;ILdev/g000sha256/tdl/dto/BusinessInfo;Ldev/g000sha256/tdl/dto/BotInfo;)V
+	public fun <init> (Ldev/g000sha256/tdl/dto/ChatPhoto;Ldev/g000sha256/tdl/dto/ChatPhoto;Ldev/g000sha256/tdl/dto/ChatPhoto;Ldev/g000sha256/tdl/dto/BlockList;ZZZZZZZZZLdev/g000sha256/tdl/dto/FormattedText;Ldev/g000sha256/tdl/dto/Birthdate;JIIJJLdev/g000sha256/tdl/dto/GiftSettings;Ldev/g000sha256/tdl/dto/BotVerification;Ldev/g000sha256/tdl/dto/ProfileTab;Ldev/g000sha256/tdl/dto/Audio;Ldev/g000sha256/tdl/dto/UserRating;Ldev/g000sha256/tdl/dto/UserRating;ILdev/g000sha256/tdl/dto/BusinessInfo;Ldev/g000sha256/tdl/dto/BotInfo;)V
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getBio ()Ldev/g000sha256/tdl/dto/FormattedText;
 	public final fun getBirthdate ()Ldev/g000sha256/tdl/dto/Birthdate;
@@ -18255,6 +18492,7 @@ public final class dev/g000sha256/tdl/dto/UserFullInfo {
 	public final fun getBotVerification ()Ldev/g000sha256/tdl/dto/BotVerification;
 	public final fun getBusinessInfo ()Ldev/g000sha256/tdl/dto/BusinessInfo;
 	public final fun getCanBeCalled ()Z
+	public final fun getFirstProfileAudio ()Ldev/g000sha256/tdl/dto/Audio;
 	public final fun getGiftCount ()I
 	public final fun getGiftSettings ()Ldev/g000sha256/tdl/dto/GiftSettings;
 	public final fun getGroupInCommonCount ()I
@@ -18264,6 +18502,7 @@ public final class dev/g000sha256/tdl/dto/UserFullInfo {
 	public final fun getHasRestrictedVoiceAndVideoNoteMessages ()Z
 	public final fun getHasSponsoredMessagesEnabled ()Z
 	public final fun getIncomingPaidMessageStarCount ()J
+	public final fun getMainProfileTab ()Ldev/g000sha256/tdl/dto/ProfileTab;
 	public final fun getNeedPhoneNumberPrivacyException ()Z
 	public final fun getOutgoingPaidMessageStarCount ()J
 	public final fun getPendingRating ()Ldev/g000sha256/tdl/dto/UserRating;
