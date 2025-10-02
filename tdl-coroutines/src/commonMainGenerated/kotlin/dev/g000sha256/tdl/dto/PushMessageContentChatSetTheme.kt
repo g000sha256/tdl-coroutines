@@ -24,10 +24,10 @@ import kotlin.String
 /**
  * A chat theme was edited.
  *
- * @property themeName If non-empty, name of a new theme, set for the chat. Otherwise, the chat theme was reset to the default one.
+ * @property name If non-empty, human-readable name of the new theme. Otherwise, the chat theme was reset to the default one.
  */
 public class PushMessageContentChatSetTheme public constructor(
-    public val themeName: String,
+    public val name: String,
 ) : PushMessageContent() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
@@ -40,12 +40,12 @@ public class PushMessageContentChatSetTheme public constructor(
             return false
         }
         other as PushMessageContentChatSetTheme
-        return other.themeName == themeName
+        return other.name == name
     }
 
     override fun hashCode(): Int {
         var hashCode = this::class.hashCode()
-        hashCode = 31 * hashCode + themeName.hashCode()
+        hashCode = 31 * hashCode + name.hashCode()
         return hashCode
     }
 
@@ -53,8 +53,8 @@ public class PushMessageContentChatSetTheme public constructor(
         return buildString {
             append("PushMessageContentChatSetTheme")
             append("(")
-            append("themeName=")
-            append(themeName)
+            append("name=")
+            append(name)
             append(")")
         }
     }

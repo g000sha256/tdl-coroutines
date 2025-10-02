@@ -23,7 +23,7 @@ import kotlin.Int
 import kotlin.String
 
 /**
- * A detailed statistics about Telegram Stars earned by a bot or a chat.
+ * A detailed statistics about Telegram Stars earned by a user or a chat.
  *
  * @property revenueByDayGraph A graph containing amount of revenue in a given day.
  * @property status Telegram Star revenue status.

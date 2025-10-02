@@ -22,7 +22,7 @@ import kotlin.Int
 import kotlin.String
 
 /**
- * Contains information about Telegram Stars earned by a bot or a chat.
+ * Contains information about Telegram Stars earned by a user or a chat.
  *
  * @property totalAmount Total amount of Telegram Stars earned.
  * @property currentAmount The amount of Telegram Stars that aren't withdrawn yet.

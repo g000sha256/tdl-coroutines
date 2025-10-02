@@ -25,6 +25,7 @@ import dev.g000sha256.tdl.dto.AnimatedEmoji
 import dev.g000sha256.tdl.dto.Animations
 import dev.g000sha256.tdl.dto.ArchiveChatListSettings
 import dev.g000sha256.tdl.dto.AttachmentMenuBot
+import dev.g000sha256.tdl.dto.Audios
 import dev.g000sha256.tdl.dto.AuthenticationCodeInfo
 import dev.g000sha256.tdl.dto.AuthorizationState
 import dev.g000sha256.tdl.dto.AutoDownloadSettings
@@ -67,6 +68,7 @@ import dev.g000sha256.tdl.dto.CallProtocol
 import dev.g000sha256.tdl.dto.CallbackQueryAnswer
 import dev.g000sha256.tdl.dto.CallbackQueryPayload
 import dev.g000sha256.tdl.dto.CanPostStoryResult
+import dev.g000sha256.tdl.dto.CanSendGiftResult
 import dev.g000sha256.tdl.dto.CanSendMessageToUserResult
 import dev.g000sha256.tdl.dto.CanTransferOwnershipResult
 import dev.g000sha256.tdl.dto.Chat
@@ -163,6 +165,7 @@ import dev.g000sha256.tdl.dto.FoundStories
 import dev.g000sha256.tdl.dto.FoundUsers
 import dev.g000sha256.tdl.dto.FoundWebApp
 import dev.g000sha256.tdl.dto.GameHighScores
+import dev.g000sha256.tdl.dto.GiftChatThemes
 import dev.g000sha256.tdl.dto.GiftCollection
 import dev.g000sha256.tdl.dto.GiftCollections
 import dev.g000sha256.tdl.dto.GiftForResaleOrder
@@ -189,6 +192,7 @@ import dev.g000sha256.tdl.dto.InputBackground
 import dev.g000sha256.tdl.dto.InputBusinessChatLink
 import dev.g000sha256.tdl.dto.InputBusinessStartPage
 import dev.g000sha256.tdl.dto.InputChatPhoto
+import dev.g000sha256.tdl.dto.InputChatTheme
 import dev.g000sha256.tdl.dto.InputChecklist
 import dev.g000sha256.tdl.dto.InputChecklistTask
 import dev.g000sha256.tdl.dto.InputCredentials
@@ -277,6 +281,7 @@ import dev.g000sha256.tdl.dto.PremiumSource
 import dev.g000sha256.tdl.dto.PremiumState
 import dev.g000sha256.tdl.dto.PreparedInlineMessage
 import dev.g000sha256.tdl.dto.PreparedInlineMessageId
+import dev.g000sha256.tdl.dto.ProfileTab
 import dev.g000sha256.tdl.dto.Proxies
 import dev.g000sha256.tdl.dto.Proxy
 import dev.g000sha256.tdl.dto.ProxyType
@@ -361,6 +366,7 @@ import dev.g000sha256.tdl.dto.TextEntities
 import dev.g000sha256.tdl.dto.TextParseMode
 import dev.g000sha256.tdl.dto.ThemeParameters
 import dev.g000sha256.tdl.dto.TimeZones
+import dev.g000sha256.tdl.dto.TonRevenueStatistics
 import dev.g000sha256.tdl.dto.TonTransactions
 import dev.g000sha256.tdl.dto.TopChatCategory
 import dev.g000sha256.tdl.dto.TransactionDirection
@@ -419,7 +425,6 @@ import dev.g000sha256.tdl.dto.UpdateChatRemovedFromList
 import dev.g000sha256.tdl.dto.UpdateChatReplyMarkup
 import dev.g000sha256.tdl.dto.UpdateChatRevenueAmount
 import dev.g000sha256.tdl.dto.UpdateChatTheme
-import dev.g000sha256.tdl.dto.UpdateChatThemes
 import dev.g000sha256.tdl.dto.UpdateChatTitle
 import dev.g000sha256.tdl.dto.UpdateChatUnreadMentionCount
 import dev.g000sha256.tdl.dto.UpdateChatUnreadReactionCount
@@ -433,6 +438,7 @@ import dev.g000sha256.tdl.dto.UpdateDefaultReactionType
 import dev.g000sha256.tdl.dto.UpdateDeleteMessages
 import dev.g000sha256.tdl.dto.UpdateDiceEmojis
 import dev.g000sha256.tdl.dto.UpdateDirectMessagesChatTopic
+import dev.g000sha256.tdl.dto.UpdateEmojiChatThemes
 import dev.g000sha256.tdl.dto.UpdateFavoriteStickers
 import dev.g000sha256.tdl.dto.UpdateFile
 import dev.g000sha256.tdl.dto.UpdateFileAddedToDownloads
@@ -517,6 +523,7 @@ import dev.g000sha256.tdl.dto.UpdateSuggestedActions
 import dev.g000sha256.tdl.dto.UpdateSupergroup
 import dev.g000sha256.tdl.dto.UpdateSupergroupFullInfo
 import dev.g000sha256.tdl.dto.UpdateTermsOfService
+import dev.g000sha256.tdl.dto.UpdateTonRevenueStatus
 import dev.g000sha256.tdl.dto.UpdateTopicMessageCount
 import dev.g000sha256.tdl.dto.UpdateTrendingStickerSets
 import dev.g000sha256.tdl.dto.UpdateUnconfirmedSession
@@ -566,6 +573,7 @@ import dev.g000sha256.tdl.function.AddMessageReaction
 import dev.g000sha256.tdl.function.AddNetworkStatistics
 import dev.g000sha256.tdl.function.AddOffer
 import dev.g000sha256.tdl.function.AddPendingPaidMessageReaction
+import dev.g000sha256.tdl.function.AddProfileAudio
 import dev.g000sha256.tdl.function.AddProxy
 import dev.g000sha256.tdl.function.AddQuickReplyShortcutInlineQueryResultMessage
 import dev.g000sha256.tdl.function.AddQuickReplyShortcutMessage
@@ -595,6 +603,7 @@ import dev.g000sha256.tdl.function.BuyGiftUpgrade
 import dev.g000sha256.tdl.function.CanBotSendMessages
 import dev.g000sha256.tdl.function.CanPostStory
 import dev.g000sha256.tdl.function.CanPurchaseFromStore
+import dev.g000sha256.tdl.function.CanSendGift
 import dev.g000sha256.tdl.function.CanSendMessageToUser
 import dev.g000sha256.tdl.function.CanTransferOwnership
 import dev.g000sha256.tdl.function.CancelDownloadFile
@@ -880,6 +889,7 @@ import dev.g000sha256.tdl.function.GetForumTopicDefaultIcons
 import dev.g000sha256.tdl.function.GetForumTopicLink
 import dev.g000sha256.tdl.function.GetForumTopics
 import dev.g000sha256.tdl.function.GetGameHighScores
+import dev.g000sha256.tdl.function.GetGiftChatThemes
 import dev.g000sha256.tdl.function.GetGiftCollections
 import dev.g000sha256.tdl.function.GetGiftUpgradePreview
 import dev.g000sha256.tdl.function.GetGiveawayInfo
@@ -1025,7 +1035,9 @@ import dev.g000sha256.tdl.function.GetThemeParametersJsonString
 import dev.g000sha256.tdl.function.GetThemedChatEmojiStatuses
 import dev.g000sha256.tdl.function.GetThemedEmojiStatuses
 import dev.g000sha256.tdl.function.GetTimeZones
+import dev.g000sha256.tdl.function.GetTonRevenueStatistics
 import dev.g000sha256.tdl.function.GetTonTransactions
+import dev.g000sha256.tdl.function.GetTonWithdrawalUrl
 import dev.g000sha256.tdl.function.GetTopChats
 import dev.g000sha256.tdl.function.GetTrendingStickerSets
 import dev.g000sha256.tdl.function.GetUpgradedGift
@@ -1037,6 +1049,7 @@ import dev.g000sha256.tdl.function.GetUserChatBoosts
 import dev.g000sha256.tdl.function.GetUserFullInfo
 import dev.g000sha256.tdl.function.GetUserLink
 import dev.g000sha256.tdl.function.GetUserPrivacySettingRules
+import dev.g000sha256.tdl.function.GetUserProfileAudios
 import dev.g000sha256.tdl.function.GetUserProfilePhotos
 import dev.g000sha256.tdl.function.GetUserSupportInfo
 import dev.g000sha256.tdl.function.GetVideoChatAvailableParticipants
@@ -1056,6 +1069,7 @@ import dev.g000sha256.tdl.function.ImportContacts
 import dev.g000sha256.tdl.function.ImportMessages
 import dev.g000sha256.tdl.function.InviteGroupCallParticipant
 import dev.g000sha256.tdl.function.InviteVideoChatParticipants
+import dev.g000sha256.tdl.function.IsProfileAudio
 import dev.g000sha256.tdl.function.JoinChat
 import dev.g000sha256.tdl.function.JoinChatByInviteLink
 import dev.g000sha256.tdl.function.JoinGroupCall
@@ -1119,6 +1133,7 @@ import dev.g000sha256.tdl.function.RemoveMessageSenderBotVerification
 import dev.g000sha256.tdl.function.RemoveNotification
 import dev.g000sha256.tdl.function.RemoveNotificationGroup
 import dev.g000sha256.tdl.function.RemovePendingPaidMessageReactions
+import dev.g000sha256.tdl.function.RemoveProfileAudio
 import dev.g000sha256.tdl.function.RemoveProxy
 import dev.g000sha256.tdl.function.RemoveRecentHashtag
 import dev.g000sha256.tdl.function.RemoveRecentSticker
@@ -1313,6 +1328,7 @@ import dev.g000sha256.tdl.function.SetLogStream
 import dev.g000sha256.tdl.function.SetLogTagVerbosityLevel
 import dev.g000sha256.tdl.function.SetLogVerbosityLevel
 import dev.g000sha256.tdl.function.SetLoginEmailAddress
+import dev.g000sha256.tdl.function.SetMainProfileTab
 import dev.g000sha256.tdl.function.SetMenuButton
 import dev.g000sha256.tdl.function.SetMessageFactCheck
 import dev.g000sha256.tdl.function.SetMessageReactions
@@ -1333,6 +1349,7 @@ import dev.g000sha256.tdl.function.SetPinnedGifts
 import dev.g000sha256.tdl.function.SetPinnedSavedMessagesTopics
 import dev.g000sha256.tdl.function.SetPollAnswer
 import dev.g000sha256.tdl.function.SetProfileAccentColor
+import dev.g000sha256.tdl.function.SetProfileAudioPosition
 import dev.g000sha256.tdl.function.SetProfilePhoto
 import dev.g000sha256.tdl.function.SetQuickReplyShortcutName
 import dev.g000sha256.tdl.function.SetReactionNotificationSettings
@@ -1350,6 +1367,7 @@ import dev.g000sha256.tdl.function.SetStoryAlbumName
 import dev.g000sha256.tdl.function.SetStoryPrivacySettings
 import dev.g000sha256.tdl.function.SetStoryReaction
 import dev.g000sha256.tdl.function.SetSupergroupCustomEmojiStickerSet
+import dev.g000sha256.tdl.function.SetSupergroupMainProfileTab
 import dev.g000sha256.tdl.function.SetSupergroupStickerSet
 import dev.g000sha256.tdl.function.SetSupergroupUnrestrictBoostCount
 import dev.g000sha256.tdl.function.SetSupergroupUsername
@@ -1803,7 +1821,7 @@ internal class TdlClientImpl internal constructor(
     override val defaultBackgroundUpdates: Flow<UpdateDefaultBackground>
         get() = repository.updates.filterIsInstance()
 
-    override val chatThemesUpdates: Flow<UpdateChatThemes>
+    override val emojiChatThemesUpdates: Flow<UpdateEmojiChatThemes>
         get() = repository.updates.filterIsInstance()
 
     override val accentColorsUpdates: Flow<UpdateAccentColors>
@@ -1864,6 +1882,9 @@ internal class TdlClientImpl internal constructor(
         get() = repository.updates.filterIsInstance()
 
     override val starRevenueStatusUpdates: Flow<UpdateStarRevenueStatus>
+        get() = repository.updates.filterIsInstance()
+
+    override val tonRevenueStatusUpdates: Flow<UpdateTonRevenueStatus>
         get() = repository.updates.filterIsInstance()
 
     override val speechRecognitionTrialUpdates: Flow<UpdateSpeechRecognitionTrial>
@@ -2159,6 +2180,13 @@ internal class TdlClientImpl internal constructor(
             messageId = messageId,
             starCount = starCount,
             type = type,
+        )
+        return repository.send(function = function)
+    }
+
+    override suspend fun addProfileAudio(fileId: Int): TdlResult<Ok> {
+        val function = AddProfileAudio(
+            fileId = fileId,
         )
         return repository.send(function = function)
     }
@@ -2468,6 +2496,13 @@ internal class TdlClientImpl internal constructor(
     override suspend fun canPurchaseFromStore(purpose: StorePaymentPurpose): TdlResult<Ok> {
         val function = CanPurchaseFromStore(
             purpose = purpose,
+        )
+        return repository.send(function = function)
+    }
+
+    override suspend fun canSendGift(giftId: Long): TdlResult<CanSendGiftResult> {
+        val function = CanSendGift(
+            giftId = giftId,
         )
         return repository.send(function = function)
     }
@@ -5094,6 +5129,14 @@ internal class TdlClientImpl internal constructor(
         return repository.send(function = function)
     }
 
+    override suspend fun getGiftChatThemes(offset: String, limit: Int): TdlResult<GiftChatThemes> {
+        val function = GetGiftChatThemes(
+            offset = offset,
+            limit = limit,
+        )
+        return repository.send(function = function)
+    }
+
     override suspend fun getGiftCollections(ownerId: MessageSender): TdlResult<GiftCollections> {
         val function = GetGiftCollections(
             ownerId = ownerId,
@@ -6321,6 +6364,13 @@ internal class TdlClientImpl internal constructor(
         return repository.send(function = function)
     }
 
+    override suspend fun getTonRevenueStatistics(isDark: Boolean): TdlResult<TonRevenueStatistics> {
+        val function = GetTonRevenueStatistics(
+            isDark = isDark,
+        )
+        return repository.send(function = function)
+    }
+
     override suspend fun getTonTransactions(
         direction: TransactionDirection?,
         offset: String,
@@ -6330,6 +6380,13 @@ internal class TdlClientImpl internal constructor(
             direction = direction,
             offset = offset,
             limit = limit,
+        )
+        return repository.send(function = function)
+    }
+
+    override suspend fun getTonWithdrawalUrl(password: String): TdlResult<HttpUrl> {
+        val function = GetTonWithdrawalUrl(
+            password = password,
         )
         return repository.send(function = function)
     }
@@ -6412,6 +6469,19 @@ internal class TdlClientImpl internal constructor(
     override suspend fun getUserPrivacySettingRules(setting: UserPrivacySetting): TdlResult<UserPrivacySettingRules> {
         val function = GetUserPrivacySettingRules(
             setting = setting,
+        )
+        return repository.send(function = function)
+    }
+
+    override suspend fun getUserProfileAudios(
+        userId: Long,
+        offset: Int,
+        limit: Int,
+    ): TdlResult<Audios> {
+        val function = GetUserProfileAudios(
+            userId = userId,
+            offset = offset,
+            limit = limit,
         )
         return repository.send(function = function)
     }
@@ -6601,6 +6671,13 @@ internal class TdlClientImpl internal constructor(
         val function = InviteVideoChatParticipants(
             groupCallId = groupCallId,
             userIds = userIds,
+        )
+        return repository.send(function = function)
+    }
+
+    override suspend fun isProfileAudio(fileId: Int): TdlResult<Ok> {
+        val function = IsProfileAudio(
+            fileId = fileId,
         )
         return repository.send(function = function)
     }
@@ -7216,6 +7293,13 @@ internal class TdlClientImpl internal constructor(
         val function = RemovePendingPaidMessageReactions(
             chatId = chatId,
             messageId = messageId,
+        )
+        return repository.send(function = function)
+    }
+
+    override suspend fun removeProfileAudio(fileId: Int): TdlResult<Ok> {
+        val function = RemoveProfileAudio(
+            fileId = fileId,
         )
         return repository.send(function = function)
     }
@@ -8884,10 +8968,10 @@ internal class TdlClientImpl internal constructor(
         return repository.send(function = function)
     }
 
-    override suspend fun setChatTheme(chatId: Long, themeName: String): TdlResult<Ok> {
+    override suspend fun setChatTheme(chatId: Long, theme: InputChatTheme?): TdlResult<Ok> {
         val function = SetChatTheme(
             chatId = chatId,
-            themeName = themeName,
+            theme = theme,
         )
         return repository.send(function = function)
     }
@@ -9177,6 +9261,13 @@ internal class TdlClientImpl internal constructor(
         return repository.send(function = function)
     }
 
+    override suspend fun setMainProfileTab(mainProfileTab: ProfileTab): TdlResult<Ok> {
+        val function = SetMainProfileTab(
+            mainProfileTab = mainProfileTab,
+        )
+        return repository.send(function = function)
+    }
+
     override suspend fun setMenuButton(userId: Long, menuButton: BotMenuButton): TdlResult<Ok> {
         val function = SetMenuButton(
             userId = userId,
@@ -9369,6 +9460,14 @@ internal class TdlClientImpl internal constructor(
         return repository.send(function = function)
     }
 
+    override suspend fun setProfileAudioPosition(fileId: Int, afterFileId: Int): TdlResult<Ok> {
+        val function = SetProfileAudioPosition(
+            fileId = fileId,
+            afterFileId = afterFileId,
+        )
+        return repository.send(function = function)
+    }
+
     override suspend fun setProfilePhoto(photo: InputChatPhoto, isPublic: Boolean): TdlResult<Ok> {
         val function = SetProfilePhoto(
             photo = photo,
@@ -9518,6 +9617,14 @@ internal class TdlClientImpl internal constructor(
         val function = SetSupergroupCustomEmojiStickerSet(
             supergroupId = supergroupId,
             customEmojiStickerSetId = customEmojiStickerSetId,
+        )
+        return repository.send(function = function)
+    }
+
+    override suspend fun setSupergroupMainProfileTab(supergroupId: Long, mainProfileTab: ProfileTab): TdlResult<Ok> {
+        val function = SetSupergroupMainProfileTab(
+            supergroupId = supergroupId,
+            mainProfileTab = mainProfileTab,
         )
         return repository.send(function = function)
     }

@@ -25,9 +25,13 @@ import kotlin.String
  * The user must buy Telegram Premium as an in-store purchase to log in. Call checkAuthenticationPremiumPurchase and then setAuthenticationPremiumPurchaseTransaction.
  *
  * @property storeProductId Identifier of the store product that must be bought.
+ * @property supportEmailAddress Email address to use for support if the user has issues with Telegram Premium purchase.
+ * @property supportEmailSubject Subject for the email sent to the support email address.
  */
 public class AuthorizationStateWaitPremiumPurchase public constructor(
     public val storeProductId: String,
+    public val supportEmailAddress: String,
+    public val supportEmailSubject: String,
 ) : AuthorizationState() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
@@ -40,12 +44,20 @@ public class AuthorizationStateWaitPremiumPurchase public constructor(
             return false
         }
         other as AuthorizationStateWaitPremiumPurchase
-        return other.storeProductId == storeProductId
+        if (other.storeProductId != storeProductId) {
+            return false
+        }
+        if (other.supportEmailAddress != supportEmailAddress) {
+            return false
+        }
+        return other.supportEmailSubject == supportEmailSubject
     }
 
     override fun hashCode(): Int {
         var hashCode = this::class.hashCode()
         hashCode = 31 * hashCode + storeProductId.hashCode()
+        hashCode = 31 * hashCode + supportEmailAddress.hashCode()
+        hashCode = 31 * hashCode + supportEmailSubject.hashCode()
         return hashCode
     }
 
@@ -55,6 +67,12 @@ public class AuthorizationStateWaitPremiumPurchase public constructor(
             append("(")
             append("storeProductId=")
             append(storeProductId)
+            append(", ")
+            append("supportEmailAddress=")
+            append(supportEmailAddress)
+            append(", ")
+            append("supportEmailSubject=")
+            append(supportEmailSubject)
             append(")")
         }
     }

@@ -47,6 +47,8 @@ import kotlin.String
  * @property outgoingPaidMessageStarCount Number of Telegram Stars that must be paid by the current user for each sent message to the user.
  * @property giftSettings Settings for gift receiving for the user.
  * @property botVerification Information about verification status of the user provided by a bot; may be null if none or unknown.
+ * @property mainProfileTab The main tab chosen by the user; may be null if not chosen manually.
+ * @property firstProfileAudio The first audio file added to the user's profile; may be null if none.
  * @property rating The current rating of the user; may be null if none.
  * @property pendingRating The rating of the user after the next change; may be null if the user isn't the current user or there are no pending rating changes.
  * @property pendingRatingDate Unix timestamp when rating of the user will change to pendingRating; 0 if the user isn't the current user or there are no pending rating changes.
@@ -76,6 +78,8 @@ public class UserFullInfo public constructor(
     public val outgoingPaidMessageStarCount: Long,
     public val giftSettings: GiftSettings,
     public val botVerification: BotVerification?,
+    public val mainProfileTab: ProfileTab?,
+    public val firstProfileAudio: Audio?,
     public val rating: UserRating?,
     public val pendingRating: UserRating?,
     public val pendingRatingDate: Int,
@@ -159,6 +163,12 @@ public class UserFullInfo public constructor(
         if (other.botVerification != botVerification) {
             return false
         }
+        if (other.mainProfileTab != mainProfileTab) {
+            return false
+        }
+        if (other.firstProfileAudio != firstProfileAudio) {
+            return false
+        }
         if (other.rating != rating) {
             return false
         }
@@ -198,6 +208,8 @@ public class UserFullInfo public constructor(
         hashCode = 31 * hashCode + outgoingPaidMessageStarCount.hashCode()
         hashCode = 31 * hashCode + giftSettings.hashCode()
         hashCode = 31 * hashCode + botVerification.hashCode()
+        hashCode = 31 * hashCode + mainProfileTab.hashCode()
+        hashCode = 31 * hashCode + firstProfileAudio.hashCode()
         hashCode = 31 * hashCode + rating.hashCode()
         hashCode = 31 * hashCode + pendingRating.hashCode()
         hashCode = 31 * hashCode + pendingRatingDate.hashCode()
@@ -275,6 +287,12 @@ public class UserFullInfo public constructor(
             append(", ")
             append("botVerification=")
             append(botVerification)
+            append(", ")
+            append("mainProfileTab=")
+            append(mainProfileTab)
+            append(", ")
+            append("firstProfileAudio=")
+            append(firstProfileAudio)
             append(", ")
             append("rating=")
             append(rating)

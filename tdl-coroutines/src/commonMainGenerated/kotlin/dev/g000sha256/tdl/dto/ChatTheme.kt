@@ -16,64 +16,8 @@
 
 package dev.g000sha256.tdl.dto
 
-import kotlin.Any
-import kotlin.Boolean
-import kotlin.Int
-import kotlin.String
-
 /**
+ * This class is an abstract base class.
  * Describes a chat theme.
- *
- * @property name Theme name.
- * @property lightSettings Theme settings for a light chat theme.
- * @property darkSettings Theme settings for a dark chat theme.
  */
-public class ChatTheme public constructor(
-    public val name: String,
-    public val lightSettings: ThemeSettings,
-    public val darkSettings: ThemeSettings,
-) {
-    override fun equals(other: Any?): Boolean {
-        if (other === this) {
-            return true
-        }
-        if (other == null) {
-            return false
-        }
-        if (other::class != this::class) {
-            return false
-        }
-        other as ChatTheme
-        if (other.name != name) {
-            return false
-        }
-        if (other.lightSettings != lightSettings) {
-            return false
-        }
-        return other.darkSettings == darkSettings
-    }
-
-    override fun hashCode(): Int {
-        var hashCode = this::class.hashCode()
-        hashCode = 31 * hashCode + name.hashCode()
-        hashCode = 31 * hashCode + lightSettings.hashCode()
-        hashCode = 31 * hashCode + darkSettings.hashCode()
-        return hashCode
-    }
-
-    override fun toString(): String {
-        return buildString {
-            append("ChatTheme")
-            append("(")
-            append("name=")
-            append(name)
-            append(", ")
-            append("lightSettings=")
-            append(lightSettings)
-            append(", ")
-            append("darkSettings=")
-            append(darkSettings)
-            append(")")
-        }
-    }
-}
+public sealed class ChatTheme protected constructor()

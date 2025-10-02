@@ -16,10 +16,10 @@
 
 package dev.g000sha256.tdl.function
 
+import dev.g000sha256.tdl.dto.InputChatTheme
 import kotlin.Long
-import kotlin.String
 
 internal class SetChatTheme internal constructor(
     internal val chatId: Long,
-    internal val themeName: String,
+    internal val theme: InputChatTheme?,
 )

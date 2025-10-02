@@ -26,11 +26,11 @@ import kotlin.String
  * The chat theme was changed.
  *
  * @property chatId Chat identifier.
- * @property themeName The new name of the chat theme; may be empty if theme was reset to default.
+ * @property theme The new theme of the chat; may be null if theme was reset to default.
  */
 public class UpdateChatTheme public constructor(
     public val chatId: Long,
-    public val themeName: String,
+    public val theme: ChatTheme?,
 ) : Update() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
@@ -46,13 +46,13 @@ public class UpdateChatTheme public constructor(
         if (other.chatId != chatId) {
             return false
         }
-        return other.themeName == themeName
+        return other.theme == theme
     }
 
     override fun hashCode(): Int {
         var hashCode = this::class.hashCode()
         hashCode = 31 * hashCode + chatId.hashCode()
-        hashCode = 31 * hashCode + themeName.hashCode()
+        hashCode = 31 * hashCode + theme.hashCode()
         return hashCode
     }
 
@@ -63,8 +63,8 @@ public class UpdateChatTheme public constructor(
             append("chatId=")
             append(chatId)
             append(", ")
-            append("themeName=")
-            append(themeName)
+            append("theme=")
+            append(theme)
             append(")")
         }
     }
