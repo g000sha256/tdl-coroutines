@@ -1,27 +1,14 @@
 package org.drinkless.tdlib
 
-import dev.g000sha256.tdl.loadSystemLibrary
+@Suppress("EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")
+internal expect class JsonClient() {
 
-internal class JsonClient {
+    fun createClientId(): Int
 
-    init {
-        loadSystemLibrary()
-    }
+    fun send(clientId: Int, request: String)
 
-    external fun createClientId(): Int
+    fun receive(timeoutInSeconds: Double): String?
 
-    external fun send(clientId: Int, request: String)
-
-    external fun receive(timeoutInSeconds: Double): String?
-
-    external fun execute(request: String): String
-
-    external fun setLogMessageHandler(maxVerbosityLevel: Int, logMessageHandler: LogMessageHandler?)
-
-    fun interface LogMessageHandler {
-
-        fun onLogMessage(verbosityLevel: Int, message: String)
-
-    }
+    fun execute(request: String): String?
 
 }

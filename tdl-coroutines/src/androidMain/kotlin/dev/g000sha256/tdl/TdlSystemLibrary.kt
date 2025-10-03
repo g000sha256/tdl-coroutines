@@ -16,6 +16,6 @@
 
 package dev.g000sha256.tdl
 
-internal actual fun loadSystemLibrary() {
+internal fun loadSystemLibrary() {
     System.loadLibrary("tdjsonjava")
 }
