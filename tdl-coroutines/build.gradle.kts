@@ -1,4 +1,7 @@
+import org.jetbrains.kotlin.gradle.dsl.HasConfigurableKotlinCompilerOptions
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import org.jetbrains.kotlin.gradle.dsl.KotlinJvmCompilerOptions
+import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 
 group = "dev.g000sha256"
 version = "4.0.0"
@@ -52,19 +55,20 @@ kotlin {
     withSourcesJar(publish = true)
 
     androidTarget {
+        configureCompilerOptions()
         publishLibraryVariants("release")
-
-        compilerOptions {
-            jvmTarget = JvmTarget.JVM_1_8
-            moduleName = kotlinModuleName
-        }
     }
 
     jvm {
-        compilerOptions {
-            jvmTarget = JvmTarget.JVM_1_8
-            moduleName = kotlinModuleName
-        }
+        configureCompilerOptions()
+    }
+
+    macosArm64 {
+        configureMacos(platform = "macosArm64")
+    }
+
+    macosX64 {
+        configureMacos(platform = "macosX64")
     }
 
     sourceSets {
@@ -184,4 +188,29 @@ class CustomSignatureType(
         return super.sign(signatory, toSign)
     }
 
+}
+
+private fun HasConfigurableKotlinCompilerOptions<KotlinJvmCompilerOptions>.configureCompilerOptions() {
+    compilerOptions {
+        jvmTarget = JvmTarget.JVM_1_8
+        moduleName = kotlinModuleName
+    }
+}
+
+private fun KotlinNativeTarget.configureMacos(platform: String) {
+    compilations.getByName("main") {
+        cinterops {
+            register("tdlib") {
+                definitionFile = file("src/${platform}Cinterop/tdlib.def")
+                includeDirs("src/${platform}MainGenerated/include")
+            }
+        }
+    }
+
+    binaries {
+        framework {
+            baseName = "TDL-Coroutines"
+            isStatic = true
+        }
+    }
 }

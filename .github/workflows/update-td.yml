@@ -49,9 +49,21 @@ on:
         type: boolean
         default: true
 
+      build-macos-arm64:
+        description: 'Build macOS Arm64'
+        required: false
+        type: boolean
+        default: true
+
+      build-macos-x64:
+        description: 'Build macOS x64'
+        required: false
+        type: boolean
+        default: true
+
 jobs:
   run-generator:
-    if: true
+    if: false
     runs-on: ubuntu-24.04
     permissions:
       contents: write
@@ -527,4 +539,118 @@ jobs:
           committer_name: GitHub
           committer_email: noreply@github.com
           message: TDLib for JVM Windows x64 [skip ci]
+          add: tdl-coroutines
+
+  build-macos-arm64:
+    if: github.event_name == 'push' || inputs.build-macos-arm64
+#    needs: run-generator
+    runs-on: macos-15
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          lfs: true
+          submodules: true
+
+      - name: Setup dependencies
+        run: brew install gperf cmake coreutils
+
+      - name: Build OpenSSL
+        run: |
+          cd td/example/ios
+          sed -n '11p' build-openssl.sh | grep -qx 'platforms="macOS iOS watchOS tvOS visionOS"' || (echo "Line 11 mismatch" && exit 1)
+          sed -i '.bak' '11s/.*/platforms="macOS"/' build-openssl.sh
+          ./build-openssl.sh
+
+      - name: Build TDLib
+        run: |
+          cd td
+          mkdir build
+          cd build
+          cmake -DTD_GENERATE_SOURCE_FILES=ON ..
+          cmake --build .
+          cd ../example/ios
+          sed -n '24p' build.sh | grep -qx 'platforms="macOS iOS watchOS tvOS visionOS"' || (echo "Line 24 mismatch" && exit 1)
+          sed -i '.bak' '24s/.*/platforms="macOS"/' build.sh
+          sed -n '38p' build.sh.bak | grep -qx '      other_options="-DCMAKE_OSX_ARCHITECTURES='\''x86_64;arm64'\''"' || (echo "Line 38 mismatch" && exit 1)
+          sed -i '.bak' '38s/.*/      other_options="-DCMAKE_OSX_ARCHITECTURES='\''arm64'\''"/' build.sh
+          ./build.sh
+
+      - name: Copy files
+        run: |
+          rm -rf tdl-coroutines/src/macosArm64MainGenerated
+          mkdir -p tdl-coroutines/src/macosArm64MainGenerated/include
+          mkdir -p tdl-coroutines/src/macosArm64MainGenerated/lib
+          cp -r td/example/ios/tdjson/macOS/include/* tdl-coroutines/src/macosArm64MainGenerated/include
+          cp td/example/ios/tdjson/macOS/lib/*.a tdl-coroutines/src/macosArm64MainGenerated/lib
+
+      - name: Commit and push
+        uses: EndBug/add-and-commit@v9
+        with:
+          pull: --rebase --autostash
+          author_name: Georgii Ippolitov
+          author_email: detmmpmznb@g000sha256.dev
+          committer_name: GitHub
+          committer_email: noreply@github.com
+          message: TDLib for macOS Arm64 [skip ci]
+          add: tdl-coroutines
+
+  build-macos-x64:
+    if: github.event_name == 'push' || inputs.build-macos-x64
+#    needs: run-generator
+    runs-on: macos-13
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          lfs: true
+          submodules: true
+
+      - name: Setup dependencies
+        run: brew install gperf cmake coreutils
+
+      - name: Build OpenSSL
+        run: |
+          cd td/example/ios
+          sed -n '11p' build-openssl.sh | grep -qx 'platforms="macOS iOS watchOS tvOS visionOS"' || (echo "Line 11 mismatch" && exit 1)
+          sed -i '.bak' '11s/.*/platforms="macOS"/' build-openssl.sh
+          ./build-openssl.sh
+
+      - name: Build TDLib
+        run: |
+          cd td
+          mkdir build
+          cd build
+          cmake -DTD_GENERATE_SOURCE_FILES=ON ..
+          cmake --build .
+          cd ../example/ios
+          sed -n '24p' build.sh | grep -qx 'platforms="macOS iOS watchOS tvOS visionOS"' || (echo "Line 24 mismatch" && exit 1)
+          sed -i '.bak' '24s/.*/platforms="macOS"/' build.sh
+          sed -n '38p' build.sh.bak | grep -qx '      other_options="-DCMAKE_OSX_ARCHITECTURES='\''x86_64;arm64'\''"' || (echo "Line 38 mismatch" && exit 1)
+          sed -i '.bak' '38s/.*/      other_options="-DCMAKE_OSX_ARCHITECTURES='\''x86_64'\''"/' build.sh
+          ./build.sh
+
+      - name: Copy files
+        run: |
+          rm -rf tdl-coroutines/src/macosX64MainGenerated
+          mkdir -p tdl-coroutines/src/macosX64MainGenerated/include
+          mkdir -p tdl-coroutines/src/macosX64MainGenerated/lib
+          cp -r td/example/ios/tdjson/macOS/include/* tdl-coroutines/src/macosX64MainGenerated/include
+          cp td/example/ios/tdjson/macOS/lib/*.a tdl-coroutines/src/macosX64MainGenerated/lib
+
+      - name: Commit and push
+        uses: EndBug/add-and-commit@v9
+        with:
+          pull: --rebase --autostash
+          author_name: Georgii Ippolitov
+          author_email: detmmpmznb@g000sha256.dev
+          committer_name: GitHub
+          committer_email: noreply@github.com
+          message: TDLib for macOS x64 [skip ci]
           add: tdl-coroutines

@@ -3,4 +3,6 @@ tdl-coroutines/src/androidMainGenerated/jniLibs/*/*.so filter=lfs diff=lfs merge
 tdl-coroutines/src/jvmMainGenerated/resources/libs/*/*.dll filter=lfs diff=lfs merge=lfs -text
 tdl-coroutines/src/jvmMainGenerated/resources/libs/*/*.dylib filter=lfs diff=lfs merge=lfs -text
 tdl-coroutines/src/jvmMainGenerated/resources/libs/*/*.so filter=lfs diff=lfs merge=lfs -text
+tdl-coroutines/src/macosArm64MainGenerated/lib/*.a filter=lfs diff=lfs merge=lfs -text
+tdl-coroutines/src/macosX64MainGenerated/lib/*.a filter=lfs diff=lfs merge=lfs -text
 tdl-coroutines-example/keystore.jks filter=lfs diff=lfs merge=lfs -text
