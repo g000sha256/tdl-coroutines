@@ -5,6 +5,20 @@ on:
     branches:
       - update-td
 
+  workflow_dispatch:
+    inputs:
+      build-android:
+        description: 'Build Android'
+        required: false
+        type: boolean
+        default: false
+
+      build-jvm:
+        description: 'Build JVM'
+        required: false
+        type: boolean
+        default: false
+
 jobs:
   run-generator:
     if: true
@@ -61,7 +75,7 @@ jobs:
             - README.md
 
   build-android:
-    if: true
+    if: github.event_name == 'push' || inputs.build-android
     needs: run-generator
     runs-on: ubuntu-24.04
     permissions:
@@ -134,7 +148,7 @@ jobs:
           add: tdl-coroutines
 
   build-jvm-linux-arm64:
-    if: true
+    if: github.event_name == 'push' || inputs.build-jvm
     needs: run-generator
     runs-on: ubuntu-24.04-arm
     permissions:
@@ -193,7 +207,7 @@ jobs:
           add: tdl-coroutines
 
   build-jvm-linux-x64:
-    if: true
+    if: github.event_name == 'push' || inputs.build-jvm
     needs: run-generator
     runs-on: ubuntu-24.04
     permissions:
@@ -252,7 +266,7 @@ jobs:
           add: tdl-coroutines
 
   build-jvm-macos-arm64:
-    if: true
+    if: github.event_name == 'push' || inputs.build-jvm
     needs: run-generator
     runs-on: macos-15
     permissions:
@@ -305,7 +319,7 @@ jobs:
           add: tdl-coroutines
 
   build-jvm-macos-x64:
-    if: true
+    if: github.event_name == 'push' || inputs.build-jvm
     needs: run-generator
     runs-on: macos-13
     permissions:
@@ -358,7 +372,7 @@ jobs:
           add: tdl-coroutines
 
   build-jvm-windows-arm64:
-    if: true
+    if: github.event_name == 'push' || inputs.build-jvm
     needs: run-generator
     runs-on: windows-11-arm
     permissions:
@@ -422,7 +436,7 @@ jobs:
           add: tdl-coroutines
 
   build-jvm-windows-x64:
-    if: true
+    if: github.event_name == 'push' || inputs.build-jvm
     needs: run-generator
     runs-on: windows-2025
     permissions:
