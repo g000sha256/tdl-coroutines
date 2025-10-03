@@ -20,7 +20,7 @@ import java.io.File
 import java.io.InputStream
 import kotlin.io.path.createTempDirectory
 
-internal actual fun loadSystemLibrary() {
+internal fun loadSystemLibrary() {
     val osName = getOsName()
     when (osName) {
         is OsName.Linux -> {

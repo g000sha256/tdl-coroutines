@@ -34,7 +34,7 @@ internal class TdlNative {
         return jsonClient.receive(timeoutInSeconds = timeoutInSeconds)
     }
 
-    fun execute(request: String): String {
+    fun execute(request: String): String? {
         return jsonClient.execute(request = request)
     }
 
