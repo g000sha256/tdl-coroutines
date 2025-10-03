@@ -1,4 +1,9 @@
+import org.jetbrains.kotlin.gradle.dsl.AbstractKotlinNativeBinaryContainer
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSet
+import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeCompilation
+import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinOnlyTarget
+import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinTargetWithBinaries
 
 group = "dev.g000sha256"
 version = "4.0.0"
@@ -67,6 +72,16 @@ kotlin {
         }
     }
 
+    macosArm64 {
+        configureBinaries()
+        configureCompilations(platform = "macosArm64")
+    }
+
+    macosX64 {
+        configureBinaries()
+        configureCompilations(platform = "macosX64")
+    }
+
     sourceSets {
         commonMain {
             kotlin.srcDirs("src/commonMainGenerated/kotlin")
@@ -84,6 +99,14 @@ kotlin {
 
         jvmMain {
             resources.srcDirs("src/jvmMainGenerated/resources")
+        }
+
+        macosArm64Main {
+            configureAppleKotlin()
+        }
+
+        macosX64Main {
+            configureAppleKotlin()
         }
     }
 }
@@ -184,4 +207,32 @@ class CustomSignatureType(
         return super.sign(signatory, toSign)
     }
 
+}
+
+private fun KotlinOnlyTarget<KotlinNativeCompilation>.configureCompilations(platform: String) {
+    compilations.getByName("main") {
+        cinterops {
+            register("main") {
+                definitionFile = file("cinterop/config.def")
+                includeDirs("generated/$platform/include")
+
+                val libsFile = file("generated/$platform/libs")
+                extraOpts("-libraryPath", libsFile.absolutePath)
+            }
+        }
+    }
+}
+
+private fun KotlinTargetWithBinaries<*, AbstractKotlinNativeBinaryContainer>.configureBinaries() {
+    binaries {
+        framework {
+            baseName = "TDLCoroutines"
+            isStatic = true
+            binaryOption(name = "bundleId", value = packageName)
+        }
+    }
+}
+
+private fun KotlinSourceSet.configureAppleKotlin() {
+    kotlin.srcDirs("src/apple/kotlin")
 }
