@@ -1,3 +1,4 @@
+include(":example:shared")
 include(":tdl-coroutines")
 include(":tdl-coroutines-example")
 include(":tdl-coroutines-example-jvm")
