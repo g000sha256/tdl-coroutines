@@ -72,6 +72,21 @@ kotlin {
         }
     }
 
+    iosArm64 {
+        configureBinaries()
+        configureCompilations(platform = "iosArm64")
+    }
+
+    iosSimulatorArm64(name = "iosArm64Simulator") {
+        configureBinaries()
+        configureCompilations(platform = "iosArm64Simulator")
+    }
+
+    iosX64(name = "iosX64Simulator") {
+        configureBinaries()
+        configureCompilations(platform = "iosX64Simulator")
+    }
+
     macosArm64 {
         configureBinaries()
         configureCompilations(platform = "macosArm64")
@@ -99,6 +114,20 @@ kotlin {
 
         jvmMain {
             resources.srcDirs("src/jvmMainGenerated/resources")
+        }
+
+        iosArm64Main {
+            configureAppleKotlin()
+        }
+
+        @Suppress("unused")
+        val iosArm64SimulatorMain by getting {
+            configureAppleKotlin()
+        }
+
+        @Suppress("unused")
+        val iosX64SimulatorMain by getting {
+            configureAppleKotlin()
         }
 
         macosArm64Main {
