@@ -1,4 +1,7 @@
 gradle/wrapper/gradle-wrapper.jar filter=lfs diff=lfs merge=lfs -text
+tdl-coroutines/generated/iosArm64/libs/*.a filter=lfs diff=lfs merge=lfs -text
+tdl-coroutines/generated/iosArm64Simulator/libs/*.a filter=lfs diff=lfs merge=lfs -text
+tdl-coroutines/generated/iosX64Simulator/libs/*.a filter=lfs diff=lfs merge=lfs -text
 tdl-coroutines/generated/macosArm64/libs/*.a filter=lfs diff=lfs merge=lfs -text
 tdl-coroutines/generated/macosX64/libs/*.a filter=lfs diff=lfs merge=lfs -text
 tdl-coroutines/src/androidMainGenerated/jniLibs/*/*.so filter=lfs diff=lfs merge=lfs -text
