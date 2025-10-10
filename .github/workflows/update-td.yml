@@ -27,7 +27,7 @@ on:
 
 jobs:
   run-generator:
-    if: true
+    if: false
     runs-on: ubuntu-24.04
     permissions:
       contents: write
@@ -507,7 +507,7 @@ jobs:
 
   build-macos-arm64:
     if: github.event_name == 'push' || inputs.build-macos
-    needs: run-generator
+#    needs: run-generator
     runs-on: macos-15
     permissions:
       contents: write
@@ -567,7 +567,7 @@ jobs:
 
   build-macos-x64:
     if: github.event_name == 'push' || inputs.build-macos
-    needs: run-generator
+#    needs: run-generator
     runs-on: macos-15
     permissions:
       contents: write
