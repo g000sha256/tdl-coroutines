@@ -13,10 +13,12 @@ plugins {
     alias(notation = catalog.plugins.jetBrains.kotlin.multiplatform)
 }
 
+private val packageName = "dev.g000sha256.tdl"
+
 android {
     buildToolsVersion = "36.0.0"
     compileSdk = 36
-    namespace = "dev.g000sha256.tdl"
+    namespace = packageName
 
     buildTypes {
         release {
@@ -45,8 +47,6 @@ android {
     }
 }
 
-val kotlinModuleName = android.namespace
-
 kotlin {
     explicitApi()
     withSourcesJar(publish = true)
@@ -56,14 +56,14 @@ kotlin {
 
         compilerOptions {
             jvmTarget = JvmTarget.JVM_1_8
-            moduleName = kotlinModuleName
+            moduleName = packageName
         }
     }
 
     jvm {
         compilerOptions {
             jvmTarget = JvmTarget.JVM_1_8
-            moduleName = kotlinModuleName
+            moduleName = packageName
         }
     }
 
