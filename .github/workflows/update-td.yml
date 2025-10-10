@@ -33,7 +33,7 @@ on:
 
 jobs:
   run-generator:
-    if: true
+    if: false
     runs-on: ubuntu-24.04
     permissions:
       contents: write
@@ -513,7 +513,7 @@ jobs:
 
   build-ios-arm64:
     if: github.event_name == 'push' || inputs.build-ios
-    needs: run-generator
+#    needs: run-generator
     runs-on: macos-15
     permissions:
       contents: write
@@ -572,7 +572,7 @@ jobs:
 
   build-ios-arm64-simulator:
     if: github.event_name == 'push' || inputs.build-ios
-    needs: run-generator
+#    needs: run-generator
     runs-on: macos-15
     permissions:
       contents: write
@@ -633,7 +633,7 @@ jobs:
 
   build-ios-x64-simulator:
     if: github.event_name == 'push' || inputs.build-ios
-    needs: run-generator
+#    needs: run-generator
     runs-on: macos-15
     permissions:
       contents: write
