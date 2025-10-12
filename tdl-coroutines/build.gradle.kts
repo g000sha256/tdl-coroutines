@@ -111,10 +111,12 @@ kotlin {
     }
 }
 
+val dokkaGeneratePublicationHtmlTaskProvider = tasks.named<Task>(name = "dokkaGeneratePublicationHtml")
+
 val dokkaJavaDocJarTaskProvider = tasks.register<Jar>(name = "dokkaJavaDocJar") {
     group = "documentation"
     archiveClassifier = "javadoc"
-    from(tasks.dokkaHtml)
+    from(dokkaGeneratePublicationHtmlTaskProvider)
 }
 
 publishing {
