@@ -1,7 +1,12 @@
+import org.jetbrains.kotlin.gradle.dsl.AbstractKotlinNativeBinaryContainer
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSet
+import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeCompilation
+import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinOnlyTarget
+import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinTargetWithBinaries
 
 group = "dev.g000sha256"
-version = "4.0.0"
+version = "4.1.0"
 
 plugins {
     alias(notation = catalog.plugins.android.library)
@@ -13,10 +18,12 @@ plugins {
     alias(notation = catalog.plugins.jetBrains.kotlin.multiplatform)
 }
 
+private val packageName = "dev.g000sha256.tdl"
+
 android {
     buildToolsVersion = "36.0.0"
     compileSdk = 36
-    namespace = "dev.g000sha256.tdl"
+    namespace = packageName
 
     buildTypes {
         release {
@@ -45,8 +52,6 @@ android {
     }
 }
 
-val kotlinModuleName = android.namespace
-
 kotlin {
     explicitApi()
     withSourcesJar(publish = true)
@@ -56,15 +61,40 @@ kotlin {
 
         compilerOptions {
             jvmTarget = JvmTarget.JVM_1_8
-            moduleName = kotlinModuleName
+            moduleName = packageName
         }
     }
 
     jvm {
         compilerOptions {
             jvmTarget = JvmTarget.JVM_1_8
-            moduleName = kotlinModuleName
+            moduleName = packageName
         }
+    }
+
+    iosArm64 {
+        configureBinaries()
+        configureCompilations(platform = "iosArm64")
+    }
+
+    iosSimulatorArm64(name = "iosArm64Simulator") {
+        configureBinaries()
+        configureCompilations(platform = "iosArm64Simulator")
+    }
+
+    iosX64(name = "iosX64Simulator") {
+        configureBinaries()
+        configureCompilations(platform = "iosX64Simulator")
+    }
+
+    macosArm64 {
+        configureBinaries()
+        configureCompilations(platform = "macosArm64")
+    }
+
+    macosX64 {
+        configureBinaries()
+        configureCompilations(platform = "macosX64")
     }
 
     sourceSets {
@@ -85,13 +115,37 @@ kotlin {
         jvmMain {
             resources.srcDirs("src/jvmMainGenerated/resources")
         }
+
+        iosArm64Main {
+            configureAppleKotlin()
+        }
+
+        @Suppress("unused")
+        val iosArm64SimulatorMain by getting {
+            configureAppleKotlin()
+        }
+
+        @Suppress("unused")
+        val iosX64SimulatorMain by getting {
+            configureAppleKotlin()
+        }
+
+        macosArm64Main {
+            configureAppleKotlin()
+        }
+
+        macosX64Main {
+            configureAppleKotlin()
+        }
     }
 }
+
+val dokkaGeneratePublicationHtmlTaskProvider = tasks.named<Task>(name = "dokkaGeneratePublicationHtml")
 
 val dokkaJavaDocJarTaskProvider = tasks.register<Jar>(name = "dokkaJavaDocJar") {
     group = "documentation"
     archiveClassifier = "javadoc"
-    from(tasks.dokkaHtml)
+    from(dokkaGeneratePublicationHtmlTaskProvider)
 }
 
 publishing {
@@ -184,4 +238,32 @@ class CustomSignatureType(
         return super.sign(signatory, toSign)
     }
 
+}
+
+private fun KotlinOnlyTarget<KotlinNativeCompilation>.configureCompilations(platform: String) {
+    compilations.getByName("main") {
+        cinterops {
+            register("main") {
+                definitionFile = file("cinterop/config.def")
+                includeDirs("generated/$platform/include")
+
+                val libsFile = file("generated/$platform/libs")
+                extraOpts("-libraryPath", libsFile.absolutePath)
+            }
+        }
+    }
+}
+
+private fun KotlinTargetWithBinaries<*, AbstractKotlinNativeBinaryContainer>.configureBinaries() {
+    binaries {
+        framework {
+            baseName = "TDLCoroutines"
+            isStatic = true
+            binaryOption(name = "bundleId", value = packageName)
+        }
+    }
+}
+
+private fun KotlinSourceSet.configureAppleKotlin() {
+    kotlin.srcDirs("src/apple/kotlin")
 }

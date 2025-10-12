@@ -3,8 +3,10 @@
 [![Maven Central](https://img.shields.io/maven-central/v/dev.g000sha256/tdl-coroutines?label=Maven%20Central&labelColor=171C35&color=E38E33)](https://central.sonatype.com/artifact/dev.g000sha256/tdl-coroutines)
 [![TDLib Version](https://img.shields.io/badge/TDLib-v1.8.55-blue?labelColor=19212A&color=53A5E3)](https://github.com/tdlib/td/tree/7d257dcda5dd2c616c1146540ef51147c5bb2c69)
 
-![Platform](https://img.shields.io/static/v1?label=Platform&labelColor=black&message=Android&color=green)
-![Platform](https://img.shields.io/static/v1?label=Platform&labelColor=black&message=JVM&color=orange)
+![Platform](https://img.shields.io/static/v1?label=Platform&labelColor=333333&message=Android&color=3DDC84)
+![Platform](https://img.shields.io/static/v1?label=Platform&labelColor=333333&message=JVM&color=ED8B00)
+![Platform](https://img.shields.io/static/v1?label=Platform&labelColor=333333&message=iOS&color=A2AAAD)
+![Platform](https://img.shields.io/static/v1?label=Platform&labelColor=333333&message=macOS&color=A2AAAD)
 
 `TDL Coroutines` is a `Kotlin Multiplatform` library that provides a coroutine-based client for the
 `Telegram Database Library` ([TDLib](https://github.com/tdlib/td)). It simplifies sending requests and handling updates, making
@@ -20,7 +22,7 @@ repositories {
 
 ```kotlin
 dependencies {
-    implementation("dev.g000sha256:tdl-coroutines:4.0.0")
+    implementation("dev.g000sha256:tdl-coroutines:4.1.0")
 }
 ```
 
