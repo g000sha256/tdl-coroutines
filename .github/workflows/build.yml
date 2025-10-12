@@ -44,5 +44,4 @@ jobs:
           ./gradlew tdl-coroutines-example-jvm:assemble
 
       - name: Check API compatibility
-        if: github.ref != 'refs/heads/update-td'
         run: ./gradlew apiCheck

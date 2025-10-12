@@ -1,9 +1,9 @@
-name: Update TDLib
+name: Build TDLib
 
 on:
   push:
     branches:
-      - update-td
+      - build-td
 
   workflow_dispatch:
     inputs:
