@@ -51,16 +51,6 @@ jobs:
       - name: Run generator
         run: ./gradlew tdl-coroutines-generator:run
 
-      - name: Assemble libraries
-        run: |
-          ./gradlew tdl-coroutines:assembleRelease
-          ./gradlew tdl-coroutines:jvmJar
-
-      - name: Assemble examples
-        run: |
-          ./gradlew tdl-coroutines-example:assembleRelease
-          ./gradlew tdl-coroutines-example-jvm:assemble
-
       - name: Commit and push code changes
         uses: EndBug/add-and-commit@v9
         with:
