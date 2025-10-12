@@ -1,4 +1,6 @@
 gradle/wrapper/gradle-wrapper.jar filter=lfs diff=lfs merge=lfs -text
+tdl-coroutines/generated/macosArm64/libs/*.a filter=lfs diff=lfs merge=lfs -text
+tdl-coroutines/generated/macosX64/libs/*.a filter=lfs diff=lfs merge=lfs -text
 tdl-coroutines/src/androidMainGenerated/jniLibs/*/*.so filter=lfs diff=lfs merge=lfs -text
 tdl-coroutines/src/jvmMainGenerated/resources/libs/*/*.dll filter=lfs diff=lfs merge=lfs -text
 tdl-coroutines/src/jvmMainGenerated/resources/libs/*/*.dylib filter=lfs diff=lfs merge=lfs -text

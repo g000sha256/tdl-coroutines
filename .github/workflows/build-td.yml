@@ -19,6 +19,12 @@ on:
         type: boolean
         default: false
 
+      build-macos:
+        description: 'Build macOS'
+        required: false
+        type: boolean
+        default: false
+
 jobs:
   run-generator:
     if: true
@@ -487,4 +493,124 @@ jobs:
           committer_name: GitHub
           committer_email: noreply@github.com
           message: TDLib for JVM Windows x64 [skip ci]
+          add: tdl-coroutines
+
+  build-macos-arm64:
+    if: github.event_name == 'push' || inputs.build-macos
+    needs: run-generator
+    runs-on: macos-15
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          lfs: true
+          submodules: true
+
+      - name: Setup dependencies
+        run: brew install gperf cmake coreutils
+
+      - name: Build OpenSSL
+        run: |
+          cd td/example/ios
+          sh ../../../.github/scripts/change_line.sh Python-Apple-support.patch 2 'index a1d13e9..8efcf20 100644' 'index a1d13e9..bc349a5 100644'
+          sh ../../../.github/scripts/change_line.sh Python-Apple-support.patch 28 '@@ -59,7 +64,7 @@ LIBFFI_VERSION=3.4.2' '@@ -59,32 +64,51 @@ LIBFFI_VERSION=3.4.2'
+          sh ../../../.github/scripts/change_line.sh Python-Apple-support.patch 37 '@@ -69,22 +74,41 @@ VERSION_MIN-macOS=10.15' ' # macOS targets\n-TARGETS-macOS=macosx.x86_64 macosx.arm64\n+TARGETS-macOS=macosx.arm64\n VERSION_MIN-macOS=10.15'
+          sh ../../../.github/scripts/change_line.sh build-openssl.sh 11 'platforms="macOS iOS watchOS tvOS visionOS"' 'platforms="macOS"'
+          ./build-openssl.sh
+
+      - name: Build TDLib
+        run: |
+          cd td
+          mkdir build
+          cd build
+          cmake -DTD_GENERATE_SOURCE_FILES=ON ..
+          cmake --build .
+          cd ../example/ios
+          sh ../../../.github/scripts/change_line.sh build.sh 24 'platforms="macOS iOS watchOS tvOS visionOS"' 'platforms="macOS"'
+          sh ../../../.github/scripts/change_line.sh build.sh 38 '      other_options="-DCMAKE_OSX_ARCHITECTURES='\''x86_64;arm64'\''"' '      other_options="-DCMAKE_OSX_ARCHITECTURES=arm64"'
+          ./build.sh
+
+      - name: Copy files
+        run: |
+          rm -rf tdl-coroutines/generated/macosArm64
+          mkdir -p tdl-coroutines/generated/macosArm64/include/td/telegram
+          mkdir -p tdl-coroutines/generated/macosArm64/libs
+          cp td/example/ios/build/install-macOS/include/td/telegram/td_json_client.h tdl-coroutines/generated/macosArm64/include/td/telegram
+          cp td/example/ios/build/install-macOS/include/td/telegram/tdjson_export.h tdl-coroutines/generated/macosArm64/include/td/telegram
+          cp td/example/ios/build/install-macOS/lib/*.a tdl-coroutines/generated/macosArm64/libs
+          cp td/example/ios/third_party/openssl/macOS/lib/libcrypto.a tdl-coroutines/generated/macosArm64/libs
+          cp td/example/ios/third_party/openssl/macOS/lib/libssl.a tdl-coroutines/generated/macosArm64/libs
+
+      - name: Commit and push
+        uses: EndBug/add-and-commit@v9
+        with:
+          pull: --rebase --autostash
+          author_name: Georgii Ippolitov
+          author_email: detmmpmznb@g000sha256.dev
+          committer_name: GitHub
+          committer_email: noreply@github.com
+          message: TDLib for macOS Arm64 [skip ci]
+          add: tdl-coroutines
+
+  build-macos-x64:
+    if: github.event_name == 'push' || inputs.build-macos
+    needs: run-generator
+    runs-on: macos-15
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          lfs: true
+          submodules: true
+
+      - name: Setup dependencies
+        run: brew install gperf cmake coreutils
+
+      - name: Build OpenSSL
+        run: |
+          cd td/example/ios
+          sh ../../../.github/scripts/change_line.sh Python-Apple-support.patch 2 'index a1d13e9..8efcf20 100644' 'index a1d13e9..8c1291e 100644'
+          sh ../../../.github/scripts/change_line.sh Python-Apple-support.patch 28 '@@ -59,7 +64,7 @@ LIBFFI_VERSION=3.4.2' '@@ -59,32 +64,51 @@ LIBFFI_VERSION=3.4.2'
+          sh ../../../.github/scripts/change_line.sh Python-Apple-support.patch 37 '@@ -69,22 +74,41 @@ VERSION_MIN-macOS=10.15' ' # macOS targets\n-TARGETS-macOS=macosx.x86_64 macosx.arm64\n+TARGETS-macOS=macosx.x86_64\n VERSION_MIN-macOS=10.15'
+          sh ../../../.github/scripts/change_line.sh build-openssl.sh 11 'platforms="macOS iOS watchOS tvOS visionOS"' 'platforms="macOS"'
+          ./build-openssl.sh
+
+      - name: Build TDLib
+        run: |
+          cd td
+          mkdir build
+          cd build
+          cmake -DTD_GENERATE_SOURCE_FILES=ON ..
+          cmake --build .
+          cd ../example/ios
+          sh ../../../.github/scripts/change_line.sh build.sh 24 'platforms="macOS iOS watchOS tvOS visionOS"' 'platforms="macOS"'
+          sh ../../../.github/scripts/change_line.sh build.sh 38 '      other_options="-DCMAKE_OSX_ARCHITECTURES='\''x86_64;arm64'\''"' '      other_options="-DCMAKE_OSX_ARCHITECTURES=x86_64"'
+          ./build.sh
+
+      - name: Copy files
+        run: |
+          rm -rf tdl-coroutines/generated/macosX64
+          mkdir -p tdl-coroutines/generated/macosX64/include/td/telegram
+          mkdir -p tdl-coroutines/generated/macosX64/libs
+          cp td/example/ios/build/install-macOS/include/td/telegram/td_json_client.h tdl-coroutines/generated/macosX64/include/td/telegram
+          cp td/example/ios/build/install-macOS/include/td/telegram/tdjson_export.h tdl-coroutines/generated/macosX64/include/td/telegram
+          cp td/example/ios/build/install-macOS/lib/*.a tdl-coroutines/generated/macosX64/libs
+          cp td/example/ios/third_party/openssl/macOS/lib/libcrypto.a tdl-coroutines/generated/macosX64/libs
+          cp td/example/ios/third_party/openssl/macOS/lib/libssl.a tdl-coroutines/generated/macosX64/libs
+
+      - name: Commit and push
+        uses: EndBug/add-and-commit@v9
+        with:
+          pull: --rebase --autostash
+          author_name: Georgii Ippolitov
+          author_email: detmmpmznb@g000sha256.dev
+          committer_name: GitHub
+          committer_email: noreply@github.com
+          message: TDLib for macOS x64 [skip ci]
           add: tdl-coroutines
