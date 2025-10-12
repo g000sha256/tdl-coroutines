@@ -19,6 +19,18 @@ on:
         type: boolean
         default: false
 
+      build-ios:
+        description: 'Build iOS'
+        required: false
+        type: boolean
+        default: false
+
+      build-macos:
+        description: 'Build macOS'
+        required: false
+        type: boolean
+        default: false
+
 jobs:
   run-generator:
     if: true
@@ -487,4 +499,313 @@ jobs:
           committer_name: GitHub
           committer_email: noreply@github.com
           message: TDLib for JVM Windows x64 [skip ci]
+          add: tdl-coroutines
+
+  build-ios-arm64:
+    if: github.event_name == 'push' || inputs.build-ios
+    needs: run-generator
+    runs-on: macos-15
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          lfs: true
+          submodules: true
+
+      - name: Setup dependencies
+        run: brew install gperf cmake coreutils
+
+      - name: Build OpenSSL
+        run: |
+          cd td/example/ios
+          sh ../../../.github/scripts/change_line.sh build-openssl.sh 11 'platforms="macOS iOS watchOS tvOS visionOS"' 'platforms="iOS"'
+          sh ../../../.github/scripts/change_line.sh build-openssl.sh 18 '    simulators="0 1"' '    simulators="0"'
+          ./build-openssl.sh
+
+      - name: Build TDLib
+        run: |
+          cd td
+          mkdir build
+          cd build
+          cmake -DTD_GENERATE_SOURCE_FILES=ON ..
+          cmake --build .
+          cd ../example/ios
+          sh ../../../.github/scripts/change_line.sh build.sh 24 'platforms="macOS iOS watchOS tvOS visionOS"' 'platforms="iOS"'
+          sh ../../../.github/scripts/change_line.sh build.sh 32 '    simulators="0 1"' '    simulators="0"'
+          sh ../../../.github/scripts/change_line.sh build.sh 58 '      other_options="-DIOS_PLATFORM=${ios_platform} -DCMAKE_TOOLCHAIN_FILE=${td_path}/CMake/iOS.cmake -DCMAKE_MAKE_PROGRAM=make"' '      other_options="-DIOS_PLATFORM=${ios_platform} -DCMAKE_TOOLCHAIN_FILE=${td_path}/CMake/iOS.cmake -DCMAKE_MAKE_PROGRAM=make -DCMAKE_OSX_ARCHITECTURES=arm64"'
+          ./build.sh
+
+      - name: Copy files
+        run: |
+          rm -rf tdl-coroutines/generated/iosArm64
+          mkdir -p tdl-coroutines/generated/iosArm64/include/td/telegram
+          mkdir -p tdl-coroutines/generated/iosArm64/libs
+          cp td/example/ios/build/install-iOS/include/td/telegram/td_json_client.h tdl-coroutines/generated/iosArm64/include/td/telegram
+          cp td/example/ios/build/install-iOS/include/td/telegram/tdjson_export.h tdl-coroutines/generated/iosArm64/include/td/telegram
+          cp td/example/ios/build/install-iOS/lib/*.a tdl-coroutines/generated/iosArm64/libs
+          cp td/example/ios/third_party/openssl/iOS/lib/libcrypto.a tdl-coroutines/generated/iosArm64/libs
+          cp td/example/ios/third_party/openssl/iOS/lib/libssl.a tdl-coroutines/generated/iosArm64/libs
+
+      - name: Commit and push
+        uses: EndBug/add-and-commit@v9
+        with:
+          pull: --rebase --autostash
+          author_name: Georgii Ippolitov
+          author_email: detmmpmznb@g000sha256.dev
+          committer_name: GitHub
+          committer_email: noreply@github.com
+          message: TDLib for iOS Arm64 [skip ci]
+          add: tdl-coroutines
+
+  build-ios-arm64-simulator:
+    if: github.event_name == 'push' || inputs.build-ios
+    needs: run-generator
+    runs-on: macos-15
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          lfs: true
+          submodules: true
+
+      - name: Setup dependencies
+        run: brew install gperf cmake coreutils
+
+      - name: Build OpenSSL
+        run: |
+          cd td/example/ios
+          sh ../../../.github/scripts/change_line.sh Python-Apple-support.patch 2 'index a1d13e9..8efcf20 100644' 'index a1d13e9..fd35326 100644'
+          sh ../../../.github/scripts/change_line.sh Python-Apple-support.patch 47 '+TARGETS-iOS-simulator=iphonesimulator.x86_64 iphonesimulator.arm64' '+TARGETS-iOS-simulator=iphonesimulator.arm64'
+          sh ../../../.github/scripts/change_line.sh Python-Apple-support.patch 82 '@@ -212,6 +236,10 @@ ARCH-$(target)=$$(subst .,,$$(suffix $(target)))' '@@ -212,6 +236,12 @@ ARCH-$(target)=$$(subst .,,$$(suffix $(target)))'
+          sh ../../../.github/scripts/change_line.sh Python-Apple-support.patch 89 '+TARGET_TRIPLE-$(target)=$$(ARCH-$(target))-apple-xros-simulator' '+TARGET_TRIPLE-$(target)=$$(ARCH-$(target))-apple-xros-simulator\n+else ifeq ($(os),iOS-simulator)\n+TARGET_TRIPLE-$(target)=$$(ARCH-$(target))-apple-ios-simulator'
+          sh ../../../.github/scripts/change_line.sh Python-Apple-support.patch 95 '@@ -662,7 +690,7 @@ BZIP2_FATLIB-$(sdk)=$$(BZIP2_MERGE-$(sdk))/lib/libbz2.a' '@@ -662,7 +692,7 @@ BZIP2_FATLIB-$(sdk)=$$(BZIP2_MERGE-$(sdk))/lib/libbz2.a'
+          sh ../../../.github/scripts/change_line.sh Python-Apple-support.patch 104 '@@ -716,14 +744,14 @@ $$(OPENSSL_SSL_FATLIB-$(sdk)): $$(foreach target,$$(SDK_TARGETS-$(sdk)),$$(OPENS' '@@ -716,14 +746,14 @@ $$(OPENSSL_SSL_FATLIB-$(sdk)): $$(foreach target,$$(SDK_TARGETS-$(sdk)),$$(OPENS'
+          sh ../../../.github/scripts/change_line.sh build-openssl.sh 11 'platforms="macOS iOS watchOS tvOS visionOS"' 'platforms="iOS"'
+          sh ../../../.github/scripts/change_line.sh build-openssl.sh 18 '    simulators="0 1"' '    simulators="1"'
+          ./build-openssl.sh
+
+      - name: Build TDLib
+        run: |
+          cd td
+          mkdir build
+          cd build
+          cmake -DTD_GENERATE_SOURCE_FILES=ON ..
+          cmake --build .
+          cd ../example/ios
+          sh ../../../.github/scripts/change_line.sh build.sh 24 'platforms="macOS iOS watchOS tvOS visionOS"' 'platforms="iOS"'
+          sh ../../../.github/scripts/change_line.sh build.sh 32 '    simulators="0 1"' '    simulators="1"'
+          sh ../../../.github/scripts/change_line.sh build.sh 58 '      other_options="-DIOS_PLATFORM=${ios_platform} -DCMAKE_TOOLCHAIN_FILE=${td_path}/CMake/iOS.cmake -DCMAKE_MAKE_PROGRAM=make"' '      other_options="-DIOS_PLATFORM=${ios_platform} -DCMAKE_TOOLCHAIN_FILE=${td_path}/CMake/iOS.cmake -DCMAKE_MAKE_PROGRAM=make -DCMAKE_OSX_ARCHITECTURES=arm64"'
+          ./build.sh
+
+      - name: Copy files
+        run: |
+          rm -rf tdl-coroutines/generated/iosArm64Simulator
+          mkdir -p tdl-coroutines/generated/iosArm64Simulator/include/td/telegram
+          mkdir -p tdl-coroutines/generated/iosArm64Simulator/libs
+          cp td/example/ios/build/install-iOS-simulator/include/td/telegram/td_json_client.h tdl-coroutines/generated/iosArm64Simulator/include/td/telegram
+          cp td/example/ios/build/install-iOS-simulator/include/td/telegram/tdjson_export.h tdl-coroutines/generated/iosArm64Simulator/include/td/telegram
+          cp td/example/ios/build/install-iOS-simulator/lib/*.a tdl-coroutines/generated/iosArm64Simulator/libs
+          cp td/example/ios/third_party/openssl/iOS-simulator/lib/libcrypto.a tdl-coroutines/generated/iosArm64Simulator/libs
+          cp td/example/ios/third_party/openssl/iOS-simulator/lib/libssl.a tdl-coroutines/generated/iosArm64Simulator/libs
+
+      - name: Commit and push
+        uses: EndBug/add-and-commit@v9
+        with:
+          pull: --rebase --autostash
+          author_name: Georgii Ippolitov
+          author_email: detmmpmznb@g000sha256.dev
+          committer_name: GitHub
+          committer_email: noreply@github.com
+          message: TDLib for iOS Arm64 simulator [skip ci]
+          add: tdl-coroutines
+
+  build-ios-x64-simulator:
+    if: github.event_name == 'push' || inputs.build-ios
+    needs: run-generator
+    runs-on: macos-15
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          lfs: true
+          submodules: true
+
+      - name: Setup dependencies
+        run: brew install gperf cmake coreutils
+
+      - name: Build OpenSSL
+        run: |
+          cd td/example/ios
+          sh ../../../.github/scripts/change_line.sh Python-Apple-support.patch 2 'index a1d13e9..8efcf20 100644' 'index a1d13e9..c6b38ee 100644'
+          sh ../../../.github/scripts/change_line.sh Python-Apple-support.patch 47 '+TARGETS-iOS-simulator=iphonesimulator.x86_64 iphonesimulator.arm64' '+TARGETS-iOS-simulator=iphonesimulator.x86_64'
+          sh ../../../.github/scripts/change_line.sh Python-Apple-support.patch 82 '@@ -212,6 +236,10 @@ ARCH-$(target)=$$(subst .,,$$(suffix $(target)))' '@@ -212,6 +236,12 @@ ARCH-$(target)=$$(subst .,,$$(suffix $(target)))'
+          sh ../../../.github/scripts/change_line.sh Python-Apple-support.patch 89 '+TARGET_TRIPLE-$(target)=$$(ARCH-$(target))-apple-xros-simulator' '+TARGET_TRIPLE-$(target)=$$(ARCH-$(target))-apple-xros-simulator\n+else ifeq ($(os),iOS-simulator)\n+TARGET_TRIPLE-$(target)=$$(ARCH-$(target))-apple-ios-simulator'
+          sh ../../../.github/scripts/change_line.sh Python-Apple-support.patch 95 '@@ -662,7 +690,7 @@ BZIP2_FATLIB-$(sdk)=$$(BZIP2_MERGE-$(sdk))/lib/libbz2.a' '@@ -662,7 +692,7 @@ BZIP2_FATLIB-$(sdk)=$$(BZIP2_MERGE-$(sdk))/lib/libbz2.a'
+          sh ../../../.github/scripts/change_line.sh Python-Apple-support.patch 104 '@@ -716,14 +744,14 @@ $$(OPENSSL_SSL_FATLIB-$(sdk)): $$(foreach target,$$(SDK_TARGETS-$(sdk)),$$(OPENS' '@@ -716,14 +746,14 @@ $$(OPENSSL_SSL_FATLIB-$(sdk)): $$(foreach target,$$(SDK_TARGETS-$(sdk)),$$(OPENS'
+          sh ../../../.github/scripts/change_line.sh build-openssl.sh 11 'platforms="macOS iOS watchOS tvOS visionOS"' 'platforms="iOS"'
+          sh ../../../.github/scripts/change_line.sh build-openssl.sh 18 '    simulators="0 1"' '    simulators="1"'
+          ./build-openssl.sh
+
+      - name: Build TDLib
+        run: |
+          cd td
+          mkdir build
+          cd build
+          cmake -DTD_GENERATE_SOURCE_FILES=ON ..
+          cmake --build .
+          cd ../example/ios
+          sh ../../../.github/scripts/change_line.sh build.sh 24 'platforms="macOS iOS watchOS tvOS visionOS"' 'platforms="iOS"'
+          sh ../../../.github/scripts/change_line.sh build.sh 32 '    simulators="0 1"' '    simulators="1"'
+          sh ../../../.github/scripts/change_line.sh build.sh 58 '      other_options="-DIOS_PLATFORM=${ios_platform} -DCMAKE_TOOLCHAIN_FILE=${td_path}/CMake/iOS.cmake -DCMAKE_MAKE_PROGRAM=make"' '      other_options="-DIOS_PLATFORM=${ios_platform} -DCMAKE_TOOLCHAIN_FILE=${td_path}/CMake/iOS.cmake -DCMAKE_MAKE_PROGRAM=make -DCMAKE_OSX_ARCHITECTURES=x86_64"'
+          ./build.sh
+
+      - name: Copy files
+        run: |
+          rm -rf tdl-coroutines/generated/iosX64Simulator
+          mkdir -p tdl-coroutines/generated/iosX64Simulator/include/td/telegram
+          mkdir -p tdl-coroutines/generated/iosX64Simulator/libs
+          cp td/example/ios/build/install-iOS-simulator/include/td/telegram/td_json_client.h tdl-coroutines/generated/iosX64Simulator/include/td/telegram
+          cp td/example/ios/build/install-iOS-simulator/include/td/telegram/tdjson_export.h tdl-coroutines/generated/iosX64Simulator/include/td/telegram
+          cp td/example/ios/build/install-iOS-simulator/lib/*.a tdl-coroutines/generated/iosX64Simulator/libs
+          cp td/example/ios/third_party/openssl/iOS-simulator/lib/libcrypto.a tdl-coroutines/generated/iosX64Simulator/libs
+          cp td/example/ios/third_party/openssl/iOS-simulator/lib/libssl.a tdl-coroutines/generated/iosX64Simulator/libs
+
+      - name: Commit and push
+        uses: EndBug/add-and-commit@v9
+        with:
+          pull: --rebase --autostash
+          author_name: Georgii Ippolitov
+          author_email: detmmpmznb@g000sha256.dev
+          committer_name: GitHub
+          committer_email: noreply@github.com
+          message: TDLib for iOS x64 simulator [skip ci]
+          add: tdl-coroutines
+
+  build-macos-arm64:
+    if: github.event_name == 'push' || inputs.build-macos
+    needs: run-generator
+    runs-on: macos-15
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          lfs: true
+          submodules: true
+
+      - name: Setup dependencies
+        run: brew install gperf cmake coreutils
+
+      - name: Build OpenSSL
+        run: |
+          cd td/example/ios
+          sh ../../../.github/scripts/change_line.sh Python-Apple-support.patch 2 'index a1d13e9..8efcf20 100644' 'index a1d13e9..bc349a5 100644'
+          sh ../../../.github/scripts/change_line.sh Python-Apple-support.patch 28 '@@ -59,7 +64,7 @@ LIBFFI_VERSION=3.4.2' '@@ -59,32 +64,51 @@ LIBFFI_VERSION=3.4.2'
+          sh ../../../.github/scripts/change_line.sh Python-Apple-support.patch 37 '@@ -69,22 +74,41 @@ VERSION_MIN-macOS=10.15' ' # macOS targets\n-TARGETS-macOS=macosx.x86_64 macosx.arm64\n+TARGETS-macOS=macosx.arm64\n VERSION_MIN-macOS=10.15'
+          sh ../../../.github/scripts/change_line.sh build-openssl.sh 11 'platforms="macOS iOS watchOS tvOS visionOS"' 'platforms="macOS"'
+          ./build-openssl.sh
+
+      - name: Build TDLib
+        run: |
+          cd td
+          mkdir build
+          cd build
+          cmake -DTD_GENERATE_SOURCE_FILES=ON ..
+          cmake --build .
+          cd ../example/ios
+          sh ../../../.github/scripts/change_line.sh build.sh 24 'platforms="macOS iOS watchOS tvOS visionOS"' 'platforms="macOS"'
+          sh ../../../.github/scripts/change_line.sh build.sh 38 '      other_options="-DCMAKE_OSX_ARCHITECTURES='\''x86_64;arm64'\''"' '      other_options="-DCMAKE_OSX_ARCHITECTURES=arm64"'
+          ./build.sh
+
+      - name: Copy files
+        run: |
+          rm -rf tdl-coroutines/generated/macosArm64
+          mkdir -p tdl-coroutines/generated/macosArm64/include/td/telegram
+          mkdir -p tdl-coroutines/generated/macosArm64/libs
+          cp td/example/ios/build/install-macOS/include/td/telegram/td_json_client.h tdl-coroutines/generated/macosArm64/include/td/telegram
+          cp td/example/ios/build/install-macOS/include/td/telegram/tdjson_export.h tdl-coroutines/generated/macosArm64/include/td/telegram
+          cp td/example/ios/build/install-macOS/lib/*.a tdl-coroutines/generated/macosArm64/libs
+          cp td/example/ios/third_party/openssl/macOS/lib/libcrypto.a tdl-coroutines/generated/macosArm64/libs
+          cp td/example/ios/third_party/openssl/macOS/lib/libssl.a tdl-coroutines/generated/macosArm64/libs
+
+      - name: Commit and push
+        uses: EndBug/add-and-commit@v9
+        with:
+          pull: --rebase --autostash
+          author_name: Georgii Ippolitov
+          author_email: detmmpmznb@g000sha256.dev
+          committer_name: GitHub
+          committer_email: noreply@github.com
+          message: TDLib for macOS Arm64 [skip ci]
+          add: tdl-coroutines
+
+  build-macos-x64:
+    if: github.event_name == 'push' || inputs.build-macos
+    needs: run-generator
+    runs-on: macos-15
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          lfs: true
+          submodules: true
+
+      - name: Setup dependencies
+        run: brew install gperf cmake coreutils
+
+      - name: Build OpenSSL
+        run: |
+          cd td/example/ios
+          sh ../../../.github/scripts/change_line.sh Python-Apple-support.patch 2 'index a1d13e9..8efcf20 100644' 'index a1d13e9..8c1291e 100644'
+          sh ../../../.github/scripts/change_line.sh Python-Apple-support.patch 28 '@@ -59,7 +64,7 @@ LIBFFI_VERSION=3.4.2' '@@ -59,32 +64,51 @@ LIBFFI_VERSION=3.4.2'
+          sh ../../../.github/scripts/change_line.sh Python-Apple-support.patch 37 '@@ -69,22 +74,41 @@ VERSION_MIN-macOS=10.15' ' # macOS targets\n-TARGETS-macOS=macosx.x86_64 macosx.arm64\n+TARGETS-macOS=macosx.x86_64\n VERSION_MIN-macOS=10.15'
+          sh ../../../.github/scripts/change_line.sh build-openssl.sh 11 'platforms="macOS iOS watchOS tvOS visionOS"' 'platforms="macOS"'
+          ./build-openssl.sh
+
+      - name: Build TDLib
+        run: |
+          cd td
+          mkdir build
+          cd build
+          cmake -DTD_GENERATE_SOURCE_FILES=ON ..
+          cmake --build .
+          cd ../example/ios
+          sh ../../../.github/scripts/change_line.sh build.sh 24 'platforms="macOS iOS watchOS tvOS visionOS"' 'platforms="macOS"'
+          sh ../../../.github/scripts/change_line.sh build.sh 38 '      other_options="-DCMAKE_OSX_ARCHITECTURES='\''x86_64;arm64'\''"' '      other_options="-DCMAKE_OSX_ARCHITECTURES=x86_64"'
+          ./build.sh
+
+      - name: Copy files
+        run: |
+          rm -rf tdl-coroutines/generated/macosX64
+          mkdir -p tdl-coroutines/generated/macosX64/include/td/telegram
+          mkdir -p tdl-coroutines/generated/macosX64/libs
+          cp td/example/ios/build/install-macOS/include/td/telegram/td_json_client.h tdl-coroutines/generated/macosX64/include/td/telegram
+          cp td/example/ios/build/install-macOS/include/td/telegram/tdjson_export.h tdl-coroutines/generated/macosX64/include/td/telegram
+          cp td/example/ios/build/install-macOS/lib/*.a tdl-coroutines/generated/macosX64/libs
+          cp td/example/ios/third_party/openssl/macOS/lib/libcrypto.a tdl-coroutines/generated/macosX64/libs
+          cp td/example/ios/third_party/openssl/macOS/lib/libssl.a tdl-coroutines/generated/macosX64/libs
+
+      - name: Commit and push
+        uses: EndBug/add-and-commit@v9
+        with:
+          pull: --rebase --autostash
+          author_name: Georgii Ippolitov
+          author_email: detmmpmznb@g000sha256.dev
+          committer_name: GitHub
+          committer_email: noreply@github.com
+          message: TDLib for macOS x64 [skip ci]
           add: tdl-coroutines
