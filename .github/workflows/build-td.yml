@@ -270,7 +270,7 @@ jobs:
   build-jvm-macos-arm64:
     if: github.event_name == 'push' || inputs.build-jvm
     needs: run-generator
-    runs-on: macos-15
+    runs-on: self-hosted
     permissions:
       contents: write
 
@@ -504,7 +504,7 @@ jobs:
   build-ios-arm64:
     if: github.event_name == 'push' || inputs.build-ios
     needs: run-generator
-    runs-on: macos-15
+    runs-on: self-hosted
     permissions:
       contents: write
 
@@ -563,7 +563,7 @@ jobs:
   build-ios-arm64-simulator:
     if: github.event_name == 'push' || inputs.build-ios
     needs: run-generator
-    runs-on: macos-15
+    runs-on: self-hosted
     permissions:
       contents: write
 
@@ -628,7 +628,7 @@ jobs:
   build-ios-x64-simulator:
     if: github.event_name == 'push' || inputs.build-ios
     needs: run-generator
-    runs-on: macos-15
+    runs-on: self-hosted
     permissions:
       contents: write
 
@@ -693,7 +693,7 @@ jobs:
   build-macos-arm64:
     if: github.event_name == 'push' || inputs.build-macos
     needs: run-generator
-    runs-on: macos-15
+    runs-on: self-hosted
     permissions:
       contents: write
 
@@ -753,7 +753,7 @@ jobs:
   build-macos-x64:
     if: github.event_name == 'push' || inputs.build-macos
     needs: run-generator
-    runs-on: macos-15
+    runs-on: self-hosted
     permissions:
       contents: write
 
