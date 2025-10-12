@@ -32,6 +32,12 @@ jobs:
         run: |
           ./gradlew tdl-coroutines:bundleReleaseAar
           ./gradlew tdl-coroutines:jvmJar
+          ./gradlew tdl-coroutines:iosArm64Cinterop-mainKlib
+          ./gradlew tdl-coroutines:iosArm64Klib
+          ./gradlew tdl-coroutines:iosArm64SimulatorCinterop-mainKlib
+          ./gradlew tdl-coroutines:iosArm64SimulatorKlib
+          ./gradlew tdl-coroutines:iosX64SimulatorCinterop-mainKlib
+          ./gradlew tdl-coroutines:iosX64SimulatorKlib
           ./gradlew tdl-coroutines:macosArm64Cinterop-mainKlib
           ./gradlew tdl-coroutines:macosArm64Klib
           ./gradlew tdl-coroutines:macosX64Cinterop-mainKlib
