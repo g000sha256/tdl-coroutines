@@ -1,0 +1,4 @@
+headers = td/telegram/td_json_client.h
+package = org.drinkless.tdlib
+
+staticLibraries = libcrypto.a libssl.a libtdactor.a libtdapi.a libtdclient.a libtdcore.a libtddb.a libtde2e.a libtdjson_private.a libtdjson_static.a libtdmtproto.a libtdnet.a libtdsqlite.a libtdutils.a
