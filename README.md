@@ -1,12 +1,12 @@
 # TDL Coroutines
 
-[![Maven Central](https://img.shields.io/maven-central/v/dev.g000sha256/tdl-coroutines?label=Maven%20Central&labelColor=171C35&color=E38E33)](https://central.sonatype.com/artifact/dev.g000sha256/tdl-coroutines)
-[![TDLib Version](https://img.shields.io/badge/TDLib-v1.8.56-blue?labelColor=19212A&color=53A5E3)](https://github.com/tdlib/td/tree/36b05e9e0310c9a32ae6cb807fe22c96600f6061)
+[![Maven Central](https://img.shields.io/github/v/release/g000sha256/tdl-coroutines?label=Maven%20Central&labelColor=171C35&color=E38E33)](https://central.sonatype.com/artifact/dev.g000sha256/tdl-coroutines)
+[![TDLib](https://img.shields.io/badge/TDLib-v1.8.56-blue?labelColor=19212A&color=53A5E3)](https://github.com/tdlib/td/tree/36b05e9e0310c9a32ae6cb807fe22c96600f6061)
 
-![Platform](https://img.shields.io/static/v1?label=Platform&labelColor=333333&message=Android&color=3DDC84)
-![Platform](https://img.shields.io/static/v1?label=Platform&labelColor=333333&message=JVM&color=ED8B00)
-![Platform](https://img.shields.io/static/v1?label=Platform&labelColor=333333&message=iOS&color=A2AAAD)
-![Platform](https://img.shields.io/static/v1?label=Platform&labelColor=333333&message=macOS&color=A2AAAD)
+[![Platform Android](https://img.shields.io/static/v1?label=Platform&labelColor=333333&message=Android&color=3DDC84)](https://klibs.io/project/g000sha256/tdl-coroutines)
+[![Platform JVM](https://img.shields.io/static/v1?label=Platform&labelColor=333333&message=JVM&color=ED8B00)](https://klibs.io/project/g000sha256/tdl-coroutines)
+[![Platform iOS](https://img.shields.io/static/v1?label=Platform&labelColor=333333&message=iOS&color=A2AAAD)](https://klibs.io/project/g000sha256/tdl-coroutines)
+[![Platform macOS](https://img.shields.io/static/v1?label=Platform&labelColor=333333&message=macOS&color=A2AAAD)](https://klibs.io/project/g000sha256/tdl-coroutines)
 
 `TDL Coroutines` is a `Kotlin Multiplatform` library that provides a coroutine-based client for the
 `Telegram Database Library` ([TDLib](https://github.com/tdlib/td)). It simplifies sending requests and handling updates, making
