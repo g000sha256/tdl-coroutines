@@ -25,10 +25,12 @@ import kotlin.String
  * A forum topic has been created.
  *
  * @property name Name of the topic.
+ * @property isNameImplicit True, if the name of the topic wasn't added explicitly.
  * @property icon Icon of the topic.
  */
 public class MessageForumTopicCreated public constructor(
     public val name: String,
+    public val isNameImplicit: Boolean,
     public val icon: ForumTopicIcon,
 ) : MessageContent() {
     override fun equals(other: Any?): Boolean {
@@ -45,12 +47,16 @@ public class MessageForumTopicCreated public constructor(
         if (other.name != name) {
             return false
         }
+        if (other.isNameImplicit != isNameImplicit) {
+            return false
+        }
         return other.icon == icon
     }
 
     override fun hashCode(): Int {
         var hashCode = this::class.hashCode()
         hashCode = 31 * hashCode + name.hashCode()
+        hashCode = 31 * hashCode + isNameImplicit.hashCode()
         hashCode = 31 * hashCode + icon.hashCode()
         return hashCode
     }
@@ -61,6 +67,9 @@ public class MessageForumTopicCreated public constructor(
             append("(")
             append("name=")
             append(name)
+            append(", ")
+            append("isNameImplicit=")
+            append(isNameImplicit)
             append(", ")
             append("icon=")
             append(icon)

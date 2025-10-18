@@ -16,10 +16,13 @@
 
 package dev.g000sha256.tdl.function
 
+import dev.g000sha256.tdl.dto.FormattedText
 import kotlin.Int
 import kotlin.Long
 
-internal class GetForumTopicLink internal constructor(
+internal class SendTextMessageDraft internal constructor(
     internal val chatId: Long,
     internal val forumTopicId: Int,
+    internal val draftId: Long,
+    internal val text: FormattedText,
 )

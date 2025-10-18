@@ -22,13 +22,13 @@ import kotlin.Int
 import kotlin.String
 
 /**
- * A topic in a forum supergroup chat or a chat with a bot.
+ * A birthdate was suggested to be set.
  *
- * @property forumTopicId Unique identifier of the forum topic.
+ * @property birthdate The suggested birthdate. Use the method setBirthdate to apply the birthdate.
  */
-public class MessageTopicForum public constructor(
-    public val forumTopicId: Int,
-) : MessageTopic() {
+public class MessageSuggestBirthdate public constructor(
+    public val birthdate: Birthdate,
+) : MessageContent() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true
@@ -39,22 +39,22 @@ public class MessageTopicForum public constructor(
         if (other::class != this::class) {
             return false
         }
-        other as MessageTopicForum
-        return other.forumTopicId == forumTopicId
+        other as MessageSuggestBirthdate
+        return other.birthdate == birthdate
     }
 
     override fun hashCode(): Int {
         var hashCode = this::class.hashCode()
-        hashCode = 31 * hashCode + forumTopicId.hashCode()
+        hashCode = 31 * hashCode + birthdate.hashCode()
         return hashCode
     }
 
     override fun toString(): String {
         return buildString {
-            append("MessageTopicForum")
+            append("MessageSuggestBirthdate")
             append("(")
-            append("forumTopicId=")
-            append(forumTopicId)
+            append("birthdate=")
+            append(birthdate)
             append(")")
         }
     }

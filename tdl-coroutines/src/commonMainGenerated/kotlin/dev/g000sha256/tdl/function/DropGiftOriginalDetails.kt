@@ -16,10 +16,10 @@
 
 package dev.g000sha256.tdl.function
 
-import kotlin.Int
 import kotlin.Long
+import kotlin.String
 
-internal class GetForumTopicLink internal constructor(
-    internal val chatId: Long,
-    internal val forumTopicId: Int,
+internal class DropGiftOriginalDetails internal constructor(
+    internal val receivedGiftId: String,
+    internal val starCount: Long,
 )

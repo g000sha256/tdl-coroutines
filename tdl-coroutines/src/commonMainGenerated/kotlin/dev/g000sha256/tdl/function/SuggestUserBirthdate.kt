@@ -16,11 +16,10 @@
 
 package dev.g000sha256.tdl.function
 
-import dev.g000sha256.tdl.dto.DraftMessage
+import dev.g000sha256.tdl.dto.Birthdate
 import kotlin.Long
 
-internal class SetDirectMessagesChatTopicDraftMessage internal constructor(
-    internal val chatId: Long,
-    internal val topicId: Long,
-    internal val draftMessage: DraftMessage?,
+internal class SuggestUserBirthdate internal constructor(
+    internal val userId: Long,
+    internal val birthdate: Birthdate,
 )

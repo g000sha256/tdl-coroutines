@@ -26,7 +26,7 @@ import kotlin.String
  * Information about a topic in a forum chat was changed.
  *
  * @property chatId Chat identifier.
- * @property messageThreadId Message thread identifier of the topic.
+ * @property forumTopicId Forum topic identifier of the topic.
  * @property isPinned True, if the topic is pinned in the topic list.
  * @property lastReadInboxMessageId Identifier of the last read incoming message.
  * @property lastReadOutboxMessageId Identifier of the last read outgoing message.
@@ -36,7 +36,7 @@ import kotlin.String
  */
 public class UpdateForumTopic public constructor(
     public val chatId: Long,
-    public val messageThreadId: Long,
+    public val forumTopicId: Int,
     public val isPinned: Boolean,
     public val lastReadInboxMessageId: Long,
     public val lastReadOutboxMessageId: Long,
@@ -58,7 +58,7 @@ public class UpdateForumTopic public constructor(
         if (other.chatId != chatId) {
             return false
         }
-        if (other.messageThreadId != messageThreadId) {
+        if (other.forumTopicId != forumTopicId) {
             return false
         }
         if (other.isPinned != isPinned) {
@@ -82,7 +82,7 @@ public class UpdateForumTopic public constructor(
     override fun hashCode(): Int {
         var hashCode = this::class.hashCode()
         hashCode = 31 * hashCode + chatId.hashCode()
-        hashCode = 31 * hashCode + messageThreadId.hashCode()
+        hashCode = 31 * hashCode + forumTopicId.hashCode()
         hashCode = 31 * hashCode + isPinned.hashCode()
         hashCode = 31 * hashCode + lastReadInboxMessageId.hashCode()
         hashCode = 31 * hashCode + lastReadOutboxMessageId.hashCode()
@@ -99,8 +99,8 @@ public class UpdateForumTopic public constructor(
             append("chatId=")
             append(chatId)
             append(", ")
-            append("messageThreadId=")
-            append(messageThreadId)
+            append("forumTopicId=")
+            append(forumTopicId)
             append(", ")
             append("isPinned=")
             append(isPinned)

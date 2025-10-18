@@ -17,12 +17,13 @@
 package dev.g000sha256.tdl.function
 
 import kotlin.Boolean
+import kotlin.Int
 import kotlin.Long
 import kotlin.String
 
 internal class EditForumTopic internal constructor(
     internal val chatId: Long,
-    internal val messageThreadId: Long,
+    internal val forumTopicId: Int,
     internal val name: String,
     internal val editIconCustomEmoji: Boolean,
     internal val iconCustomEmojiId: Long,

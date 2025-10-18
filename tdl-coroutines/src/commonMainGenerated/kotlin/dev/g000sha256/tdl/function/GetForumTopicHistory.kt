@@ -19,7 +19,10 @@ package dev.g000sha256.tdl.function
 import kotlin.Int
 import kotlin.Long
 
-internal class GetForumTopicLink internal constructor(
+internal class GetForumTopicHistory internal constructor(
     internal val chatId: Long,
     internal val forumTopicId: Int,
+    internal val fromMessageId: Long,
+    internal val offset: Int,
+    internal val limit: Int,
 )

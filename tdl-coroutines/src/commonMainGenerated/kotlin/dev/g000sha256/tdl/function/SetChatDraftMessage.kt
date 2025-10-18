@@ -17,10 +17,11 @@
 package dev.g000sha256.tdl.function
 
 import dev.g000sha256.tdl.dto.DraftMessage
+import dev.g000sha256.tdl.dto.MessageTopic
 import kotlin.Long
 
 internal class SetChatDraftMessage internal constructor(
     internal val chatId: Long,
-    internal val messageThreadId: Long,
+    internal val topicId: MessageTopic?,
     internal val draftMessage: DraftMessage?,
 )

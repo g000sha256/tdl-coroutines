@@ -19,7 +19,7 @@ package dev.g000sha256.tdl.function
 import kotlin.Int
 import kotlin.Long
 
-internal class GetForumTopicLink internal constructor(
+internal class ReadAllForumTopicReactions internal constructor(
     internal val chatId: Long,
     internal val forumTopicId: Int,
 )

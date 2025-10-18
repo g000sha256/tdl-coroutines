@@ -22,13 +22,17 @@ import kotlin.Int
 import kotlin.String
 
 /**
- * A topic in a forum supergroup chat or a chat with a bot.
+ * A new message was received in a group call. It must be shown for at most getOption(&quot;group_call_message_show_time_max&quot;) seconds after receiving.
  *
- * @property forumTopicId Unique identifier of the forum topic.
+ * @property groupCallId Identifier of the group call.
+ * @property senderId Identifier of the sender of the message.
+ * @property text Text of the message.
  */
-public class MessageTopicForum public constructor(
-    public val forumTopicId: Int,
-) : MessageTopic() {
+public class UpdateGroupCallNewMessage public constructor(
+    public val groupCallId: Int,
+    public val senderId: MessageSender,
+    public val text: FormattedText,
+) : Update() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true
@@ -39,22 +43,36 @@ public class MessageTopicForum public constructor(
         if (other::class != this::class) {
             return false
         }
-        other as MessageTopicForum
-        return other.forumTopicId == forumTopicId
+        other as UpdateGroupCallNewMessage
+        if (other.groupCallId != groupCallId) {
+            return false
+        }
+        if (other.senderId != senderId) {
+            return false
+        }
+        return other.text == text
     }
 
     override fun hashCode(): Int {
         var hashCode = this::class.hashCode()
-        hashCode = 31 * hashCode + forumTopicId.hashCode()
+        hashCode = 31 * hashCode + groupCallId.hashCode()
+        hashCode = 31 * hashCode + senderId.hashCode()
+        hashCode = 31 * hashCode + text.hashCode()
         return hashCode
     }
 
     override fun toString(): String {
         return buildString {
-            append("MessageTopicForum")
+            append("UpdateGroupCallNewMessage")
             append("(")
-            append("forumTopicId=")
-            append(forumTopicId)
+            append("groupCallId=")
+            append(groupCallId)
+            append(", ")
+            append("senderId=")
+            append(senderId)
+            append(", ")
+            append("text=")
+            append(text)
             append(")")
         }
     }

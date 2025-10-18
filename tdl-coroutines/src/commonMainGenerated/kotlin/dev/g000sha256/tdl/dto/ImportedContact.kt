@@ -19,23 +19,22 @@ package dev.g000sha256.tdl.dto
 import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
-import kotlin.Long
 import kotlin.String
 
 /**
- * A message sender activity in the chat has changed.
+ * Describes a contact to import.
  *
- * @property chatId Chat identifier.
- * @property topicId Identifier of the specific topic in which the action was performed; may be null if none.
- * @property senderId Identifier of a message sender performing the action.
- * @property action The action.
+ * @property phoneNumber Phone number of the user.
+ * @property firstName First name of the user; 1-64 characters.
+ * @property lastName Last name of the user; 0-64 characters.
+ * @property note Note to add about the user; 0-getOption(&quot;user_note_text_length_max&quot;) characters. Only Bold, Italic, Underline, Strikethrough, Spoiler, and CustomEmoji entities are allowed; pass null to keep the current user's note.
  */
-public class UpdateChatAction public constructor(
-    public val chatId: Long,
-    public val topicId: MessageTopic?,
-    public val senderId: MessageSender,
-    public val action: ChatAction,
-) : Update() {
+public class ImportedContact public constructor(
+    public val phoneNumber: String,
+    public val firstName: String,
+    public val lastName: String,
+    public val note: FormattedText?,
+) {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true
@@ -46,43 +45,43 @@ public class UpdateChatAction public constructor(
         if (other::class != this::class) {
             return false
         }
-        other as UpdateChatAction
-        if (other.chatId != chatId) {
+        other as ImportedContact
+        if (other.phoneNumber != phoneNumber) {
             return false
         }
-        if (other.topicId != topicId) {
+        if (other.firstName != firstName) {
             return false
         }
-        if (other.senderId != senderId) {
+        if (other.lastName != lastName) {
             return false
         }
-        return other.action == action
+        return other.note == note
     }
 
     override fun hashCode(): Int {
         var hashCode = this::class.hashCode()
-        hashCode = 31 * hashCode + chatId.hashCode()
-        hashCode = 31 * hashCode + topicId.hashCode()
-        hashCode = 31 * hashCode + senderId.hashCode()
-        hashCode = 31 * hashCode + action.hashCode()
+        hashCode = 31 * hashCode + phoneNumber.hashCode()
+        hashCode = 31 * hashCode + firstName.hashCode()
+        hashCode = 31 * hashCode + lastName.hashCode()
+        hashCode = 31 * hashCode + note.hashCode()
         return hashCode
     }
 
     override fun toString(): String {
         return buildString {
-            append("UpdateChatAction")
+            append("ImportedContact")
             append("(")
-            append("chatId=")
-            append(chatId)
+            append("phoneNumber=")
+            append(phoneNumber)
             append(", ")
-            append("topicId=")
-            append(topicId)
+            append("firstName=")
+            append(firstName)
             append(", ")
-            append("senderId=")
-            append(senderId)
+            append("lastName=")
+            append(lastName)
             append(", ")
-            append("action=")
-            append(action)
+            append("note=")
+            append(note)
             append(")")
         }
     }

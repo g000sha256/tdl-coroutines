@@ -17,10 +17,11 @@
 package dev.g000sha256.tdl.function
 
 import dev.g000sha256.tdl.dto.ChatNotificationSettings
+import kotlin.Int
 import kotlin.Long
 
 internal class SetForumTopicNotificationSettings internal constructor(
     internal val chatId: Long,
-    internal val messageThreadId: Long,
+    internal val forumTopicId: Int,
     internal val notificationSettings: ChatNotificationSettings,
 )

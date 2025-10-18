@@ -23,18 +23,18 @@ import kotlin.Long
 import kotlin.String
 
 /**
- * A message sender activity in the chat has changed.
+ * A new pending text message was received in a chat with a bot. The message must be shown in the chat for at most getOption(&quot;pending_text_message_period&quot;) seconds, replace any other pending message with the same draftId, and be deleted whenever any incoming message from the bot in the message thread is received.
  *
  * @property chatId Chat identifier.
- * @property topicId Identifier of the specific topic in which the action was performed; may be null if none.
- * @property senderId Identifier of a message sender performing the action.
- * @property action The action.
+ * @property forumTopicId The forum topic identifier in which the message will be sent; 0 if none.
+ * @property draftId Unique identifier of the message draft within the message thread.
+ * @property text Text of the pending message.
  */
-public class UpdateChatAction public constructor(
+public class UpdatePendingTextMessage public constructor(
     public val chatId: Long,
-    public val topicId: MessageTopic?,
-    public val senderId: MessageSender,
-    public val action: ChatAction,
+    public val forumTopicId: Int,
+    public val draftId: Long,
+    public val text: FormattedText,
 ) : Update() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
@@ -46,43 +46,43 @@ public class UpdateChatAction public constructor(
         if (other::class != this::class) {
             return false
         }
-        other as UpdateChatAction
+        other as UpdatePendingTextMessage
         if (other.chatId != chatId) {
             return false
         }
-        if (other.topicId != topicId) {
+        if (other.forumTopicId != forumTopicId) {
             return false
         }
-        if (other.senderId != senderId) {
+        if (other.draftId != draftId) {
             return false
         }
-        return other.action == action
+        return other.text == text
     }
 
     override fun hashCode(): Int {
         var hashCode = this::class.hashCode()
         hashCode = 31 * hashCode + chatId.hashCode()
-        hashCode = 31 * hashCode + topicId.hashCode()
-        hashCode = 31 * hashCode + senderId.hashCode()
-        hashCode = 31 * hashCode + action.hashCode()
+        hashCode = 31 * hashCode + forumTopicId.hashCode()
+        hashCode = 31 * hashCode + draftId.hashCode()
+        hashCode = 31 * hashCode + text.hashCode()
         return hashCode
     }
 
     override fun toString(): String {
         return buildString {
-            append("UpdateChatAction")
+            append("UpdatePendingTextMessage")
             append("(")
             append("chatId=")
             append(chatId)
             append(", ")
-            append("topicId=")
-            append(topicId)
+            append("forumTopicId=")
+            append(forumTopicId)
             append(", ")
-            append("senderId=")
-            append(senderId)
+            append("draftId=")
+            append(draftId)
             append(", ")
-            append("action=")
-            append(action)
+            append("text=")
+            append(text)
             append(")")
         }
     }

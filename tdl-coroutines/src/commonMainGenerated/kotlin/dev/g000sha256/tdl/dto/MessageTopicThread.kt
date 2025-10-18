@@ -19,15 +19,16 @@ package dev.g000sha256.tdl.dto
 import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
+import kotlin.Long
 import kotlin.String
 
 /**
- * A topic in a forum supergroup chat or a chat with a bot.
+ * A topic in a non-forum supergroup chat.
  *
- * @property forumTopicId Unique identifier of the forum topic.
+ * @property messageThreadId Unique identifier of the message thread.
  */
-public class MessageTopicForum public constructor(
-    public val forumTopicId: Int,
+public class MessageTopicThread public constructor(
+    public val messageThreadId: Long,
 ) : MessageTopic() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
@@ -39,22 +40,22 @@ public class MessageTopicForum public constructor(
         if (other::class != this::class) {
             return false
         }
-        other as MessageTopicForum
-        return other.forumTopicId == forumTopicId
+        other as MessageTopicThread
+        return other.messageThreadId == messageThreadId
     }
 
     override fun hashCode(): Int {
         var hashCode = this::class.hashCode()
-        hashCode = 31 * hashCode + forumTopicId.hashCode()
+        hashCode = 31 * hashCode + messageThreadId.hashCode()
         return hashCode
     }
 
     override fun toString(): String {
         return buildString {
-            append("MessageTopicForum")
+            append("MessageTopicThread")
             append("(")
-            append("forumTopicId=")
-            append(forumTopicId)
+            append("messageThreadId=")
+            append(messageThreadId)
             append(")")
         }
     }

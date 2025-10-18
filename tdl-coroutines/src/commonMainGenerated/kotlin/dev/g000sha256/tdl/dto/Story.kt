@@ -39,7 +39,7 @@ import kotlin.String
  * @property canBeAddedToAlbum True, if the story can be added to an album.
  * @property canBeDeleted True, if the story can be deleted.
  * @property canBeEdited True, if the story can be edited.
- * @property canBeForwarded True, if the story can be forwarded as a message. Otherwise, screenshots and saving of the story content must be also forbidden.
+ * @property canBeForwarded True, if the story can be forwarded as a message or reposted as a story. Otherwise, screenshotting and saving of the story content must be also forbidden.
  * @property canBeReplied True, if the story can be replied in the chat with the user that posted the story.
  * @property canToggleIsPostedToChatPage True, if the story's isPostedToChatPage value can be changed.
  * @property canGetStatistics True, if the story statistics are available through getStoryStatistics.

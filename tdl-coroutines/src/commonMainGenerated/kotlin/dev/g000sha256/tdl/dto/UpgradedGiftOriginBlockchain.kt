@@ -22,13 +22,9 @@ import kotlin.Int
 import kotlin.String
 
 /**
- * A topic in a forum supergroup chat or a chat with a bot.
- *
- * @property forumTopicId Unique identifier of the forum topic.
+ * The gift was assigned from blockchain and isn't owned by the current user. The gift can't be transferred, resold or withdrawn to blockchain.
  */
-public class MessageTopicForum public constructor(
-    public val forumTopicId: Int,
-) : MessageTopic() {
+public class UpgradedGiftOriginBlockchain public constructor() : UpgradedGiftOrigin() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true
@@ -36,26 +32,14 @@ public class MessageTopicForum public constructor(
         if (other == null) {
             return false
         }
-        if (other::class != this::class) {
-            return false
-        }
-        other as MessageTopicForum
-        return other.forumTopicId == forumTopicId
+        return this::class == other::class
     }
 
     override fun hashCode(): Int {
-        var hashCode = this::class.hashCode()
-        hashCode = 31 * hashCode + forumTopicId.hashCode()
-        return hashCode
+        return this::class.hashCode()
     }
 
     override fun toString(): String {
-        return buildString {
-            append("MessageTopicForum")
-            append("(")
-            append("forumTopicId=")
-            append(forumTopicId)
-            append(")")
-        }
+        return "UpgradedGiftOriginBlockchain()"
     }
 }

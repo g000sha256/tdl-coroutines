@@ -25,7 +25,6 @@ import kotlin.String
 /**
  * Options to be used when a message is sent.
  *
- * @property directMessagesChatTopicId Unique identifier of the topic in a channel direct messages chat administered by the current user; pass 0 if the chat isn't a channel direct messages chat administered by the current user.
  * @property suggestedPostInfo Information about the suggested post; pass null if none. For messages to channel direct messages chat only. Applicable only to sendMessage and addOffer.
  * @property disableNotification Pass true to disable notification for the message.
  * @property fromBackground Pass true if the message is sent from the background.
@@ -39,7 +38,6 @@ import kotlin.String
  * @property onlyPreview Pass true to get a fake message instead of actually sending them.
  */
 public class MessageSendOptions public constructor(
-    public val directMessagesChatTopicId: Long,
     public val suggestedPostInfo: InputSuggestedPostInfo?,
     public val disableNotification: Boolean,
     public val fromBackground: Boolean,
@@ -63,9 +61,6 @@ public class MessageSendOptions public constructor(
             return false
         }
         other as MessageSendOptions
-        if (other.directMessagesChatTopicId != directMessagesChatTopicId) {
-            return false
-        }
         if (other.suggestedPostInfo != suggestedPostInfo) {
             return false
         }
@@ -101,7 +96,6 @@ public class MessageSendOptions public constructor(
 
     override fun hashCode(): Int {
         var hashCode = this::class.hashCode()
-        hashCode = 31 * hashCode + directMessagesChatTopicId.hashCode()
         hashCode = 31 * hashCode + suggestedPostInfo.hashCode()
         hashCode = 31 * hashCode + disableNotification.hashCode()
         hashCode = 31 * hashCode + fromBackground.hashCode()
@@ -120,9 +114,6 @@ public class MessageSendOptions public constructor(
         return buildString {
             append("MessageSendOptions")
             append("(")
-            append("directMessagesChatTopicId=")
-            append(directMessagesChatTopicId)
-            append(", ")
             append("suggestedPostInfo=")
             append(suggestedPostInfo)
             append(", ")

@@ -19,16 +19,19 @@ package dev.g000sha256.tdl.dto
 import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
+import kotlin.Long
 import kotlin.String
 
 /**
- * A topic in a forum supergroup chat or a chat with a bot.
+ * Describes a price required to pay to upgrade a gift.
  *
- * @property forumTopicId Unique identifier of the forum topic.
+ * @property date Point in time (Unix timestamp) when the price will be in effect.
+ * @property starCount The amount of Telegram Stars required to pay to upgrade the gift.
  */
-public class MessageTopicForum public constructor(
-    public val forumTopicId: Int,
-) : MessageTopic() {
+public class GiftUpgradePrice public constructor(
+    public val date: Int,
+    public val starCount: Long,
+) {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true
@@ -39,22 +42,29 @@ public class MessageTopicForum public constructor(
         if (other::class != this::class) {
             return false
         }
-        other as MessageTopicForum
-        return other.forumTopicId == forumTopicId
+        other as GiftUpgradePrice
+        if (other.date != date) {
+            return false
+        }
+        return other.starCount == starCount
     }
 
     override fun hashCode(): Int {
         var hashCode = this::class.hashCode()
-        hashCode = 31 * hashCode + forumTopicId.hashCode()
+        hashCode = 31 * hashCode + date.hashCode()
+        hashCode = 31 * hashCode + starCount.hashCode()
         return hashCode
     }
 
     override fun toString(): String {
         return buildString {
-            append("MessageTopicForum")
+            append("GiftUpgradePrice")
             append("(")
-            append("forumTopicId=")
-            append(forumTopicId)
+            append("date=")
+            append(date)
+            append(", ")
+            append("starCount=")
+            append(starCount)
             append(")")
         }
     }

@@ -14,14 +14,32 @@
  * limitations under the License.
  */
 
-package dev.g000sha256.tdl.function
+package dev.g000sha256.tdl.dto
 
-import dev.g000sha256.tdl.dto.ImportedContact
+import kotlin.Any
 import kotlin.Boolean
-import kotlin.Long
+import kotlin.Int
+import kotlin.String
 
-internal class AddContact internal constructor(
-    internal val userId: Long,
-    internal val contact: ImportedContact,
-    internal val sharePhoneNumber: Boolean,
-)
+/**
+ * A birthdate was suggested to be set.
+ */
+public class PushMessageContentSuggestBirthdate public constructor() : PushMessageContent() {
+    override fun equals(other: Any?): Boolean {
+        if (other === this) {
+            return true
+        }
+        if (other == null) {
+            return false
+        }
+        return this::class == other::class
+    }
+
+    override fun hashCode(): Int {
+        return this::class.hashCode()
+    }
+
+    override fun toString(): String {
+        return "PushMessageContentSuggestBirthdate()"
+    }
+}

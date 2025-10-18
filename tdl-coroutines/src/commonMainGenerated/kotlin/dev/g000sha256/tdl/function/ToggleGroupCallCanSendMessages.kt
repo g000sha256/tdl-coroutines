@@ -16,10 +16,10 @@
 
 package dev.g000sha256.tdl.function
 
+import kotlin.Boolean
 import kotlin.Int
-import kotlin.Long
 
-internal class GetForumTopicLink internal constructor(
-    internal val chatId: Long,
-    internal val forumTopicId: Int,
+internal class ToggleGroupCallCanSendMessages internal constructor(
+    internal val groupCallId: Int,
+    internal val canSendMessages: Boolean,
 )

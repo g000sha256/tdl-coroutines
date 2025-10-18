@@ -22,13 +22,15 @@ import kotlin.Int
 import kotlin.String
 
 /**
- * A topic in a forum supergroup chat or a chat with a bot.
+ * The transaction is a drop of original details of an upgraded gift; for regular users only.
  *
- * @property forumTopicId Unique identifier of the forum topic.
+ * @property ownerId Identifier of the user or the channel that owns the gift.
+ * @property gift The gift.
  */
-public class MessageTopicForum public constructor(
-    public val forumTopicId: Int,
-) : MessageTopic() {
+public class StarTransactionTypeGiftOriginalDetailsDrop public constructor(
+    public val ownerId: MessageSender,
+    public val gift: UpgradedGift,
+) : StarTransactionType() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true
@@ -39,22 +41,29 @@ public class MessageTopicForum public constructor(
         if (other::class != this::class) {
             return false
         }
-        other as MessageTopicForum
-        return other.forumTopicId == forumTopicId
+        other as StarTransactionTypeGiftOriginalDetailsDrop
+        if (other.ownerId != ownerId) {
+            return false
+        }
+        return other.gift == gift
     }
 
     override fun hashCode(): Int {
         var hashCode = this::class.hashCode()
-        hashCode = 31 * hashCode + forumTopicId.hashCode()
+        hashCode = 31 * hashCode + ownerId.hashCode()
+        hashCode = 31 * hashCode + gift.hashCode()
         return hashCode
     }
 
     override fun toString(): String {
         return buildString {
-            append("MessageTopicForum")
+            append("StarTransactionTypeGiftOriginalDetailsDrop")
             append("(")
-            append("forumTopicId=")
-            append(forumTopicId)
+            append("ownerId=")
+            append(ownerId)
+            append(", ")
+            append("gift=")
+            append(gift)
             append(")")
         }
     }
