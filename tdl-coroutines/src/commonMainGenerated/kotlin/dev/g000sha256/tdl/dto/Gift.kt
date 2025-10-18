@@ -31,6 +31,7 @@ import kotlin.String
  * @property starCount Number of Telegram Stars that must be paid for the gift.
  * @property defaultSellStarCount Number of Telegram Stars that can be claimed by the receiver instead of the regular gift by default. If the gift was paid with just bought Telegram Stars, then full value can be claimed.
  * @property upgradeStarCount Number of Telegram Stars that must be paid to upgrade the gift; 0 if upgrade isn't possible.
+ * @property hasColors True, if the gift can be used to customize the user's name, and backgrounds of profile photo, reply header, and link preview.
  * @property isForBirthday True, if the gift is a birthday gift.
  * @property isPremium True, if the gift can be bought only by Telegram Premium subscribers.
  * @property nextSendDate Point in time (Unix timestamp) when the gift can be sent next time by the current user; can be 0 or a date in the past. If the date is in the future, then call canSendGift to get the reason, why the gift can't be sent now.
@@ -46,6 +47,7 @@ public class Gift public constructor(
     public val starCount: Long,
     public val defaultSellStarCount: Long,
     public val upgradeStarCount: Long,
+    public val hasColors: Boolean,
     public val isForBirthday: Boolean,
     public val isPremium: Boolean,
     public val nextSendDate: Int,
@@ -83,6 +85,9 @@ public class Gift public constructor(
         if (other.upgradeStarCount != upgradeStarCount) {
             return false
         }
+        if (other.hasColors != hasColors) {
+            return false
+        }
         if (other.isForBirthday != isForBirthday) {
             return false
         }
@@ -112,6 +117,7 @@ public class Gift public constructor(
         hashCode = 31 * hashCode + starCount.hashCode()
         hashCode = 31 * hashCode + defaultSellStarCount.hashCode()
         hashCode = 31 * hashCode + upgradeStarCount.hashCode()
+        hashCode = 31 * hashCode + hasColors.hashCode()
         hashCode = 31 * hashCode + isForBirthday.hashCode()
         hashCode = 31 * hashCode + isPremium.hashCode()
         hashCode = 31 * hashCode + nextSendDate.hashCode()
@@ -143,6 +149,9 @@ public class Gift public constructor(
             append(", ")
             append("upgradeStarCount=")
             append(upgradeStarCount)
+            append(", ")
+            append("hasColors=")
+            append(hasColors)
             append(", ")
             append("isForBirthday=")
             append(isForBirthday)

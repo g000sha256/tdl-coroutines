@@ -17,10 +17,11 @@
 package dev.g000sha256.tdl.function
 
 import kotlin.Boolean
+import kotlin.Int
 import kotlin.Long
 
 internal class ToggleForumTopicIsClosed internal constructor(
     internal val chatId: Long,
-    internal val messageThreadId: Long,
+    internal val forumTopicId: Int,
     internal val isClosed: Boolean,
 )

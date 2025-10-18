@@ -18,7 +18,6 @@ package dev.g000sha256.tdl.function
 
 import kotlin.Long
 
-internal class ReadAllMessageThreadReactions internal constructor(
-    internal val chatId: Long,
-    internal val messageThreadId: Long,
+internal class SetUpgradedGiftColors internal constructor(
+    internal val upgradedGiftColorsId: Long,
 )

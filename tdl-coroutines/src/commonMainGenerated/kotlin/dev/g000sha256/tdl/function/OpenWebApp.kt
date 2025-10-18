@@ -17,6 +17,7 @@
 package dev.g000sha256.tdl.function
 
 import dev.g000sha256.tdl.dto.InputMessageReplyTo
+import dev.g000sha256.tdl.dto.MessageTopic
 import dev.g000sha256.tdl.dto.WebAppOpenParameters
 import kotlin.Long
 import kotlin.String
@@ -25,8 +26,7 @@ internal class OpenWebApp internal constructor(
     internal val chatId: Long,
     internal val botUserId: Long,
     internal val url: String,
-    internal val messageThreadId: Long,
-    internal val directMessagesChatTopicId: Long,
+    internal val topicId: MessageTopic?,
     internal val replyTo: InputMessageReplyTo?,
     internal val parameters: WebAppOpenParameters,
 )

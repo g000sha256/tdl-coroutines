@@ -26,13 +26,13 @@ import kotlin.String
  * A message sender activity in the chat has changed.
  *
  * @property chatId Chat identifier.
- * @property messageThreadId If not 0, the message thread identifier in which the action was performed.
+ * @property topicId Identifier of the specific topic in which the action was performed; may be null if none.
  * @property senderId Identifier of a message sender performing the action.
  * @property action The action.
  */
 public class UpdateChatAction public constructor(
     public val chatId: Long,
-    public val messageThreadId: Long,
+    public val topicId: MessageTopic?,
     public val senderId: MessageSender,
     public val action: ChatAction,
 ) : Update() {
@@ -50,7 +50,7 @@ public class UpdateChatAction public constructor(
         if (other.chatId != chatId) {
             return false
         }
-        if (other.messageThreadId != messageThreadId) {
+        if (other.topicId != topicId) {
             return false
         }
         if (other.senderId != senderId) {
@@ -62,7 +62,7 @@ public class UpdateChatAction public constructor(
     override fun hashCode(): Int {
         var hashCode = this::class.hashCode()
         hashCode = 31 * hashCode + chatId.hashCode()
-        hashCode = 31 * hashCode + messageThreadId.hashCode()
+        hashCode = 31 * hashCode + topicId.hashCode()
         hashCode = 31 * hashCode + senderId.hashCode()
         hashCode = 31 * hashCode + action.hashCode()
         return hashCode
@@ -75,8 +75,8 @@ public class UpdateChatAction public constructor(
             append("chatId=")
             append(chatId)
             append(", ")
-            append("messageThreadId=")
-            append(messageThreadId)
+            append("topicId=")
+            append(topicId)
             append(", ")
             append("senderId=")
             append(senderId)

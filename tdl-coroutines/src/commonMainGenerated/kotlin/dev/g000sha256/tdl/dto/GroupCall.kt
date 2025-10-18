@@ -46,6 +46,8 @@ import kotlin.String
  * @property canEnableVideo True, if the current user can broadcast video or share screen.
  * @property muteNewParticipants True, if only group call administrators can unmute new participants; for video chats only.
  * @property canToggleMuteNewParticipants True, if the current user can enable or disable muteNewParticipants setting; for video chats only.
+ * @property canSendMessages True, if users can send messages to the group call.
+ * @property canToggleCanSendMessages True, if the current user can enable or disable sending messages in the group call.
  * @property recordDuration Duration of the ongoing group call recording, in seconds; 0 if none. An updateGroupCall update is not triggered when value of this field changes, but the same recording goes on.
  * @property isVideoRecorded True, if a video file is being recorded for the call.
  * @property duration Call duration, in seconds; for ended calls only.
@@ -72,6 +74,8 @@ public class GroupCall public constructor(
     public val canEnableVideo: Boolean,
     public val muteNewParticipants: Boolean,
     public val canToggleMuteNewParticipants: Boolean,
+    public val canSendMessages: Boolean,
+    public val canToggleCanSendMessages: Boolean,
     public val recordDuration: Int,
     public val isVideoRecorded: Boolean,
     public val duration: Int,
@@ -151,6 +155,12 @@ public class GroupCall public constructor(
         if (other.canToggleMuteNewParticipants != canToggleMuteNewParticipants) {
             return false
         }
+        if (other.canSendMessages != canSendMessages) {
+            return false
+        }
+        if (other.canToggleCanSendMessages != canToggleCanSendMessages) {
+            return false
+        }
         if (other.recordDuration != recordDuration) {
             return false
         }
@@ -183,6 +193,8 @@ public class GroupCall public constructor(
         hashCode = 31 * hashCode + canEnableVideo.hashCode()
         hashCode = 31 * hashCode + muteNewParticipants.hashCode()
         hashCode = 31 * hashCode + canToggleMuteNewParticipants.hashCode()
+        hashCode = 31 * hashCode + canSendMessages.hashCode()
+        hashCode = 31 * hashCode + canToggleCanSendMessages.hashCode()
         hashCode = 31 * hashCode + recordDuration.hashCode()
         hashCode = 31 * hashCode + isVideoRecorded.hashCode()
         hashCode = 31 * hashCode + duration.hashCode()
@@ -257,6 +269,12 @@ public class GroupCall public constructor(
             append(", ")
             append("canToggleMuteNewParticipants=")
             append(canToggleMuteNewParticipants)
+            append(", ")
+            append("canSendMessages=")
+            append(canSendMessages)
+            append(", ")
+            append("canToggleCanSendMessages=")
+            append(canToggleCanSendMessages)
             append(", ")
             append("recordDuration=")
             append(recordDuration)

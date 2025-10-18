@@ -50,7 +50,6 @@ import kotlin.String
  * @property factCheck Information about fact-check added to the message; may be null if none.
  * @property suggestedPostInfo Information about the suggested post; may be null if the message isn't a suggested post.
  * @property replyTo Information about the message or the story this message is replying to; may be null if none.
- * @property messageThreadId If non-zero, the identifier of the message thread the message belongs to; unique within the chat to which the message belongs.
  * @property topicId Identifier of the topic within the chat to which the message belongs; may be null if none.
  * @property selfDestructType The message's self-destruct type; may be null if none.
  * @property selfDestructIn Time left before the message self-destruct timer expires, in seconds; 0 if self-destruction isn't scheduled yet.
@@ -90,7 +89,6 @@ public class Message public constructor(
     public val factCheck: FactCheck?,
     public val suggestedPostInfo: SuggestedPostInfo?,
     public val replyTo: MessageReplyTo?,
-    public val messageThreadId: Long,
     public val topicId: MessageTopic?,
     public val selfDestructType: MessageSelfDestructType?,
     public val selfDestructIn: Double,
@@ -187,9 +185,6 @@ public class Message public constructor(
         if (other.replyTo != replyTo) {
             return false
         }
-        if (other.messageThreadId != messageThreadId) {
-            return false
-        }
         if (other.topicId != topicId) {
             return false
         }
@@ -257,7 +252,6 @@ public class Message public constructor(
         hashCode = 31 * hashCode + factCheck.hashCode()
         hashCode = 31 * hashCode + suggestedPostInfo.hashCode()
         hashCode = 31 * hashCode + replyTo.hashCode()
-        hashCode = 31 * hashCode + messageThreadId.hashCode()
         hashCode = 31 * hashCode + topicId.hashCode()
         hashCode = 31 * hashCode + selfDestructType.hashCode()
         hashCode = 31 * hashCode + selfDestructIn.hashCode()
@@ -349,9 +343,6 @@ public class Message public constructor(
             append(", ")
             append("replyTo=")
             append(replyTo)
-            append(", ")
-            append("messageThreadId=")
-            append(messageThreadId)
             append(", ")
             append("topicId=")
             append(topicId)

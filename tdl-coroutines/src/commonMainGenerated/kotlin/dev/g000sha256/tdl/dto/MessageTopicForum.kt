@@ -19,16 +19,15 @@ package dev.g000sha256.tdl.dto
 import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
-import kotlin.Long
 import kotlin.String
 
 /**
- * A topic in a forum supergroup chat.
+ * A topic in a forum supergroup chat or a chat with a bot.
  *
- * @property forumTopicId Unique identifier of the forum topic; all messages in a non-forum supergroup chats belongs to the General topic.
+ * @property forumTopicId Unique identifier of the forum topic.
  */
 public class MessageTopicForum public constructor(
-    public val forumTopicId: Long,
+    public val forumTopicId: Int,
 ) : MessageTopic() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

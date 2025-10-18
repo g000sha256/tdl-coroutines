@@ -31,6 +31,8 @@ internal class GetReceivedGifts internal constructor(
     internal val excludeUpgradable: Boolean,
     internal val excludeNonUpgradable: Boolean,
     internal val excludeUpgraded: Boolean,
+    internal val excludeWithoutColors: Boolean,
+    internal val excludeHosted: Boolean,
     internal val sortByPrice: Boolean,
     internal val offset: String,
     internal val limit: Int,

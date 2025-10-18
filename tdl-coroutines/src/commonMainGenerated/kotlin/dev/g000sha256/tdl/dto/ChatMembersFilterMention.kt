@@ -19,16 +19,15 @@ package dev.g000sha256.tdl.dto
 import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
-import kotlin.Long
 import kotlin.String
 
 /**
  * Returns users which can be mentioned in the chat.
  *
- * @property messageThreadId If non-zero, the identifier of the current message thread.
+ * @property topicId Identifier of the topic in which the users will be mentioned; pass null if none.
  */
 public class ChatMembersFilterMention public constructor(
-    public val messageThreadId: Long,
+    public val topicId: MessageTopic?,
 ) : ChatMembersFilter() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
@@ -41,12 +40,12 @@ public class ChatMembersFilterMention public constructor(
             return false
         }
         other as ChatMembersFilterMention
-        return other.messageThreadId == messageThreadId
+        return other.topicId == topicId
     }
 
     override fun hashCode(): Int {
         var hashCode = this::class.hashCode()
-        hashCode = 31 * hashCode + messageThreadId.hashCode()
+        hashCode = 31 * hashCode + topicId.hashCode()
         return hashCode
     }
 
@@ -54,8 +53,8 @@ public class ChatMembersFilterMention public constructor(
         return buildString {
             append("ChatMembersFilterMention")
             append("(")
-            append("messageThreadId=")
-            append(messageThreadId)
+            append("topicId=")
+            append(topicId)
             append(")")
         }
     }

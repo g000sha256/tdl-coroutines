@@ -34,6 +34,7 @@ import kotlin.String
  * @property canBeTransferred True, if the gift can be transferred to another owner; only for the receiver of the gift.
  * @property wasTransferred True, if the gift has already been transferred to another owner; only for the receiver of the gift.
  * @property transferStarCount Number of Telegram Stars that must be paid to transfer the upgraded gift; only for the receiver of the gift.
+ * @property dropOriginalDetailsStarCount Number of Telegram Stars that must be paid to drop original details of the upgraded gift; 0 if not available; only for the receiver of the gift.
  * @property nextTransferDate Point in time (Unix timestamp) when the gift can be transferred to another owner; can be in the past; 0 if the gift can be transferred immediately or transfer isn't possible; only for the receiver of the gift.
  * @property nextResaleDate Point in time (Unix timestamp) when the gift can be resold to another user; can be in the past; 0 if the gift can't be resold; only for the receiver of the gift.
  * @property exportDate Point in time (Unix timestamp) when the gift can be transferred to the TON blockchain as an NFT; can be in the past; 0 if NFT export isn't possible; only for the receiver of the gift.
@@ -48,6 +49,7 @@ public class MessageUpgradedGift public constructor(
     public val canBeTransferred: Boolean,
     public val wasTransferred: Boolean,
     public val transferStarCount: Long,
+    public val dropOriginalDetailsStarCount: Long,
     public val nextTransferDate: Int,
     public val nextResaleDate: Int,
     public val exportDate: Int,
@@ -90,6 +92,9 @@ public class MessageUpgradedGift public constructor(
         if (other.transferStarCount != transferStarCount) {
             return false
         }
+        if (other.dropOriginalDetailsStarCount != dropOriginalDetailsStarCount) {
+            return false
+        }
         if (other.nextTransferDate != nextTransferDate) {
             return false
         }
@@ -110,6 +115,7 @@ public class MessageUpgradedGift public constructor(
         hashCode = 31 * hashCode + canBeTransferred.hashCode()
         hashCode = 31 * hashCode + wasTransferred.hashCode()
         hashCode = 31 * hashCode + transferStarCount.hashCode()
+        hashCode = 31 * hashCode + dropOriginalDetailsStarCount.hashCode()
         hashCode = 31 * hashCode + nextTransferDate.hashCode()
         hashCode = 31 * hashCode + nextResaleDate.hashCode()
         hashCode = 31 * hashCode + exportDate.hashCode()
@@ -146,6 +152,9 @@ public class MessageUpgradedGift public constructor(
             append(", ")
             append("transferStarCount=")
             append(transferStarCount)
+            append(", ")
+            append("dropOriginalDetailsStarCount=")
+            append(dropOriginalDetailsStarCount)
             append(", ")
             append("nextTransferDate=")
             append(nextTransferDate)
