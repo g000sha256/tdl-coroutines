@@ -17,12 +17,13 @@
 package dev.g000sha256.tdl.function
 
 import dev.g000sha256.tdl.dto.ChatAction
+import dev.g000sha256.tdl.dto.MessageTopic
 import kotlin.Long
 import kotlin.String
 
 internal class SendChatAction internal constructor(
     internal val chatId: Long,
-    internal val messageThreadId: Long,
+    internal val topicId: MessageTopic,
     internal val businessConnectionId: String,
     internal val action: ChatAction?,
 )

@@ -34,7 +34,7 @@ on:
 jobs:
   run-generator:
     if: true
-    runs-on: ubuntu-24.04
+    runs-on: self-hosted
     permissions:
       contents: write
 
@@ -44,6 +44,11 @@ jobs:
         with:
           lfs: true
           submodules: true
+
+      - name: Clean submodule
+        run: |
+          cd td
+          git clean -ffdx
 
       - name: Setup Java
         uses: actions/setup-java@v4
@@ -63,7 +68,7 @@ jobs:
       - name: Run generator
         run: ./gradlew tdl-coroutines-generator:run
 
-      - name: Commit and push code changes
+      - name: Commit and push
         uses: EndBug/add-and-commit@v9
         with:
           pull: --rebase --autostash
@@ -96,8 +101,13 @@ jobs:
           java-version: 24
           distribution: temurin
 
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          tools: none
+
       - name: Setup dependencies
-        run: sudo apt-get install make git zlib1g-dev libssl-dev gperf php-cli cmake g++
+        run: sudo apt-get install make git zlib1g-dev libssl-dev gperf cmake g++
 
       - name: Check environment
         run: |
@@ -119,26 +129,16 @@ jobs:
           cd td/example/android
           ./build-tdlib.sh '' '' '' '' 'JSONJava'
 
-      - name: Show files
-        run: find td/example/android/tdlib -name '*.so' -type f
-
       - name: SHA256 checksums
-        run: |
-          shasum -a 256 td/example/android/tdlib/libs/arm64-v8a/libtdjsonjava.so
-          shasum -a 256 td/example/android/tdlib/libs/armeabi-v7a/libtdjsonjava.so
-          shasum -a 256 td/example/android/tdlib/libs/x86/libtdjsonjava.so
-          shasum -a 256 td/example/android/tdlib/libs/x86_64/libtdjsonjava.so
+        run: shasum -a 256 td/example/android/tdlib/libs/*/*.so
 
-      - name: Copy libs
+      - name: Copy files
         run: |
-          rm -r tdl-coroutines/src/androidMainGenerated/jniLibs/{arm64-v8a,armeabi-v7a,x86,x86_64}
-          mkdir tdl-coroutines/src/androidMainGenerated/jniLibs/{arm64-v8a,armeabi-v7a,x86,x86_64}
-          cp td/example/android/tdlib/libs/arm64-v8a/libtdjsonjava.so tdl-coroutines/src/androidMainGenerated/jniLibs/arm64-v8a/libtdjsonjava.so
-          cp td/example/android/tdlib/libs/armeabi-v7a/libtdjsonjava.so tdl-coroutines/src/androidMainGenerated/jniLibs/armeabi-v7a/libtdjsonjava.so
-          cp td/example/android/tdlib/libs/x86/libtdjsonjava.so tdl-coroutines/src/androidMainGenerated/jniLibs/x86/libtdjsonjava.so
-          cp td/example/android/tdlib/libs/x86_64/libtdjsonjava.so tdl-coroutines/src/androidMainGenerated/jniLibs/x86_64/libtdjsonjava.so
+          rm -rf tdl-coroutines/src/androidMainGenerated/jniLibs
+          mkdir -p tdl-coroutines/src/androidMainGenerated/jniLibs
+          cp -r td/example/android/tdlib/libs/* tdl-coroutines/src/androidMainGenerated/jniLibs
 
-      - name: Commit and push libs
+      - name: Commit and push
         uses: EndBug/add-and-commit@v9
         with:
           pull: --rebase --autostash
@@ -169,8 +169,13 @@ jobs:
           java-version: 24
           distribution: temurin
 
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          tools: none
+
       - name: Setup dependencies
-        run: sudo apt-get install make git zlib1g-dev libssl-dev gperf php-cli cmake g++
+        run: sudo apt-get install make git zlib1g-dev libssl-dev gperf cmake g++
 
       - name: Build TDLib
         run: |
@@ -185,19 +190,16 @@ jobs:
           cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX:PATH=../../../tdlib -DTd_DIR:PATH=$(readlink -e ../td/lib/cmake/Td) -DTD_JSON_JAVA=ON ..
           cmake --build . --target install
 
-      - name: Show files
-        run: find td/tdlib/bin -name '*.so' -type f
+      - name: SHA256 checksums
+        run: shasum -a 256 td/tdlib/bin/*.so
 
-      - name: SHA256 checksum
-        run: shasum -a 256 td/tdlib/bin/libtdjsonjava.so
-
-      - name: Copy lib
+      - name: Copy files
         run: |
-          rm -r tdl-coroutines/src/jvmMainGenerated/resources/libs/linux-arm64
-          mkdir tdl-coroutines/src/jvmMainGenerated/resources/libs/linux-arm64
-          cp td/tdlib/bin/libtdjsonjava.so tdl-coroutines/src/jvmMainGenerated/resources/libs/linux-arm64/libtdjsonjava.so
+          rm -rf tdl-coroutines/src/jvmMainGenerated/resources/libs/linux-arm64
+          mkdir -p tdl-coroutines/src/jvmMainGenerated/resources/libs/linux-arm64
+          cp td/tdlib/bin/*.so tdl-coroutines/src/jvmMainGenerated/resources/libs/linux-arm64
 
-      - name: Commit and push lib
+      - name: Commit and push
         uses: EndBug/add-and-commit@v9
         with:
           pull: --rebase --autostash
@@ -228,8 +230,13 @@ jobs:
           java-version: 24
           distribution: temurin
 
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          tools: none
+
       - name: Setup dependencies
-        run: sudo apt-get install make git zlib1g-dev libssl-dev gperf php-cli cmake g++
+        run: sudo apt-get install make git zlib1g-dev libssl-dev gperf cmake g++
 
       - name: Build TDLib
         run: |
@@ -244,19 +251,16 @@ jobs:
           cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX:PATH=../../../tdlib -DTd_DIR:PATH=$(readlink -e ../td/lib/cmake/Td) -DTD_JSON_JAVA=ON ..
           cmake --build . --target install
 
-      - name: Show files
-        run: find td/tdlib/bin -name '*.so' -type f
+      - name: SHA256 checksums
+        run: shasum -a 256 td/tdlib/bin/*.so
 
-      - name: SHA256 checksum
-        run: shasum -a 256 td/tdlib/bin/libtdjsonjava.so
-
-      - name: Copy lib
+      - name: Copy files
         run: |
-          rm -r tdl-coroutines/src/jvmMainGenerated/resources/libs/linux-x64
-          mkdir tdl-coroutines/src/jvmMainGenerated/resources/libs/linux-x64
-          cp td/tdlib/bin/libtdjsonjava.so tdl-coroutines/src/jvmMainGenerated/resources/libs/linux-x64/libtdjsonjava.so
+          rm -rf tdl-coroutines/src/jvmMainGenerated/resources/libs/linux-x64
+          mkdir -p tdl-coroutines/src/jvmMainGenerated/resources/libs/linux-x64
+          cp td/tdlib/bin/*.so tdl-coroutines/src/jvmMainGenerated/resources/libs/linux-x64
 
-      - name: Commit and push lib
+      - name: Commit and push
         uses: EndBug/add-and-commit@v9
         with:
           pull: --rebase --autostash
@@ -281,6 +285,11 @@ jobs:
           lfs: true
           submodules: true
 
+      - name: Clean submodule
+        run: |
+          cd td
+          git clean -ffdx
+
       - name: Setup dependencies
         run: brew install gperf cmake openssl coreutils openjdk
 
@@ -297,19 +306,16 @@ jobs:
           cmake -DCMAKE_BUILD_TYPE=Release -DJAVA_HOME=/opt/homebrew/opt/openjdk/libexec/openjdk.jdk/Contents/Home/ -DCMAKE_INSTALL_PREFIX:PATH=../../../tdlib -DTd_DIR:PATH=$(greadlink -e ../td/lib/cmake/Td) -DTD_JSON_JAVA=ON ..
           cmake --build . --target install
 
-      - name: Show files
-        run: find td/tdlib/bin -name '*.dylib' -type f
+      - name: SHA256 checksums
+        run: shasum -a 256 td/tdlib/bin/*.dylib
 
-      - name: SHA256 checksum
-        run: shasum -a 256 td/tdlib/bin/libtdjsonjava.dylib
-
-      - name: Copy lib
+      - name: Copy files
         run: |
-          rm -r tdl-coroutines/src/jvmMainGenerated/resources/libs/macos-arm64
-          mkdir tdl-coroutines/src/jvmMainGenerated/resources/libs/macos-arm64
-          cp td/tdlib/bin/libtdjsonjava.dylib tdl-coroutines/src/jvmMainGenerated/resources/libs/macos-arm64/libtdjsonjava.dylib
+          rm -rf tdl-coroutines/src/jvmMainGenerated/resources/libs/macos-arm64
+          mkdir -p tdl-coroutines/src/jvmMainGenerated/resources/libs/macos-arm64
+          cp td/tdlib/bin/*.dylib tdl-coroutines/src/jvmMainGenerated/resources/libs/macos-arm64
 
-      - name: Commit and push lib
+      - name: Commit and push
         uses: EndBug/add-and-commit@v9
         with:
           pull: --rebase --autostash
@@ -323,7 +329,7 @@ jobs:
   build-jvm-macos-x64:
     if: github.event_name == 'push' || inputs.build-jvm
     needs: run-generator
-    runs-on: macos-13
+    runs-on: macos-15-intel
     permissions:
       contents: write
 
@@ -350,19 +356,16 @@ jobs:
           cmake -DCMAKE_BUILD_TYPE=Release -DJAVA_HOME=/opt/homebrew/opt/openjdk/libexec/openjdk.jdk/Contents/Home/ -DCMAKE_INSTALL_PREFIX:PATH=../../../tdlib -DTd_DIR:PATH=$(greadlink -e ../td/lib/cmake/Td) -DTD_JSON_JAVA=ON ..
           cmake --build . --target install
 
-      - name: Show files
-        run: find td/tdlib/bin -name '*.dylib' -type f
+      - name: SHA256 checksums
+        run: shasum -a 256 td/tdlib/bin/*.dylib
 
-      - name: SHA256 checksum
-        run: shasum -a 256 td/tdlib/bin/libtdjsonjava.dylib
-
-      - name: Copy lib
+      - name: Copy files
         run: |
-          rm -r tdl-coroutines/src/jvmMainGenerated/resources/libs/macos-x64
-          mkdir tdl-coroutines/src/jvmMainGenerated/resources/libs/macos-x64
-          cp td/tdlib/bin/libtdjsonjava.dylib tdl-coroutines/src/jvmMainGenerated/resources/libs/macos-x64/libtdjsonjava.dylib
+          rm -rf tdl-coroutines/src/jvmMainGenerated/resources/libs/macos-x64
+          mkdir -p tdl-coroutines/src/jvmMainGenerated/resources/libs/macos-x64
+          cp td/tdlib/bin/*.dylib tdl-coroutines/src/jvmMainGenerated/resources/libs/macos-x64
 
-      - name: Commit and push lib
+      - name: Commit and push
         uses: EndBug/add-and-commit@v9
         with:
           pull: --rebase --autostash
@@ -407,26 +410,16 @@ jobs:
           cmake -A ARM64 -DCMAKE_INSTALL_PREFIX:PATH=../../../tdlib -DCMAKE_TOOLCHAIN_FILE:FILEPATH=../../../../vcpkg/scripts/buildsystems/vcpkg.cmake -DTd_DIR:PATH=$(Resolve-Path ../td/lib/cmake/Td) -DTD_JSON_JAVA=ON ..
           cmake --build . --target install --config Release
 
-      - name: Show files
-        run: Get-ChildItem -Filter td/tdlib/bin/*.dll
-
       - name: SHA256 checksums
-        run: |
-          Get-FileHash td/tdlib/bin/libcrypto-3-arm64.dll -Algorithm SHA256
-          Get-FileHash td/tdlib/bin/libssl-3-arm64.dll -Algorithm SHA256
-          Get-FileHash td/tdlib/bin/tdjsonjava.dll -Algorithm SHA256
-          Get-FileHash td/tdlib/bin/zlib1.dll -Algorithm SHA256
+        run: Get-FileHash td/tdlib/bin/*.dll -Algorithm SHA256
 
-      - name: Copy libs
+      - name: Copy files
         run: |
-          Remove-Item -Recurse tdl-coroutines/src/jvmMainGenerated/resources/libs/windows-arm64
-          New-Item -ItemType Directory -Path tdl-coroutines/src/jvmMainGenerated/resources/libs/windows-arm64
-          Copy-Item td/tdlib/bin/libcrypto-3-arm64.dll -Destination tdl-coroutines/src/jvmMainGenerated/resources/libs/windows-arm64/libcrypto-3-arm64.dll
-          Copy-Item td/tdlib/bin/libssl-3-arm64.dll -Destination tdl-coroutines/src/jvmMainGenerated/resources/libs/windows-arm64/libssl-3-arm64.dll
-          Copy-Item td/tdlib/bin/tdjsonjava.dll -Destination tdl-coroutines/src/jvmMainGenerated/resources/libs/windows-arm64/tdjsonjava.dll
-          Copy-Item td/tdlib/bin/zlib1.dll -Destination tdl-coroutines/src/jvmMainGenerated/resources/libs/windows-arm64/zlib1.dll
+          Remove-Item -ErrorAction SilentlyContinue -Recurse tdl-coroutines/src/jvmMainGenerated/resources/libs/windows-arm64
+          New-Item -Force -ItemType Directory -Path tdl-coroutines/src/jvmMainGenerated/resources/libs/windows-arm64
+          Copy-Item td/tdlib/bin/*.dll -Destination tdl-coroutines/src/jvmMainGenerated/resources/libs/windows-arm64
 
-      - name: Commit and push libs
+      - name: Commit and push
         uses: EndBug/add-and-commit@v9
         with:
           pull: --rebase --autostash
@@ -471,26 +464,16 @@ jobs:
           cmake -A x64 -DCMAKE_INSTALL_PREFIX:PATH=../../../tdlib -DCMAKE_TOOLCHAIN_FILE:FILEPATH=../../../../vcpkg/scripts/buildsystems/vcpkg.cmake -DTd_DIR:PATH=$(Resolve-Path ../td/lib/cmake/Td) -DTD_JSON_JAVA=ON ..
           cmake --build . --target install --config Release
 
-      - name: Show files
-        run: Get-ChildItem -Filter td/tdlib/bin/*.dll
-
       - name: SHA256 checksums
-        run: |
-          Get-FileHash td/tdlib/bin/libcrypto-3-x64.dll -Algorithm SHA256
-          Get-FileHash td/tdlib/bin/libssl-3-x64.dll -Algorithm SHA256
-          Get-FileHash td/tdlib/bin/tdjsonjava.dll -Algorithm SHA256
-          Get-FileHash td/tdlib/bin/zlib1.dll -Algorithm SHA256
+        run: Get-FileHash td/tdlib/bin/*.dll -Algorithm SHA256
 
-      - name: Copy libs
+      - name: Copy files
         run: |
-          Remove-Item -Recurse tdl-coroutines/src/jvmMainGenerated/resources/libs/windows-x64
-          New-Item -ItemType Directory -Path tdl-coroutines/src/jvmMainGenerated/resources/libs/windows-x64
-          Copy-Item td/tdlib/bin/libcrypto-3-x64.dll -Destination tdl-coroutines/src/jvmMainGenerated/resources/libs/windows-x64/libcrypto-3-x64.dll
-          Copy-Item td/tdlib/bin/libssl-3-x64.dll -Destination tdl-coroutines/src/jvmMainGenerated/resources/libs/windows-x64/libssl-3-x64.dll
-          Copy-Item td/tdlib/bin/tdjsonjava.dll -Destination tdl-coroutines/src/jvmMainGenerated/resources/libs/windows-x64/tdjsonjava.dll
-          Copy-Item td/tdlib/bin/zlib1.dll -Destination tdl-coroutines/src/jvmMainGenerated/resources/libs/windows-x64/zlib1.dll
+          Remove-Item -ErrorAction SilentlyContinue -Recurse tdl-coroutines/src/jvmMainGenerated/resources/libs/windows-x64
+          New-Item -Force -ItemType Directory -Path tdl-coroutines/src/jvmMainGenerated/resources/libs/windows-x64
+          Copy-Item td/tdlib/bin/*.dll -Destination tdl-coroutines/src/jvmMainGenerated/resources/libs/windows-x64
 
-      - name: Commit and push libs
+      - name: Commit and push
         uses: EndBug/add-and-commit@v9
         with:
           pull: --rebase --autostash
@@ -515,6 +498,11 @@ jobs:
           lfs: true
           submodules: true
 
+      - name: Clean submodule
+        run: |
+          cd td
+          git clean -ffdx
+
       - name: Setup dependencies
         run: brew install gperf cmake coreutils
 
@@ -538,6 +526,11 @@ jobs:
           sh ../../../.github/scripts/change_line.sh build.sh 58 '      other_options="-DIOS_PLATFORM=${ios_platform} -DCMAKE_TOOLCHAIN_FILE=${td_path}/CMake/iOS.cmake -DCMAKE_MAKE_PROGRAM=make"' '      other_options="-DIOS_PLATFORM=${ios_platform} -DCMAKE_TOOLCHAIN_FILE=${td_path}/CMake/iOS.cmake -DCMAKE_MAKE_PROGRAM=make -DCMAKE_OSX_ARCHITECTURES=arm64"'
           ./build.sh
 
+      - name: SHA256 checksums
+        run: |
+          shasum -a 256 td/example/ios/build/install-iOS/lib/*.a
+          shasum -a 256 td/example/ios/third_party/openssl/iOS/lib/*.a
+
       - name: Copy files
         run: |
           rm -rf tdl-coroutines/generated/iosArm64
@@ -546,8 +539,7 @@ jobs:
           cp td/example/ios/build/install-iOS/include/td/telegram/td_json_client.h tdl-coroutines/generated/iosArm64/include/td/telegram
           cp td/example/ios/build/install-iOS/include/td/telegram/tdjson_export.h tdl-coroutines/generated/iosArm64/include/td/telegram
           cp td/example/ios/build/install-iOS/lib/*.a tdl-coroutines/generated/iosArm64/libs
-          cp td/example/ios/third_party/openssl/iOS/lib/libcrypto.a tdl-coroutines/generated/iosArm64/libs
-          cp td/example/ios/third_party/openssl/iOS/lib/libssl.a tdl-coroutines/generated/iosArm64/libs
+          cp td/example/ios/third_party/openssl/iOS/lib/*.a tdl-coroutines/generated/iosArm64/libs
 
       - name: Commit and push
         uses: EndBug/add-and-commit@v9
@@ -573,6 +565,11 @@ jobs:
         with:
           lfs: true
           submodules: true
+
+      - name: Clean submodule
+        run: |
+          cd td
+          git clean -ffdx
 
       - name: Setup dependencies
         run: brew install gperf cmake coreutils
@@ -603,6 +600,11 @@ jobs:
           sh ../../../.github/scripts/change_line.sh build.sh 58 '      other_options="-DIOS_PLATFORM=${ios_platform} -DCMAKE_TOOLCHAIN_FILE=${td_path}/CMake/iOS.cmake -DCMAKE_MAKE_PROGRAM=make"' '      other_options="-DIOS_PLATFORM=${ios_platform} -DCMAKE_TOOLCHAIN_FILE=${td_path}/CMake/iOS.cmake -DCMAKE_MAKE_PROGRAM=make -DCMAKE_OSX_ARCHITECTURES=arm64"'
           ./build.sh
 
+      - name: SHA256 checksums
+        run: |
+          shasum -a 256 td/example/ios/build/install-iOS-simulator/lib/*.a
+          shasum -a 256 td/example/ios/third_party/openssl/iOS-simulator/lib/*.a
+
       - name: Copy files
         run: |
           rm -rf tdl-coroutines/generated/iosArm64Simulator
@@ -611,8 +613,7 @@ jobs:
           cp td/example/ios/build/install-iOS-simulator/include/td/telegram/td_json_client.h tdl-coroutines/generated/iosArm64Simulator/include/td/telegram
           cp td/example/ios/build/install-iOS-simulator/include/td/telegram/tdjson_export.h tdl-coroutines/generated/iosArm64Simulator/include/td/telegram
           cp td/example/ios/build/install-iOS-simulator/lib/*.a tdl-coroutines/generated/iosArm64Simulator/libs
-          cp td/example/ios/third_party/openssl/iOS-simulator/lib/libcrypto.a tdl-coroutines/generated/iosArm64Simulator/libs
-          cp td/example/ios/third_party/openssl/iOS-simulator/lib/libssl.a tdl-coroutines/generated/iosArm64Simulator/libs
+          cp td/example/ios/third_party/openssl/iOS-simulator/lib/*.a tdl-coroutines/generated/iosArm64Simulator/libs
 
       - name: Commit and push
         uses: EndBug/add-and-commit@v9
@@ -638,6 +639,11 @@ jobs:
         with:
           lfs: true
           submodules: true
+
+      - name: Clean submodule
+        run: |
+          cd td
+          git clean -ffdx
 
       - name: Setup dependencies
         run: brew install gperf cmake coreutils
@@ -668,6 +674,11 @@ jobs:
           sh ../../../.github/scripts/change_line.sh build.sh 58 '      other_options="-DIOS_PLATFORM=${ios_platform} -DCMAKE_TOOLCHAIN_FILE=${td_path}/CMake/iOS.cmake -DCMAKE_MAKE_PROGRAM=make"' '      other_options="-DIOS_PLATFORM=${ios_platform} -DCMAKE_TOOLCHAIN_FILE=${td_path}/CMake/iOS.cmake -DCMAKE_MAKE_PROGRAM=make -DCMAKE_OSX_ARCHITECTURES=x86_64"'
           ./build.sh
 
+      - name: SHA256 checksums
+        run: |
+          shasum -a 256 td/example/ios/build/install-iOS-simulator/lib/*.a
+          shasum -a 256 td/example/ios/third_party/openssl/iOS-simulator/lib/*.a
+
       - name: Copy files
         run: |
           rm -rf tdl-coroutines/generated/iosX64Simulator
@@ -676,8 +687,7 @@ jobs:
           cp td/example/ios/build/install-iOS-simulator/include/td/telegram/td_json_client.h tdl-coroutines/generated/iosX64Simulator/include/td/telegram
           cp td/example/ios/build/install-iOS-simulator/include/td/telegram/tdjson_export.h tdl-coroutines/generated/iosX64Simulator/include/td/telegram
           cp td/example/ios/build/install-iOS-simulator/lib/*.a tdl-coroutines/generated/iosX64Simulator/libs
-          cp td/example/ios/third_party/openssl/iOS-simulator/lib/libcrypto.a tdl-coroutines/generated/iosX64Simulator/libs
-          cp td/example/ios/third_party/openssl/iOS-simulator/lib/libssl.a tdl-coroutines/generated/iosX64Simulator/libs
+          cp td/example/ios/third_party/openssl/iOS-simulator/lib/*.a tdl-coroutines/generated/iosX64Simulator/libs
 
       - name: Commit and push
         uses: EndBug/add-and-commit@v9
@@ -704,6 +714,11 @@ jobs:
           lfs: true
           submodules: true
 
+      - name: Clean submodule
+        run: |
+          cd td
+          git clean -ffdx
+
       - name: Setup dependencies
         run: brew install gperf cmake coreutils
 
@@ -728,6 +743,11 @@ jobs:
           sh ../../../.github/scripts/change_line.sh build.sh 38 '      other_options="-DCMAKE_OSX_ARCHITECTURES='\''x86_64;arm64'\''"' '      other_options="-DCMAKE_OSX_ARCHITECTURES=arm64"'
           ./build.sh
 
+      - name: SHA256 checksums
+        run: |
+          shasum -a 256 td/example/ios/build/install-macOS/lib/*.a
+          shasum -a 256 td/example/ios/third_party/openssl/macOS/lib/*.a
+
       - name: Copy files
         run: |
           rm -rf tdl-coroutines/generated/macosArm64
@@ -736,8 +756,7 @@ jobs:
           cp td/example/ios/build/install-macOS/include/td/telegram/td_json_client.h tdl-coroutines/generated/macosArm64/include/td/telegram
           cp td/example/ios/build/install-macOS/include/td/telegram/tdjson_export.h tdl-coroutines/generated/macosArm64/include/td/telegram
           cp td/example/ios/build/install-macOS/lib/*.a tdl-coroutines/generated/macosArm64/libs
-          cp td/example/ios/third_party/openssl/macOS/lib/libcrypto.a tdl-coroutines/generated/macosArm64/libs
-          cp td/example/ios/third_party/openssl/macOS/lib/libssl.a tdl-coroutines/generated/macosArm64/libs
+          cp td/example/ios/third_party/openssl/macOS/lib/*.a tdl-coroutines/generated/macosArm64/libs
 
       - name: Commit and push
         uses: EndBug/add-and-commit@v9
@@ -753,7 +772,7 @@ jobs:
   build-macos-x64:
     if: github.event_name == 'push' || inputs.build-macos
     needs: run-generator
-    runs-on: self-hosted
+    runs-on: macos-15-intel
     permissions:
       contents: write
 
@@ -788,6 +807,11 @@ jobs:
           sh ../../../.github/scripts/change_line.sh build.sh 38 '      other_options="-DCMAKE_OSX_ARCHITECTURES='\''x86_64;arm64'\''"' '      other_options="-DCMAKE_OSX_ARCHITECTURES=x86_64"'
           ./build.sh
 
+      - name: SHA256 checksums
+        run: |
+          shasum -a 256 td/example/ios/build/install-macOS/lib/*.a
+          shasum -a 256 td/example/ios/third_party/openssl/macOS/lib/*.a
+
       - name: Copy files
         run: |
           rm -rf tdl-coroutines/generated/macosX64
@@ -796,8 +820,7 @@ jobs:
           cp td/example/ios/build/install-macOS/include/td/telegram/td_json_client.h tdl-coroutines/generated/macosX64/include/td/telegram
           cp td/example/ios/build/install-macOS/include/td/telegram/tdjson_export.h tdl-coroutines/generated/macosX64/include/td/telegram
           cp td/example/ios/build/install-macOS/lib/*.a tdl-coroutines/generated/macosX64/libs
-          cp td/example/ios/third_party/openssl/macOS/lib/libcrypto.a tdl-coroutines/generated/macosX64/libs
-          cp td/example/ios/third_party/openssl/macOS/lib/libssl.a tdl-coroutines/generated/macosX64/libs
+          cp td/example/ios/third_party/openssl/macOS/lib/*.a tdl-coroutines/generated/macosX64/libs
 
       - name: Commit and push
         uses: EndBug/add-and-commit@v9

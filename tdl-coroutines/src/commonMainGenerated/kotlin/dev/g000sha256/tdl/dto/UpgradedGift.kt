@@ -36,6 +36,7 @@ import kotlin.String
  * @property isPremium True, if the original gift could have been bought only by Telegram Premium subscribers.
  * @property isThemeAvailable True, if the gift can be used to set a theme in a chat.
  * @property usedThemeChatId Identifier of the chat for which the gift is used to set a theme; 0 if none or the gift isn't owned by the current user.
+ * @property hostId Identifier of the user or the chat to which the upgraded gift was assigned from blockchain; may be null if none or unknown.
  * @property ownerId Identifier of the user or the chat that owns the upgraded gift; may be null if none or unknown.
  * @property ownerAddress Address of the gift NFT owner in TON blockchain; may be empty if none. Append the address to getOption(&quot;ton_blockchain_explorer_url&quot;) to get a link with information about the address.
  * @property ownerName Name of the owner for the case when owner identifier and address aren't known.
@@ -44,6 +45,7 @@ import kotlin.String
  * @property symbol Symbol of the upgraded gift.
  * @property backdrop Backdrop of the upgraded gift.
  * @property originalDetails Information about the originally sent gift; may be null if unknown.
+ * @property colors Colors that can be set for user's name, background of empty chat photo, replies to messages and link previews; may be null if none.
  * @property resaleParameters Resale parameters of the gift; may be null if resale isn't possible.
  * @property valueCurrency ISO 4217 currency code of the currency in which value of the gift is represented; may be empty if unavailable.
  * @property valueAmount Estimated value of the gift; in the smallest units of the currency; 0 if unavailable.
@@ -60,6 +62,7 @@ public class UpgradedGift public constructor(
     public val isPremium: Boolean,
     public val isThemeAvailable: Boolean,
     public val usedThemeChatId: Long,
+    public val hostId: MessageSender?,
     public val ownerId: MessageSender?,
     public val ownerAddress: String,
     public val ownerName: String,
@@ -68,6 +71,7 @@ public class UpgradedGift public constructor(
     public val symbol: UpgradedGiftSymbol,
     public val backdrop: UpgradedGiftBackdrop,
     public val originalDetails: UpgradedGiftOriginalDetails?,
+    public val colors: UpgradedGiftColors?,
     public val resaleParameters: GiftResaleParameters?,
     public val valueCurrency: String,
     public val valueAmount: Long,
@@ -116,6 +120,9 @@ public class UpgradedGift public constructor(
         if (other.usedThemeChatId != usedThemeChatId) {
             return false
         }
+        if (other.hostId != hostId) {
+            return false
+        }
         if (other.ownerId != ownerId) {
             return false
         }
@@ -140,6 +147,9 @@ public class UpgradedGift public constructor(
         if (other.originalDetails != originalDetails) {
             return false
         }
+        if (other.colors != colors) {
+            return false
+        }
         if (other.resaleParameters != resaleParameters) {
             return false
         }
@@ -162,6 +172,7 @@ public class UpgradedGift public constructor(
         hashCode = 31 * hashCode + isPremium.hashCode()
         hashCode = 31 * hashCode + isThemeAvailable.hashCode()
         hashCode = 31 * hashCode + usedThemeChatId.hashCode()
+        hashCode = 31 * hashCode + hostId.hashCode()
         hashCode = 31 * hashCode + ownerId.hashCode()
         hashCode = 31 * hashCode + ownerAddress.hashCode()
         hashCode = 31 * hashCode + ownerName.hashCode()
@@ -170,6 +181,7 @@ public class UpgradedGift public constructor(
         hashCode = 31 * hashCode + symbol.hashCode()
         hashCode = 31 * hashCode + backdrop.hashCode()
         hashCode = 31 * hashCode + originalDetails.hashCode()
+        hashCode = 31 * hashCode + colors.hashCode()
         hashCode = 31 * hashCode + resaleParameters.hashCode()
         hashCode = 31 * hashCode + valueCurrency.hashCode()
         hashCode = 31 * hashCode + valueAmount.hashCode()
@@ -213,6 +225,9 @@ public class UpgradedGift public constructor(
             append("usedThemeChatId=")
             append(usedThemeChatId)
             append(", ")
+            append("hostId=")
+            append(hostId)
+            append(", ")
             append("ownerId=")
             append(ownerId)
             append(", ")
@@ -236,6 +251,9 @@ public class UpgradedGift public constructor(
             append(", ")
             append("originalDetails=")
             append(originalDetails)
+            append(", ")
+            append("colors=")
+            append(colors)
             append(", ")
             append("resaleParameters=")
             append(resaleParameters)

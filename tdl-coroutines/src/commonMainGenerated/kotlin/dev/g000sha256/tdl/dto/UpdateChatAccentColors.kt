@@ -28,6 +28,7 @@ import kotlin.String
  * @property chatId Chat identifier.
  * @property accentColorId The new chat accent color identifier.
  * @property backgroundCustomEmojiId The new identifier of a custom emoji to be shown on the reply header and link preview background; 0 if none.
+ * @property upgradedGiftColors Color scheme based on an upgraded gift to be used for the chat instead of accentColorId and backgroundCustomEmojiId; may be null if none.
  * @property profileAccentColorId The new chat profile accent color identifier; -1 if none.
  * @property profileBackgroundCustomEmojiId The new identifier of a custom emoji to be shown on the profile background; 0 if none.
  */
@@ -35,6 +36,7 @@ public class UpdateChatAccentColors public constructor(
     public val chatId: Long,
     public val accentColorId: Int,
     public val backgroundCustomEmojiId: Long,
+    public val upgradedGiftColors: UpgradedGiftColors?,
     public val profileAccentColorId: Int,
     public val profileBackgroundCustomEmojiId: Long,
 ) : Update() {
@@ -58,6 +60,9 @@ public class UpdateChatAccentColors public constructor(
         if (other.backgroundCustomEmojiId != backgroundCustomEmojiId) {
             return false
         }
+        if (other.upgradedGiftColors != upgradedGiftColors) {
+            return false
+        }
         if (other.profileAccentColorId != profileAccentColorId) {
             return false
         }
@@ -69,6 +74,7 @@ public class UpdateChatAccentColors public constructor(
         hashCode = 31 * hashCode + chatId.hashCode()
         hashCode = 31 * hashCode + accentColorId.hashCode()
         hashCode = 31 * hashCode + backgroundCustomEmojiId.hashCode()
+        hashCode = 31 * hashCode + upgradedGiftColors.hashCode()
         hashCode = 31 * hashCode + profileAccentColorId.hashCode()
         hashCode = 31 * hashCode + profileBackgroundCustomEmojiId.hashCode()
         return hashCode
@@ -86,6 +92,9 @@ public class UpdateChatAccentColors public constructor(
             append(", ")
             append("backgroundCustomEmojiId=")
             append(backgroundCustomEmojiId)
+            append(", ")
+            append("upgradedGiftColors=")
+            append(upgradedGiftColors)
             append(", ")
             append("profileAccentColorId=")
             append(profileAccentColorId)

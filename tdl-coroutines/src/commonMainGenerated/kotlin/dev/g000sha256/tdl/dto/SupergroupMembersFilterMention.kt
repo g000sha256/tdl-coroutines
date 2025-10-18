@@ -19,18 +19,17 @@ package dev.g000sha256.tdl.dto
 import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
-import kotlin.Long
 import kotlin.String
 
 /**
  * Returns users which can be mentioned in the supergroup.
  *
  * @property query Query to search for.
- * @property messageThreadId If non-zero, the identifier of the current message thread.
+ * @property topicId Identifier of the topic in which the users will be mentioned; pass null if none.
  */
 public class SupergroupMembersFilterMention public constructor(
     public val query: String,
-    public val messageThreadId: Long,
+    public val topicId: MessageTopic?,
 ) : SupergroupMembersFilter() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
@@ -46,13 +45,13 @@ public class SupergroupMembersFilterMention public constructor(
         if (other.query != query) {
             return false
         }
-        return other.messageThreadId == messageThreadId
+        return other.topicId == topicId
     }
 
     override fun hashCode(): Int {
         var hashCode = this::class.hashCode()
         hashCode = 31 * hashCode + query.hashCode()
-        hashCode = 31 * hashCode + messageThreadId.hashCode()
+        hashCode = 31 * hashCode + topicId.hashCode()
         return hashCode
     }
 
@@ -63,8 +62,8 @@ public class SupergroupMembersFilterMention public constructor(
             append("query=")
             append(query)
             append(", ")
-            append("messageThreadId=")
-            append(messageThreadId)
+            append("topicId=")
+            append(topicId)
             append(")")
         }
     }

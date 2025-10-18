@@ -23,11 +23,11 @@ import kotlin.Long
 import kotlin.String
 
 /**
- * Describes a user contact.
+ * Describes a contact of a user.
  *
  * @property phoneNumber Phone number of the user.
- * @property firstName First name of the user; 1-255 characters in length.
- * @property lastName Last name of the user.
+ * @property firstName First name of the user; 1-64 characters.
+ * @property lastName Last name of the user; 0-64 characters.
  * @property vcard Additional data about the user in a form of vCard; 0-2048 bytes in length.
  * @property userId Identifier of the user, if known; 0 otherwise.
  */

@@ -16,9 +16,9 @@
 
 package dev.g000sha256.tdl.function
 
-import dev.g000sha256.tdl.dto.Contact
+import dev.g000sha256.tdl.dto.ImportedContact
 import kotlin.Array
 
 internal class ChangeImportedContacts internal constructor(
-    internal val contacts: Array<Contact>,
+    internal val contacts: Array<ImportedContact>,
 )

@@ -18,13 +18,14 @@ package dev.g000sha256.tdl.function
 
 import dev.g000sha256.tdl.dto.InputMessageReplyTo
 import dev.g000sha256.tdl.dto.MessageSendOptions
+import dev.g000sha256.tdl.dto.MessageTopic
 import kotlin.Boolean
 import kotlin.Long
 import kotlin.String
 
 internal class SendInlineQueryResultMessage internal constructor(
     internal val chatId: Long,
-    internal val messageThreadId: Long,
+    internal val topicId: MessageTopic?,
     internal val replyTo: InputMessageReplyTo?,
     internal val options: MessageSendOptions?,
     internal val queryId: Long,

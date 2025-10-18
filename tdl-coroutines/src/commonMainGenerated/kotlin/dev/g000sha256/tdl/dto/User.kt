@@ -34,6 +34,7 @@ import kotlin.String
  * @property profilePhoto Profile photo of the user; may be null.
  * @property accentColorId Identifier of the accent color for name, and backgrounds of profile photo, reply header, and link preview.
  * @property backgroundCustomEmojiId Identifier of a custom emoji to be shown on the reply header and link preview background; 0 if none.
+ * @property upgradedGiftColors Color scheme based on an upgraded gift to be used for the user instead of accentColorId and backgroundCustomEmojiId; may be null if none.
  * @property profileAccentColorId Identifier of the accent color for the user's profile; -1 if none.
  * @property profileBackgroundCustomEmojiId Identifier of a custom emoji to be shown on the background of the user's profile; 0 if none.
  * @property emojiStatus Emoji status to be shown instead of the default Telegram Premium badge; may be null.
@@ -63,6 +64,7 @@ public class User public constructor(
     public val profilePhoto: ProfilePhoto?,
     public val accentColorId: Int,
     public val backgroundCustomEmojiId: Long,
+    public val upgradedGiftColors: UpgradedGiftColors?,
     public val profileAccentColorId: Int,
     public val profileBackgroundCustomEmojiId: Long,
     public val emojiStatus: EmojiStatus?,
@@ -118,6 +120,9 @@ public class User public constructor(
             return false
         }
         if (other.backgroundCustomEmojiId != backgroundCustomEmojiId) {
+            return false
+        }
+        if (other.upgradedGiftColors != upgradedGiftColors) {
             return false
         }
         if (other.profileAccentColorId != profileAccentColorId) {
@@ -185,6 +190,7 @@ public class User public constructor(
         hashCode = 31 * hashCode + profilePhoto.hashCode()
         hashCode = 31 * hashCode + accentColorId.hashCode()
         hashCode = 31 * hashCode + backgroundCustomEmojiId.hashCode()
+        hashCode = 31 * hashCode + upgradedGiftColors.hashCode()
         hashCode = 31 * hashCode + profileAccentColorId.hashCode()
         hashCode = 31 * hashCode + profileBackgroundCustomEmojiId.hashCode()
         hashCode = 31 * hashCode + emojiStatus.hashCode()
@@ -236,6 +242,9 @@ public class User public constructor(
             append(", ")
             append("backgroundCustomEmojiId=")
             append(backgroundCustomEmojiId)
+            append(", ")
+            append("upgradedGiftColors=")
+            append(upgradedGiftColors)
             append(", ")
             append("profileAccentColorId=")
             append(profileAccentColorId)

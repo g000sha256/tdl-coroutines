@@ -19,12 +19,13 @@ package dev.g000sha256.tdl.function
 import dev.g000sha256.tdl.dto.InputMessageContent
 import dev.g000sha256.tdl.dto.InputMessageReplyTo
 import dev.g000sha256.tdl.dto.MessageSendOptions
+import dev.g000sha256.tdl.dto.MessageTopic
 import kotlin.Array
 import kotlin.Long
 
 internal class SendMessageAlbum internal constructor(
     internal val chatId: Long,
-    internal val messageThreadId: Long,
+    internal val topicId: MessageTopic?,
     internal val replyTo: InputMessageReplyTo?,
     internal val options: MessageSendOptions?,
     internal val inputMessageContents: Array<InputMessageContent>,

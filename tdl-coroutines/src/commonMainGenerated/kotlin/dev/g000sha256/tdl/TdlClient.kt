@@ -121,7 +121,6 @@ import dev.g000sha256.tdl.dto.CollectibleItemType
 import dev.g000sha256.tdl.dto.ConnectedAffiliateProgram
 import dev.g000sha256.tdl.dto.ConnectedAffiliatePrograms
 import dev.g000sha256.tdl.dto.ConnectedWebsites
-import dev.g000sha256.tdl.dto.Contact
 import dev.g000sha256.tdl.dto.Count
 import dev.g000sha256.tdl.dto.Countries
 import dev.g000sha256.tdl.dto.CreatedBasicGroupChat
@@ -185,6 +184,7 @@ import dev.g000sha256.tdl.dto.GroupCallParticipants
 import dev.g000sha256.tdl.dto.GroupCallVideoQuality
 import dev.g000sha256.tdl.dto.Hashtags
 import dev.g000sha256.tdl.dto.HttpUrl
+import dev.g000sha256.tdl.dto.ImportedContact
 import dev.g000sha256.tdl.dto.ImportedContacts
 import dev.g000sha256.tdl.dto.InlineQueryResults
 import dev.g000sha256.tdl.dto.InlineQueryResultsButton
@@ -451,6 +451,7 @@ import dev.g000sha256.tdl.dto.UpdateForumTopic
 import dev.g000sha256.tdl.dto.UpdateForumTopicInfo
 import dev.g000sha256.tdl.dto.UpdateFreezeState
 import dev.g000sha256.tdl.dto.UpdateGroupCall
+import dev.g000sha256.tdl.dto.UpdateGroupCallNewMessage
 import dev.g000sha256.tdl.dto.UpdateGroupCallParticipant
 import dev.g000sha256.tdl.dto.UpdateGroupCallParticipants
 import dev.g000sha256.tdl.dto.UpdateGroupCallVerificationState
@@ -492,6 +493,7 @@ import dev.g000sha256.tdl.dto.UpdateOption
 import dev.g000sha256.tdl.dto.UpdateOwnedStarCount
 import dev.g000sha256.tdl.dto.UpdateOwnedTonCount
 import dev.g000sha256.tdl.dto.UpdatePaidMediaPurchased
+import dev.g000sha256.tdl.dto.UpdatePendingTextMessage
 import dev.g000sha256.tdl.dto.UpdatePoll
 import dev.g000sha256.tdl.dto.UpdatePollAnswer
 import dev.g000sha256.tdl.dto.UpdateProfileAccentColors
@@ -923,6 +925,11 @@ public abstract class TdlClient internal constructor() {
     public abstract val chatActionUpdates: Flow<UpdateChatAction>
 
     /**
+     * A new pending text message was received in a chat with a bot. The message must be shown in the chat for at most getOption(&quot;pending_text_message_period&quot;) seconds, replace any other pending message with the same draftId, and be deleted whenever any incoming message from the bot in the message thread is received.
+     */
+    public abstract val pendingTextMessageUpdates: Flow<UpdatePendingTextMessage>
+
+    /**
      * The user went online or offline.
      */
     public abstract val userStatusUpdates: Flow<UpdateUserStatus>
@@ -1038,6 +1045,11 @@ public abstract class TdlClient internal constructor() {
      * The verification state of an encrypted group call has changed; for group calls not bound to a chat only.
      */
     public abstract val groupCallVerificationStateUpdates: Flow<UpdateGroupCallVerificationState>
+
+    /**
+     * A new message was received in a group call. It must be shown for at most getOption(&quot;group_call_message_show_time_max&quot;) seconds after receiving.
+     */
+    public abstract val groupCallNewMessageUpdates: Flow<UpdateGroupCallNewMessage>
 
     /**
      * New call signaling data arrived.
@@ -1480,10 +1492,15 @@ public abstract class TdlClient internal constructor() {
     /**
      * Adds a user to the contact list or edits an existing contact by their user identifier.
      *
-     * @param contact The contact to add or edit; phone number may be empty and needs to be specified only if known, vCard is ignored.
+     * @param userId Identifier of the user.
+     * @param contact The contact to add or edit; phone number may be empty and needs to be specified only if known.
      * @param sharePhoneNumber Pass true to share the current user's phone number with the new contact. A corresponding rule to userPrivacySettingShowPhoneNumber will be added if needed. Use the field userFullInfo.needPhoneNumberPrivacyException to check whether the current user needs to be asked to share their phone number.
      */
-    public abstract suspend fun addContact(contact: Contact, sharePhoneNumber: Boolean): TdlResult<Ok>
+    public abstract suspend fun addContact(
+        userId: Long,
+        contact: ImportedContact,
+        sharePhoneNumber: Boolean,
+    ): TdlResult<Ok>
 
     /**
      * Adds a custom server language pack to the list of installed language packs in current localization target. Can be called before authorization.
@@ -1968,9 +1985,9 @@ public abstract class TdlClient internal constructor() {
     /**
      * Changes imported contacts using the list of contacts saved on the device. Imports newly added contacts and, if at least the file database is enabled, deletes recently deleted contacts. Query result depends on the result of the previous query, so only one query is possible at the same time.
      *
-     * @param contacts The new list of contacts, contact's vCard are ignored and are not imported.
+     * @param contacts The new list of contacts to import.
      */
-    public abstract suspend fun changeImportedContacts(contacts: Array<Contact>): TdlResult<ImportedContacts>
+    public abstract suspend fun changeImportedContacts(contacts: Array<ImportedContact>): TdlResult<ImportedContacts>
 
     /**
      * Installs/uninstalls or activates/archives a sticker set.
@@ -2357,15 +2374,17 @@ public abstract class TdlClient internal constructor() {
     ): TdlResult<ChatInviteLink>
 
     /**
-     * Creates a topic in a forum supergroup chat; requires canManageTopics administrator or canCreateTopics member right in the supergroup.
+     * Creates a topic in a forum supergroup chat or a chat with a bot with topics; requires canManageTopics administrator or canCreateTopics member right in the supergroup.
      *
      * @param chatId Identifier of the chat.
      * @param name Name of the topic; 1-128 characters.
+     * @param isNameImplicit Pass true if the name of the topic wasn't entered explicitly; for chats with bots only.
      * @param icon Icon of the topic. Icon color must be one of 0x6FB9F0, 0xFFD67E, 0xCB86DB, 0x8EEE98, 0xFF93B2, or 0xFB6F5F. Telegram Premium users can use any custom emoji as topic icon, other users can use only a custom emoji returned by getForumTopicDefaultIcons.
      */
     public abstract suspend fun createForumTopic(
         chatId: Long,
         name: String,
+        isNameImplicit: Boolean,
         icon: ForumTopicIcon,
     ): TdlResult<ForumTopicInfo>
 
@@ -2688,7 +2707,7 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun deleteChatMessagesBySender(chatId: Long, senderId: MessageSender): TdlResult<Ok>
 
     /**
-     * Deletes the default reply markup from a chat. Must be called after a one-time keyboard or a replyMarkupForceReply reply markup has been used. An updateChatReplyMarkup update will be sent if the reply markup is changed.
+     * Deletes the default reply markup from a chat. Must be called after a one-time keyboard or a replyMarkupForceReply reply markup has been used or dismissed.
      *
      * @param chatId Chat identifier.
      * @param messageId The message identifier of the used keyboard.
@@ -2741,12 +2760,12 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun deleteFile(fileId: Int): TdlResult<Ok>
 
     /**
-     * Deletes all messages in a forum topic; requires canDeleteMessages administrator right in the supergroup unless the user is creator of the topic, the topic has no messages from other users and has at most 11 messages.
+     * Deletes all messages from a topic in a forum supergroup chat or a chat with a bot with topics; requires canDeleteMessages administrator right in the supergroup unless the user is creator of the topic, the topic has no messages from other users and has at most 11 messages.
      *
      * @param chatId Identifier of the chat.
-     * @param messageThreadId Message thread identifier of the forum topic.
+     * @param forumTopicId Forum topic identifier.
      */
-    public abstract suspend fun deleteForumTopic(chatId: Long, messageThreadId: Long): TdlResult<Ok>
+    public abstract suspend fun deleteForumTopic(chatId: Long, forumTopicId: Int): TdlResult<Ok>
 
     /**
      * Deletes a gift collection. If the collection is owned by a channel chat, then requires canPostMessages administrator right in the channel chat.
@@ -2938,6 +2957,14 @@ public abstract class TdlClient internal constructor() {
         limit: Long,
         synchronous: Boolean,
     ): TdlResult<File>
+
+    /**
+     * Drops original details for an upgraded gift.
+     *
+     * @param receivedGiftId Identifier of the gift.
+     * @param starCount The amount of Telegram Stars required to pay for the operation.
+     */
+    public abstract suspend fun dropGiftOriginalDetails(receivedGiftId: String, starCount: Long): TdlResult<Ok>
 
     /**
      * Replaces media preview in the list of media previews of a bot. Returns the new preview after edit is completed server-side.
@@ -3152,17 +3179,17 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun editCustomLanguagePackInfo(info: LanguagePackInfo): TdlResult<Ok>
 
     /**
-     * Edits title and icon of a topic in a forum supergroup chat; requires canManageTopics administrator right in the supergroup unless the user is creator of the topic.
+     * Edits title and icon of a topic in a forum supergroup chat or a chat with a bot with topics; for supergroup chats requires canManageTopics administrator right unless the user is creator of the topic.
      *
      * @param chatId Identifier of the chat.
-     * @param messageThreadId Message thread identifier of the forum topic.
+     * @param forumTopicId Forum topic identifier.
      * @param name New name of the topic; 0-128 characters. If empty, the previous topic name is kept.
      * @param editIconCustomEmoji Pass true to edit the icon of the topic. Icon of the General topic can't be edited.
      * @param iconCustomEmojiId Identifier of the new custom emoji for topic icon; pass 0 to remove the custom emoji. Ignored if editIconCustomEmoji is false. Telegram Premium users can use any custom emoji, other users can use only a custom emoji returned by getForumTopicDefaultIcons.
      */
     public abstract suspend fun editForumTopic(
         chatId: Long,
-        messageThreadId: Long,
+        forumTopicId: Int,
         name: String,
         editIconCustomEmoji: Boolean,
         iconCustomEmojiId: Long,
@@ -3481,7 +3508,7 @@ public abstract class TdlClient internal constructor() {
      * Forwards previously sent messages. Returns the forwarded messages in the same order as the message identifiers passed in messageIds. If a message can't be forwarded, null will be returned instead of the message.
      *
      * @param chatId Identifier of the chat to which to forward messages.
-     * @param messageThreadId If not 0, the message thread identifier in which the message will be sent; for forum threads only.
+     * @param topicId Topic in which the messages will be forwarded; message threads aren't supported; pass null if none.
      * @param fromChatId Identifier of the chat from which to forward messages.
      * @param messageIds Identifiers of the messages to forward. Message identifiers must be in a strictly increasing order. At most 100 messages can be forwarded simultaneously. A message can be forwarded only if messageProperties.canBeForwarded.
      * @param options Options to be used to send the messages; pass null to use default options.
@@ -3490,7 +3517,7 @@ public abstract class TdlClient internal constructor() {
      */
     public abstract suspend fun forwardMessages(
         chatId: Long,
-        messageThreadId: Long,
+        topicId: MessageTopic? = null,
         fromChatId: Long,
         messageIds: LongArray,
         options: MessageSendOptions? = null,
@@ -4036,7 +4063,7 @@ public abstract class TdlClient internal constructor() {
      * Returns information about the next messages of the specified type in the chat split by days. Returns the results in reverse chronological order. Can return partial result for the last returned day. Behavior of this method depends on the value of the option &quot;utc_time_offset&quot;.
      *
      * @param chatId Identifier of the chat in which to return information about messages.
-     * @param topicId Pass topic identifier to get the result only in specific topic; pass null to get the result in all topics; forum topics aren't supported.
+     * @param topicId Pass topic identifier to get the result only in specific topic; pass null to get the result in all topics; forum topics and message threads aren't supported.
      * @param filter Filter for message content. Filters searchMessagesFilterEmpty, searchMessagesFilterMention, searchMessagesFilterUnreadMention, and searchMessagesFilterUnreadReaction are unsupported in this function.
      * @param fromMessageId The message identifier from which to return information about messages; use 0 to get results from the last message.
      */
@@ -4051,7 +4078,7 @@ public abstract class TdlClient internal constructor() {
      * Returns approximate number of messages of the specified type in the chat or its topic.
      *
      * @param chatId Identifier of the chat in which to count messages.
-     * @param topicId Pass topic identifier to get number of messages only in specific topic; pass null to get number of messages in all topics.
+     * @param topicId Pass topic identifier to get number of messages only in specific topic; pass null to get number of messages in all topics; message threads aren't supported.
      * @param filter Filter for message content; searchMessagesFilterEmpty is unsupported in this function.
      * @param returnLocal Pass true to get the number of messages without sending network requests, or -1 if the number of messages is unknown locally.
      */
@@ -4066,7 +4093,7 @@ public abstract class TdlClient internal constructor() {
      * Returns approximate 1-based position of a message among messages, which can be found by the specified filter in the chat and topic. Cannot be used in secret chats.
      *
      * @param chatId Identifier of the chat in which to find message position.
-     * @param topicId Pass topic identifier to get position among messages only in specific topic; pass null to get position among all chat messages.
+     * @param topicId Pass topic identifier to get position among messages only in specific topic; pass null to get position among all chat messages; message threads aren't supported.
      * @param filter Filter for message content; searchMessagesFilterEmpty, searchMessagesFilterUnreadMention, searchMessagesFilterUnreadReaction, and searchMessagesFilterFailedToSend are unsupported in this function.
      * @param messageId Message identifier.
      */
@@ -4497,12 +4524,12 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun getFileMimeType(fileName: String): TdlResult<Text>
 
     /**
-     * Returns information about a forum topic.
+     * Returns information about a topic in a forum supergroup chat or a chat with a bot with topics.
      *
      * @param chatId Identifier of the chat.
-     * @param messageThreadId Message thread identifier of the forum topic.
+     * @param forumTopicId Forum topic identifier.
      */
-    public abstract suspend fun getForumTopic(chatId: Long, messageThreadId: Long): TdlResult<ForumTopic>
+    public abstract suspend fun getForumTopic(chatId: Long, forumTopicId: Int): TdlResult<ForumTopic>
 
     /**
      * Returns the list of custom emoji, which can be used as forum topic icon by all users.
@@ -4510,21 +4537,38 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun getForumTopicDefaultIcons(): TdlResult<Stickers>
 
     /**
-     * Returns an HTTPS link to a topic in a forum chat. This is an offline method.
+     * Returns messages in a topic in a forum supergroup chat or a chat with a bot with topics. The messages are returned in reverse chronological order (i.e., in order of decreasing messageId). For optimal performance, the number of returned messages is chosen by TDLib.
      *
-     * @param chatId Identifier of the chat.
-     * @param messageThreadId Message thread identifier of the forum topic.
+     * @param chatId Chat identifier.
+     * @param forumTopicId Forum topic identifier.
+     * @param fromMessageId Identifier of the message starting from which history must be fetched; use 0 to get results from the last message.
+     * @param offset Specify 0 to get results from exactly the message fromMessageId or a negative number from -99 to -1 to get additionally -offset newer messages.
+     * @param limit The maximum number of messages to be returned; must be positive and can't be greater than 100. If the offset is negative, then the limit must be greater than or equal to -offset. For optimal performance, the number of returned messages is chosen by TDLib and can be smaller than the specified limit.
      */
-    public abstract suspend fun getForumTopicLink(chatId: Long, messageThreadId: Long): TdlResult<MessageLink>
+    public abstract suspend fun getForumTopicHistory(
+        chatId: Long,
+        forumTopicId: Int,
+        fromMessageId: Long,
+        offset: Int,
+        limit: Int,
+    ): TdlResult<Messages>
 
     /**
-     * Returns found forum topics in a forum chat. This is a temporary method for getting information about topic list from the server.
+     * Returns an HTTPS link to a topic in a forum supergroup chat. This is an offline method.
      *
-     * @param chatId Identifier of the forum chat.
+     * @param chatId Identifier of the chat.
+     * @param forumTopicId Forum topic identifier.
+     */
+    public abstract suspend fun getForumTopicLink(chatId: Long, forumTopicId: Int): TdlResult<MessageLink>
+
+    /**
+     * Returns found forum topics in a forum supergroup chat or a chat with a bot with topics. This is a temporary method for getting information about topic list from the server.
+     *
+     * @param chatId Identifier of the chat.
      * @param query Query to search for in the forum topic's name.
      * @param offsetDate The date starting from which the results need to be fetched. Use 0 or any date in the future to get results from the last topic.
      * @param offsetMessageId The message identifier of the last message in the last found topic, or 0 for the first request.
-     * @param offsetMessageThreadId The message thread identifier of the last found topic, or 0 for the first request.
+     * @param offsetForumTopicId The forum topic identifier of the last found topic, or 0 for the first request.
      * @param limit The maximum number of forum topics to be returned; up to 100. For optimal performance, the number of returned forum topics is chosen by TDLib and can be smaller than the specified limit.
      */
     public abstract suspend fun getForumTopics(
@@ -4532,7 +4576,7 @@ public abstract class TdlClient internal constructor() {
         query: String,
         offsetDate: Int,
         offsetMessageId: Long,
-        offsetMessageThreadId: Long,
+        offsetForumTopicId: Int,
         limit: Int,
     ): TdlResult<ForumTopics>
 
@@ -5289,6 +5333,8 @@ public abstract class TdlClient internal constructor() {
      * @param excludeUpgradable Pass true to exclude gifts that can be purchased limited number of times and can be upgraded.
      * @param excludeNonUpgradable Pass true to exclude gifts that can be purchased limited number of times and can't be upgraded.
      * @param excludeUpgraded Pass true to exclude upgraded gifts.
+     * @param excludeWithoutColors Pass true to exclude gifts that can't be used in setUpgradedGiftColors.
+     * @param excludeHosted Pass true to exclude gifts that are just hosted and are not owned by the owner.
      * @param sortByPrice Pass true to sort results by gift price instead of send date.
      * @param offset Offset of the first entry to return as received from the previous request; use empty string to get the first chunk of results.
      * @param limit The maximum number of gifts to be returned; must be positive and can't be greater than 100. For optimal performance, the number of returned objects is chosen by TDLib and can be smaller than the specified limit.
@@ -5303,6 +5349,8 @@ public abstract class TdlClient internal constructor() {
         excludeUpgradable: Boolean,
         excludeNonUpgradable: Boolean,
         excludeUpgraded: Boolean,
+        excludeWithoutColors: Boolean,
+        excludeHosted: Boolean,
         sortByPrice: Boolean,
         offset: String,
         limit: Int,
@@ -6057,9 +6105,9 @@ public abstract class TdlClient internal constructor() {
     /**
      * Adds new contacts or edits existing contacts by their phone numbers; contacts' user identifiers are ignored.
      *
-     * @param contacts The list of contacts to import or edit; contacts' vCard are ignored and are not imported.
+     * @param contacts The list of contacts to import or edit.
      */
-    public abstract suspend fun importContacts(contacts: Array<Contact>): TdlResult<ImportedContacts>
+    public abstract suspend fun importContacts(contacts: Array<ImportedContact>): TdlResult<ImportedContacts>
 
     /**
      * Imports messages exported from another app.
@@ -6290,8 +6338,7 @@ public abstract class TdlClient internal constructor() {
      * @param chatId Identifier of the chat in which the Web App is opened. The Web App can't be opened in secret chats.
      * @param botUserId Identifier of the bot, providing the Web App. If the bot is restricted for the current user, then show an error instead of calling the method.
      * @param url The URL from an inlineKeyboardButtonTypeWebApp button, a botMenuButton button, an internalLinkTypeAttachmentMenuBot link, or an empty string otherwise.
-     * @param messageThreadId If not 0, the message thread identifier to which the message will be sent.
-     * @param directMessagesChatTopicId If not 0, unique identifier of the topic of channel direct messages chat to which the message will be sent.
+     * @param topicId Topic in which the message will be sent; pass null if none.
      * @param replyTo Information about the message or story to be replied in the message sent by the Web App; pass null if none.
      * @param parameters Parameters to use to open the Web App.
      */
@@ -6299,8 +6346,7 @@ public abstract class TdlClient internal constructor() {
         chatId: Long,
         botUserId: Long,
         url: String,
-        messageThreadId: Long,
-        directMessagesChatTopicId: Long,
+        topicId: MessageTopic? = null,
         replyTo: InputMessageReplyTo? = null,
         parameters: WebAppOpenParameters,
     ): TdlResult<WebAppInfo>
@@ -6469,7 +6515,7 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun readAllChatMentions(chatId: Long): TdlResult<Ok>
 
     /**
-     * Marks all reactions in a chat or a forum topic as read.
+     * Marks all reactions in a chat as read.
      *
      * @param chatId Chat identifier.
      */
@@ -6484,20 +6530,20 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun readAllDirectMessagesChatTopicReactions(chatId: Long, topicId: Long): TdlResult<Ok>
 
     /**
-     * Marks all mentions in a forum topic as read.
+     * Marks all mentions in a topic in a forum supergroup chat as read.
      *
      * @param chatId Chat identifier.
-     * @param messageThreadId Message thread identifier in which mentions are marked as read.
+     * @param forumTopicId Forum topic identifier in which mentions are marked as read.
      */
-    public abstract suspend fun readAllMessageThreadMentions(chatId: Long, messageThreadId: Long): TdlResult<Ok>
+    public abstract suspend fun readAllForumTopicMentions(chatId: Long, forumTopicId: Int): TdlResult<Ok>
 
     /**
-     * Marks all reactions in a forum topic as read.
+     * Marks all reactions in a topic in a forum supergroup chat or a chat with a bot with topics as read.
      *
      * @param chatId Chat identifier.
-     * @param messageThreadId Message thread identifier in which reactions are marked as read.
+     * @param forumTopicId Forum topic identifier in which reactions are marked as read.
      */
-    public abstract suspend fun readAllMessageThreadReactions(chatId: Long, messageThreadId: Long): TdlResult<Ok>
+    public abstract suspend fun readAllForumTopicReactions(chatId: Long, forumTopicId: Int): TdlResult<Ok>
 
     /**
      * Reads a message on behalf of a business account; for bots only.
@@ -7720,13 +7766,13 @@ public abstract class TdlClient internal constructor() {
      * Sends a notification about user activity in a chat.
      *
      * @param chatId Chat identifier.
-     * @param messageThreadId If not 0, the message thread identifier in which the action was performed.
+     * @param topicId Identifier of the topic in which the action is performed.
      * @param businessConnectionId Unique identifier of business connection on behalf of which to send the request; for bots only.
      * @param action The action description; pass null to cancel the currently active action.
      */
     public abstract suspend fun sendChatAction(
         chatId: Long,
-        messageThreadId: Long,
+        topicId: MessageTopic,
         businessConnectionId: String,
         action: ChatAction? = null,
     ): TdlResult<Ok>
@@ -7764,10 +7810,18 @@ public abstract class TdlClient internal constructor() {
     ): TdlResult<Ok>
 
     /**
+     * Sends a message to other participants of a group call. Requires groupCall.canSendMessages right.
+     *
+     * @param groupCallId Group call identifier.
+     * @param text Text of the message to send; 1-getOption(&quot;group_call_message_text_length_max&quot;) characters.
+     */
+    public abstract suspend fun sendGroupCallMessage(groupCallId: Int, text: FormattedText): TdlResult<Ok>
+
+    /**
      * Sends the result of an inline query as a message. Returns the sent message. Always clears a chat draft message.
      *
      * @param chatId Target chat.
-     * @param messageThreadId If not 0, the message thread identifier in which the message will be sent.
+     * @param topicId Topic in which the message will be sent; pass null if none.
      * @param replyTo Information about the message or story to be replied; pass null if none.
      * @param options Options to be used to send the message; pass null to use default options.
      * @param queryId Identifier of the inline query.
@@ -7776,7 +7830,7 @@ public abstract class TdlClient internal constructor() {
      */
     public abstract suspend fun sendInlineQueryResultMessage(
         chatId: Long,
-        messageThreadId: Long,
+        topicId: MessageTopic? = null,
         replyTo: InputMessageReplyTo? = null,
         options: MessageSendOptions? = null,
         queryId: Long,
@@ -7788,7 +7842,7 @@ public abstract class TdlClient internal constructor() {
      * Sends a message. Returns the sent message.
      *
      * @param chatId Target chat.
-     * @param messageThreadId If not 0, the message thread identifier in which the message will be sent.
+     * @param topicId Topic in which the message will be sent; pass null if none.
      * @param replyTo Information about the message or story to be replied; pass null if none.
      * @param options Options to be used to send the message; pass null to use default options.
      * @param replyMarkup Markup for replying to the message; pass null if none; for bots only.
@@ -7796,7 +7850,7 @@ public abstract class TdlClient internal constructor() {
      */
     public abstract suspend fun sendMessage(
         chatId: Long,
-        messageThreadId: Long,
+        topicId: MessageTopic? = null,
         replyTo: InputMessageReplyTo? = null,
         options: MessageSendOptions? = null,
         replyMarkup: ReplyMarkup? = null,
@@ -7807,14 +7861,14 @@ public abstract class TdlClient internal constructor() {
      * Sends 2-10 messages grouped together into an album. Currently, only audio, document, photo and video messages can be grouped into an album. Documents and audio files can be only grouped in an album with messages of the same type. Returns sent messages.
      *
      * @param chatId Target chat.
-     * @param messageThreadId If not 0, the message thread identifier in which the messages will be sent.
+     * @param topicId Topic in which the messages will be sent; pass null if none.
      * @param replyTo Information about the message or story to be replied; pass null if none.
      * @param options Options to be used to send the messages; pass null to use default options.
      * @param inputMessageContents Contents of messages to be sent. At most 10 messages can be added to an album. All messages must have the same value of showCaptionAboveMedia.
      */
     public abstract suspend fun sendMessageAlbum(
         chatId: Long,
-        messageThreadId: Long,
+        topicId: MessageTopic? = null,
         replyTo: InputMessageReplyTo? = null,
         options: MessageSendOptions? = null,
         inputMessageContents: Array<InputMessageContent>,
@@ -7892,6 +7946,21 @@ public abstract class TdlClient internal constructor() {
         ownerId: MessageSender,
         price: GiftResalePrice,
     ): TdlResult<GiftResaleResult>
+
+    /**
+     * Sends a draft for a being generated text message; for bots only.
+     *
+     * @param chatId Chat identifier.
+     * @param forumTopicId The forum topic identifier in which the message will be sent; pass 0 if none.
+     * @param draftId Unique identifier of the draft.
+     * @param text Draft text of the message.
+     */
+    public abstract suspend fun sendTextMessageDraft(
+        chatId: Long,
+        forumTopicId: Int,
+        draftId: Long,
+        text: FormattedText,
+    ): TdlResult<Ok>
 
     /**
      * Sends a custom request from a Web App.
@@ -8270,15 +8339,15 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun setChatDiscussionGroup(chatId: Long, discussionChatId: Long): TdlResult<Ok>
 
     /**
-     * Changes the draft message in a chat.
+     * Changes the draft message in a chat or a topic.
      *
      * @param chatId Chat identifier.
-     * @param messageThreadId If not 0, the message thread identifier in which the draft was changed.
+     * @param topicId Topic in which the draft will be changed; pass null to change the draft for the chat itself.
      * @param draftMessage New draft message; pass null to remove the draft. All files in draft message content must be of the type inputFileLocal. Media thumbnails and captions are ignored.
      */
     public abstract suspend fun setChatDraftMessage(
         chatId: Long,
-        messageThreadId: Long,
+        topicId: MessageTopic? = null,
         draftMessage: DraftMessage? = null,
     ): TdlResult<Ok>
 
@@ -8384,7 +8453,7 @@ public abstract class TdlClient internal constructor() {
      * Changes the slow mode delay of a chat. Available only for supergroups; requires canRestrictMembers administrator right.
      *
      * @param chatId Chat identifier.
-     * @param slowModeDelay New slow mode delay for the chat, in seconds; must be one of 0, 10, 30, 60, 300, 900, 3600.
+     * @param slowModeDelay New slow mode delay for the chat, in seconds; must be one of 0, 5, 10, 30, 60, 300, 900, 3600.
      */
     public abstract suspend fun setChatSlowModeDelay(chatId: Long, slowModeDelay: Int): TdlResult<Ok>
 
@@ -8497,19 +8566,6 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun setDefaultReactionType(reactionType: ReactionType): TdlResult<Ok>
 
     /**
-     * Changes the draft message in the topic in a channel direct messages chat administered by the current user.
-     *
-     * @param chatId Chat identifier.
-     * @param topicId Topic identifier.
-     * @param draftMessage New draft message; pass null to remove the draft. All files in draft message content must be of the type inputFileLocal. Media thumbnails and captions are ignored.
-     */
-    public abstract suspend fun setDirectMessagesChatTopicDraftMessage(
-        chatId: Long,
-        topicId: Long,
-        draftMessage: DraftMessage? = null,
-    ): TdlResult<Ok>
-
-    /**
      * Changes the marked as unread state of the topic in a channel direct messages chat administered by the current user.
      *
      * @param chatId Chat identifier of the channel direct messages chat.
@@ -8543,15 +8599,15 @@ public abstract class TdlClient internal constructor() {
     ): TdlResult<Ok>
 
     /**
-     * Changes the notification settings of a forum topic.
+     * Changes the notification settings of a forum topic in a forum supergroup chat or a chat with a bot with topics.
      *
      * @param chatId Chat identifier.
-     * @param messageThreadId Message thread identifier of the forum topic.
+     * @param forumTopicId Forum topic identifier.
      * @param notificationSettings New notification settings for the forum topic. If the topic is muted for more than 366 days, it is considered to be muted forever.
      */
     public abstract suspend fun setForumTopicNotificationSettings(
         chatId: Long,
-        messageThreadId: Long,
+        forumTopicId: Int,
         notificationSettings: ChatNotificationSettings,
     ): TdlResult<Ok>
 
@@ -8837,12 +8893,12 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun setPinnedChats(chatList: ChatList, chatIds: LongArray): TdlResult<Ok>
 
     /**
-     * Changes the order of pinned forum topics; requires canManageTopics administrator right in the supergroup.
+     * Changes the order of pinned topics in a forum supergroup chat or a chat with a bot with topics; requires canManageTopics administrator right in the supergroup.
      *
      * @param chatId Chat identifier.
-     * @param messageThreadIds The new list of pinned forum topics.
+     * @param forumTopicIds The new list of identifiers of the pinned forum topics.
      */
-    public abstract suspend fun setPinnedForumTopics(chatId: Long, messageThreadIds: LongArray): TdlResult<Ok>
+    public abstract suspend fun setPinnedForumTopics(chatId: Long, forumTopicIds: IntArray): TdlResult<Ok>
 
     /**
      * Changes the list of pinned gifts on the current user's or the channel's profile page; requires canPostMessages administrator right in the channel chat.
@@ -9109,12 +9165,27 @@ public abstract class TdlClient internal constructor() {
     ): TdlResult<Ok>
 
     /**
+     * Changes color scheme for the current user based on an owned or a hosted upgraded gift; for Telegram Premium users only.
+     *
+     * @param upgradedGiftColorsId Identifier of the upgradedGiftColors scheme to use.
+     */
+    public abstract suspend fun setUpgradedGiftColors(upgradedGiftColorsId: Long): TdlResult<Ok>
+
+    /**
      * Changes the emoji status of a user; for bots only.
      *
      * @param userId Identifier of the user.
      * @param emojiStatus New emoji status; pass null to switch to the default badge.
      */
     public abstract suspend fun setUserEmojiStatus(userId: Long, emojiStatus: EmojiStatus? = null): TdlResult<Ok>
+
+    /**
+     * Changes a note of a contact user.
+     *
+     * @param userId User identifier.
+     * @param note Note to set for the user; 0-getOption(&quot;user_note_text_length_max&quot;) characters. Only Bold, Italic, Underline, Strikethrough, Spoiler, and CustomEmoji entities are allowed.
+     */
+    public abstract suspend fun setUserNote(userId: Long, note: FormattedText): TdlResult<Ok>
 
     /**
      * Changes a personal profile photo of a contact user.
@@ -9268,6 +9339,14 @@ public abstract class TdlClient internal constructor() {
     ): TdlResult<Ok>
 
     /**
+     * Suggests a birthdate to another regular user with common messages and allowing non-paid messages.
+     *
+     * @param userId User identifier.
+     * @param birthdate Birthdate to suggest.
+     */
+    public abstract suspend fun suggestUserBirthdate(userId: Long, birthdate: Birthdate): TdlResult<Ok>
+
+    /**
      * Suggests a profile photo to another regular user with common messages and allowing non-paid messages.
      *
      * @param userId User identifier.
@@ -9416,7 +9495,7 @@ public abstract class TdlClient internal constructor() {
     ): TdlResult<Ok>
 
     /**
-     * Changes active state for a username of a bot. The editable username can't be disabled. May return an error with a message &quot;USERNAMES_ACTIVE_TOO_MUCH&quot; if the maximum number of active usernames has been reached. Can be called only if userTypeBot.canBeEdited == true.
+     * Changes active state for a username of a bot. The editable username can be disabled only if there are other active usernames. May return an error with a message &quot;USERNAMES_ACTIVE_TOO_MUCH&quot; if the maximum number of active usernames has been reached. Can be called only if userTypeBot.canBeEdited == true.
      *
      * @param botUserId Identifier of the target bot.
      * @param username The username to change.
@@ -9531,25 +9610,25 @@ public abstract class TdlClient internal constructor() {
      * Toggles whether a topic is closed in a forum supergroup chat; requires canManageTopics administrator right in the supergroup unless the user is creator of the topic.
      *
      * @param chatId Identifier of the chat.
-     * @param messageThreadId Message thread identifier of the forum topic.
+     * @param forumTopicId Forum topic identifier.
      * @param isClosed Pass true to close the topic; pass false to reopen it.
      */
     public abstract suspend fun toggleForumTopicIsClosed(
         chatId: Long,
-        messageThreadId: Long,
+        forumTopicId: Int,
         isClosed: Boolean,
     ): TdlResult<Ok>
 
     /**
-     * Changes the pinned state of a forum topic; requires canManageTopics administrator right in the supergroup. There can be up to getOption(&quot;pinned_forum_topic_count_max&quot;) pinned forum topics.
+     * Changes the pinned state of a topic in a forum supergroup chat or a chat with a bot with topics; requires canManageTopics administrator right in the supergroup. There can be up to getOption(&quot;pinned_forum_topic_count_max&quot;) pinned forum topics.
      *
      * @param chatId Chat identifier.
-     * @param messageThreadId Message thread identifier of the forum topic.
+     * @param forumTopicId Forum topic identifier.
      * @param isPinned Pass true to pin the topic; pass false to unpin it.
      */
     public abstract suspend fun toggleForumTopicIsPinned(
         chatId: Long,
-        messageThreadId: Long,
+        forumTopicId: Int,
         isPinned: Boolean,
     ): TdlResult<Ok>
 
@@ -9568,6 +9647,14 @@ public abstract class TdlClient internal constructor() {
      * @param isSaved Pass true to display the gift on the user's or the channel's profile page; pass false to remove it from the profile page.
      */
     public abstract suspend fun toggleGiftIsSaved(receivedGiftId: String, isSaved: Boolean): TdlResult<Ok>
+
+    /**
+     * Toggles whether participants of a group call can send messages there. Requires groupCall.canToggleCanSendMessages right.
+     *
+     * @param groupCallId Group call identifier.
+     * @param canSendMessages New value of the canSendMessages setting.
+     */
+    public abstract suspend fun toggleGroupCallCanSendMessages(groupCallId: Int, canSendMessages: Boolean): TdlResult<Ok>
 
     /**
      * Toggles whether current user's video is enabled.
@@ -9726,7 +9813,7 @@ public abstract class TdlClient internal constructor() {
     /**
      * Toggles whether all users directly joining the supergroup need to be approved by supergroup administrators; requires canRestrictMembers administrator right.
      *
-     * @param supergroupId Identifier of the supergroup that isn't a broadcast group.
+     * @param supergroupId Identifier of the supergroup that isn't a broadcast group and isn't a channel direct message group.
      * @param joinByRequest New value of joinByRequest.
      */
     public abstract suspend fun toggleSupergroupJoinByRequest(supergroupId: Long, joinByRequest: Boolean): TdlResult<Ok>
@@ -9862,12 +9949,12 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun unpinAllDirectMessagesChatTopicMessages(chatId: Long, topicId: Long): TdlResult<Ok>
 
     /**
-     * Removes all pinned messages from a forum topic; requires canPinMessages member right in the supergroup.
+     * Removes all pinned messages from a topic in a forum supergroup chat or a chat with a bot with topics; requires canPinMessages member right in the supergroup.
      *
      * @param chatId Identifier of the chat.
-     * @param messageThreadId Message thread identifier in which messages will be unpinned.
+     * @param forumTopicId Forum topic identifier in which messages will be unpinned.
      */
-    public abstract suspend fun unpinAllMessageThreadMessages(chatId: Long, messageThreadId: Long): TdlResult<Ok>
+    public abstract suspend fun unpinAllForumTopicMessages(chatId: Long, forumTopicId: Int): TdlResult<Ok>
 
     /**
      * Removes a pinned message from a chat; requires canPinMessages member right if the chat is a basic group or supergroup, or canEditMessages administrator right if the chat is a channel.
@@ -9985,12 +10072,12 @@ public abstract class TdlClient internal constructor() {
         /**
          * The Git commit hash of the TDLib.
          */
-        public const val TDL_GIT_COMMIT_HASH: String = "7d257dcda5dd2c616c1146540ef51147c5bb2c69"
+        public const val TDL_GIT_COMMIT_HASH: String = "36b05e9e0310c9a32ae6cb807fe22c96600f6061"
 
         /**
          * The version of the TDLib.
          */
-        public const val TDL_VERSION: String = "1.8.55"
+        public const val TDL_VERSION: String = "1.8.56"
 
         /**
          * Creates a new instance of the [TdlClient].

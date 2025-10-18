@@ -37,7 +37,7 @@ import kotlin.String
  * @property signMessages True, if messages sent to the channel contains name of the sender. This field is only applicable to channels.
  * @property showMessageSender True, if messages sent to the channel have information about the sender user. This field is only applicable to channels.
  * @property joinToSendMessages True, if users need to join the supergroup before they can send messages. May be false only for discussion supergroups and channel direct messages groups.
- * @property joinByRequest True, if all users directly joining the supergroup need to be approved by supergroup administrators. Always false for channels and supergroups without username, location, or a linked chat.
+ * @property joinByRequest True, if all users directly joining the supergroup need to be approved by supergroup administrators. Can be true only for non-broadcast supergroups with username, location, or a linked chat.
  * @property isSlowModeEnabled True, if the slow mode is enabled in the supergroup.
  * @property isChannel True, if the supergroup is a channel.
  * @property isBroadcastGroup True, if the supergroup is a broadcast group, i.e. only administrators can send messages and there is no limit on the number of members.

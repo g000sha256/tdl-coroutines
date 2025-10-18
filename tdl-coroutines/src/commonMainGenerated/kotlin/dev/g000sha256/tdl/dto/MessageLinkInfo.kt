@@ -27,7 +27,7 @@ import kotlin.String
  *
  * @property isPublic True, if the link is a public link for a message or a forum topic in a chat.
  * @property chatId If found, identifier of the chat to which the link points, 0 otherwise.
- * @property messageThreadId If found, identifier of the message thread in which to open the message, or a forum topic to open if the message is missing.
+ * @property topicId Identifier of the specific topic in which the message must be opened, or a topic to open if the message is missing; may be null if none.
  * @property message If found, the linked message; may be null.
  * @property mediaTimestamp Timestamp from which the video/audio/video note/voice note/story playing must start, in seconds; 0 if not specified. The media can be in the message content or in its link preview.
  * @property forAlbum True, if the whole media album to which the message belongs is linked.
@@ -35,7 +35,7 @@ import kotlin.String
 public class MessageLinkInfo public constructor(
     public val isPublic: Boolean,
     public val chatId: Long,
-    public val messageThreadId: Long,
+    public val topicId: MessageTopic?,
     public val message: Message?,
     public val mediaTimestamp: Int,
     public val forAlbum: Boolean,
@@ -57,7 +57,7 @@ public class MessageLinkInfo public constructor(
         if (other.chatId != chatId) {
             return false
         }
-        if (other.messageThreadId != messageThreadId) {
+        if (other.topicId != topicId) {
             return false
         }
         if (other.message != message) {
@@ -73,7 +73,7 @@ public class MessageLinkInfo public constructor(
         var hashCode = this::class.hashCode()
         hashCode = 31 * hashCode + isPublic.hashCode()
         hashCode = 31 * hashCode + chatId.hashCode()
-        hashCode = 31 * hashCode + messageThreadId.hashCode()
+        hashCode = 31 * hashCode + topicId.hashCode()
         hashCode = 31 * hashCode + message.hashCode()
         hashCode = 31 * hashCode + mediaTimestamp.hashCode()
         hashCode = 31 * hashCode + forAlbum.hashCode()
@@ -90,8 +90,8 @@ public class MessageLinkInfo public constructor(
             append("chatId=")
             append(chatId)
             append(", ")
-            append("messageThreadId=")
-            append(messageThreadId)
+            append("topicId=")
+            append(topicId)
             append(", ")
             append("message=")
             append(message)

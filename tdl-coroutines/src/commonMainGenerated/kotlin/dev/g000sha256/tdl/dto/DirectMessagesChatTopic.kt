@@ -30,7 +30,7 @@ import kotlin.String
  * @property senderId Identifier of the user or chat that sends the messages to the topic.
  * @property order A parameter used to determine order of the topic in the topic list. Topics must be sorted by the order in descending order.
  * @property canSendUnpaidMessages True, if the other party can send unpaid messages even if the chat has paid messages enabled.
- * @property isMarkedAsUnread True, if the forum topic is marked as unread.
+ * @property isMarkedAsUnread True, if the topic is marked as unread.
  * @property unreadCount Number of unread messages in the chat.
  * @property lastReadInboxMessageId Identifier of the last read incoming message.
  * @property lastReadOutboxMessageId Identifier of the last read outgoing message.

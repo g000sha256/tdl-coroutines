@@ -32,6 +32,7 @@ import kotlin.String
  * @property photo Chat photo; may be null.
  * @property accentColorId Identifier of the accent color for message sender name, and backgrounds of chat photo, reply header, and link preview.
  * @property backgroundCustomEmojiId Identifier of a custom emoji to be shown on the reply header and link preview background for messages sent by the chat; 0 if none.
+ * @property upgradedGiftColors Color scheme based on an upgraded gift to be used for the chat instead of accentColorId and backgroundCustomEmojiId; may be null if none.
  * @property profileAccentColorId Identifier of the profile accent color for the chat's profile; -1 if none.
  * @property profileBackgroundCustomEmojiId Identifier of a custom emoji to be shown on the background of the chat's profile; 0 if none.
  * @property permissions Actions that non-administrator chat members are allowed to take in the chat.
@@ -75,6 +76,7 @@ public class Chat public constructor(
     public val photo: ChatPhotoInfo?,
     public val accentColorId: Int,
     public val backgroundCustomEmojiId: Long,
+    public val upgradedGiftColors: UpgradedGiftColors?,
     public val profileAccentColorId: Int,
     public val profileBackgroundCustomEmojiId: Long,
     public val permissions: ChatPermissions,
@@ -138,6 +140,9 @@ public class Chat public constructor(
             return false
         }
         if (other.backgroundCustomEmojiId != backgroundCustomEmojiId) {
+            return false
+        }
+        if (other.upgradedGiftColors != upgradedGiftColors) {
             return false
         }
         if (other.profileAccentColorId != profileAccentColorId) {
@@ -255,6 +260,7 @@ public class Chat public constructor(
         hashCode = 31 * hashCode + photo.hashCode()
         hashCode = 31 * hashCode + accentColorId.hashCode()
         hashCode = 31 * hashCode + backgroundCustomEmojiId.hashCode()
+        hashCode = 31 * hashCode + upgradedGiftColors.hashCode()
         hashCode = 31 * hashCode + profileAccentColorId.hashCode()
         hashCode = 31 * hashCode + profileBackgroundCustomEmojiId.hashCode()
         hashCode = 31 * hashCode + permissions.hashCode()
@@ -314,6 +320,9 @@ public class Chat public constructor(
             append(", ")
             append("backgroundCustomEmojiId=")
             append(backgroundCustomEmojiId)
+            append(", ")
+            append("upgradedGiftColors=")
+            append(upgradedGiftColors)
             append(", ")
             append("profileAccentColorId=")
             append(profileAccentColorId)

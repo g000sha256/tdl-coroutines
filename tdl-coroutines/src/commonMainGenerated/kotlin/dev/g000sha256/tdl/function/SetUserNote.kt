@@ -16,9 +16,10 @@
 
 package dev.g000sha256.tdl.function
 
+import dev.g000sha256.tdl.dto.FormattedText
 import kotlin.Long
 
-internal class ReadAllMessageThreadMentions internal constructor(
-    internal val chatId: Long,
-    internal val messageThreadId: Long,
+internal class SetUserNote internal constructor(
+    internal val userId: Long,
+    internal val note: FormattedText,
 )

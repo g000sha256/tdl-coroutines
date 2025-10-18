@@ -30,14 +30,14 @@ import kotlin.String
  * @property topics List of forum topics.
  * @property nextOffsetDate Offset date for the next getForumTopics request.
  * @property nextOffsetMessageId Offset message identifier for the next getForumTopics request.
- * @property nextOffsetMessageThreadId Offset message thread identifier for the next getForumTopics request.
+ * @property nextOffsetForumTopicId Offset forum topic identifier for the next getForumTopics request.
  */
 public class ForumTopics public constructor(
     public val totalCount: Int,
     public val topics: Array<ForumTopic>,
     public val nextOffsetDate: Int,
     public val nextOffsetMessageId: Long,
-    public val nextOffsetMessageThreadId: Long,
+    public val nextOffsetForumTopicId: Int,
 ) {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
@@ -63,7 +63,7 @@ public class ForumTopics public constructor(
         if (other.nextOffsetMessageId != nextOffsetMessageId) {
             return false
         }
-        return other.nextOffsetMessageThreadId == nextOffsetMessageThreadId
+        return other.nextOffsetForumTopicId == nextOffsetForumTopicId
     }
 
     override fun hashCode(): Int {
@@ -72,7 +72,7 @@ public class ForumTopics public constructor(
         hashCode = 31 * hashCode + topics.contentDeepHashCode()
         hashCode = 31 * hashCode + nextOffsetDate.hashCode()
         hashCode = 31 * hashCode + nextOffsetMessageId.hashCode()
-        hashCode = 31 * hashCode + nextOffsetMessageThreadId.hashCode()
+        hashCode = 31 * hashCode + nextOffsetForumTopicId.hashCode()
         return hashCode
     }
 
@@ -94,8 +94,8 @@ public class ForumTopics public constructor(
             append("nextOffsetMessageId=")
             append(nextOffsetMessageId)
             append(", ")
-            append("nextOffsetMessageThreadId=")
-            append(nextOffsetMessageThreadId)
+            append("nextOffsetForumTopicId=")
+            append(nextOffsetForumTopicId)
             append(")")
         }
     }

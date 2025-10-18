@@ -16,10 +16,12 @@
 
 package dev.g000sha256.tdl.function
 
-import dev.g000sha256.tdl.dto.Contact
+import dev.g000sha256.tdl.dto.ImportedContact
 import kotlin.Boolean
+import kotlin.Long
 
 internal class AddContact internal constructor(
-    internal val contact: Contact,
+    internal val userId: Long,
+    internal val contact: ImportedContact,
     internal val sharePhoneNumber: Boolean,
 )

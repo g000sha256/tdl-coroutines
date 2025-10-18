@@ -16,10 +16,10 @@
 
 package dev.g000sha256.tdl.function
 
+import kotlin.IntArray
 import kotlin.Long
-import kotlin.LongArray
 
 internal class SetPinnedForumTopics internal constructor(
     internal val chatId: Long,
-    internal val messageThreadIds: LongArray,
+    internal val forumTopicIds: IntArray,
 )

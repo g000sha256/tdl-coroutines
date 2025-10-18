@@ -17,13 +17,14 @@
 package dev.g000sha256.tdl.function
 
 import dev.g000sha256.tdl.dto.MessageSendOptions
+import dev.g000sha256.tdl.dto.MessageTopic
 import kotlin.Boolean
 import kotlin.Long
 import kotlin.LongArray
 
 internal class ForwardMessages internal constructor(
     internal val chatId: Long,
-    internal val messageThreadId: Long,
+    internal val topicId: MessageTopic?,
     internal val fromChatId: Long,
     internal val messageIds: LongArray,
     internal val options: MessageSendOptions?,

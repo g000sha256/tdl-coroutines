@@ -25,22 +25,21 @@ import kotlin.String
 /**
  * Contains basic information about a forum topic.
  *
- * @property chatId Identifier of the forum chat to which the topic belongs.
+ * @property chatId Identifier of a forum supergroup chat or a chat with a bot to which the topic belongs.
  * @property forumTopicId Forum topic identifier of the topic.
- * @property messageThreadId Message thread identifier of the topic.
  * @property name Name of the topic.
  * @property icon Icon of the topic.
  * @property creationDate Point in time (Unix timestamp) when the topic was created.
  * @property creatorId Identifier of the creator of the topic.
- * @property isGeneral True, if the topic is the General topic list.
+ * @property isGeneral True, if the topic is the General topic.
  * @property isOutgoing True, if the topic was created by the current user.
  * @property isClosed True, if the topic is closed. If the topic is closed, then the user must have canManageTopics administrator right in the supergroup or must be the creator of the topic to send messages there.
  * @property isHidden True, if the topic is hidden above the topic list and closed; for General topic only.
+ * @property isNameImplicit True, if the name of the topic wasn't added explicitly.
  */
 public class ForumTopicInfo public constructor(
     public val chatId: Long,
-    public val forumTopicId: Long,
-    public val messageThreadId: Long,
+    public val forumTopicId: Int,
     public val name: String,
     public val icon: ForumTopicIcon,
     public val creationDate: Int,
@@ -49,6 +48,7 @@ public class ForumTopicInfo public constructor(
     public val isOutgoing: Boolean,
     public val isClosed: Boolean,
     public val isHidden: Boolean,
+    public val isNameImplicit: Boolean,
 ) {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
@@ -65,9 +65,6 @@ public class ForumTopicInfo public constructor(
             return false
         }
         if (other.forumTopicId != forumTopicId) {
-            return false
-        }
-        if (other.messageThreadId != messageThreadId) {
             return false
         }
         if (other.name != name) {
@@ -91,14 +88,16 @@ public class ForumTopicInfo public constructor(
         if (other.isClosed != isClosed) {
             return false
         }
-        return other.isHidden == isHidden
+        if (other.isHidden != isHidden) {
+            return false
+        }
+        return other.isNameImplicit == isNameImplicit
     }
 
     override fun hashCode(): Int {
         var hashCode = this::class.hashCode()
         hashCode = 31 * hashCode + chatId.hashCode()
         hashCode = 31 * hashCode + forumTopicId.hashCode()
-        hashCode = 31 * hashCode + messageThreadId.hashCode()
         hashCode = 31 * hashCode + name.hashCode()
         hashCode = 31 * hashCode + icon.hashCode()
         hashCode = 31 * hashCode + creationDate.hashCode()
@@ -107,6 +106,7 @@ public class ForumTopicInfo public constructor(
         hashCode = 31 * hashCode + isOutgoing.hashCode()
         hashCode = 31 * hashCode + isClosed.hashCode()
         hashCode = 31 * hashCode + isHidden.hashCode()
+        hashCode = 31 * hashCode + isNameImplicit.hashCode()
         return hashCode
     }
 
@@ -119,9 +119,6 @@ public class ForumTopicInfo public constructor(
             append(", ")
             append("forumTopicId=")
             append(forumTopicId)
-            append(", ")
-            append("messageThreadId=")
-            append(messageThreadId)
             append(", ")
             append("name=")
             append(name)
@@ -146,6 +143,9 @@ public class ForumTopicInfo public constructor(
             append(", ")
             append("isHidden=")
             append(isHidden)
+            append(", ")
+            append("isNameImplicit=")
+            append(isNameImplicit)
             append(")")
         }
     }

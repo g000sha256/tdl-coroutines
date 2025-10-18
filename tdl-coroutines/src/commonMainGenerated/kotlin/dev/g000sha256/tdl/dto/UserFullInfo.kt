@@ -52,6 +52,7 @@ import kotlin.String
  * @property rating The current rating of the user; may be null if none.
  * @property pendingRating The rating of the user after the next change; may be null if the user isn't the current user or there are no pending rating changes.
  * @property pendingRatingDate Unix timestamp when rating of the user will change to pendingRating; 0 if the user isn't the current user or there are no pending rating changes.
+ * @property note Note added to the user's contact; may be null if none.
  * @property businessInfo Information about business settings for Telegram Business accounts; may be null if none.
  * @property botInfo For bots, information about the bot; may be null if the user isn't a bot.
  */
@@ -83,6 +84,7 @@ public class UserFullInfo public constructor(
     public val rating: UserRating?,
     public val pendingRating: UserRating?,
     public val pendingRatingDate: Int,
+    public val note: FormattedText?,
     public val businessInfo: BusinessInfo?,
     public val botInfo: BotInfo?,
 ) {
@@ -178,6 +180,9 @@ public class UserFullInfo public constructor(
         if (other.pendingRatingDate != pendingRatingDate) {
             return false
         }
+        if (other.note != note) {
+            return false
+        }
         if (other.businessInfo != businessInfo) {
             return false
         }
@@ -213,6 +218,7 @@ public class UserFullInfo public constructor(
         hashCode = 31 * hashCode + rating.hashCode()
         hashCode = 31 * hashCode + pendingRating.hashCode()
         hashCode = 31 * hashCode + pendingRatingDate.hashCode()
+        hashCode = 31 * hashCode + note.hashCode()
         hashCode = 31 * hashCode + businessInfo.hashCode()
         hashCode = 31 * hashCode + botInfo.hashCode()
         return hashCode
@@ -302,6 +308,9 @@ public class UserFullInfo public constructor(
             append(", ")
             append("pendingRatingDate=")
             append(pendingRatingDate)
+            append(", ")
+            append("note=")
+            append(note)
             append(", ")
             append("businessInfo=")
             append(businessInfo)

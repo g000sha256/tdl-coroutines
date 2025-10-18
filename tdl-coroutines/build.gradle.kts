@@ -6,7 +6,7 @@ import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinOnlyTarget
 import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinTargetWithBinaries
 
 group = "dev.g000sha256"
-version = "4.1.0"
+version = "5.0.0"
 
 plugins {
     alias(notation = catalog.plugins.android.library)

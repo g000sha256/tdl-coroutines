@@ -25,6 +25,6 @@ internal class GetForumTopics internal constructor(
     internal val query: String,
     internal val offsetDate: Int,
     internal val offsetMessageId: Long,
-    internal val offsetMessageThreadId: Long,
+    internal val offsetForumTopicId: Int,
     internal val limit: Int,
 )
