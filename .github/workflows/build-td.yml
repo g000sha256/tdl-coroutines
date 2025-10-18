@@ -3,7 +3,7 @@ name: Build TDLib
 on:
   push:
     branches:
-      - build-td
+      - rebuild-td-test
 
   workflow_dispatch:
     inputs:
