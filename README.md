@@ -20,9 +20,11 @@ repositories {
 }
 ```
 
+Replace `X.X.X` with the version from the `Maven Central` badge.
+
 ```kotlin
 dependencies {
-    implementation("dev.g000sha256:tdl-coroutines:5.0.0")
+    implementation("dev.g000sha256:tdl-coroutines:X.X.X")
 }
 ```
 
