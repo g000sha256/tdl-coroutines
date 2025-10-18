@@ -20,18 +20,21 @@ repositories {
 }
 ```
 
+Replace `X.X.X` with the version from the `Maven Central` badge.
+
 ```kotlin
 dependencies {
-    implementation("dev.g000sha256:tdl-coroutines:5.0.0")
+    implementation("dev.g000sha256:tdl-coroutines:X.X.X")
 }
 ```
 
 ## Usage
 
 > [!CAUTION]
-> The `TDLib` frequently includes breaking changes in its minor versions.
-> To reduce breaking changes when updating the `TDL Coroutines` library,
-> use named arguments for constructors and methods, as new parameters may be added in future releases.
+> The upstream `TDLib` library frequently introduces breaking changes even in patch versions.
+> Since `TDL Coroutines` wraps `TDLib`, these changes propagate to this library as well.
+> To minimize the impact, use named arguments for constructors and methods,
+> as parameters may be added, renamed, or removed in future releases.
 
 ### How to create a client
 
@@ -44,7 +47,7 @@ val client = TdlClient.create()
 
 ### How to subscribe to updates
 
-The `TdlClient` provides 165 update flows, as well as one that includes all updates.
+The `TdlClient` provides 165 update flows and the `allUpdates` flow, which combines all update events.
 
 ```kotlin
 coroutineScope.launch {
