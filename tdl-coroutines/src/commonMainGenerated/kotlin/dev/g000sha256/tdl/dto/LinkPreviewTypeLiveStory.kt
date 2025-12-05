@@ -19,20 +19,19 @@ package dev.g000sha256.tdl.dto
 import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
+import kotlin.Long
 import kotlin.String
 
 /**
- * A new message was received in a group call. It must be shown for at most getOption(&quot;group_call_message_show_time_max&quot;) seconds after receiving.
+ * The link is a link to a live story group call.
  *
- * @property groupCallId Identifier of the group call.
- * @property senderId Identifier of the sender of the message.
- * @property text Text of the message.
+ * @property storyPosterChatId The identifier of the chat that posted the story.
+ * @property storyId Story identifier.
  */
-public class UpdateGroupCallNewMessage public constructor(
-    public val groupCallId: Int,
-    public val senderId: MessageSender,
-    public val text: FormattedText,
-) : Update() {
+public class LinkPreviewTypeLiveStory public constructor(
+    public val storyPosterChatId: Long,
+    public val storyId: Int,
+) : LinkPreviewType() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true
@@ -43,36 +42,29 @@ public class UpdateGroupCallNewMessage public constructor(
         if (other::class != this::class) {
             return false
         }
-        other as UpdateGroupCallNewMessage
-        if (other.groupCallId != groupCallId) {
+        other as LinkPreviewTypeLiveStory
+        if (other.storyPosterChatId != storyPosterChatId) {
             return false
         }
-        if (other.senderId != senderId) {
-            return false
-        }
-        return other.text == text
+        return other.storyId == storyId
     }
 
     override fun hashCode(): Int {
         var hashCode = this::class.hashCode()
-        hashCode = 31 * hashCode + groupCallId.hashCode()
-        hashCode = 31 * hashCode + senderId.hashCode()
-        hashCode = 31 * hashCode + text.hashCode()
+        hashCode = 31 * hashCode + storyPosterChatId.hashCode()
+        hashCode = 31 * hashCode + storyId.hashCode()
         return hashCode
     }
 
     override fun toString(): String {
         return buildString {
-            append("UpdateGroupCallNewMessage")
+            append("LinkPreviewTypeLiveStory")
             append("(")
-            append("groupCallId=")
-            append(groupCallId)
+            append("storyPosterChatId=")
+            append(storyPosterChatId)
             append(", ")
-            append("senderId=")
-            append(senderId)
-            append(", ")
-            append("text=")
-            append(text)
+            append("storyId=")
+            append(storyId)
             append(")")
         }
     }

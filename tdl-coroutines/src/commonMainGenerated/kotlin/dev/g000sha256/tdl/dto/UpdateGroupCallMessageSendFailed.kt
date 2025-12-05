@@ -19,21 +19,20 @@ package dev.g000sha256.tdl.dto
 import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
-import kotlin.Long
 import kotlin.String
 
 /**
- * Describes an available stream in a video chat.
+ * A group call message failed to send.
  *
- * @property channelId Identifier of an audio/video channel.
- * @property scale Scale of segment durations in the stream. The duration is 1000/(2**scale) milliseconds.
- * @property timeOffset Point in time when the stream currently ends; Unix timestamp in milliseconds.
+ * @property groupCallId Identifier of the group call.
+ * @property messageId Message identifier.
+ * @property error The cause of the message sending failure.
  */
-public class VideoChatStream public constructor(
-    public val channelId: Int,
-    public val scale: Int,
-    public val timeOffset: Long,
-) {
+public class UpdateGroupCallMessageSendFailed public constructor(
+    public val groupCallId: Int,
+    public val messageId: Int,
+    public val error: Error,
+) : Update() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true
@@ -44,36 +43,36 @@ public class VideoChatStream public constructor(
         if (other::class != this::class) {
             return false
         }
-        other as VideoChatStream
-        if (other.channelId != channelId) {
+        other as UpdateGroupCallMessageSendFailed
+        if (other.groupCallId != groupCallId) {
             return false
         }
-        if (other.scale != scale) {
+        if (other.messageId != messageId) {
             return false
         }
-        return other.timeOffset == timeOffset
+        return other.error == error
     }
 
     override fun hashCode(): Int {
         var hashCode = this::class.hashCode()
-        hashCode = 31 * hashCode + channelId.hashCode()
-        hashCode = 31 * hashCode + scale.hashCode()
-        hashCode = 31 * hashCode + timeOffset.hashCode()
+        hashCode = 31 * hashCode + groupCallId.hashCode()
+        hashCode = 31 * hashCode + messageId.hashCode()
+        hashCode = 31 * hashCode + error.hashCode()
         return hashCode
     }
 
     override fun toString(): String {
         return buildString {
-            append("VideoChatStream")
+            append("UpdateGroupCallMessageSendFailed")
             append("(")
-            append("channelId=")
-            append(channelId)
+            append("groupCallId=")
+            append(groupCallId)
             append(", ")
-            append("scale=")
-            append(scale)
+            append("messageId=")
+            append(messageId)
             append(", ")
-            append("timeOffset=")
-            append(timeOffset)
+            append("error=")
+            append(error)
             append(")")
         }
     }

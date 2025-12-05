@@ -19,6 +19,7 @@ package dev.g000sha256.tdl.dto
 import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
+import kotlin.Long
 import kotlin.String
 
 /**
@@ -32,7 +33,7 @@ import kotlin.String
  */
 public class PaidReactor public constructor(
     public val senderId: MessageSender?,
-    public val starCount: Int,
+    public val starCount: Long,
     public val isTop: Boolean,
     public val isMe: Boolean,
     public val isAnonymous: Boolean,

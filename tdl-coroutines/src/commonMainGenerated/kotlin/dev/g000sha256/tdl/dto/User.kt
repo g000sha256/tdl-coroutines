@@ -45,8 +45,7 @@ import kotlin.String
  * @property isPremium True, if the user is a Telegram Premium user.
  * @property isSupport True, if the user is Telegram support account.
  * @property restrictionInfo Information about restrictions that must be applied to the corresponding private chat; may be null if none.
- * @property hasActiveStories True, if the user has non-expired stories available to the current user.
- * @property hasUnreadActiveStories True, if the user has unread non-expired stories available to the current user.
+ * @property activeStoryState State of active stories of the user; may be null if the user has no active stories.
  * @property restrictsNewChats True, if the user may restrict new chats with non-contacts. Use canSendMessageToUser to check whether the current user can message the user or try to create a chat with them.
  * @property paidMessageStarCount Number of Telegram Stars that must be paid by general user for each sent message to the user. If positive and userFullInfo is unknown, use canSendMessageToUser to check whether the current user must pay.
  * @property haveAccess If false, the user is inaccessible, and the only information known about the user is inside this class. Identifier of the user can't be passed to any method.
@@ -75,8 +74,7 @@ public class User public constructor(
     public val isPremium: Boolean,
     public val isSupport: Boolean,
     public val restrictionInfo: RestrictionInfo?,
-    public val hasActiveStories: Boolean,
-    public val hasUnreadActiveStories: Boolean,
+    public val activeStoryState: ActiveStoryState?,
     public val restrictsNewChats: Boolean,
     public val paidMessageStarCount: Long,
     public val haveAccess: Boolean,
@@ -155,10 +153,7 @@ public class User public constructor(
         if (other.restrictionInfo != restrictionInfo) {
             return false
         }
-        if (other.hasActiveStories != hasActiveStories) {
-            return false
-        }
-        if (other.hasUnreadActiveStories != hasUnreadActiveStories) {
+        if (other.activeStoryState != activeStoryState) {
             return false
         }
         if (other.restrictsNewChats != restrictsNewChats) {
@@ -201,8 +196,7 @@ public class User public constructor(
         hashCode = 31 * hashCode + isPremium.hashCode()
         hashCode = 31 * hashCode + isSupport.hashCode()
         hashCode = 31 * hashCode + restrictionInfo.hashCode()
-        hashCode = 31 * hashCode + hasActiveStories.hashCode()
-        hashCode = 31 * hashCode + hasUnreadActiveStories.hashCode()
+        hashCode = 31 * hashCode + activeStoryState.hashCode()
         hashCode = 31 * hashCode + restrictsNewChats.hashCode()
         hashCode = 31 * hashCode + paidMessageStarCount.hashCode()
         hashCode = 31 * hashCode + haveAccess.hashCode()
@@ -276,11 +270,8 @@ public class User public constructor(
             append("restrictionInfo=")
             append(restrictionInfo)
             append(", ")
-            append("hasActiveStories=")
-            append(hasActiveStories)
-            append(", ")
-            append("hasUnreadActiveStories=")
-            append(hasUnreadActiveStories)
+            append("activeStoryState=")
+            append(activeStoryState)
             append(", ")
             append("restrictsNewChats=")
             append(restrictsNewChats)

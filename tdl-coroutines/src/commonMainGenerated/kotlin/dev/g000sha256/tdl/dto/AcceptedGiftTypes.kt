@@ -27,12 +27,14 @@ import kotlin.String
  * @property unlimitedGifts True, if unlimited regular gifts are accepted.
  * @property limitedGifts True, if limited regular gifts are accepted.
  * @property upgradedGifts True, if upgraded gifts and regular gifts that can be upgraded for free are accepted.
+ * @property giftsFromChannels True, if gifts from channels are accepted subject to other restrictions.
  * @property premiumSubscription True, if Telegram Premium subscription is accepted.
  */
 public class AcceptedGiftTypes public constructor(
     public val unlimitedGifts: Boolean,
     public val limitedGifts: Boolean,
     public val upgradedGifts: Boolean,
+    public val giftsFromChannels: Boolean,
     public val premiumSubscription: Boolean,
 ) {
     override fun equals(other: Any?): Boolean {
@@ -55,6 +57,9 @@ public class AcceptedGiftTypes public constructor(
         if (other.upgradedGifts != upgradedGifts) {
             return false
         }
+        if (other.giftsFromChannels != giftsFromChannels) {
+            return false
+        }
         return other.premiumSubscription == premiumSubscription
     }
 
@@ -63,6 +68,7 @@ public class AcceptedGiftTypes public constructor(
         hashCode = 31 * hashCode + unlimitedGifts.hashCode()
         hashCode = 31 * hashCode + limitedGifts.hashCode()
         hashCode = 31 * hashCode + upgradedGifts.hashCode()
+        hashCode = 31 * hashCode + giftsFromChannels.hashCode()
         hashCode = 31 * hashCode + premiumSubscription.hashCode()
         return hashCode
     }
@@ -79,6 +85,9 @@ public class AcceptedGiftTypes public constructor(
             append(", ")
             append("upgradedGifts=")
             append(upgradedGifts)
+            append(", ")
+            append("giftsFromChannels=")
+            append(giftsFromChannels)
             append(", ")
             append("premiumSubscription=")
             append(premiumSubscription)

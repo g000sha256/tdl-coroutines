@@ -16,14 +16,8 @@
 
 package dev.g000sha256.tdl.function
 
-import dev.g000sha256.tdl.dto.GroupCallVideoQuality
-import kotlin.Int
 import kotlin.Long
 
-internal class GetVideoChatStreamSegment internal constructor(
-    internal val groupCallId: Int,
-    internal val timeOffset: Long,
-    internal val scale: Int,
-    internal val channelId: Int,
-    internal val videoQuality: GroupCallVideoQuality?,
+internal class OpenGiftAuction internal constructor(
+    internal val giftId: Long,
 )

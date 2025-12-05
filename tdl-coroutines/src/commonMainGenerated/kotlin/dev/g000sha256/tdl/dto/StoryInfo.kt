@@ -27,11 +27,13 @@ import kotlin.String
  * @property storyId Unique story identifier among stories of the chat.
  * @property date Point in time (Unix timestamp) when the story was published.
  * @property isForCloseFriends True, if the story is available only to close friends.
+ * @property isLive True, if the story is a live story.
  */
 public class StoryInfo public constructor(
     public val storyId: Int,
     public val date: Int,
     public val isForCloseFriends: Boolean,
+    public val isLive: Boolean,
 ) {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
@@ -50,7 +52,10 @@ public class StoryInfo public constructor(
         if (other.date != date) {
             return false
         }
-        return other.isForCloseFriends == isForCloseFriends
+        if (other.isForCloseFriends != isForCloseFriends) {
+            return false
+        }
+        return other.isLive == isLive
     }
 
     override fun hashCode(): Int {
@@ -58,6 +63,7 @@ public class StoryInfo public constructor(
         hashCode = 31 * hashCode + storyId.hashCode()
         hashCode = 31 * hashCode + date.hashCode()
         hashCode = 31 * hashCode + isForCloseFriends.hashCode()
+        hashCode = 31 * hashCode + isLive.hashCode()
         return hashCode
     }
 
@@ -73,6 +79,9 @@ public class StoryInfo public constructor(
             append(", ")
             append("isForCloseFriends=")
             append(isForCloseFriends)
+            append(", ")
+            append("isLive=")
+            append(isLive)
             append(")")
         }
     }

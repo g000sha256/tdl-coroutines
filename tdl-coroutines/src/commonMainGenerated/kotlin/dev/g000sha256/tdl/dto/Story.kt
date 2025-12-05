@@ -36,11 +36,12 @@ import kotlin.String
  * @property isEdited True, if the story was edited.
  * @property isPostedToChatPage True, if the story is saved in the profile of the chat that posted it and will be available there after expiration.
  * @property isVisibleOnlyForSelf True, if the story is visible only for the current user.
- * @property canBeAddedToAlbum True, if the story can be added to an album.
+ * @property canBeAddedToAlbum True, if the story can be added to an album using createStoryAlbum and addStoryAlbumStories.
  * @property canBeDeleted True, if the story can be deleted.
  * @property canBeEdited True, if the story can be edited.
  * @property canBeForwarded True, if the story can be forwarded as a message or reposted as a story. Otherwise, screenshotting and saving of the story content must be also forbidden.
  * @property canBeReplied True, if the story can be replied in the chat with the user that posted the story.
+ * @property canSetPrivacySettings True, if the story privacy settings can be changed.
  * @property canToggleIsPostedToChatPage True, if the story's isPostedToChatPage value can be changed.
  * @property canGetStatistics True, if the story statistics are available through getStoryStatistics.
  * @property canGetInteractions True, if interactions with the story can be received through getStoryInteractions.
@@ -69,6 +70,7 @@ public class Story public constructor(
     public val canBeEdited: Boolean,
     public val canBeForwarded: Boolean,
     public val canBeReplied: Boolean,
+    public val canSetPrivacySettings: Boolean,
     public val canToggleIsPostedToChatPage: Boolean,
     public val canGetStatistics: Boolean,
     public val canGetInteractions: Boolean,
@@ -135,6 +137,9 @@ public class Story public constructor(
         if (other.canBeReplied != canBeReplied) {
             return false
         }
+        if (other.canSetPrivacySettings != canSetPrivacySettings) {
+            return false
+        }
         if (other.canToggleIsPostedToChatPage != canToggleIsPostedToChatPage) {
             return false
         }
@@ -188,6 +193,7 @@ public class Story public constructor(
         hashCode = 31 * hashCode + canBeEdited.hashCode()
         hashCode = 31 * hashCode + canBeForwarded.hashCode()
         hashCode = 31 * hashCode + canBeReplied.hashCode()
+        hashCode = 31 * hashCode + canSetPrivacySettings.hashCode()
         hashCode = 31 * hashCode + canToggleIsPostedToChatPage.hashCode()
         hashCode = 31 * hashCode + canGetStatistics.hashCode()
         hashCode = 31 * hashCode + canGetInteractions.hashCode()
@@ -248,6 +254,9 @@ public class Story public constructor(
             append(", ")
             append("canBeReplied=")
             append(canBeReplied)
+            append(", ")
+            append("canSetPrivacySettings=")
+            append(canSetPrivacySettings)
             append(", ")
             append("canToggleIsPostedToChatPage=")
             append(canToggleIsPostedToChatPage)

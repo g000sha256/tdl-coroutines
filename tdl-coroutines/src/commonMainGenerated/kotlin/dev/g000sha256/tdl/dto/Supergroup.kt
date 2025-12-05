@@ -37,7 +37,7 @@ import kotlin.String
  * @property signMessages True, if messages sent to the channel contains name of the sender. This field is only applicable to channels.
  * @property showMessageSender True, if messages sent to the channel have information about the sender user. This field is only applicable to channels.
  * @property joinToSendMessages True, if users need to join the supergroup before they can send messages. May be false only for discussion supergroups and channel direct messages groups.
- * @property joinByRequest True, if all users directly joining the supergroup need to be approved by supergroup administrators. Can be true only for non-broadcast supergroups with username, location, or a linked chat.
+ * @property joinByRequest True, if all users directly joining the supergroup need to be approved by supergroup administrators. May be true only for non-broadcast supergroups with username, location, or a linked chat.
  * @property isSlowModeEnabled True, if the slow mode is enabled in the supergroup.
  * @property isChannel True, if the supergroup is a channel.
  * @property isBroadcastGroup True, if the supergroup is a broadcast group, i.e. only administrators can send messages and there is no limit on the number of members.
@@ -49,8 +49,7 @@ import kotlin.String
  * @property hasForumTabs True, if the supergroup is a forum, which topics are shown in the same way as in channel direct messages groups.
  * @property restrictionInfo Information about the restrictions that must be applied to the corresponding supergroup or channel chat; may be null if none.
  * @property paidMessageStarCount Number of Telegram Stars that must be paid by non-administrator users of the supergroup chat for each sent message.
- * @property hasActiveStories True, if the supergroup or channel has non-expired stories available to the current user.
- * @property hasUnreadActiveStories True, if the supergroup or channel has unread non-expired stories available to the current user.
+ * @property activeStoryState State of active stories of the supergroup or channel; may be null if there are no active stories.
  */
 public class Supergroup public constructor(
     public val id: Long,
@@ -77,8 +76,7 @@ public class Supergroup public constructor(
     public val hasForumTabs: Boolean,
     public val restrictionInfo: RestrictionInfo?,
     public val paidMessageStarCount: Long,
-    public val hasActiveStories: Boolean,
-    public val hasUnreadActiveStories: Boolean,
+    public val activeStoryState: ActiveStoryState?,
 ) {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
@@ -163,10 +161,7 @@ public class Supergroup public constructor(
         if (other.paidMessageStarCount != paidMessageStarCount) {
             return false
         }
-        if (other.hasActiveStories != hasActiveStories) {
-            return false
-        }
-        return other.hasUnreadActiveStories == hasUnreadActiveStories
+        return other.activeStoryState == activeStoryState
     }
 
     override fun hashCode(): Int {
@@ -195,8 +190,7 @@ public class Supergroup public constructor(
         hashCode = 31 * hashCode + hasForumTabs.hashCode()
         hashCode = 31 * hashCode + restrictionInfo.hashCode()
         hashCode = 31 * hashCode + paidMessageStarCount.hashCode()
-        hashCode = 31 * hashCode + hasActiveStories.hashCode()
-        hashCode = 31 * hashCode + hasUnreadActiveStories.hashCode()
+        hashCode = 31 * hashCode + activeStoryState.hashCode()
         return hashCode
     }
 
@@ -276,11 +270,8 @@ public class Supergroup public constructor(
             append("paidMessageStarCount=")
             append(paidMessageStarCount)
             append(", ")
-            append("hasActiveStories=")
-            append(hasActiveStories)
-            append(", ")
-            append("hasUnreadActiveStories=")
-            append(hasUnreadActiveStories)
+            append("activeStoryState=")
+            append(activeStoryState)
             append(")")
         }
     }

@@ -50,7 +50,7 @@ import kotlin.String
  * @property factCheck Information about fact-check added to the message; may be null if none.
  * @property suggestedPostInfo Information about the suggested post; may be null if the message isn't a suggested post.
  * @property replyTo Information about the message or the story this message is replying to; may be null if none.
- * @property topicId Identifier of the topic within the chat to which the message belongs; may be null if none.
+ * @property topicId Identifier of the topic within the chat to which the message belongs; may be null if none; may change when the chat is converted to a forum or back.
  * @property selfDestructType The message's self-destruct type; may be null if none.
  * @property selfDestructIn Time left before the message self-destruct timer expires, in seconds; 0 if self-destruction isn't scheduled yet.
  * @property autoDeleteIn Time left before the message will be automatically deleted by messageAutoDeleteTime setting of the chat, in seconds; 0 if never.
