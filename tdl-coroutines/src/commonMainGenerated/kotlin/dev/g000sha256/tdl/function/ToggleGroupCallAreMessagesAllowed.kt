@@ -16,8 +16,10 @@
 
 package dev.g000sha256.tdl.function
 
+import kotlin.Boolean
 import kotlin.Int
 
-internal class GetVideoChatStreams internal constructor(
+internal class ToggleGroupCallAreMessagesAllowed internal constructor(
     internal val groupCallId: Int,
+    internal val areMessagesAllowed: Boolean,
 )

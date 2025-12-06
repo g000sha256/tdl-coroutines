@@ -17,19 +17,19 @@
 package dev.g000sha256.tdl.dto
 
 import kotlin.Any
-import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
+import kotlin.Long
 import kotlin.String
 
 /**
- * Represents a list of video chat streams.
+ * The transaction is a sending of a paid group reaction; for regular users only.
  *
- * @property streams A list of video chat streams.
+ * @property chatId Identifier of the chat that received the payment.
  */
-public class VideoChatStreams public constructor(
-    public val streams: Array<VideoChatStream>,
-) {
+public class StarTransactionTypePaidGroupCallReactionSend public constructor(
+    public val chatId: Long,
+) : StarTransactionType() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true
@@ -40,24 +40,22 @@ public class VideoChatStreams public constructor(
         if (other::class != this::class) {
             return false
         }
-        other as VideoChatStreams
-        return other.streams.contentDeepEquals(streams)
+        other as StarTransactionTypePaidGroupCallReactionSend
+        return other.chatId == chatId
     }
 
     override fun hashCode(): Int {
         var hashCode = this::class.hashCode()
-        hashCode = 31 * hashCode + streams.contentDeepHashCode()
+        hashCode = 31 * hashCode + chatId.hashCode()
         return hashCode
     }
 
     override fun toString(): String {
         return buildString {
-            append("VideoChatStreams")
+            append("StarTransactionTypePaidGroupCallReactionSend")
             append("(")
-            append("streams=")
-            streams
-                .contentDeepToString()
-                .also { append(it) }
+            append("chatId=")
+            append(chatId)
             append(")")
         }
     }

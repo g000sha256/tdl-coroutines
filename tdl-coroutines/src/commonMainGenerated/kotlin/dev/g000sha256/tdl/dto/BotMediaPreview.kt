@@ -25,7 +25,7 @@ import kotlin.String
  * Describes media previews of a bot.
  *
  * @property date Point in time (Unix timestamp) when the preview was added or changed last time.
- * @property content Content of the preview.
+ * @property content Content of the preview; may only be of the types storyContentPhoto, storyContentVideo, or storyContentUnsupported.
  */
 public class BotMediaPreview public constructor(
     public val date: Int,
