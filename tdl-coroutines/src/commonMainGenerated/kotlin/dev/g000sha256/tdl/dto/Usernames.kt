@@ -27,12 +27,14 @@ import kotlin.String
  *
  * @property activeUsernames List of active usernames; the first one must be shown as the primary username. The order of active usernames can be changed with reorderActiveUsernames, reorderBotActiveUsernames or reorderSupergroupActiveUsernames.
  * @property disabledUsernames List of currently disabled usernames; the username can be activated with toggleUsernameIsActive, toggleBotUsernameIsActive, or toggleSupergroupUsernameIsActive.
- * @property editableUsername Active or disabled username, which may be changed with setUsername or setSupergroupUsername. Information about other active usernames can be received using getCollectibleItemInfo.
+ * @property editableUsername Active or disabled username, which may be changed with setUsername or setSupergroupUsername.
+ * @property collectibleUsernames Collectible usernames that were purchased at https://fragment.com and can be passed to getCollectibleItemInfo for more details.
  */
 public class Usernames public constructor(
     public val activeUsernames: Array<String>,
     public val disabledUsernames: Array<String>,
     public val editableUsername: String,
+    public val collectibleUsernames: Array<String>,
 ) {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
@@ -53,7 +55,10 @@ public class Usernames public constructor(
         if (!disabledUsernamesEquals) {
             return false
         }
-        return other.editableUsername == editableUsername
+        if (other.editableUsername != editableUsername) {
+            return false
+        }
+        return other.collectibleUsernames.contentDeepEquals(collectibleUsernames)
     }
 
     override fun hashCode(): Int {
@@ -61,6 +66,7 @@ public class Usernames public constructor(
         hashCode = 31 * hashCode + activeUsernames.contentDeepHashCode()
         hashCode = 31 * hashCode + disabledUsernames.contentDeepHashCode()
         hashCode = 31 * hashCode + editableUsername.hashCode()
+        hashCode = 31 * hashCode + collectibleUsernames.contentDeepHashCode()
         return hashCode
     }
 
@@ -80,6 +86,11 @@ public class Usernames public constructor(
             append(", ")
             append("editableUsername=")
             append(editableUsername)
+            append(", ")
+            append("collectibleUsernames=")
+            collectibleUsernames
+                .contentDeepToString()
+                .also { append(it) }
             append(")")
         }
     }

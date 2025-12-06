@@ -33,7 +33,8 @@ import kotlin.String
  * @property amount The paid amount, in the smallest units of the currency; 0 if unknown.
  * @property cryptocurrency Cryptocurrency used to pay for the gift; may be empty if none or unknown.
  * @property cryptocurrencyAmount The paid amount, in the smallest units of the cryptocurrency; 0 if unknown.
- * @property monthCount Number of months the Telegram Premium subscription will be active after code activation.
+ * @property monthCount Number of months the Telegram Premium subscription will be active after code activation; 0 if the number of months isn't integer.
+ * @property dayCount Number of days the Telegram Premium subscription will be active after code activation.
  * @property sticker A sticker to be shown in the message; may be null if unknown.
  * @property code The gift code.
  */
@@ -47,6 +48,7 @@ public class MessagePremiumGiftCode public constructor(
     public val cryptocurrency: String,
     public val cryptocurrencyAmount: Long,
     public val monthCount: Int,
+    public val dayCount: Int,
     public val sticker: Sticker?,
     public val code: String,
 ) : MessageContent() {
@@ -88,6 +90,9 @@ public class MessagePremiumGiftCode public constructor(
         if (other.monthCount != monthCount) {
             return false
         }
+        if (other.dayCount != dayCount) {
+            return false
+        }
         if (other.sticker != sticker) {
             return false
         }
@@ -105,6 +110,7 @@ public class MessagePremiumGiftCode public constructor(
         hashCode = 31 * hashCode + cryptocurrency.hashCode()
         hashCode = 31 * hashCode + cryptocurrencyAmount.hashCode()
         hashCode = 31 * hashCode + monthCount.hashCode()
+        hashCode = 31 * hashCode + dayCount.hashCode()
         hashCode = 31 * hashCode + sticker.hashCode()
         hashCode = 31 * hashCode + code.hashCode()
         return hashCode
@@ -140,6 +146,9 @@ public class MessagePremiumGiftCode public constructor(
             append(", ")
             append("monthCount=")
             append(monthCount)
+            append(", ")
+            append("dayCount=")
+            append(dayCount)
             append(", ")
             append("sticker=")
             append(sticker)

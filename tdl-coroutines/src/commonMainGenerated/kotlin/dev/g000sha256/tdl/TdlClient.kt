@@ -164,6 +164,8 @@ import dev.g000sha256.tdl.dto.FoundStories
 import dev.g000sha256.tdl.dto.FoundUsers
 import dev.g000sha256.tdl.dto.FoundWebApp
 import dev.g000sha256.tdl.dto.GameHighScores
+import dev.g000sha256.tdl.dto.GiftAuctionAcquiredGifts
+import dev.g000sha256.tdl.dto.GiftAuctionState
 import dev.g000sha256.tdl.dto.GiftChatThemes
 import dev.g000sha256.tdl.dto.GiftCollection
 import dev.g000sha256.tdl.dto.GiftCollections
@@ -180,7 +182,9 @@ import dev.g000sha256.tdl.dto.GroupCallDataChannel
 import dev.g000sha256.tdl.dto.GroupCallId
 import dev.g000sha256.tdl.dto.GroupCallInfo
 import dev.g000sha256.tdl.dto.GroupCallJoinParameters
+import dev.g000sha256.tdl.dto.GroupCallParticipant
 import dev.g000sha256.tdl.dto.GroupCallParticipants
+import dev.g000sha256.tdl.dto.GroupCallStreams
 import dev.g000sha256.tdl.dto.GroupCallVideoQuality
 import dev.g000sha256.tdl.dto.Hashtags
 import dev.g000sha256.tdl.dto.HttpUrl
@@ -217,6 +221,7 @@ import dev.g000sha256.tdl.dto.LanguagePackStringValue
 import dev.g000sha256.tdl.dto.LanguagePackStrings
 import dev.g000sha256.tdl.dto.LinkPreview
 import dev.g000sha256.tdl.dto.LinkPreviewOptions
+import dev.g000sha256.tdl.dto.LiveStoryDonors
 import dev.g000sha256.tdl.dto.LocalizationTargetInfo
 import dev.g000sha256.tdl.dto.Location
 import dev.g000sha256.tdl.dto.LocationAddress
@@ -327,6 +332,7 @@ import dev.g000sha256.tdl.dto.StarRevenueStatistics
 import dev.g000sha256.tdl.dto.StarSubscriptionPricing
 import dev.g000sha256.tdl.dto.StarSubscriptions
 import dev.g000sha256.tdl.dto.StarTransactions
+import dev.g000sha256.tdl.dto.StartLiveStoryResult
 import dev.g000sha256.tdl.dto.StatisticalGraph
 import dev.g000sha256.tdl.dto.Sticker
 import dev.g000sha256.tdl.dto.StickerFormat
@@ -374,6 +380,7 @@ import dev.g000sha256.tdl.dto.TrendingStickerSets
 import dev.g000sha256.tdl.dto.Update
 import dev.g000sha256.tdl.dto.UpdateAccentColors
 import dev.g000sha256.tdl.dto.UpdateActiveEmojiReactions
+import dev.g000sha256.tdl.dto.UpdateActiveGiftAuctions
 import dev.g000sha256.tdl.dto.UpdateActiveLiveLocationMessages
 import dev.g000sha256.tdl.dto.UpdateActiveNotifications
 import dev.g000sha256.tdl.dto.UpdateAgeVerificationParameters
@@ -450,14 +457,18 @@ import dev.g000sha256.tdl.dto.UpdateFileRemovedFromDownloads
 import dev.g000sha256.tdl.dto.UpdateForumTopic
 import dev.g000sha256.tdl.dto.UpdateForumTopicInfo
 import dev.g000sha256.tdl.dto.UpdateFreezeState
+import dev.g000sha256.tdl.dto.UpdateGiftAuctionState
 import dev.g000sha256.tdl.dto.UpdateGroupCall
-import dev.g000sha256.tdl.dto.UpdateGroupCallNewMessage
+import dev.g000sha256.tdl.dto.UpdateGroupCallMessageLevels
+import dev.g000sha256.tdl.dto.UpdateGroupCallMessageSendFailed
+import dev.g000sha256.tdl.dto.UpdateGroupCallMessagesDeleted
 import dev.g000sha256.tdl.dto.UpdateGroupCallParticipant
 import dev.g000sha256.tdl.dto.UpdateGroupCallParticipants
 import dev.g000sha256.tdl.dto.UpdateGroupCallVerificationState
 import dev.g000sha256.tdl.dto.UpdateHavePendingNotifications
 import dev.g000sha256.tdl.dto.UpdateInstalledStickerSets
 import dev.g000sha256.tdl.dto.UpdateLanguagePackStrings
+import dev.g000sha256.tdl.dto.UpdateLiveStoryTopDonors
 import dev.g000sha256.tdl.dto.UpdateMessageContent
 import dev.g000sha256.tdl.dto.UpdateMessageContentOpened
 import dev.g000sha256.tdl.dto.UpdateMessageEdited
@@ -482,6 +493,8 @@ import dev.g000sha256.tdl.dto.UpdateNewChatJoinRequest
 import dev.g000sha256.tdl.dto.UpdateNewChosenInlineResult
 import dev.g000sha256.tdl.dto.UpdateNewCustomEvent
 import dev.g000sha256.tdl.dto.UpdateNewCustomQuery
+import dev.g000sha256.tdl.dto.UpdateNewGroupCallMessage
+import dev.g000sha256.tdl.dto.UpdateNewGroupCallPaidReaction
 import dev.g000sha256.tdl.dto.UpdateNewInlineCallbackQuery
 import dev.g000sha256.tdl.dto.UpdateNewInlineQuery
 import dev.g000sha256.tdl.dto.UpdateNewMessage
@@ -528,6 +541,7 @@ import dev.g000sha256.tdl.dto.UpdateTermsOfService
 import dev.g000sha256.tdl.dto.UpdateTonRevenueStatus
 import dev.g000sha256.tdl.dto.UpdateTopicMessageCount
 import dev.g000sha256.tdl.dto.UpdateTrendingStickerSets
+import dev.g000sha256.tdl.dto.UpdateTrustedMiniAppBots
 import dev.g000sha256.tdl.dto.UpdateUnconfirmedSession
 import dev.g000sha256.tdl.dto.UpdateUnreadChatCount
 import dev.g000sha256.tdl.dto.UpdateUnreadMessageCount
@@ -550,7 +564,6 @@ import dev.g000sha256.tdl.dto.UserPrivacySettingRules
 import dev.g000sha256.tdl.dto.UserSupportInfo
 import dev.g000sha256.tdl.dto.Users
 import dev.g000sha256.tdl.dto.ValidatedOrderInfo
-import dev.g000sha256.tdl.dto.VideoChatStreams
 import dev.g000sha256.tdl.dto.VideoMessageAdvertisements
 import dev.g000sha256.tdl.dto.WebAppInfo
 import dev.g000sha256.tdl.dto.WebAppOpenParameters
@@ -1047,14 +1060,44 @@ public abstract class TdlClient internal constructor() {
     public abstract val groupCallVerificationStateUpdates: Flow<UpdateGroupCallVerificationState>
 
     /**
-     * A new message was received in a group call. It must be shown for at most getOption(&quot;group_call_message_show_time_max&quot;) seconds after receiving.
+     * A new message was received in a group call.
      */
-    public abstract val groupCallNewMessageUpdates: Flow<UpdateGroupCallNewMessage>
+    public abstract val newGroupCallMessageUpdates: Flow<UpdateNewGroupCallMessage>
+
+    /**
+     * A new paid reaction was received in a live story group call.
+     */
+    public abstract val newGroupCallPaidReactionUpdates: Flow<UpdateNewGroupCallPaidReaction>
+
+    /**
+     * A group call message failed to send.
+     */
+    public abstract val groupCallMessageSendFailedUpdates: Flow<UpdateGroupCallMessageSendFailed>
+
+    /**
+     * Some group call messages were deleted.
+     */
+    public abstract val groupCallMessagesDeletedUpdates: Flow<UpdateGroupCallMessagesDeleted>
+
+    /**
+     * The list of top donors in live story group call has changed.
+     */
+    public abstract val liveStoryTopDonorsUpdates: Flow<UpdateLiveStoryTopDonors>
 
     /**
      * New call signaling data arrived.
      */
     public abstract val newCallSignalingDataUpdates: Flow<UpdateNewCallSignalingData>
+
+    /**
+     * State of a gift auction was updated.
+     */
+    public abstract val giftAuctionStateUpdates: Flow<UpdateGiftAuctionState>
+
+    /**
+     * The list of auctions in which participate the current user has changed.
+     */
+    public abstract val activeGiftAuctionsUpdates: Flow<UpdateActiveGiftAuctions>
 
     /**
      * Some privacy setting rules have been changed.
@@ -1105,6 +1148,11 @@ public abstract class TdlClient internal constructor() {
      * Story stealth mode settings have changed.
      */
     public abstract val storyStealthModeUpdates: Flow<UpdateStoryStealthMode>
+
+    /**
+     * Lists of bots which Mini Apps must be allowed to read text from clipboard and must be opened without a warning.
+     */
+    public abstract val trustedMiniAppBotsUpdates: Flow<UpdateTrustedMiniAppBots>
 
     /**
      * An option changed its value.
@@ -1265,6 +1313,11 @@ public abstract class TdlClient internal constructor() {
      * The parameters of speech recognition without Telegram Premium subscription has changed.
      */
     public abstract val speechRecognitionTrialUpdates: Flow<UpdateSpeechRecognitionTrial>
+
+    /**
+     * The levels of live story group call messages have changed.
+     */
+    public abstract val groupCallMessageLevelsUpdates: Flow<UpdateGroupCallMessageLevels>
 
     /**
      * The list of supported dice emojis has changed.
@@ -1536,7 +1589,7 @@ public abstract class TdlClient internal constructor() {
      *
      * @param ownerId Identifier of the user or the channel chat that owns the collection.
      * @param collectionId Identifier of the gift collection.
-     * @param receivedGiftIds Identifier of the gifts to add to the collection; 1-getOption(&quot;gift_collection_gift_count_max&quot;) identifiers. If after addition the collection has more than getOption(&quot;gift_collection_gift_count_max&quot;) gifts, then the last one are removed from the collection.
+     * @param receivedGiftIds Identifier of the gifts to add to the collection; 1-getOption(&quot;gift_collection_size_max&quot;) identifiers. If after addition the collection has more than getOption(&quot;gift_collection_size_max&quot;) gifts, then the last one are removed from the collection.
      */
     public abstract suspend fun addGiftCollectionGifts(
         ownerId: MessageSender,
@@ -1594,7 +1647,7 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun addNetworkStatistics(entry: NetworkStatisticsEntry): TdlResult<Ok>
 
     /**
-     * Sent a suggested post based on a previously sent message in a channel direct messages chat. Can be also used to suggest price or time change for an existing suggested post. Returns the sent message.
+     * Sends a suggested post based on a previously sent message in a channel direct messages chat. Can be also used to suggest price or time change for an existing suggested post. Returns the sent message.
      *
      * @param chatId Identifier of the channel direct messages chat.
      * @param messageId Identifier of the message in the chat which will be sent as suggested post. Use messageProperties.canAddOffer to check whether an offer can be added or messageProperties.canEditSuggestedPostInfo to check whether price or time of sending of the post can be changed.
@@ -1605,6 +1658,14 @@ public abstract class TdlClient internal constructor() {
         messageId: Long,
         options: MessageSendOptions,
     ): TdlResult<Message>
+
+    /**
+     * Adds pending paid reaction in a live story group call. Can't be used in live stories posted by the current user. Call commitPendingLiveStoryReactions or removePendingLiveStoryReactions to actually send all pending reactions when the undo timer is over or abort the sending.
+     *
+     * @param groupCallId Group call identifier.
+     * @param starCount Number of Telegram Stars to be used for the reaction. The total number of pending paid reactions must not exceed getOption(&quot;paid_group_call_message_star_count_max&quot;).
+     */
+    public abstract suspend fun addPendingLiveStoryReaction(groupCallId: Int, starCount: Long): TdlResult<Ok>
 
     /**
      * Adds the paid message reaction to a message. Use getMessageAvailableReactions to check whether the reaction is available for the message.
@@ -1733,7 +1794,7 @@ public abstract class TdlClient internal constructor() {
      *
      * @param chatId Identifier of the chat that owns the stories.
      * @param storyAlbumId Identifier of the story album.
-     * @param storyIds Identifier of the stories to add to the album; 1-getOption(&quot;story_album_story_count_max&quot;) identifiers. If after addition the album has more than getOption(&quot;story_album_story_count_max&quot;) stories, then the last one are removed from the album.
+     * @param storyIds Identifier of the stories to add to the album; 1-getOption(&quot;story_album_size_max&quot;) identifiers. If after addition the album has more than getOption(&quot;story_album_size_max&quot;) stories, then the last one are removed from the album.
      */
     public abstract suspend fun addStoryAlbumStories(
         chatId: Long,
@@ -2244,6 +2305,13 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun closeChat(chatId: Long): TdlResult<Ok>
 
     /**
+     * Informs TDLib that a gift auction was closed by the user.
+     *
+     * @param giftId Identifier of the gift, which auction was closed.
+     */
+    public abstract suspend fun closeGiftAuction(giftId: Long): TdlResult<Ok>
+
+    /**
      * Closes a secret chat, effectively transferring its state to secretChatStateClosed.
      *
      * @param secretChatId Secret chat identifier.
@@ -2264,6 +2332,13 @@ public abstract class TdlClient internal constructor() {
      * @param webAppLaunchId Identifier of Web App launch, received from openWebApp.
      */
     public abstract suspend fun closeWebApp(webAppLaunchId: Long): TdlResult<Ok>
+
+    /**
+     * Applies all pending paid reactions in a live story group call.
+     *
+     * @param groupCallId Group call identifier.
+     */
+    public abstract suspend fun commitPendingLiveStoryReactions(groupCallId: Int): TdlResult<Ok>
 
     /**
      * Applies all pending paid reactions on a message.
@@ -2393,7 +2468,7 @@ public abstract class TdlClient internal constructor() {
      *
      * @param ownerId Identifier of the user or the channel chat that received the gifts.
      * @param name Name of the collection; 1-12 characters.
-     * @param receivedGiftIds Identifier of the gifts to add to the collection; 0-getOption(&quot;gift_collection_gift_count_max&quot;) identifiers.
+     * @param receivedGiftIds Identifier of the gifts to add to the collection; 0-getOption(&quot;gift_collection_size_max&quot;) identifiers.
      */
     public abstract suspend fun createGiftCollection(
         ownerId: MessageSender,
@@ -2498,7 +2573,7 @@ public abstract class TdlClient internal constructor() {
      *
      * @param storyPosterChatId Identifier of the chat that posted the stories.
      * @param name Name of the album; 1-12 characters.
-     * @param storyIds Identifiers of stories to add to the album; 0-getOption(&quot;story_album_story_count_max&quot;) identifiers.
+     * @param storyIds Identifiers of stories to add to the album; 0-getOption(&quot;story_album_size_max&quot;) identifiers.
      */
     public abstract suspend fun createStoryAlbum(
         storyPosterChatId: Long,
@@ -2774,6 +2849,32 @@ public abstract class TdlClient internal constructor() {
      * @param collectionId Identifier of the gift collection.
      */
     public abstract suspend fun deleteGiftCollection(ownerId: MessageSender, collectionId: Int): TdlResult<Ok>
+
+    /**
+     * Deletes messages in a group call; for live story calls only. Requires groupCallMessage.canBeDeleted right.
+     *
+     * @param groupCallId Group call identifier.
+     * @param messageIds Identifiers of the messages to be deleted.
+     * @param reportSpam Pass true to report the messages as spam.
+     */
+    public abstract suspend fun deleteGroupCallMessages(
+        groupCallId: Int,
+        messageIds: IntArray,
+        reportSpam: Boolean,
+    ): TdlResult<Ok>
+
+    /**
+     * Deletes all messages sent by the specified message sender in a group call; for live story calls only. Requires groupCall.canDeleteMessages right.
+     *
+     * @param groupCallId Group call identifier.
+     * @param senderId Identifier of the sender of messages to delete.
+     * @param reportSpam Pass true to report the messages as spam.
+     */
+    public abstract suspend fun deleteGroupCallMessagesBySender(
+        groupCallId: Int,
+        senderId: MessageSender,
+        reportSpam: Boolean,
+    ): TdlResult<Ok>
 
     /**
      * Deletes all information about a language pack in the current localization target. The language pack which is currently in use (including base language pack) or is being synchronized can't be deleted. Can be called before authorization.
@@ -3476,7 +3577,7 @@ public abstract class TdlClient internal constructor() {
     ): TdlResult<Data>
 
     /**
-     * Ends a group call. Requires groupCall.canBeManaged right for video chats or groupCall.isOwned otherwise.
+     * Ends a group call. Requires groupCall.canBeManaged right for video chats and live stories or groupCall.isOwned otherwise.
      *
      * @param groupCallId Group call identifier.
      */
@@ -3490,7 +3591,7 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun endGroupCallRecording(groupCallId: Int): TdlResult<Ok>
 
     /**
-     * Ends screen sharing in a joined group call.
+     * Ends screen sharing in a joined group call; not supported in live stories.
      *
      * @param groupCallId Group call identifier.
      */
@@ -4594,6 +4695,20 @@ public abstract class TdlClient internal constructor() {
     ): TdlResult<GameHighScores>
 
     /**
+     * Returns the gifts that were acquired by the current user on a gift auction.
+     *
+     * @param giftId Identifier of the auctioned gift.
+     */
+    public abstract suspend fun getGiftAuctionAcquiredGifts(giftId: Long): TdlResult<GiftAuctionAcquiredGifts>
+
+    /**
+     * Returns auction state for a gift.
+     *
+     * @param auctionId Unique identifier of the auction.
+     */
+    public abstract suspend fun getGiftAuctionState(auctionId: String): TdlResult<GiftAuctionState>
+
+    /**
      * Returns available to the current user gift chat themes.
      *
      * @param offset Offset of the first entry to return as received from the previous request; use empty string to get the first chunk of results.
@@ -4650,6 +4765,30 @@ public abstract class TdlClient internal constructor() {
      * @param limit The maximum number of participants to return; must be positive.
      */
     public abstract suspend fun getGroupCallParticipants(inputGroupCall: InputGroupCall, limit: Int): TdlResult<GroupCallParticipants>
+
+    /**
+     * Returns a file with a segment of a video chat or live story in a modified OGG format for audio or MPEG-4 format for video.
+     *
+     * @param groupCallId Group call identifier.
+     * @param timeOffset Point in time when the stream segment begins; Unix timestamp in milliseconds.
+     * @param scale Segment duration scale; 0-1. Segment's duration is 1000/(2**scale) milliseconds.
+     * @param channelId Identifier of an audio/video channel to get as received from tgcalls.
+     * @param videoQuality Video quality as received from tgcalls; pass null to get the worst available quality.
+     */
+    public abstract suspend fun getGroupCallStreamSegment(
+        groupCallId: Int,
+        timeOffset: Long,
+        scale: Int,
+        channelId: Int,
+        videoQuality: GroupCallVideoQuality? = null,
+    ): TdlResult<Data>
+
+    /**
+     * Returns information about available streams in a video chat or a live story.
+     *
+     * @param groupCallId Group call identifier.
+     */
+    public abstract suspend fun getGroupCallStreams(groupCallId: Int): TdlResult<GroupCallStreams>
 
     /**
      * Returns a list of common group chats with a given user. Chats are sorted by their type and creation date.
@@ -4787,6 +4926,34 @@ public abstract class TdlClient internal constructor() {
      * @param linkPreviewOptions Options to be used for generation of the link preview; pass null to use default link preview options.
      */
     public abstract suspend fun getLinkPreview(text: FormattedText, linkPreviewOptions: LinkPreviewOptions? = null): TdlResult<LinkPreview>
+
+    /**
+     * Returns the list of message sender identifiers, on whose behalf messages can be sent to a live story.
+     *
+     * @param groupCallId Group call identifier.
+     */
+    public abstract suspend fun getLiveStoryAvailableMessageSenders(groupCallId: Int): TdlResult<ChatMessageSenders>
+
+    /**
+     * Returns RTMP URL for streaming to a live story; requires canPostStories administrator right for channel chats.
+     *
+     * @param chatId Chat identifier.
+     */
+    public abstract suspend fun getLiveStoryRtmpUrl(chatId: Long): TdlResult<RtmpUrl>
+
+    /**
+     * Returns information about the user or the chat that streams to a live story; for live stories that aren't an RTMP stream only.
+     *
+     * @param groupCallId Group call identifier.
+     */
+    public abstract suspend fun getLiveStoryStreamer(groupCallId: Int): TdlResult<GroupCallParticipant>
+
+    /**
+     * Returns the list of top live story donors.
+     *
+     * @param groupCallId Group call identifier of the live story.
+     */
+    public abstract suspend fun getLiveStoryTopDonors(groupCallId: Int): TdlResult<LiveStoryDonors>
 
     /**
      * Returns information about the current localization target. This is an offline method if onlyLocal is true. Can be called before authorization.
@@ -5997,30 +6164,6 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun getVideoChatRtmpUrl(chatId: Long): TdlResult<RtmpUrl>
 
     /**
-     * Returns a file with a segment of a video chat stream in a modified OGG format for audio or MPEG-4 format for video.
-     *
-     * @param groupCallId Group call identifier.
-     * @param timeOffset Point in time when the stream segment begins; Unix timestamp in milliseconds.
-     * @param scale Segment duration scale; 0-1. Segment's duration is 1000/(2**scale) milliseconds.
-     * @param channelId Identifier of an audio/video channel to get as received from tgcalls.
-     * @param videoQuality Video quality as received from tgcalls; pass null to get the worst available quality.
-     */
-    public abstract suspend fun getVideoChatStreamSegment(
-        groupCallId: Int,
-        timeOffset: Long,
-        scale: Int,
-        channelId: Int,
-        videoQuality: GroupCallVideoQuality? = null,
-    ): TdlResult<Data>
-
-    /**
-     * Returns information about available video chat streams.
-     *
-     * @param groupCallId Group call identifier.
-     */
-    public abstract suspend fun getVideoChatStreams(groupCallId: Int): TdlResult<VideoChatStreams>
-
-    /**
      * Returns advertisements to be shown while a video from a message is watched. Available only if messageProperties.canGetVideoAdvertisements.
      *
      * @param chatId Identifier of the chat with the message.
@@ -6123,6 +6266,14 @@ public abstract class TdlClient internal constructor() {
     ): TdlResult<Ok>
 
     /**
+     * Increases a bid for an auction gift without changing gift text and receiver.
+     *
+     * @param giftId Identifier of the gift to put the bid on.
+     * @param starCount The number of Telegram Stars to put in the bid.
+     */
+    public abstract suspend fun increaseGiftAuctionBid(giftId: Long, starCount: Long): TdlResult<Ok>
+
+    /**
      * Invites a user to an active group call; for group calls not bound to a chat only. Sends a service message of the type messageGroupCall. The group call can have at most getOption(&quot;group_call_participant_count_max&quot;) participants.
      *
      * @param groupCallId Group call identifier.
@@ -6142,6 +6293,11 @@ public abstract class TdlClient internal constructor() {
      * @param userIds User identifiers. At most 10 users can be invited simultaneously.
      */
     public abstract suspend fun inviteVideoChatParticipants(groupCallId: Int, userIds: LongArray): TdlResult<Ok>
+
+    /**
+     * Checks whether the current user is required to set login email address.
+     */
+    public abstract suspend fun isLoginEmailAddressRequired(): TdlResult<Ok>
 
     /**
      * Checks whether a file is in the profile audio files of the current user. Returns a 404 error if it isn't.
@@ -6165,7 +6321,7 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun joinChatByInviteLink(inviteLink: String): TdlResult<Chat>
 
     /**
-     * Joins a group call that is not bound to a chat.
+     * Joins a regular group call that is not bound to a chat.
      *
      * @param inputGroupCall The group call to join.
      * @param joinParameters Parameters to join the call.
@@ -6173,10 +6329,18 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun joinGroupCall(inputGroupCall: InputGroupCall, joinParameters: GroupCallJoinParameters): TdlResult<GroupCallInfo>
 
     /**
+     * Joins a group call of an active live story. Returns join response payload for tgcalls.
+     *
+     * @param groupCallId Group call identifier.
+     * @param joinParameters Parameters to join the call.
+     */
+    public abstract suspend fun joinLiveStory(groupCallId: Int, joinParameters: GroupCallJoinParameters): TdlResult<Text>
+
+    /**
      * Joins an active video chat. Returns join response payload for tgcalls.
      *
      * @param groupCallId Group call identifier.
-     * @param participantId Identifier of a group call participant, which will be used to join the call; pass null to join as self; video chats only.
+     * @param participantId Identifier of a group call participant, which will be used to join the call; pass null to join as self.
      * @param joinParameters Parameters to join the call.
      * @param inviteHash Invite hash as received from internalLinkTypeVideoChat.
      */
@@ -6240,7 +6404,7 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun loadDirectMessagesChatTopics(chatId: Long, limit: Int): TdlResult<Ok>
 
     /**
-     * Loads more participants of a group call. The loaded participants will be received through updates. Use the field groupCall.loadedAllParticipants to check whether all participants have already been loaded.
+     * Loads more participants of a group call; not supported in live stories. The loaded participants will be received through updates. Use the field groupCall.loadedAllParticipants to check whether all participants have already been loaded.
      *
      * @param groupCallId Group call identifier. The group call must be previously received through getGroupCall and must be joined or being joined.
      * @param limit The maximum number of participants to load; up to 100.
@@ -6308,6 +6472,13 @@ public abstract class TdlClient internal constructor() {
      * @param openedChatId Identifier of the opened chat.
      */
     public abstract suspend fun openChatSimilarChat(chatId: Long, openedChatId: Long): TdlResult<Ok>
+
+    /**
+     * Informs TDLib that a gift auction was opened by the user.
+     *
+     * @param giftId Identifier of the gift, which auction was opened.
+     */
+    public abstract suspend fun openGiftAuction(giftId: Long): TdlResult<Ok>
 
     /**
      * Informs TDLib that the message content has been opened (e.g., the user has opened a photo, video, document, location or venue, or has listened to an audio file or voice note message). An updateMessageContentOpened update will be generated if something has changed.
@@ -6414,6 +6585,23 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun pingProxy(proxyId: Int): TdlResult<Seconds>
 
     /**
+     * Places a bid on an auction gift.
+     *
+     * @param giftId Identifier of the gift to place the bid on.
+     * @param starCount The number of Telegram Stars to place in the bid.
+     * @param userId Identifier of the user that will receive the gift.
+     * @param text Text to show along with the gift; 0-getOption(&quot;gift_text_length_max&quot;) characters. Only Bold, Italic, Underline, Strikethrough, Spoiler, and CustomEmoji entities are allowed. Must be empty if the receiver enabled paid messages.
+     * @param isPrivate Pass true to show gift text and sender only to the gift receiver; otherwise, everyone will be able to see them.
+     */
+    public abstract suspend fun placeGiftAuctionBid(
+        giftId: Long,
+        starCount: Long,
+        userId: Long,
+        text: FormattedText,
+        isPrivate: Boolean,
+    ): TdlResult<Ok>
+
+    /**
      * Posts a new story on behalf of a chat; requires canPostStories administrator right for supergroup and channel chats. Returns a temporary story.
      *
      * @param chatId Identifier of the chat that will post the story. Pass Saved Messages chat identifier when posting a story on behalf of the current user.
@@ -6421,7 +6609,7 @@ public abstract class TdlClient internal constructor() {
      * @param areas Clickable rectangle areas to be shown on the story media; pass null if none.
      * @param caption Story caption; pass null to use an empty caption; 0-getOption(&quot;story_caption_length_max&quot;) characters; can have entities only if getOption(&quot;can_use_text_entities_in_story_caption&quot;).
      * @param privacySettings The privacy settings for the story; ignored for stories posted on behalf of supergroup and channel chats.
-     * @param albumIds Identifiers of story albums to which the story will be added upon posting. An album can have up to getOption(&quot;story_album_story_count_max&quot;).
+     * @param albumIds Identifiers of story albums to which the story will be added upon posting. An album can have up to getOption(&quot;story_album_size_max&quot;) stories.
      * @param activePeriod Period after which the story is moved to archive, in seconds; must be one of 6 * 3600, 12 * 3600, 86400, or 2 * 86400 for Telegram Premium users, and 86400 otherwise.
      * @param fromStoryFullId Full identifier of the original story, which content was used to create the story; pass null if the story isn't repost of another story.
      * @param isPostedToChatPage Pass true to keep the story accessible after expiration.
@@ -6756,6 +6944,13 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun removeNotificationGroup(notificationGroupId: Int, maxNotificationId: Int): TdlResult<Ok>
 
     /**
+     * Removes all pending paid reactions in a live story group call.
+     *
+     * @param groupCallId Group call identifier.
+     */
+    public abstract suspend fun removePendingLiveStoryReactions(groupCallId: Int): TdlResult<Ok>
+
+    /**
      * Removes all pending paid reactions on a message.
      *
      * @param chatId Identifier of the chat to which the message belongs.
@@ -6948,6 +7143,13 @@ public abstract class TdlClient internal constructor() {
      * @param usernames The new order of active usernames. All currently active usernames must be specified.
      */
     public abstract suspend fun reorderSupergroupActiveUsernames(supergroupId: Long, usernames: Array<String>): TdlResult<Ok>
+
+    /**
+     * Replaces the current RTMP URL for streaming to a live story; requires owner privileges for channel chats.
+     *
+     * @param chatId Chat identifier.
+     */
+    public abstract suspend fun replaceLiveStoryRtmpUrl(chatId: Long): TdlResult<RtmpUrl>
 
     /**
      * Replaces current primary invite link for a chat with a new primary invite link. Available for basic groups, supergroups, and channels. Requires administrator privileges and canInviteUsers right.
@@ -7813,9 +8015,14 @@ public abstract class TdlClient internal constructor() {
      * Sends a message to other participants of a group call. Requires groupCall.canSendMessages right.
      *
      * @param groupCallId Group call identifier.
-     * @param text Text of the message to send; 1-getOption(&quot;group_call_message_text_length_max&quot;) characters.
+     * @param text Text of the message to send; 1-getOption(&quot;group_call_message_text_length_max&quot;) characters for non-live-stories; see updateGroupCallMessageLevels for live story restrictions, which depends on paidMessageStarCount. Can't contain line feeds for live stories.
+     * @param paidMessageStarCount The number of Telegram Stars the user agreed to pay to send the message; for live stories only; 0-getOption(&quot;paid_group_call_message_star_count_max&quot;). Must be 0 for messages sent to live stories posted by the current user.
      */
-    public abstract suspend fun sendGroupCallMessage(groupCallId: Int, text: FormattedText): TdlResult<Ok>
+    public abstract suspend fun sendGroupCallMessage(
+        groupCallId: Int,
+        text: FormattedText,
+        paidMessageStarCount: Long,
+    ): TdlResult<Ok>
 
     /**
      * Sends the result of an inline query as a message. Returns the sent message. Always clears a chat draft message.
@@ -8659,6 +8866,14 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun setGiftSettings(settings: GiftSettings): TdlResult<Ok>
 
     /**
+     * Changes the minimum number of Telegram Stars that must be paid by general participant for each sent message to a live story call. Requires groupCall.canBeManaged right.
+     *
+     * @param groupCallId Group call identifier; must be an identifier of a live story call.
+     * @param paidMessageStarCount The new minimum number of Telegram Stars; 0-getOption(&quot;paid_group_call_message_star_count_max&quot;).
+     */
+    public abstract suspend fun setGroupCallPaidMessageStarCount(groupCallId: Int, paidMessageStarCount: Long): TdlResult<Ok>
+
+    /**
      * Informs TDLib that speaking state of a participant of an active group call has changed. Returns identifier of the participant if it is found.
      *
      * @param groupCallId Group call identifier.
@@ -8672,7 +8887,7 @@ public abstract class TdlClient internal constructor() {
     ): TdlResult<MessageSender>
 
     /**
-     * Changes volume level of a participant of an active group call. If the current user can manage the group call or is the owner of the group call, then the participant's volume level will be changed for all users with the default volume level.
+     * Changes volume level of a participant of an active group call; not supported for live stories. If the current user can manage the group call or is the owner of the group call, then the participant's volume level will be changed for all users with the default volume level.
      *
      * @param groupCallId Group call identifier.
      * @param participantId Participant identifier.
@@ -8709,6 +8924,14 @@ public abstract class TdlClient internal constructor() {
     ): TdlResult<Ok>
 
     /**
+     * Selects a message sender to send messages in a live story call.
+     *
+     * @param groupCallId Group call identifier.
+     * @param messageSenderId New message sender for the group call.
+     */
+    public abstract suspend fun setLiveStoryMessageSender(groupCallId: Int, messageSenderId: MessageSender): TdlResult<Ok>
+
+    /**
      * Sets new log stream for internal logging of TDLib. Can be called synchronously.
      *
      * @param logStream New log stream.
@@ -8731,7 +8954,7 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun setLogVerbosityLevel(newVerbosityLevel: Int): TdlResult<Ok>
 
     /**
-     * Changes the login email address of the user. The email address can be changed only if the current user already has login email and passwordState.loginEmailAddressPattern is non-empty. The change will not be applied until the new login email address is confirmed with checkLoginEmailAddressCode. To use Apple ID/Google ID instead of an email address, call checkLoginEmailAddressCode directly.
+     * Changes the login email address of the user. The email address can be changed only if the current user already has login email and passwordState.loginEmailAddressPattern is non-empty, or the user received suggestedActionSetLoginEmailAddress and isLoginEmailAddressRequired succeeds. The change will not be applied until the new login email address is confirmed with checkLoginEmailAddressCode. To use Apple ID/Google ID instead of an email address, call checkLoginEmailAddressCode directly.
      *
      * @param newLoginEmailAddress New login email address.
      */
@@ -9067,7 +9290,7 @@ public abstract class TdlClient internal constructor() {
     ): TdlResult<StoryAlbum>
 
     /**
-     * Changes privacy settings of a story. The method can be called only for stories posted on behalf of the current user and if story.canBeEdited == true.
+     * Changes privacy settings of a story. The method can be called only for stories posted on behalf of the current user and if story.canSetPrivacySettings == true.
      *
      * @param storyId Identifier of the story.
      * @param privacySettings The new privacy settings for the story.
@@ -9075,7 +9298,7 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun setStoryPrivacySettings(storyId: Int, privacySettings: StoryPrivacySettings): TdlResult<Ok>
 
     /**
-     * Changes chosen reaction on a story that has already been sent.
+     * Changes chosen reaction on a story that has already been sent; not supported for live stories.
      *
      * @param storyPosterChatId The identifier of the poster of the story.
      * @param storyId The identifier of the story.
@@ -9222,7 +9445,7 @@ public abstract class TdlClient internal constructor() {
      * Changes default participant identifier, on whose behalf a video chat in the chat will be joined.
      *
      * @param chatId Chat identifier.
-     * @param defaultParticipantId Default group call participant identifier to join the video chats.
+     * @param defaultParticipantId Default group call participant identifier to join the video chats in the chat.
      */
     public abstract suspend fun setVideoChatDefaultParticipant(chatId: Long, defaultParticipantId: MessageSender): TdlResult<Ok>
 
@@ -9291,7 +9514,7 @@ public abstract class TdlClient internal constructor() {
     ): TdlResult<Ok>
 
     /**
-     * Starts screen sharing in a joined group call. Returns join response payload for tgcalls.
+     * Starts screen sharing in a joined group call; not supported in live stories. Returns join response payload for tgcalls.
      *
      * @param groupCallId Group call identifier.
      * @param audioSourceId Screen sharing audio channel synchronization source identifier; received from tgcalls.
@@ -9302,6 +9525,25 @@ public abstract class TdlClient internal constructor() {
         audioSourceId: Int,
         payload: String,
     ): TdlResult<Text>
+
+    /**
+     * Starts a new live story on behalf of a chat; requires canPostStories administrator right for channel chats.
+     *
+     * @param chatId Identifier of the chat that will start the live story. Pass Saved Messages chat identifier when starting a live story on behalf of the current user, or a channel chat identifier.
+     * @param privacySettings The privacy settings for the story; ignored for stories posted on behalf of channel chats.
+     * @param protectContent Pass true if the content of the story must be protected from screenshotting.
+     * @param isRtmpStream Pass true to create an RTMP stream instead of an ordinary group call.
+     * @param enableMessages Pass true to allow viewers of the story to send messages.
+     * @param paidMessageStarCount The minimum number of Telegram Stars that must be paid by viewers for each sent message to the call; 0-getOption(&quot;paid_group_call_message_star_count_max&quot;).
+     */
+    public abstract suspend fun startLiveStory(
+        chatId: Long,
+        privacySettings: StoryPrivacySettings,
+        protectContent: Boolean,
+        isRtmpStream: Boolean,
+        enableMessages: Boolean,
+        paidMessageStarCount: Long,
+    ): TdlResult<StartLiveStoryResult>
 
     /**
      * Starts a scheduled video chat.
@@ -9649,12 +9891,12 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun toggleGiftIsSaved(receivedGiftId: String, isSaved: Boolean): TdlResult<Ok>
 
     /**
-     * Toggles whether participants of a group call can send messages there. Requires groupCall.canToggleCanSendMessages right.
+     * Toggles whether participants of a group call can send messages there. Requires groupCall.canToggleAreMessagesAllowed right.
      *
      * @param groupCallId Group call identifier.
-     * @param canSendMessages New value of the canSendMessages setting.
+     * @param areMessagesAllowed New value of the areMessagesAllowed setting.
      */
-    public abstract suspend fun toggleGroupCallCanSendMessages(groupCallId: Int, canSendMessages: Boolean): TdlResult<Ok>
+    public abstract suspend fun toggleGroupCallAreMessagesAllowed(groupCallId: Int, areMessagesAllowed: Boolean): TdlResult<Ok>
 
     /**
      * Toggles whether current user's video is enabled.
@@ -9686,7 +9928,7 @@ public abstract class TdlClient internal constructor() {
     ): TdlResult<Ok>
 
     /**
-     * Toggles whether a participant of an active group call is muted, unmuted, or allowed to unmute themselves.
+     * Toggles whether a participant of an active group call is muted, unmuted, or allowed to unmute themselves; not supported for live stories.
      *
      * @param groupCallId Group call identifier.
      * @param participantId Participant identifier.
@@ -9699,7 +9941,7 @@ public abstract class TdlClient internal constructor() {
     ): TdlResult<Ok>
 
     /**
-     * Pauses or unpauses screen sharing in a joined group call.
+     * Pauses or unpauses screen sharing in a joined group call; not supported in live stories.
      *
      * @param groupCallId Group call identifier.
      * @param isPaused Pass true to pause screen sharing; pass false to unpause it.
@@ -10072,12 +10314,12 @@ public abstract class TdlClient internal constructor() {
         /**
          * The Git commit hash of the TDLib.
          */
-        public const val TDL_GIT_COMMIT_HASH: String = "36b05e9e0310c9a32ae6cb807fe22c96600f6061"
+        public const val TDL_GIT_COMMIT_HASH: String = "282f96ca66421c348ed75aaca84471b3e39e64dd"
 
         /**
          * The version of the TDLib.
          */
-        public const val TDL_VERSION: String = "1.8.56"
+        public const val TDL_VERSION: String = "1.8.58"
 
         /**
          * Creates a new instance of the [TdlClient].

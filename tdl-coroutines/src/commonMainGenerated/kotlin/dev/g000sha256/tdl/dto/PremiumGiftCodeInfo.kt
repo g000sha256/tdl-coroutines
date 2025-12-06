@@ -29,7 +29,8 @@ import kotlin.String
  * @property creationDate Point in time (Unix timestamp) when the code was created.
  * @property isFromGiveaway True, if the gift code was created for a giveaway.
  * @property giveawayMessageId Identifier of the corresponding giveaway message in the creatorId chat; can be 0 or an identifier of a deleted message.
- * @property monthCount Number of months the Telegram Premium subscription will be active after code activation.
+ * @property monthCount Number of months the Telegram Premium subscription will be active after code activation; 0 if the number of months isn't integer.
+ * @property dayCount Number of days the Telegram Premium subscription will be active after code activation.
  * @property userId Identifier of a user for which the code was created; 0 if none.
  * @property useDate Point in time (Unix timestamp) when the code was activated; 0 if none.
  */
@@ -39,6 +40,7 @@ public class PremiumGiftCodeInfo public constructor(
     public val isFromGiveaway: Boolean,
     public val giveawayMessageId: Long,
     public val monthCount: Int,
+    public val dayCount: Int,
     public val userId: Long,
     public val useDate: Int,
 ) {
@@ -68,6 +70,9 @@ public class PremiumGiftCodeInfo public constructor(
         if (other.monthCount != monthCount) {
             return false
         }
+        if (other.dayCount != dayCount) {
+            return false
+        }
         if (other.userId != userId) {
             return false
         }
@@ -81,6 +86,7 @@ public class PremiumGiftCodeInfo public constructor(
         hashCode = 31 * hashCode + isFromGiveaway.hashCode()
         hashCode = 31 * hashCode + giveawayMessageId.hashCode()
         hashCode = 31 * hashCode + monthCount.hashCode()
+        hashCode = 31 * hashCode + dayCount.hashCode()
         hashCode = 31 * hashCode + userId.hashCode()
         hashCode = 31 * hashCode + useDate.hashCode()
         return hashCode
@@ -104,6 +110,9 @@ public class PremiumGiftCodeInfo public constructor(
             append(", ")
             append("monthCount=")
             append(monthCount)
+            append(", ")
+            append("dayCount=")
+            append(dayCount)
             append(", ")
             append("userId=")
             append(userId)

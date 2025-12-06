@@ -14,12 +14,10 @@
  * limitations under the License.
  */
 
-package dev.g000sha256.tdl.function
+package dev.g000sha256.tdl.dto
 
-import kotlin.Boolean
-import kotlin.Int
-
-internal class ToggleGroupCallCanSendMessages internal constructor(
-    internal val groupCallId: Int,
-    internal val canSendMessages: Boolean,
-)
+/**
+ * This class is an abstract base class.
+ * Describes state of an auction.
+ */
+public sealed class AuctionState protected constructor()

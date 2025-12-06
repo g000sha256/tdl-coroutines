@@ -34,6 +34,7 @@ import kotlin.String
  * @property hasColors True, if the gift can be used to customize the user's name, and backgrounds of profile photo, reply header, and link preview.
  * @property isForBirthday True, if the gift is a birthday gift.
  * @property isPremium True, if the gift can be bought only by Telegram Premium subscribers.
+ * @property auctionInfo Information about the auction on which the gift can be purchased; may be null if the gift can be purchased directly.
  * @property nextSendDate Point in time (Unix timestamp) when the gift can be sent next time by the current user; can be 0 or a date in the past. If the date is in the future, then call canSendGift to get the reason, why the gift can't be sent now.
  * @property userLimits Number of times the gift can be purchased by the current user; may be null if not limited.
  * @property overallLimits Number of times the gift can be purchased all users; may be null if not limited.
@@ -50,6 +51,7 @@ public class Gift public constructor(
     public val hasColors: Boolean,
     public val isForBirthday: Boolean,
     public val isPremium: Boolean,
+    public val auctionInfo: GiftAuction?,
     public val nextSendDate: Int,
     public val userLimits: GiftPurchaseLimits?,
     public val overallLimits: GiftPurchaseLimits?,
@@ -94,6 +96,9 @@ public class Gift public constructor(
         if (other.isPremium != isPremium) {
             return false
         }
+        if (other.auctionInfo != auctionInfo) {
+            return false
+        }
         if (other.nextSendDate != nextSendDate) {
             return false
         }
@@ -120,6 +125,7 @@ public class Gift public constructor(
         hashCode = 31 * hashCode + hasColors.hashCode()
         hashCode = 31 * hashCode + isForBirthday.hashCode()
         hashCode = 31 * hashCode + isPremium.hashCode()
+        hashCode = 31 * hashCode + auctionInfo.hashCode()
         hashCode = 31 * hashCode + nextSendDate.hashCode()
         hashCode = 31 * hashCode + userLimits.hashCode()
         hashCode = 31 * hashCode + overallLimits.hashCode()
@@ -158,6 +164,9 @@ public class Gift public constructor(
             append(", ")
             append("isPremium=")
             append(isPremium)
+            append(", ")
+            append("auctionInfo=")
+            append(auctionInfo)
             append(", ")
             append("nextSendDate=")
             append(nextSendDate)

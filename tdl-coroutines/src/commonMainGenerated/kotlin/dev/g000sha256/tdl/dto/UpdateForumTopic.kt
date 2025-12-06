@@ -33,6 +33,7 @@ import kotlin.String
  * @property unreadMentionCount Number of unread messages with a mention/reply in the topic.
  * @property unreadReactionCount Number of messages with unread reactions in the topic.
  * @property notificationSettings Notification settings for the topic.
+ * @property draftMessage A draft of a message in the topic; may be null if none.
  */
 public class UpdateForumTopic public constructor(
     public val chatId: Long,
@@ -43,6 +44,7 @@ public class UpdateForumTopic public constructor(
     public val unreadMentionCount: Int,
     public val unreadReactionCount: Int,
     public val notificationSettings: ChatNotificationSettings,
+    public val draftMessage: DraftMessage?,
 ) : Update() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
@@ -76,7 +78,10 @@ public class UpdateForumTopic public constructor(
         if (other.unreadReactionCount != unreadReactionCount) {
             return false
         }
-        return other.notificationSettings == notificationSettings
+        if (other.notificationSettings != notificationSettings) {
+            return false
+        }
+        return other.draftMessage == draftMessage
     }
 
     override fun hashCode(): Int {
@@ -89,6 +94,7 @@ public class UpdateForumTopic public constructor(
         hashCode = 31 * hashCode + unreadMentionCount.hashCode()
         hashCode = 31 * hashCode + unreadReactionCount.hashCode()
         hashCode = 31 * hashCode + notificationSettings.hashCode()
+        hashCode = 31 * hashCode + draftMessage.hashCode()
         return hashCode
     }
 
@@ -119,6 +125,9 @@ public class UpdateForumTopic public constructor(
             append(", ")
             append("notificationSettings=")
             append(notificationSettings)
+            append(", ")
+            append("draftMessage=")
+            append(draftMessage)
             append(")")
         }
     }

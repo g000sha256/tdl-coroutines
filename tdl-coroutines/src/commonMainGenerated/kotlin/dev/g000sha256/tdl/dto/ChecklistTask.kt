@@ -19,7 +19,6 @@ package dev.g000sha256.tdl.dto
 import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
-import kotlin.Long
 import kotlin.String
 
 /**
@@ -27,13 +26,13 @@ import kotlin.String
  *
  * @property id Unique identifier of the task.
  * @property text Text of the task; may contain only Bold, Italic, Underline, Strikethrough, Spoiler, CustomEmoji, Url, EmailAddress, Mention, Hashtag, Cashtag and PhoneNumber entities.
- * @property completedByUserId Identifier of the user that completed the task; 0 if the task isn't completed.
+ * @property completedBy Identifier of the user or chat that completed the task; may be null if the task isn't completed yet.
  * @property completionDate Point in time (Unix timestamp) when the task was completed; 0 if the task isn't completed.
  */
 public class ChecklistTask public constructor(
     public val id: Int,
     public val text: FormattedText,
-    public val completedByUserId: Long,
+    public val completedBy: MessageSender?,
     public val completionDate: Int,
 ) {
     override fun equals(other: Any?): Boolean {
@@ -53,7 +52,7 @@ public class ChecklistTask public constructor(
         if (other.text != text) {
             return false
         }
-        if (other.completedByUserId != completedByUserId) {
+        if (other.completedBy != completedBy) {
             return false
         }
         return other.completionDate == completionDate
@@ -63,7 +62,7 @@ public class ChecklistTask public constructor(
         var hashCode = this::class.hashCode()
         hashCode = 31 * hashCode + id.hashCode()
         hashCode = 31 * hashCode + text.hashCode()
-        hashCode = 31 * hashCode + completedByUserId.hashCode()
+        hashCode = 31 * hashCode + completedBy.hashCode()
         hashCode = 31 * hashCode + completionDate.hashCode()
         return hashCode
     }
@@ -78,8 +77,8 @@ public class ChecklistTask public constructor(
             append("text=")
             append(text)
             append(", ")
-            append("completedByUserId=")
-            append(completedByUserId)
+            append("completedBy=")
+            append(completedBy)
             append(", ")
             append("completionDate=")
             append(completionDate)
