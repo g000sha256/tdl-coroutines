@@ -47,8 +47,10 @@ import kotlin.String
  * @property originalDetails Information about the originally sent gift; may be null if unknown.
  * @property colors Colors that can be set for user's name, background of empty chat photo, replies to messages and link previews; may be null if none.
  * @property resaleParameters Resale parameters of the gift; may be null if resale isn't possible.
+ * @property canSendPurchaseOffer True, if an offer to purchase the gift can be sent using sendGiftPurchaseOffer.
  * @property valueCurrency ISO 4217 currency code of the currency in which value of the gift is represented; may be empty if unavailable.
  * @property valueAmount Estimated value of the gift; in the smallest units of the currency; 0 if unavailable.
+ * @property valueUsdAmount Estimated value of the gift in USD; in USD cents; 0 if unavailable.
  */
 public class UpgradedGift public constructor(
     public val id: Long,
@@ -73,8 +75,10 @@ public class UpgradedGift public constructor(
     public val originalDetails: UpgradedGiftOriginalDetails?,
     public val colors: UpgradedGiftColors?,
     public val resaleParameters: GiftResaleParameters?,
+    public val canSendPurchaseOffer: Boolean,
     public val valueCurrency: String,
     public val valueAmount: Long,
+    public val valueUsdAmount: Long,
 ) {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
@@ -153,10 +157,16 @@ public class UpgradedGift public constructor(
         if (other.resaleParameters != resaleParameters) {
             return false
         }
+        if (other.canSendPurchaseOffer != canSendPurchaseOffer) {
+            return false
+        }
         if (other.valueCurrency != valueCurrency) {
             return false
         }
-        return other.valueAmount == valueAmount
+        if (other.valueAmount != valueAmount) {
+            return false
+        }
+        return other.valueUsdAmount == valueUsdAmount
     }
 
     override fun hashCode(): Int {
@@ -183,8 +193,10 @@ public class UpgradedGift public constructor(
         hashCode = 31 * hashCode + originalDetails.hashCode()
         hashCode = 31 * hashCode + colors.hashCode()
         hashCode = 31 * hashCode + resaleParameters.hashCode()
+        hashCode = 31 * hashCode + canSendPurchaseOffer.hashCode()
         hashCode = 31 * hashCode + valueCurrency.hashCode()
         hashCode = 31 * hashCode + valueAmount.hashCode()
+        hashCode = 31 * hashCode + valueUsdAmount.hashCode()
         return hashCode
     }
 
@@ -258,11 +270,17 @@ public class UpgradedGift public constructor(
             append("resaleParameters=")
             append(resaleParameters)
             append(", ")
+            append("canSendPurchaseOffer=")
+            append(canSendPurchaseOffer)
+            append(", ")
             append("valueCurrency=")
             append(valueCurrency)
             append(", ")
             append("valueAmount=")
             append(valueAmount)
+            append(", ")
+            append("valueUsdAmount=")
+            append(valueUsdAmount)
             append(")")
         }
     }

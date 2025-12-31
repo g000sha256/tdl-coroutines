@@ -30,7 +30,7 @@ import kotlin.String
  * @property canEditMessages True, if the administrator can edit messages of other users and pin messages; applicable to channels only.
  * @property canDeleteMessages True, if the administrator can delete messages of other users.
  * @property canInviteUsers True, if the administrator can invite new users to the chat.
- * @property canRestrictMembers True, if the administrator can restrict, ban, or unban chat members or view supergroup statistics; always true for channels.
+ * @property canRestrictMembers True, if the administrator can restrict, ban, or unban chat members or view supergroup statistics.
  * @property canPinMessages True, if the administrator can pin messages; applicable to basic groups and supergroups only.
  * @property canManageTopics True, if the administrator can create, rename, close, reopen, hide, and unhide forum topics; applicable to forum supergroups only.
  * @property canPromoteMembers True, if the administrator can add new administrators with a subset of their own privileges or demote administrators that were directly or indirectly promoted by them.

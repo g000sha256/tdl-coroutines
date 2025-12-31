@@ -25,7 +25,7 @@ import kotlin.String
 /**
  * A suggested post was approved.
  *
- * @property suggestedPostMessageId Identifier of the message with the suggested post; can be 0 if the message was deleted.
+ * @property suggestedPostMessageId Identifier of the message with the suggested post; may be 0 or an identifier of a deleted message.
  * @property price Price of the suggested post; may be null if the post is non-paid.
  * @property sendDate Point in time (Unix timestamp) when the post is expected to be published.
  */

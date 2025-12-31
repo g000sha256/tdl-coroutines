@@ -23,7 +23,7 @@ import kotlin.Long
 import kotlin.String
 
 /**
- * The transaction is a purchase of Telegram Premium subscription; for regular users and bots only.
+ * The transaction is a purchase of Telegram Premium subscription; relevant for regular users and bots only.
  *
  * @property userId Identifier of the user that received the Telegram Premium subscription.
  * @property monthCount Number of months the Telegram Premium subscription will be active.

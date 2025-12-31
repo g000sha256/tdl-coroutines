@@ -26,7 +26,7 @@ import kotlin.String
 /**
  * Some tasks from a checklist were marked as done or not done.
  *
- * @property checklistMessageId Identifier of the message with the checklist; can be 0 if the message was deleted.
+ * @property checklistMessageId Identifier of the message with the checklist; may be 0 or an identifier of a deleted message.
  * @property markedAsDoneTaskIds Identifiers of tasks that were marked as done.
  * @property markedAsNotDoneTaskIds Identifiers of tasks that were marked as not done.
  */

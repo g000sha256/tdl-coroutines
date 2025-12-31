@@ -25,7 +25,7 @@ import kotlin.String
 /**
  * A suggested post was declined.
  *
- * @property suggestedPostMessageId Identifier of the message with the suggested post; can be 0 if the message was deleted.
+ * @property suggestedPostMessageId Identifier of the message with the suggested post; may be 0 or an identifier of a deleted message.
  * @property comment Comment added by administrator of the channel when the post was declined.
  */
 public class MessageSuggestedPostDeclined public constructor(

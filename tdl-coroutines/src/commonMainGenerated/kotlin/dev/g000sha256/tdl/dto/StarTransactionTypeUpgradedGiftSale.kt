@@ -23,18 +23,20 @@ import kotlin.Long
 import kotlin.String
 
 /**
- * The transaction is a sale of an upgraded gift; for regular users only.
+ * The transaction is a sale of an upgraded gift; relevant for regular users only.
  *
  * @property userId Identifier of the user that bought the gift.
  * @property gift The gift.
  * @property commissionPerMille The number of Telegram Stars received by the Telegram for each 1000 Telegram Stars received by the seller of the gift.
  * @property commissionStarAmount The amount of Telegram Stars that were received by Telegram; can be negative for refunds.
+ * @property viaOffer True, if the gift was sold through a purchase offer.
  */
 public class StarTransactionTypeUpgradedGiftSale public constructor(
     public val userId: Long,
     public val gift: UpgradedGift,
     public val commissionPerMille: Int,
     public val commissionStarAmount: StarAmount,
+    public val viaOffer: Boolean,
 ) : StarTransactionType() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
@@ -56,7 +58,10 @@ public class StarTransactionTypeUpgradedGiftSale public constructor(
         if (other.commissionPerMille != commissionPerMille) {
             return false
         }
-        return other.commissionStarAmount == commissionStarAmount
+        if (other.commissionStarAmount != commissionStarAmount) {
+            return false
+        }
+        return other.viaOffer == viaOffer
     }
 
     override fun hashCode(): Int {
@@ -65,6 +70,7 @@ public class StarTransactionTypeUpgradedGiftSale public constructor(
         hashCode = 31 * hashCode + gift.hashCode()
         hashCode = 31 * hashCode + commissionPerMille.hashCode()
         hashCode = 31 * hashCode + commissionStarAmount.hashCode()
+        hashCode = 31 * hashCode + viaOffer.hashCode()
         return hashCode
     }
 
@@ -83,6 +89,9 @@ public class StarTransactionTypeUpgradedGiftSale public constructor(
             append(", ")
             append("commissionStarAmount=")
             append(commissionStarAmount)
+            append(", ")
+            append("viaOffer=")
+            append(viaOffer)
             append(")")
         }
     }

@@ -24,7 +24,7 @@ import kotlin.String
 /**
  * The gift was bought from another user.
  *
- * @property price Price paid by the sender for the gift.
+ * @property price Price paid for the gift.
  */
 public class UpgradedGiftOriginResale public constructor(
     public val price: GiftResalePrice,

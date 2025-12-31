@@ -22,7 +22,7 @@ import kotlin.Int
 import kotlin.String
 
 /**
- * The transaction is a deposit of Telegram Stars from the Premium bot; for regular users only.
+ * The transaction is a deposit of Telegram Stars from the Premium bot; relevant for regular users only.
  */
 public class StarTransactionTypePremiumBotDeposit public constructor() : StarTransactionType() {
     override fun equals(other: Any?): Boolean {

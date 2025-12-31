@@ -22,7 +22,7 @@ import kotlin.Int
 import kotlin.String
 
 /**
- * The transaction is a receiving of a paid message; for regular users, supergroup and channel chats only.
+ * The transaction is a receiving of a paid message; relevant for regular users, supergroup and channel chats only.
  *
  * @property senderId Identifier of the sender of the message.
  * @property messageCount Number of received paid messages.

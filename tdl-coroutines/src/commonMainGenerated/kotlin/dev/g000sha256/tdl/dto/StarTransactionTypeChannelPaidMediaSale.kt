@@ -24,10 +24,10 @@ import kotlin.Long
 import kotlin.String
 
 /**
- * The transaction is a sale of paid media by the channel chat; for channel chats only.
+ * The transaction is a sale of paid media by the channel chat; relevant for channel chats only.
  *
  * @property userId Identifier of the user that bought the media.
- * @property messageId Identifier of the corresponding message with paid media; can be 0 or an identifier of a deleted message.
+ * @property messageId Identifier of the corresponding message with paid media; may be 0 or an identifier of a deleted message.
  * @property media The bought media.
  */
 public class StarTransactionTypeChannelPaidMediaSale public constructor(

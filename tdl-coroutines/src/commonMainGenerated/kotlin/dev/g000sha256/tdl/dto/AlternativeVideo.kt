@@ -28,7 +28,7 @@ import kotlin.String
  * @property id Unique identifier of the alternative video, which is used in the HLS file.
  * @property width Video width.
  * @property height Video height.
- * @property codec Codec used for video file encoding, for example, &quot;h264&quot;, &quot;h265&quot;, or &quot;av1&quot;.
+ * @property codec Codec used for video file encoding, for example, &quot;h264&quot;, &quot;h265&quot;, &quot;av1&quot;, or &quot;av01&quot;.
  * @property hlsFile HLS file describing the video.
  * @property video File containing the video.
  */

@@ -25,7 +25,7 @@ import kotlin.String
 /**
  * A giveaway without public winners has been completed for the chat.
  *
- * @property giveawayMessageId Identifier of the message with the giveaway; can be 0 if the message was deleted.
+ * @property giveawayMessageId Identifier of the message with the giveaway; may be 0 or an identifier of a deleted message.
  * @property winnerCount Number of winners in the giveaway.
  * @property isStarGiveaway True, if the giveaway is a Telegram Star giveaway.
  * @property unclaimedPrizeCount Number of undistributed prizes; for Telegram Premium giveaways only.

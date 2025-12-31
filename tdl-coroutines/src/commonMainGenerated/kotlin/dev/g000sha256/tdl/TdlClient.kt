@@ -22,6 +22,7 @@ import dev.g000sha256.tdl.dto.AffiliateProgramParameters
 import dev.g000sha256.tdl.dto.AffiliateProgramSortOrder
 import dev.g000sha256.tdl.dto.AffiliateType
 import dev.g000sha256.tdl.dto.AnimatedEmoji
+import dev.g000sha256.tdl.dto.Animation
 import dev.g000sha256.tdl.dto.Animations
 import dev.g000sha256.tdl.dto.ArchiveChatListSettings
 import dev.g000sha256.tdl.dto.AttachmentMenuBot
@@ -174,6 +175,7 @@ import dev.g000sha256.tdl.dto.GiftResalePrice
 import dev.g000sha256.tdl.dto.GiftResaleResult
 import dev.g000sha256.tdl.dto.GiftSettings
 import dev.g000sha256.tdl.dto.GiftUpgradePreview
+import dev.g000sha256.tdl.dto.GiftUpgradeVariants
 import dev.g000sha256.tdl.dto.GiftsForResale
 import dev.g000sha256.tdl.dto.GiveawayInfo
 import dev.g000sha256.tdl.dto.GiveawayParameters
@@ -263,6 +265,8 @@ import dev.g000sha256.tdl.dto.OptionValue
 import dev.g000sha256.tdl.dto.OrderInfo
 import dev.g000sha256.tdl.dto.Outline
 import dev.g000sha256.tdl.dto.PaidReactionType
+import dev.g000sha256.tdl.dto.Passkey
+import dev.g000sha256.tdl.dto.Passkeys
 import dev.g000sha256.tdl.dto.PassportAuthorizationForm
 import dev.g000sha256.tdl.dto.PassportElement
 import dev.g000sha256.tdl.dto.PassportElementType
@@ -1623,6 +1627,14 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun addLogMessage(verbosityLevel: Int, text: String): TdlResult<Ok>
 
     /**
+     * Adds a passkey allowed to be used for the login by the current user and returns the added passkey. Call getPasskeyParameters to get parameters for creating of the passkey.
+     *
+     * @param clientData JSON-encoded client data.
+     * @param attestationObject Passkey attestation object.
+     */
+    public abstract suspend fun addLoginPasskey(clientData: String, attestationObject: ByteArray): TdlResult<Passkey>
+
+    /**
      * Adds a reaction or a tag to a message. Use getMessageAvailableReactions to receive the list of available reactions for the message.
      *
      * @param chatId Identifier of the chat to which the message belongs.
@@ -2006,7 +2018,7 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun canSendGift(giftId: Long): TdlResult<CanSendGiftResult>
 
     /**
-     * Check whether the current user can message another user or try to create a chat with them.
+     * Checks whether the current user can message another user or try to create a chat with them.
      *
      * @param userId Identifier of the other user.
      * @param onlyLocal Pass true to get only locally available information without sending network requests.
@@ -2085,6 +2097,23 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun checkAuthenticationEmailCode(code: EmailAddressAuthentication): TdlResult<Ok>
 
     /**
+     * Checks a passkey to log in to the corresponding account. Call getAuthenticationPasskeyParameters to get parameters for the passkey. Works only when the current authorization state is authorizationStateWaitPhoneNumber or authorizationStateWaitOtherDeviceConfirmation, or if there is no pending authentication query and the current authorization state is authorizationStateWaitPremiumPurchase, authorizationStateWaitEmailAddress, authorizationStateWaitEmailCode, authorizationStateWaitCode, authorizationStateWaitRegistration, or authorizationStateWaitPassword.
+     *
+     * @param credentialId Base64url-encoded identifier of the credential.
+     * @param clientData JSON-encoded client data.
+     * @param authenticatorData Authenticator data of the application that created the credential.
+     * @param signature Cryptographic signature of the credential.
+     * @param userHandle User handle of the passkey.
+     */
+    public abstract suspend fun checkAuthenticationPasskey(
+        credentialId: String,
+        clientData: String,
+        authenticatorData: ByteArray,
+        signature: ByteArray,
+        userHandle: ByteArray,
+    ): TdlResult<Ok>
+
+    /**
      * Checks the 2-step verification password for correctness. Works only when the current authorization state is authorizationStateWaitPassword.
      *
      * @param password The 2-step verification password to check.
@@ -2157,14 +2186,14 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun checkPasswordRecoveryCode(recoveryCode: String): TdlResult<Ok>
 
     /**
-     * Check the authentication code and completes the request for which the code was sent if appropriate.
+     * Checks the authentication code and completes the request for which the code was sent if appropriate.
      *
      * @param code Authentication code to check.
      */
     public abstract suspend fun checkPhoneNumberCode(code: String): TdlResult<Ok>
 
     /**
-     * Return information about a Telegram Premium gift code.
+     * Returns information about a Telegram Premium gift code.
      *
      * @param code The code to check.
      */
@@ -2672,7 +2701,7 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun deleteAllRevokedChatInviteLinks(chatId: Long, creatorUserId: Long): TdlResult<Ok>
 
     /**
-     * Delete media previews from the list of media previews of a bot.
+     * Deletes media previews from the list of media previews of a bot.
      *
      * @param botUserId Identifier of the target bot. The bot must be owned and must have the main Web App.
      * @param languageCode Language code of the media previews to delete.
@@ -3708,6 +3737,11 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun getAttachmentMenuBot(botUserId: Long): TdlResult<AttachmentMenuBot>
 
     /**
+     * Returns parameters for authentication using a passkey as JSON-serialized string.
+     */
+    public abstract suspend fun getAuthenticationPasskeyParameters(): TdlResult<Text>
+
+    /**
      * Returns the current authorization state. This is an offline method. For informational purposes only. Use updateAuthorizationState instead to maintain the current authorization state. Can be called before initialization.
      */
     public abstract suspend fun getAuthorizationState(): TdlResult<AuthorizationState>
@@ -4731,6 +4765,13 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun getGiftUpgradePreview(giftId: Long): TdlResult<GiftUpgradePreview>
 
     /**
+     * Returns all possible variants of upgraded gifts for a regular gift.
+     *
+     * @param giftId Identifier of the gift.
+     */
+    public abstract suspend fun getGiftUpgradeVariants(giftId: Long): TdlResult<GiftUpgradeVariants>
+
+    /**
      * Returns information about a giveaway.
      *
      * @param chatId Identifier of the channel chat which started the giveaway.
@@ -4882,7 +4923,7 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun getJsonValue(json: String): TdlResult<JsonValue>
 
     /**
-     * Return emojis matching the keyword. Supported only if the file database is enabled. Order of results is unspecified.
+     * Returns emojis matching the keyword. Supported only if the file database is enabled. Order of results is unspecified.
      *
      * @param text Text to search for.
      * @param inputLanguageCodes List of possible IETF language tags of the user's input language; may be empty if unknown.
@@ -4983,6 +5024,11 @@ public abstract class TdlClient internal constructor() {
      * Returns current verbosity level of the internal logging of TDLib. Can be called synchronously.
      */
     public abstract suspend fun getLogVerbosityLevel(): TdlResult<LogVerbosityLevel>
+
+    /**
+     * Returns the list of passkeys allowed to be used for the login by the current user.
+     */
+    public abstract suspend fun getLoginPasskeys(): TdlResult<Passkeys>
 
     /**
      * Returns an HTTP URL which can be used to automatically authorize the user on a website after clicking an inline button of type inlineKeyboardButtonTypeLoginUrl. Use the method getLoginUrlInfo to find whether a prior user confirmation is needed. If an error is returned, then the button must be handled as an ordinary URL button.
@@ -5302,6 +5348,11 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun getPaidMessageRevenue(userId: Long): TdlResult<StarCount>
 
     /**
+     * Returns parameters for creating of a new passkey as JSON-serialized string.
+     */
+    public abstract suspend fun getPasskeyParameters(): TdlResult<Text>
+
+    /**
      * Returns a Telegram Passport authorization form for sharing data with a service.
      *
      * @param botUserId User identifier of the service's bot.
@@ -5580,7 +5631,7 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun getRemoteFile(remoteFileId: String, fileType: FileType? = null): TdlResult<File>
 
     /**
-     * Returns information about a non-bundled message that is replied by a given message. Also, returns the pinned message for messagePinMessage, the game message for messageGameScore, the invoice message for messagePaymentSuccessful, the message with a previously set same background for messageChatSetBackground, the giveaway message for messageGiveawayCompleted, the checklist message for messageChecklistTasksDone, messageChecklistTasksAdded, the message with suggested post information for messageSuggestedPostApprovalFailed, messageSuggestedPostApproved, messageSuggestedPostDeclined, messageSuggestedPostPaid, messageSuggestedPostRefunded, the message with the regular gift that was upgraded for messageUpgradedGift with origin of the type upgradedGiftOriginUpgrade, and the topic creation message for topic messages without non-bundled replied message. Returns a 404 error if the message doesn't exist.
+     * Returns information about a non-bundled message that is replied by a given message. Also, returns the pinned message for messagePinMessage, the game message for messageGameScore, the invoice message for messagePaymentSuccessful, the message with a previously set same background for messageChatSetBackground, the giveaway message for messageGiveawayCompleted, the checklist message for messageChecklistTasksDone, messageChecklistTasksAdded, the message with suggested post information for messageSuggestedPostApprovalFailed, messageSuggestedPostApproved, messageSuggestedPostDeclined, messageSuggestedPostPaid, messageSuggestedPostRefunded, the message with the regular gift that was upgraded for messageUpgradedGift with origin of the type upgradedGiftOriginUpgrade, the message with gift purchase offer for messageUpgradedGiftPurchaseOfferDeclined, and the topic creation message for topic messages without non-bundled replied message. Returns a 404 error if the message doesn't exist.
      *
      * @param chatId Identifier of the chat the message belongs to.
      * @param messageId Identifier of the reply message.
@@ -5770,6 +5821,19 @@ public abstract class TdlClient internal constructor() {
         forAnimatedEmoji: Boolean,
         forClickedAnimatedEmojiMessage: Boolean,
     ): TdlResult<Outline>
+
+    /**
+     * Returns outline of a sticker as an SVG path. This is an offline method. Returns an empty string if the outline isn't known.
+     *
+     * @param stickerFileId File identifier of the sticker.
+     * @param forAnimatedEmoji Pass true to get the outline scaled for animated emoji.
+     * @param forClickedAnimatedEmojiMessage Pass true to get the outline scaled for clicked animated emoji message.
+     */
+    public abstract suspend fun getStickerOutlineSvgPath(
+        stickerFileId: Int,
+        forAnimatedEmoji: Boolean,
+        forClickedAnimatedEmojiMessage: Boolean,
+    ): TdlResult<Text>
 
     /**
      * Returns information about a sticker set by its identifier.
@@ -6073,6 +6137,11 @@ public abstract class TdlClient internal constructor() {
      * @param password The 2-step verification password of the current user.
      */
     public abstract suspend fun getUpgradedGiftWithdrawalUrl(receivedGiftId: String, password: String): TdlResult<HttpUrl>
+
+    /**
+     * Returns promotional anumation for upgraded gifts.
+     */
+    public abstract suspend fun getUpgradedGiftsPromotionalAnimation(): TdlResult<Animation>
 
     /**
      * Returns information about a user by their identifier. This is an offline method if the current user is not a bot.
@@ -6629,7 +6698,7 @@ public abstract class TdlClient internal constructor() {
     ): TdlResult<Story>
 
     /**
-     * Preliminary uploads a file to the cloud before sending it in a message, which can be useful for uploading of being recorded voice and video notes. In all other cases there is no need to preliminary upload a file. Updates updateFile will be used to notify about upload progress. The upload will not be completed until the file is sent in a message.
+     * Preliminarily uploads a file to the cloud before sending it in a message, which can be useful for uploading of being recorded voice and video notes. In all other cases there is no need to preliminary upload a file. Updates updateFile will be used to notify about upload progress. The upload will not be completed until the file is sent in a message.
      *
      * @param file File to upload.
      * @param fileType File type; pass null if unknown.
@@ -6674,6 +6743,14 @@ public abstract class TdlClient internal constructor() {
         inviteLink: String,
         approve: Boolean,
     ): TdlResult<Ok>
+
+    /**
+     * Handles a pending gift purchase offer.
+     *
+     * @param messageId Identifier of the message with the gift purchase offer.
+     * @param approve Pass true to approve the request; pass false to decline it.
+     */
+    public abstract suspend fun processGiftPurchaseOffer(messageId: Long, approve: Boolean): TdlResult<Ok>
 
     /**
      * Handles a push notification. Returns error with code 406 if the push notification is not supported and connection to the server is required to fetch new data. Can be called before authorization.
@@ -6747,7 +6824,7 @@ public abstract class TdlClient internal constructor() {
     ): TdlResult<Ok>
 
     /**
-     * Traverse all chats in a chat list and marks all messages in the chats as read.
+     * Traverses all chats in a chat list and marks all messages in the chats as read.
      *
      * @param chatList Chat list in which to mark all chats as read.
      */
@@ -6905,6 +6982,13 @@ public abstract class TdlClient internal constructor() {
      * @param backgroundId The background identifier.
      */
     public abstract suspend fun removeInstalledBackground(backgroundId: Long): TdlResult<Ok>
+
+    /**
+     * Removes a passkey from the list of passkeys allowed to be used for the login by the current user.
+     *
+     * @param passkeyId Unique identifier of the passkey to remove.
+     */
+    public abstract suspend fun removeLoginPasskey(passkeyId: String): TdlResult<Ok>
 
     /**
      * Removes a reaction from a message. A chosen reaction can always be removed.
@@ -8012,6 +8096,23 @@ public abstract class TdlClient internal constructor() {
     ): TdlResult<Ok>
 
     /**
+     * Sends an offer to purchase an upgraded gift.
+     *
+     * @param ownerId Identifier of the user or the channel chat that currently owns the gift and will receive the offer.
+     * @param giftName Name of the upgraded gift.
+     * @param price The price that the user agreed to pay for the gift.
+     * @param duration Duration of the offer, in seconds; must be one of 21600, 43200, 86400, 129600, 172800, or 259200. Can also be 120 if Telegram test environment is used.
+     * @param paidMessageStarCount The number of Telegram Stars the user agreed to pay additionally for sending of the offer message to the current gift owner; pass userFullInfo.outgoingPaidMessageStarCount for users and 0 otherwise.
+     */
+    public abstract suspend fun sendGiftPurchaseOffer(
+        ownerId: MessageSender,
+        giftName: String,
+        price: GiftResalePrice,
+        duration: Int,
+        paidMessageStarCount: Long,
+    ): TdlResult<Ok>
+
+    /**
      * Sends a message to other participants of a group call. Requires groupCall.canSendMessages right.
      *
      * @param groupCallId Group call identifier.
@@ -8218,7 +8319,7 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun setAlarm(seconds: Double): TdlResult<Ok>
 
     /**
-     * Application or reCAPTCHA verification has been completed. Can be called before authorization.
+     * Informs TDLib that application or reCAPTCHA verification has been completed. Can be called before authorization.
      *
      * @param verificationId Unique identifier for the verification process as received from updateApplicationVerificationRequired or updateApplicationRecaptchaVerificationRequired.
      * @param token Play Integrity API token for the Android application, or secret from push notification for the iOS application for application verification, or reCAPTCHA token for reCAPTCHA verifications; pass an empty string to abort verification and receive the error &quot;VERIFICATION_FAILED&quot; for the request.
@@ -10119,7 +10220,7 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun toggleVideoChatMuteNewParticipants(groupCallId: Int, muteNewParticipants: Boolean): TdlResult<Ok>
 
     /**
-     * Transfer Telegram Stars from the business account to the business bot; for bots only.
+     * Transfers Telegram Stars from the business account to the business bot; for bots only.
      *
      * @param businessConnectionId Unique identifier of business connection.
      * @param starCount Number of Telegram Stars to transfer.
@@ -10314,12 +10415,12 @@ public abstract class TdlClient internal constructor() {
         /**
          * The Git commit hash of the TDLib.
          */
-        public const val TDL_GIT_COMMIT_HASH: String = "282f96ca66421c348ed75aaca84471b3e39e64dd"
+        public const val TDL_GIT_COMMIT_HASH: String = "89e7366783e13d63085878ba407da83107ccd401"
 
         /**
          * The version of the TDLib.
          */
-        public const val TDL_VERSION: String = "1.8.58"
+        public const val TDL_VERSION: String = "1.8.59"
 
         /**
          * Creates a new instance of the [TdlClient].

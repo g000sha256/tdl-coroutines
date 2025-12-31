@@ -30,6 +30,7 @@ import kotlin.String
  * @property starCount The number of Telegram Stars that were paid for the gift.
  * @property auctionRoundNumber Identifier of the auction round in which the gift was acquired.
  * @property auctionRoundPosition Position of the user in the round among all auction participants.
+ * @property uniqueGiftNumber Unique number of the gift among gifts upgraded from the same gift after upgrade; 0 if yet unassigned.
  * @property text Message added to the gift.
  * @property isPrivate True, if the sender and gift text are shown only to the gift receiver; otherwise, everyone will be able to see them.
  */
@@ -39,6 +40,7 @@ public class GiftAuctionAcquiredGift public constructor(
     public val starCount: Long,
     public val auctionRoundNumber: Int,
     public val auctionRoundPosition: Int,
+    public val uniqueGiftNumber: Int,
     public val text: FormattedText,
     public val isPrivate: Boolean,
 ) {
@@ -68,6 +70,9 @@ public class GiftAuctionAcquiredGift public constructor(
         if (other.auctionRoundPosition != auctionRoundPosition) {
             return false
         }
+        if (other.uniqueGiftNumber != uniqueGiftNumber) {
+            return false
+        }
         if (other.text != text) {
             return false
         }
@@ -81,6 +86,7 @@ public class GiftAuctionAcquiredGift public constructor(
         hashCode = 31 * hashCode + starCount.hashCode()
         hashCode = 31 * hashCode + auctionRoundNumber.hashCode()
         hashCode = 31 * hashCode + auctionRoundPosition.hashCode()
+        hashCode = 31 * hashCode + uniqueGiftNumber.hashCode()
         hashCode = 31 * hashCode + text.hashCode()
         hashCode = 31 * hashCode + isPrivate.hashCode()
         return hashCode
@@ -104,6 +110,9 @@ public class GiftAuctionAcquiredGift public constructor(
             append(", ")
             append("auctionRoundPosition=")
             append(auctionRoundPosition)
+            append(", ")
+            append("uniqueGiftNumber=")
+            append(uniqueGiftNumber)
             append(", ")
             append("text=")
             append(text)
