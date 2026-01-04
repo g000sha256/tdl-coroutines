@@ -25,7 +25,7 @@ import kotlin.String
 /**
  * A suggested post was published for getOption(&quot;suggested_post_lifetime_min&quot;) seconds and payment for the post was received.
  *
- * @property suggestedPostMessageId Identifier of the message with the suggested post; can be 0 if the message was deleted.
+ * @property suggestedPostMessageId Identifier of the message with the suggested post; may be 0 or an identifier of a deleted message.
  * @property starAmount The amount of received Telegram Stars.
  * @property tonAmount The amount of received Toncoins; in the smallest units of the cryptocurrency.
  */

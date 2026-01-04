@@ -23,7 +23,7 @@ import kotlin.Long
 import kotlin.String
 
 /**
- * The transaction is a transfer of Telegram Stars from a business account; for bots only.
+ * The transaction is a transfer of Telegram Stars from a business account; relevant for bots only.
  *
  * @property userId Identifier of the user that sent Telegram Stars.
  */

@@ -26,7 +26,7 @@ import kotlin.String
  * A payment has been sent to a bot or a business account.
  *
  * @property invoiceChatId Identifier of the chat, containing the corresponding invoice message.
- * @property invoiceMessageId Identifier of the message with the corresponding invoice; can be 0 or an identifier of a deleted message.
+ * @property invoiceMessageId Identifier of the message with the corresponding invoice; may be 0 or an identifier of a deleted message.
  * @property currency Currency for the price of the product.
  * @property totalAmount Total price for the product, in the smallest units of the currency.
  * @property subscriptionUntilDate Point in time (Unix timestamp) when the subscription will expire; 0 if unknown or the payment isn't recurring.

@@ -23,7 +23,7 @@ import kotlin.Long
 import kotlin.String
 
 /**
- * The transaction is a sending of a paid group reaction; for regular users only.
+ * The transaction is a sending of a paid group reaction; relevant for regular users only.
  *
  * @property chatId Identifier of the chat that received the payment.
  */

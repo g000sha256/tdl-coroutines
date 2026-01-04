@@ -23,7 +23,7 @@ import kotlin.Long
 import kotlin.String
 
 /**
- * The transaction is a purchase of a subscription from a bot or a business account by the current user; for regular users only.
+ * The transaction is a purchase of a subscription from a bot or a business account by the current user; relevant for regular users only.
  *
  * @property userId Identifier of the bot or the business account user that created the subscription link.
  * @property subscriptionPeriod The number of seconds between consecutive Telegram Star debitings.

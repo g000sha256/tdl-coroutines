@@ -30,6 +30,7 @@ import kotlin.String
  * @property receiverId Receiver of the gift.
  * @property receivedGiftId Unique identifier of the received gift for the current user; only for the receiver of the gift.
  * @property text Message added to the gift.
+ * @property uniqueGiftNumber Unique number of the gift among gifts upgraded from the same gift after upgrade; 0 if yet unassigned.
  * @property sellStarCount Number of Telegram Stars that can be claimed by the receiver instead of the regular gift; 0 if the gift can't be sold by the receiver.
  * @property prepaidUpgradeStarCount Number of Telegram Stars that were paid by the sender for the ability to upgrade the gift.
  * @property isUpgradeSeparate True, if the upgrade was bought after the gift was sent. In this case, prepaid upgrade cost must not be added to the gift cost.
@@ -50,6 +51,7 @@ public class MessageGift public constructor(
     public val receiverId: MessageSender,
     public val receivedGiftId: String,
     public val text: FormattedText,
+    public val uniqueGiftNumber: Int,
     public val sellStarCount: Long,
     public val prepaidUpgradeStarCount: Long,
     public val isUpgradeSeparate: Boolean,
@@ -88,6 +90,9 @@ public class MessageGift public constructor(
             return false
         }
         if (other.text != text) {
+            return false
+        }
+        if (other.uniqueGiftNumber != uniqueGiftNumber) {
             return false
         }
         if (other.sellStarCount != sellStarCount) {
@@ -136,6 +141,7 @@ public class MessageGift public constructor(
         hashCode = 31 * hashCode + receiverId.hashCode()
         hashCode = 31 * hashCode + receivedGiftId.hashCode()
         hashCode = 31 * hashCode + text.hashCode()
+        hashCode = 31 * hashCode + uniqueGiftNumber.hashCode()
         hashCode = 31 * hashCode + sellStarCount.hashCode()
         hashCode = 31 * hashCode + prepaidUpgradeStarCount.hashCode()
         hashCode = 31 * hashCode + isUpgradeSeparate.hashCode()
@@ -170,6 +176,9 @@ public class MessageGift public constructor(
             append(", ")
             append("text=")
             append(text)
+            append(", ")
+            append("uniqueGiftNumber=")
+            append(uniqueGiftNumber)
             append(", ")
             append("sellStarCount=")
             append(sellStarCount)

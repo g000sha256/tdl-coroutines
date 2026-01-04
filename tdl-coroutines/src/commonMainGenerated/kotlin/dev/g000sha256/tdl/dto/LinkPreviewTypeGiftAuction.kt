@@ -25,12 +25,10 @@ import kotlin.String
  * The link is a link to a gift auction.
  *
  * @property gift The gift.
- * @property giftBackground Background of the gift.
  * @property auctionEndDate Point in time (Unix timestamp) when the auction will be ended.
  */
 public class LinkPreviewTypeGiftAuction public constructor(
     public val gift: Gift,
-    public val giftBackground: GiftBackground,
     public val auctionEndDate: Int,
 ) : LinkPreviewType() {
     override fun equals(other: Any?): Boolean {
@@ -47,16 +45,12 @@ public class LinkPreviewTypeGiftAuction public constructor(
         if (other.gift != gift) {
             return false
         }
-        if (other.giftBackground != giftBackground) {
-            return false
-        }
         return other.auctionEndDate == auctionEndDate
     }
 
     override fun hashCode(): Int {
         var hashCode = this::class.hashCode()
         hashCode = 31 * hashCode + gift.hashCode()
-        hashCode = 31 * hashCode + giftBackground.hashCode()
         hashCode = 31 * hashCode + auctionEndDate.hashCode()
         return hashCode
     }
@@ -67,9 +61,6 @@ public class LinkPreviewTypeGiftAuction public constructor(
             append("(")
             append("gift=")
             append(gift)
-            append(", ")
-            append("giftBackground=")
-            append(giftBackground)
             append(", ")
             append("auctionEndDate=")
             append(auctionEndDate)

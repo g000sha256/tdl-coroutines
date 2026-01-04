@@ -22,7 +22,7 @@ import kotlin.Int
 import kotlin.String
 
 /**
- * The transaction is a receiving of a paid group call message; for regular users and channel chats only.
+ * The transaction is a receiving of a paid group call message; relevant for regular users and channel chats only.
  *
  * @property senderId Identifier of the sender of the message.
  * @property commissionPerMille The number of Telegram Stars received by the Telegram for each 1000 Telegram Stars paid for message sending.

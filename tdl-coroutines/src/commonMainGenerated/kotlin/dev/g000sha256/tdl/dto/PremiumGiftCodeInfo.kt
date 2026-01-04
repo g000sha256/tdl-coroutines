@@ -28,7 +28,7 @@ import kotlin.String
  * @property creatorId Identifier of a chat or a user that created the gift code; may be null if unknown. If null and the code is from messagePremiumGiftCode message, then creatorId from the message can be used.
  * @property creationDate Point in time (Unix timestamp) when the code was created.
  * @property isFromGiveaway True, if the gift code was created for a giveaway.
- * @property giveawayMessageId Identifier of the corresponding giveaway message in the creatorId chat; can be 0 or an identifier of a deleted message.
+ * @property giveawayMessageId Identifier of the corresponding giveaway message in the creatorId chat; may be 0 or an identifier of a deleted message.
  * @property monthCount Number of months the Telegram Premium subscription will be active after code activation; 0 if the number of months isn't integer.
  * @property dayCount Number of days the Telegram Premium subscription will be active after code activation.
  * @property userId Identifier of a user for which the code was created; 0 if none.

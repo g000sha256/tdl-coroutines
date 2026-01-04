@@ -23,7 +23,7 @@ import kotlin.Long
 import kotlin.String
 
 /**
- * The transaction is a receiving of a payment for a suggested post by the channel chat; for channel chats only.
+ * The transaction is a receiving of a payment for a suggested post by the channel chat; relevant for channel chats only.
  *
  * @property userId Identifier of the user that paid for the suggested post.
  */

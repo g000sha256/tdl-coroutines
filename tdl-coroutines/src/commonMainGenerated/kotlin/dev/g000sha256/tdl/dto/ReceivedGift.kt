@@ -29,6 +29,7 @@ import kotlin.String
  * @property receivedGiftId Unique identifier of the received gift for the current user; only for the receiver of the gift.
  * @property senderId Identifier of a user or a chat that sent the gift; may be null if unknown.
  * @property text Message added to the gift.
+ * @property uniqueGiftNumber Unique number of the gift among gifts upgraded from the same gift after upgrade; 0 if yet unassigned.
  * @property isPrivate True, if the sender and gift text are shown only to the gift receiver; otherwise, everyone are able to see them.
  * @property isSaved True, if the gift is displayed on the chat's profile page; only for the receiver of the gift.
  * @property isPinned True, if the gift is pinned to the top of the chat's profile page.
@@ -52,6 +53,7 @@ public class ReceivedGift public constructor(
     public val receivedGiftId: String,
     public val senderId: MessageSender?,
     public val text: FormattedText,
+    public val uniqueGiftNumber: Int,
     public val isPrivate: Boolean,
     public val isSaved: Boolean,
     public val isPinned: Boolean,
@@ -89,6 +91,9 @@ public class ReceivedGift public constructor(
             return false
         }
         if (other.text != text) {
+            return false
+        }
+        if (other.uniqueGiftNumber != uniqueGiftNumber) {
             return false
         }
         if (other.isPrivate != isPrivate) {
@@ -151,6 +156,7 @@ public class ReceivedGift public constructor(
         hashCode = 31 * hashCode + receivedGiftId.hashCode()
         hashCode = 31 * hashCode + senderId.hashCode()
         hashCode = 31 * hashCode + text.hashCode()
+        hashCode = 31 * hashCode + uniqueGiftNumber.hashCode()
         hashCode = 31 * hashCode + isPrivate.hashCode()
         hashCode = 31 * hashCode + isSaved.hashCode()
         hashCode = 31 * hashCode + isPinned.hashCode()
@@ -184,6 +190,9 @@ public class ReceivedGift public constructor(
             append(", ")
             append("text=")
             append(text)
+            append(", ")
+            append("uniqueGiftNumber=")
+            append(uniqueGiftNumber)
             append(", ")
             append("isPrivate=")
             append(isPrivate)

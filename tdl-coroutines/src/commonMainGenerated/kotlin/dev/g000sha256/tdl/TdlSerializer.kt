@@ -49,6 +49,7 @@ import dev.g000sha256.tdl.dto.ArchiveChatListSettings
 import dev.g000sha256.tdl.dto.AttachmentMenuBot
 import dev.g000sha256.tdl.dto.AttachmentMenuBotColor
 import dev.g000sha256.tdl.dto.AuctionBid
+import dev.g000sha256.tdl.dto.AuctionRound
 import dev.g000sha256.tdl.dto.AuctionState
 import dev.g000sha256.tdl.dto.AuctionStateActive
 import dev.g000sha256.tdl.dto.AuctionStateFinished
@@ -584,6 +585,10 @@ import dev.g000sha256.tdl.dto.GiftForResaleOrderNumber
 import dev.g000sha256.tdl.dto.GiftForResaleOrderPrice
 import dev.g000sha256.tdl.dto.GiftForResaleOrderPriceChangeDate
 import dev.g000sha256.tdl.dto.GiftPurchaseLimits
+import dev.g000sha256.tdl.dto.GiftPurchaseOfferState
+import dev.g000sha256.tdl.dto.GiftPurchaseOfferStateAccepted
+import dev.g000sha256.tdl.dto.GiftPurchaseOfferStatePending
+import dev.g000sha256.tdl.dto.GiftPurchaseOfferStateRejected
 import dev.g000sha256.tdl.dto.GiftResaleParameters
 import dev.g000sha256.tdl.dto.GiftResalePrice
 import dev.g000sha256.tdl.dto.GiftResalePriceStar
@@ -594,6 +599,7 @@ import dev.g000sha256.tdl.dto.GiftResaleResultPriceIncreased
 import dev.g000sha256.tdl.dto.GiftSettings
 import dev.g000sha256.tdl.dto.GiftUpgradePreview
 import dev.g000sha256.tdl.dto.GiftUpgradePrice
+import dev.g000sha256.tdl.dto.GiftUpgradeVariants
 import dev.g000sha256.tdl.dto.GiftsForResale
 import dev.g000sha256.tdl.dto.GiveawayInfo
 import dev.g000sha256.tdl.dto.GiveawayInfoCompleted
@@ -1095,6 +1101,8 @@ import dev.g000sha256.tdl.dto.MessageTopicSavedMessages
 import dev.g000sha256.tdl.dto.MessageTopicThread
 import dev.g000sha256.tdl.dto.MessageUnsupported
 import dev.g000sha256.tdl.dto.MessageUpgradedGift
+import dev.g000sha256.tdl.dto.MessageUpgradedGiftPurchaseOffer
+import dev.g000sha256.tdl.dto.MessageUpgradedGiftPurchaseOfferDeclined
 import dev.g000sha256.tdl.dto.MessageUsersShared
 import dev.g000sha256.tdl.dto.MessageVenue
 import dev.g000sha256.tdl.dto.MessageVideo
@@ -1198,6 +1206,8 @@ import dev.g000sha256.tdl.dto.PaidReactionTypeAnonymous
 import dev.g000sha256.tdl.dto.PaidReactionTypeChat
 import dev.g000sha256.tdl.dto.PaidReactionTypeRegular
 import dev.g000sha256.tdl.dto.PaidReactor
+import dev.g000sha256.tdl.dto.Passkey
+import dev.g000sha256.tdl.dto.Passkeys
 import dev.g000sha256.tdl.dto.PassportAuthorizationForm
 import dev.g000sha256.tdl.dto.PassportElement
 import dev.g000sha256.tdl.dto.PassportElementAddress
@@ -1293,6 +1303,7 @@ import dev.g000sha256.tdl.dto.PremiumFeatureIncreasedUploadFileSize
 import dev.g000sha256.tdl.dto.PremiumFeatureLastSeenTimes
 import dev.g000sha256.tdl.dto.PremiumFeatureMessageEffects
 import dev.g000sha256.tdl.dto.PremiumFeatureMessagePrivacy
+import dev.g000sha256.tdl.dto.PremiumFeaturePaidMessages
 import dev.g000sha256.tdl.dto.PremiumFeatureProfileBadge
 import dev.g000sha256.tdl.dto.PremiumFeaturePromotionAnimation
 import dev.g000sha256.tdl.dto.PremiumFeatureRealTimeChatTranslation
@@ -1619,6 +1630,7 @@ import dev.g000sha256.tdl.dto.StarTransactionTypeFragmentWithdrawal
 import dev.g000sha256.tdl.dto.StarTransactionTypeGiftAuctionBid
 import dev.g000sha256.tdl.dto.StarTransactionTypeGiftOriginalDetailsDrop
 import dev.g000sha256.tdl.dto.StarTransactionTypeGiftPurchase
+import dev.g000sha256.tdl.dto.StarTransactionTypeGiftPurchaseOffer
 import dev.g000sha256.tdl.dto.StarTransactionTypeGiftSale
 import dev.g000sha256.tdl.dto.StarTransactionTypeGiftTransfer
 import dev.g000sha256.tdl.dto.StarTransactionTypeGiftUpgrade
@@ -1726,6 +1738,7 @@ import dev.g000sha256.tdl.dto.StoryRepostInfo
 import dev.g000sha256.tdl.dto.StoryStatistics
 import dev.g000sha256.tdl.dto.StoryVideo
 import dev.g000sha256.tdl.dto.SuggestedAction
+import dev.g000sha256.tdl.dto.SuggestedActionAddLoginPasskey
 import dev.g000sha256.tdl.dto.SuggestedActionCheckPassword
 import dev.g000sha256.tdl.dto.SuggestedActionCheckPhoneNumber
 import dev.g000sha256.tdl.dto.SuggestedActionConvertToBroadcastGroup
@@ -1841,6 +1854,8 @@ import dev.g000sha256.tdl.dto.TonRevenueStatus
 import dev.g000sha256.tdl.dto.TonTransaction
 import dev.g000sha256.tdl.dto.TonTransactionType
 import dev.g000sha256.tdl.dto.TonTransactionTypeFragmentDeposit
+import dev.g000sha256.tdl.dto.TonTransactionTypeFragmentWithdrawal
+import dev.g000sha256.tdl.dto.TonTransactionTypeGiftPurchaseOffer
 import dev.g000sha256.tdl.dto.TonTransactionTypeSuggestedPostPayment
 import dev.g000sha256.tdl.dto.TonTransactionTypeUnsupported
 import dev.g000sha256.tdl.dto.TonTransactionTypeUpgradedGiftPurchase
@@ -2050,6 +2065,7 @@ import dev.g000sha256.tdl.dto.UpgradedGiftModel
 import dev.g000sha256.tdl.dto.UpgradedGiftModelCount
 import dev.g000sha256.tdl.dto.UpgradedGiftOrigin
 import dev.g000sha256.tdl.dto.UpgradedGiftOriginBlockchain
+import dev.g000sha256.tdl.dto.UpgradedGiftOriginOffer
 import dev.g000sha256.tdl.dto.UpgradedGiftOriginPrepaidUpgrade
 import dev.g000sha256.tdl.dto.UpgradedGiftOriginResale
 import dev.g000sha256.tdl.dto.UpgradedGiftOriginTransfer
@@ -2143,6 +2159,7 @@ import dev.g000sha256.tdl.function.AddFileToDownloads
 import dev.g000sha256.tdl.function.AddGiftCollectionGifts
 import dev.g000sha256.tdl.function.AddLocalMessage
 import dev.g000sha256.tdl.function.AddLogMessage
+import dev.g000sha256.tdl.function.AddLoginPasskey
 import dev.g000sha256.tdl.function.AddMessageReaction
 import dev.g000sha256.tdl.function.AddNetworkStatistics
 import dev.g000sha256.tdl.function.AddOffer
@@ -2190,6 +2207,7 @@ import dev.g000sha256.tdl.function.ChangeStickerSet
 import dev.g000sha256.tdl.function.CheckAuthenticationBotToken
 import dev.g000sha256.tdl.function.CheckAuthenticationCode
 import dev.g000sha256.tdl.function.CheckAuthenticationEmailCode
+import dev.g000sha256.tdl.function.CheckAuthenticationPasskey
 import dev.g000sha256.tdl.function.CheckAuthenticationPassword
 import dev.g000sha256.tdl.function.CheckAuthenticationPasswordRecoveryCode
 import dev.g000sha256.tdl.function.CheckAuthenticationPremiumPurchase
@@ -2353,6 +2371,7 @@ import dev.g000sha256.tdl.function.GetArchiveChatListSettings
 import dev.g000sha256.tdl.function.GetArchivedStickerSets
 import dev.g000sha256.tdl.function.GetAttachedStickerSets
 import dev.g000sha256.tdl.function.GetAttachmentMenuBot
+import dev.g000sha256.tdl.function.GetAuthenticationPasskeyParameters
 import dev.g000sha256.tdl.function.GetAuthorizationState
 import dev.g000sha256.tdl.function.GetAutoDownloadSettingsPresets
 import dev.g000sha256.tdl.function.GetAutosaveSettings
@@ -2475,6 +2494,7 @@ import dev.g000sha256.tdl.function.GetGiftAuctionState
 import dev.g000sha256.tdl.function.GetGiftChatThemes
 import dev.g000sha256.tdl.function.GetGiftCollections
 import dev.g000sha256.tdl.function.GetGiftUpgradePreview
+import dev.g000sha256.tdl.function.GetGiftUpgradeVariants
 import dev.g000sha256.tdl.function.GetGiveawayInfo
 import dev.g000sha256.tdl.function.GetGreetingStickers
 import dev.g000sha256.tdl.function.GetGrossingWebAppBots
@@ -2507,6 +2527,7 @@ import dev.g000sha256.tdl.function.GetLogStream
 import dev.g000sha256.tdl.function.GetLogTagVerbosityLevel
 import dev.g000sha256.tdl.function.GetLogTags
 import dev.g000sha256.tdl.function.GetLogVerbosityLevel
+import dev.g000sha256.tdl.function.GetLoginPasskeys
 import dev.g000sha256.tdl.function.GetLoginUrl
 import dev.g000sha256.tdl.function.GetLoginUrlInfo
 import dev.g000sha256.tdl.function.GetMainWebApp
@@ -2539,6 +2560,7 @@ import dev.g000sha256.tdl.function.GetOption
 import dev.g000sha256.tdl.function.GetOwnedBots
 import dev.g000sha256.tdl.function.GetOwnedStickerSets
 import dev.g000sha256.tdl.function.GetPaidMessageRevenue
+import dev.g000sha256.tdl.function.GetPasskeyParameters
 import dev.g000sha256.tdl.function.GetPassportAuthorizationForm
 import dev.g000sha256.tdl.function.GetPassportAuthorizationFormAvailableElements
 import dev.g000sha256.tdl.function.GetPassportElement
@@ -2597,6 +2619,7 @@ import dev.g000sha256.tdl.function.GetStarWithdrawalUrl
 import dev.g000sha256.tdl.function.GetStatisticalGraph
 import dev.g000sha256.tdl.function.GetStickerEmojis
 import dev.g000sha256.tdl.function.GetStickerOutline
+import dev.g000sha256.tdl.function.GetStickerOutlineSvgPath
 import dev.g000sha256.tdl.function.GetStickerSet
 import dev.g000sha256.tdl.function.GetStickerSetName
 import dev.g000sha256.tdl.function.GetStickers
@@ -2633,6 +2656,7 @@ import dev.g000sha256.tdl.function.GetUpgradedGift
 import dev.g000sha256.tdl.function.GetUpgradedGiftEmojiStatuses
 import dev.g000sha256.tdl.function.GetUpgradedGiftValueInfo
 import dev.g000sha256.tdl.function.GetUpgradedGiftWithdrawalUrl
+import dev.g000sha256.tdl.function.GetUpgradedGiftsPromotionalAnimation
 import dev.g000sha256.tdl.function.GetUser
 import dev.g000sha256.tdl.function.GetUserChatBoosts
 import dev.g000sha256.tdl.function.GetUserFullInfo
@@ -2695,6 +2719,7 @@ import dev.g000sha256.tdl.function.PreliminaryUploadFile
 import dev.g000sha256.tdl.function.ProcessChatFolderNewChats
 import dev.g000sha256.tdl.function.ProcessChatJoinRequest
 import dev.g000sha256.tdl.function.ProcessChatJoinRequests
+import dev.g000sha256.tdl.function.ProcessGiftPurchaseOffer
 import dev.g000sha256.tdl.function.ProcessPushNotification
 import dev.g000sha256.tdl.function.RateSpeechRecognition
 import dev.g000sha256.tdl.function.ReadAllChatMentions
@@ -2720,6 +2745,7 @@ import dev.g000sha256.tdl.function.RemoveFavoriteSticker
 import dev.g000sha256.tdl.function.RemoveFileFromDownloads
 import dev.g000sha256.tdl.function.RemoveGiftCollectionGifts
 import dev.g000sha256.tdl.function.RemoveInstalledBackground
+import dev.g000sha256.tdl.function.RemoveLoginPasskey
 import dev.g000sha256.tdl.function.RemoveMessageReaction
 import dev.g000sha256.tdl.function.RemoveMessageSenderBotVerification
 import dev.g000sha256.tdl.function.RemoveNotification
@@ -2830,6 +2856,7 @@ import dev.g000sha256.tdl.function.SendChatAction
 import dev.g000sha256.tdl.function.SendCustomRequest
 import dev.g000sha256.tdl.function.SendEmailAddressVerificationCode
 import dev.g000sha256.tdl.function.SendGift
+import dev.g000sha256.tdl.function.SendGiftPurchaseOffer
 import dev.g000sha256.tdl.function.SendGroupCallMessage
 import dev.g000sha256.tdl.function.SendInlineQueryResultMessage
 import dev.g000sha256.tdl.function.SendMessage
@@ -3096,6 +3123,7 @@ internal class TdlSerializer internal constructor() {
             is AddGiftCollectionGifts -> return serialize(requestId = requestId, function = function)
             is AddLocalMessage -> return serialize(requestId = requestId, function = function)
             is AddLogMessage -> return serialize(requestId = requestId, function = function)
+            is AddLoginPasskey -> return serialize(requestId = requestId, function = function)
             is AddMessageReaction -> return serialize(requestId = requestId, function = function)
             is AddNetworkStatistics -> return serialize(requestId = requestId, function = function)
             is AddOffer -> return serialize(requestId = requestId, function = function)
@@ -3143,6 +3171,7 @@ internal class TdlSerializer internal constructor() {
             is CheckAuthenticationBotToken -> return serialize(requestId = requestId, function = function)
             is CheckAuthenticationCode -> return serialize(requestId = requestId, function = function)
             is CheckAuthenticationEmailCode -> return serialize(requestId = requestId, function = function)
+            is CheckAuthenticationPasskey -> return serialize(requestId = requestId, function = function)
             is CheckAuthenticationPassword -> return serialize(requestId = requestId, function = function)
             is CheckAuthenticationPasswordRecoveryCode -> return serialize(requestId = requestId, function = function)
             is CheckAuthenticationPremiumPurchase -> return serialize(requestId = requestId, function = function)
@@ -3306,6 +3335,7 @@ internal class TdlSerializer internal constructor() {
             is GetArchivedStickerSets -> return serialize(requestId = requestId, function = function)
             is GetAttachedStickerSets -> return serialize(requestId = requestId, function = function)
             is GetAttachmentMenuBot -> return serialize(requestId = requestId, function = function)
+            is GetAuthenticationPasskeyParameters -> return serialize(requestId = requestId, function = function)
             is GetAuthorizationState -> return serialize(requestId = requestId, function = function)
             is GetAutoDownloadSettingsPresets -> return serialize(requestId = requestId, function = function)
             is GetAutosaveSettings -> return serialize(requestId = requestId, function = function)
@@ -3428,6 +3458,7 @@ internal class TdlSerializer internal constructor() {
             is GetGiftChatThemes -> return serialize(requestId = requestId, function = function)
             is GetGiftCollections -> return serialize(requestId = requestId, function = function)
             is GetGiftUpgradePreview -> return serialize(requestId = requestId, function = function)
+            is GetGiftUpgradeVariants -> return serialize(requestId = requestId, function = function)
             is GetGiveawayInfo -> return serialize(requestId = requestId, function = function)
             is GetGreetingStickers -> return serialize(requestId = requestId, function = function)
             is GetGrossingWebAppBots -> return serialize(requestId = requestId, function = function)
@@ -3460,6 +3491,7 @@ internal class TdlSerializer internal constructor() {
             is GetLogTagVerbosityLevel -> return serialize(requestId = requestId, function = function)
             is GetLogTags -> return serialize(requestId = requestId, function = function)
             is GetLogVerbosityLevel -> return serialize(requestId = requestId, function = function)
+            is GetLoginPasskeys -> return serialize(requestId = requestId, function = function)
             is GetLoginUrl -> return serialize(requestId = requestId, function = function)
             is GetLoginUrlInfo -> return serialize(requestId = requestId, function = function)
             is GetMainWebApp -> return serialize(requestId = requestId, function = function)
@@ -3492,6 +3524,7 @@ internal class TdlSerializer internal constructor() {
             is GetOwnedBots -> return serialize(requestId = requestId, function = function)
             is GetOwnedStickerSets -> return serialize(requestId = requestId, function = function)
             is GetPaidMessageRevenue -> return serialize(requestId = requestId, function = function)
+            is GetPasskeyParameters -> return serialize(requestId = requestId, function = function)
             is GetPassportAuthorizationForm -> return serialize(requestId = requestId, function = function)
             is GetPassportAuthorizationFormAvailableElements -> return serialize(requestId = requestId, function = function)
             is GetPassportElement -> return serialize(requestId = requestId, function = function)
@@ -3550,6 +3583,7 @@ internal class TdlSerializer internal constructor() {
             is GetStatisticalGraph -> return serialize(requestId = requestId, function = function)
             is GetStickerEmojis -> return serialize(requestId = requestId, function = function)
             is GetStickerOutline -> return serialize(requestId = requestId, function = function)
+            is GetStickerOutlineSvgPath -> return serialize(requestId = requestId, function = function)
             is GetStickerSet -> return serialize(requestId = requestId, function = function)
             is GetStickerSetName -> return serialize(requestId = requestId, function = function)
             is GetStickers -> return serialize(requestId = requestId, function = function)
@@ -3586,6 +3620,7 @@ internal class TdlSerializer internal constructor() {
             is GetUpgradedGiftEmojiStatuses -> return serialize(requestId = requestId, function = function)
             is GetUpgradedGiftValueInfo -> return serialize(requestId = requestId, function = function)
             is GetUpgradedGiftWithdrawalUrl -> return serialize(requestId = requestId, function = function)
+            is GetUpgradedGiftsPromotionalAnimation -> return serialize(requestId = requestId, function = function)
             is GetUser -> return serialize(requestId = requestId, function = function)
             is GetUserChatBoosts -> return serialize(requestId = requestId, function = function)
             is GetUserFullInfo -> return serialize(requestId = requestId, function = function)
@@ -3648,6 +3683,7 @@ internal class TdlSerializer internal constructor() {
             is ProcessChatFolderNewChats -> return serialize(requestId = requestId, function = function)
             is ProcessChatJoinRequest -> return serialize(requestId = requestId, function = function)
             is ProcessChatJoinRequests -> return serialize(requestId = requestId, function = function)
+            is ProcessGiftPurchaseOffer -> return serialize(requestId = requestId, function = function)
             is ProcessPushNotification -> return serialize(requestId = requestId, function = function)
             is RateSpeechRecognition -> return serialize(requestId = requestId, function = function)
             is ReadAllChatMentions -> return serialize(requestId = requestId, function = function)
@@ -3673,6 +3709,7 @@ internal class TdlSerializer internal constructor() {
             is RemoveFileFromDownloads -> return serialize(requestId = requestId, function = function)
             is RemoveGiftCollectionGifts -> return serialize(requestId = requestId, function = function)
             is RemoveInstalledBackground -> return serialize(requestId = requestId, function = function)
+            is RemoveLoginPasskey -> return serialize(requestId = requestId, function = function)
             is RemoveMessageReaction -> return serialize(requestId = requestId, function = function)
             is RemoveMessageSenderBotVerification -> return serialize(requestId = requestId, function = function)
             is RemoveNotification -> return serialize(requestId = requestId, function = function)
@@ -3783,6 +3820,7 @@ internal class TdlSerializer internal constructor() {
             is SendCustomRequest -> return serialize(requestId = requestId, function = function)
             is SendEmailAddressVerificationCode -> return serialize(requestId = requestId, function = function)
             is SendGift -> return serialize(requestId = requestId, function = function)
+            is SendGiftPurchaseOffer -> return serialize(requestId = requestId, function = function)
             is SendGroupCallMessage -> return serialize(requestId = requestId, function = function)
             is SendInlineQueryResultMessage -> return serialize(requestId = requestId, function = function)
             is SendMessage -> return serialize(requestId = requestId, function = function)
@@ -4171,6 +4209,15 @@ internal class TdlSerializer internal constructor() {
             put(key = "@extra", long = requestId)
             put(key = "verbosity_level", int = function.verbosityLevel)
             put(key = "text", string = function.text)
+        }
+    }
+
+    private fun serialize(requestId: Long, function: AddLoginPasskey): String {
+        return buildJsonObjectString {
+            put(key = "@type", string = "addLoginPasskey")
+            put(key = "@extra", long = requestId)
+            put(key = "client_data", string = function.clientData)
+            put(key = "attestation_object", bytes = function.attestationObject)
         }
     }
 
@@ -4602,6 +4649,18 @@ internal class TdlSerializer internal constructor() {
             put(key = "@type", string = "checkAuthenticationEmailCode")
             put(key = "@extra", long = requestId)
             put(key = "code", value = function.code) { data -> serialize(dto = data) }
+        }
+    }
+
+    private fun serialize(requestId: Long, function: CheckAuthenticationPasskey): String {
+        return buildJsonObjectString {
+            put(key = "@type", string = "checkAuthenticationPasskey")
+            put(key = "@extra", long = requestId)
+            put(key = "credential_id", string = function.credentialId)
+            put(key = "client_data", string = function.clientData)
+            put(key = "authenticator_data", bytes = function.authenticatorData)
+            put(key = "signature", bytes = function.signature)
+            put(key = "user_handle", bytes = function.userHandle)
         }
     }
 
@@ -6111,6 +6170,13 @@ internal class TdlSerializer internal constructor() {
         }
     }
 
+    private fun serialize(requestId: Long, function: GetAuthenticationPasskeyParameters): String {
+        return buildJsonObjectString {
+            put(key = "@type", string = "getAuthenticationPasskeyParameters")
+            put(key = "@extra", long = requestId)
+        }
+    }
+
     private fun serialize(requestId: Long, function: GetAuthorizationState): String {
         return buildJsonObjectString {
             put(key = "@type", string = "getAuthorizationState")
@@ -7161,6 +7227,14 @@ internal class TdlSerializer internal constructor() {
         }
     }
 
+    private fun serialize(requestId: Long, function: GetGiftUpgradeVariants): String {
+        return buildJsonObjectString {
+            put(key = "@type", string = "getGiftUpgradeVariants")
+            put(key = "@extra", long = requestId)
+            put(key = "gift_id", long = function.giftId)
+        }
+    }
+
     private fun serialize(requestId: Long, function: GetGiveawayInfo): String {
         return buildJsonObjectString {
             put(key = "@type", string = "getGiveawayInfo")
@@ -7428,6 +7502,13 @@ internal class TdlSerializer internal constructor() {
     private fun serialize(requestId: Long, function: GetLogVerbosityLevel): String {
         return buildJsonObjectString {
             put(key = "@type", string = "getLogVerbosityLevel")
+            put(key = "@extra", long = requestId)
+        }
+    }
+
+    private fun serialize(requestId: Long, function: GetLoginPasskeys): String {
+        return buildJsonObjectString {
+            put(key = "@type", string = "getLoginPasskeys")
             put(key = "@extra", long = requestId)
         }
     }
@@ -7725,6 +7806,13 @@ internal class TdlSerializer internal constructor() {
             put(key = "@type", string = "getPaidMessageRevenue")
             put(key = "@extra", long = requestId)
             put(key = "user_id", long = function.userId)
+        }
+    }
+
+    private fun serialize(requestId: Long, function: GetPasskeyParameters): String {
+        return buildJsonObjectString {
+            put(key = "@type", string = "getPasskeyParameters")
+            put(key = "@extra", long = requestId)
         }
     }
 
@@ -8222,6 +8310,16 @@ internal class TdlSerializer internal constructor() {
         }
     }
 
+    private fun serialize(requestId: Long, function: GetStickerOutlineSvgPath): String {
+        return buildJsonObjectString {
+            put(key = "@type", string = "getStickerOutlineSvgPath")
+            put(key = "@extra", long = requestId)
+            put(key = "sticker_file_id", int = function.stickerFileId)
+            put(key = "for_animated_emoji", boolean = function.forAnimatedEmoji)
+            put(key = "for_clicked_animated_emoji_message", boolean = function.forClickedAnimatedEmojiMessage)
+        }
+    }
+
     private fun serialize(requestId: Long, function: GetStickerSet): String {
         return buildJsonObjectString {
             put(key = "@type", string = "getStickerSet")
@@ -8525,6 +8623,13 @@ internal class TdlSerializer internal constructor() {
             put(key = "@extra", long = requestId)
             put(key = "received_gift_id", string = function.receivedGiftId)
             put(key = "password", string = function.password)
+        }
+    }
+
+    private fun serialize(requestId: Long, function: GetUpgradedGiftsPromotionalAnimation): String {
+        return buildJsonObjectString {
+            put(key = "@type", string = "getUpgradedGiftsPromotionalAnimation")
+            put(key = "@extra", long = requestId)
         }
     }
 
@@ -9098,6 +9203,15 @@ internal class TdlSerializer internal constructor() {
         }
     }
 
+    private fun serialize(requestId: Long, function: ProcessGiftPurchaseOffer): String {
+        return buildJsonObjectString {
+            put(key = "@type", string = "processGiftPurchaseOffer")
+            put(key = "@extra", long = requestId)
+            put(key = "message_id", long = function.messageId)
+            put(key = "approve", boolean = function.approve)
+        }
+    }
+
     private fun serialize(requestId: Long, function: ProcessPushNotification): String {
         return buildJsonObjectString {
             put(key = "@type", string = "processPushNotification")
@@ -9319,6 +9433,14 @@ internal class TdlSerializer internal constructor() {
             put(key = "@type", string = "removeInstalledBackground")
             put(key = "@extra", long = requestId)
             put(key = "background_id", long = function.backgroundId)
+        }
+    }
+
+    private fun serialize(requestId: Long, function: RemoveLoginPasskey): String {
+        return buildJsonObjectString {
+            put(key = "@type", string = "removeLoginPasskey")
+            put(key = "@extra", long = requestId)
+            put(key = "passkey_id", string = function.passkeyId)
         }
     }
 
@@ -10346,6 +10468,18 @@ internal class TdlSerializer internal constructor() {
             put(key = "text", value = function.text) { data -> serialize(dto = data) }
             put(key = "is_private", boolean = function.isPrivate)
             put(key = "pay_for_upgrade", boolean = function.payForUpgrade)
+        }
+    }
+
+    private fun serialize(requestId: Long, function: SendGiftPurchaseOffer): String {
+        return buildJsonObjectString {
+            put(key = "@type", string = "sendGiftPurchaseOffer")
+            put(key = "@extra", long = requestId)
+            put(key = "owner_id", value = function.ownerId) { data -> serialize(dto = data) }
+            put(key = "gift_name", string = function.giftName)
+            put(key = "price", value = function.price) { data -> serialize(dto = data) }
+            put(key = "duration", int = function.duration)
+            put(key = "paid_message_star_count", long = function.paidMessageStarCount)
         }
     }
 
@@ -12719,6 +12853,14 @@ internal class TdlSerializer internal constructor() {
         }
     }
 
+    private fun serialize(dto: GiftPurchaseOfferState): JsonElement {
+        when(dto) {
+            is GiftPurchaseOfferStatePending -> return serialize(dto = dto)
+            is GiftPurchaseOfferStateAccepted -> return serialize(dto = dto)
+            is GiftPurchaseOfferStateRejected -> return serialize(dto = dto)
+        }
+    }
+
     private fun serialize(dto: SuggestedPostPrice): JsonElement {
         when(dto) {
             is SuggestedPostPriceStar -> return serialize(dto = dto)
@@ -12778,6 +12920,7 @@ internal class TdlSerializer internal constructor() {
             is UpgradedGiftOriginResale -> return serialize(dto = dto)
             is UpgradedGiftOriginBlockchain -> return serialize(dto = dto)
             is UpgradedGiftOriginPrepaidUpgrade -> return serialize(dto = dto)
+            is UpgradedGiftOriginOffer -> return serialize(dto = dto)
         }
     }
 
@@ -12848,6 +12991,7 @@ internal class TdlSerializer internal constructor() {
             is StarTransactionTypeChannelSubscriptionSale -> return serialize(dto = dto)
             is StarTransactionTypeGiftAuctionBid -> return serialize(dto = dto)
             is StarTransactionTypeGiftPurchase -> return serialize(dto = dto)
+            is StarTransactionTypeGiftPurchaseOffer -> return serialize(dto = dto)
             is StarTransactionTypeGiftTransfer -> return serialize(dto = dto)
             is StarTransactionTypeGiftOriginalDetailsDrop -> return serialize(dto = dto)
             is StarTransactionTypeGiftSale -> return serialize(dto = dto)
@@ -12877,7 +13021,9 @@ internal class TdlSerializer internal constructor() {
     private fun serialize(dto: TonTransactionType): JsonElement {
         when(dto) {
             is TonTransactionTypeFragmentDeposit -> return serialize(dto = dto)
+            is TonTransactionTypeFragmentWithdrawal -> return serialize(dto = dto)
             is TonTransactionTypeSuggestedPostPayment -> return serialize(dto = dto)
+            is TonTransactionTypeGiftPurchaseOffer -> return serialize(dto = dto)
             is TonTransactionTypeUpgradedGiftPurchase -> return serialize(dto = dto)
             is TonTransactionTypeUpgradedGiftSale -> return serialize(dto = dto)
             is TonTransactionTypeUnsupported -> return serialize(dto = dto)
@@ -13547,6 +13693,8 @@ internal class TdlSerializer internal constructor() {
             is MessageGift -> return serialize(dto = dto)
             is MessageUpgradedGift -> return serialize(dto = dto)
             is MessageRefundedUpgradedGift -> return serialize(dto = dto)
+            is MessageUpgradedGiftPurchaseOffer -> return serialize(dto = dto)
+            is MessageUpgradedGiftPurchaseOfferDeclined -> return serialize(dto = dto)
             is MessagePaidMessagesRefunded -> return serialize(dto = dto)
             is MessagePaidMessagePriceChanged -> return serialize(dto = dto)
             is MessageDirectMessagePriceChanged -> return serialize(dto = dto)
@@ -14091,6 +14239,7 @@ internal class TdlSerializer internal constructor() {
             is PremiumFeatureBusiness -> return serialize(dto = dto)
             is PremiumFeatureMessageEffects -> return serialize(dto = dto)
             is PremiumFeatureChecklists -> return serialize(dto = dto)
+            is PremiumFeaturePaidMessages -> return serialize(dto = dto)
         }
     }
 
@@ -14652,6 +14801,7 @@ internal class TdlSerializer internal constructor() {
             is SuggestedActionExtendStarSubscriptions -> return serialize(dto = dto)
             is SuggestedActionCustom -> return serialize(dto = dto)
             is SuggestedActionSetLoginEmailAddress -> return serialize(dto = dto)
+            is SuggestedActionAddLoginPasskey -> return serialize(dto = dto)
         }
     }
 
@@ -15096,6 +15246,24 @@ internal class TdlSerializer internal constructor() {
             put(key = "text", value = dto.text) { data -> serialize(dto = data) }
             put(key = "min_user_age", int = dto.minUserAge)
             put(key = "show_popup", boolean = dto.showPopup)
+        }
+    }
+
+    private fun serialize(dto: Passkey): JsonElement {
+        return buildJsonObject {
+            put(key = "@type", string = "passkey")
+            put(key = "id", string = dto.id)
+            put(key = "name", string = dto.name)
+            put(key = "addition_date", int = dto.additionDate)
+            put(key = "last_usage_date", int = dto.lastUsageDate)
+            put(key = "software_icon_custom_emoji_id", long = dto.softwareIconCustomEmojiId)
+        }
+    }
+
+    private fun serialize(dto: Passkeys): JsonElement {
+        return buildJsonObject {
+            put(key = "@type", string = "passkeys")
+            put(key = "passkeys", objects = dto.passkeys) { data -> serialize(dto = data) }
         }
     }
 
@@ -16283,6 +16451,24 @@ internal class TdlSerializer internal constructor() {
         }
     }
 
+    private fun serialize(dto: GiftPurchaseOfferStatePending): JsonElement {
+        return buildJsonObject {
+            put(key = "@type", string = "giftPurchaseOfferStatePending")
+        }
+    }
+
+    private fun serialize(dto: GiftPurchaseOfferStateAccepted): JsonElement {
+        return buildJsonObject {
+            put(key = "@type", string = "giftPurchaseOfferStateAccepted")
+        }
+    }
+
+    private fun serialize(dto: GiftPurchaseOfferStateRejected): JsonElement {
+        return buildJsonObject {
+            put(key = "@type", string = "giftPurchaseOfferStateRejected")
+        }
+    }
+
     private fun serialize(dto: SuggestedPostPriceStar): JsonElement {
         return buildJsonObject {
             put(key = "@type", string = "suggestedPostPriceStar")
@@ -16662,6 +16848,7 @@ internal class TdlSerializer internal constructor() {
             put(key = "@type", string = "giftAuction")
             put(key = "id", string = dto.id)
             put(key = "gifts_per_round", int = dto.giftsPerRound)
+            put(key = "start_date", int = dto.startDate)
         }
     }
 
@@ -16753,6 +16940,13 @@ internal class TdlSerializer internal constructor() {
         }
     }
 
+    private fun serialize(dto: UpgradedGiftOriginOffer): JsonElement {
+        return buildJsonObject {
+            put(key = "@type", string = "upgradedGiftOriginOffer")
+            put(key = "price", value = dto.price) { data -> serialize(dto = data) }
+        }
+    }
+
     private fun serialize(dto: UpgradedGiftModel): JsonElement {
         return buildJsonObject {
             put(key = "@type", string = "upgradedGiftModel")
@@ -16823,6 +17017,7 @@ internal class TdlSerializer internal constructor() {
             put(key = "star_count", long = dto.starCount)
             put(key = "default_sell_star_count", long = dto.defaultSellStarCount)
             put(key = "upgrade_star_count", long = dto.upgradeStarCount)
+            put(key = "upgrade_variant_count", int = dto.upgradeVariantCount)
             put(key = "has_colors", boolean = dto.hasColors)
             put(key = "is_for_birthday", boolean = dto.isForBirthday)
             put(key = "is_premium", boolean = dto.isPremium)
@@ -16830,6 +17025,7 @@ internal class TdlSerializer internal constructor() {
             put(key = "next_send_date", int = dto.nextSendDate)
             put(key = "user_limits", value = dto.userLimits) { data -> serialize(dto = data) }
             put(key = "overall_limits", value = dto.overallLimits) { data -> serialize(dto = data) }
+            put(key = "background", value = dto.background) { data -> serialize(dto = data) }
             put(key = "first_send_date", int = dto.firstSendDate)
             put(key = "last_send_date", int = dto.lastSendDate)
         }
@@ -16860,8 +17056,10 @@ internal class TdlSerializer internal constructor() {
             put(key = "original_details", value = dto.originalDetails) { data -> serialize(dto = data) }
             put(key = "colors", value = dto.colors) { data -> serialize(dto = data) }
             put(key = "resale_parameters", value = dto.resaleParameters) { data -> serialize(dto = data) }
+            put(key = "can_send_purchase_offer", boolean = dto.canSendPurchaseOffer)
             put(key = "value_currency", string = dto.valueCurrency)
             put(key = "value_amount", long = dto.valueAmount)
+            put(key = "value_usd_amount", long = dto.valueUsdAmount)
         }
     }
 
@@ -17041,6 +17239,7 @@ internal class TdlSerializer internal constructor() {
             put(key = "received_gift_id", string = dto.receivedGiftId)
             put(key = "sender_id", value = dto.senderId) { data -> serialize(dto = data) }
             put(key = "text", value = dto.text) { data -> serialize(dto = data) }
+            put(key = "unique_gift_number", int = dto.uniqueGiftNumber)
             put(key = "is_private", boolean = dto.isPrivate)
             put(key = "is_saved", boolean = dto.isSaved)
             put(key = "is_pinned", boolean = dto.isPinned)
@@ -17083,6 +17282,15 @@ internal class TdlSerializer internal constructor() {
         }
     }
 
+    private fun serialize(dto: GiftUpgradeVariants): JsonElement {
+        return buildJsonObject {
+            put(key = "@type", string = "giftUpgradeVariants")
+            put(key = "models", objects = dto.models) { data -> serialize(dto = data) }
+            put(key = "symbols", objects = dto.symbols) { data -> serialize(dto = data) }
+            put(key = "backdrops", objects = dto.backdrops) { data -> serialize(dto = data) }
+        }
+    }
+
     private fun serialize(dto: AuctionBid): JsonElement {
         return buildJsonObject {
             put(key = "@type", string = "auctionBid")
@@ -17103,6 +17311,16 @@ internal class TdlSerializer internal constructor() {
         }
     }
 
+    private fun serialize(dto: AuctionRound): JsonElement {
+        return buildJsonObject {
+            put(key = "@type", string = "auctionRound")
+            put(key = "number", int = dto.number)
+            put(key = "duration", int = dto.duration)
+            put(key = "extend_time", int = dto.extendTime)
+            put(key = "top_winner_count", int = dto.topWinnerCount)
+        }
+    }
+
     private fun serialize(dto: AuctionStateActive): JsonElement {
         return buildJsonObject {
             put(key = "@type", string = "auctionStateActive")
@@ -17111,9 +17329,11 @@ internal class TdlSerializer internal constructor() {
             put(key = "min_bid", long = dto.minBid)
             put(key = "bid_levels", objects = dto.bidLevels) { data -> serialize(dto = data) }
             put(key = "top_bidder_user_ids", longs = dto.topBidderUserIds)
+            put(key = "rounds", objects = dto.rounds) { data -> serialize(dto = data) }
             put(key = "current_round_end_date", int = dto.currentRoundEndDate)
             put(key = "current_round_number", int = dto.currentRoundNumber)
             put(key = "total_round_count", int = dto.totalRoundCount)
+            put(key = "distributed_item_count", int = dto.distributedItemCount)
             put(key = "left_item_count", int = dto.leftItemCount)
             put(key = "acquired_item_count", int = dto.acquiredItemCount)
             put(key = "user_bid", value = dto.userBid) { data -> serialize(dto = data) }
@@ -17127,6 +17347,9 @@ internal class TdlSerializer internal constructor() {
             put(key = "end_date", int = dto.endDate)
             put(key = "average_price", long = dto.averagePrice)
             put(key = "acquired_item_count", int = dto.acquiredItemCount)
+            put(key = "telegram_listed_item_count", int = dto.telegramListedItemCount)
+            put(key = "fragment_listed_item_count", int = dto.fragmentListedItemCount)
+            put(key = "fragment_url", string = dto.fragmentUrl)
         }
     }
 
@@ -17146,6 +17369,7 @@ internal class TdlSerializer internal constructor() {
             put(key = "star_count", long = dto.starCount)
             put(key = "auction_round_number", int = dto.auctionRoundNumber)
             put(key = "auction_round_position", int = dto.auctionRoundPosition)
+            put(key = "unique_gift_number", int = dto.uniqueGiftNumber)
             put(key = "text", value = dto.text) { data -> serialize(dto = data) }
             put(key = "is_private", boolean = dto.isPrivate)
         }
@@ -17336,6 +17560,13 @@ internal class TdlSerializer internal constructor() {
         }
     }
 
+    private fun serialize(dto: StarTransactionTypeGiftPurchaseOffer): JsonElement {
+        return buildJsonObject {
+            put(key = "@type", string = "starTransactionTypeGiftPurchaseOffer")
+            put(key = "gift", value = dto.gift) { data -> serialize(dto = data) }
+        }
+    }
+
     private fun serialize(dto: StarTransactionTypeGiftTransfer): JsonElement {
         return buildJsonObject {
             put(key = "@type", string = "starTransactionTypeGiftTransfer")
@@ -17391,6 +17622,7 @@ internal class TdlSerializer internal constructor() {
             put(key = "gift", value = dto.gift) { data -> serialize(dto = data) }
             put(key = "commission_per_mille", int = dto.commissionPerMille)
             put(key = "commission_star_amount", value = dto.commissionStarAmount) { data -> serialize(dto = data) }
+            put(key = "via_offer", boolean = dto.viaOffer)
         }
     }
 
@@ -17545,10 +17777,24 @@ internal class TdlSerializer internal constructor() {
         }
     }
 
+    private fun serialize(dto: TonTransactionTypeFragmentWithdrawal): JsonElement {
+        return buildJsonObject {
+            put(key = "@type", string = "tonTransactionTypeFragmentWithdrawal")
+            put(key = "withdrawal_state", value = dto.withdrawalState) { data -> serialize(dto = data) }
+        }
+    }
+
     private fun serialize(dto: TonTransactionTypeSuggestedPostPayment): JsonElement {
         return buildJsonObject {
             put(key = "@type", string = "tonTransactionTypeSuggestedPostPayment")
             put(key = "chat_id", long = dto.chatId)
+        }
+    }
+
+    private fun serialize(dto: TonTransactionTypeGiftPurchaseOffer): JsonElement {
+        return buildJsonObject {
+            put(key = "@type", string = "tonTransactionTypeGiftPurchaseOffer")
+            put(key = "gift", value = dto.gift) { data -> serialize(dto = data) }
         }
     }
 
@@ -17567,6 +17813,7 @@ internal class TdlSerializer internal constructor() {
             put(key = "gift", value = dto.gift) { data -> serialize(dto = data) }
             put(key = "commission_per_mille", int = dto.commissionPerMille)
             put(key = "commission_toncoin_amount", long = dto.commissionToncoinAmount)
+            put(key = "via_offer", boolean = dto.viaOffer)
         }
     }
 
@@ -20625,7 +20872,6 @@ internal class TdlSerializer internal constructor() {
         return buildJsonObject {
             put(key = "@type", string = "linkPreviewTypeGiftAuction")
             put(key = "gift", value = dto.gift) { data -> serialize(dto = data) }
-            put(key = "gift_background", value = dto.giftBackground) { data -> serialize(dto = data) }
             put(key = "auction_end_date", int = dto.auctionEndDate)
         }
     }
@@ -22313,6 +22559,7 @@ internal class TdlSerializer internal constructor() {
             put(key = "receiver_id", value = dto.receiverId) { data -> serialize(dto = data) }
             put(key = "received_gift_id", string = dto.receivedGiftId)
             put(key = "text", value = dto.text) { data -> serialize(dto = data) }
+            put(key = "unique_gift_number", int = dto.uniqueGiftNumber)
             put(key = "sell_star_count", long = dto.sellStarCount)
             put(key = "prepaid_upgrade_star_count", long = dto.prepaidUpgradeStarCount)
             put(key = "is_upgrade_separate", boolean = dto.isUpgradeSeparate)
@@ -22355,6 +22602,26 @@ internal class TdlSerializer internal constructor() {
             put(key = "sender_id", value = dto.senderId) { data -> serialize(dto = data) }
             put(key = "receiver_id", value = dto.receiverId) { data -> serialize(dto = data) }
             put(key = "origin", value = dto.origin) { data -> serialize(dto = data) }
+        }
+    }
+
+    private fun serialize(dto: MessageUpgradedGiftPurchaseOffer): JsonElement {
+        return buildJsonObject {
+            put(key = "@type", string = "messageUpgradedGiftPurchaseOffer")
+            put(key = "gift", value = dto.gift) { data -> serialize(dto = data) }
+            put(key = "state", value = dto.state) { data -> serialize(dto = data) }
+            put(key = "price", value = dto.price) { data -> serialize(dto = data) }
+            put(key = "expiration_date", int = dto.expirationDate)
+        }
+    }
+
+    private fun serialize(dto: MessageUpgradedGiftPurchaseOfferDeclined): JsonElement {
+        return buildJsonObject {
+            put(key = "@type", string = "messageUpgradedGiftPurchaseOfferDeclined")
+            put(key = "gift", value = dto.gift) { data -> serialize(dto = data) }
+            put(key = "price", value = dto.price) { data -> serialize(dto = data) }
+            put(key = "offer_message_id", long = dto.offerMessageId)
+            put(key = "was_expired", boolean = dto.wasExpired)
         }
     }
 
@@ -25915,6 +26182,12 @@ internal class TdlSerializer internal constructor() {
         }
     }
 
+    private fun serialize(dto: PremiumFeaturePaidMessages): JsonElement {
+        return buildJsonObject {
+            put(key = "@type", string = "premiumFeaturePaidMessages")
+        }
+    }
+
     private fun serialize(dto: BusinessFeatureLocation): JsonElement {
         return buildJsonObject {
             put(key = "@type", string = "businessFeatureLocation")
@@ -28772,6 +29045,12 @@ internal class TdlSerializer internal constructor() {
         return buildJsonObject {
             put(key = "@type", string = "suggestedActionSetLoginEmailAddress")
             put(key = "can_be_hidden", boolean = dto.canBeHidden)
+        }
+    }
+
+    private fun serialize(dto: SuggestedActionAddLoginPasskey): JsonElement {
+        return buildJsonObject {
+            put(key = "@type", string = "suggestedActionAddLoginPasskey")
         }
     }
 

@@ -22,7 +22,7 @@ import kotlin.Int
 import kotlin.String
 
 /**
- * The transaction is a payment for search of posts in public Telegram channels; for regular users only.
+ * The transaction is a payment for search of posts in public Telegram channels; relevant for regular users only.
  */
 public class StarTransactionTypePublicPostSearch public constructor() : StarTransactionType() {
     override fun equals(other: Any?): Boolean {

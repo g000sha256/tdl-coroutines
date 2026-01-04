@@ -23,7 +23,7 @@ import kotlin.Long
 import kotlin.String
 
 /**
- * The transaction is a sending of a paid message; for regular users only.
+ * The transaction is a sending of a paid message; relevant for regular users only.
  *
  * @property chatId Identifier of the chat that received the payment.
  * @property messageCount Number of sent paid messages.

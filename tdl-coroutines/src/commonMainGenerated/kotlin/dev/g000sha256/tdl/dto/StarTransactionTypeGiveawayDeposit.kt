@@ -23,10 +23,10 @@ import kotlin.Long
 import kotlin.String
 
 /**
- * The transaction is a deposit of Telegram Stars from a giveaway; for regular users only.
+ * The transaction is a deposit of Telegram Stars from a giveaway; relevant for regular users only.
  *
  * @property chatId Identifier of a supergroup or a channel chat that created the giveaway.
- * @property giveawayMessageId Identifier of the message with the giveaway; can be 0 or an identifier of a deleted message.
+ * @property giveawayMessageId Identifier of the message with the giveaway; may be 0 or an identifier of a deleted message.
  */
 public class StarTransactionTypeGiveawayDeposit public constructor(
     public val chatId: Long,

@@ -23,10 +23,10 @@ import kotlin.Long
 import kotlin.String
 
 /**
- * The transaction is a sending of a paid reaction to a message in a channel chat by the current user; for regular users only.
+ * The transaction is a sending of a paid reaction to a message in a channel chat by the current user; relevant for regular users only.
  *
  * @property chatId Identifier of the channel chat.
- * @property messageId Identifier of the reacted message; can be 0 or an identifier of a deleted message.
+ * @property messageId Identifier of the reacted message; may be 0 or an identifier of a deleted message.
  */
 public class StarTransactionTypeChannelPaidReactionSend public constructor(
     public val chatId: Long,

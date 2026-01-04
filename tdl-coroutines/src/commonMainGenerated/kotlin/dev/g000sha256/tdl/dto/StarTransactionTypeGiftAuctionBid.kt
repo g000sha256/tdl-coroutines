@@ -22,7 +22,7 @@ import kotlin.Int
 import kotlin.String
 
 /**
- * The transaction is a bid on a gift auction; for regular users only.
+ * The transaction is a bid on a gift auction; relevant for regular users only.
  *
  * @property ownerId Identifier of the user that will receive the gift.
  * @property gift The gift.

@@ -25,7 +25,7 @@ import kotlin.String
 /**
  * A suggested post was refunded.
  *
- * @property suggestedPostMessageId Identifier of the message with the suggested post; can be 0 if the message was deleted.
+ * @property suggestedPostMessageId Identifier of the message with the suggested post; may be 0 or an identifier of a deleted message.
  * @property reason Reason of the refund.
  */
 public class MessageSuggestedPostRefunded public constructor(
