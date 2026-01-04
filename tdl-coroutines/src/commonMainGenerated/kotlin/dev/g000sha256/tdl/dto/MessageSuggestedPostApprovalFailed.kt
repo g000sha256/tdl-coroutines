@@ -25,7 +25,7 @@ import kotlin.String
 /**
  * Approval of suggested post has failed, because the user which proposed the post had no enough funds.
  *
- * @property suggestedPostMessageId Identifier of the message with the suggested post; can be 0 if the message was deleted.
+ * @property suggestedPostMessageId Identifier of the message with the suggested post; may be 0 or an identifier of a deleted message.
  * @property price Price of the suggested post.
  */
 public class MessageSuggestedPostApprovalFailed public constructor(

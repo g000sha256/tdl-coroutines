@@ -22,7 +22,7 @@ import kotlin.Int
 import kotlin.String
 
 /**
- * The transaction is a withdrawal of earned Telegram Stars to Telegram Ad platform; for bots and channel chats only.
+ * The transaction is a withdrawal of earned Telegram Stars to Telegram Ad platform; relevant for bots and channel chats only.
  */
 public class StarTransactionTypeTelegramAdsWithdrawal public constructor() : StarTransactionType() {
     override fun equals(other: Any?): Boolean {

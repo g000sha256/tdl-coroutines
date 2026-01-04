@@ -26,7 +26,7 @@ import kotlin.String
 /**
  * Some tasks were added to a checklist.
  *
- * @property checklistMessageId Identifier of the message with the checklist; can be 0 if the message was deleted.
+ * @property checklistMessageId Identifier of the message with the checklist; may be 0 or an identifier of a deleted message.
  * @property tasks List of tasks added to the checklist.
  */
 public class MessageChecklistTasksAdded public constructor(

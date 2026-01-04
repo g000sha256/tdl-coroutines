@@ -22,6 +22,7 @@ import dev.g000sha256.tdl.dto.AffiliateProgramParameters
 import dev.g000sha256.tdl.dto.AffiliateProgramSortOrder
 import dev.g000sha256.tdl.dto.AffiliateType
 import dev.g000sha256.tdl.dto.AnimatedEmoji
+import dev.g000sha256.tdl.dto.Animation
 import dev.g000sha256.tdl.dto.Animations
 import dev.g000sha256.tdl.dto.ArchiveChatListSettings
 import dev.g000sha256.tdl.dto.AttachmentMenuBot
@@ -174,6 +175,7 @@ import dev.g000sha256.tdl.dto.GiftResalePrice
 import dev.g000sha256.tdl.dto.GiftResaleResult
 import dev.g000sha256.tdl.dto.GiftSettings
 import dev.g000sha256.tdl.dto.GiftUpgradePreview
+import dev.g000sha256.tdl.dto.GiftUpgradeVariants
 import dev.g000sha256.tdl.dto.GiftsForResale
 import dev.g000sha256.tdl.dto.GiveawayInfo
 import dev.g000sha256.tdl.dto.GiveawayParameters
@@ -263,6 +265,8 @@ import dev.g000sha256.tdl.dto.OptionValue
 import dev.g000sha256.tdl.dto.OrderInfo
 import dev.g000sha256.tdl.dto.Outline
 import dev.g000sha256.tdl.dto.PaidReactionType
+import dev.g000sha256.tdl.dto.Passkey
+import dev.g000sha256.tdl.dto.Passkeys
 import dev.g000sha256.tdl.dto.PassportAuthorizationForm
 import dev.g000sha256.tdl.dto.PassportElement
 import dev.g000sha256.tdl.dto.PassportElementType
@@ -584,6 +588,7 @@ import dev.g000sha256.tdl.function.AddFileToDownloads
 import dev.g000sha256.tdl.function.AddGiftCollectionGifts
 import dev.g000sha256.tdl.function.AddLocalMessage
 import dev.g000sha256.tdl.function.AddLogMessage
+import dev.g000sha256.tdl.function.AddLoginPasskey
 import dev.g000sha256.tdl.function.AddMessageReaction
 import dev.g000sha256.tdl.function.AddNetworkStatistics
 import dev.g000sha256.tdl.function.AddOffer
@@ -631,6 +636,7 @@ import dev.g000sha256.tdl.function.ChangeStickerSet
 import dev.g000sha256.tdl.function.CheckAuthenticationBotToken
 import dev.g000sha256.tdl.function.CheckAuthenticationCode
 import dev.g000sha256.tdl.function.CheckAuthenticationEmailCode
+import dev.g000sha256.tdl.function.CheckAuthenticationPasskey
 import dev.g000sha256.tdl.function.CheckAuthenticationPassword
 import dev.g000sha256.tdl.function.CheckAuthenticationPasswordRecoveryCode
 import dev.g000sha256.tdl.function.CheckAuthenticationPremiumPurchase
@@ -794,6 +800,7 @@ import dev.g000sha256.tdl.function.GetArchiveChatListSettings
 import dev.g000sha256.tdl.function.GetArchivedStickerSets
 import dev.g000sha256.tdl.function.GetAttachedStickerSets
 import dev.g000sha256.tdl.function.GetAttachmentMenuBot
+import dev.g000sha256.tdl.function.GetAuthenticationPasskeyParameters
 import dev.g000sha256.tdl.function.GetAuthorizationState
 import dev.g000sha256.tdl.function.GetAutoDownloadSettingsPresets
 import dev.g000sha256.tdl.function.GetAutosaveSettings
@@ -916,6 +923,7 @@ import dev.g000sha256.tdl.function.GetGiftAuctionState
 import dev.g000sha256.tdl.function.GetGiftChatThemes
 import dev.g000sha256.tdl.function.GetGiftCollections
 import dev.g000sha256.tdl.function.GetGiftUpgradePreview
+import dev.g000sha256.tdl.function.GetGiftUpgradeVariants
 import dev.g000sha256.tdl.function.GetGiveawayInfo
 import dev.g000sha256.tdl.function.GetGreetingStickers
 import dev.g000sha256.tdl.function.GetGrossingWebAppBots
@@ -948,6 +956,7 @@ import dev.g000sha256.tdl.function.GetLogStream
 import dev.g000sha256.tdl.function.GetLogTagVerbosityLevel
 import dev.g000sha256.tdl.function.GetLogTags
 import dev.g000sha256.tdl.function.GetLogVerbosityLevel
+import dev.g000sha256.tdl.function.GetLoginPasskeys
 import dev.g000sha256.tdl.function.GetLoginUrl
 import dev.g000sha256.tdl.function.GetLoginUrlInfo
 import dev.g000sha256.tdl.function.GetMainWebApp
@@ -980,6 +989,7 @@ import dev.g000sha256.tdl.function.GetOption
 import dev.g000sha256.tdl.function.GetOwnedBots
 import dev.g000sha256.tdl.function.GetOwnedStickerSets
 import dev.g000sha256.tdl.function.GetPaidMessageRevenue
+import dev.g000sha256.tdl.function.GetPasskeyParameters
 import dev.g000sha256.tdl.function.GetPassportAuthorizationForm
 import dev.g000sha256.tdl.function.GetPassportAuthorizationFormAvailableElements
 import dev.g000sha256.tdl.function.GetPassportElement
@@ -1038,6 +1048,7 @@ import dev.g000sha256.tdl.function.GetStarWithdrawalUrl
 import dev.g000sha256.tdl.function.GetStatisticalGraph
 import dev.g000sha256.tdl.function.GetStickerEmojis
 import dev.g000sha256.tdl.function.GetStickerOutline
+import dev.g000sha256.tdl.function.GetStickerOutlineSvgPath
 import dev.g000sha256.tdl.function.GetStickerSet
 import dev.g000sha256.tdl.function.GetStickerSetName
 import dev.g000sha256.tdl.function.GetStickers
@@ -1074,6 +1085,7 @@ import dev.g000sha256.tdl.function.GetUpgradedGift
 import dev.g000sha256.tdl.function.GetUpgradedGiftEmojiStatuses
 import dev.g000sha256.tdl.function.GetUpgradedGiftValueInfo
 import dev.g000sha256.tdl.function.GetUpgradedGiftWithdrawalUrl
+import dev.g000sha256.tdl.function.GetUpgradedGiftsPromotionalAnimation
 import dev.g000sha256.tdl.function.GetUser
 import dev.g000sha256.tdl.function.GetUserChatBoosts
 import dev.g000sha256.tdl.function.GetUserFullInfo
@@ -1136,6 +1148,7 @@ import dev.g000sha256.tdl.function.PreliminaryUploadFile
 import dev.g000sha256.tdl.function.ProcessChatFolderNewChats
 import dev.g000sha256.tdl.function.ProcessChatJoinRequest
 import dev.g000sha256.tdl.function.ProcessChatJoinRequests
+import dev.g000sha256.tdl.function.ProcessGiftPurchaseOffer
 import dev.g000sha256.tdl.function.ProcessPushNotification
 import dev.g000sha256.tdl.function.RateSpeechRecognition
 import dev.g000sha256.tdl.function.ReadAllChatMentions
@@ -1161,6 +1174,7 @@ import dev.g000sha256.tdl.function.RemoveFavoriteSticker
 import dev.g000sha256.tdl.function.RemoveFileFromDownloads
 import dev.g000sha256.tdl.function.RemoveGiftCollectionGifts
 import dev.g000sha256.tdl.function.RemoveInstalledBackground
+import dev.g000sha256.tdl.function.RemoveLoginPasskey
 import dev.g000sha256.tdl.function.RemoveMessageReaction
 import dev.g000sha256.tdl.function.RemoveMessageSenderBotVerification
 import dev.g000sha256.tdl.function.RemoveNotification
@@ -1271,6 +1285,7 @@ import dev.g000sha256.tdl.function.SendChatAction
 import dev.g000sha256.tdl.function.SendCustomRequest
 import dev.g000sha256.tdl.function.SendEmailAddressVerificationCode
 import dev.g000sha256.tdl.function.SendGift
+import dev.g000sha256.tdl.function.SendGiftPurchaseOffer
 import dev.g000sha256.tdl.function.SendGroupCallMessage
 import dev.g000sha256.tdl.function.SendInlineQueryResultMessage
 import dev.g000sha256.tdl.function.SendMessage
@@ -2210,6 +2225,14 @@ internal class TdlClientImpl internal constructor(
         return repository.send(function = function)
     }
 
+    override suspend fun addLoginPasskey(clientData: String, attestationObject: ByteArray): TdlResult<Passkey> {
+        val function = AddLoginPasskey(
+            clientData = clientData,
+            attestationObject = attestationObject,
+        )
+        return repository.send(function = function)
+    }
+
     override suspend fun addMessageReaction(
         chatId: Long,
         messageId: Long,
@@ -2668,6 +2691,23 @@ internal class TdlClientImpl internal constructor(
     override suspend fun checkAuthenticationEmailCode(code: EmailAddressAuthentication): TdlResult<Ok> {
         val function = CheckAuthenticationEmailCode(
             code = code,
+        )
+        return repository.send(function = function)
+    }
+
+    override suspend fun checkAuthenticationPasskey(
+        credentialId: String,
+        clientData: String,
+        authenticatorData: ByteArray,
+        signature: ByteArray,
+        userHandle: ByteArray,
+    ): TdlResult<Ok> {
+        val function = CheckAuthenticationPasskey(
+            credentialId = credentialId,
+            clientData = clientData,
+            authenticatorData = authenticatorData,
+            signature = signature,
+            userHandle = userHandle,
         )
         return repository.send(function = function)
     }
@@ -4295,6 +4335,11 @@ internal class TdlClientImpl internal constructor(
         return repository.send(function = function)
     }
 
+    override suspend fun getAuthenticationPasskeyParameters(): TdlResult<Text> {
+        val function = GetAuthenticationPasskeyParameters()
+        return repository.send(function = function)
+    }
+
     override suspend fun getAuthorizationState(): TdlResult<AuthorizationState> {
         val function = GetAuthorizationState()
         return repository.send(function = function)
@@ -5318,6 +5363,13 @@ internal class TdlClientImpl internal constructor(
         return repository.send(function = function)
     }
 
+    override suspend fun getGiftUpgradeVariants(giftId: Long): TdlResult<GiftUpgradeVariants> {
+        val function = GetGiftUpgradeVariants(
+            giftId = giftId,
+        )
+        return repository.send(function = function)
+    }
+
     override suspend fun getGiveawayInfo(chatId: Long, messageId: Long): TdlResult<GiveawayInfo> {
         val function = GetGiveawayInfo(
             chatId = chatId,
@@ -5569,6 +5621,11 @@ internal class TdlClientImpl internal constructor(
 
     override suspend fun getLogVerbosityLevel(): TdlResult<LogVerbosityLevel> {
         val function = GetLogVerbosityLevel()
+        return repository.send(function = function)
+    }
+
+    override suspend fun getLoginPasskeys(): TdlResult<Passkeys> {
+        val function = GetLoginPasskeys()
         return repository.send(function = function)
     }
 
@@ -5886,6 +5943,11 @@ internal class TdlClientImpl internal constructor(
         val function = GetPaidMessageRevenue(
             userId = userId,
         )
+        return repository.send(function = function)
+    }
+
+    override suspend fun getPasskeyParameters(): TdlResult<Text> {
+        val function = GetPasskeyParameters()
         return repository.send(function = function)
     }
 
@@ -6359,6 +6421,19 @@ internal class TdlClientImpl internal constructor(
         return repository.send(function = function)
     }
 
+    override suspend fun getStickerOutlineSvgPath(
+        stickerFileId: Int,
+        forAnimatedEmoji: Boolean,
+        forClickedAnimatedEmojiMessage: Boolean,
+    ): TdlResult<Text> {
+        val function = GetStickerOutlineSvgPath(
+            stickerFileId = stickerFileId,
+            forAnimatedEmoji = forAnimatedEmoji,
+            forClickedAnimatedEmojiMessage = forClickedAnimatedEmojiMessage,
+        )
+        return repository.send(function = function)
+    }
+
     override suspend fun getStickerSet(setId: Long): TdlResult<StickerSet> {
         val function = GetStickerSet(
             setId = setId,
@@ -6659,6 +6734,11 @@ internal class TdlClientImpl internal constructor(
             receivedGiftId = receivedGiftId,
             password = password,
         )
+        return repository.send(function = function)
+    }
+
+    override suspend fun getUpgradedGiftsPromotionalAnimation(): TdlResult<Animation> {
+        val function = GetUpgradedGiftsPromotionalAnimation()
         return repository.send(function = function)
     }
 
@@ -7263,6 +7343,14 @@ internal class TdlClientImpl internal constructor(
         return repository.send(function = function)
     }
 
+    override suspend fun processGiftPurchaseOffer(messageId: Long, approve: Boolean): TdlResult<Ok> {
+        val function = ProcessGiftPurchaseOffer(
+            messageId = messageId,
+            approve = approve,
+        )
+        return repository.send(function = function)
+    }
+
     override suspend fun processPushNotification(payload: String): TdlResult<Ok> {
         val function = ProcessPushNotification(
             payload = payload,
@@ -7490,6 +7578,13 @@ internal class TdlClientImpl internal constructor(
     override suspend fun removeInstalledBackground(backgroundId: Long): TdlResult<Ok> {
         val function = RemoveInstalledBackground(
             backgroundId = backgroundId,
+        )
+        return repository.send(function = function)
+    }
+
+    override suspend fun removeLoginPasskey(passkeyId: String): TdlResult<Ok> {
+        val function = RemoveLoginPasskey(
+            passkeyId = passkeyId,
         )
         return repository.send(function = function)
     }
@@ -8595,6 +8690,23 @@ internal class TdlClientImpl internal constructor(
             text = text,
             isPrivate = isPrivate,
             payForUpgrade = payForUpgrade,
+        )
+        return repository.send(function = function)
+    }
+
+    override suspend fun sendGiftPurchaseOffer(
+        ownerId: MessageSender,
+        giftName: String,
+        price: GiftResalePrice,
+        duration: Int,
+        paidMessageStarCount: Long,
+    ): TdlResult<Ok> {
+        val function = SendGiftPurchaseOffer(
+            ownerId = ownerId,
+            giftName = giftName,
+            price = price,
+            duration = duration,
+            paidMessageStarCount = paidMessageStarCount,
         )
         return repository.send(function = function)
     }

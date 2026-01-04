@@ -25,7 +25,7 @@ import kotlin.String
 /**
  * The gift was obtained by upgrading of a previously received gift.
  *
- * @property giftMessageId Identifier of the message with the regular gift that was upgraded; can be 0 or an identifier of a deleted message.
+ * @property giftMessageId Identifier of the message with the regular gift that was upgraded; may be 0 or an identifier of a deleted message.
  */
 public class UpgradedGiftOriginUpgrade public constructor(
     public val giftMessageId: Long,

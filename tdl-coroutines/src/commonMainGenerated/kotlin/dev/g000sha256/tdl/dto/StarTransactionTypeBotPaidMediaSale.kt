@@ -24,7 +24,7 @@ import kotlin.Long
 import kotlin.String
 
 /**
- * The transaction is a sale of paid media by the bot or a business account managed by the bot; for bots only.
+ * The transaction is a sale of paid media by the bot or a business account managed by the bot; relevant for bots only.
  *
  * @property userId Identifier of the user that bought the media.
  * @property media The bought media.

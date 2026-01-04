@@ -26,10 +26,12 @@ import kotlin.String
  *
  * @property id Identifier of the auction.
  * @property giftsPerRound Number of gifts distributed in each round.
+ * @property startDate Point in time (Unix timestamp) when the auction will start.
  */
 public class GiftAuction public constructor(
     public val id: String,
     public val giftsPerRound: Int,
+    public val startDate: Int,
 ) {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
@@ -45,13 +47,17 @@ public class GiftAuction public constructor(
         if (other.id != id) {
             return false
         }
-        return other.giftsPerRound == giftsPerRound
+        if (other.giftsPerRound != giftsPerRound) {
+            return false
+        }
+        return other.startDate == startDate
     }
 
     override fun hashCode(): Int {
         var hashCode = this::class.hashCode()
         hashCode = 31 * hashCode + id.hashCode()
         hashCode = 31 * hashCode + giftsPerRound.hashCode()
+        hashCode = 31 * hashCode + startDate.hashCode()
         return hashCode
     }
 
@@ -64,6 +70,9 @@ public class GiftAuction public constructor(
             append(", ")
             append("giftsPerRound=")
             append(giftsPerRound)
+            append(", ")
+            append("startDate=")
+            append(startDate)
             append(")")
         }
     }

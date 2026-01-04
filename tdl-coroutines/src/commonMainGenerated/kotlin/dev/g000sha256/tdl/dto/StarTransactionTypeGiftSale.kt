@@ -23,7 +23,7 @@ import kotlin.Long
 import kotlin.String
 
 /**
- * The transaction is a sale of a received gift; for regular users and channel chats only.
+ * The transaction is a sale of a received gift; relevant for regular users and channel chats only.
  *
  * @property userId Identifier of the user that sent the gift.
  * @property gift The gift.

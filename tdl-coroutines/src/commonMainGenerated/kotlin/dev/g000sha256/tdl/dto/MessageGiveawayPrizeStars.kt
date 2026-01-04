@@ -28,7 +28,7 @@ import kotlin.String
  * @property starCount Number of Telegram Stars that were received.
  * @property transactionId Identifier of the transaction for Telegram Stars credit.
  * @property boostedChatId Identifier of the supergroup or channel chat, which was automatically boosted by the winners of the giveaway.
- * @property giveawayMessageId Identifier of the message with the giveaway in the boosted chat; can be 0 if the message was deleted.
+ * @property giveawayMessageId Identifier of the message with the giveaway in the boosted chat; may be 0 or an identifier of a deleted message.
  * @property isUnclaimed True, if the corresponding winner wasn't chosen and the Telegram Stars were received by the owner of the boosted chat.
  * @property sticker A sticker to be shown in the message; may be null if unknown.
  */

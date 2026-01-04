@@ -23,7 +23,7 @@ import kotlin.Long
 import kotlin.String
 
 /**
- * The transaction is a deposit of Telegram Stars by another user; for regular users only.
+ * The transaction is a deposit of Telegram Stars by another user; relevant for regular users only.
  *
  * @property userId Identifier of the user that gifted Telegram Stars; 0 if the user was anonymous.
  * @property sticker The sticker to be shown in the transaction information; may be null if unknown.

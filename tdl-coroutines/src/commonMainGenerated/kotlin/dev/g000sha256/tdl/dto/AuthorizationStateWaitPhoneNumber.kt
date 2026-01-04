@@ -22,7 +22,7 @@ import kotlin.Int
 import kotlin.String
 
 /**
- * TDLib needs the user's phone number to authorize. Call setAuthenticationPhoneNumber to provide the phone number, or use requestQrCodeAuthentication or checkAuthenticationBotToken for other authentication options.
+ * TDLib needs the user's phone number to authorize. Call setAuthenticationPhoneNumber to provide the phone number, or use requestQrCodeAuthentication, getAuthenticationPasskeyParameters, or checkAuthenticationBotToken for other authentication options.
  */
 public class AuthorizationStateWaitPhoneNumber public constructor() : AuthorizationState() {
     override fun equals(other: Any?): Boolean {

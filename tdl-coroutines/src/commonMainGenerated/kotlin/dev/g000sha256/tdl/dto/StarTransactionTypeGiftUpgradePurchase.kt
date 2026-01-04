@@ -22,7 +22,7 @@ import kotlin.Int
 import kotlin.String
 
 /**
- * The transaction is a purchase of an upgrade of a gift owned by another user or channel; for regular users only.
+ * The transaction is a purchase of an upgrade of a gift owned by another user or channel; relevant for regular users only.
  *
  * @property ownerId Owner of the upgraded gift.
  * @property gift The gift.

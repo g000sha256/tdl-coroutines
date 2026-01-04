@@ -22,7 +22,7 @@ import kotlin.Int
 import kotlin.String
 
 /**
- * The transaction is a withdrawal of earned Telegram Stars to Fragment; for regular users, bots, supergroup and channel chats only.
+ * The transaction is a withdrawal of earned Telegram Stars to Fragment; relevant for regular users, bots, supergroup and channel chats only.
  *
  * @property withdrawalState State of the withdrawal; may be null for refunds from Fragment.
  */

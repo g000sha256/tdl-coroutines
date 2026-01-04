@@ -23,7 +23,7 @@ import kotlin.Long
 import kotlin.String
 
 /**
- * The transaction is a sale of a subscription by the channel chat; for channel chats only.
+ * The transaction is a sale of a subscription by the channel chat; relevant for channel chats only.
  *
  * @property userId Identifier of the user that bought the subscription.
  * @property subscriptionPeriod The number of seconds between consecutive Telegram Star debitings.

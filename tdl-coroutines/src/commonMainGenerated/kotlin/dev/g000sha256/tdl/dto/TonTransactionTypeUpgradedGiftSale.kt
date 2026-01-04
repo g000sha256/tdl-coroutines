@@ -23,18 +23,20 @@ import kotlin.Long
 import kotlin.String
 
 /**
- * The transaction is a sale of an upgraded gift; for regular users only.
+ * The transaction is a sale of an upgraded gift.
  *
  * @property userId Identifier of the user that bought the gift.
  * @property gift The gift.
  * @property commissionPerMille The number of Toncoins received by the Telegram for each 1000 Toncoins received by the seller of the gift.
  * @property commissionToncoinAmount The amount of Toncoins that were received by the Telegram; in the smallest units of the currency.
+ * @property viaOffer True, if the gift was sold through a purchase offer.
  */
 public class TonTransactionTypeUpgradedGiftSale public constructor(
     public val userId: Long,
     public val gift: UpgradedGift,
     public val commissionPerMille: Int,
     public val commissionToncoinAmount: Long,
+    public val viaOffer: Boolean,
 ) : TonTransactionType() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
@@ -56,7 +58,10 @@ public class TonTransactionTypeUpgradedGiftSale public constructor(
         if (other.commissionPerMille != commissionPerMille) {
             return false
         }
-        return other.commissionToncoinAmount == commissionToncoinAmount
+        if (other.commissionToncoinAmount != commissionToncoinAmount) {
+            return false
+        }
+        return other.viaOffer == viaOffer
     }
 
     override fun hashCode(): Int {
@@ -65,6 +70,7 @@ public class TonTransactionTypeUpgradedGiftSale public constructor(
         hashCode = 31 * hashCode + gift.hashCode()
         hashCode = 31 * hashCode + commissionPerMille.hashCode()
         hashCode = 31 * hashCode + commissionToncoinAmount.hashCode()
+        hashCode = 31 * hashCode + viaOffer.hashCode()
         return hashCode
     }
 
@@ -83,6 +89,9 @@ public class TonTransactionTypeUpgradedGiftSale public constructor(
             append(", ")
             append("commissionToncoinAmount=")
             append(commissionToncoinAmount)
+            append(", ")
+            append("viaOffer=")
+            append(viaOffer)
             append(")")
         }
     }

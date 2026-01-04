@@ -33,7 +33,7 @@ import kotlin.String
  * @property paidMessageStarCount The number of Telegram Stars the user agreed to pay to send the messages.
  * @property updateOrderOfInstalledStickerSets Pass true if the user explicitly chosen a sticker or a custom emoji from an installed sticker set; applicable only to sendMessage and sendMessageAlbum.
  * @property schedulingState Message scheduling state; pass null to send message immediately. Messages sent to a secret chat, to a chat with paid messages, to a channel direct messages chat, live location messages and self-destructing messages can't be scheduled.
- * @property effectId Identifier of the effect to apply to the message; pass 0 if none; applicable only to sendMessage and sendMessageAlbum in private chats.
+ * @property effectId Identifier of the effect to apply to the message; pass 0 if none; applicable only to sendMessage, sendMessageAlbum in private chats and forwardMessages with one message to private chats.
  * @property sendingId Non-persistent identifier, which will be returned back in messageSendingStatePending object and can be used to match sent messages and corresponding updateNewMessage updates.
  * @property onlyPreview Pass true to get a fake message instead of actually sending them.
  */

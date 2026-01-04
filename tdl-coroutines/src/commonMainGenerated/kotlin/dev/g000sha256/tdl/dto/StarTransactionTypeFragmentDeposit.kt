@@ -22,7 +22,7 @@ import kotlin.Int
 import kotlin.String
 
 /**
- * The transaction is a deposit of Telegram Stars from Fragment; for regular users and bots only.
+ * The transaction is a deposit of Telegram Stars from Fragment; relevant for regular users and bots only.
  */
 public class StarTransactionTypeFragmentDeposit public constructor() : StarTransactionType() {
     override fun equals(other: Any?): Boolean {

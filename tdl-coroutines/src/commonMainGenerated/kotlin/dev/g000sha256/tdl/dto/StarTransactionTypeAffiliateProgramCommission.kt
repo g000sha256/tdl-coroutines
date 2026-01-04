@@ -23,7 +23,7 @@ import kotlin.Long
 import kotlin.String
 
 /**
- * The transaction is a receiving of a commission from an affiliate program; for regular users, bots and channel chats only.
+ * The transaction is a receiving of a commission from an affiliate program; relevant for regular users, bots and channel chats only.
  *
  * @property chatId Identifier of the chat that created the affiliate program.
  * @property commissionPerMille The number of Telegram Stars received by the affiliate for each 1000 Telegram Stars received by the program owner.

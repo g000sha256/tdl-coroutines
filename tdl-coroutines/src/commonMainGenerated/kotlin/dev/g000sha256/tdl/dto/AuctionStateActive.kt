@@ -25,18 +25,20 @@ import kotlin.LongArray
 import kotlin.String
 
 /**
- * Contains information about an ongoing auction.
+ * Contains information about an ongoing or scheduled auction.
  *
- * @property startDate Point in time (Unix timestamp) when the auction started.
+ * @property startDate Point in time (Unix timestamp) when the auction started or will start.
  * @property endDate Point in time (Unix timestamp) when the auction will be ended.
  * @property minBid The minimum possible bid in the auction in Telegram Stars.
  * @property bidLevels A sparse list of bids that were made in the auction.
  * @property topBidderUserIds User identifiers of at most 3 users with the biggest bids.
+ * @property rounds Rounds of the auction in which their duration or extension rules are changed.
  * @property currentRoundEndDate Point in time (Unix timestamp) when the current round will end.
  * @property currentRoundNumber 1-based number of the current round.
  * @property totalRoundCount The total number of rounds.
- * @property leftItemCount The number of items that have to be distributed on the auciton.
- * @property acquiredItemCount The number of items that were purchased by the current user on the auciton.
+ * @property distributedItemCount The number of items that were purchased on the auction by all users.
+ * @property leftItemCount The number of items that have to be distributed on the auction.
+ * @property acquiredItemCount The number of items that were purchased by the current user on the auction.
  * @property userBid Bid of the current user in the auction; may be null if none.
  */
 public class AuctionStateActive public constructor(
@@ -45,9 +47,11 @@ public class AuctionStateActive public constructor(
     public val minBid: Long,
     public val bidLevels: Array<AuctionBid>,
     public val topBidderUserIds: LongArray,
+    public val rounds: Array<AuctionRound>,
     public val currentRoundEndDate: Int,
     public val currentRoundNumber: Int,
     public val totalRoundCount: Int,
+    public val distributedItemCount: Int,
     public val leftItemCount: Int,
     public val acquiredItemCount: Int,
     public val userBid: UserAuctionBid?,
@@ -80,6 +84,10 @@ public class AuctionStateActive public constructor(
         if (!topBidderUserIdsEquals) {
             return false
         }
+        val roundsEquals = other.rounds.contentDeepEquals(rounds)
+        if (!roundsEquals) {
+            return false
+        }
         if (other.currentRoundEndDate != currentRoundEndDate) {
             return false
         }
@@ -87,6 +95,9 @@ public class AuctionStateActive public constructor(
             return false
         }
         if (other.totalRoundCount != totalRoundCount) {
+            return false
+        }
+        if (other.distributedItemCount != distributedItemCount) {
             return false
         }
         if (other.leftItemCount != leftItemCount) {
@@ -105,9 +116,11 @@ public class AuctionStateActive public constructor(
         hashCode = 31 * hashCode + minBid.hashCode()
         hashCode = 31 * hashCode + bidLevels.contentDeepHashCode()
         hashCode = 31 * hashCode + topBidderUserIds.contentHashCode()
+        hashCode = 31 * hashCode + rounds.contentDeepHashCode()
         hashCode = 31 * hashCode + currentRoundEndDate.hashCode()
         hashCode = 31 * hashCode + currentRoundNumber.hashCode()
         hashCode = 31 * hashCode + totalRoundCount.hashCode()
+        hashCode = 31 * hashCode + distributedItemCount.hashCode()
         hashCode = 31 * hashCode + leftItemCount.hashCode()
         hashCode = 31 * hashCode + acquiredItemCount.hashCode()
         hashCode = 31 * hashCode + userBid.hashCode()
@@ -137,6 +150,11 @@ public class AuctionStateActive public constructor(
                 .contentToString()
                 .also { append(it) }
             append(", ")
+            append("rounds=")
+            rounds
+                .contentDeepToString()
+                .also { append(it) }
+            append(", ")
             append("currentRoundEndDate=")
             append(currentRoundEndDate)
             append(", ")
@@ -145,6 +163,9 @@ public class AuctionStateActive public constructor(
             append(", ")
             append("totalRoundCount=")
             append(totalRoundCount)
+            append(", ")
+            append("distributedItemCount=")
+            append(distributedItemCount)
             append(", ")
             append("leftItemCount=")
             append(leftItemCount)

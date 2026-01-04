@@ -31,13 +31,15 @@ import kotlin.String
  * @property starCount Number of Telegram Stars that must be paid for the gift.
  * @property defaultSellStarCount Number of Telegram Stars that can be claimed by the receiver instead of the regular gift by default. If the gift was paid with just bought Telegram Stars, then full value can be claimed.
  * @property upgradeStarCount Number of Telegram Stars that must be paid to upgrade the gift; 0 if upgrade isn't possible.
+ * @property upgradeVariantCount Number of unique gift variants that are available for the upgraded gift; 0 if unknown.
  * @property hasColors True, if the gift can be used to customize the user's name, and backgrounds of profile photo, reply header, and link preview.
  * @property isForBirthday True, if the gift is a birthday gift.
  * @property isPremium True, if the gift can be bought only by Telegram Premium subscribers.
  * @property auctionInfo Information about the auction on which the gift can be purchased; may be null if the gift can be purchased directly.
- * @property nextSendDate Point in time (Unix timestamp) when the gift can be sent next time by the current user; can be 0 or a date in the past. If the date is in the future, then call canSendGift to get the reason, why the gift can't be sent now.
+ * @property nextSendDate Point in time (Unix timestamp) when the gift can be sent next time by the current user; may be 0 or a date in the past. If the date is in the future, then call canSendGift to get the reason, why the gift can't be sent now.
  * @property userLimits Number of times the gift can be purchased by the current user; may be null if not limited.
  * @property overallLimits Number of times the gift can be purchased all users; may be null if not limited.
+ * @property background Background of the gift.
  * @property firstSendDate Point in time (Unix timestamp) when the gift was send for the first time; for sold out gifts only.
  * @property lastSendDate Point in time (Unix timestamp) when the gift was send for the last time; for sold out gifts only.
  */
@@ -48,6 +50,7 @@ public class Gift public constructor(
     public val starCount: Long,
     public val defaultSellStarCount: Long,
     public val upgradeStarCount: Long,
+    public val upgradeVariantCount: Int,
     public val hasColors: Boolean,
     public val isForBirthday: Boolean,
     public val isPremium: Boolean,
@@ -55,6 +58,7 @@ public class Gift public constructor(
     public val nextSendDate: Int,
     public val userLimits: GiftPurchaseLimits?,
     public val overallLimits: GiftPurchaseLimits?,
+    public val background: GiftBackground,
     public val firstSendDate: Int,
     public val lastSendDate: Int,
 ) {
@@ -87,6 +91,9 @@ public class Gift public constructor(
         if (other.upgradeStarCount != upgradeStarCount) {
             return false
         }
+        if (other.upgradeVariantCount != upgradeVariantCount) {
+            return false
+        }
         if (other.hasColors != hasColors) {
             return false
         }
@@ -108,6 +115,9 @@ public class Gift public constructor(
         if (other.overallLimits != overallLimits) {
             return false
         }
+        if (other.background != background) {
+            return false
+        }
         if (other.firstSendDate != firstSendDate) {
             return false
         }
@@ -122,6 +132,7 @@ public class Gift public constructor(
         hashCode = 31 * hashCode + starCount.hashCode()
         hashCode = 31 * hashCode + defaultSellStarCount.hashCode()
         hashCode = 31 * hashCode + upgradeStarCount.hashCode()
+        hashCode = 31 * hashCode + upgradeVariantCount.hashCode()
         hashCode = 31 * hashCode + hasColors.hashCode()
         hashCode = 31 * hashCode + isForBirthday.hashCode()
         hashCode = 31 * hashCode + isPremium.hashCode()
@@ -129,6 +140,7 @@ public class Gift public constructor(
         hashCode = 31 * hashCode + nextSendDate.hashCode()
         hashCode = 31 * hashCode + userLimits.hashCode()
         hashCode = 31 * hashCode + overallLimits.hashCode()
+        hashCode = 31 * hashCode + background.hashCode()
         hashCode = 31 * hashCode + firstSendDate.hashCode()
         hashCode = 31 * hashCode + lastSendDate.hashCode()
         return hashCode
@@ -156,6 +168,9 @@ public class Gift public constructor(
             append("upgradeStarCount=")
             append(upgradeStarCount)
             append(", ")
+            append("upgradeVariantCount=")
+            append(upgradeVariantCount)
+            append(", ")
             append("hasColors=")
             append(hasColors)
             append(", ")
@@ -176,6 +191,9 @@ public class Gift public constructor(
             append(", ")
             append("overallLimits=")
             append(overallLimits)
+            append(", ")
+            append("background=")
+            append(background)
             append(", ")
             append("firstSendDate=")
             append(firstSendDate)

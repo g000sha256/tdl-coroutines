@@ -23,7 +23,7 @@ import kotlin.Long
 import kotlin.String
 
 /**
- * The transaction is a purchase of a product from a bot or a business account by the current user; for regular users only.
+ * The transaction is a purchase of a product from a bot or a business account by the current user; relevant for regular users only.
  *
  * @property userId Identifier of the bot or the business account user that created the invoice.
  * @property productInfo Information about the bought product.

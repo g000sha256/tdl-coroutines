@@ -22,7 +22,7 @@ import kotlin.Int
 import kotlin.String
 
 /**
- * The transaction is a payment for Telegram API usage; for bots only.
+ * The transaction is a payment for Telegram API usage; relevant for bots only.
  *
  * @property requestCount The number of billed requests.
  */
