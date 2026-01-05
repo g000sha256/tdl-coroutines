@@ -16,10 +16,4 @@
 
 package dev.g000sha256.tdl.function
 
-import kotlin.Boolean
-import kotlin.Long
-
-internal class ProcessGiftPurchaseOffer internal constructor(
-    internal val messageId: Long,
-    internal val accept: Boolean,
-)
+internal class GetStakeDiceState internal constructor()

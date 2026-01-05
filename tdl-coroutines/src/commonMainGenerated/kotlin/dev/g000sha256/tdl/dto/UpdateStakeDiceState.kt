@@ -19,17 +19,16 @@ package dev.g000sha256.tdl.dto
 import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
-import kotlin.Long
 import kotlin.String
 
 /**
- * Describes price of a resold gift in Toncoins.
+ * The stake dice state has changed.
  *
- * @property toncoinCentCount The amount of 1/100 of Toncoin expected to be paid for the gift. Must be in the range getOption(&quot;gift_resale_toncoin_cent_count_min&quot;)-getOption(&quot;gift_resale_toncoin_cent_count_max&quot;).
+ * @property state The new state. The state can be used only if it was received recently enough. Otherwise, a new state must be requested using getStakeDiceState.
  */
-public class GiftResalePriceTon public constructor(
-    public val toncoinCentCount: Long,
-) : GiftResalePrice() {
+public class UpdateStakeDiceState public constructor(
+    public val state: StakeDiceState,
+) : Update() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true
@@ -40,22 +39,22 @@ public class GiftResalePriceTon public constructor(
         if (other::class != this::class) {
             return false
         }
-        other as GiftResalePriceTon
-        return other.toncoinCentCount == toncoinCentCount
+        other as UpdateStakeDiceState
+        return other.state == state
     }
 
     override fun hashCode(): Int {
         var hashCode = this::class.hashCode()
-        hashCode = 31 * hashCode + toncoinCentCount.hashCode()
+        hashCode = 31 * hashCode + state.hashCode()
         return hashCode
     }
 
     override fun toString(): String {
         return buildString {
-            append("GiftResalePriceTon")
+            append("UpdateStakeDiceState")
             append("(")
-            append("toncoinCentCount=")
-            append(toncoinCentCount)
+            append("state=")
+            append(state)
             append(")")
         }
     }
