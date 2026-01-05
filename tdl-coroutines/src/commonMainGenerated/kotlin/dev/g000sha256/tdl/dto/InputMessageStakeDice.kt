@@ -19,18 +19,19 @@ package dev.g000sha256.tdl.dto
 import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
+import kotlin.Long
 import kotlin.String
 
 /**
- * A text message.
+ * A stake dice message.
  *
- * @property text Formatted text to be sent; 0-getOption(&quot;message_text_length_max&quot;) characters. Only Bold, Italic, Underline, Strikethrough, Spoiler, CustomEmoji, BlockQuote, ExpandableBlockQuote, Code, Pre, PreCode, TextUrl and MentionName entities are allowed to be specified manually.
- * @property linkPreviewOptions Options to be used for generation of a link preview; may be null if none; pass null to use default link preview options.
+ * @property stateHash Hash of the stake dice state. The state hash can be used only if it was received recently enough. Otherwise, a new state must be requested using getStakeDiceState.
+ * @property stakeToncoinAmount The amount of Toncoins that will be staked; in the smallest units of the currency. Must be in the range getOption(&quot;stake_dice_stake_amount_min&quot;)-getOption(&quot;stake_dice_stake_amount_max&quot;).
  * @property clearDraft True, if the chat message draft must be deleted.
  */
-public class InputMessageText public constructor(
-    public val text: FormattedText,
-    public val linkPreviewOptions: LinkPreviewOptions?,
+public class InputMessageStakeDice public constructor(
+    public val stateHash: String,
+    public val stakeToncoinAmount: Long,
     public val clearDraft: Boolean,
 ) : InputMessageContent() {
     override fun equals(other: Any?): Boolean {
@@ -43,11 +44,11 @@ public class InputMessageText public constructor(
         if (other::class != this::class) {
             return false
         }
-        other as InputMessageText
-        if (other.text != text) {
+        other as InputMessageStakeDice
+        if (other.stateHash != stateHash) {
             return false
         }
-        if (other.linkPreviewOptions != linkPreviewOptions) {
+        if (other.stakeToncoinAmount != stakeToncoinAmount) {
             return false
         }
         return other.clearDraft == clearDraft
@@ -55,21 +56,21 @@ public class InputMessageText public constructor(
 
     override fun hashCode(): Int {
         var hashCode = this::class.hashCode()
-        hashCode = 31 * hashCode + text.hashCode()
-        hashCode = 31 * hashCode + linkPreviewOptions.hashCode()
+        hashCode = 31 * hashCode + stateHash.hashCode()
+        hashCode = 31 * hashCode + stakeToncoinAmount.hashCode()
         hashCode = 31 * hashCode + clearDraft.hashCode()
         return hashCode
     }
 
     override fun toString(): String {
         return buildString {
-            append("InputMessageText")
+            append("InputMessageStakeDice")
             append("(")
-            append("text=")
-            append(text)
+            append("stateHash=")
+            append(stateHash)
             append(", ")
-            append("linkPreviewOptions=")
-            append(linkPreviewOptions)
+            append("stakeToncoinAmount=")
+            append(stakeToncoinAmount)
             append(", ")
             append("clearDraft=")
             append(clearDraft)

@@ -29,7 +29,7 @@ import kotlin.String
  * @property setId Identifier of the sticker set to which the sticker belongs; 0 if none.
  * @property width Sticker width; as defined by the sender.
  * @property height Sticker height; as defined by the sender.
- * @property emoji Emoji corresponding to the sticker.
+ * @property emoji Emoji corresponding to the sticker; may be empty if unknown.
  * @property format Sticker format.
  * @property fullType Sticker's full type.
  * @property thumbnail Sticker thumbnail in WEBP or JPEG format; may be null.

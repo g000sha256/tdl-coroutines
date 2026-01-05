@@ -16,10 +16,11 @@
 
 package dev.g000sha256.tdl.function
 
-import kotlin.Boolean
 import kotlin.Long
+import kotlin.String
 
-internal class ProcessGiftPurchaseOffer internal constructor(
+internal class SummarizeMessage internal constructor(
+    internal val chatId: Long,
     internal val messageId: Long,
-    internal val accept: Boolean,
+    internal val translateToLanguageCode: String,
 )

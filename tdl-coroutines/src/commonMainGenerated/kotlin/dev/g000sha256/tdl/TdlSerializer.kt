@@ -734,6 +734,7 @@ import dev.g000sha256.tdl.dto.InputMessageReplyTo
 import dev.g000sha256.tdl.dto.InputMessageReplyToExternalMessage
 import dev.g000sha256.tdl.dto.InputMessageReplyToMessage
 import dev.g000sha256.tdl.dto.InputMessageReplyToStory
+import dev.g000sha256.tdl.dto.InputMessageStakeDice
 import dev.g000sha256.tdl.dto.InputMessageSticker
 import dev.g000sha256.tdl.dto.InputMessageStory
 import dev.g000sha256.tdl.dto.InputMessageText
@@ -1081,6 +1082,7 @@ import dev.g000sha256.tdl.dto.MessageSourceNotification
 import dev.g000sha256.tdl.dto.MessageSourceOther
 import dev.g000sha256.tdl.dto.MessageSourceScreenshot
 import dev.g000sha256.tdl.dto.MessageSourceSearch
+import dev.g000sha256.tdl.dto.MessageStakeDice
 import dev.g000sha256.tdl.dto.MessageStatistics
 import dev.g000sha256.tdl.dto.MessageSticker
 import dev.g000sha256.tdl.dto.MessageStory
@@ -1102,7 +1104,7 @@ import dev.g000sha256.tdl.dto.MessageTopicThread
 import dev.g000sha256.tdl.dto.MessageUnsupported
 import dev.g000sha256.tdl.dto.MessageUpgradedGift
 import dev.g000sha256.tdl.dto.MessageUpgradedGiftPurchaseOffer
-import dev.g000sha256.tdl.dto.MessageUpgradedGiftPurchaseOfferDeclined
+import dev.g000sha256.tdl.dto.MessageUpgradedGiftPurchaseOfferRejected
 import dev.g000sha256.tdl.dto.MessageUsersShared
 import dev.g000sha256.tdl.dto.MessageVenue
 import dev.g000sha256.tdl.dto.MessageVideo
@@ -1592,6 +1594,7 @@ import dev.g000sha256.tdl.dto.SponsoredChat
 import dev.g000sha256.tdl.dto.SponsoredChats
 import dev.g000sha256.tdl.dto.SponsoredMessage
 import dev.g000sha256.tdl.dto.SponsoredMessages
+import dev.g000sha256.tdl.dto.StakeDiceState
 import dev.g000sha256.tdl.dto.StarAmount
 import dev.g000sha256.tdl.dto.StarCount
 import dev.g000sha256.tdl.dto.StarGiveawayPaymentOption
@@ -2025,6 +2028,7 @@ import dev.g000sha256.tdl.dto.UpdateSecretChat
 import dev.g000sha256.tdl.dto.UpdateServiceNotification
 import dev.g000sha256.tdl.dto.UpdateSpeechRecognitionTrial
 import dev.g000sha256.tdl.dto.UpdateSpeedLimitNotification
+import dev.g000sha256.tdl.dto.UpdateStakeDiceState
 import dev.g000sha256.tdl.dto.UpdateStarRevenueStatus
 import dev.g000sha256.tdl.dto.UpdateStickerSet
 import dev.g000sha256.tdl.dto.UpdateStory
@@ -2608,6 +2612,7 @@ import dev.g000sha256.tdl.function.GetScopeNotificationSettings
 import dev.g000sha256.tdl.function.GetSearchSponsoredChats
 import dev.g000sha256.tdl.function.GetSearchedForTags
 import dev.g000sha256.tdl.function.GetSecretChat
+import dev.g000sha256.tdl.function.GetStakeDiceState
 import dev.g000sha256.tdl.function.GetStarAdAccountUrl
 import dev.g000sha256.tdl.function.GetStarGiftPaymentOptions
 import dev.g000sha256.tdl.function.GetStarGiveawayPaymentOptions
@@ -3016,6 +3021,7 @@ import dev.g000sha256.tdl.function.StopBusinessPoll
 import dev.g000sha256.tdl.function.StopPoll
 import dev.g000sha256.tdl.function.SuggestUserBirthdate
 import dev.g000sha256.tdl.function.SuggestUserProfilePhoto
+import dev.g000sha256.tdl.function.SummarizeMessage
 import dev.g000sha256.tdl.function.SynchronizeLanguagePack
 import dev.g000sha256.tdl.function.TerminateAllOtherSessions
 import dev.g000sha256.tdl.function.TerminateSession
@@ -3572,6 +3578,7 @@ internal class TdlSerializer internal constructor() {
             is GetSearchSponsoredChats -> return serialize(requestId = requestId, function = function)
             is GetSearchedForTags -> return serialize(requestId = requestId, function = function)
             is GetSecretChat -> return serialize(requestId = requestId, function = function)
+            is GetStakeDiceState -> return serialize(requestId = requestId, function = function)
             is GetStarAdAccountUrl -> return serialize(requestId = requestId, function = function)
             is GetStarGiftPaymentOptions -> return serialize(requestId = requestId, function = function)
             is GetStarGiveawayPaymentOptions -> return serialize(requestId = requestId, function = function)
@@ -3980,6 +3987,7 @@ internal class TdlSerializer internal constructor() {
             is StopPoll -> return serialize(requestId = requestId, function = function)
             is SuggestUserBirthdate -> return serialize(requestId = requestId, function = function)
             is SuggestUserProfilePhoto -> return serialize(requestId = requestId, function = function)
+            is SummarizeMessage -> return serialize(requestId = requestId, function = function)
             is SynchronizeLanguagePack -> return serialize(requestId = requestId, function = function)
             is TerminateAllOtherSessions -> return serialize(requestId = requestId, function = function)
             is TerminateSession -> return serialize(requestId = requestId, function = function)
@@ -8212,6 +8220,13 @@ internal class TdlSerializer internal constructor() {
         }
     }
 
+    private fun serialize(requestId: Long, function: GetStakeDiceState): String {
+        return buildJsonObjectString {
+            put(key = "@type", string = "getStakeDiceState")
+            put(key = "@extra", long = requestId)
+        }
+    }
+
     private fun serialize(requestId: Long, function: GetStarAdAccountUrl): String {
         return buildJsonObjectString {
             put(key = "@type", string = "getStarAdAccountUrl")
@@ -9208,7 +9223,7 @@ internal class TdlSerializer internal constructor() {
             put(key = "@type", string = "processGiftPurchaseOffer")
             put(key = "@extra", long = requestId)
             put(key = "message_id", long = function.messageId)
-            put(key = "approve", boolean = function.approve)
+            put(key = "accept", boolean = function.accept)
         }
     }
 
@@ -11976,6 +11991,16 @@ internal class TdlSerializer internal constructor() {
         }
     }
 
+    private fun serialize(requestId: Long, function: SummarizeMessage): String {
+        return buildJsonObjectString {
+            put(key = "@type", string = "summarizeMessage")
+            put(key = "@extra", long = requestId)
+            put(key = "chat_id", long = function.chatId)
+            put(key = "message_id", long = function.messageId)
+            put(key = "translate_to_language_code", string = function.translateToLanguageCode)
+        }
+    }
+
     private fun serialize(requestId: Long, function: SynchronizeLanguagePack): String {
         return buildJsonObjectString {
             put(key = "@type", string = "synchronizeLanguagePack")
@@ -13644,6 +13669,7 @@ internal class TdlSerializer internal constructor() {
             is MessageDice -> return serialize(dto = dto)
             is MessageGame -> return serialize(dto = dto)
             is MessagePoll -> return serialize(dto = dto)
+            is MessageStakeDice -> return serialize(dto = dto)
             is MessageStory -> return serialize(dto = dto)
             is MessageChecklist -> return serialize(dto = dto)
             is MessageInvoice -> return serialize(dto = dto)
@@ -13694,7 +13720,7 @@ internal class TdlSerializer internal constructor() {
             is MessageUpgradedGift -> return serialize(dto = dto)
             is MessageRefundedUpgradedGift -> return serialize(dto = dto)
             is MessageUpgradedGiftPurchaseOffer -> return serialize(dto = dto)
-            is MessageUpgradedGiftPurchaseOfferDeclined -> return serialize(dto = dto)
+            is MessageUpgradedGiftPurchaseOfferRejected -> return serialize(dto = dto)
             is MessagePaidMessagesRefunded -> return serialize(dto = dto)
             is MessagePaidMessagePriceChanged -> return serialize(dto = dto)
             is MessageDirectMessagePriceChanged -> return serialize(dto = dto)
@@ -13786,6 +13812,7 @@ internal class TdlSerializer internal constructor() {
             is InputMessageGame -> return serialize(dto = dto)
             is InputMessageInvoice -> return serialize(dto = dto)
             is InputMessagePoll -> return serialize(dto = dto)
+            is InputMessageStakeDice -> return serialize(dto = dto)
             is InputMessageStory -> return serialize(dto = dto)
             is InputMessageChecklist -> return serialize(dto = dto)
             is InputMessageForwarded -> return serialize(dto = dto)
@@ -15035,6 +15062,7 @@ internal class TdlSerializer internal constructor() {
             is UpdateSpeechRecognitionTrial -> return serialize(dto = dto)
             is UpdateGroupCallMessageLevels -> return serialize(dto = dto)
             is UpdateDiceEmojis -> return serialize(dto = dto)
+            is UpdateStakeDiceState -> return serialize(dto = dto)
             is UpdateAnimatedEmojiMessageClicked -> return serialize(dto = dto)
             is UpdateAnimationSearchParameters -> return serialize(dto = dto)
             is UpdateSuggestedActions -> return serialize(dto = dto)
@@ -15880,6 +15908,18 @@ internal class TdlSerializer internal constructor() {
             put(key = "description", string = dto.description)
             put(key = "photo", value = dto.photo) { data -> serialize(dto = data) }
             put(key = "animation", value = dto.animation) { data -> serialize(dto = data) }
+        }
+    }
+
+    private fun serialize(dto: StakeDiceState): JsonElement {
+        return buildJsonObject {
+            put(key = "@type", string = "stakeDiceState")
+            put(key = "state_hash", string = dto.stateHash)
+            put(key = "stake_toncoin_amount", long = dto.stakeToncoinAmount)
+            put(key = "suggested_stake_toncoin_amounts", longs = dto.suggestedStakeToncoinAmounts)
+            put(key = "current_streak", int = dto.currentStreak)
+            put(key = "prize_per_mille", ints = dto.prizePerMille)
+            put(key = "streak_prize_per_mille", int = dto.streakPrizePerMille)
         }
     }
 
@@ -19038,6 +19078,7 @@ internal class TdlSerializer internal constructor() {
             put(key = "media_album_id", long = dto.mediaAlbumId)
             put(key = "effect_id", long = dto.effectId)
             put(key = "restriction_info", value = dto.restrictionInfo) { data -> serialize(dto = data) }
+            put(key = "summary_language_code", string = dto.summaryLanguageCode)
             put(key = "content", value = dto.content) { data -> serialize(dto = data) }
             put(key = "reply_markup", value = dto.replyMarkup) { data -> serialize(dto = data) }
         }
@@ -22130,6 +22171,17 @@ internal class TdlSerializer internal constructor() {
         }
     }
 
+    private fun serialize(dto: MessageStakeDice): JsonElement {
+        return buildJsonObject {
+            put(key = "@type", string = "messageStakeDice")
+            put(key = "initial_state", value = dto.initialState) { data -> serialize(dto = data) }
+            put(key = "final_state", value = dto.finalState) { data -> serialize(dto = data) }
+            put(key = "value", int = dto.value)
+            put(key = "stake_toncoin_amount", long = dto.stakeToncoinAmount)
+            put(key = "prize_toncoin_amount", long = dto.prizeToncoinAmount)
+        }
+    }
+
     private fun serialize(dto: MessageStory): JsonElement {
         return buildJsonObject {
             put(key = "@type", string = "messageStory")
@@ -22615,9 +22667,9 @@ internal class TdlSerializer internal constructor() {
         }
     }
 
-    private fun serialize(dto: MessageUpgradedGiftPurchaseOfferDeclined): JsonElement {
+    private fun serialize(dto: MessageUpgradedGiftPurchaseOfferRejected): JsonElement {
         return buildJsonObject {
-            put(key = "@type", string = "messageUpgradedGiftPurchaseOfferDeclined")
+            put(key = "@type", string = "messageUpgradedGiftPurchaseOfferRejected")
             put(key = "gift", value = dto.gift) { data -> serialize(dto = data) }
             put(key = "price", value = dto.price) { data -> serialize(dto = data) }
             put(key = "offer_message_id", long = dto.offerMessageId)
@@ -23209,6 +23261,15 @@ internal class TdlSerializer internal constructor() {
             put(key = "open_period", int = dto.openPeriod)
             put(key = "close_date", int = dto.closeDate)
             put(key = "is_closed", boolean = dto.isClosed)
+        }
+    }
+
+    private fun serialize(dto: InputMessageStakeDice): JsonElement {
+        return buildJsonObject {
+            put(key = "@type", string = "inputMessageStakeDice")
+            put(key = "state_hash", string = dto.stateHash)
+            put(key = "stake_toncoin_amount", long = dto.stakeToncoinAmount)
+            put(key = "clear_draft", boolean = dto.clearDraft)
         }
     }
 
@@ -30731,6 +30792,13 @@ internal class TdlSerializer internal constructor() {
         return buildJsonObject {
             put(key = "@type", string = "updateDiceEmojis")
             put(key = "emojis", strings = dto.emojis)
+        }
+    }
+
+    private fun serialize(dto: UpdateStakeDiceState): JsonElement {
+        return buildJsonObject {
+            put(key = "@type", string = "updateStakeDiceState")
+            put(key = "state", value = dto.state) { data -> serialize(dto = data) }
         }
     }
 

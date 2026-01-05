@@ -25,7 +25,7 @@ import kotlin.String
 /**
  * Describes price of a resold gift in Telegram Stars.
  *
- * @property starCount The amount of Telegram Stars expected to be paid for the gift. Must be in range getOption(&quot;gift_resale_star_count_min&quot;)-getOption(&quot;gift_resale_star_count_max&quot;) for gifts put for resale.
+ * @property starCount The amount of Telegram Stars expected to be paid for the gift. Must be in the range getOption(&quot;gift_resale_star_count_min&quot;)-getOption(&quot;gift_resale_star_count_max&quot;) for gifts put for resale.
  */
 public class GiftResalePriceStar public constructor(
     public val starCount: Long,
