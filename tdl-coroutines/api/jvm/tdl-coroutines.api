@@ -663,6 +663,8 @@ public abstract class dev/g000sha256/tdl/TdlClient {
 	public abstract fun getServiceNotificationUpdates ()Lkotlinx/coroutines/flow/Flow;
 	public abstract fun getSpeechRecognitionTrialUpdates ()Lkotlinx/coroutines/flow/Flow;
 	public abstract fun getSpeedLimitNotificationUpdates ()Lkotlinx/coroutines/flow/Flow;
+	public abstract fun getStakeDiceState (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun getStakeDiceStateUpdates ()Lkotlinx/coroutines/flow/Flow;
 	public abstract fun getStarAdAccountUrl (Ldev/g000sha256/tdl/dto/MessageSender;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun getStarGiftPaymentOptions (JLkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun getStarGiveawayPaymentOptions (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
@@ -1153,6 +1155,7 @@ public abstract class dev/g000sha256/tdl/TdlClient {
 	public static synthetic fun stopPoll$default (Ldev/g000sha256/tdl/TdlClient;JJLdev/g000sha256/tdl/dto/ReplyMarkup;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
 	public abstract fun suggestUserBirthdate (JLdev/g000sha256/tdl/dto/Birthdate;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun suggestUserProfilePhoto (JLdev/g000sha256/tdl/dto/InputChatPhoto;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun summarizeMessage (JJLjava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun synchronizeLanguagePack (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun terminateAllOtherSessions (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun terminateSession (JLkotlin/coroutines/Continuation;)Ljava/lang/Object;
@@ -7642,6 +7645,16 @@ public final class dev/g000sha256/tdl/dto/InputMessageReplyToStory : dev/g000sha
 	public fun toString ()Ljava/lang/String;
 }
 
+public final class dev/g000sha256/tdl/dto/InputMessageStakeDice : dev/g000sha256/tdl/dto/InputMessageContent {
+	public fun <init> (Ljava/lang/String;JZ)V
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getClearDraft ()Z
+	public final fun getStakeToncoinAmount ()J
+	public final fun getStateHash ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
 public final class dev/g000sha256/tdl/dto/InputMessageSticker : dev/g000sha256/tdl/dto/InputMessageContent {
 	public fun <init> (Ldev/g000sha256/tdl/dto/InputFile;Ldev/g000sha256/tdl/dto/InputThumbnail;IILjava/lang/String;)V
 	public fun equals (Ljava/lang/Object;)Z
@@ -9457,7 +9470,7 @@ public final class dev/g000sha256/tdl/dto/MaskPosition {
 }
 
 public final class dev/g000sha256/tdl/dto/Message {
-	public fun <init> (JLdev/g000sha256/tdl/dto/MessageSender;JLdev/g000sha256/tdl/dto/MessageSendingState;Ldev/g000sha256/tdl/dto/MessageSchedulingState;ZZZZZZZZZIILdev/g000sha256/tdl/dto/MessageForwardInfo;Ldev/g000sha256/tdl/dto/MessageImportInfo;Ldev/g000sha256/tdl/dto/MessageInteractionInfo;[Ldev/g000sha256/tdl/dto/UnreadReaction;Ldev/g000sha256/tdl/dto/FactCheck;Ldev/g000sha256/tdl/dto/SuggestedPostInfo;Ldev/g000sha256/tdl/dto/MessageReplyTo;Ldev/g000sha256/tdl/dto/MessageTopic;Ldev/g000sha256/tdl/dto/MessageSelfDestructType;DDJJIJLjava/lang/String;JJLdev/g000sha256/tdl/dto/RestrictionInfo;Ldev/g000sha256/tdl/dto/MessageContent;Ldev/g000sha256/tdl/dto/ReplyMarkup;)V
+	public fun <init> (JLdev/g000sha256/tdl/dto/MessageSender;JLdev/g000sha256/tdl/dto/MessageSendingState;Ldev/g000sha256/tdl/dto/MessageSchedulingState;ZZZZZZZZZIILdev/g000sha256/tdl/dto/MessageForwardInfo;Ldev/g000sha256/tdl/dto/MessageImportInfo;Ldev/g000sha256/tdl/dto/MessageInteractionInfo;[Ldev/g000sha256/tdl/dto/UnreadReaction;Ldev/g000sha256/tdl/dto/FactCheck;Ldev/g000sha256/tdl/dto/SuggestedPostInfo;Ldev/g000sha256/tdl/dto/MessageReplyTo;Ldev/g000sha256/tdl/dto/MessageTopic;Ldev/g000sha256/tdl/dto/MessageSelfDestructType;DDJJIJLjava/lang/String;JJLdev/g000sha256/tdl/dto/RestrictionInfo;Ljava/lang/String;Ldev/g000sha256/tdl/dto/MessageContent;Ldev/g000sha256/tdl/dto/ReplyMarkup;)V
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getAuthorSignature ()Ljava/lang/String;
 	public final fun getAutoDeleteIn ()D
@@ -9487,6 +9500,7 @@ public final class dev/g000sha256/tdl/dto/Message {
 	public final fun getSenderId ()Ldev/g000sha256/tdl/dto/MessageSender;
 	public final fun getSendingState ()Ldev/g000sha256/tdl/dto/MessageSendingState;
 	public final fun getSuggestedPostInfo ()Ldev/g000sha256/tdl/dto/SuggestedPostInfo;
+	public final fun getSummaryLanguageCode ()Ljava/lang/String;
 	public final fun getTopicId ()Ldev/g000sha256/tdl/dto/MessageTopic;
 	public final fun getUnreadReactions ()[Ldev/g000sha256/tdl/dto/UnreadReaction;
 	public final fun getViaBotUserId ()J
@@ -10725,6 +10739,18 @@ public final class dev/g000sha256/tdl/dto/MessageSourceSearch : dev/g000sha256/t
 	public fun toString ()Ljava/lang/String;
 }
 
+public final class dev/g000sha256/tdl/dto/MessageStakeDice : dev/g000sha256/tdl/dto/MessageContent {
+	public fun <init> (Ldev/g000sha256/tdl/dto/DiceStickers;Ldev/g000sha256/tdl/dto/DiceStickers;IJJ)V
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getFinalState ()Ldev/g000sha256/tdl/dto/DiceStickers;
+	public final fun getInitialState ()Ldev/g000sha256/tdl/dto/DiceStickers;
+	public final fun getPrizeToncoinAmount ()J
+	public final fun getStakeToncoinAmount ()J
+	public final fun getValue ()I
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
 public final class dev/g000sha256/tdl/dto/MessageStatistics {
 	public fun <init> (Ldev/g000sha256/tdl/dto/StatisticalGraph;Ldev/g000sha256/tdl/dto/StatisticalGraph;)V
 	public fun equals (Ljava/lang/Object;)Z
@@ -10920,7 +10946,7 @@ public final class dev/g000sha256/tdl/dto/MessageUpgradedGiftPurchaseOffer : dev
 	public fun toString ()Ljava/lang/String;
 }
 
-public final class dev/g000sha256/tdl/dto/MessageUpgradedGiftPurchaseOfferDeclined : dev/g000sha256/tdl/dto/MessageContent {
+public final class dev/g000sha256/tdl/dto/MessageUpgradedGiftPurchaseOfferRejected : dev/g000sha256/tdl/dto/MessageContent {
 	public fun <init> (Ldev/g000sha256/tdl/dto/UpgradedGift;Ldev/g000sha256/tdl/dto/GiftResalePrice;JZ)V
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getGift ()Ldev/g000sha256/tdl/dto/UpgradedGift;
@@ -14848,6 +14874,19 @@ public final class dev/g000sha256/tdl/dto/SponsoredMessages {
 	public fun toString ()Ljava/lang/String;
 }
 
+public final class dev/g000sha256/tdl/dto/StakeDiceState {
+	public fun <init> (Ljava/lang/String;J[JI[II)V
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getCurrentStreak ()I
+	public final fun getPrizePerMille ()[I
+	public final fun getStakeToncoinAmount ()J
+	public final fun getStateHash ()Ljava/lang/String;
+	public final fun getStreakPrizePerMille ()I
+	public final fun getSuggestedStakeToncoinAmounts ()[J
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
 public final class dev/g000sha256/tdl/dto/StarAmount {
 	public fun <init> (JI)V
 	public fun equals (Ljava/lang/Object;)Z
@@ -18674,6 +18713,14 @@ public final class dev/g000sha256/tdl/dto/UpdateSpeedLimitNotification : dev/g00
 	public fun equals (Ljava/lang/Object;)Z
 	public fun hashCode ()I
 	public final fun isUpload ()Z
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class dev/g000sha256/tdl/dto/UpdateStakeDiceState : dev/g000sha256/tdl/dto/Update {
+	public fun <init> (Ldev/g000sha256/tdl/dto/StakeDiceState;)V
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getState ()Ldev/g000sha256/tdl/dto/StakeDiceState;
+	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
 }
 
