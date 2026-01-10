@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Georgii Ippolitov (g000sha256)
+ * Copyright 2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,14 +23,14 @@ import kotlin.Long
 import kotlin.String
 
 /**
- * An offer to purchase a gift was declined or expired.
+ * An offer to purchase a gift was rejected or expired.
  *
  * @property gift The gift.
  * @property price The proposed price.
- * @property offerMessageId Identifier of the message with purchase offer which was declined or expired; may be 0 or an identifier of a deleted message.
- * @property wasExpired True, if the offer has expired; otherwise, the offer was explicitly declined.
+ * @property offerMessageId Identifier of the message with purchase offer which was rejected or expired; may be 0 or an identifier of a deleted message.
+ * @property wasExpired True, if the offer has expired; otherwise, the offer was explicitly rejected.
  */
-public class MessageUpgradedGiftPurchaseOfferDeclined public constructor(
+public class MessageUpgradedGiftPurchaseOfferRejected public constructor(
     public val gift: UpgradedGift,
     public val price: GiftResalePrice,
     public val offerMessageId: Long,
@@ -46,7 +46,7 @@ public class MessageUpgradedGiftPurchaseOfferDeclined public constructor(
         if (other::class != this::class) {
             return false
         }
-        other as MessageUpgradedGiftPurchaseOfferDeclined
+        other as MessageUpgradedGiftPurchaseOfferRejected
         if (other.gift != gift) {
             return false
         }
@@ -70,7 +70,7 @@ public class MessageUpgradedGiftPurchaseOfferDeclined public constructor(
 
     override fun toString(): String {
         return buildString {
-            append("MessageUpgradedGiftPurchaseOfferDeclined")
+            append("MessageUpgradedGiftPurchaseOfferRejected")
             append("(")
             append("gift=")
             append(gift)

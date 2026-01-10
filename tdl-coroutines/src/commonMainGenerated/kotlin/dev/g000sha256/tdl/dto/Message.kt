@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Georgii Ippolitov (g000sha256)
+ * Copyright 2025-2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -62,6 +62,7 @@ import kotlin.String
  * @property mediaAlbumId Unique identifier of an album this message belongs to; 0 if none. Only audios, documents, photos and videos can be grouped together in albums.
  * @property effectId Unique identifier of the effect added to the message; 0 if none.
  * @property restrictionInfo Information about the restrictions that must be applied to the message content; may be null if none.
+ * @property summaryLanguageCode IETF language tag of the message language on which it can be summarized; empty if summary isn't available for the message.
  * @property content Content of the message.
  * @property replyMarkup Reply markup for the message; may be null if none.
  */
@@ -101,6 +102,7 @@ public class Message public constructor(
     public val mediaAlbumId: Long,
     public val effectId: Long,
     public val restrictionInfo: RestrictionInfo?,
+    public val summaryLanguageCode: String,
     public val content: MessageContent,
     public val replyMarkup: ReplyMarkup?,
 ) {
@@ -221,6 +223,9 @@ public class Message public constructor(
         if (other.restrictionInfo != restrictionInfo) {
             return false
         }
+        if (other.summaryLanguageCode != summaryLanguageCode) {
+            return false
+        }
         if (other.content != content) {
             return false
         }
@@ -264,6 +269,7 @@ public class Message public constructor(
         hashCode = 31 * hashCode + mediaAlbumId.hashCode()
         hashCode = 31 * hashCode + effectId.hashCode()
         hashCode = 31 * hashCode + restrictionInfo.hashCode()
+        hashCode = 31 * hashCode + summaryLanguageCode.hashCode()
         hashCode = 31 * hashCode + content.hashCode()
         hashCode = 31 * hashCode + replyMarkup.hashCode()
         return hashCode
@@ -379,6 +385,9 @@ public class Message public constructor(
             append(", ")
             append("restrictionInfo=")
             append(restrictionInfo)
+            append(", ")
+            append("summaryLanguageCode=")
+            append(summaryLanguageCode)
             append(", ")
             append("content=")
             append(content)

@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Georgii Ippolitov (g000sha256)
+ * Copyright 2025-2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -328,6 +328,7 @@ import dev.g000sha256.tdl.dto.Sessions
 import dev.g000sha256.tdl.dto.ShippingOption
 import dev.g000sha256.tdl.dto.SponsoredChats
 import dev.g000sha256.tdl.dto.SponsoredMessages
+import dev.g000sha256.tdl.dto.StakeDiceState
 import dev.g000sha256.tdl.dto.StarAmount
 import dev.g000sha256.tdl.dto.StarCount
 import dev.g000sha256.tdl.dto.StarGiveawayPaymentOptions
@@ -530,6 +531,7 @@ import dev.g000sha256.tdl.dto.UpdateSecretChat
 import dev.g000sha256.tdl.dto.UpdateServiceNotification
 import dev.g000sha256.tdl.dto.UpdateSpeechRecognitionTrial
 import dev.g000sha256.tdl.dto.UpdateSpeedLimitNotification
+import dev.g000sha256.tdl.dto.UpdateStakeDiceState
 import dev.g000sha256.tdl.dto.UpdateStarRevenueStatus
 import dev.g000sha256.tdl.dto.UpdateStickerSet
 import dev.g000sha256.tdl.dto.UpdateStory
@@ -1327,6 +1329,11 @@ public abstract class TdlClient internal constructor() {
      * The list of supported dice emojis has changed.
      */
     public abstract val diceEmojisUpdates: Flow<UpdateDiceEmojis>
+
+    /**
+     * The stake dice state has changed.
+     */
+    public abstract val stakeDiceStateUpdates: Flow<UpdateStakeDiceState>
 
     /**
      * Some animated emoji message was clicked and a big animated sticker must be played if the message is visible on the screen. chatActionWatchingAnimations with the text of the message needs to be sent if the sticker is played.
@@ -5631,7 +5638,7 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun getRemoteFile(remoteFileId: String, fileType: FileType? = null): TdlResult<File>
 
     /**
-     * Returns information about a non-bundled message that is replied by a given message. Also, returns the pinned message for messagePinMessage, the game message for messageGameScore, the invoice message for messagePaymentSuccessful, the message with a previously set same background for messageChatSetBackground, the giveaway message for messageGiveawayCompleted, the checklist message for messageChecklistTasksDone, messageChecklistTasksAdded, the message with suggested post information for messageSuggestedPostApprovalFailed, messageSuggestedPostApproved, messageSuggestedPostDeclined, messageSuggestedPostPaid, messageSuggestedPostRefunded, the message with the regular gift that was upgraded for messageUpgradedGift with origin of the type upgradedGiftOriginUpgrade, the message with gift purchase offer for messageUpgradedGiftPurchaseOfferDeclined, and the topic creation message for topic messages without non-bundled replied message. Returns a 404 error if the message doesn't exist.
+     * Returns information about a non-bundled message that is replied by a given message. Also, returns the pinned message for messagePinMessage, the game message for messageGameScore, the invoice message for messagePaymentSuccessful, the message with a previously set same background for messageChatSetBackground, the giveaway message for messageGiveawayCompleted, the checklist message for messageChecklistTasksDone, messageChecklistTasksAdded, the message with suggested post information for messageSuggestedPostApprovalFailed, messageSuggestedPostApproved, messageSuggestedPostDeclined, messageSuggestedPostPaid, messageSuggestedPostRefunded, the message with the regular gift that was upgraded for messageUpgradedGift with origin of the type upgradedGiftOriginUpgrade, the message with gift purchase offer for messageUpgradedGiftPurchaseOfferRejected, and the topic creation message for topic messages without non-bundled replied message. Returns a 404 error if the message doesn't exist.
      *
      * @param chatId Identifier of the chat the message belongs to.
      * @param messageId Identifier of the reply message.
@@ -5718,6 +5725,11 @@ public abstract class TdlClient internal constructor() {
      * @param secretChatId Secret chat identifier.
      */
     public abstract suspend fun getSecretChat(secretChatId: Int): TdlResult<SecretChat>
+
+    /**
+     * Returns the current state of stake dice.
+     */
+    public abstract suspend fun getStakeDiceState(): TdlResult<StakeDiceState>
 
     /**
      * Returns a URL for a Telegram Ad platform account that can be used to set up advertisements for the chat paid in the owned Telegram Stars.
@@ -6748,9 +6760,9 @@ public abstract class TdlClient internal constructor() {
      * Handles a pending gift purchase offer.
      *
      * @param messageId Identifier of the message with the gift purchase offer.
-     * @param approve Pass true to approve the request; pass false to decline it.
+     * @param accept Pass true to accept the request; pass false to reject it.
      */
-    public abstract suspend fun processGiftPurchaseOffer(messageId: Long, approve: Boolean): TdlResult<Ok>
+    public abstract suspend fun processGiftPurchaseOffer(messageId: Long, accept: Boolean): TdlResult<Ok>
 
     /**
      * Handles a push notification. Returns error with code 406 if the push notification is not supported and connection to the server is required to fetch new data. Can be called before authorization.
@@ -9698,6 +9710,19 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun suggestUserProfilePhoto(userId: Long, photo: InputChatPhoto): TdlResult<Ok>
 
     /**
+     * Summarizes content of the message with non-empty summaryLanguageCode.
+     *
+     * @param chatId Identifier of the chat to which the message belongs.
+     * @param messageId Identifier of the message.
+     * @param translateToLanguageCode Pass a language code to which the summary will be translated; may be empty if translation isn't needed. See translateText.toLanguageCode for the list of supported values.
+     */
+    public abstract suspend fun summarizeMessage(
+        chatId: Long,
+        messageId: Long,
+        translateToLanguageCode: String,
+    ): TdlResult<FormattedText>
+
+    /**
      * Fetches the latest versions of all strings from a language pack in the current localization target from the server. This method doesn't need to be called explicitly for the current used/base language packs. Can be called before authorization.
      *
      * @param languagePackId Language pack identifier.
@@ -10260,7 +10285,7 @@ public abstract class TdlClient internal constructor() {
      *
      * @param chatId Identifier of the chat to which the message belongs.
      * @param messageId Identifier of the message.
-     * @param toLanguageCode Language code of the language to which the message is translated. Must be one of &quot;af&quot;, &quot;sq&quot;, &quot;am&quot;, &quot;ar&quot;, &quot;hy&quot;, &quot;az&quot;, &quot;eu&quot;, &quot;be&quot;, &quot;bn&quot;, &quot;bs&quot;, &quot;bg&quot;, &quot;ca&quot;, &quot;ceb&quot;, &quot;zh-CN&quot;, &quot;zh&quot;, &quot;zh-Hans&quot;, &quot;zh-TW&quot;, &quot;zh-Hant&quot;, &quot;co&quot;, &quot;hr&quot;, &quot;cs&quot;, &quot;da&quot;, &quot;nl&quot;, &quot;en&quot;, &quot;eo&quot;, &quot;et&quot;, &quot;fi&quot;, &quot;fr&quot;, &quot;fy&quot;, &quot;gl&quot;, &quot;ka&quot;, &quot;de&quot;, &quot;el&quot;, &quot;gu&quot;, &quot;ht&quot;, &quot;ha&quot;, &quot;haw&quot;, &quot;he&quot;, &quot;iw&quot;, &quot;hi&quot;, &quot;hmn&quot;, &quot;hu&quot;, &quot;is&quot;, &quot;ig&quot;, &quot;id&quot;, &quot;in&quot;, &quot;ga&quot;, &quot;it&quot;, &quot;ja&quot;, &quot;jv&quot;, &quot;kn&quot;, &quot;kk&quot;, &quot;km&quot;, &quot;rw&quot;, &quot;ko&quot;, &quot;ku&quot;, &quot;ky&quot;, &quot;lo&quot;, &quot;la&quot;, &quot;lv&quot;, &quot;lt&quot;, &quot;lb&quot;, &quot;mk&quot;, &quot;mg&quot;, &quot;ms&quot;, &quot;ml&quot;, &quot;mt&quot;, &quot;mi&quot;, &quot;mr&quot;, &quot;mn&quot;, &quot;my&quot;, &quot;ne&quot;, &quot;no&quot;, &quot;ny&quot;, &quot;or&quot;, &quot;ps&quot;, &quot;fa&quot;, &quot;pl&quot;, &quot;pt&quot;, &quot;pa&quot;, &quot;ro&quot;, &quot;ru&quot;, &quot;sm&quot;, &quot;gd&quot;, &quot;sr&quot;, &quot;st&quot;, &quot;sn&quot;, &quot;sd&quot;, &quot;si&quot;, &quot;sk&quot;, &quot;sl&quot;, &quot;so&quot;, &quot;es&quot;, &quot;su&quot;, &quot;sw&quot;, &quot;sv&quot;, &quot;tl&quot;, &quot;tg&quot;, &quot;ta&quot;, &quot;tt&quot;, &quot;te&quot;, &quot;th&quot;, &quot;tr&quot;, &quot;tk&quot;, &quot;uk&quot;, &quot;ur&quot;, &quot;ug&quot;, &quot;uz&quot;, &quot;vi&quot;, &quot;cy&quot;, &quot;xh&quot;, &quot;yi&quot;, &quot;ji&quot;, &quot;yo&quot;, &quot;zu&quot;.
+     * @param toLanguageCode Language code of the language to which the message is translated. See translateText.toLanguageCode for the list of supported values.
      */
     public abstract suspend fun translateMessageText(
         chatId: Long,
@@ -10415,12 +10440,12 @@ public abstract class TdlClient internal constructor() {
         /**
          * The Git commit hash of the TDLib.
          */
-        public const val TDL_GIT_COMMIT_HASH: String = "89e7366783e13d63085878ba407da83107ccd401"
+        public const val TDL_GIT_COMMIT_HASH: String = "0da5c72f8365fb4857096e716d53175ddbdf5a15"
 
         /**
          * The version of the TDLib.
          */
-        public const val TDL_VERSION: String = "1.8.59"
+        public const val TDL_VERSION: String = "1.8.60"
 
         /**
          * Creates a new instance of the [TdlClient].

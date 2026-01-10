@@ -1,5 +1,5 @@
 /*
- * Copyright 2025-2026 Georgii Ippolitov (g000sha256)
+ * Copyright 2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,17 +19,16 @@ package dev.g000sha256.tdl.dto
 import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
-import kotlin.Long
 import kotlin.String
 
 /**
- * Describes price of a resold gift in Telegram Stars.
+ * The stake dice state has changed.
  *
- * @property starCount The amount of Telegram Stars expected to be paid for the gift. Must be in the range getOption(&quot;gift_resale_star_count_min&quot;)-getOption(&quot;gift_resale_star_count_max&quot;) for gifts put for resale.
+ * @property state The new state. The state can be used only if it was received recently enough. Otherwise, a new state must be requested using getStakeDiceState.
  */
-public class GiftResalePriceStar public constructor(
-    public val starCount: Long,
-) : GiftResalePrice() {
+public class UpdateStakeDiceState public constructor(
+    public val state: StakeDiceState,
+) : Update() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true
@@ -40,22 +39,22 @@ public class GiftResalePriceStar public constructor(
         if (other::class != this::class) {
             return false
         }
-        other as GiftResalePriceStar
-        return other.starCount == starCount
+        other as UpdateStakeDiceState
+        return other.state == state
     }
 
     override fun hashCode(): Int {
         var hashCode = this::class.hashCode()
-        hashCode = 31 * hashCode + starCount.hashCode()
+        hashCode = 31 * hashCode + state.hashCode()
         return hashCode
     }
 
     override fun toString(): String {
         return buildString {
-            append("GiftResalePriceStar")
+            append("UpdateStakeDiceState")
             append("(")
-            append("starCount=")
-            append(starCount)
+            append("state=")
+            append(state)
             append(")")
         }
     }

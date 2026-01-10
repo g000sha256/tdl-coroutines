@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Georgii Ippolitov (g000sha256)
+ * Copyright 2025-2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,7 +25,7 @@ import kotlin.String
 /**
  * Describes price of a resold gift in Toncoins.
  *
- * @property toncoinCentCount The amount of 1/100 of Toncoin expected to be paid for the gift. Must be in range getOption(&quot;gift_resale_toncoin_cent_count_min&quot;)-getOption(&quot;gift_resale_toncoin_cent_count_max&quot;).
+ * @property toncoinCentCount The amount of 1/100 of Toncoin expected to be paid for the gift. Must be in the range getOption(&quot;gift_resale_toncoin_cent_count_min&quot;)-getOption(&quot;gift_resale_toncoin_cent_count_max&quot;).
  */
 public class GiftResalePriceTon public constructor(
     public val toncoinCentCount: Long,

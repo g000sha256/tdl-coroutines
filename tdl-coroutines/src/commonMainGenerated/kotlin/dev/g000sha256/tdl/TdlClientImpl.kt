@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Georgii Ippolitov (g000sha256)
+ * Copyright 2025-2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -328,6 +328,7 @@ import dev.g000sha256.tdl.dto.Sessions
 import dev.g000sha256.tdl.dto.ShippingOption
 import dev.g000sha256.tdl.dto.SponsoredChats
 import dev.g000sha256.tdl.dto.SponsoredMessages
+import dev.g000sha256.tdl.dto.StakeDiceState
 import dev.g000sha256.tdl.dto.StarAmount
 import dev.g000sha256.tdl.dto.StarCount
 import dev.g000sha256.tdl.dto.StarGiveawayPaymentOptions
@@ -530,6 +531,7 @@ import dev.g000sha256.tdl.dto.UpdateSecretChat
 import dev.g000sha256.tdl.dto.UpdateServiceNotification
 import dev.g000sha256.tdl.dto.UpdateSpeechRecognitionTrial
 import dev.g000sha256.tdl.dto.UpdateSpeedLimitNotification
+import dev.g000sha256.tdl.dto.UpdateStakeDiceState
 import dev.g000sha256.tdl.dto.UpdateStarRevenueStatus
 import dev.g000sha256.tdl.dto.UpdateStickerSet
 import dev.g000sha256.tdl.dto.UpdateStory
@@ -1037,6 +1039,7 @@ import dev.g000sha256.tdl.function.GetScopeNotificationSettings
 import dev.g000sha256.tdl.function.GetSearchSponsoredChats
 import dev.g000sha256.tdl.function.GetSearchedForTags
 import dev.g000sha256.tdl.function.GetSecretChat
+import dev.g000sha256.tdl.function.GetStakeDiceState
 import dev.g000sha256.tdl.function.GetStarAdAccountUrl
 import dev.g000sha256.tdl.function.GetStarGiftPaymentOptions
 import dev.g000sha256.tdl.function.GetStarGiveawayPaymentOptions
@@ -1445,6 +1448,7 @@ import dev.g000sha256.tdl.function.StopBusinessPoll
 import dev.g000sha256.tdl.function.StopPoll
 import dev.g000sha256.tdl.function.SuggestUserBirthdate
 import dev.g000sha256.tdl.function.SuggestUserProfilePhoto
+import dev.g000sha256.tdl.function.SummarizeMessage
 import dev.g000sha256.tdl.function.SynchronizeLanguagePack
 import dev.g000sha256.tdl.function.TerminateAllOtherSessions
 import dev.g000sha256.tdl.function.TerminateSession
@@ -1979,6 +1983,9 @@ internal class TdlClientImpl internal constructor(
         get() = repository.updates.filterIsInstance()
 
     override val diceEmojisUpdates: Flow<UpdateDiceEmojis>
+        get() = repository.updates.filterIsInstance()
+
+    override val stakeDiceStateUpdates: Flow<UpdateStakeDiceState>
         get() = repository.updates.filterIsInstance()
 
     override val animatedEmojiMessageClickedUpdates: Flow<UpdateAnimatedEmojiMessageClicked>
@@ -6318,6 +6325,11 @@ internal class TdlClientImpl internal constructor(
         return repository.send(function = function)
     }
 
+    override suspend fun getStakeDiceState(): TdlResult<StakeDiceState> {
+        val function = GetStakeDiceState()
+        return repository.send(function = function)
+    }
+
     override suspend fun getStarAdAccountUrl(ownerId: MessageSender): TdlResult<HttpUrl> {
         val function = GetStarAdAccountUrl(
             ownerId = ownerId,
@@ -7343,10 +7355,10 @@ internal class TdlClientImpl internal constructor(
         return repository.send(function = function)
     }
 
-    override suspend fun processGiftPurchaseOffer(messageId: Long, approve: Boolean): TdlResult<Ok> {
+    override suspend fun processGiftPurchaseOffer(messageId: Long, accept: Boolean): TdlResult<Ok> {
         val function = ProcessGiftPurchaseOffer(
             messageId = messageId,
-            approve = approve,
+            accept = accept,
         )
         return repository.send(function = function)
     }
@@ -10292,6 +10304,19 @@ internal class TdlClientImpl internal constructor(
         val function = SuggestUserProfilePhoto(
             userId = userId,
             photo = photo,
+        )
+        return repository.send(function = function)
+    }
+
+    override suspend fun summarizeMessage(
+        chatId: Long,
+        messageId: Long,
+        translateToLanguageCode: String,
+    ): TdlResult<FormattedText> {
+        val function = SummarizeMessage(
+            chatId = chatId,
+            messageId = messageId,
+            translateToLanguageCode = translateToLanguageCode,
         )
         return repository.send(function = function)
     }

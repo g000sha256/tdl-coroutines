@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Georgii Ippolitov (g000sha256)
+ * Copyright 2025-2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -734,6 +734,7 @@ import dev.g000sha256.tdl.dto.InputMessageReplyTo
 import dev.g000sha256.tdl.dto.InputMessageReplyToExternalMessage
 import dev.g000sha256.tdl.dto.InputMessageReplyToMessage
 import dev.g000sha256.tdl.dto.InputMessageReplyToStory
+import dev.g000sha256.tdl.dto.InputMessageStakeDice
 import dev.g000sha256.tdl.dto.InputMessageSticker
 import dev.g000sha256.tdl.dto.InputMessageStory
 import dev.g000sha256.tdl.dto.InputMessageText
@@ -1081,6 +1082,7 @@ import dev.g000sha256.tdl.dto.MessageSourceNotification
 import dev.g000sha256.tdl.dto.MessageSourceOther
 import dev.g000sha256.tdl.dto.MessageSourceScreenshot
 import dev.g000sha256.tdl.dto.MessageSourceSearch
+import dev.g000sha256.tdl.dto.MessageStakeDice
 import dev.g000sha256.tdl.dto.MessageStatistics
 import dev.g000sha256.tdl.dto.MessageSticker
 import dev.g000sha256.tdl.dto.MessageStory
@@ -1102,7 +1104,7 @@ import dev.g000sha256.tdl.dto.MessageTopicThread
 import dev.g000sha256.tdl.dto.MessageUnsupported
 import dev.g000sha256.tdl.dto.MessageUpgradedGift
 import dev.g000sha256.tdl.dto.MessageUpgradedGiftPurchaseOffer
-import dev.g000sha256.tdl.dto.MessageUpgradedGiftPurchaseOfferDeclined
+import dev.g000sha256.tdl.dto.MessageUpgradedGiftPurchaseOfferRejected
 import dev.g000sha256.tdl.dto.MessageUsersShared
 import dev.g000sha256.tdl.dto.MessageVenue
 import dev.g000sha256.tdl.dto.MessageVideo
@@ -1592,6 +1594,7 @@ import dev.g000sha256.tdl.dto.SponsoredChat
 import dev.g000sha256.tdl.dto.SponsoredChats
 import dev.g000sha256.tdl.dto.SponsoredMessage
 import dev.g000sha256.tdl.dto.SponsoredMessages
+import dev.g000sha256.tdl.dto.StakeDiceState
 import dev.g000sha256.tdl.dto.StarAmount
 import dev.g000sha256.tdl.dto.StarCount
 import dev.g000sha256.tdl.dto.StarGiveawayPaymentOption
@@ -2025,6 +2028,7 @@ import dev.g000sha256.tdl.dto.UpdateSecretChat
 import dev.g000sha256.tdl.dto.UpdateServiceNotification
 import dev.g000sha256.tdl.dto.UpdateSpeechRecognitionTrial
 import dev.g000sha256.tdl.dto.UpdateSpeedLimitNotification
+import dev.g000sha256.tdl.dto.UpdateStakeDiceState
 import dev.g000sha256.tdl.dto.UpdateStarRevenueStatus
 import dev.g000sha256.tdl.dto.UpdateStickerSet
 import dev.g000sha256.tdl.dto.UpdateStory
@@ -2823,6 +2827,7 @@ internal class TdlDeserializer internal constructor() {
             "inputMessageReplyToExternalMessage" -> return deserializeInputMessageReplyToExternalMessage(jsonObject = jsonObject)
             "inputMessageReplyToMessage" -> return deserializeInputMessageReplyToMessage(jsonObject = jsonObject)
             "inputMessageReplyToStory" -> return deserializeInputMessageReplyToStory(jsonObject = jsonObject)
+            "inputMessageStakeDice" -> return deserializeInputMessageStakeDice(jsonObject = jsonObject)
             "inputMessageSticker" -> return deserializeInputMessageSticker(jsonObject = jsonObject)
             "inputMessageStory" -> return deserializeInputMessageStory(jsonObject = jsonObject)
             "inputMessageText" -> return deserializeInputMessageText(jsonObject = jsonObject)
@@ -3143,6 +3148,7 @@ internal class TdlDeserializer internal constructor() {
             "messageSourceOther" -> return deserializeMessageSourceOther(jsonObject = jsonObject)
             "messageSourceScreenshot" -> return deserializeMessageSourceScreenshot(jsonObject = jsonObject)
             "messageSourceSearch" -> return deserializeMessageSourceSearch(jsonObject = jsonObject)
+            "messageStakeDice" -> return deserializeMessageStakeDice(jsonObject = jsonObject)
             "messageStatistics" -> return deserializeMessageStatistics(jsonObject = jsonObject)
             "messageSticker" -> return deserializeMessageSticker(jsonObject = jsonObject)
             "messageStory" -> return deserializeMessageStory(jsonObject = jsonObject)
@@ -3163,7 +3169,7 @@ internal class TdlDeserializer internal constructor() {
             "messageUnsupported" -> return deserializeMessageUnsupported(jsonObject = jsonObject)
             "messageUpgradedGift" -> return deserializeMessageUpgradedGift(jsonObject = jsonObject)
             "messageUpgradedGiftPurchaseOffer" -> return deserializeMessageUpgradedGiftPurchaseOffer(jsonObject = jsonObject)
-            "messageUpgradedGiftPurchaseOfferDeclined" -> return deserializeMessageUpgradedGiftPurchaseOfferDeclined(jsonObject = jsonObject)
+            "messageUpgradedGiftPurchaseOfferRejected" -> return deserializeMessageUpgradedGiftPurchaseOfferRejected(jsonObject = jsonObject)
             "messageUsersShared" -> return deserializeMessageUsersShared(jsonObject = jsonObject)
             "messageVenue" -> return deserializeMessageVenue(jsonObject = jsonObject)
             "messageVideo" -> return deserializeMessageVideo(jsonObject = jsonObject)
@@ -3606,6 +3612,7 @@ internal class TdlDeserializer internal constructor() {
             "sponsoredChats" -> return deserializeSponsoredChats(jsonObject = jsonObject)
             "sponsoredMessage" -> return deserializeSponsoredMessage(jsonObject = jsonObject)
             "sponsoredMessages" -> return deserializeSponsoredMessages(jsonObject = jsonObject)
+            "stakeDiceState" -> return deserializeStakeDiceState(jsonObject = jsonObject)
             "starAmount" -> return deserializeStarAmount(jsonObject = jsonObject)
             "starCount" -> return deserializeStarCount(jsonObject = jsonObject)
             "starGiveawayPaymentOption" -> return deserializeStarGiveawayPaymentOption(jsonObject = jsonObject)
@@ -4009,6 +4016,7 @@ internal class TdlDeserializer internal constructor() {
             "updateServiceNotification" -> return deserializeUpdateServiceNotification(jsonObject = jsonObject)
             "updateSpeechRecognitionTrial" -> return deserializeUpdateSpeechRecognitionTrial(jsonObject = jsonObject)
             "updateSpeedLimitNotification" -> return deserializeUpdateSpeedLimitNotification(jsonObject = jsonObject)
+            "updateStakeDiceState" -> return deserializeUpdateStakeDiceState(jsonObject = jsonObject)
             "updateStarRevenueStatus" -> return deserializeUpdateStarRevenueStatus(jsonObject = jsonObject)
             "updateStickerSet" -> return deserializeUpdateStickerSet(jsonObject = jsonObject)
             "updateStory" -> return deserializeUpdateStory(jsonObject = jsonObject)
@@ -5035,6 +5043,7 @@ internal class TdlDeserializer internal constructor() {
             "inputMessagePaidMedia" -> return deserializeInputMessagePaidMedia(jsonObject = jsonObject)
             "inputMessagePhoto" -> return deserializeInputMessagePhoto(jsonObject = jsonObject)
             "inputMessagePoll" -> return deserializeInputMessagePoll(jsonObject = jsonObject)
+            "inputMessageStakeDice" -> return deserializeInputMessageStakeDice(jsonObject = jsonObject)
             "inputMessageSticker" -> return deserializeInputMessageSticker(jsonObject = jsonObject)
             "inputMessageStory" -> return deserializeInputMessageStory(jsonObject = jsonObject)
             "inputMessageText" -> return deserializeInputMessageText(jsonObject = jsonObject)
@@ -5402,6 +5411,7 @@ internal class TdlDeserializer internal constructor() {
             "messageProximityAlertTriggered" -> return deserializeMessageProximityAlertTriggered(jsonObject = jsonObject)
             "messageRefundedUpgradedGift" -> return deserializeMessageRefundedUpgradedGift(jsonObject = jsonObject)
             "messageScreenshotTaken" -> return deserializeMessageScreenshotTaken(jsonObject = jsonObject)
+            "messageStakeDice" -> return deserializeMessageStakeDice(jsonObject = jsonObject)
             "messageSticker" -> return deserializeMessageSticker(jsonObject = jsonObject)
             "messageStory" -> return deserializeMessageStory(jsonObject = jsonObject)
             "messageSuggestBirthdate" -> return deserializeMessageSuggestBirthdate(jsonObject = jsonObject)
@@ -5416,7 +5426,7 @@ internal class TdlDeserializer internal constructor() {
             "messageUnsupported" -> return deserializeMessageUnsupported(jsonObject = jsonObject)
             "messageUpgradedGift" -> return deserializeMessageUpgradedGift(jsonObject = jsonObject)
             "messageUpgradedGiftPurchaseOffer" -> return deserializeMessageUpgradedGiftPurchaseOffer(jsonObject = jsonObject)
-            "messageUpgradedGiftPurchaseOfferDeclined" -> return deserializeMessageUpgradedGiftPurchaseOfferDeclined(jsonObject = jsonObject)
+            "messageUpgradedGiftPurchaseOfferRejected" -> return deserializeMessageUpgradedGiftPurchaseOfferRejected(jsonObject = jsonObject)
             "messageUsersShared" -> return deserializeMessageUsersShared(jsonObject = jsonObject)
             "messageVenue" -> return deserializeMessageVenue(jsonObject = jsonObject)
             "messageVideo" -> return deserializeMessageVideo(jsonObject = jsonObject)
@@ -6754,6 +6764,7 @@ internal class TdlDeserializer internal constructor() {
             "updateServiceNotification" -> return deserializeUpdateServiceNotification(jsonObject = jsonObject)
             "updateSpeechRecognitionTrial" -> return deserializeUpdateSpeechRecognitionTrial(jsonObject = jsonObject)
             "updateSpeedLimitNotification" -> return deserializeUpdateSpeedLimitNotification(jsonObject = jsonObject)
+            "updateStakeDiceState" -> return deserializeUpdateStakeDiceState(jsonObject = jsonObject)
             "updateStarRevenueStatus" -> return deserializeUpdateStarRevenueStatus(jsonObject = jsonObject)
             "updateStickerSet" -> return deserializeUpdateStickerSet(jsonObject = jsonObject)
             "updateStory" -> return deserializeUpdateStory(jsonObject = jsonObject)
@@ -11608,6 +11619,14 @@ internal class TdlDeserializer internal constructor() {
         )
     }
 
+    private fun deserializeInputMessageStakeDice(jsonObject: JsonObject): InputMessageStakeDice {
+        return InputMessageStakeDice(
+            stateHash = jsonObject.getString(key = "state_hash"),
+            stakeToncoinAmount = jsonObject.getLong(key = "stake_toncoin_amount"),
+            clearDraft = jsonObject.getBoolean(key = "clear_draft"),
+        )
+    }
+
     private fun deserializeInputMessageSticker(jsonObject: JsonObject): InputMessageSticker {
         return InputMessageSticker(
             sticker = jsonObject.getObject(key = "sticker") { data -> deserializeInputFile(jsonObject = data) },
@@ -12974,6 +12993,7 @@ internal class TdlDeserializer internal constructor() {
             mediaAlbumId = jsonObject.getLong(key = "media_album_id"),
             effectId = jsonObject.getLong(key = "effect_id"),
             restrictionInfo = jsonObject.getObjectNullable(key = "restriction_info") { data -> deserializeRestrictionInfo(jsonObject = data) },
+            summaryLanguageCode = jsonObject.getString(key = "summary_language_code"),
             content = jsonObject.getObject(key = "content") { data -> deserializeMessageContent(jsonObject = data) },
             replyMarkup = jsonObject.getObjectNullable(key = "reply_markup") { data -> deserializeReplyMarkup(jsonObject = data) },
         )
@@ -13902,6 +13922,16 @@ internal class TdlDeserializer internal constructor() {
         return MessageSourceSearch()
     }
 
+    private fun deserializeMessageStakeDice(jsonObject: JsonObject): MessageStakeDice {
+        return MessageStakeDice(
+            initialState = jsonObject.getObjectNullable(key = "initial_state") { data -> deserializeDiceStickers(jsonObject = data) },
+            finalState = jsonObject.getObjectNullable(key = "final_state") { data -> deserializeDiceStickers(jsonObject = data) },
+            value = jsonObject.getInt(key = "value"),
+            stakeToncoinAmount = jsonObject.getLong(key = "stake_toncoin_amount"),
+            prizeToncoinAmount = jsonObject.getLong(key = "prize_toncoin_amount"),
+        )
+    }
+
     private fun deserializeMessageStatistics(jsonObject: JsonObject): MessageStatistics {
         return MessageStatistics(
             messageInteractionGraph = jsonObject.getObject(key = "message_interaction_graph") { data -> deserializeStatisticalGraph(jsonObject = data) },
@@ -14053,8 +14083,8 @@ internal class TdlDeserializer internal constructor() {
         )
     }
 
-    private fun deserializeMessageUpgradedGiftPurchaseOfferDeclined(jsonObject: JsonObject): MessageUpgradedGiftPurchaseOfferDeclined {
-        return MessageUpgradedGiftPurchaseOfferDeclined(
+    private fun deserializeMessageUpgradedGiftPurchaseOfferRejected(jsonObject: JsonObject): MessageUpgradedGiftPurchaseOfferRejected {
+        return MessageUpgradedGiftPurchaseOfferRejected(
             gift = jsonObject.getObject(key = "gift") { data -> deserializeUpgradedGift(jsonObject = data) },
             price = jsonObject.getObject(key = "price") { data -> deserializeGiftResalePrice(jsonObject = data) },
             offerMessageId = jsonObject.getLong(key = "offer_message_id"),
@@ -16764,6 +16794,17 @@ internal class TdlDeserializer internal constructor() {
         return SponsoredMessages(
             messages = jsonObject.getObjects(key = "messages") { data -> deserializeSponsoredMessage(jsonObject = data) },
             messagesBetween = jsonObject.getInt(key = "messages_between"),
+        )
+    }
+
+    private fun deserializeStakeDiceState(jsonObject: JsonObject): StakeDiceState {
+        return StakeDiceState(
+            stateHash = jsonObject.getString(key = "state_hash"),
+            stakeToncoinAmount = jsonObject.getLong(key = "stake_toncoin_amount"),
+            suggestedStakeToncoinAmounts = jsonObject.getLongs(key = "suggested_stake_toncoin_amounts"),
+            currentStreak = jsonObject.getInt(key = "current_streak"),
+            prizePerMille = jsonObject.getInts(key = "prize_per_mille"),
+            streakPrizePerMille = jsonObject.getInt(key = "streak_prize_per_mille"),
         )
     }
 
@@ -19623,6 +19664,12 @@ internal class TdlDeserializer internal constructor() {
     private fun deserializeUpdateSpeedLimitNotification(jsonObject: JsonObject): UpdateSpeedLimitNotification {
         return UpdateSpeedLimitNotification(
             isUpload = jsonObject.getBoolean(key = "is_upload"),
+        )
+    }
+
+    private fun deserializeUpdateStakeDiceState(jsonObject: JsonObject): UpdateStakeDiceState {
+        return UpdateStakeDiceState(
+            state = jsonObject.getObject(key = "state") { data -> deserializeStakeDiceState(jsonObject = data) },
         )
     }
 
