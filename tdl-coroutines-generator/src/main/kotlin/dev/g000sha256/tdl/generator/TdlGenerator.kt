@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Georgii Ippolitov (g000sha256)
+ * Copyright 2025-2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -45,12 +45,16 @@ import com.squareup.kotlinpoet.TypeName
 import com.squareup.kotlinpoet.TypeSpec
 import java.io.File
 import java.nio.file.Paths
+import java.time.Year
 import kotlin.io.path.pathString
 import kotlin.io.path.readLines
 import kotlin.io.path.writeLines
 
-private const val LICENCE = """/*
- * Copyright 2025 Georgii Ippolitov (g000sha256)
+private val LICENSE = getLicense(year = "2025")
+
+private fun getLicense(year: String): String {
+    return """/*
+ * Copyright $year Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -65,6 +69,7 @@ private const val LICENCE = """/*
  * limitations under the License.
  */
 """
+}
 
 private const val PACKAGE = "dev.g000sha256.tdl"
 private const val PACKAGE_DTO = "$PACKAGE.dto"
@@ -249,7 +254,7 @@ private val TypeName.isPrimitiveArray: Boolean
 
 private fun FileSpec.writeAndFixContent(
     folderName: String,
-    addLicence: Boolean = true,
+    addLicense: Boolean = true,
     removeAllPublic: Boolean = false
 ) {
     val path = Paths
@@ -270,8 +275,8 @@ private fun FileSpec.writeAndFixContent(
             return@map it
         }
         .let {
-            if (addLicence) {
-                return@let listOf(LICENCE) + it
+            if (addLicense) {
+                return@let listOf(element = LICENSE) + it
             } else {
                 return@let it
             }
@@ -337,6 +342,8 @@ public fun main() {
         updatesCount = updateDtoCommonElements.size,
         requestsCount = functionCommonElements.size,
     )
+
+    updateLicenseForChangedFiles()
 }
 
 //////  //////  //////
@@ -1830,4 +1837,144 @@ private fun ClassName(packageName: String, simpleName: String): ClassName {
         packageName = packageName,
         simpleNames = listOf(element = simpleName),
     )
+}
+
+private fun updateLicenseForChangedFiles() {
+    val directory = File(currentPath)
+    val commit = "HEAD"
+
+    val copyrightPattern = "Copyright ([0-9]{4})(-[0-9]{4})? Georgii Ippolitov"
+    val copyrightRegex = copyrightPattern.toRegex()
+
+    val changedFiles = getChangedFiles(directory = directory, commit = commit)
+    val contentChangedFiles = getContentChangedFiles(directory = directory, regex = copyrightPattern, commit = commit)
+
+    restoreFilesFromCommit(files = changedFiles - contentChangedFiles, directory = directory, commit = commit)
+
+    val currentYear = Year
+        .now()
+        .value
+        .toString()
+
+    for (path in contentChangedFiles) {
+        val file = File(directory, path)
+        val exists = file.exists()
+        if (!exists) {
+            continue
+        }
+
+        val previousContent = getFileContentFromCommit(directory = directory, commit = commit, path = path)
+        if (previousContent == null) {
+            updateFileLicense(file = file, regex = copyrightRegex, year = currentYear)
+        } else {
+            val startYear = getStartYear(content = previousContent, regex = copyrightRegex)
+            if (startYear == null || startYear == currentYear) {
+                updateFileLicense(file = file, regex = copyrightRegex, year = currentYear)
+            } else {
+                updateFileLicense(file = file, regex = copyrightRegex, year = "$startYear-$currentYear")
+            }
+        }
+    }
+}
+
+private fun getChangedFiles(directory: File, commit: String): Set<String> {
+    val text = runCommand(directory = directory) {
+        add(element = "git")
+        add(element = "diff")
+        add(element = "--name-only")
+        add(element = commit)
+        add(element = "--")
+        add(element = "*.kt")
+    }
+    if (text == null) {
+        return emptySet()
+    }
+
+    return text
+        .lines()
+        .filter { line -> line.isNotEmpty() }
+        .toSet()
+}
+
+private fun getContentChangedFiles(directory: File, regex: String, commit: String): Set<String> {
+    val text = runCommand(directory = directory) {
+        add(element = "git")
+        add(element = "diff")
+        add(element = "-I")
+        add(element = regex)
+        add(element = commit)
+        add(element = "--")
+        add(element = "*.kt")
+    }
+    if (text == null) {
+        return emptySet()
+    }
+
+    return "^diff --git a/.*\\.kt b/(.*\\.kt)"
+        .toRegex(option = RegexOption.MULTILINE)
+        .findAll(input = text)
+        .map { matchResult -> matchResult.groupValues.get(index = 1) }
+        .toSet()
+}
+
+private fun restoreFilesFromCommit(files: Set<String>, directory: File, commit: String) {
+    files
+        .chunked(size = 100)
+        .forEach { batch ->
+            runCommand(directory = directory) {
+                add(element = "git")
+                add(element = "checkout")
+                add(element = commit)
+                add(element = "--")
+                addAll(elements = batch)
+            }
+        }
+}
+
+private fun getFileContentFromCommit(directory: File, commit: String, path: String): String? {
+    return runCommand(directory = directory) {
+        add(element = "git")
+        add(element = "show")
+        add(element = "$commit:$path")
+    }
+}
+
+private fun runCommand(directory: File, block: MutableList<String>.() -> Unit): String? {
+    val process = buildList(builderAction = block)
+        .let { args -> ProcessBuilder(args) }
+        .directory(directory)
+        .start()
+
+    val text = process
+        .inputStream
+        .bufferedReader()
+        .readText()
+
+    val exitCode = process.waitFor()
+
+    if (exitCode == 0) {
+        return text
+    }
+
+    return null
+}
+
+private fun getStartYear(content: String, regex: Regex): String? {
+    val matchResult = regex.find(input = content)
+    if (matchResult == null) {
+        return null
+    }
+
+    return matchResult.groupValues.get(index = 1)
+}
+
+private fun updateFileLicense(file: File, regex: Regex, year: String) {
+    val currentText = file.readText()
+
+    val updatedText = currentText.replaceFirst(regex = regex, replacement = "Copyright $year Georgii Ippolitov")
+    if (updatedText == currentText) {
+        return
+    }
+
+    file.writeText(text = updatedText)
 }
