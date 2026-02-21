@@ -67,13 +67,8 @@ jobs:
         run: ./gradlew tdl-coroutines-generator:run
 
       - name: Commit and push
-        uses: EndBug/add-and-commit@v9
+        uses: ./.github/actions/commit-and-push
         with:
-          pull: --rebase --autostash
-          author_name: Georgii Ippolitov
-          author_email: detmmpmznb@g000sha256.dev
-          committer_name: GitHub
-          committer_email: noreply@github.com
           message: Update API [skip ci]
           add: |
             - tdl-coroutines
@@ -137,13 +132,8 @@ jobs:
           cp -r td/example/android/tdlib/libs/* tdl-coroutines/src/androidMainGenerated/jniLibs
 
       - name: Commit and push
-        uses: EndBug/add-and-commit@v9
+        uses: ./.github/actions/commit-and-push
         with:
-          pull: --rebase --autostash
-          author_name: Georgii Ippolitov
-          author_email: detmmpmznb@g000sha256.dev
-          committer_name: GitHub
-          committer_email: noreply@github.com
           message: TDLib for Android [skip ci]
           add: tdl-coroutines
 
@@ -198,13 +188,8 @@ jobs:
           cp td/tdlib/bin/*.so tdl-coroutines/src/jvmMainGenerated/resources/libs/linux-arm64
 
       - name: Commit and push
-        uses: EndBug/add-and-commit@v9
+        uses: ./.github/actions/commit-and-push
         with:
-          pull: --rebase --autostash
-          author_name: Georgii Ippolitov
-          author_email: detmmpmznb@g000sha256.dev
-          committer_name: GitHub
-          committer_email: noreply@github.com
           message: TDLib for JVM Linux Arm64 [skip ci]
           add: tdl-coroutines
 
@@ -259,13 +244,8 @@ jobs:
           cp td/tdlib/bin/*.so tdl-coroutines/src/jvmMainGenerated/resources/libs/linux-x64
 
       - name: Commit and push
-        uses: EndBug/add-and-commit@v9
+        uses: ./.github/actions/commit-and-push
         with:
-          pull: --rebase --autostash
-          author_name: Georgii Ippolitov
-          author_email: detmmpmznb@g000sha256.dev
-          committer_name: GitHub
-          committer_email: noreply@github.com
           message: TDLib for JVM Linux x64 [skip ci]
           add: tdl-coroutines
 
@@ -314,13 +294,8 @@ jobs:
           cp td/tdlib/bin/*.dylib tdl-coroutines/src/jvmMainGenerated/resources/libs/macos-arm64
 
       - name: Commit and push
-        uses: EndBug/add-and-commit@v9
+        uses: ./.github/actions/commit-and-push
         with:
-          pull: --rebase --autostash
-          author_name: Georgii Ippolitov
-          author_email: detmmpmznb@g000sha256.dev
-          committer_name: GitHub
-          committer_email: noreply@github.com
           message: TDLib for JVM macOS Arm64 [skip ci]
           add: tdl-coroutines
 
@@ -364,13 +339,8 @@ jobs:
           cp td/tdlib/bin/*.dylib tdl-coroutines/src/jvmMainGenerated/resources/libs/macos-x64
 
       - name: Commit and push
-        uses: EndBug/add-and-commit@v9
+        uses: ./.github/actions/commit-and-push
         with:
-          pull: --rebase --autostash
-          author_name: Georgii Ippolitov
-          author_email: detmmpmznb@g000sha256.dev
-          committer_name: GitHub
-          committer_email: noreply@github.com
           message: TDLib for JVM macOS x64 [skip ci]
           add: tdl-coroutines
 
@@ -418,13 +388,8 @@ jobs:
           Copy-Item td/tdlib/bin/*.dll -Destination tdl-coroutines/src/jvmMainGenerated/resources/libs/windows-arm64
 
       - name: Commit and push
-        uses: EndBug/add-and-commit@v9
+        uses: ./.github/actions/commit-and-push
         with:
-          pull: --rebase --autostash
-          author_name: Georgii Ippolitov
-          author_email: detmmpmznb@g000sha256.dev
-          committer_name: GitHub
-          committer_email: noreply@github.com
           message: TDLib for JVM Windows Arm64 [skip ci]
           add: tdl-coroutines
 
@@ -472,13 +437,8 @@ jobs:
           Copy-Item td/tdlib/bin/*.dll -Destination tdl-coroutines/src/jvmMainGenerated/resources/libs/windows-x64
 
       - name: Commit and push
-        uses: EndBug/add-and-commit@v9
+        uses: ./.github/actions/commit-and-push
         with:
-          pull: --rebase --autostash
-          author_name: Georgii Ippolitov
-          author_email: detmmpmznb@g000sha256.dev
-          committer_name: GitHub
-          committer_email: noreply@github.com
           message: TDLib for JVM Windows x64 [skip ci]
           add: tdl-coroutines
 
@@ -540,13 +500,8 @@ jobs:
           cp td/example/ios/third_party/openssl/iOS/lib/*.a tdl-coroutines/generated/iosArm64/libs
 
       - name: Commit and push
-        uses: EndBug/add-and-commit@v9
+        uses: ./.github/actions/commit-and-push
         with:
-          pull: --rebase --autostash
-          author_name: Georgii Ippolitov
-          author_email: detmmpmznb@g000sha256.dev
-          committer_name: GitHub
-          committer_email: noreply@github.com
           message: TDLib for iOS Arm64 [skip ci]
           add: tdl-coroutines
 
@@ -614,13 +569,8 @@ jobs:
           cp td/example/ios/third_party/openssl/iOS-simulator/lib/*.a tdl-coroutines/generated/iosArm64Simulator/libs
 
       - name: Commit and push
-        uses: EndBug/add-and-commit@v9
+        uses: ./.github/actions/commit-and-push
         with:
-          pull: --rebase --autostash
-          author_name: Georgii Ippolitov
-          author_email: detmmpmznb@g000sha256.dev
-          committer_name: GitHub
-          committer_email: noreply@github.com
           message: TDLib for iOS Arm64 simulator [skip ci]
           add: tdl-coroutines
 
@@ -688,13 +638,8 @@ jobs:
           cp td/example/ios/third_party/openssl/iOS-simulator/lib/*.a tdl-coroutines/generated/iosX64Simulator/libs
 
       - name: Commit and push
-        uses: EndBug/add-and-commit@v9
+        uses: ./.github/actions/commit-and-push
         with:
-          pull: --rebase --autostash
-          author_name: Georgii Ippolitov
-          author_email: detmmpmznb@g000sha256.dev
-          committer_name: GitHub
-          committer_email: noreply@github.com
           message: TDLib for iOS x64 simulator [skip ci]
           add: tdl-coroutines
 
@@ -757,13 +702,8 @@ jobs:
           cp td/example/ios/third_party/openssl/macOS/lib/*.a tdl-coroutines/generated/macosArm64/libs
 
       - name: Commit and push
-        uses: EndBug/add-and-commit@v9
+        uses: ./.github/actions/commit-and-push
         with:
-          pull: --rebase --autostash
-          author_name: Georgii Ippolitov
-          author_email: detmmpmznb@g000sha256.dev
-          committer_name: GitHub
-          committer_email: noreply@github.com
           message: TDLib for macOS Arm64 [skip ci]
           add: tdl-coroutines
 
@@ -821,12 +761,7 @@ jobs:
           cp td/example/ios/third_party/openssl/macOS/lib/*.a tdl-coroutines/generated/macosX64/libs
 
       - name: Commit and push
-        uses: EndBug/add-and-commit@v9
+        uses: ./.github/actions/commit-and-push
         with:
-          pull: --rebase --autostash
-          author_name: Georgii Ippolitov
-          author_email: detmmpmznb@g000sha256.dev
-          committer_name: GitHub
-          committer_email: noreply@github.com
           message: TDLib for macOS x64 [skip ci]
           add: tdl-coroutines
