@@ -1,0 +1,9 @@
+name: Set up Gradle
+
+runs:
+  using: composite
+
+  steps:
+    - uses: gradle/actions/setup-gradle@v4
+      with:
+        gradle-version: 8.14.3

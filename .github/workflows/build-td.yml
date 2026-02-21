@@ -53,9 +53,7 @@ jobs:
         uses: ./.github/actions/set-up-java
 
       - name: Set up Gradle
-        uses: gradle/actions/setup-gradle@v4
-        with:
-          gradle-version: 8.14.3
+        uses: ./.github/actions/set-up-gradle
 
       - name: Assemble generator
         run: ./gradlew tdl-coroutines-generator:assemble
