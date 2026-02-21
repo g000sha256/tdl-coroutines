@@ -1848,6 +1848,7 @@ private fun updateLicenseForChangedFiles() {
 
     val changedFiles = getChangedFiles(directory = directory, commit = commit)
     val contentChangedFiles = getContentChangedFiles(directory = directory, regex = copyrightPattern, commit = commit)
+    val untrackedFiles = getUntrackedFiles(directory = directory)
 
     restoreFilesFromCommit(files = changedFiles - contentChangedFiles, directory = directory, commit = commit)
 
@@ -1856,7 +1857,7 @@ private fun updateLicenseForChangedFiles() {
         .value
         .toString()
 
-    for (path in contentChangedFiles) {
+    for (path in contentChangedFiles + untrackedFiles) {
         val file = File(directory, path)
         val exists = file.exists()
         if (!exists) {
@@ -1883,6 +1884,25 @@ private fun getChangedFiles(directory: File, commit: String): Set<String> {
         add(element = "diff")
         add(element = "--name-only")
         add(element = commit)
+        add(element = "--")
+        add(element = "*.kt")
+    }
+    if (text == null) {
+        return emptySet()
+    }
+
+    return text
+        .lines()
+        .filter { line -> line.isNotEmpty() }
+        .toSet()
+}
+
+private fun getUntrackedFiles(directory: File): Set<String> {
+    val text = runCommand(directory = directory) {
+        add(element = "git")
+        add(element = "ls-files")
+        add(element = "--others")
+        add(element = "--exclude-standard")
         add(element = "--")
         add(element = "*.kt")
     }
