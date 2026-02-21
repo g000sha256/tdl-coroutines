@@ -33,7 +33,6 @@ on:
 
 jobs:
   run-generator:
-    if: true
     runs-on: self-hosted
     permissions:
       contents: write
@@ -50,17 +49,16 @@ jobs:
           cd td
           git clean -ffdx
 
-      - name: Setup Java
+      - name: Set up Java
         uses: actions/setup-java@v4
         with:
           java-version: 24
           distribution: temurin
 
-      - name: Setup Gradle
+      - name: Set up Gradle
         uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: 8.14.3
-          cache-disabled: false
 
       - name: Assemble generator
         run: ./gradlew tdl-coroutines-generator:assemble
@@ -95,18 +93,18 @@ jobs:
           lfs: true
           submodules: true
 
-      - name: Setup Java
+      - name: Set up Java
         uses: actions/setup-java@v4
         with:
           java-version: 24
           distribution: temurin
 
-      - name: Setup PHP
+      - name: Set up PHP
         uses: shivammathur/setup-php@v2
         with:
           tools: none
 
-      - name: Setup dependencies
+      - name: Set up dependencies
         run: sudo apt-get install make git zlib1g-dev libssl-dev gperf cmake g++
 
       - name: Check environment
@@ -163,18 +161,18 @@ jobs:
           lfs: true
           submodules: true
 
-      - name: Setup Java
+      - name: Set up Java
         uses: actions/setup-java@v4
         with:
           java-version: 24
           distribution: temurin
 
-      - name: Setup PHP
+      - name: Set up PHP
         uses: shivammathur/setup-php@v2
         with:
           tools: none
 
-      - name: Setup dependencies
+      - name: Set up dependencies
         run: sudo apt-get install make git zlib1g-dev libssl-dev gperf cmake g++
 
       - name: Build TDLib
@@ -224,18 +222,18 @@ jobs:
           lfs: true
           submodules: true
 
-      - name: Setup Java
+      - name: Set up Java
         uses: actions/setup-java@v4
         with:
           java-version: 24
           distribution: temurin
 
-      - name: Setup PHP
+      - name: Set up PHP
         uses: shivammathur/setup-php@v2
         with:
           tools: none
 
-      - name: Setup dependencies
+      - name: Set up dependencies
         run: sudo apt-get install make git zlib1g-dev libssl-dev gperf cmake g++
 
       - name: Build TDLib
@@ -290,7 +288,7 @@ jobs:
           cd td
           git clean -ffdx
 
-      - name: Setup dependencies
+      - name: Set up dependencies
         run: brew install gperf cmake openssl coreutils openjdk
 
       - name: Build TDLib
@@ -340,7 +338,7 @@ jobs:
           lfs: true
           submodules: true
 
-      - name: Setup dependencies
+      - name: Set up dependencies
         run: brew install gperf cmake openssl coreutils openjdk
 
       - name: Build TDLib
@@ -390,7 +388,7 @@ jobs:
           lfs: true
           submodules: true
 
-      - name: Setup dependencies
+      - name: Set up dependencies
         run: |
           git clone https://github.com/Microsoft/vcpkg.git
           cd vcpkg
@@ -444,7 +442,7 @@ jobs:
           lfs: true
           submodules: true
 
-      - name: Setup dependencies
+      - name: Set up dependencies
         run: |
           git clone https://github.com/Microsoft/vcpkg.git
           cd vcpkg
@@ -503,7 +501,7 @@ jobs:
           cd td
           git clean -ffdx
 
-      - name: Setup dependencies
+      - name: Set up dependencies
         run: brew install gperf cmake coreutils
 
       - name: Build OpenSSL
@@ -571,7 +569,7 @@ jobs:
           cd td
           git clean -ffdx
 
-      - name: Setup dependencies
+      - name: Set up dependencies
         run: brew install gperf cmake coreutils
 
       - name: Build OpenSSL
@@ -645,7 +643,7 @@ jobs:
           cd td
           git clean -ffdx
 
-      - name: Setup dependencies
+      - name: Set up dependencies
         run: brew install gperf cmake coreutils
 
       - name: Build OpenSSL
@@ -719,7 +717,7 @@ jobs:
           cd td
           git clean -ffdx
 
-      - name: Setup dependencies
+      - name: Set up dependencies
         run: brew install gperf cmake coreutils
 
       - name: Build OpenSSL
@@ -783,7 +781,7 @@ jobs:
           lfs: true
           submodules: true
 
-      - name: Setup dependencies
+      - name: Set up dependencies
         run: brew install gperf cmake coreutils
 
       - name: Build OpenSSL
