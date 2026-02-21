@@ -50,10 +50,7 @@ jobs:
           git clean -ffdx
 
       - name: Set up Java
-        uses: actions/setup-java@v4
-        with:
-          java-version: 24
-          distribution: temurin
+        uses: ./.github/actions/set-up-java
 
       - name: Set up Gradle
         uses: gradle/actions/setup-gradle@v4
@@ -89,10 +86,7 @@ jobs:
           submodules: true
 
       - name: Set up Java
-        uses: actions/setup-java@v4
-        with:
-          java-version: 24
-          distribution: temurin
+        uses: ./.github/actions/set-up-java
 
       - name: Set up PHP
         uses: shivammathur/setup-php@v2
@@ -152,10 +146,7 @@ jobs:
           submodules: true
 
       - name: Set up Java
-        uses: actions/setup-java@v4
-        with:
-          java-version: 24
-          distribution: temurin
+        uses: ./.github/actions/set-up-java
 
       - name: Set up PHP
         uses: shivammathur/setup-php@v2
@@ -208,10 +199,7 @@ jobs:
           submodules: true
 
       - name: Set up Java
-        uses: actions/setup-java@v4
-        with:
-          java-version: 24
-          distribution: temurin
+        uses: ./.github/actions/set-up-java
 
       - name: Set up PHP
         uses: shivammathur/setup-php@v2
