@@ -346,12 +346,12 @@ jobs:
           cd td
           mkdir build
           cd build
-          cmake -DCMAKE_BUILD_TYPE=Release -DJAVA_HOME=/opt/homebrew/opt/openjdk/libexec/openjdk.jdk/Contents/Home/ -DOPENSSL_ROOT_DIR=/opt/homebrew/opt/openssl/ -DCMAKE_INSTALL_PREFIX:PATH=../example/java/td -DTD_ENABLE_JNI=ON ..
+          cmake -DCMAKE_BUILD_TYPE=Release -DJAVA_HOME=/usr/local/opt/openjdk/libexec/openjdk.jdk/Contents/Home/ -DOPENSSL_ROOT_DIR=/usr/local/opt/openssl/ -DCMAKE_INSTALL_PREFIX:PATH=../example/java/td -DTD_ENABLE_JNI=ON ..
           cmake --build . --target install
           cd ../example/java
           mkdir build
           cd build
-          cmake -DCMAKE_BUILD_TYPE=Release -DJAVA_HOME=/opt/homebrew/opt/openjdk/libexec/openjdk.jdk/Contents/Home/ -DCMAKE_INSTALL_PREFIX:PATH=../../../tdlib -DTd_DIR:PATH=$(greadlink -e ../td/lib/cmake/Td) -DTD_JSON_JAVA=ON ..
+          cmake -DCMAKE_BUILD_TYPE=Release -DJAVA_HOME=/usr/local/opt/openjdk/libexec/openjdk.jdk/Contents/Home/ -DCMAKE_INSTALL_PREFIX:PATH=../../../tdlib -DTd_DIR:PATH=$(greadlink -e ../td/lib/cmake/Td) -DTD_JSON_JAVA=ON ..
           cmake --build . --target install
 
       - name: SHA256 checksums
