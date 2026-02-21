@@ -5,6 +5,7 @@ on:
     branches:
       - develop
       - master
+
     types:
       - opened
       - synchronize
@@ -20,37 +21,38 @@ jobs:
         with:
           lfs: true
 
-      - name: Setup Java
+      - name: Set up Java
         uses: actions/setup-java@v4
         with:
           java-version: 24
           distribution: temurin
 
-      - name: Setup Gradle
+      - name: Set up Gradle
         uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: 8.14.3
-          cache-disabled: false
 
       - name: Assemble libraries
         run: |
-          ./gradlew tdl-coroutines:bundleReleaseAar
-          ./gradlew tdl-coroutines:jvmJar
-          ./gradlew tdl-coroutines:iosArm64Cinterop-mainKlib
-          ./gradlew tdl-coroutines:iosArm64Klib
-          ./gradlew tdl-coroutines:iosArm64SimulatorCinterop-mainKlib
-          ./gradlew tdl-coroutines:iosArm64SimulatorKlib
-          ./gradlew tdl-coroutines:iosX64SimulatorCinterop-mainKlib
-          ./gradlew tdl-coroutines:iosX64SimulatorKlib
-          ./gradlew tdl-coroutines:macosArm64Cinterop-mainKlib
-          ./gradlew tdl-coroutines:macosArm64Klib
-          ./gradlew tdl-coroutines:macosX64Cinterop-mainKlib
-          ./gradlew tdl-coroutines:macosX64Klib
+          ./gradlew \
+            tdl-coroutines:bundleReleaseAar \
+            tdl-coroutines:jvmJar \
+            tdl-coroutines:iosArm64Cinterop-mainKlib \
+            tdl-coroutines:iosArm64Klib \
+            tdl-coroutines:iosArm64SimulatorCinterop-mainKlib \
+            tdl-coroutines:iosArm64SimulatorKlib \
+            tdl-coroutines:iosX64SimulatorCinterop-mainKlib \
+            tdl-coroutines:iosX64SimulatorKlib \
+            tdl-coroutines:macosArm64Cinterop-mainKlib \
+            tdl-coroutines:macosArm64Klib \
+            tdl-coroutines:macosX64Cinterop-mainKlib \
+            tdl-coroutines:macosX64Klib
 
       - name: Assemble examples
         run: |
-          ./gradlew tdl-coroutines-example:assembleRelease
-          ./gradlew tdl-coroutines-example-jvm:assemble
+          ./gradlew \
+            tdl-coroutines-example:assembleRelease \
+            tdl-coroutines-example-jvm:assemble
 
       - name: Check API compatibility
         run: ./gradlew apiCheck
