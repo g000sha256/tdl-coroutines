@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Georgii Ippolitov (g000sha256)
+ * Copyright 2025-2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,7 +26,7 @@ import kotlin.String
  * Describes a price required to pay to upgrade a gift.
  *
  * @property date Point in time (Unix timestamp) when the price will be in effect.
- * @property starCount The amount of Telegram Stars required to pay to upgrade the gift.
+ * @property starCount The Telegram Star amount required to pay to upgrade the gift.
  */
 public class GiftUpgradePrice public constructor(
     public val date: Int,

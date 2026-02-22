@@ -28,8 +28,8 @@ import kotlin.String
  * @property initialState The animated stickers with the initial dice animation; may be null if unknown. The update updateMessageContent will be sent when the sticker became known.
  * @property finalState The animated stickers with the final dice animation; may be null if unknown. The update updateMessageContent will be sent when the sticker became known.
  * @property value The dice value. If the value is 0, then the dice don't have final state yet.
- * @property stakeToncoinAmount The amount of Toncoins that were staked; in the smallest units of the currency.
- * @property prizeToncoinAmount The amount of Toncoins that were gained from the roll; in the smallest units of the currency; -1 if the dice don't have final state yet.
+ * @property stakeToncoinAmount The Toncoin amount that was staked; in the smallest units of the currency.
+ * @property prizeToncoinAmount The Toncoin amount that was gained from the roll; in the smallest units of the currency; -1 if the dice don't have final state yet.
  */
 public class MessageStakeDice public constructor(
     public val initialState: DiceStickers?,

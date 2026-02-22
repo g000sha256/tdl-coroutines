@@ -28,7 +28,7 @@ import kotlin.String
  * Describes state of the stake dice.
  *
  * @property stateHash Hash of the state to use for sending the next dice; may be empty if the stake dice can't be sent by the current user.
- * @property stakeToncoinAmount The amount of Toncoins that was staked in the previous roll; in the smallest units of the currency.
+ * @property stakeToncoinAmount The Toncoin amount that was staked in the previous roll; in the smallest units of the currency.
  * @property suggestedStakeToncoinAmounts The amounts of Toncoins that are suggested to be staked; in the smallest units of the currency.
  * @property currentStreak The number of rolled sixes towards the streak; 0-2.
  * @property prizePerMille The number of Toncoins received by the user for each 1000 Toncoins staked if the dice outcome is 1-6 correspondingly; may be empty if the stake dice can't be sent by the current user.

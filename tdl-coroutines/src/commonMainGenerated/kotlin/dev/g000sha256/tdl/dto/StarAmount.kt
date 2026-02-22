@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Georgii Ippolitov (g000sha256)
+ * Copyright 2025-2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,9 +23,9 @@ import kotlin.Long
 import kotlin.String
 
 /**
- * Describes a possibly non-integer amount of Telegram Stars.
+ * Describes a possibly non-integer Telegram Star amount.
  *
- * @property starCount The integer amount of Telegram Stars rounded to 0.
+ * @property starCount The integer Telegram Star amount rounded to 0.
  * @property nanostarCount The number of 1/1000000000 shares of Telegram Stars; from -999999999 to 999999999.
  */
 public class StarAmount public constructor(

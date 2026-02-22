@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Georgii Ippolitov (g000sha256)
+ * Copyright 2025-2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,10 +25,10 @@ import kotlin.String
 /**
  * The transaction is a sale of an upgraded gift.
  *
- * @property userId Identifier of the user that bought the gift.
+ * @property userId Identifier of the user who bought the gift.
  * @property gift The gift.
  * @property commissionPerMille The number of Toncoins received by the Telegram for each 1000 Toncoins received by the seller of the gift.
- * @property commissionToncoinAmount The amount of Toncoins that were received by the Telegram; in the smallest units of the currency.
+ * @property commissionToncoinAmount The Toncoin amount that was received by the Telegram; in the smallest units of the currency.
  * @property viaOffer True, if the gift was sold through a purchase offer.
  */
 public class TonTransactionTypeUpgradedGiftSale public constructor(

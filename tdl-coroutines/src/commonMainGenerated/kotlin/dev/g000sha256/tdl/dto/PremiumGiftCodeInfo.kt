@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Georgii Ippolitov (g000sha256)
+ * Copyright 2025-2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,7 +25,7 @@ import kotlin.String
 /**
  * Contains information about a Telegram Premium gift code.
  *
- * @property creatorId Identifier of a chat or a user that created the gift code; may be null if unknown. If null and the code is from messagePremiumGiftCode message, then creatorId from the message can be used.
+ * @property creatorId Identifier of a chat or a user who created the gift code; may be null if unknown. If null and the code is from messagePremiumGiftCode message, then creatorId from the message can be used.
  * @property creationDate Point in time (Unix timestamp) when the code was created.
  * @property isFromGiveaway True, if the gift code was created for a giveaway.
  * @property giveawayMessageId Identifier of the corresponding giveaway message in the creatorId chat; may be 0 or an identifier of a deleted message.
