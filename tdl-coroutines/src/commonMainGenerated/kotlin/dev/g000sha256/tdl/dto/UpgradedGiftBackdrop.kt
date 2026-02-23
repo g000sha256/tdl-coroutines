@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Georgii Ippolitov (g000sha256)
+ * Copyright 2025-2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,13 +27,13 @@ import kotlin.String
  * @property id Unique identifier of the backdrop.
  * @property name Name of the backdrop.
  * @property colors Colors of the backdrop.
- * @property rarityPerMille The number of upgraded gifts that receive this backdrop for each 1000 gifts upgraded.
+ * @property rarity The rarity of the backdrop.
  */
 public class UpgradedGiftBackdrop public constructor(
     public val id: Int,
     public val name: String,
     public val colors: UpgradedGiftBackdropColors,
-    public val rarityPerMille: Int,
+    public val rarity: UpgradedGiftAttributeRarity,
 ) {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
@@ -55,7 +55,7 @@ public class UpgradedGiftBackdrop public constructor(
         if (other.colors != colors) {
             return false
         }
-        return other.rarityPerMille == rarityPerMille
+        return other.rarity == rarity
     }
 
     override fun hashCode(): Int {
@@ -63,7 +63,7 @@ public class UpgradedGiftBackdrop public constructor(
         hashCode = 31 * hashCode + id.hashCode()
         hashCode = 31 * hashCode + name.hashCode()
         hashCode = 31 * hashCode + colors.hashCode()
-        hashCode = 31 * hashCode + rarityPerMille.hashCode()
+        hashCode = 31 * hashCode + rarity.hashCode()
         return hashCode
     }
 
@@ -80,8 +80,8 @@ public class UpgradedGiftBackdrop public constructor(
             append("colors=")
             append(colors)
             append(", ")
-            append("rarityPerMille=")
-            append(rarityPerMille)
+            append("rarity=")
+            append(rarity)
             append(")")
         }
     }

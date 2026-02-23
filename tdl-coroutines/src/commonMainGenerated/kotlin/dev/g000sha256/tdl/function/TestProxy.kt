@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Georgii Ippolitov (g000sha256)
+ * Copyright 2025-2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,15 +16,12 @@
 
 package dev.g000sha256.tdl.function
 
-import dev.g000sha256.tdl.dto.ProxyType
+import dev.g000sha256.tdl.dto.Proxy
 import kotlin.Double
 import kotlin.Int
-import kotlin.String
 
 internal class TestProxy internal constructor(
-    internal val server: String,
-    internal val port: Int,
-    internal val type: ProxyType,
+    internal val proxy: Proxy,
     internal val dcId: Int,
     internal val timeout: Double,
 )

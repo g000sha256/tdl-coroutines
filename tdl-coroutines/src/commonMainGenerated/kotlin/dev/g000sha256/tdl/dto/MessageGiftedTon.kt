@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Georgii Ippolitov (g000sha256)
+ * Copyright 2025-2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,9 +25,9 @@ import kotlin.String
 /**
  * Toncoins were gifted to a user.
  *
- * @property gifterUserId The identifier of a user that gifted Toncoins; 0 if the gift was anonymous or is outgoing.
- * @property receiverUserId The identifier of a user that received Toncoins; 0 if the gift is incoming.
- * @property tonAmount The received amount of Toncoins, in the smallest units of the cryptocurrency.
+ * @property gifterUserId The identifier of a user who gifted Toncoins; 0 if the gift was anonymous or is outgoing.
+ * @property receiverUserId The identifier of a user who received Toncoins; 0 if the gift is incoming.
+ * @property tonAmount The received Toncoin amount, in the smallest units of the cryptocurrency.
  * @property transactionId Identifier of the transaction for Toncoin credit; for receiver only.
  * @property sticker A sticker to be shown in the message; may be null if unknown.
  */

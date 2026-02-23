@@ -17,6 +17,8 @@
 package dev.g000sha256.tdl
 
 import dev.g000sha256.tdl.dto.AccountTtl
+import dev.g000sha256.tdl.dto.AddedProxies
+import dev.g000sha256.tdl.dto.AddedProxy
 import dev.g000sha256.tdl.dto.AddedReactions
 import dev.g000sha256.tdl.dto.AffiliateProgramParameters
 import dev.g000sha256.tdl.dto.AffiliateProgramSortOrder
@@ -124,6 +126,7 @@ import dev.g000sha256.tdl.dto.ConnectedAffiliatePrograms
 import dev.g000sha256.tdl.dto.ConnectedWebsites
 import dev.g000sha256.tdl.dto.Count
 import dev.g000sha256.tdl.dto.Countries
+import dev.g000sha256.tdl.dto.CraftGiftResult
 import dev.g000sha256.tdl.dto.CreatedBasicGroupChat
 import dev.g000sha256.tdl.dto.CurrentWeather
 import dev.g000sha256.tdl.dto.CustomRequestResult
@@ -176,6 +179,7 @@ import dev.g000sha256.tdl.dto.GiftResaleResult
 import dev.g000sha256.tdl.dto.GiftSettings
 import dev.g000sha256.tdl.dto.GiftUpgradePreview
 import dev.g000sha256.tdl.dto.GiftUpgradeVariants
+import dev.g000sha256.tdl.dto.GiftsForCrafting
 import dev.g000sha256.tdl.dto.GiftsForResale
 import dev.g000sha256.tdl.dto.GiveawayInfo
 import dev.g000sha256.tdl.dto.GiveawayParameters
@@ -291,9 +295,7 @@ import dev.g000sha256.tdl.dto.PremiumState
 import dev.g000sha256.tdl.dto.PreparedInlineMessage
 import dev.g000sha256.tdl.dto.PreparedInlineMessageId
 import dev.g000sha256.tdl.dto.ProfileTab
-import dev.g000sha256.tdl.dto.Proxies
 import dev.g000sha256.tdl.dto.Proxy
-import dev.g000sha256.tdl.dto.ProxyType
 import dev.g000sha256.tdl.dto.PublicChatType
 import dev.g000sha256.tdl.dto.PublicForwards
 import dev.g000sha256.tdl.dto.PublicPostSearchLimits
@@ -1711,17 +1713,10 @@ public abstract class TdlClient internal constructor() {
     /**
      * Adds a proxy server for network requests. Can be called before authorization.
      *
-     * @param server Proxy server domain or IP address.
-     * @param port Proxy server port.
+     * @param proxy The proxy to add.
      * @param enable Pass true to immediately enable the proxy.
-     * @param type Proxy type.
      */
-    public abstract suspend fun addProxy(
-        server: String,
-        port: Int,
-        enable: Boolean,
-        type: ProxyType,
-    ): TdlResult<Proxy>
+    public abstract suspend fun addProxy(proxy: Proxy, enable: Boolean): TdlResult<AddedProxy>
 
     /**
      * Adds a message to a quick reply shortcut via inline bot. If shortcut doesn't exist and there are less than getOption(&quot;quick_reply_shortcut_count_max&quot;) shortcuts, then a new shortcut is created. The shortcut must not contain more than getOption(&quot;quick_reply_shortcut_message_count_max&quot;) messages after adding the new message. Returns the added message.
@@ -1865,7 +1860,7 @@ public abstract class TdlClient internal constructor() {
      * Sets the result of an inline query; for bots only.
      *
      * @param inlineQueryId Identifier of the inline query.
-     * @param isPersonal Pass true if results may be cached and returned only for the user that sent the query. By default, results may be returned to any user who sends the same query.
+     * @param isPersonal Pass true if results may be cached and returned only for the user who sent the query. By default, results may be returned to any user who sends the same query.
      * @param button Button to be shown above inline query results; pass null if none.
      * @param results The results of the query.
      * @param cacheTime Allowed time to cache the results of the query, in seconds.
@@ -1943,7 +1938,7 @@ public abstract class TdlClient internal constructor() {
      * @param chatId Chat identifier.
      * @param memberId Member identifier.
      * @param bannedUntilDate Point in time (Unix timestamp) when the user will be unbanned; 0 if never. If the user is banned for more than 366 days or for less than 30 seconds from the current time, the user is considered to be banned forever. Ignored in basic groups and if a chat is banned.
-     * @param revokeMessages Pass true to delete all messages in the chat for the user that is being removed. Always true for supergroups and channels.
+     * @param revokeMessages Pass true to delete all messages in the chat for the user who is being removed. Always true for supergroups and channels.
      */
     public abstract suspend fun banChatMember(
         chatId: Long,
@@ -1988,7 +1983,7 @@ public abstract class TdlClient internal constructor() {
      *
      * @param ownerId Identifier of the user or the channel chat that owns the gift.
      * @param prepaidUpgradeHash Prepaid upgrade hash as received along with the gift.
-     * @param starCount The amount of Telegram Stars the user agreed to pay for the upgrade; must be equal to gift.upgradeStarCount.
+     * @param starCount The Telegram Star amount the user agreed to pay for the upgrade; must be equal to gift.upgradeStarCount.
      */
     public abstract suspend fun buyGiftUpgrade(
         ownerId: MessageSender,
@@ -2405,6 +2400,13 @@ public abstract class TdlClient internal constructor() {
      * @param botUserId Identifier of the bot, which affiliate program is connected.
      */
     public abstract suspend fun connectAffiliateProgram(affiliate: AffiliateType, botUserId: Long): TdlResult<ConnectedAffiliateProgram>
+
+    /**
+     * Crafts a new gift from other gifts that will be permanently lost.
+     *
+     * @param receivedGiftIds Identifier of the gifts to use for crafting.
+     */
+    public abstract suspend fun craftGift(receivedGiftIds: Array<String>): TdlResult<CraftGiftResult>
 
     /**
      * Returns an existing chat corresponding to a known basic group.
@@ -3099,7 +3101,7 @@ public abstract class TdlClient internal constructor() {
      * Drops original details for an upgraded gift.
      *
      * @param receivedGiftId Identifier of the gift.
-     * @param starCount The amount of Telegram Stars required to pay for the operation.
+     * @param starCount The Telegram Star amount required to pay for the operation.
      */
     public abstract suspend fun dropGiftOriginalDetails(receivedGiftId: String, starCount: Long): TdlResult<Ok>
 
@@ -3513,18 +3515,14 @@ public abstract class TdlClient internal constructor() {
      * Edits an existing proxy server for network requests. Can be called before authorization.
      *
      * @param proxyId Proxy identifier.
-     * @param server Proxy server domain or IP address.
-     * @param port Proxy server port.
+     * @param proxy The new information about the proxy.
      * @param enable Pass true to immediately enable the proxy.
-     * @param type Proxy type.
      */
     public abstract suspend fun editProxy(
         proxyId: Int,
-        server: String,
-        port: Int,
+        proxy: Proxy,
         enable: Boolean,
-        type: ProxyType,
-    ): TdlResult<Proxy>
+    ): TdlResult<AddedProxy>
 
     /**
      * Asynchronously edits the text, media or caption of a quick reply message. Use quickReplyMessage.canBeEdited to check whether a message can be edited. Media message can be edited only to a media message. Checklist messages can be edited only to a checklist message. The type of message content in an album can't be changed with exception of replacing a photo with a video or vice versa.
@@ -3870,7 +3868,7 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun getBotSimilarBots(botUserId: Long): TdlResult<Users>
 
     /**
-     * Returns the amount of Telegram Stars owned by a business account; for bots only.
+     * Returns the Telegram Star amount owned by a business account; for bots only.
      *
      * @param businessConnectionId Unique identifier of business connection.
      */
@@ -4255,6 +4253,13 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun getChatNotificationSettingsExceptions(scope: NotificationSettingsScope? = null, compareSound: Boolean): TdlResult<Chats>
 
     /**
+     * Returns the user who will become the owner of the chat after 7 days if the current user does not return to the chat during that period; requires owner privileges in the chat. Available only for supergroups and channel chats.
+     *
+     * @param chatId Chat identifier.
+     */
+    public abstract suspend fun getChatOwnerAfterLeaving(chatId: Long): TdlResult<User>
+
+    /**
      * Returns information about a newest pinned message in the chat. Returns a 404 error if the message doesn't exist.
      *
      * @param chatId Identifier of the chat the message belongs to.
@@ -4424,7 +4429,7 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun getCommands(scope: BotCommandScope? = null, languageCode: String): TdlResult<BotCommands>
 
     /**
-     * Returns an affiliate program that were connected to the given affiliate by identifier of the bot that created the program.
+     * Returns an affiliate program that was connected to the given affiliate by identifier of the bot that created the program.
      *
      * @param affiliate The affiliate to which the affiliate program will be connected.
      * @param botUserId Identifier of the bot that created the program.
@@ -4617,12 +4622,17 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun getEmojiSuggestionsUrl(languageCode: String): TdlResult<HttpUrl>
 
     /**
-     * Returns an HTTP URL which can be used to automatically authorize the current user on a website after clicking an HTTP link. Use the method getExternalLinkInfo to find whether a prior user confirmation is needed.
+     * Returns an HTTP URL which can be used to automatically authorize the current user on a website after clicking an HTTP link. Use the method getExternalLinkInfo to find whether a prior user confirmation is needed. May return an empty link if just a toast about successful login has to be shown.
      *
      * @param link The HTTP link.
-     * @param allowWriteAccess Pass true if the current user allowed the bot, returned in getExternalLinkInfo, to send them messages.
+     * @param allowWriteAccess Pass true if the current user allowed the bot that was returned in getExternalLinkInfo, to send them messages.
+     * @param allowPhoneNumberAccess Pass true if the current user allowed the bot that was returned in getExternalLinkInfo, to access their phone number.
      */
-    public abstract suspend fun getExternalLink(link: String, allowWriteAccess: Boolean): TdlResult<HttpUrl>
+    public abstract suspend fun getExternalLink(
+        link: String,
+        allowWriteAccess: Boolean,
+        allowPhoneNumberAccess: Boolean,
+    ): TdlResult<HttpUrl>
 
     /**
      * Returns information about an action to be done when the current user clicks an external link. Don't use this method for links from secret chats if link preview is disabled in secret chats.
@@ -4767,16 +4777,22 @@ public abstract class TdlClient internal constructor() {
     /**
      * Returns examples of possible upgraded gifts for a regular gift.
      *
-     * @param giftId Identifier of the gift.
+     * @param regularGiftId Identifier of the regular gift.
      */
-    public abstract suspend fun getGiftUpgradePreview(giftId: Long): TdlResult<GiftUpgradePreview>
+    public abstract suspend fun getGiftUpgradePreview(regularGiftId: Long): TdlResult<GiftUpgradePreview>
 
     /**
-     * Returns all possible variants of upgraded gifts for a regular gift.
+     * Returns upgraded gifts of the current user who can be used to craft another gifts.
      *
-     * @param giftId Identifier of the gift.
+     * @param regularGiftId Identifier of the regular gift that will be used for crafting.
+     * @param offset Offset of the first entry to return as received from the previous request; use empty string to get the first chunk of results.
+     * @param limit The maximum number of gifts to be returned; must be positive and can't be greater than 100. For optimal performance, the number of returned objects is chosen by TDLib and can be smaller than the specified limit.
      */
-    public abstract suspend fun getGiftUpgradeVariants(giftId: Long): TdlResult<GiftUpgradeVariants>
+    public abstract suspend fun getGiftsForCrafting(
+        regularGiftId: Long,
+        offset: String,
+        limit: Int,
+    ): TdlResult<GiftsForCrafting>
 
     /**
      * Returns information about a giveaway.
@@ -5043,7 +5059,7 @@ public abstract class TdlClient internal constructor() {
      * @param chatId Chat identifier of the message with the button.
      * @param messageId Message identifier of the message with the button.
      * @param buttonId Button identifier.
-     * @param allowWriteAccess Pass true to allow the bot to send messages to the current user.
+     * @param allowWriteAccess Pass true to allow the bot to send messages to the current user. Phone number access can't be requested using the button.
      */
     public abstract suspend fun getLoginUrl(
         chatId: Long,
@@ -5511,14 +5527,7 @@ public abstract class TdlClient internal constructor() {
     /**
      * Returns the list of proxies that are currently set up. Can be called before authorization.
      */
-    public abstract suspend fun getProxies(): TdlResult<Proxies>
-
-    /**
-     * Returns an HTTPS link, which can be used to add a proxy. Available only for SOCKS5 and MTProto proxies. Can be called before authorization.
-     *
-     * @param proxyId Proxy identifier.
-     */
-    public abstract suspend fun getProxyLink(proxyId: Int): TdlResult<HttpUrl>
+    public abstract suspend fun getProxies(): TdlResult<AddedProxies>
 
     /**
      * Checks public post search limits without actually performing the search.
@@ -5741,7 +5750,7 @@ public abstract class TdlClient internal constructor() {
     /**
      * Returns available options for Telegram Stars gifting.
      *
-     * @param userId Identifier of the user that will receive Telegram Stars; pass 0 to get options for an unspecified user.
+     * @param userId Identifier of the user who will receive Telegram Stars; pass 0 to get options for an unspecified user.
      */
     public abstract suspend fun getStarGiftPaymentOptions(userId: Long): TdlResult<StarPaymentOptions>
 
@@ -6037,7 +6046,7 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun getSupportName(): TdlResult<Text>
 
     /**
-     * Returns a user that can be contacted to get support.
+     * Returns a user who can be contacted to get support.
      */
     public abstract suspend fun getSupportUser(): TdlResult<User>
 
@@ -6141,6 +6150,19 @@ public abstract class TdlClient internal constructor() {
      * @param name Unique name of the upgraded gift.
      */
     public abstract suspend fun getUpgradedGiftValueInfo(name: String): TdlResult<UpgradedGiftValueInfo>
+
+    /**
+     * Returns all possible variants of upgraded gifts for a regular gift.
+     *
+     * @param regularGiftId Identifier of the regular gift.
+     * @param returnUpgradeModels Pass true to get models that can be obtained by upgrading a regular gift.
+     * @param returnCraftModels Pass true to get models that can be obtained by crafting a gift from upgraded gifts.
+     */
+    public abstract suspend fun getUpgradedGiftVariants(
+        regularGiftId: Long,
+        returnUpgradeModels: Boolean,
+        returnCraftModels: Boolean,
+    ): TdlResult<GiftUpgradeVariants>
 
     /**
      * Returns a URL for upgraded gift withdrawal in the TON blockchain as an NFT; requires owner privileges for gifts owned by a chat.
@@ -6661,16 +6683,16 @@ public abstract class TdlClient internal constructor() {
     /**
      * Computes time needed to receive a response from a Telegram server through a proxy. Can be called before authorization.
      *
-     * @param proxyId Proxy identifier. Use 0 to ping a Telegram server without a proxy.
+     * @param proxy The proxy to test; pass null to ping a Telegram server without a proxy.
      */
-    public abstract suspend fun pingProxy(proxyId: Int): TdlResult<Seconds>
+    public abstract suspend fun pingProxy(proxy: Proxy? = null): TdlResult<Seconds>
 
     /**
      * Places a bid on an auction gift.
      *
      * @param giftId Identifier of the gift to place the bid on.
      * @param starCount The number of Telegram Stars to place in the bid.
-     * @param userId Identifier of the user that will receive the gift.
+     * @param userId Identifier of the user who will receive the gift.
      * @param text Text to show along with the gift; 0-getOption(&quot;gift_text_length_max&quot;) characters. Only Bold, Italic, Underline, Strikethrough, Spoiler, and CustomEmoji entities are allowed. Must be empty if the receiver enabled paid messages.
      * @param isPrivate Pass true to show gift text and sender only to the gift receiver; otherwise, everyone will be able to see them.
      */
@@ -6734,7 +6756,7 @@ public abstract class TdlClient internal constructor() {
      * Handles a pending join request in a chat.
      *
      * @param chatId Chat identifier.
-     * @param userId Identifier of the user that sent the request.
+     * @param userId Identifier of the user who sent the request.
      * @param approve Pass true to approve the request; pass false to decline it.
      */
     public abstract suspend fun processChatJoinRequest(
@@ -6900,7 +6922,7 @@ public abstract class TdlClient internal constructor() {
     /**
      * Refunds a previously done payment in Telegram Stars; for bots only.
      *
-     * @param userId Identifier of the user that did the payment.
+     * @param userId Identifier of the user who did the payment.
      * @param telegramPaymentChargeId Telegram payment identifier.
      */
     public abstract suspend fun refundStarPayment(userId: Long, telegramPaymentChargeId: String): TdlResult<Ok>
@@ -7670,6 +7692,7 @@ public abstract class TdlClient internal constructor() {
      *
      * @param giftId Identifier of the regular gift that was upgraded to a unique gift.
      * @param order Order in which the results will be sorted.
+     * @param forCrafting Pass true to get only gifts suitable for crafting.
      * @param attributes Attributes used to filter received gifts. If multiple attributes of the same type are specified, then all of them are allowed. If none attributes of specific type are specified, then all values for this attribute type are allowed.
      * @param offset Offset of the first entry to return as received from the previous request with the same order and attributes; use empty string to get the first chunk of results.
      * @param limit The maximum number of gifts to return.
@@ -7677,6 +7700,7 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun searchGiftsForResale(
         giftId: Long,
         order: GiftForResaleOrder,
+        forCrafting: Boolean,
         attributes: Array<UpgradedGiftAttributeId>,
         offset: String,
         limit: Int,
@@ -7767,7 +7791,7 @@ public abstract class TdlClient internal constructor() {
      * @param query Query to search for.
      * @param offset Offset of the first entry to return as received from the previous request; use empty string to get the first chunk of results.
      * @param limit The maximum number of messages to be returned; up to 100. For optimal performance, the number of returned messages is chosen by TDLib and can be smaller than the specified limit.
-     * @param starCount The amount of Telegram Stars the user agreed to pay for the search; pass 0 for free searches.
+     * @param starCount The Telegram Star amount the user agreed to pay for the search; pass 0 for free searches.
      */
     public abstract suspend fun searchPublicPosts(
         query: String,
@@ -8064,13 +8088,13 @@ public abstract class TdlClient internal constructor() {
      * Sends a notification about user activity in a chat.
      *
      * @param chatId Chat identifier.
-     * @param topicId Identifier of the topic in which the action is performed.
+     * @param topicId Identifier of the topic in which the action is performed; pass null if none.
      * @param businessConnectionId Unique identifier of business connection on behalf of which to send the request; for bots only.
      * @param action The action description; pass null to cancel the currently active action.
      */
     public abstract suspend fun sendChatAction(
         chatId: Long,
-        topicId: MessageTopic,
+        topicId: MessageTopic? = null,
         businessConnectionId: String,
         action: ChatAction? = null,
     ): TdlResult<Ok>
@@ -8725,7 +8749,7 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun setChatNotificationSettings(chatId: Long, notificationSettings: ChatNotificationSettings): TdlResult<Ok>
 
     /**
-     * Changes the amount of Telegram Stars that must be paid to send a message to a supergroup chat; requires canRestrictMembers administrator right and supergroupFullInfo.canEnablePaidMessages.
+     * Changes the Telegram Star amount that must be paid to send a message to a supergroup chat; requires canRestrictMembers administrator right and supergroupFullInfo.canEnablePaidMessages.
      *
      * @param chatId Identifier of the supergroup chat.
      * @param paidMessageStarCount The new number of Telegram Stars that must be paid for each message that is sent to the supergroup chat unless the sender is an administrator of the chat; 0-getOption(&quot;paid_message_star_count_max&quot;). The supergroup will receive getOption(&quot;paid_message_earnings_per_mille&quot;) Telegram Stars for each 1000 Telegram Stars paid for message sending.
@@ -9189,7 +9213,7 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun setPassportElement(element: InputPassportElement, password: String): TdlResult<PassportElement>
 
     /**
-     * Informs the user that some of the elements in their Telegram Passport contain errors; for bots only. The user will not be able to resend the elements, until the errors are fixed.
+     * Informs the user who some of the elements in their Telegram Passport contain errors; for bots only. The user will not be able to resend the elements, until the errors are fixed.
      *
      * @param userId User identifier.
      * @param errors The errors.
@@ -9801,16 +9825,12 @@ public abstract class TdlClient internal constructor() {
     /**
      * Sends a simple network request to the Telegram servers via proxy; for testing only. Can be called before authorization.
      *
-     * @param server Proxy server domain or IP address.
-     * @param port Proxy server port.
-     * @param type Proxy type.
+     * @param proxy The proxy to test.
      * @param dcId Identifier of a datacenter with which to test connection.
      * @param timeout The maximum overall timeout for the request.
      */
     public abstract suspend fun testProxy(
-        server: String,
-        port: Int,
-        type: ProxyType,
+        proxy: Proxy,
         dcId: Int,
         timeout: Double,
     ): TdlResult<Ok>
@@ -10271,7 +10291,7 @@ public abstract class TdlClient internal constructor() {
      * @param businessConnectionId Unique identifier of business connection on behalf of which to send the request; for bots only.
      * @param receivedGiftId Identifier of the gift.
      * @param newOwnerId Identifier of the user or the channel chat that will receive the gift.
-     * @param starCount The amount of Telegram Stars required to pay for the transfer.
+     * @param starCount The Telegram Star amount required to pay for the transfer.
      */
     public abstract suspend fun transferGift(
         businessConnectionId: String,
@@ -10345,7 +10365,7 @@ public abstract class TdlClient internal constructor() {
      * @param businessConnectionId Unique identifier of business connection on behalf of which to send the request; for bots only.
      * @param receivedGiftId Identifier of the gift.
      * @param keepOriginalDetails Pass true to keep the original gift text, sender and receiver in the upgraded gift.
-     * @param starCount The amount of Telegram Stars required to pay for the upgrade. It the gift has prepaidUpgradeStarCount &gt; 0, then pass 0, otherwise, pass gift.upgradeStarCount.
+     * @param starCount The Telegram Star amount required to pay for the upgrade. It the gift has prepaidUpgradeStarCount &gt; 0, then pass 0, otherwise, pass gift.upgradeStarCount.
      */
     public abstract suspend fun upgradeGift(
         businessConnectionId: String,
@@ -10440,12 +10460,12 @@ public abstract class TdlClient internal constructor() {
         /**
          * The Git commit hash of the TDLib.
          */
-        public const val TDL_GIT_COMMIT_HASH: String = "0da5c72f8365fb4857096e716d53175ddbdf5a15"
+        public const val TDL_GIT_COMMIT_HASH: String = "6d509061574d684117f74133056aa43df89022fc"
 
         /**
          * The version of the TDLib.
          */
-        public const val TDL_VERSION: String = "1.8.60"
+        public const val TDL_VERSION: String = "1.8.61"
 
         /**
          * Creates a new instance of the [TdlClient].

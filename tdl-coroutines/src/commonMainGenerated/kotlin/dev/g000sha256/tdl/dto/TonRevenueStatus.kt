@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Georgii Ippolitov (g000sha256)
+ * Copyright 2025-2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,9 +25,9 @@ import kotlin.String
 /**
  * Contains information about Toncoins earned by the current user.
  *
- * @property totalAmount Total amount of Toncoins earned; in the smallest units of the cryptocurrency.
- * @property balanceAmount Amount of Toncoins that aren't withdrawn yet; in the smallest units of the cryptocurrency.
- * @property availableAmount Amount of Toncoins that are available for withdrawal; in the smallest units of the cryptocurrency.
+ * @property totalAmount Total Toncoin amount earned; in the smallest units of the cryptocurrency.
+ * @property balanceAmount The Toncoin amount that isn't withdrawn yet; in the smallest units of the cryptocurrency.
+ * @property availableAmount The Toncoin amount that is available for withdrawal; in the smallest units of the cryptocurrency.
  * @property withdrawalEnabled True, if Toncoins can be withdrawn.
  */
 public class TonRevenueStatus public constructor(

@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Georgii Ippolitov (g000sha256)
+ * Copyright 2025-2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,7 +23,7 @@ import kotlin.Long
 import kotlin.String
 
 /**
- * Contains information about a user that added paid reactions.
+ * Contains information about a user who added paid reactions.
  *
  * @property senderId Identifier of the user or chat that added the reactions; may be null for anonymous reactors that aren't the current user.
  * @property starCount Number of Telegram Stars added.

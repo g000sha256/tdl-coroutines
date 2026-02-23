@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Georgii Ippolitov (g000sha256)
+ * Copyright 2025-2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,6 +27,7 @@ import kotlin.String
  * Describes a group call.
  *
  * @property id Group call identifier.
+ * @property uniqueId Persistent unique group call identifier.
  * @property title Group call title; for video chats only.
  * @property inviteLink Invite link for the group call; for group calls that aren't bound to a chat. For video chats call getVideoChatInviteLink to get the link. For live stories in chats with username call getInternalLink with internalLinkTypeLiveStory.
  * @property paidMessageStarCount The minimum number of Telegram Stars that must be paid by general participant for each sent message to the call; for live stories only.
@@ -60,6 +61,7 @@ import kotlin.String
  */
 public class GroupCall public constructor(
     public val id: Int,
+    public val uniqueId: Long,
     public val title: String,
     public val inviteLink: String,
     public val paidMessageStarCount: Long,
@@ -103,6 +105,9 @@ public class GroupCall public constructor(
         }
         other as GroupCall
         if (other.id != id) {
+            return false
+        }
+        if (other.uniqueId != uniqueId) {
             return false
         }
         if (other.title != title) {
@@ -199,6 +204,7 @@ public class GroupCall public constructor(
     override fun hashCode(): Int {
         var hashCode = this::class.hashCode()
         hashCode = 31 * hashCode + id.hashCode()
+        hashCode = 31 * hashCode + uniqueId.hashCode()
         hashCode = 31 * hashCode + title.hashCode()
         hashCode = 31 * hashCode + inviteLink.hashCode()
         hashCode = 31 * hashCode + paidMessageStarCount.hashCode()
@@ -238,6 +244,9 @@ public class GroupCall public constructor(
             append("(")
             append("id=")
             append(id)
+            append(", ")
+            append("uniqueId=")
+            append(uniqueId)
             append(", ")
             append("title=")
             append(title)

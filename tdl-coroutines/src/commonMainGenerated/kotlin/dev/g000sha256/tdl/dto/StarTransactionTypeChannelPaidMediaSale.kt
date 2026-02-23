@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Georgii Ippolitov (g000sha256)
+ * Copyright 2025-2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,7 +26,7 @@ import kotlin.String
 /**
  * The transaction is a sale of paid media by the channel chat; relevant for channel chats only.
  *
- * @property userId Identifier of the user that bought the media.
+ * @property userId Identifier of the user who bought the media.
  * @property messageId Identifier of the corresponding message with paid media; may be 0 or an identifier of a deleted message.
  * @property media The bought media.
  */

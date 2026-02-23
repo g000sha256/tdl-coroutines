@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Georgii Ippolitov (g000sha256)
+ * Copyright 2025-2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,7 +22,7 @@ import kotlin.Int
 import kotlin.String
 
 /**
- * Contains basic information about another user that started a chat with the current user.
+ * Contains basic information about another user who started a chat with the current user.
  *
  * @property registrationMonth Month when the user was registered in Telegram; 0-12; may be 0 if unknown.
  * @property registrationYear Year when the user was registered in Telegram; 0-9999; may be 0 if unknown.

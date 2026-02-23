@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Georgii Ippolitov (g000sha256)
+ * Copyright 2025-2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,8 +23,12 @@ import kotlin.String
 
 /**
  * The link is a link to application settings.
+ *
+ * @property section Section of the application settings to open; may be null if none.
  */
-public class InternalLinkTypeSettings public constructor() : InternalLinkType() {
+public class InternalLinkTypeSettings public constructor(
+    public val section: SettingsSection?,
+) : InternalLinkType() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true
@@ -32,14 +36,26 @@ public class InternalLinkTypeSettings public constructor() : InternalLinkType() 
         if (other == null) {
             return false
         }
-        return this::class == other::class
+        if (other::class != this::class) {
+            return false
+        }
+        other as InternalLinkTypeSettings
+        return other.section == section
     }
 
     override fun hashCode(): Int {
-        return this::class.hashCode()
+        var hashCode = this::class.hashCode()
+        hashCode = 31 * hashCode + section.hashCode()
+        return hashCode
     }
 
     override fun toString(): String {
-        return "InternalLinkTypeSettings()"
+        return buildString {
+            append("InternalLinkTypeSettings")
+            append("(")
+            append("section=")
+            append(section)
+            append(")")
+        }
     }
 }

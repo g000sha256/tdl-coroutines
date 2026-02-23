@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Georgii Ippolitov (g000sha256)
+ * Copyright 2025-2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,12 +26,14 @@ import kotlin.String
  *
  * @property name Name of the model.
  * @property sticker The sticker representing the upgraded gift.
- * @property rarityPerMille The number of upgraded gifts that receive this model for each 1000 gifts upgraded.
+ * @property rarity The rarity of the model.
+ * @property isCrafted True, if the model can be obtained only through gift crafting.
  */
 public class UpgradedGiftModel public constructor(
     public val name: String,
     public val sticker: Sticker,
-    public val rarityPerMille: Int,
+    public val rarity: UpgradedGiftAttributeRarity,
+    public val isCrafted: Boolean,
 ) {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
@@ -50,14 +52,18 @@ public class UpgradedGiftModel public constructor(
         if (other.sticker != sticker) {
             return false
         }
-        return other.rarityPerMille == rarityPerMille
+        if (other.rarity != rarity) {
+            return false
+        }
+        return other.isCrafted == isCrafted
     }
 
     override fun hashCode(): Int {
         var hashCode = this::class.hashCode()
         hashCode = 31 * hashCode + name.hashCode()
         hashCode = 31 * hashCode + sticker.hashCode()
-        hashCode = 31 * hashCode + rarityPerMille.hashCode()
+        hashCode = 31 * hashCode + rarity.hashCode()
+        hashCode = 31 * hashCode + isCrafted.hashCode()
         return hashCode
     }
 
@@ -71,8 +77,11 @@ public class UpgradedGiftModel public constructor(
             append("sticker=")
             append(sticker)
             append(", ")
-            append("rarityPerMille=")
-            append(rarityPerMille)
+            append("rarity=")
+            append(rarity)
+            append(", ")
+            append("isCrafted=")
+            append(isCrafted)
             append(")")
         }
     }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Georgii Ippolitov (g000sha256)
+ * Copyright 2025-2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,10 +25,10 @@ import kotlin.String
 /**
  * The transaction is a sale of an upgraded gift; relevant for regular users only.
  *
- * @property userId Identifier of the user that bought the gift.
+ * @property userId Identifier of the user who bought the gift.
  * @property gift The gift.
  * @property commissionPerMille The number of Telegram Stars received by the Telegram for each 1000 Telegram Stars received by the seller of the gift.
- * @property commissionStarAmount The amount of Telegram Stars that were received by Telegram; can be negative for refunds.
+ * @property commissionStarAmount The Telegram Star amount that was received by Telegram; can be negative for refunds.
  * @property viaOffer True, if the gift was sold through a purchase offer.
  */
 public class StarTransactionTypeUpgradedGiftSale public constructor(

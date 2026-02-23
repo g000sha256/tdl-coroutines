@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Georgii Ippolitov (g000sha256)
+ * Copyright 2025-2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,7 +24,7 @@ import kotlin.String
 /**
  * The monthly limit for the number of posted stories exceeded. The user needs to buy Telegram Premium or wait specified time.
  *
- * @property retryAfter Time left before the user can post the next story.
+ * @property retryAfter Time left before the user can post the next story, in seconds.
  */
 public class CanPostStoryResultMonthlyLimitExceeded public constructor(
     public val retryAfter: Int,

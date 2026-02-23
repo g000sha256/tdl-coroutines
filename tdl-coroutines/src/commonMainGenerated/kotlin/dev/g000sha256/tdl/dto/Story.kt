@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Georgii Ippolitov (g000sha256)
+ * Copyright 2025-2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -40,7 +40,7 @@ import kotlin.String
  * @property canBeDeleted True, if the story can be deleted.
  * @property canBeEdited True, if the story can be edited.
  * @property canBeForwarded True, if the story can be forwarded as a message or reposted as a story. Otherwise, screenshotting and saving of the story content must be also forbidden.
- * @property canBeReplied True, if the story can be replied in the chat with the user that posted the story.
+ * @property canBeReplied True, if the story can be replied in the chat with the user who posted the story.
  * @property canSetPrivacySettings True, if the story privacy settings can be changed.
  * @property canToggleIsPostedToChatPage True, if the story's isPostedToChatPage value can be changed.
  * @property canGetStatistics True, if the story statistics are available through getStoryStatistics.

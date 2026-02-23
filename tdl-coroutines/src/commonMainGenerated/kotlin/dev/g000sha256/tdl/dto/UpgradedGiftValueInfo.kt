@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Georgii Ippolitov (g000sha256)
+ * Copyright 2025-2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,7 +29,7 @@ import kotlin.String
  * @property value Estimated value of the gift; in the smallest units of the currency.
  * @property isValueAverage True, if the value is calculated as average value of similar sold gifts. Otherwise, it is based on the sale price of the gift.
  * @property initialSaleDate Point in time (Unix timestamp) when the corresponding regular gift was originally purchased.
- * @property initialSaleStarCount Amount of Telegram Stars that were paid for the gift.
+ * @property initialSaleStarCount The Telegram Star amount that was paid for the gift.
  * @property initialSalePrice Initial price of the gift; in the smallest units of the currency.
  * @property lastSaleDate Point in time (Unix timestamp) when the upgraded gift was purchased last time; 0 if never.
  * @property lastSalePrice Last purchase price of the gift; in the smallest units of the currency; 0 if the gift has never been resold.

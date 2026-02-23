@@ -24,6 +24,8 @@ import dev.g000sha256.tdl.dto.ActiveStoryState
 import dev.g000sha256.tdl.dto.ActiveStoryStateLive
 import dev.g000sha256.tdl.dto.ActiveStoryStateRead
 import dev.g000sha256.tdl.dto.ActiveStoryStateUnread
+import dev.g000sha256.tdl.dto.AddedProxies
+import dev.g000sha256.tdl.dto.AddedProxy
 import dev.g000sha256.tdl.dto.AddedReaction
 import dev.g000sha256.tdl.dto.AddedReactions
 import dev.g000sha256.tdl.dto.Address
@@ -48,6 +50,7 @@ import dev.g000sha256.tdl.dto.Animations
 import dev.g000sha256.tdl.dto.ArchiveChatListSettings
 import dev.g000sha256.tdl.dto.AttachmentMenuBot
 import dev.g000sha256.tdl.dto.AttachmentMenuBotColor
+import dev.g000sha256.tdl.dto.AttributeCraftPersistenceProbability
 import dev.g000sha256.tdl.dto.AuctionBid
 import dev.g000sha256.tdl.dto.AuctionRound
 import dev.g000sha256.tdl.dto.AuctionState
@@ -176,6 +179,11 @@ import dev.g000sha256.tdl.dto.BusinessOpeningHours
 import dev.g000sha256.tdl.dto.BusinessOpeningHoursInterval
 import dev.g000sha256.tdl.dto.BusinessRecipients
 import dev.g000sha256.tdl.dto.BusinessStartPage
+import dev.g000sha256.tdl.dto.ButtonStyle
+import dev.g000sha256.tdl.dto.ButtonStyleDanger
+import dev.g000sha256.tdl.dto.ButtonStyleDefault
+import dev.g000sha256.tdl.dto.ButtonStylePrimary
+import dev.g000sha256.tdl.dto.ButtonStyleSuccess
 import dev.g000sha256.tdl.dto.Call
 import dev.g000sha256.tdl.dto.CallDiscardReason
 import dev.g000sha256.tdl.dto.CallDiscardReasonDeclined
@@ -451,6 +459,11 @@ import dev.g000sha256.tdl.dto.Contact
 import dev.g000sha256.tdl.dto.Count
 import dev.g000sha256.tdl.dto.Countries
 import dev.g000sha256.tdl.dto.CountryInfo
+import dev.g000sha256.tdl.dto.CraftGiftResult
+import dev.g000sha256.tdl.dto.CraftGiftResultFail
+import dev.g000sha256.tdl.dto.CraftGiftResultInvalidGift
+import dev.g000sha256.tdl.dto.CraftGiftResultSuccess
+import dev.g000sha256.tdl.dto.CraftGiftResultTooEarly
 import dev.g000sha256.tdl.dto.CreatedBasicGroupChat
 import dev.g000sha256.tdl.dto.CurrentWeather
 import dev.g000sha256.tdl.dto.CustomRequestResult
@@ -600,6 +613,7 @@ import dev.g000sha256.tdl.dto.GiftSettings
 import dev.g000sha256.tdl.dto.GiftUpgradePreview
 import dev.g000sha256.tdl.dto.GiftUpgradePrice
 import dev.g000sha256.tdl.dto.GiftUpgradeVariants
+import dev.g000sha256.tdl.dto.GiftsForCrafting
 import dev.g000sha256.tdl.dto.GiftsForResale
 import dev.g000sha256.tdl.dto.GiveawayInfo
 import dev.g000sha256.tdl.dto.GiveawayInfoCompleted
@@ -791,7 +805,6 @@ import dev.g000sha256.tdl.dto.InputSuggestedPostInfo
 import dev.g000sha256.tdl.dto.InputTextQuote
 import dev.g000sha256.tdl.dto.InputThumbnail
 import dev.g000sha256.tdl.dto.InternalLinkType
-import dev.g000sha256.tdl.dto.InternalLinkTypeActiveSessions
 import dev.g000sha256.tdl.dto.InternalLinkTypeAttachmentMenuBot
 import dev.g000sha256.tdl.dto.InternalLinkTypeAuthenticationCode
 import dev.g000sha256.tdl.dto.InternalLinkTypeBackground
@@ -799,16 +812,14 @@ import dev.g000sha256.tdl.dto.InternalLinkTypeBotAddToChannel
 import dev.g000sha256.tdl.dto.InternalLinkTypeBotStart
 import dev.g000sha256.tdl.dto.InternalLinkTypeBotStartInGroup
 import dev.g000sha256.tdl.dto.InternalLinkTypeBusinessChat
-import dev.g000sha256.tdl.dto.InternalLinkTypeBuyStars
-import dev.g000sha256.tdl.dto.InternalLinkTypeChangePhoneNumber
+import dev.g000sha256.tdl.dto.InternalLinkTypeCallsPage
 import dev.g000sha256.tdl.dto.InternalLinkTypeChatAffiliateProgram
 import dev.g000sha256.tdl.dto.InternalLinkTypeChatBoost
 import dev.g000sha256.tdl.dto.InternalLinkTypeChatFolderInvite
-import dev.g000sha256.tdl.dto.InternalLinkTypeChatFolderSettings
 import dev.g000sha256.tdl.dto.InternalLinkTypeChatInvite
-import dev.g000sha256.tdl.dto.InternalLinkTypeDefaultMessageAutoDeleteTimerSettings
+import dev.g000sha256.tdl.dto.InternalLinkTypeChatSelection
+import dev.g000sha256.tdl.dto.InternalLinkTypeContactsPage
 import dev.g000sha256.tdl.dto.InternalLinkTypeDirectMessagesChat
-import dev.g000sha256.tdl.dto.InternalLinkTypeEditProfileSettings
 import dev.g000sha256.tdl.dto.InternalLinkTypeGame
 import dev.g000sha256.tdl.dto.InternalLinkTypeGiftAuction
 import dev.g000sha256.tdl.dto.InternalLinkTypeGiftCollection
@@ -816,34 +827,33 @@ import dev.g000sha256.tdl.dto.InternalLinkTypeGroupCall
 import dev.g000sha256.tdl.dto.InternalLinkTypeInstantView
 import dev.g000sha256.tdl.dto.InternalLinkTypeInvoice
 import dev.g000sha256.tdl.dto.InternalLinkTypeLanguagePack
-import dev.g000sha256.tdl.dto.InternalLinkTypeLanguageSettings
 import dev.g000sha256.tdl.dto.InternalLinkTypeLiveStory
-import dev.g000sha256.tdl.dto.InternalLinkTypeLoginEmailSettings
 import dev.g000sha256.tdl.dto.InternalLinkTypeMainWebApp
 import dev.g000sha256.tdl.dto.InternalLinkTypeMessage
 import dev.g000sha256.tdl.dto.InternalLinkTypeMessageDraft
-import dev.g000sha256.tdl.dto.InternalLinkTypeMyStars
-import dev.g000sha256.tdl.dto.InternalLinkTypeMyToncoins
+import dev.g000sha256.tdl.dto.InternalLinkTypeMyProfilePage
+import dev.g000sha256.tdl.dto.InternalLinkTypeNewChannelChat
+import dev.g000sha256.tdl.dto.InternalLinkTypeNewGroupChat
+import dev.g000sha256.tdl.dto.InternalLinkTypeNewPrivateChat
+import dev.g000sha256.tdl.dto.InternalLinkTypeNewStory
 import dev.g000sha256.tdl.dto.InternalLinkTypePassportDataRequest
-import dev.g000sha256.tdl.dto.InternalLinkTypePasswordSettings
 import dev.g000sha256.tdl.dto.InternalLinkTypePhoneNumberConfirmation
-import dev.g000sha256.tdl.dto.InternalLinkTypePhoneNumberPrivacySettings
-import dev.g000sha256.tdl.dto.InternalLinkTypePremiumFeatures
-import dev.g000sha256.tdl.dto.InternalLinkTypePremiumGift
+import dev.g000sha256.tdl.dto.InternalLinkTypePremiumFeaturesPage
 import dev.g000sha256.tdl.dto.InternalLinkTypePremiumGiftCode
-import dev.g000sha256.tdl.dto.InternalLinkTypePrivacyAndSecuritySettings
+import dev.g000sha256.tdl.dto.InternalLinkTypePremiumGiftPurchase
 import dev.g000sha256.tdl.dto.InternalLinkTypeProxy
 import dev.g000sha256.tdl.dto.InternalLinkTypePublicChat
 import dev.g000sha256.tdl.dto.InternalLinkTypeQrCodeAuthentication
 import dev.g000sha256.tdl.dto.InternalLinkTypeRestorePurchases
+import dev.g000sha256.tdl.dto.InternalLinkTypeSavedMessages
+import dev.g000sha256.tdl.dto.InternalLinkTypeSearch
 import dev.g000sha256.tdl.dto.InternalLinkTypeSettings
+import dev.g000sha256.tdl.dto.InternalLinkTypeStarPurchase
 import dev.g000sha256.tdl.dto.InternalLinkTypeStickerSet
 import dev.g000sha256.tdl.dto.InternalLinkTypeStory
 import dev.g000sha256.tdl.dto.InternalLinkTypeStoryAlbum
 import dev.g000sha256.tdl.dto.InternalLinkTypeTheme
-import dev.g000sha256.tdl.dto.InternalLinkTypeThemeSettings
 import dev.g000sha256.tdl.dto.InternalLinkTypeUnknownDeepLink
-import dev.g000sha256.tdl.dto.InternalLinkTypeUnsupportedProxy
 import dev.g000sha256.tdl.dto.InternalLinkTypeUpgradedGift
 import dev.g000sha256.tdl.dto.InternalLinkTypeUserPhoneNumber
 import dev.g000sha256.tdl.dto.InternalLinkTypeUserToken
@@ -967,6 +977,8 @@ import dev.g000sha256.tdl.dto.MessageChatDeleteMember
 import dev.g000sha256.tdl.dto.MessageChatDeletePhoto
 import dev.g000sha256.tdl.dto.MessageChatJoinByLink
 import dev.g000sha256.tdl.dto.MessageChatJoinByRequest
+import dev.g000sha256.tdl.dto.MessageChatOwnerChanged
+import dev.g000sha256.tdl.dto.MessageChatOwnerLeft
 import dev.g000sha256.tdl.dto.MessageChatSetBackground
 import dev.g000sha256.tdl.dto.MessageChatSetMessageAutoDeleteTime
 import dev.g000sha256.tdl.dto.MessageChatSetTheme
@@ -1375,7 +1387,6 @@ import dev.g000sha256.tdl.dto.ProfileTabMedia
 import dev.g000sha256.tdl.dto.ProfileTabMusic
 import dev.g000sha256.tdl.dto.ProfileTabPosts
 import dev.g000sha256.tdl.dto.ProfileTabVoice
-import dev.g000sha256.tdl.dto.Proxies
 import dev.g000sha256.tdl.dto.Proxy
 import dev.g000sha256.tdl.dto.ProxyType
 import dev.g000sha256.tdl.dto.ProxyTypeHttp
@@ -1583,6 +1594,28 @@ import dev.g000sha256.tdl.dto.SessionTypeVivaldi
 import dev.g000sha256.tdl.dto.SessionTypeWindows
 import dev.g000sha256.tdl.dto.SessionTypeXbox
 import dev.g000sha256.tdl.dto.Sessions
+import dev.g000sha256.tdl.dto.SettingsSection
+import dev.g000sha256.tdl.dto.SettingsSectionAppearance
+import dev.g000sha256.tdl.dto.SettingsSectionAskQuestion
+import dev.g000sha256.tdl.dto.SettingsSectionBusiness
+import dev.g000sha256.tdl.dto.SettingsSectionChatFolders
+import dev.g000sha256.tdl.dto.SettingsSectionDataAndStorage
+import dev.g000sha256.tdl.dto.SettingsSectionDevices
+import dev.g000sha256.tdl.dto.SettingsSectionEditProfile
+import dev.g000sha256.tdl.dto.SettingsSectionFaq
+import dev.g000sha256.tdl.dto.SettingsSectionFeatures
+import dev.g000sha256.tdl.dto.SettingsSectionInAppBrowser
+import dev.g000sha256.tdl.dto.SettingsSectionLanguage
+import dev.g000sha256.tdl.dto.SettingsSectionMyStars
+import dev.g000sha256.tdl.dto.SettingsSectionMyToncoins
+import dev.g000sha256.tdl.dto.SettingsSectionNotifications
+import dev.g000sha256.tdl.dto.SettingsSectionPowerSaving
+import dev.g000sha256.tdl.dto.SettingsSectionPremium
+import dev.g000sha256.tdl.dto.SettingsSectionPrivacyAndSecurity
+import dev.g000sha256.tdl.dto.SettingsSectionPrivacyPolicy
+import dev.g000sha256.tdl.dto.SettingsSectionQrCode
+import dev.g000sha256.tdl.dto.SettingsSectionSearch
+import dev.g000sha256.tdl.dto.SettingsSectionSendGift
 import dev.g000sha256.tdl.dto.SharedChat
 import dev.g000sha256.tdl.dto.SharedUser
 import dev.g000sha256.tdl.dto.ShippingOption
@@ -1715,6 +1748,11 @@ import dev.g000sha256.tdl.dto.StoryAreaTypeWeather
 import dev.g000sha256.tdl.dto.StoryContent
 import dev.g000sha256.tdl.dto.StoryContentLive
 import dev.g000sha256.tdl.dto.StoryContentPhoto
+import dev.g000sha256.tdl.dto.StoryContentType
+import dev.g000sha256.tdl.dto.StoryContentTypeLive
+import dev.g000sha256.tdl.dto.StoryContentTypePhoto
+import dev.g000sha256.tdl.dto.StoryContentTypeUnsupported
+import dev.g000sha256.tdl.dto.StoryContentTypeVideo
 import dev.g000sha256.tdl.dto.StoryContentUnsupported
 import dev.g000sha256.tdl.dto.StoryContentVideo
 import dev.g000sha256.tdl.dto.StoryFullId
@@ -1859,6 +1897,8 @@ import dev.g000sha256.tdl.dto.TonTransactionType
 import dev.g000sha256.tdl.dto.TonTransactionTypeFragmentDeposit
 import dev.g000sha256.tdl.dto.TonTransactionTypeFragmentWithdrawal
 import dev.g000sha256.tdl.dto.TonTransactionTypeGiftPurchaseOffer
+import dev.g000sha256.tdl.dto.TonTransactionTypeStakeDicePayout
+import dev.g000sha256.tdl.dto.TonTransactionTypeStakeDiceStake
 import dev.g000sha256.tdl.dto.TonTransactionTypeSuggestedPostPayment
 import dev.g000sha256.tdl.dto.TonTransactionTypeUnsupported
 import dev.g000sha256.tdl.dto.TonTransactionTypeUpgradedGiftPurchase
@@ -2061,6 +2101,12 @@ import dev.g000sha256.tdl.dto.UpgradedGiftAttributeId
 import dev.g000sha256.tdl.dto.UpgradedGiftAttributeIdBackdrop
 import dev.g000sha256.tdl.dto.UpgradedGiftAttributeIdModel
 import dev.g000sha256.tdl.dto.UpgradedGiftAttributeIdSymbol
+import dev.g000sha256.tdl.dto.UpgradedGiftAttributeRarity
+import dev.g000sha256.tdl.dto.UpgradedGiftAttributeRarityEpic
+import dev.g000sha256.tdl.dto.UpgradedGiftAttributeRarityLegendary
+import dev.g000sha256.tdl.dto.UpgradedGiftAttributeRarityPerMille
+import dev.g000sha256.tdl.dto.UpgradedGiftAttributeRarityRare
+import dev.g000sha256.tdl.dto.UpgradedGiftAttributeRarityUncommon
 import dev.g000sha256.tdl.dto.UpgradedGiftBackdrop
 import dev.g000sha256.tdl.dto.UpgradedGiftBackdropColors
 import dev.g000sha256.tdl.dto.UpgradedGiftBackdropCount
@@ -2069,6 +2115,7 @@ import dev.g000sha256.tdl.dto.UpgradedGiftModel
 import dev.g000sha256.tdl.dto.UpgradedGiftModelCount
 import dev.g000sha256.tdl.dto.UpgradedGiftOrigin
 import dev.g000sha256.tdl.dto.UpgradedGiftOriginBlockchain
+import dev.g000sha256.tdl.dto.UpgradedGiftOriginCraft
 import dev.g000sha256.tdl.dto.UpgradedGiftOriginOffer
 import dev.g000sha256.tdl.dto.UpgradedGiftOriginPrepaidUpgrade
 import dev.g000sha256.tdl.dto.UpgradedGiftOriginResale
@@ -2191,6 +2238,8 @@ internal class TdlDeserializer internal constructor() {
             "activeStoryStateLive" -> return deserializeActiveStoryStateLive(jsonObject = jsonObject)
             "activeStoryStateRead" -> return deserializeActiveStoryStateRead(jsonObject = jsonObject)
             "activeStoryStateUnread" -> return deserializeActiveStoryStateUnread(jsonObject = jsonObject)
+            "addedProxies" -> return deserializeAddedProxies(jsonObject = jsonObject)
+            "addedProxy" -> return deserializeAddedProxy(jsonObject = jsonObject)
             "addedReaction" -> return deserializeAddedReaction(jsonObject = jsonObject)
             "addedReactions" -> return deserializeAddedReactions(jsonObject = jsonObject)
             "address" -> return deserializeAddress(jsonObject = jsonObject)
@@ -2213,6 +2262,7 @@ internal class TdlDeserializer internal constructor() {
             "archiveChatListSettings" -> return deserializeArchiveChatListSettings(jsonObject = jsonObject)
             "attachmentMenuBot" -> return deserializeAttachmentMenuBot(jsonObject = jsonObject)
             "attachmentMenuBotColor" -> return deserializeAttachmentMenuBotColor(jsonObject = jsonObject)
+            "attributeCraftPersistenceProbability" -> return deserializeAttributeCraftPersistenceProbability(jsonObject = jsonObject)
             "auctionBid" -> return deserializeAuctionBid(jsonObject = jsonObject)
             "auctionRound" -> return deserializeAuctionRound(jsonObject = jsonObject)
             "auctionStateActive" -> return deserializeAuctionStateActive(jsonObject = jsonObject)
@@ -2329,6 +2379,10 @@ internal class TdlDeserializer internal constructor() {
             "businessOpeningHoursInterval" -> return deserializeBusinessOpeningHoursInterval(jsonObject = jsonObject)
             "businessRecipients" -> return deserializeBusinessRecipients(jsonObject = jsonObject)
             "businessStartPage" -> return deserializeBusinessStartPage(jsonObject = jsonObject)
+            "buttonStyleDanger" -> return deserializeButtonStyleDanger(jsonObject = jsonObject)
+            "buttonStyleDefault" -> return deserializeButtonStyleDefault(jsonObject = jsonObject)
+            "buttonStylePrimary" -> return deserializeButtonStylePrimary(jsonObject = jsonObject)
+            "buttonStyleSuccess" -> return deserializeButtonStyleSuccess(jsonObject = jsonObject)
             "call" -> return deserializeCall(jsonObject = jsonObject)
             "callDiscardReasonDeclined" -> return deserializeCallDiscardReasonDeclined(jsonObject = jsonObject)
             "callDiscardReasonDisconnected" -> return deserializeCallDiscardReasonDisconnected(jsonObject = jsonObject)
@@ -2576,6 +2630,10 @@ internal class TdlDeserializer internal constructor() {
             "count" -> return deserializeCount(jsonObject = jsonObject)
             "countries" -> return deserializeCountries(jsonObject = jsonObject)
             "countryInfo" -> return deserializeCountryInfo(jsonObject = jsonObject)
+            "craftGiftResultFail" -> return deserializeCraftGiftResultFail(jsonObject = jsonObject)
+            "craftGiftResultInvalidGift" -> return deserializeCraftGiftResultInvalidGift(jsonObject = jsonObject)
+            "craftGiftResultSuccess" -> return deserializeCraftGiftResultSuccess(jsonObject = jsonObject)
+            "craftGiftResultTooEarly" -> return deserializeCraftGiftResultTooEarly(jsonObject = jsonObject)
             "createdBasicGroupChat" -> return deserializeCreatedBasicGroupChat(jsonObject = jsonObject)
             "currentWeather" -> return deserializeCurrentWeather(jsonObject = jsonObject)
             "customRequestResult" -> return deserializeCustomRequestResult(jsonObject = jsonObject)
@@ -2711,6 +2769,7 @@ internal class TdlDeserializer internal constructor() {
             "giftUpgradePreview" -> return deserializeGiftUpgradePreview(jsonObject = jsonObject)
             "giftUpgradePrice" -> return deserializeGiftUpgradePrice(jsonObject = jsonObject)
             "giftUpgradeVariants" -> return deserializeGiftUpgradeVariants(jsonObject = jsonObject)
+            "giftsForCrafting" -> return deserializeGiftsForCrafting(jsonObject = jsonObject)
             "giftsForResale" -> return deserializeGiftsForResale(jsonObject = jsonObject)
             "giveawayInfoCompleted" -> return deserializeGiveawayInfoCompleted(jsonObject = jsonObject)
             "giveawayInfoOngoing" -> return deserializeGiveawayInfoOngoing(jsonObject = jsonObject)
@@ -2878,7 +2937,6 @@ internal class TdlDeserializer internal constructor() {
             "inputSuggestedPostInfo" -> return deserializeInputSuggestedPostInfo(jsonObject = jsonObject)
             "inputTextQuote" -> return deserializeInputTextQuote(jsonObject = jsonObject)
             "inputThumbnail" -> return deserializeInputThumbnail(jsonObject = jsonObject)
-            "internalLinkTypeActiveSessions" -> return deserializeInternalLinkTypeActiveSessions(jsonObject = jsonObject)
             "internalLinkTypeAttachmentMenuBot" -> return deserializeInternalLinkTypeAttachmentMenuBot(jsonObject = jsonObject)
             "internalLinkTypeAuthenticationCode" -> return deserializeInternalLinkTypeAuthenticationCode(jsonObject = jsonObject)
             "internalLinkTypeBackground" -> return deserializeInternalLinkTypeBackground(jsonObject = jsonObject)
@@ -2886,16 +2944,14 @@ internal class TdlDeserializer internal constructor() {
             "internalLinkTypeBotStart" -> return deserializeInternalLinkTypeBotStart(jsonObject = jsonObject)
             "internalLinkTypeBotStartInGroup" -> return deserializeInternalLinkTypeBotStartInGroup(jsonObject = jsonObject)
             "internalLinkTypeBusinessChat" -> return deserializeInternalLinkTypeBusinessChat(jsonObject = jsonObject)
-            "internalLinkTypeBuyStars" -> return deserializeInternalLinkTypeBuyStars(jsonObject = jsonObject)
-            "internalLinkTypeChangePhoneNumber" -> return deserializeInternalLinkTypeChangePhoneNumber(jsonObject = jsonObject)
+            "internalLinkTypeCallsPage" -> return deserializeInternalLinkTypeCallsPage(jsonObject = jsonObject)
             "internalLinkTypeChatAffiliateProgram" -> return deserializeInternalLinkTypeChatAffiliateProgram(jsonObject = jsonObject)
             "internalLinkTypeChatBoost" -> return deserializeInternalLinkTypeChatBoost(jsonObject = jsonObject)
             "internalLinkTypeChatFolderInvite" -> return deserializeInternalLinkTypeChatFolderInvite(jsonObject = jsonObject)
-            "internalLinkTypeChatFolderSettings" -> return deserializeInternalLinkTypeChatFolderSettings(jsonObject = jsonObject)
             "internalLinkTypeChatInvite" -> return deserializeInternalLinkTypeChatInvite(jsonObject = jsonObject)
-            "internalLinkTypeDefaultMessageAutoDeleteTimerSettings" -> return deserializeInternalLinkTypeDefaultMessageAutoDeleteTimerSettings(jsonObject = jsonObject)
+            "internalLinkTypeChatSelection" -> return deserializeInternalLinkTypeChatSelection(jsonObject = jsonObject)
+            "internalLinkTypeContactsPage" -> return deserializeInternalLinkTypeContactsPage(jsonObject = jsonObject)
             "internalLinkTypeDirectMessagesChat" -> return deserializeInternalLinkTypeDirectMessagesChat(jsonObject = jsonObject)
-            "internalLinkTypeEditProfileSettings" -> return deserializeInternalLinkTypeEditProfileSettings(jsonObject = jsonObject)
             "internalLinkTypeGame" -> return deserializeInternalLinkTypeGame(jsonObject = jsonObject)
             "internalLinkTypeGiftAuction" -> return deserializeInternalLinkTypeGiftAuction(jsonObject = jsonObject)
             "internalLinkTypeGiftCollection" -> return deserializeInternalLinkTypeGiftCollection(jsonObject = jsonObject)
@@ -2903,34 +2959,33 @@ internal class TdlDeserializer internal constructor() {
             "internalLinkTypeInstantView" -> return deserializeInternalLinkTypeInstantView(jsonObject = jsonObject)
             "internalLinkTypeInvoice" -> return deserializeInternalLinkTypeInvoice(jsonObject = jsonObject)
             "internalLinkTypeLanguagePack" -> return deserializeInternalLinkTypeLanguagePack(jsonObject = jsonObject)
-            "internalLinkTypeLanguageSettings" -> return deserializeInternalLinkTypeLanguageSettings(jsonObject = jsonObject)
             "internalLinkTypeLiveStory" -> return deserializeInternalLinkTypeLiveStory(jsonObject = jsonObject)
-            "internalLinkTypeLoginEmailSettings" -> return deserializeInternalLinkTypeLoginEmailSettings(jsonObject = jsonObject)
             "internalLinkTypeMainWebApp" -> return deserializeInternalLinkTypeMainWebApp(jsonObject = jsonObject)
             "internalLinkTypeMessage" -> return deserializeInternalLinkTypeMessage(jsonObject = jsonObject)
             "internalLinkTypeMessageDraft" -> return deserializeInternalLinkTypeMessageDraft(jsonObject = jsonObject)
-            "internalLinkTypeMyStars" -> return deserializeInternalLinkTypeMyStars(jsonObject = jsonObject)
-            "internalLinkTypeMyToncoins" -> return deserializeInternalLinkTypeMyToncoins(jsonObject = jsonObject)
+            "internalLinkTypeMyProfilePage" -> return deserializeInternalLinkTypeMyProfilePage(jsonObject = jsonObject)
+            "internalLinkTypeNewChannelChat" -> return deserializeInternalLinkTypeNewChannelChat(jsonObject = jsonObject)
+            "internalLinkTypeNewGroupChat" -> return deserializeInternalLinkTypeNewGroupChat(jsonObject = jsonObject)
+            "internalLinkTypeNewPrivateChat" -> return deserializeInternalLinkTypeNewPrivateChat(jsonObject = jsonObject)
+            "internalLinkTypeNewStory" -> return deserializeInternalLinkTypeNewStory(jsonObject = jsonObject)
             "internalLinkTypePassportDataRequest" -> return deserializeInternalLinkTypePassportDataRequest(jsonObject = jsonObject)
-            "internalLinkTypePasswordSettings" -> return deserializeInternalLinkTypePasswordSettings(jsonObject = jsonObject)
             "internalLinkTypePhoneNumberConfirmation" -> return deserializeInternalLinkTypePhoneNumberConfirmation(jsonObject = jsonObject)
-            "internalLinkTypePhoneNumberPrivacySettings" -> return deserializeInternalLinkTypePhoneNumberPrivacySettings(jsonObject = jsonObject)
-            "internalLinkTypePremiumFeatures" -> return deserializeInternalLinkTypePremiumFeatures(jsonObject = jsonObject)
-            "internalLinkTypePremiumGift" -> return deserializeInternalLinkTypePremiumGift(jsonObject = jsonObject)
+            "internalLinkTypePremiumFeaturesPage" -> return deserializeInternalLinkTypePremiumFeaturesPage(jsonObject = jsonObject)
             "internalLinkTypePremiumGiftCode" -> return deserializeInternalLinkTypePremiumGiftCode(jsonObject = jsonObject)
-            "internalLinkTypePrivacyAndSecuritySettings" -> return deserializeInternalLinkTypePrivacyAndSecuritySettings(jsonObject = jsonObject)
+            "internalLinkTypePremiumGiftPurchase" -> return deserializeInternalLinkTypePremiumGiftPurchase(jsonObject = jsonObject)
             "internalLinkTypeProxy" -> return deserializeInternalLinkTypeProxy(jsonObject = jsonObject)
             "internalLinkTypePublicChat" -> return deserializeInternalLinkTypePublicChat(jsonObject = jsonObject)
             "internalLinkTypeQrCodeAuthentication" -> return deserializeInternalLinkTypeQrCodeAuthentication(jsonObject = jsonObject)
             "internalLinkTypeRestorePurchases" -> return deserializeInternalLinkTypeRestorePurchases(jsonObject = jsonObject)
+            "internalLinkTypeSavedMessages" -> return deserializeInternalLinkTypeSavedMessages(jsonObject = jsonObject)
+            "internalLinkTypeSearch" -> return deserializeInternalLinkTypeSearch(jsonObject = jsonObject)
             "internalLinkTypeSettings" -> return deserializeInternalLinkTypeSettings(jsonObject = jsonObject)
+            "internalLinkTypeStarPurchase" -> return deserializeInternalLinkTypeStarPurchase(jsonObject = jsonObject)
             "internalLinkTypeStickerSet" -> return deserializeInternalLinkTypeStickerSet(jsonObject = jsonObject)
             "internalLinkTypeStory" -> return deserializeInternalLinkTypeStory(jsonObject = jsonObject)
             "internalLinkTypeStoryAlbum" -> return deserializeInternalLinkTypeStoryAlbum(jsonObject = jsonObject)
             "internalLinkTypeTheme" -> return deserializeInternalLinkTypeTheme(jsonObject = jsonObject)
-            "internalLinkTypeThemeSettings" -> return deserializeInternalLinkTypeThemeSettings(jsonObject = jsonObject)
             "internalLinkTypeUnknownDeepLink" -> return deserializeInternalLinkTypeUnknownDeepLink(jsonObject = jsonObject)
-            "internalLinkTypeUnsupportedProxy" -> return deserializeInternalLinkTypeUnsupportedProxy(jsonObject = jsonObject)
             "internalLinkTypeUpgradedGift" -> return deserializeInternalLinkTypeUpgradedGift(jsonObject = jsonObject)
             "internalLinkTypeUserPhoneNumber" -> return deserializeInternalLinkTypeUserPhoneNumber(jsonObject = jsonObject)
             "internalLinkTypeUserToken" -> return deserializeInternalLinkTypeUserToken(jsonObject = jsonObject)
@@ -3044,6 +3099,8 @@ internal class TdlDeserializer internal constructor() {
             "messageChatDeletePhoto" -> return deserializeMessageChatDeletePhoto(jsonObject = jsonObject)
             "messageChatJoinByLink" -> return deserializeMessageChatJoinByLink(jsonObject = jsonObject)
             "messageChatJoinByRequest" -> return deserializeMessageChatJoinByRequest(jsonObject = jsonObject)
+            "messageChatOwnerChanged" -> return deserializeMessageChatOwnerChanged(jsonObject = jsonObject)
+            "messageChatOwnerLeft" -> return deserializeMessageChatOwnerLeft(jsonObject = jsonObject)
             "messageChatSetBackground" -> return deserializeMessageChatSetBackground(jsonObject = jsonObject)
             "messageChatSetMessageAutoDeleteTime" -> return deserializeMessageChatSetMessageAutoDeleteTime(jsonObject = jsonObject)
             "messageChatSetTheme" -> return deserializeMessageChatSetTheme(jsonObject = jsonObject)
@@ -3416,7 +3473,6 @@ internal class TdlDeserializer internal constructor() {
             "profileTabMusic" -> return deserializeProfileTabMusic(jsonObject = jsonObject)
             "profileTabPosts" -> return deserializeProfileTabPosts(jsonObject = jsonObject)
             "profileTabVoice" -> return deserializeProfileTabVoice(jsonObject = jsonObject)
-            "proxies" -> return deserializeProxies(jsonObject = jsonObject)
             "proxy" -> return deserializeProxy(jsonObject = jsonObject)
             "proxyTypeHttp" -> return deserializeProxyTypeHttp(jsonObject = jsonObject)
             "proxyTypeMtproto" -> return deserializeProxyTypeMtproto(jsonObject = jsonObject)
@@ -3602,6 +3658,27 @@ internal class TdlDeserializer internal constructor() {
             "sessionTypeWindows" -> return deserializeSessionTypeWindows(jsonObject = jsonObject)
             "sessionTypeXbox" -> return deserializeSessionTypeXbox(jsonObject = jsonObject)
             "sessions" -> return deserializeSessions(jsonObject = jsonObject)
+            "settingsSectionAppearance" -> return deserializeSettingsSectionAppearance(jsonObject = jsonObject)
+            "settingsSectionAskQuestion" -> return deserializeSettingsSectionAskQuestion(jsonObject = jsonObject)
+            "settingsSectionBusiness" -> return deserializeSettingsSectionBusiness(jsonObject = jsonObject)
+            "settingsSectionChatFolders" -> return deserializeSettingsSectionChatFolders(jsonObject = jsonObject)
+            "settingsSectionDataAndStorage" -> return deserializeSettingsSectionDataAndStorage(jsonObject = jsonObject)
+            "settingsSectionDevices" -> return deserializeSettingsSectionDevices(jsonObject = jsonObject)
+            "settingsSectionEditProfile" -> return deserializeSettingsSectionEditProfile(jsonObject = jsonObject)
+            "settingsSectionFaq" -> return deserializeSettingsSectionFaq(jsonObject = jsonObject)
+            "settingsSectionFeatures" -> return deserializeSettingsSectionFeatures(jsonObject = jsonObject)
+            "settingsSectionInAppBrowser" -> return deserializeSettingsSectionInAppBrowser(jsonObject = jsonObject)
+            "settingsSectionLanguage" -> return deserializeSettingsSectionLanguage(jsonObject = jsonObject)
+            "settingsSectionMyStars" -> return deserializeSettingsSectionMyStars(jsonObject = jsonObject)
+            "settingsSectionMyToncoins" -> return deserializeSettingsSectionMyToncoins(jsonObject = jsonObject)
+            "settingsSectionNotifications" -> return deserializeSettingsSectionNotifications(jsonObject = jsonObject)
+            "settingsSectionPowerSaving" -> return deserializeSettingsSectionPowerSaving(jsonObject = jsonObject)
+            "settingsSectionPremium" -> return deserializeSettingsSectionPremium(jsonObject = jsonObject)
+            "settingsSectionPrivacyAndSecurity" -> return deserializeSettingsSectionPrivacyAndSecurity(jsonObject = jsonObject)
+            "settingsSectionPrivacyPolicy" -> return deserializeSettingsSectionPrivacyPolicy(jsonObject = jsonObject)
+            "settingsSectionQrCode" -> return deserializeSettingsSectionQrCode(jsonObject = jsonObject)
+            "settingsSectionSearch" -> return deserializeSettingsSectionSearch(jsonObject = jsonObject)
+            "settingsSectionSendGift" -> return deserializeSettingsSectionSendGift(jsonObject = jsonObject)
             "sharedChat" -> return deserializeSharedChat(jsonObject = jsonObject)
             "sharedUser" -> return deserializeSharedUser(jsonObject = jsonObject)
             "shippingOption" -> return deserializeShippingOption(jsonObject = jsonObject)
@@ -3722,6 +3799,10 @@ internal class TdlDeserializer internal constructor() {
             "storyAreaTypeWeather" -> return deserializeStoryAreaTypeWeather(jsonObject = jsonObject)
             "storyContentLive" -> return deserializeStoryContentLive(jsonObject = jsonObject)
             "storyContentPhoto" -> return deserializeStoryContentPhoto(jsonObject = jsonObject)
+            "storyContentTypeLive" -> return deserializeStoryContentTypeLive(jsonObject = jsonObject)
+            "storyContentTypePhoto" -> return deserializeStoryContentTypePhoto(jsonObject = jsonObject)
+            "storyContentTypeUnsupported" -> return deserializeStoryContentTypeUnsupported(jsonObject = jsonObject)
+            "storyContentTypeVideo" -> return deserializeStoryContentTypeVideo(jsonObject = jsonObject)
             "storyContentUnsupported" -> return deserializeStoryContentUnsupported(jsonObject = jsonObject)
             "storyContentVideo" -> return deserializeStoryContentVideo(jsonObject = jsonObject)
             "storyFullId" -> return deserializeStoryFullId(jsonObject = jsonObject)
@@ -3850,6 +3931,8 @@ internal class TdlDeserializer internal constructor() {
             "tonTransactionTypeFragmentDeposit" -> return deserializeTonTransactionTypeFragmentDeposit(jsonObject = jsonObject)
             "tonTransactionTypeFragmentWithdrawal" -> return deserializeTonTransactionTypeFragmentWithdrawal(jsonObject = jsonObject)
             "tonTransactionTypeGiftPurchaseOffer" -> return deserializeTonTransactionTypeGiftPurchaseOffer(jsonObject = jsonObject)
+            "tonTransactionTypeStakeDicePayout" -> return deserializeTonTransactionTypeStakeDicePayout(jsonObject = jsonObject)
+            "tonTransactionTypeStakeDiceStake" -> return deserializeTonTransactionTypeStakeDiceStake(jsonObject = jsonObject)
             "tonTransactionTypeSuggestedPostPayment" -> return deserializeTonTransactionTypeSuggestedPostPayment(jsonObject = jsonObject)
             "tonTransactionTypeUnsupported" -> return deserializeTonTransactionTypeUnsupported(jsonObject = jsonObject)
             "tonTransactionTypeUpgradedGiftPurchase" -> return deserializeTonTransactionTypeUpgradedGiftPurchase(jsonObject = jsonObject)
@@ -4048,6 +4131,11 @@ internal class TdlDeserializer internal constructor() {
             "upgradedGiftAttributeIdBackdrop" -> return deserializeUpgradedGiftAttributeIdBackdrop(jsonObject = jsonObject)
             "upgradedGiftAttributeIdModel" -> return deserializeUpgradedGiftAttributeIdModel(jsonObject = jsonObject)
             "upgradedGiftAttributeIdSymbol" -> return deserializeUpgradedGiftAttributeIdSymbol(jsonObject = jsonObject)
+            "upgradedGiftAttributeRarityEpic" -> return deserializeUpgradedGiftAttributeRarityEpic(jsonObject = jsonObject)
+            "upgradedGiftAttributeRarityLegendary" -> return deserializeUpgradedGiftAttributeRarityLegendary(jsonObject = jsonObject)
+            "upgradedGiftAttributeRarityPerMille" -> return deserializeUpgradedGiftAttributeRarityPerMille(jsonObject = jsonObject)
+            "upgradedGiftAttributeRarityRare" -> return deserializeUpgradedGiftAttributeRarityRare(jsonObject = jsonObject)
+            "upgradedGiftAttributeRarityUncommon" -> return deserializeUpgradedGiftAttributeRarityUncommon(jsonObject = jsonObject)
             "upgradedGiftBackdrop" -> return deserializeUpgradedGiftBackdrop(jsonObject = jsonObject)
             "upgradedGiftBackdropColors" -> return deserializeUpgradedGiftBackdropColors(jsonObject = jsonObject)
             "upgradedGiftBackdropCount" -> return deserializeUpgradedGiftBackdropCount(jsonObject = jsonObject)
@@ -4055,6 +4143,7 @@ internal class TdlDeserializer internal constructor() {
             "upgradedGiftModel" -> return deserializeUpgradedGiftModel(jsonObject = jsonObject)
             "upgradedGiftModelCount" -> return deserializeUpgradedGiftModelCount(jsonObject = jsonObject)
             "upgradedGiftOriginBlockchain" -> return deserializeUpgradedGiftOriginBlockchain(jsonObject = jsonObject)
+            "upgradedGiftOriginCraft" -> return deserializeUpgradedGiftOriginCraft(jsonObject = jsonObject)
             "upgradedGiftOriginOffer" -> return deserializeUpgradedGiftOriginOffer(jsonObject = jsonObject)
             "upgradedGiftOriginPrepaidUpgrade" -> return deserializeUpgradedGiftOriginPrepaidUpgrade(jsonObject = jsonObject)
             "upgradedGiftOriginResale" -> return deserializeUpgradedGiftOriginResale(jsonObject = jsonObject)
@@ -4309,6 +4398,17 @@ internal class TdlDeserializer internal constructor() {
             "businessFeatureQuickReplies" -> return deserializeBusinessFeatureQuickReplies(jsonObject = jsonObject)
             "businessFeatureStartPage" -> return deserializeBusinessFeatureStartPage(jsonObject = jsonObject)
             "businessFeatureUpgradedStories" -> return deserializeBusinessFeatureUpgradedStories(jsonObject = jsonObject)
+            else -> error(message = "Unknown dto type: $type")
+        }
+    }
+
+    private fun deserializeButtonStyle(jsonObject: JsonObject): ButtonStyle {
+        val type = jsonObject.getString(key = "@type")
+        when(type) {
+            "buttonStyleDanger" -> return deserializeButtonStyleDanger(jsonObject = jsonObject)
+            "buttonStyleDefault" -> return deserializeButtonStyleDefault(jsonObject = jsonObject)
+            "buttonStylePrimary" -> return deserializeButtonStylePrimary(jsonObject = jsonObject)
+            "buttonStyleSuccess" -> return deserializeButtonStyleSuccess(jsonObject = jsonObject)
             else -> error(message = "Unknown dto type: $type")
         }
     }
@@ -4677,6 +4777,17 @@ internal class TdlDeserializer internal constructor() {
             "connectionStateReady" -> return deserializeConnectionStateReady(jsonObject = jsonObject)
             "connectionStateUpdating" -> return deserializeConnectionStateUpdating(jsonObject = jsonObject)
             "connectionStateWaitingForNetwork" -> return deserializeConnectionStateWaitingForNetwork(jsonObject = jsonObject)
+            else -> error(message = "Unknown dto type: $type")
+        }
+    }
+
+    private fun deserializeCraftGiftResult(jsonObject: JsonObject): CraftGiftResult {
+        val type = jsonObject.getString(key = "@type")
+        when(type) {
+            "craftGiftResultFail" -> return deserializeCraftGiftResultFail(jsonObject = jsonObject)
+            "craftGiftResultInvalidGift" -> return deserializeCraftGiftResultInvalidGift(jsonObject = jsonObject)
+            "craftGiftResultSuccess" -> return deserializeCraftGiftResultSuccess(jsonObject = jsonObject)
+            "craftGiftResultTooEarly" -> return deserializeCraftGiftResultTooEarly(jsonObject = jsonObject)
             else -> error(message = "Unknown dto type: $type")
         }
     }
@@ -5137,7 +5248,6 @@ internal class TdlDeserializer internal constructor() {
     private fun deserializeInternalLinkType(jsonObject: JsonObject): InternalLinkType {
         val type = jsonObject.getString(key = "@type")
         when(type) {
-            "internalLinkTypeActiveSessions" -> return deserializeInternalLinkTypeActiveSessions(jsonObject = jsonObject)
             "internalLinkTypeAttachmentMenuBot" -> return deserializeInternalLinkTypeAttachmentMenuBot(jsonObject = jsonObject)
             "internalLinkTypeAuthenticationCode" -> return deserializeInternalLinkTypeAuthenticationCode(jsonObject = jsonObject)
             "internalLinkTypeBackground" -> return deserializeInternalLinkTypeBackground(jsonObject = jsonObject)
@@ -5145,16 +5255,14 @@ internal class TdlDeserializer internal constructor() {
             "internalLinkTypeBotStart" -> return deserializeInternalLinkTypeBotStart(jsonObject = jsonObject)
             "internalLinkTypeBotStartInGroup" -> return deserializeInternalLinkTypeBotStartInGroup(jsonObject = jsonObject)
             "internalLinkTypeBusinessChat" -> return deserializeInternalLinkTypeBusinessChat(jsonObject = jsonObject)
-            "internalLinkTypeBuyStars" -> return deserializeInternalLinkTypeBuyStars(jsonObject = jsonObject)
-            "internalLinkTypeChangePhoneNumber" -> return deserializeInternalLinkTypeChangePhoneNumber(jsonObject = jsonObject)
+            "internalLinkTypeCallsPage" -> return deserializeInternalLinkTypeCallsPage(jsonObject = jsonObject)
             "internalLinkTypeChatAffiliateProgram" -> return deserializeInternalLinkTypeChatAffiliateProgram(jsonObject = jsonObject)
             "internalLinkTypeChatBoost" -> return deserializeInternalLinkTypeChatBoost(jsonObject = jsonObject)
             "internalLinkTypeChatFolderInvite" -> return deserializeInternalLinkTypeChatFolderInvite(jsonObject = jsonObject)
-            "internalLinkTypeChatFolderSettings" -> return deserializeInternalLinkTypeChatFolderSettings(jsonObject = jsonObject)
             "internalLinkTypeChatInvite" -> return deserializeInternalLinkTypeChatInvite(jsonObject = jsonObject)
-            "internalLinkTypeDefaultMessageAutoDeleteTimerSettings" -> return deserializeInternalLinkTypeDefaultMessageAutoDeleteTimerSettings(jsonObject = jsonObject)
+            "internalLinkTypeChatSelection" -> return deserializeInternalLinkTypeChatSelection(jsonObject = jsonObject)
+            "internalLinkTypeContactsPage" -> return deserializeInternalLinkTypeContactsPage(jsonObject = jsonObject)
             "internalLinkTypeDirectMessagesChat" -> return deserializeInternalLinkTypeDirectMessagesChat(jsonObject = jsonObject)
-            "internalLinkTypeEditProfileSettings" -> return deserializeInternalLinkTypeEditProfileSettings(jsonObject = jsonObject)
             "internalLinkTypeGame" -> return deserializeInternalLinkTypeGame(jsonObject = jsonObject)
             "internalLinkTypeGiftAuction" -> return deserializeInternalLinkTypeGiftAuction(jsonObject = jsonObject)
             "internalLinkTypeGiftCollection" -> return deserializeInternalLinkTypeGiftCollection(jsonObject = jsonObject)
@@ -5162,34 +5270,33 @@ internal class TdlDeserializer internal constructor() {
             "internalLinkTypeInstantView" -> return deserializeInternalLinkTypeInstantView(jsonObject = jsonObject)
             "internalLinkTypeInvoice" -> return deserializeInternalLinkTypeInvoice(jsonObject = jsonObject)
             "internalLinkTypeLanguagePack" -> return deserializeInternalLinkTypeLanguagePack(jsonObject = jsonObject)
-            "internalLinkTypeLanguageSettings" -> return deserializeInternalLinkTypeLanguageSettings(jsonObject = jsonObject)
             "internalLinkTypeLiveStory" -> return deserializeInternalLinkTypeLiveStory(jsonObject = jsonObject)
-            "internalLinkTypeLoginEmailSettings" -> return deserializeInternalLinkTypeLoginEmailSettings(jsonObject = jsonObject)
             "internalLinkTypeMainWebApp" -> return deserializeInternalLinkTypeMainWebApp(jsonObject = jsonObject)
             "internalLinkTypeMessage" -> return deserializeInternalLinkTypeMessage(jsonObject = jsonObject)
             "internalLinkTypeMessageDraft" -> return deserializeInternalLinkTypeMessageDraft(jsonObject = jsonObject)
-            "internalLinkTypeMyStars" -> return deserializeInternalLinkTypeMyStars(jsonObject = jsonObject)
-            "internalLinkTypeMyToncoins" -> return deserializeInternalLinkTypeMyToncoins(jsonObject = jsonObject)
+            "internalLinkTypeMyProfilePage" -> return deserializeInternalLinkTypeMyProfilePage(jsonObject = jsonObject)
+            "internalLinkTypeNewChannelChat" -> return deserializeInternalLinkTypeNewChannelChat(jsonObject = jsonObject)
+            "internalLinkTypeNewGroupChat" -> return deserializeInternalLinkTypeNewGroupChat(jsonObject = jsonObject)
+            "internalLinkTypeNewPrivateChat" -> return deserializeInternalLinkTypeNewPrivateChat(jsonObject = jsonObject)
+            "internalLinkTypeNewStory" -> return deserializeInternalLinkTypeNewStory(jsonObject = jsonObject)
             "internalLinkTypePassportDataRequest" -> return deserializeInternalLinkTypePassportDataRequest(jsonObject = jsonObject)
-            "internalLinkTypePasswordSettings" -> return deserializeInternalLinkTypePasswordSettings(jsonObject = jsonObject)
             "internalLinkTypePhoneNumberConfirmation" -> return deserializeInternalLinkTypePhoneNumberConfirmation(jsonObject = jsonObject)
-            "internalLinkTypePhoneNumberPrivacySettings" -> return deserializeInternalLinkTypePhoneNumberPrivacySettings(jsonObject = jsonObject)
-            "internalLinkTypePremiumFeatures" -> return deserializeInternalLinkTypePremiumFeatures(jsonObject = jsonObject)
-            "internalLinkTypePremiumGift" -> return deserializeInternalLinkTypePremiumGift(jsonObject = jsonObject)
+            "internalLinkTypePremiumFeaturesPage" -> return deserializeInternalLinkTypePremiumFeaturesPage(jsonObject = jsonObject)
             "internalLinkTypePremiumGiftCode" -> return deserializeInternalLinkTypePremiumGiftCode(jsonObject = jsonObject)
-            "internalLinkTypePrivacyAndSecuritySettings" -> return deserializeInternalLinkTypePrivacyAndSecuritySettings(jsonObject = jsonObject)
+            "internalLinkTypePremiumGiftPurchase" -> return deserializeInternalLinkTypePremiumGiftPurchase(jsonObject = jsonObject)
             "internalLinkTypeProxy" -> return deserializeInternalLinkTypeProxy(jsonObject = jsonObject)
             "internalLinkTypePublicChat" -> return deserializeInternalLinkTypePublicChat(jsonObject = jsonObject)
             "internalLinkTypeQrCodeAuthentication" -> return deserializeInternalLinkTypeQrCodeAuthentication(jsonObject = jsonObject)
             "internalLinkTypeRestorePurchases" -> return deserializeInternalLinkTypeRestorePurchases(jsonObject = jsonObject)
+            "internalLinkTypeSavedMessages" -> return deserializeInternalLinkTypeSavedMessages(jsonObject = jsonObject)
+            "internalLinkTypeSearch" -> return deserializeInternalLinkTypeSearch(jsonObject = jsonObject)
             "internalLinkTypeSettings" -> return deserializeInternalLinkTypeSettings(jsonObject = jsonObject)
+            "internalLinkTypeStarPurchase" -> return deserializeInternalLinkTypeStarPurchase(jsonObject = jsonObject)
             "internalLinkTypeStickerSet" -> return deserializeInternalLinkTypeStickerSet(jsonObject = jsonObject)
             "internalLinkTypeStory" -> return deserializeInternalLinkTypeStory(jsonObject = jsonObject)
             "internalLinkTypeStoryAlbum" -> return deserializeInternalLinkTypeStoryAlbum(jsonObject = jsonObject)
             "internalLinkTypeTheme" -> return deserializeInternalLinkTypeTheme(jsonObject = jsonObject)
-            "internalLinkTypeThemeSettings" -> return deserializeInternalLinkTypeThemeSettings(jsonObject = jsonObject)
             "internalLinkTypeUnknownDeepLink" -> return deserializeInternalLinkTypeUnknownDeepLink(jsonObject = jsonObject)
-            "internalLinkTypeUnsupportedProxy" -> return deserializeInternalLinkTypeUnsupportedProxy(jsonObject = jsonObject)
             "internalLinkTypeUpgradedGift" -> return deserializeInternalLinkTypeUpgradedGift(jsonObject = jsonObject)
             "internalLinkTypeUserPhoneNumber" -> return deserializeInternalLinkTypeUserPhoneNumber(jsonObject = jsonObject)
             "internalLinkTypeUserToken" -> return deserializeInternalLinkTypeUserToken(jsonObject = jsonObject)
@@ -5358,6 +5465,8 @@ internal class TdlDeserializer internal constructor() {
             "messageChatDeletePhoto" -> return deserializeMessageChatDeletePhoto(jsonObject = jsonObject)
             "messageChatJoinByLink" -> return deserializeMessageChatJoinByLink(jsonObject = jsonObject)
             "messageChatJoinByRequest" -> return deserializeMessageChatJoinByRequest(jsonObject = jsonObject)
+            "messageChatOwnerChanged" -> return deserializeMessageChatOwnerChanged(jsonObject = jsonObject)
+            "messageChatOwnerLeft" -> return deserializeMessageChatOwnerLeft(jsonObject = jsonObject)
             "messageChatSetBackground" -> return deserializeMessageChatSetBackground(jsonObject = jsonObject)
             "messageChatSetMessageAutoDeleteTime" -> return deserializeMessageChatSetMessageAutoDeleteTime(jsonObject = jsonObject)
             "messageChatSetTheme" -> return deserializeMessageChatSetTheme(jsonObject = jsonObject)
@@ -6214,6 +6323,34 @@ internal class TdlDeserializer internal constructor() {
         }
     }
 
+    private fun deserializeSettingsSection(jsonObject: JsonObject): SettingsSection {
+        val type = jsonObject.getString(key = "@type")
+        when(type) {
+            "settingsSectionAppearance" -> return deserializeSettingsSectionAppearance(jsonObject = jsonObject)
+            "settingsSectionAskQuestion" -> return deserializeSettingsSectionAskQuestion(jsonObject = jsonObject)
+            "settingsSectionBusiness" -> return deserializeSettingsSectionBusiness(jsonObject = jsonObject)
+            "settingsSectionChatFolders" -> return deserializeSettingsSectionChatFolders(jsonObject = jsonObject)
+            "settingsSectionDataAndStorage" -> return deserializeSettingsSectionDataAndStorage(jsonObject = jsonObject)
+            "settingsSectionDevices" -> return deserializeSettingsSectionDevices(jsonObject = jsonObject)
+            "settingsSectionEditProfile" -> return deserializeSettingsSectionEditProfile(jsonObject = jsonObject)
+            "settingsSectionFaq" -> return deserializeSettingsSectionFaq(jsonObject = jsonObject)
+            "settingsSectionFeatures" -> return deserializeSettingsSectionFeatures(jsonObject = jsonObject)
+            "settingsSectionInAppBrowser" -> return deserializeSettingsSectionInAppBrowser(jsonObject = jsonObject)
+            "settingsSectionLanguage" -> return deserializeSettingsSectionLanguage(jsonObject = jsonObject)
+            "settingsSectionMyStars" -> return deserializeSettingsSectionMyStars(jsonObject = jsonObject)
+            "settingsSectionMyToncoins" -> return deserializeSettingsSectionMyToncoins(jsonObject = jsonObject)
+            "settingsSectionNotifications" -> return deserializeSettingsSectionNotifications(jsonObject = jsonObject)
+            "settingsSectionPowerSaving" -> return deserializeSettingsSectionPowerSaving(jsonObject = jsonObject)
+            "settingsSectionPremium" -> return deserializeSettingsSectionPremium(jsonObject = jsonObject)
+            "settingsSectionPrivacyAndSecurity" -> return deserializeSettingsSectionPrivacyAndSecurity(jsonObject = jsonObject)
+            "settingsSectionPrivacyPolicy" -> return deserializeSettingsSectionPrivacyPolicy(jsonObject = jsonObject)
+            "settingsSectionQrCode" -> return deserializeSettingsSectionQrCode(jsonObject = jsonObject)
+            "settingsSectionSearch" -> return deserializeSettingsSectionSearch(jsonObject = jsonObject)
+            "settingsSectionSendGift" -> return deserializeSettingsSectionSendGift(jsonObject = jsonObject)
+            else -> error(message = "Unknown dto type: $type")
+        }
+    }
+
     private fun deserializeSpeechRecognitionResult(jsonObject: JsonObject): SpeechRecognitionResult {
         val type = jsonObject.getString(key = "@type")
         when(type) {
@@ -6378,6 +6515,17 @@ internal class TdlDeserializer internal constructor() {
             "storyContentPhoto" -> return deserializeStoryContentPhoto(jsonObject = jsonObject)
             "storyContentUnsupported" -> return deserializeStoryContentUnsupported(jsonObject = jsonObject)
             "storyContentVideo" -> return deserializeStoryContentVideo(jsonObject = jsonObject)
+            else -> error(message = "Unknown dto type: $type")
+        }
+    }
+
+    private fun deserializeStoryContentType(jsonObject: JsonObject): StoryContentType {
+        val type = jsonObject.getString(key = "@type")
+        when(type) {
+            "storyContentTypeLive" -> return deserializeStoryContentTypeLive(jsonObject = jsonObject)
+            "storyContentTypePhoto" -> return deserializeStoryContentTypePhoto(jsonObject = jsonObject)
+            "storyContentTypeUnsupported" -> return deserializeStoryContentTypeUnsupported(jsonObject = jsonObject)
+            "storyContentTypeVideo" -> return deserializeStoryContentTypeVideo(jsonObject = jsonObject)
             else -> error(message = "Unknown dto type: $type")
         }
     }
@@ -6581,6 +6729,8 @@ internal class TdlDeserializer internal constructor() {
             "tonTransactionTypeFragmentDeposit" -> return deserializeTonTransactionTypeFragmentDeposit(jsonObject = jsonObject)
             "tonTransactionTypeFragmentWithdrawal" -> return deserializeTonTransactionTypeFragmentWithdrawal(jsonObject = jsonObject)
             "tonTransactionTypeGiftPurchaseOffer" -> return deserializeTonTransactionTypeGiftPurchaseOffer(jsonObject = jsonObject)
+            "tonTransactionTypeStakeDicePayout" -> return deserializeTonTransactionTypeStakeDicePayout(jsonObject = jsonObject)
+            "tonTransactionTypeStakeDiceStake" -> return deserializeTonTransactionTypeStakeDiceStake(jsonObject = jsonObject)
             "tonTransactionTypeSuggestedPostPayment" -> return deserializeTonTransactionTypeSuggestedPostPayment(jsonObject = jsonObject)
             "tonTransactionTypeUnsupported" -> return deserializeTonTransactionTypeUnsupported(jsonObject = jsonObject)
             "tonTransactionTypeUpgradedGiftPurchase" -> return deserializeTonTransactionTypeUpgradedGiftPurchase(jsonObject = jsonObject)
@@ -6804,10 +6954,23 @@ internal class TdlDeserializer internal constructor() {
         }
     }
 
+    private fun deserializeUpgradedGiftAttributeRarity(jsonObject: JsonObject): UpgradedGiftAttributeRarity {
+        val type = jsonObject.getString(key = "@type")
+        when(type) {
+            "upgradedGiftAttributeRarityEpic" -> return deserializeUpgradedGiftAttributeRarityEpic(jsonObject = jsonObject)
+            "upgradedGiftAttributeRarityLegendary" -> return deserializeUpgradedGiftAttributeRarityLegendary(jsonObject = jsonObject)
+            "upgradedGiftAttributeRarityPerMille" -> return deserializeUpgradedGiftAttributeRarityPerMille(jsonObject = jsonObject)
+            "upgradedGiftAttributeRarityRare" -> return deserializeUpgradedGiftAttributeRarityRare(jsonObject = jsonObject)
+            "upgradedGiftAttributeRarityUncommon" -> return deserializeUpgradedGiftAttributeRarityUncommon(jsonObject = jsonObject)
+            else -> error(message = "Unknown dto type: $type")
+        }
+    }
+
     private fun deserializeUpgradedGiftOrigin(jsonObject: JsonObject): UpgradedGiftOrigin {
         val type = jsonObject.getString(key = "@type")
         when(type) {
             "upgradedGiftOriginBlockchain" -> return deserializeUpgradedGiftOriginBlockchain(jsonObject = jsonObject)
+            "upgradedGiftOriginCraft" -> return deserializeUpgradedGiftOriginCraft(jsonObject = jsonObject)
             "upgradedGiftOriginOffer" -> return deserializeUpgradedGiftOriginOffer(jsonObject = jsonObject)
             "upgradedGiftOriginPrepaidUpgrade" -> return deserializeUpgradedGiftOriginPrepaidUpgrade(jsonObject = jsonObject)
             "upgradedGiftOriginResale" -> return deserializeUpgradedGiftOriginResale(jsonObject = jsonObject)
@@ -6947,6 +7110,21 @@ internal class TdlDeserializer internal constructor() {
 
     private fun deserializeActiveStoryStateUnread(jsonObject: JsonObject): ActiveStoryStateUnread {
         return ActiveStoryStateUnread()
+    }
+
+    private fun deserializeAddedProxies(jsonObject: JsonObject): AddedProxies {
+        return AddedProxies(
+            proxies = jsonObject.getObjects(key = "proxies") { data -> deserializeAddedProxy(jsonObject = data) },
+        )
+    }
+
+    private fun deserializeAddedProxy(jsonObject: JsonObject): AddedProxy {
+        return AddedProxy(
+            id = jsonObject.getInt(key = "id"),
+            lastUsedDate = jsonObject.getInt(key = "last_used_date"),
+            isEnabled = jsonObject.getBoolean(key = "is_enabled"),
+            proxy = jsonObject.getObject(key = "proxy") { data -> deserializeProxy(jsonObject = data) },
+        )
     }
 
     private fun deserializeAddedReaction(jsonObject: JsonObject): AddedReaction {
@@ -7133,6 +7311,12 @@ internal class TdlDeserializer internal constructor() {
         return AttachmentMenuBotColor(
             lightColor = jsonObject.getInt(key = "light_color"),
             darkColor = jsonObject.getInt(key = "dark_color"),
+        )
+    }
+
+    private fun deserializeAttributeCraftPersistenceProbability(jsonObject: JsonObject): AttributeCraftPersistenceProbability {
+        return AttributeCraftPersistenceProbability(
+            persistenceChancePerMille = jsonObject.getInts(key = "persistence_chance_per_mille"),
         )
     }
 
@@ -7945,9 +8129,26 @@ internal class TdlDeserializer internal constructor() {
         )
     }
 
+    private fun deserializeButtonStyleDanger(jsonObject: JsonObject): ButtonStyleDanger {
+        return ButtonStyleDanger()
+    }
+
+    private fun deserializeButtonStyleDefault(jsonObject: JsonObject): ButtonStyleDefault {
+        return ButtonStyleDefault()
+    }
+
+    private fun deserializeButtonStylePrimary(jsonObject: JsonObject): ButtonStylePrimary {
+        return ButtonStylePrimary()
+    }
+
+    private fun deserializeButtonStyleSuccess(jsonObject: JsonObject): ButtonStyleSuccess {
+        return ButtonStyleSuccess()
+    }
+
     private fun deserializeCall(jsonObject: JsonObject): Call {
         return Call(
             id = jsonObject.getInt(key = "id"),
+            uniqueId = jsonObject.getLong(key = "unique_id"),
             userId = jsonObject.getLong(key = "user_id"),
             isOutgoing = jsonObject.getBoolean(key = "is_outgoing"),
             isVideo = jsonObject.getBoolean(key = "is_video"),
@@ -9715,6 +9916,27 @@ internal class TdlDeserializer internal constructor() {
         )
     }
 
+    private fun deserializeCraftGiftResultFail(jsonObject: JsonObject): CraftGiftResultFail {
+        return CraftGiftResultFail()
+    }
+
+    private fun deserializeCraftGiftResultInvalidGift(jsonObject: JsonObject): CraftGiftResultInvalidGift {
+        return CraftGiftResultInvalidGift()
+    }
+
+    private fun deserializeCraftGiftResultSuccess(jsonObject: JsonObject): CraftGiftResultSuccess {
+        return CraftGiftResultSuccess(
+            gift = jsonObject.getObject(key = "gift") { data -> deserializeUpgradedGift(jsonObject = data) },
+            receivedGiftId = jsonObject.getString(key = "received_gift_id"),
+        )
+    }
+
+    private fun deserializeCraftGiftResultTooEarly(jsonObject: JsonObject): CraftGiftResultTooEarly {
+        return CraftGiftResultTooEarly(
+            retryAfter = jsonObject.getInt(key = "retry_after"),
+        )
+    }
+
     private fun deserializeCreatedBasicGroupChat(jsonObject: JsonObject): CreatedBasicGroupChat {
         return CreatedBasicGroupChat(
             chatId = jsonObject.getLong(key = "chat_id"),
@@ -10602,7 +10824,9 @@ internal class TdlDeserializer internal constructor() {
     }
 
     private fun deserializeGiftResaleResultOk(jsonObject: JsonObject): GiftResaleResultOk {
-        return GiftResaleResultOk()
+        return GiftResaleResultOk(
+            receivedGiftId = jsonObject.getString(key = "received_gift_id"),
+        )
     }
 
     private fun deserializeGiftResaleResultPriceIncreased(jsonObject: JsonObject): GiftResaleResultPriceIncreased {
@@ -10640,6 +10864,15 @@ internal class TdlDeserializer internal constructor() {
             models = jsonObject.getObjects(key = "models") { data -> deserializeUpgradedGiftModel(jsonObject = data) },
             symbols = jsonObject.getObjects(key = "symbols") { data -> deserializeUpgradedGiftSymbol(jsonObject = data) },
             backdrops = jsonObject.getObjects(key = "backdrops") { data -> deserializeUpgradedGiftBackdrop(jsonObject = data) },
+        )
+    }
+
+    private fun deserializeGiftsForCrafting(jsonObject: JsonObject): GiftsForCrafting {
+        return GiftsForCrafting(
+            totalCount = jsonObject.getInt(key = "total_count"),
+            gifts = jsonObject.getObjects(key = "gifts") { data -> deserializeReceivedGift(jsonObject = data) },
+            attributePersistenceProbabilities = jsonObject.getObjects(key = "attribute_persistence_probabilities") { data -> deserializeAttributeCraftPersistenceProbability(jsonObject = data) },
+            nextOffset = jsonObject.getString(key = "next_offset"),
         )
     }
 
@@ -10728,6 +10961,7 @@ internal class TdlDeserializer internal constructor() {
     private fun deserializeGroupCall(jsonObject: JsonObject): GroupCall {
         return GroupCall(
             id = jsonObject.getInt(key = "id"),
+            uniqueId = jsonObject.getLong(key = "unique_id"),
             title = jsonObject.getString(key = "title"),
             inviteLink = jsonObject.getString(key = "invite_link"),
             paidMessageStarCount = jsonObject.getLong(key = "paid_message_star_count"),
@@ -10935,6 +11169,8 @@ internal class TdlDeserializer internal constructor() {
     private fun deserializeInlineKeyboardButton(jsonObject: JsonObject): InlineKeyboardButton {
         return InlineKeyboardButton(
             text = jsonObject.getString(key = "text"),
+            iconCustomEmojiId = jsonObject.getLong(key = "icon_custom_emoji_id"),
+            style = jsonObject.getObject(key = "style") { data -> deserializeButtonStyle(jsonObject = data) },
             type = jsonObject.getObject(key = "type") { data -> deserializeInlineKeyboardButtonType(jsonObject = data) },
         )
     }
@@ -11986,10 +12222,6 @@ internal class TdlDeserializer internal constructor() {
         )
     }
 
-    private fun deserializeInternalLinkTypeActiveSessions(jsonObject: JsonObject): InternalLinkTypeActiveSessions {
-        return InternalLinkTypeActiveSessions()
-    }
-
     private fun deserializeInternalLinkTypeAttachmentMenuBot(jsonObject: JsonObject): InternalLinkTypeAttachmentMenuBot {
         return InternalLinkTypeAttachmentMenuBot(
             targetChat = jsonObject.getObject(key = "target_chat") { data -> deserializeTargetChat(jsonObject = data) },
@@ -12039,15 +12271,10 @@ internal class TdlDeserializer internal constructor() {
         )
     }
 
-    private fun deserializeInternalLinkTypeBuyStars(jsonObject: JsonObject): InternalLinkTypeBuyStars {
-        return InternalLinkTypeBuyStars(
-            starCount = jsonObject.getLong(key = "star_count"),
-            purpose = jsonObject.getString(key = "purpose"),
+    private fun deserializeInternalLinkTypeCallsPage(jsonObject: JsonObject): InternalLinkTypeCallsPage {
+        return InternalLinkTypeCallsPage(
+            section = jsonObject.getString(key = "section"),
         )
-    }
-
-    private fun deserializeInternalLinkTypeChangePhoneNumber(jsonObject: JsonObject): InternalLinkTypeChangePhoneNumber {
-        return InternalLinkTypeChangePhoneNumber()
     }
 
     private fun deserializeInternalLinkTypeChatAffiliateProgram(jsonObject: JsonObject): InternalLinkTypeChatAffiliateProgram {
@@ -12069,28 +12296,26 @@ internal class TdlDeserializer internal constructor() {
         )
     }
 
-    private fun deserializeInternalLinkTypeChatFolderSettings(jsonObject: JsonObject): InternalLinkTypeChatFolderSettings {
-        return InternalLinkTypeChatFolderSettings()
-    }
-
     private fun deserializeInternalLinkTypeChatInvite(jsonObject: JsonObject): InternalLinkTypeChatInvite {
         return InternalLinkTypeChatInvite(
             inviteLink = jsonObject.getString(key = "invite_link"),
         )
     }
 
-    private fun deserializeInternalLinkTypeDefaultMessageAutoDeleteTimerSettings(jsonObject: JsonObject): InternalLinkTypeDefaultMessageAutoDeleteTimerSettings {
-        return InternalLinkTypeDefaultMessageAutoDeleteTimerSettings()
+    private fun deserializeInternalLinkTypeChatSelection(jsonObject: JsonObject): InternalLinkTypeChatSelection {
+        return InternalLinkTypeChatSelection()
+    }
+
+    private fun deserializeInternalLinkTypeContactsPage(jsonObject: JsonObject): InternalLinkTypeContactsPage {
+        return InternalLinkTypeContactsPage(
+            section = jsonObject.getString(key = "section"),
+        )
     }
 
     private fun deserializeInternalLinkTypeDirectMessagesChat(jsonObject: JsonObject): InternalLinkTypeDirectMessagesChat {
         return InternalLinkTypeDirectMessagesChat(
             channelUsername = jsonObject.getString(key = "channel_username"),
         )
-    }
-
-    private fun deserializeInternalLinkTypeEditProfileSettings(jsonObject: JsonObject): InternalLinkTypeEditProfileSettings {
-        return InternalLinkTypeEditProfileSettings()
     }
 
     private fun deserializeInternalLinkTypeGame(jsonObject: JsonObject): InternalLinkTypeGame {
@@ -12138,18 +12363,10 @@ internal class TdlDeserializer internal constructor() {
         )
     }
 
-    private fun deserializeInternalLinkTypeLanguageSettings(jsonObject: JsonObject): InternalLinkTypeLanguageSettings {
-        return InternalLinkTypeLanguageSettings()
-    }
-
     private fun deserializeInternalLinkTypeLiveStory(jsonObject: JsonObject): InternalLinkTypeLiveStory {
         return InternalLinkTypeLiveStory(
             storyPosterUsername = jsonObject.getString(key = "story_poster_username"),
         )
-    }
-
-    private fun deserializeInternalLinkTypeLoginEmailSettings(jsonObject: JsonObject): InternalLinkTypeLoginEmailSettings {
-        return InternalLinkTypeLoginEmailSettings()
     }
 
     private fun deserializeInternalLinkTypeMainWebApp(jsonObject: JsonObject): InternalLinkTypeMainWebApp {
@@ -12173,12 +12390,28 @@ internal class TdlDeserializer internal constructor() {
         )
     }
 
-    private fun deserializeInternalLinkTypeMyStars(jsonObject: JsonObject): InternalLinkTypeMyStars {
-        return InternalLinkTypeMyStars()
+    private fun deserializeInternalLinkTypeMyProfilePage(jsonObject: JsonObject): InternalLinkTypeMyProfilePage {
+        return InternalLinkTypeMyProfilePage(
+            section = jsonObject.getString(key = "section"),
+        )
     }
 
-    private fun deserializeInternalLinkTypeMyToncoins(jsonObject: JsonObject): InternalLinkTypeMyToncoins {
-        return InternalLinkTypeMyToncoins()
+    private fun deserializeInternalLinkTypeNewChannelChat(jsonObject: JsonObject): InternalLinkTypeNewChannelChat {
+        return InternalLinkTypeNewChannelChat()
+    }
+
+    private fun deserializeInternalLinkTypeNewGroupChat(jsonObject: JsonObject): InternalLinkTypeNewGroupChat {
+        return InternalLinkTypeNewGroupChat()
+    }
+
+    private fun deserializeInternalLinkTypeNewPrivateChat(jsonObject: JsonObject): InternalLinkTypeNewPrivateChat {
+        return InternalLinkTypeNewPrivateChat()
+    }
+
+    private fun deserializeInternalLinkTypeNewStory(jsonObject: JsonObject): InternalLinkTypeNewStory {
+        return InternalLinkTypeNewStory(
+            contentType = jsonObject.getObjectNullable(key = "content_type") { data -> deserializeStoryContentType(jsonObject = data) },
+        )
     }
 
     private fun deserializeInternalLinkTypePassportDataRequest(jsonObject: JsonObject): InternalLinkTypePassportDataRequest {
@@ -12191,10 +12424,6 @@ internal class TdlDeserializer internal constructor() {
         )
     }
 
-    private fun deserializeInternalLinkTypePasswordSettings(jsonObject: JsonObject): InternalLinkTypePasswordSettings {
-        return InternalLinkTypePasswordSettings()
-    }
-
     private fun deserializeInternalLinkTypePhoneNumberConfirmation(jsonObject: JsonObject): InternalLinkTypePhoneNumberConfirmation {
         return InternalLinkTypePhoneNumberConfirmation(
             hash = jsonObject.getString(key = "hash"),
@@ -12202,18 +12431,8 @@ internal class TdlDeserializer internal constructor() {
         )
     }
 
-    private fun deserializeInternalLinkTypePhoneNumberPrivacySettings(jsonObject: JsonObject): InternalLinkTypePhoneNumberPrivacySettings {
-        return InternalLinkTypePhoneNumberPrivacySettings()
-    }
-
-    private fun deserializeInternalLinkTypePremiumFeatures(jsonObject: JsonObject): InternalLinkTypePremiumFeatures {
-        return InternalLinkTypePremiumFeatures(
-            referrer = jsonObject.getString(key = "referrer"),
-        )
-    }
-
-    private fun deserializeInternalLinkTypePremiumGift(jsonObject: JsonObject): InternalLinkTypePremiumGift {
-        return InternalLinkTypePremiumGift(
+    private fun deserializeInternalLinkTypePremiumFeaturesPage(jsonObject: JsonObject): InternalLinkTypePremiumFeaturesPage {
+        return InternalLinkTypePremiumFeaturesPage(
             referrer = jsonObject.getString(key = "referrer"),
         )
     }
@@ -12224,15 +12443,15 @@ internal class TdlDeserializer internal constructor() {
         )
     }
 
-    private fun deserializeInternalLinkTypePrivacyAndSecuritySettings(jsonObject: JsonObject): InternalLinkTypePrivacyAndSecuritySettings {
-        return InternalLinkTypePrivacyAndSecuritySettings()
+    private fun deserializeInternalLinkTypePremiumGiftPurchase(jsonObject: JsonObject): InternalLinkTypePremiumGiftPurchase {
+        return InternalLinkTypePremiumGiftPurchase(
+            referrer = jsonObject.getString(key = "referrer"),
+        )
     }
 
     private fun deserializeInternalLinkTypeProxy(jsonObject: JsonObject): InternalLinkTypeProxy {
         return InternalLinkTypeProxy(
-            server = jsonObject.getString(key = "server"),
-            port = jsonObject.getInt(key = "port"),
-            type = jsonObject.getObject(key = "type") { data -> deserializeProxyType(jsonObject = data) },
+            proxy = jsonObject.getObjectNullable(key = "proxy") { data -> deserializeProxy(jsonObject = data) },
         )
     }
 
@@ -12252,8 +12471,25 @@ internal class TdlDeserializer internal constructor() {
         return InternalLinkTypeRestorePurchases()
     }
 
+    private fun deserializeInternalLinkTypeSavedMessages(jsonObject: JsonObject): InternalLinkTypeSavedMessages {
+        return InternalLinkTypeSavedMessages()
+    }
+
+    private fun deserializeInternalLinkTypeSearch(jsonObject: JsonObject): InternalLinkTypeSearch {
+        return InternalLinkTypeSearch()
+    }
+
     private fun deserializeInternalLinkTypeSettings(jsonObject: JsonObject): InternalLinkTypeSettings {
-        return InternalLinkTypeSettings()
+        return InternalLinkTypeSettings(
+            section = jsonObject.getObjectNullable(key = "section") { data -> deserializeSettingsSection(jsonObject = data) },
+        )
+    }
+
+    private fun deserializeInternalLinkTypeStarPurchase(jsonObject: JsonObject): InternalLinkTypeStarPurchase {
+        return InternalLinkTypeStarPurchase(
+            starCount = jsonObject.getLong(key = "star_count"),
+            purpose = jsonObject.getString(key = "purpose"),
+        )
     }
 
     private fun deserializeInternalLinkTypeStickerSet(jsonObject: JsonObject): InternalLinkTypeStickerSet {
@@ -12283,18 +12519,10 @@ internal class TdlDeserializer internal constructor() {
         )
     }
 
-    private fun deserializeInternalLinkTypeThemeSettings(jsonObject: JsonObject): InternalLinkTypeThemeSettings {
-        return InternalLinkTypeThemeSettings()
-    }
-
     private fun deserializeInternalLinkTypeUnknownDeepLink(jsonObject: JsonObject): InternalLinkTypeUnknownDeepLink {
         return InternalLinkTypeUnknownDeepLink(
             link = jsonObject.getString(key = "link"),
         )
-    }
-
-    private fun deserializeInternalLinkTypeUnsupportedProxy(jsonObject: JsonObject): InternalLinkTypeUnsupportedProxy {
-        return InternalLinkTypeUnsupportedProxy()
     }
 
     private fun deserializeInternalLinkTypeUpgradedGift(jsonObject: JsonObject): InternalLinkTypeUpgradedGift {
@@ -12429,6 +12657,8 @@ internal class TdlDeserializer internal constructor() {
     private fun deserializeKeyboardButton(jsonObject: JsonObject): KeyboardButton {
         return KeyboardButton(
             text = jsonObject.getString(key = "text"),
+            iconCustomEmojiId = jsonObject.getLong(key = "icon_custom_emoji_id"),
+            style = jsonObject.getObject(key = "style") { data -> deserializeButtonStyle(jsonObject = data) },
             type = jsonObject.getObject(key = "type") { data -> deserializeKeyboardButtonType(jsonObject = data) },
         )
     }
@@ -12921,6 +13151,11 @@ internal class TdlDeserializer internal constructor() {
             domain = jsonObject.getString(key = "domain"),
             botUserId = jsonObject.getLong(key = "bot_user_id"),
             requestWriteAccess = jsonObject.getBoolean(key = "request_write_access"),
+            requestPhoneNumberAccess = jsonObject.getBoolean(key = "request_phone_number_access"),
+            browser = jsonObject.getString(key = "browser"),
+            platform = jsonObject.getString(key = "platform"),
+            ipAddress = jsonObject.getString(key = "ip_address"),
+            location = jsonObject.getString(key = "location"),
         )
     }
 
@@ -13104,6 +13339,18 @@ internal class TdlDeserializer internal constructor() {
 
     private fun deserializeMessageChatJoinByRequest(jsonObject: JsonObject): MessageChatJoinByRequest {
         return MessageChatJoinByRequest()
+    }
+
+    private fun deserializeMessageChatOwnerChanged(jsonObject: JsonObject): MessageChatOwnerChanged {
+        return MessageChatOwnerChanged(
+            newOwnerUserId = jsonObject.getLong(key = "new_owner_user_id"),
+        )
+    }
+
+    private fun deserializeMessageChatOwnerLeft(jsonObject: JsonObject): MessageChatOwnerLeft {
+        return MessageChatOwnerLeft(
+            newOwnerUserId = jsonObject.getLong(key = "new_owner_user_id"),
+        )
     }
 
     private fun deserializeMessageChatSetBackground(jsonObject: JsonObject): MessageChatSetBackground {
@@ -13439,6 +13686,7 @@ internal class TdlDeserializer internal constructor() {
 
     private fun deserializeMessageGroupCall(jsonObject: JsonObject): MessageGroupCall {
         return MessageGroupCall(
+            uniqueId = jsonObject.getLong(key = "unique_id"),
             isActive = jsonObject.getBoolean(key = "is_active"),
             wasMissed = jsonObject.getBoolean(key = "was_missed"),
             isVideo = jsonObject.getBoolean(key = "is_video"),
@@ -14071,6 +14319,7 @@ internal class TdlDeserializer internal constructor() {
             nextTransferDate = jsonObject.getInt(key = "next_transfer_date"),
             nextResaleDate = jsonObject.getInt(key = "next_resale_date"),
             exportDate = jsonObject.getInt(key = "export_date"),
+            craftDate = jsonObject.getInt(key = "craft_date"),
         )
     }
 
@@ -15599,19 +15848,10 @@ internal class TdlDeserializer internal constructor() {
         return ProfileTabVoice()
     }
 
-    private fun deserializeProxies(jsonObject: JsonObject): Proxies {
-        return Proxies(
-            proxies = jsonObject.getObjects(key = "proxies") { data -> deserializeProxy(jsonObject = data) },
-        )
-    }
-
     private fun deserializeProxy(jsonObject: JsonObject): Proxy {
         return Proxy(
-            id = jsonObject.getInt(key = "id"),
             server = jsonObject.getString(key = "server"),
             port = jsonObject.getInt(key = "port"),
-            lastUsedDate = jsonObject.getInt(key = "last_used_date"),
-            isEnabled = jsonObject.getBoolean(key = "is_enabled"),
             type = jsonObject.getObject(key = "type") { data -> deserializeProxyType(jsonObject = data) },
         )
     }
@@ -16074,6 +16314,7 @@ internal class TdlDeserializer internal constructor() {
             nextResaleDate = jsonObject.getInt(key = "next_resale_date"),
             exportDate = jsonObject.getInt(key = "export_date"),
             prepaidUpgradeHash = jsonObject.getString(key = "prepaid_upgrade_hash"),
+            craftDate = jsonObject.getInt(key = "craft_date"),
         )
     }
 
@@ -16712,6 +16953,118 @@ internal class TdlDeserializer internal constructor() {
         return Sessions(
             sessions = jsonObject.getObjects(key = "sessions") { data -> deserializeSession(jsonObject = data) },
             inactiveSessionTtlDays = jsonObject.getInt(key = "inactive_session_ttl_days"),
+        )
+    }
+
+    private fun deserializeSettingsSectionAppearance(jsonObject: JsonObject): SettingsSectionAppearance {
+        return SettingsSectionAppearance(
+            subsection = jsonObject.getString(key = "subsection"),
+        )
+    }
+
+    private fun deserializeSettingsSectionAskQuestion(jsonObject: JsonObject): SettingsSectionAskQuestion {
+        return SettingsSectionAskQuestion()
+    }
+
+    private fun deserializeSettingsSectionBusiness(jsonObject: JsonObject): SettingsSectionBusiness {
+        return SettingsSectionBusiness(
+            subsection = jsonObject.getString(key = "subsection"),
+        )
+    }
+
+    private fun deserializeSettingsSectionChatFolders(jsonObject: JsonObject): SettingsSectionChatFolders {
+        return SettingsSectionChatFolders(
+            subsection = jsonObject.getString(key = "subsection"),
+        )
+    }
+
+    private fun deserializeSettingsSectionDataAndStorage(jsonObject: JsonObject): SettingsSectionDataAndStorage {
+        return SettingsSectionDataAndStorage(
+            subsection = jsonObject.getString(key = "subsection"),
+        )
+    }
+
+    private fun deserializeSettingsSectionDevices(jsonObject: JsonObject): SettingsSectionDevices {
+        return SettingsSectionDevices(
+            subsection = jsonObject.getString(key = "subsection"),
+        )
+    }
+
+    private fun deserializeSettingsSectionEditProfile(jsonObject: JsonObject): SettingsSectionEditProfile {
+        return SettingsSectionEditProfile(
+            subsection = jsonObject.getString(key = "subsection"),
+        )
+    }
+
+    private fun deserializeSettingsSectionFaq(jsonObject: JsonObject): SettingsSectionFaq {
+        return SettingsSectionFaq()
+    }
+
+    private fun deserializeSettingsSectionFeatures(jsonObject: JsonObject): SettingsSectionFeatures {
+        return SettingsSectionFeatures()
+    }
+
+    private fun deserializeSettingsSectionInAppBrowser(jsonObject: JsonObject): SettingsSectionInAppBrowser {
+        return SettingsSectionInAppBrowser(
+            subsection = jsonObject.getString(key = "subsection"),
+        )
+    }
+
+    private fun deserializeSettingsSectionLanguage(jsonObject: JsonObject): SettingsSectionLanguage {
+        return SettingsSectionLanguage(
+            subsection = jsonObject.getString(key = "subsection"),
+        )
+    }
+
+    private fun deserializeSettingsSectionMyStars(jsonObject: JsonObject): SettingsSectionMyStars {
+        return SettingsSectionMyStars(
+            subsection = jsonObject.getString(key = "subsection"),
+        )
+    }
+
+    private fun deserializeSettingsSectionMyToncoins(jsonObject: JsonObject): SettingsSectionMyToncoins {
+        return SettingsSectionMyToncoins()
+    }
+
+    private fun deserializeSettingsSectionNotifications(jsonObject: JsonObject): SettingsSectionNotifications {
+        return SettingsSectionNotifications(
+            subsection = jsonObject.getString(key = "subsection"),
+        )
+    }
+
+    private fun deserializeSettingsSectionPowerSaving(jsonObject: JsonObject): SettingsSectionPowerSaving {
+        return SettingsSectionPowerSaving(
+            subsection = jsonObject.getString(key = "subsection"),
+        )
+    }
+
+    private fun deserializeSettingsSectionPremium(jsonObject: JsonObject): SettingsSectionPremium {
+        return SettingsSectionPremium()
+    }
+
+    private fun deserializeSettingsSectionPrivacyAndSecurity(jsonObject: JsonObject): SettingsSectionPrivacyAndSecurity {
+        return SettingsSectionPrivacyAndSecurity(
+            subsection = jsonObject.getString(key = "subsection"),
+        )
+    }
+
+    private fun deserializeSettingsSectionPrivacyPolicy(jsonObject: JsonObject): SettingsSectionPrivacyPolicy {
+        return SettingsSectionPrivacyPolicy()
+    }
+
+    private fun deserializeSettingsSectionQrCode(jsonObject: JsonObject): SettingsSectionQrCode {
+        return SettingsSectionQrCode(
+            subsection = jsonObject.getString(key = "subsection"),
+        )
+    }
+
+    private fun deserializeSettingsSectionSearch(jsonObject: JsonObject): SettingsSectionSearch {
+        return SettingsSectionSearch()
+    }
+
+    private fun deserializeSettingsSectionSendGift(jsonObject: JsonObject): SettingsSectionSendGift {
+        return SettingsSectionSendGift(
+            subsection = jsonObject.getString(key = "subsection"),
         )
     }
 
@@ -17642,6 +17995,22 @@ internal class TdlDeserializer internal constructor() {
         )
     }
 
+    private fun deserializeStoryContentTypeLive(jsonObject: JsonObject): StoryContentTypeLive {
+        return StoryContentTypeLive()
+    }
+
+    private fun deserializeStoryContentTypePhoto(jsonObject: JsonObject): StoryContentTypePhoto {
+        return StoryContentTypePhoto()
+    }
+
+    private fun deserializeStoryContentTypeUnsupported(jsonObject: JsonObject): StoryContentTypeUnsupported {
+        return StoryContentTypeUnsupported()
+    }
+
+    private fun deserializeStoryContentTypeVideo(jsonObject: JsonObject): StoryContentTypeVideo {
+        return StoryContentTypeVideo()
+    }
+
     private fun deserializeStoryContentUnsupported(jsonObject: JsonObject): StoryContentUnsupported {
         return StoryContentUnsupported()
     }
@@ -18474,6 +18843,14 @@ internal class TdlDeserializer internal constructor() {
         return TonTransactionTypeGiftPurchaseOffer(
             gift = jsonObject.getObject(key = "gift") { data -> deserializeUpgradedGift(jsonObject = data) },
         )
+    }
+
+    private fun deserializeTonTransactionTypeStakeDicePayout(jsonObject: JsonObject): TonTransactionTypeStakeDicePayout {
+        return TonTransactionTypeStakeDicePayout()
+    }
+
+    private fun deserializeTonTransactionTypeStakeDiceStake(jsonObject: JsonObject): TonTransactionTypeStakeDiceStake {
+        return TonTransactionTypeStakeDiceStake()
     }
 
     private fun deserializeTonTransactionTypeSuggestedPostPayment(jsonObject: JsonObject): TonTransactionTypeSuggestedPostPayment {
@@ -19877,6 +20254,8 @@ internal class TdlDeserializer internal constructor() {
             number = jsonObject.getInt(key = "number"),
             totalUpgradedCount = jsonObject.getInt(key = "total_upgraded_count"),
             maxUpgradedCount = jsonObject.getInt(key = "max_upgraded_count"),
+            isBurned = jsonObject.getBoolean(key = "is_burned"),
+            isCrafted = jsonObject.getBoolean(key = "is_crafted"),
             isPremium = jsonObject.getBoolean(key = "is_premium"),
             isThemeAvailable = jsonObject.getBoolean(key = "is_theme_available"),
             usedThemeChatId = jsonObject.getLong(key = "used_theme_chat_id"),
@@ -19892,6 +20271,7 @@ internal class TdlDeserializer internal constructor() {
             colors = jsonObject.getObjectNullable(key = "colors") { data -> deserializeUpgradedGiftColors(jsonObject = data) },
             resaleParameters = jsonObject.getObjectNullable(key = "resale_parameters") { data -> deserializeGiftResaleParameters(jsonObject = data) },
             canSendPurchaseOffer = jsonObject.getBoolean(key = "can_send_purchase_offer"),
+            craftProbabilityPerMille = jsonObject.getInt(key = "craft_probability_per_mille"),
             valueCurrency = jsonObject.getString(key = "value_currency"),
             valueAmount = jsonObject.getLong(key = "value_amount"),
             valueUsdAmount = jsonObject.getLong(key = "value_usd_amount"),
@@ -19916,12 +20296,34 @@ internal class TdlDeserializer internal constructor() {
         )
     }
 
+    private fun deserializeUpgradedGiftAttributeRarityEpic(jsonObject: JsonObject): UpgradedGiftAttributeRarityEpic {
+        return UpgradedGiftAttributeRarityEpic()
+    }
+
+    private fun deserializeUpgradedGiftAttributeRarityLegendary(jsonObject: JsonObject): UpgradedGiftAttributeRarityLegendary {
+        return UpgradedGiftAttributeRarityLegendary()
+    }
+
+    private fun deserializeUpgradedGiftAttributeRarityPerMille(jsonObject: JsonObject): UpgradedGiftAttributeRarityPerMille {
+        return UpgradedGiftAttributeRarityPerMille(
+            perMille = jsonObject.getInt(key = "per_mille"),
+        )
+    }
+
+    private fun deserializeUpgradedGiftAttributeRarityRare(jsonObject: JsonObject): UpgradedGiftAttributeRarityRare {
+        return UpgradedGiftAttributeRarityRare()
+    }
+
+    private fun deserializeUpgradedGiftAttributeRarityUncommon(jsonObject: JsonObject): UpgradedGiftAttributeRarityUncommon {
+        return UpgradedGiftAttributeRarityUncommon()
+    }
+
     private fun deserializeUpgradedGiftBackdrop(jsonObject: JsonObject): UpgradedGiftBackdrop {
         return UpgradedGiftBackdrop(
             id = jsonObject.getInt(key = "id"),
             name = jsonObject.getString(key = "name"),
             colors = jsonObject.getObject(key = "colors") { data -> deserializeUpgradedGiftBackdropColors(jsonObject = data) },
-            rarityPerMille = jsonObject.getInt(key = "rarity_per_mille"),
+            rarity = jsonObject.getObject(key = "rarity") { data -> deserializeUpgradedGiftAttributeRarity(jsonObject = data) },
         )
     }
 
@@ -19957,7 +20359,8 @@ internal class TdlDeserializer internal constructor() {
         return UpgradedGiftModel(
             name = jsonObject.getString(key = "name"),
             sticker = jsonObject.getObject(key = "sticker") { data -> deserializeSticker(jsonObject = data) },
-            rarityPerMille = jsonObject.getInt(key = "rarity_per_mille"),
+            rarity = jsonObject.getObject(key = "rarity") { data -> deserializeUpgradedGiftAttributeRarity(jsonObject = data) },
+            isCrafted = jsonObject.getBoolean(key = "is_crafted"),
         )
     }
 
@@ -19970,6 +20373,10 @@ internal class TdlDeserializer internal constructor() {
 
     private fun deserializeUpgradedGiftOriginBlockchain(jsonObject: JsonObject): UpgradedGiftOriginBlockchain {
         return UpgradedGiftOriginBlockchain()
+    }
+
+    private fun deserializeUpgradedGiftOriginCraft(jsonObject: JsonObject): UpgradedGiftOriginCraft {
+        return UpgradedGiftOriginCraft()
     }
 
     private fun deserializeUpgradedGiftOriginOffer(jsonObject: JsonObject): UpgradedGiftOriginOffer {
@@ -20011,7 +20418,7 @@ internal class TdlDeserializer internal constructor() {
         return UpgradedGiftSymbol(
             name = jsonObject.getString(key = "name"),
             sticker = jsonObject.getObject(key = "sticker") { data -> deserializeSticker(jsonObject = data) },
-            rarityPerMille = jsonObject.getInt(key = "rarity_per_mille"),
+            rarity = jsonObject.getObject(key = "rarity") { data -> deserializeUpgradedGiftAttributeRarity(jsonObject = data) },
         )
     }
 
@@ -20298,6 +20705,7 @@ internal class TdlDeserializer internal constructor() {
             canReadAllGroupMessages = jsonObject.getBoolean(key = "can_read_all_group_messages"),
             hasMainWebApp = jsonObject.getBoolean(key = "has_main_web_app"),
             hasTopics = jsonObject.getBoolean(key = "has_topics"),
+            allowsUsersToCreateTopics = jsonObject.getBoolean(key = "allows_users_to_create_topics"),
             isInline = jsonObject.getBoolean(key = "is_inline"),
             inlineQueryPlaceholder = jsonObject.getString(key = "inline_query_placeholder"),
             needLocation = jsonObject.getBoolean(key = "need_location"),

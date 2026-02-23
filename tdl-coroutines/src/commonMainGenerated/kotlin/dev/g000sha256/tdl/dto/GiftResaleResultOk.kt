@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Georgii Ippolitov (g000sha256)
+ * Copyright 2025-2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,8 +23,12 @@ import kotlin.String
 
 /**
  * Operation was successfully completed.
+ *
+ * @property receivedGiftId Unique identifier of the received gift; only for the gifts sent to the current user.
  */
-public class GiftResaleResultOk public constructor() : GiftResaleResult() {
+public class GiftResaleResultOk public constructor(
+    public val receivedGiftId: String,
+) : GiftResaleResult() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true
@@ -32,14 +36,26 @@ public class GiftResaleResultOk public constructor() : GiftResaleResult() {
         if (other == null) {
             return false
         }
-        return this::class == other::class
+        if (other::class != this::class) {
+            return false
+        }
+        other as GiftResaleResultOk
+        return other.receivedGiftId == receivedGiftId
     }
 
     override fun hashCode(): Int {
-        return this::class.hashCode()
+        var hashCode = this::class.hashCode()
+        hashCode = 31 * hashCode + receivedGiftId.hashCode()
+        return hashCode
     }
 
     override fun toString(): String {
-        return "GiftResaleResultOk()"
+        return buildString {
+            append("GiftResaleResultOk")
+            append("(")
+            append("receivedGiftId=")
+            append(receivedGiftId)
+            append(")")
+        }
     }
 }
