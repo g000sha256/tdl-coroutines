@@ -1,6 +1,6 @@
 package org.drinkless.tdlib
 
-@Suppress("EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")
+@Suppress("EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING", "KotlinNoActualForExpect")
 internal expect class JsonClient() {
 
     fun createClientId(): Int

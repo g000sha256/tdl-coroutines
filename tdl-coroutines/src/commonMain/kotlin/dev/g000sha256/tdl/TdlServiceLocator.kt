@@ -19,6 +19,7 @@ package dev.g000sha256.tdl
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.DelicateCoroutinesApi
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.newFixedThreadPoolContext
 
@@ -39,7 +40,7 @@ internal fun createClient(): TdlClient {
     return TdlClientImpl(repository = repository)
 }
 
-@OptIn(DelicateCoroutinesApi::class)
+@OptIn(DelicateCoroutinesApi::class, ExperimentalCoroutinesApi::class)
 private fun createSingleThreadCoroutineDispatcher(name: String): CoroutineDispatcher {
     return newFixedThreadPoolContext(nThreads = 1, name = name)
 }
