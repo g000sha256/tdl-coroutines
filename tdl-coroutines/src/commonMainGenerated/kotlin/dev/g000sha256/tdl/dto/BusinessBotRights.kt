@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Georgii Ippolitov (g000sha256)
+ * Copyright 2025-2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,7 +32,7 @@ import kotlin.String
  * @property canEditBio True, if the bot can edit bio of the business account.
  * @property canEditProfilePhoto True, if the bot can edit profile photo of the business account.
  * @property canEditUsername True, if the bot can edit username of the business account.
- * @property canViewGiftsAndStars True, if the bot can view gifts and amount of Telegram Stars owned by the business account.
+ * @property canViewGiftsAndStars True, if the bot can view gifts and Telegram Star amount owned by the business account.
  * @property canSellGifts True, if the bot can sell regular gifts received by the business account.
  * @property canChangeGiftSettings True, if the bot can change gift receiving settings of the business account.
  * @property canTransferAndUpgradeGifts True, if the bot can transfer and upgrade gifts received by the business account.

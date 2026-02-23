@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Georgii Ippolitov (g000sha256)
+ * Copyright 2025-2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,7 +23,7 @@ import kotlin.Long
 import kotlin.String
 
 /**
- * Contains information about a user that has failed to be added to a chat.
+ * Contains information about a user who has failed to be added to a chat.
  *
  * @property userId User identifier.
  * @property premiumWouldAllowInvite True, if subscription to Telegram Premium would have allowed to add the user to the chat.

@@ -6,7 +6,7 @@ import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinOnlyTarget
 import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinTargetWithBinaries
 
 group = "dev.g000sha256"
-version = "8.0.0"
+version = "9.0.0"
 
 plugins {
     alias(notation = catalog.plugins.android.library)
@@ -146,6 +146,14 @@ val dokkaJavaDocJarTaskProvider = tasks.register<Jar>(name = "dokkaJavaDocJar") 
     group = "documentation"
     archiveClassifier = "javadoc"
     from(dokkaGeneratePublicationHtmlTaskProvider)
+}
+
+dokka {
+    dokkaSourceSets.configureEach {
+        if (name != "commonMain") {
+            suppress.set(true)
+        }
+    }
 }
 
 publishing {

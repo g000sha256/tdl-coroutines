@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Georgii Ippolitov (g000sha256)
+ * Copyright 2025-2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,7 +26,7 @@ import kotlin.String
  * Describes a user or a chat as a member of another chat.
  *
  * @property memberId Identifier of the chat member. Currently, other chats can be only Left or Banned. Only supergroups and channels can have other chats as Left or Banned members and these chats must be supergroups or channels.
- * @property inviterUserId Identifier of a user that invited/promoted/banned this member in the chat; 0 if unknown.
+ * @property inviterUserId Identifier of a user who invited/promoted/banned this member in the chat; 0 if unknown.
  * @property joinedChatDate Point in time (Unix timestamp) when the user joined/was promoted/was banned in the chat.
  * @property status Status of the member in the chat.
  */

@@ -33,7 +33,6 @@ on:
 
 jobs:
   run-generator:
-    if: true
     runs-on: self-hosted
     permissions:
       contents: write
@@ -50,17 +49,11 @@ jobs:
           cd td
           git clean -ffdx
 
-      - name: Setup Java
-        uses: actions/setup-java@v4
-        with:
-          java-version: 24
-          distribution: temurin
+      - name: Set up Java
+        uses: ./.github/actions/set-up-java
 
-      - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@v4
-        with:
-          gradle-version: 8.14.3
-          cache-disabled: false
+      - name: Set up Gradle
+        uses: ./.github/actions/set-up-gradle
 
       - name: Assemble generator
         run: ./gradlew tdl-coroutines-generator:assemble
@@ -69,13 +62,8 @@ jobs:
         run: ./gradlew tdl-coroutines-generator:run
 
       - name: Commit and push
-        uses: EndBug/add-and-commit@v9
+        uses: ./.github/actions/commit-and-push
         with:
-          pull: --rebase --autostash
-          author_name: Georgii Ippolitov
-          author_email: detmmpmznb@g000sha256.dev
-          committer_name: GitHub
-          committer_email: noreply@github.com
           message: Update API [skip ci]
           add: |
             - tdl-coroutines
@@ -95,18 +83,15 @@ jobs:
           lfs: true
           submodules: true
 
-      - name: Setup Java
-        uses: actions/setup-java@v4
-        with:
-          java-version: 24
-          distribution: temurin
+      - name: Set up Java
+        uses: ./.github/actions/set-up-java
 
-      - name: Setup PHP
+      - name: Set up PHP
         uses: shivammathur/setup-php@v2
         with:
           tools: none
 
-      - name: Setup dependencies
+      - name: Set up dependencies
         run: sudo apt-get install make git zlib1g-dev libssl-dev gperf cmake g++
 
       - name: Check environment
@@ -139,13 +124,8 @@ jobs:
           cp -r td/example/android/tdlib/libs/* tdl-coroutines/src/androidMainGenerated/jniLibs
 
       - name: Commit and push
-        uses: EndBug/add-and-commit@v9
+        uses: ./.github/actions/commit-and-push
         with:
-          pull: --rebase --autostash
-          author_name: Georgii Ippolitov
-          author_email: detmmpmznb@g000sha256.dev
-          committer_name: GitHub
-          committer_email: noreply@github.com
           message: TDLib for Android [skip ci]
           add: tdl-coroutines
 
@@ -163,18 +143,15 @@ jobs:
           lfs: true
           submodules: true
 
-      - name: Setup Java
-        uses: actions/setup-java@v4
-        with:
-          java-version: 24
-          distribution: temurin
+      - name: Set up Java
+        uses: ./.github/actions/set-up-java
 
-      - name: Setup PHP
+      - name: Set up PHP
         uses: shivammathur/setup-php@v2
         with:
           tools: none
 
-      - name: Setup dependencies
+      - name: Set up dependencies
         run: sudo apt-get install make git zlib1g-dev libssl-dev gperf cmake g++
 
       - name: Build TDLib
@@ -200,13 +177,8 @@ jobs:
           cp td/tdlib/bin/*.so tdl-coroutines/src/jvmMainGenerated/resources/libs/linux-arm64
 
       - name: Commit and push
-        uses: EndBug/add-and-commit@v9
+        uses: ./.github/actions/commit-and-push
         with:
-          pull: --rebase --autostash
-          author_name: Georgii Ippolitov
-          author_email: detmmpmznb@g000sha256.dev
-          committer_name: GitHub
-          committer_email: noreply@github.com
           message: TDLib for JVM Linux Arm64 [skip ci]
           add: tdl-coroutines
 
@@ -224,18 +196,15 @@ jobs:
           lfs: true
           submodules: true
 
-      - name: Setup Java
-        uses: actions/setup-java@v4
-        with:
-          java-version: 24
-          distribution: temurin
+      - name: Set up Java
+        uses: ./.github/actions/set-up-java
 
-      - name: Setup PHP
+      - name: Set up PHP
         uses: shivammathur/setup-php@v2
         with:
           tools: none
 
-      - name: Setup dependencies
+      - name: Set up dependencies
         run: sudo apt-get install make git zlib1g-dev libssl-dev gperf cmake g++
 
       - name: Build TDLib
@@ -261,13 +230,8 @@ jobs:
           cp td/tdlib/bin/*.so tdl-coroutines/src/jvmMainGenerated/resources/libs/linux-x64
 
       - name: Commit and push
-        uses: EndBug/add-and-commit@v9
+        uses: ./.github/actions/commit-and-push
         with:
-          pull: --rebase --autostash
-          author_name: Georgii Ippolitov
-          author_email: detmmpmznb@g000sha256.dev
-          committer_name: GitHub
-          committer_email: noreply@github.com
           message: TDLib for JVM Linux x64 [skip ci]
           add: tdl-coroutines
 
@@ -290,7 +254,7 @@ jobs:
           cd td
           git clean -ffdx
 
-      - name: Setup dependencies
+      - name: Set up dependencies
         run: brew install gperf cmake openssl coreutils openjdk
 
       - name: Build TDLib
@@ -316,13 +280,8 @@ jobs:
           cp td/tdlib/bin/*.dylib tdl-coroutines/src/jvmMainGenerated/resources/libs/macos-arm64
 
       - name: Commit and push
-        uses: EndBug/add-and-commit@v9
+        uses: ./.github/actions/commit-and-push
         with:
-          pull: --rebase --autostash
-          author_name: Georgii Ippolitov
-          author_email: detmmpmznb@g000sha256.dev
-          committer_name: GitHub
-          committer_email: noreply@github.com
           message: TDLib for JVM macOS Arm64 [skip ci]
           add: tdl-coroutines
 
@@ -340,7 +299,7 @@ jobs:
           lfs: true
           submodules: true
 
-      - name: Setup dependencies
+      - name: Set up dependencies
         run: brew install gperf cmake openssl coreutils openjdk
 
       - name: Build TDLib
@@ -348,12 +307,12 @@ jobs:
           cd td
           mkdir build
           cd build
-          cmake -DCMAKE_BUILD_TYPE=Release -DJAVA_HOME=/opt/homebrew/opt/openjdk/libexec/openjdk.jdk/Contents/Home/ -DOPENSSL_ROOT_DIR=/opt/homebrew/opt/openssl/ -DCMAKE_INSTALL_PREFIX:PATH=../example/java/td -DTD_ENABLE_JNI=ON ..
+          cmake -DCMAKE_BUILD_TYPE=Release -DJAVA_HOME=/usr/local/opt/openjdk/libexec/openjdk.jdk/Contents/Home/ -DOPENSSL_ROOT_DIR=/usr/local/opt/openssl/ -DCMAKE_INSTALL_PREFIX:PATH=../example/java/td -DTD_ENABLE_JNI=ON ..
           cmake --build . --target install
           cd ../example/java
           mkdir build
           cd build
-          cmake -DCMAKE_BUILD_TYPE=Release -DJAVA_HOME=/opt/homebrew/opt/openjdk/libexec/openjdk.jdk/Contents/Home/ -DCMAKE_INSTALL_PREFIX:PATH=../../../tdlib -DTd_DIR:PATH=$(greadlink -e ../td/lib/cmake/Td) -DTD_JSON_JAVA=ON ..
+          cmake -DCMAKE_BUILD_TYPE=Release -DJAVA_HOME=/usr/local/opt/openjdk/libexec/openjdk.jdk/Contents/Home/ -DCMAKE_INSTALL_PREFIX:PATH=../../../tdlib -DTd_DIR:PATH=$(greadlink -e ../td/lib/cmake/Td) -DTD_JSON_JAVA=ON ..
           cmake --build . --target install
 
       - name: SHA256 checksums
@@ -366,13 +325,8 @@ jobs:
           cp td/tdlib/bin/*.dylib tdl-coroutines/src/jvmMainGenerated/resources/libs/macos-x64
 
       - name: Commit and push
-        uses: EndBug/add-and-commit@v9
+        uses: ./.github/actions/commit-and-push
         with:
-          pull: --rebase --autostash
-          author_name: Georgii Ippolitov
-          author_email: detmmpmznb@g000sha256.dev
-          committer_name: GitHub
-          committer_email: noreply@github.com
           message: TDLib for JVM macOS x64 [skip ci]
           add: tdl-coroutines
 
@@ -390,7 +344,7 @@ jobs:
           lfs: true
           submodules: true
 
-      - name: Setup dependencies
+      - name: Set up dependencies
         run: |
           git clone https://github.com/Microsoft/vcpkg.git
           cd vcpkg
@@ -420,13 +374,8 @@ jobs:
           Copy-Item td/tdlib/bin/*.dll -Destination tdl-coroutines/src/jvmMainGenerated/resources/libs/windows-arm64
 
       - name: Commit and push
-        uses: EndBug/add-and-commit@v9
+        uses: ./.github/actions/commit-and-push
         with:
-          pull: --rebase --autostash
-          author_name: Georgii Ippolitov
-          author_email: detmmpmznb@g000sha256.dev
-          committer_name: GitHub
-          committer_email: noreply@github.com
           message: TDLib for JVM Windows Arm64 [skip ci]
           add: tdl-coroutines
 
@@ -444,7 +393,7 @@ jobs:
           lfs: true
           submodules: true
 
-      - name: Setup dependencies
+      - name: Set up dependencies
         run: |
           git clone https://github.com/Microsoft/vcpkg.git
           cd vcpkg
@@ -474,13 +423,8 @@ jobs:
           Copy-Item td/tdlib/bin/*.dll -Destination tdl-coroutines/src/jvmMainGenerated/resources/libs/windows-x64
 
       - name: Commit and push
-        uses: EndBug/add-and-commit@v9
+        uses: ./.github/actions/commit-and-push
         with:
-          pull: --rebase --autostash
-          author_name: Georgii Ippolitov
-          author_email: detmmpmznb@g000sha256.dev
-          committer_name: GitHub
-          committer_email: noreply@github.com
           message: TDLib for JVM Windows x64 [skip ci]
           add: tdl-coroutines
 
@@ -503,7 +447,7 @@ jobs:
           cd td
           git clean -ffdx
 
-      - name: Setup dependencies
+      - name: Set up dependencies
         run: brew install gperf cmake coreutils
 
       - name: Build OpenSSL
@@ -542,13 +486,8 @@ jobs:
           cp td/example/ios/third_party/openssl/iOS/lib/*.a tdl-coroutines/generated/iosArm64/libs
 
       - name: Commit and push
-        uses: EndBug/add-and-commit@v9
+        uses: ./.github/actions/commit-and-push
         with:
-          pull: --rebase --autostash
-          author_name: Georgii Ippolitov
-          author_email: detmmpmznb@g000sha256.dev
-          committer_name: GitHub
-          committer_email: noreply@github.com
           message: TDLib for iOS Arm64 [skip ci]
           add: tdl-coroutines
 
@@ -571,7 +510,7 @@ jobs:
           cd td
           git clean -ffdx
 
-      - name: Setup dependencies
+      - name: Set up dependencies
         run: brew install gperf cmake coreutils
 
       - name: Build OpenSSL
@@ -616,13 +555,8 @@ jobs:
           cp td/example/ios/third_party/openssl/iOS-simulator/lib/*.a tdl-coroutines/generated/iosArm64Simulator/libs
 
       - name: Commit and push
-        uses: EndBug/add-and-commit@v9
+        uses: ./.github/actions/commit-and-push
         with:
-          pull: --rebase --autostash
-          author_name: Georgii Ippolitov
-          author_email: detmmpmznb@g000sha256.dev
-          committer_name: GitHub
-          committer_email: noreply@github.com
           message: TDLib for iOS Arm64 simulator [skip ci]
           add: tdl-coroutines
 
@@ -645,7 +579,7 @@ jobs:
           cd td
           git clean -ffdx
 
-      - name: Setup dependencies
+      - name: Set up dependencies
         run: brew install gperf cmake coreutils
 
       - name: Build OpenSSL
@@ -690,13 +624,8 @@ jobs:
           cp td/example/ios/third_party/openssl/iOS-simulator/lib/*.a tdl-coroutines/generated/iosX64Simulator/libs
 
       - name: Commit and push
-        uses: EndBug/add-and-commit@v9
+        uses: ./.github/actions/commit-and-push
         with:
-          pull: --rebase --autostash
-          author_name: Georgii Ippolitov
-          author_email: detmmpmznb@g000sha256.dev
-          committer_name: GitHub
-          committer_email: noreply@github.com
           message: TDLib for iOS x64 simulator [skip ci]
           add: tdl-coroutines
 
@@ -719,7 +648,7 @@ jobs:
           cd td
           git clean -ffdx
 
-      - name: Setup dependencies
+      - name: Set up dependencies
         run: brew install gperf cmake coreutils
 
       - name: Build OpenSSL
@@ -759,13 +688,8 @@ jobs:
           cp td/example/ios/third_party/openssl/macOS/lib/*.a tdl-coroutines/generated/macosArm64/libs
 
       - name: Commit and push
-        uses: EndBug/add-and-commit@v9
+        uses: ./.github/actions/commit-and-push
         with:
-          pull: --rebase --autostash
-          author_name: Georgii Ippolitov
-          author_email: detmmpmznb@g000sha256.dev
-          committer_name: GitHub
-          committer_email: noreply@github.com
           message: TDLib for macOS Arm64 [skip ci]
           add: tdl-coroutines
 
@@ -783,7 +707,7 @@ jobs:
           lfs: true
           submodules: true
 
-      - name: Setup dependencies
+      - name: Set up dependencies
         run: brew install gperf cmake coreutils
 
       - name: Build OpenSSL
@@ -823,12 +747,7 @@ jobs:
           cp td/example/ios/third_party/openssl/macOS/lib/*.a tdl-coroutines/generated/macosX64/libs
 
       - name: Commit and push
-        uses: EndBug/add-and-commit@v9
+        uses: ./.github/actions/commit-and-push
         with:
-          pull: --rebase --autostash
-          author_name: Georgii Ippolitov
-          author_email: detmmpmznb@g000sha256.dev
-          committer_name: GitHub
-          committer_email: noreply@github.com
           message: TDLib for macOS x64 [skip ci]
           add: tdl-coroutines

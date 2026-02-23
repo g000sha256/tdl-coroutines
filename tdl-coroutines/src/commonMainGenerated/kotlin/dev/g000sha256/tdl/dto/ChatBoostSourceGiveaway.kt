@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Georgii Ippolitov (g000sha256)
+ * Copyright 2025-2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,7 +25,7 @@ import kotlin.String
 /**
  * The chat created a giveaway.
  *
- * @property userId Identifier of a user that won in the giveaway; 0 if none.
+ * @property userId Identifier of a user who won in the giveaway; 0 if none.
  * @property giftCode The created Telegram Premium gift code if it was used by the user or can be claimed by the current user; an empty string otherwise; for Telegram Premium giveways only.
  * @property starCount Number of Telegram Stars distributed among winners of the giveaway.
  * @property giveawayMessageId Identifier of the corresponding giveaway message; can be an identifier of a deleted message.

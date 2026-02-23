@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Georgii Ippolitov (g000sha256)
+ * Copyright 2025-2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,7 +25,7 @@ import kotlin.String
 /**
  * Describes price of a suggested post in Telegram Stars.
  *
- * @property starCount The amount of Telegram Stars expected to be paid for the post; getOption(&quot;suggested_post_star_count_min&quot;)-getOption(&quot;suggested_post_star_count_max&quot;).
+ * @property starCount The Telegram Star amount expected to be paid for the post; getOption(&quot;suggested_post_star_count_min&quot;)-getOption(&quot;suggested_post_star_count_max&quot;).
  */
 public class SuggestedPostPriceStar public constructor(
     public val starCount: Long,

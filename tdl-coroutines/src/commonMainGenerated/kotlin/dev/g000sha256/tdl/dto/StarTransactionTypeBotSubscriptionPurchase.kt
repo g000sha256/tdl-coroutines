@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Georgii Ippolitov (g000sha256)
+ * Copyright 2025-2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,7 +25,7 @@ import kotlin.String
 /**
  * The transaction is a purchase of a subscription from a bot or a business account by the current user; relevant for regular users only.
  *
- * @property userId Identifier of the bot or the business account user that created the subscription link.
+ * @property userId Identifier of the bot or the business account user who created the subscription link.
  * @property subscriptionPeriod The number of seconds between consecutive Telegram Star debitings.
  * @property productInfo Information about the bought subscription.
  */

@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Georgii Ippolitov (g000sha256)
+ * Copyright 2025-2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,14 +24,10 @@ import kotlin.String
 /**
  * The link is a link to a proxy. Call addProxy with the given parameters to process the link and add the proxy.
  *
- * @property server Proxy server domain or IP address.
- * @property port Proxy server port.
- * @property type Type of the proxy.
+ * @property proxy The proxy; may be null if the proxy is unsupported, in which case an alert can be shown to the user.
  */
 public class InternalLinkTypeProxy public constructor(
-    public val server: String,
-    public val port: Int,
-    public val type: ProxyType,
+    public val proxy: Proxy?,
 ) : InternalLinkType() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
@@ -44,20 +40,12 @@ public class InternalLinkTypeProxy public constructor(
             return false
         }
         other as InternalLinkTypeProxy
-        if (other.server != server) {
-            return false
-        }
-        if (other.port != port) {
-            return false
-        }
-        return other.type == type
+        return other.proxy == proxy
     }
 
     override fun hashCode(): Int {
         var hashCode = this::class.hashCode()
-        hashCode = 31 * hashCode + server.hashCode()
-        hashCode = 31 * hashCode + port.hashCode()
-        hashCode = 31 * hashCode + type.hashCode()
+        hashCode = 31 * hashCode + proxy.hashCode()
         return hashCode
     }
 
@@ -65,14 +53,8 @@ public class InternalLinkTypeProxy public constructor(
         return buildString {
             append("InternalLinkTypeProxy")
             append("(")
-            append("server=")
-            append(server)
-            append(", ")
-            append("port=")
-            append(port)
-            append(", ")
-            append("type=")
-            append(type)
+            append("proxy=")
+            append(proxy)
             append(")")
         }
     }

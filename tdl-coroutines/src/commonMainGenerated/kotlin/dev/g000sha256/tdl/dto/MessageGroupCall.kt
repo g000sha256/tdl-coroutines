@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Georgii Ippolitov (g000sha256)
+ * Copyright 2025-2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,11 +20,13 @@ import kotlin.Any
 import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
+import kotlin.Long
 import kotlin.String
 
 /**
  * A message with information about a group call not bound to a chat. If the message is incoming, the call isn't active, isn't missed, and has no duration, and getOption(&quot;can_accept_calls&quot;) is true, then incoming call screen must be shown to the user. Use getGroupCallParticipants to show current group call participants on the screen. Use joinGroupCall to accept the call or declineGroupCallInvitation to decline it. If the call become active or missed, then the call screen must be hidden.
  *
+ * @property uniqueId Persistent unique group call identifier.
  * @property isActive True, if the call is active, i.e. the called user joined the call.
  * @property wasMissed True, if the called user missed or declined the call.
  * @property isVideo True, if the call is a video call.
@@ -32,6 +34,7 @@ import kotlin.String
  * @property otherParticipantIds Identifiers of some other call participants.
  */
 public class MessageGroupCall public constructor(
+    public val uniqueId: Long,
     public val isActive: Boolean,
     public val wasMissed: Boolean,
     public val isVideo: Boolean,
@@ -49,6 +52,9 @@ public class MessageGroupCall public constructor(
             return false
         }
         other as MessageGroupCall
+        if (other.uniqueId != uniqueId) {
+            return false
+        }
         if (other.isActive != isActive) {
             return false
         }
@@ -66,6 +72,7 @@ public class MessageGroupCall public constructor(
 
     override fun hashCode(): Int {
         var hashCode = this::class.hashCode()
+        hashCode = 31 * hashCode + uniqueId.hashCode()
         hashCode = 31 * hashCode + isActive.hashCode()
         hashCode = 31 * hashCode + wasMissed.hashCode()
         hashCode = 31 * hashCode + isVideo.hashCode()
@@ -78,6 +85,9 @@ public class MessageGroupCall public constructor(
         return buildString {
             append("MessageGroupCall")
             append("(")
+            append("uniqueId=")
+            append(uniqueId)
+            append(", ")
             append("isActive=")
             append(isActive)
             append(", ")

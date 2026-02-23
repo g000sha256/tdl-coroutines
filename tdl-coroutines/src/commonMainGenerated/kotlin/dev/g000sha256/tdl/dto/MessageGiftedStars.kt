@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Georgii Ippolitov (g000sha256)
+ * Copyright 2025-2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,8 +25,8 @@ import kotlin.String
 /**
  * Telegram Stars were gifted to a user.
  *
- * @property gifterUserId The identifier of a user that gifted Telegram Stars; 0 if the gift was anonymous or is outgoing.
- * @property receiverUserId The identifier of a user that received Telegram Stars; 0 if the gift is incoming.
+ * @property gifterUserId The identifier of a user who gifted Telegram Stars; 0 if the gift was anonymous or is outgoing.
+ * @property receiverUserId The identifier of a user who received Telegram Stars; 0 if the gift is incoming.
  * @property currency Currency for the paid amount.
  * @property amount The paid amount, in the smallest units of the currency.
  * @property cryptocurrency Cryptocurrency used to pay for the gift; may be empty if none.

@@ -17,6 +17,8 @@
 package dev.g000sha256.tdl
 
 import dev.g000sha256.tdl.dto.AccountTtl
+import dev.g000sha256.tdl.dto.AddedProxies
+import dev.g000sha256.tdl.dto.AddedProxy
 import dev.g000sha256.tdl.dto.AddedReactions
 import dev.g000sha256.tdl.dto.AffiliateProgramParameters
 import dev.g000sha256.tdl.dto.AffiliateProgramSortOrder
@@ -124,6 +126,7 @@ import dev.g000sha256.tdl.dto.ConnectedAffiliatePrograms
 import dev.g000sha256.tdl.dto.ConnectedWebsites
 import dev.g000sha256.tdl.dto.Count
 import dev.g000sha256.tdl.dto.Countries
+import dev.g000sha256.tdl.dto.CraftGiftResult
 import dev.g000sha256.tdl.dto.CreatedBasicGroupChat
 import dev.g000sha256.tdl.dto.CurrentWeather
 import dev.g000sha256.tdl.dto.CustomRequestResult
@@ -176,6 +179,7 @@ import dev.g000sha256.tdl.dto.GiftResaleResult
 import dev.g000sha256.tdl.dto.GiftSettings
 import dev.g000sha256.tdl.dto.GiftUpgradePreview
 import dev.g000sha256.tdl.dto.GiftUpgradeVariants
+import dev.g000sha256.tdl.dto.GiftsForCrafting
 import dev.g000sha256.tdl.dto.GiftsForResale
 import dev.g000sha256.tdl.dto.GiveawayInfo
 import dev.g000sha256.tdl.dto.GiveawayParameters
@@ -291,9 +295,7 @@ import dev.g000sha256.tdl.dto.PremiumState
 import dev.g000sha256.tdl.dto.PreparedInlineMessage
 import dev.g000sha256.tdl.dto.PreparedInlineMessageId
 import dev.g000sha256.tdl.dto.ProfileTab
-import dev.g000sha256.tdl.dto.Proxies
 import dev.g000sha256.tdl.dto.Proxy
-import dev.g000sha256.tdl.dto.ProxyType
 import dev.g000sha256.tdl.dto.PublicChatType
 import dev.g000sha256.tdl.dto.PublicForwards
 import dev.g000sha256.tdl.dto.PublicPostSearchLimits
@@ -679,6 +681,7 @@ import dev.g000sha256.tdl.function.CommitPendingPaidMessageReactions
 import dev.g000sha256.tdl.function.ConfirmQrCodeAuthentication
 import dev.g000sha256.tdl.function.ConfirmSession
 import dev.g000sha256.tdl.function.ConnectAffiliateProgram
+import dev.g000sha256.tdl.function.CraftGift
 import dev.g000sha256.tdl.function.CreateBasicGroupChat
 import dev.g000sha256.tdl.function.CreateBusinessChatLink
 import dev.g000sha256.tdl.function.CreateCall
@@ -860,6 +863,7 @@ import dev.g000sha256.tdl.function.GetChatMessageCalendar
 import dev.g000sha256.tdl.function.GetChatMessageCount
 import dev.g000sha256.tdl.function.GetChatMessagePosition
 import dev.g000sha256.tdl.function.GetChatNotificationSettingsExceptions
+import dev.g000sha256.tdl.function.GetChatOwnerAfterLeaving
 import dev.g000sha256.tdl.function.GetChatPinnedMessage
 import dev.g000sha256.tdl.function.GetChatPostedToChatPageStories
 import dev.g000sha256.tdl.function.GetChatRevenueStatistics
@@ -925,7 +929,7 @@ import dev.g000sha256.tdl.function.GetGiftAuctionState
 import dev.g000sha256.tdl.function.GetGiftChatThemes
 import dev.g000sha256.tdl.function.GetGiftCollections
 import dev.g000sha256.tdl.function.GetGiftUpgradePreview
-import dev.g000sha256.tdl.function.GetGiftUpgradeVariants
+import dev.g000sha256.tdl.function.GetGiftsForCrafting
 import dev.g000sha256.tdl.function.GetGiveawayInfo
 import dev.g000sha256.tdl.function.GetGreetingStickers
 import dev.g000sha256.tdl.function.GetGrossingWebAppBots
@@ -1012,7 +1016,6 @@ import dev.g000sha256.tdl.function.GetPremiumStickerExamples
 import dev.g000sha256.tdl.function.GetPremiumStickers
 import dev.g000sha256.tdl.function.GetPreparedInlineMessage
 import dev.g000sha256.tdl.function.GetProxies
-import dev.g000sha256.tdl.function.GetProxyLink
 import dev.g000sha256.tdl.function.GetPublicPostSearchLimits
 import dev.g000sha256.tdl.function.GetPushReceiverId
 import dev.g000sha256.tdl.function.GetReadDatePrivacySettings
@@ -1087,6 +1090,7 @@ import dev.g000sha256.tdl.function.GetTrendingStickerSets
 import dev.g000sha256.tdl.function.GetUpgradedGift
 import dev.g000sha256.tdl.function.GetUpgradedGiftEmojiStatuses
 import dev.g000sha256.tdl.function.GetUpgradedGiftValueInfo
+import dev.g000sha256.tdl.function.GetUpgradedGiftVariants
 import dev.g000sha256.tdl.function.GetUpgradedGiftWithdrawalUrl
 import dev.g000sha256.tdl.function.GetUpgradedGiftsPromotionalAnimation
 import dev.g000sha256.tdl.function.GetUser
@@ -2307,17 +2311,10 @@ internal class TdlClientImpl internal constructor(
         return repository.send(function = function)
     }
 
-    override suspend fun addProxy(
-        server: String,
-        port: Int,
-        enable: Boolean,
-        type: ProxyType,
-    ): TdlResult<Proxy> {
+    override suspend fun addProxy(proxy: Proxy, enable: Boolean): TdlResult<AddedProxy> {
         val function = AddProxy(
-            server = server,
-            port = port,
+            proxy = proxy,
             enable = enable,
-            type = type,
         )
         return repository.send(function = function)
     }
@@ -3001,6 +2998,13 @@ internal class TdlClientImpl internal constructor(
         val function = ConnectAffiliateProgram(
             affiliate = affiliate,
             botUserId = botUserId,
+        )
+        return repository.send(function = function)
+    }
+
+    override suspend fun craftGift(receivedGiftIds: Array<String>): TdlResult<CraftGiftResult> {
+        val function = CraftGift(
+            receivedGiftIds = receivedGiftIds,
         )
         return repository.send(function = function)
     }
@@ -4110,17 +4114,13 @@ internal class TdlClientImpl internal constructor(
 
     override suspend fun editProxy(
         proxyId: Int,
-        server: String,
-        port: Int,
+        proxy: Proxy,
         enable: Boolean,
-        type: ProxyType,
-    ): TdlResult<Proxy> {
+    ): TdlResult<AddedProxy> {
         val function = EditProxy(
             proxyId = proxyId,
-            server = server,
-            port = port,
+            proxy = proxy,
             enable = enable,
-            type = type,
         )
         return repository.send(function = function)
     }
@@ -4853,6 +4853,13 @@ internal class TdlClientImpl internal constructor(
         return repository.send(function = function)
     }
 
+    override suspend fun getChatOwnerAfterLeaving(chatId: Long): TdlResult<User> {
+        val function = GetChatOwnerAfterLeaving(
+            chatId = chatId,
+        )
+        return repository.send(function = function)
+    }
+
     override suspend fun getChatPinnedMessage(chatId: Long): TdlResult<Message> {
         val function = GetChatPinnedMessage(
             chatId = chatId,
@@ -5215,10 +5222,15 @@ internal class TdlClientImpl internal constructor(
         return repository.send(function = function)
     }
 
-    override suspend fun getExternalLink(link: String, allowWriteAccess: Boolean): TdlResult<HttpUrl> {
+    override suspend fun getExternalLink(
+        link: String,
+        allowWriteAccess: Boolean,
+        allowPhoneNumberAccess: Boolean,
+    ): TdlResult<HttpUrl> {
         val function = GetExternalLink(
             link = link,
             allowWriteAccess = allowWriteAccess,
+            allowPhoneNumberAccess = allowPhoneNumberAccess,
         )
         return repository.send(function = function)
     }
@@ -5363,16 +5375,22 @@ internal class TdlClientImpl internal constructor(
         return repository.send(function = function)
     }
 
-    override suspend fun getGiftUpgradePreview(giftId: Long): TdlResult<GiftUpgradePreview> {
+    override suspend fun getGiftUpgradePreview(regularGiftId: Long): TdlResult<GiftUpgradePreview> {
         val function = GetGiftUpgradePreview(
-            giftId = giftId,
+            regularGiftId = regularGiftId,
         )
         return repository.send(function = function)
     }
 
-    override suspend fun getGiftUpgradeVariants(giftId: Long): TdlResult<GiftUpgradeVariants> {
-        val function = GetGiftUpgradeVariants(
-            giftId = giftId,
+    override suspend fun getGiftsForCrafting(
+        regularGiftId: Long,
+        offset: String,
+        limit: Int,
+    ): TdlResult<GiftsForCrafting> {
+        val function = GetGiftsForCrafting(
+            regularGiftId = regularGiftId,
+            offset = offset,
+            limit = limit,
         )
         return repository.send(function = function)
     }
@@ -6107,15 +6125,8 @@ internal class TdlClientImpl internal constructor(
         return repository.send(function = function)
     }
 
-    override suspend fun getProxies(): TdlResult<Proxies> {
+    override suspend fun getProxies(): TdlResult<AddedProxies> {
         val function = GetProxies()
-        return repository.send(function = function)
-    }
-
-    override suspend fun getProxyLink(proxyId: Int): TdlResult<HttpUrl> {
-        val function = GetProxyLink(
-            proxyId = proxyId,
-        )
         return repository.send(function = function)
     }
 
@@ -6741,6 +6752,19 @@ internal class TdlClientImpl internal constructor(
         return repository.send(function = function)
     }
 
+    override suspend fun getUpgradedGiftVariants(
+        regularGiftId: Long,
+        returnUpgradeModels: Boolean,
+        returnCraftModels: Boolean,
+    ): TdlResult<GiftUpgradeVariants> {
+        val function = GetUpgradedGiftVariants(
+            regularGiftId = regularGiftId,
+            returnUpgradeModels = returnUpgradeModels,
+            returnCraftModels = returnCraftModels,
+        )
+        return repository.send(function = function)
+    }
+
     override suspend fun getUpgradedGiftWithdrawalUrl(receivedGiftId: String, password: String): TdlResult<HttpUrl> {
         val function = GetUpgradedGiftWithdrawalUrl(
             receivedGiftId = receivedGiftId,
@@ -7257,9 +7281,9 @@ internal class TdlClientImpl internal constructor(
         return repository.send(function = function)
     }
 
-    override suspend fun pingProxy(proxyId: Int): TdlResult<Seconds> {
+    override suspend fun pingProxy(proxy: Proxy?): TdlResult<Seconds> {
         val function = PingProxy(
-            proxyId = proxyId,
+            proxy = proxy,
         )
         return repository.send(function = function)
     }
@@ -8267,6 +8291,7 @@ internal class TdlClientImpl internal constructor(
     override suspend fun searchGiftsForResale(
         giftId: Long,
         order: GiftForResaleOrder,
+        forCrafting: Boolean,
         attributes: Array<UpgradedGiftAttributeId>,
         offset: String,
         limit: Int,
@@ -8274,6 +8299,7 @@ internal class TdlClientImpl internal constructor(
         val function = SearchGiftsForResale(
             giftId = giftId,
             order = order,
+            forCrafting = forCrafting,
             attributes = attributes,
             offset = offset,
             limit = limit,
@@ -8661,7 +8687,7 @@ internal class TdlClientImpl internal constructor(
 
     override suspend fun sendChatAction(
         chatId: Long,
-        topicId: MessageTopic,
+        topicId: MessageTopic?,
         businessConnectionId: String,
         action: ChatAction?,
     ): TdlResult<Ok> {
@@ -10398,16 +10424,12 @@ internal class TdlClientImpl internal constructor(
     }
 
     override suspend fun testProxy(
-        server: String,
-        port: Int,
-        type: ProxyType,
+        proxy: Proxy,
         dcId: Int,
         timeout: Double,
     ): TdlResult<Ok> {
         val function = TestProxy(
-            server = server,
-            port = port,
-            type = type,
+            proxy = proxy,
             dcId = dcId,
             timeout = timeout,
         )

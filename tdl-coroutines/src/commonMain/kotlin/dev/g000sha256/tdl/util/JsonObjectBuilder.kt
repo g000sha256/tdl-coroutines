@@ -17,7 +17,6 @@
 package dev.g000sha256.tdl.util
 
 import kotlin.io.encoding.Base64
-import kotlin.io.encoding.ExperimentalEncodingApi
 import kotlinx.serialization.json.JsonElement
 import kotlinx.serialization.json.JsonNull
 import kotlinx.serialization.json.JsonObjectBuilder
@@ -138,7 +137,6 @@ internal fun JsonObjectBuilder.put(key: String, strings: Array<String>) {
     }
 }
 
-@OptIn(ExperimentalEncodingApi::class)
 private fun ByteArray.toBase64(): String {
     return Base64.encode(source = this)
 }

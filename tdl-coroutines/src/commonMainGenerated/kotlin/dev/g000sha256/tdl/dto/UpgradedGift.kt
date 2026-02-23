@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Georgii Ippolitov (g000sha256)
+ * Copyright 2025-2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,6 +33,8 @@ import kotlin.String
  * @property number Unique number of the upgraded gift among gifts upgraded from the same gift.
  * @property totalUpgradedCount Total number of gifts that were upgraded from the same gift.
  * @property maxUpgradedCount The maximum number of gifts that can be upgraded from the same gift.
+ * @property isBurned True, if the gift was used to craft another gift.
+ * @property isCrafted True, if the gift was craft from another gifts.
  * @property isPremium True, if the original gift could have been bought only by Telegram Premium subscribers.
  * @property isThemeAvailable True, if the gift can be used to set a theme in a chat.
  * @property usedThemeChatId Identifier of the chat for which the gift is used to set a theme; 0 if none or the gift isn't owned by the current user.
@@ -45,9 +47,10 @@ import kotlin.String
  * @property symbol Symbol of the upgraded gift.
  * @property backdrop Backdrop of the upgraded gift.
  * @property originalDetails Information about the originally sent gift; may be null if unknown.
- * @property colors Colors that can be set for user's name, background of empty chat photo, replies to messages and link previews; may be null if none.
+ * @property colors Colors that can be set for user's name, background of empty chat photo, replies to messages and link previews; may be null if none or unknown.
  * @property resaleParameters Resale parameters of the gift; may be null if resale isn't possible.
  * @property canSendPurchaseOffer True, if an offer to purchase the gift can be sent using sendGiftPurchaseOffer.
+ * @property craftProbabilityPerMille Probability that the gift adds to the chance of successful crafting of a new gift; 0 if the gift can't be used for crafting.
  * @property valueCurrency ISO 4217 currency code of the currency in which value of the gift is represented; may be empty if unavailable.
  * @property valueAmount Estimated value of the gift; in the smallest units of the currency; 0 if unavailable.
  * @property valueUsdAmount Estimated value of the gift in USD; in USD cents; 0 if unavailable.
@@ -61,6 +64,8 @@ public class UpgradedGift public constructor(
     public val number: Int,
     public val totalUpgradedCount: Int,
     public val maxUpgradedCount: Int,
+    public val isBurned: Boolean,
+    public val isCrafted: Boolean,
     public val isPremium: Boolean,
     public val isThemeAvailable: Boolean,
     public val usedThemeChatId: Long,
@@ -76,6 +81,7 @@ public class UpgradedGift public constructor(
     public val colors: UpgradedGiftColors?,
     public val resaleParameters: GiftResaleParameters?,
     public val canSendPurchaseOffer: Boolean,
+    public val craftProbabilityPerMille: Int,
     public val valueCurrency: String,
     public val valueAmount: Long,
     public val valueUsdAmount: Long,
@@ -113,6 +119,12 @@ public class UpgradedGift public constructor(
             return false
         }
         if (other.maxUpgradedCount != maxUpgradedCount) {
+            return false
+        }
+        if (other.isBurned != isBurned) {
+            return false
+        }
+        if (other.isCrafted != isCrafted) {
             return false
         }
         if (other.isPremium != isPremium) {
@@ -160,6 +172,9 @@ public class UpgradedGift public constructor(
         if (other.canSendPurchaseOffer != canSendPurchaseOffer) {
             return false
         }
+        if (other.craftProbabilityPerMille != craftProbabilityPerMille) {
+            return false
+        }
         if (other.valueCurrency != valueCurrency) {
             return false
         }
@@ -179,6 +194,8 @@ public class UpgradedGift public constructor(
         hashCode = 31 * hashCode + number.hashCode()
         hashCode = 31 * hashCode + totalUpgradedCount.hashCode()
         hashCode = 31 * hashCode + maxUpgradedCount.hashCode()
+        hashCode = 31 * hashCode + isBurned.hashCode()
+        hashCode = 31 * hashCode + isCrafted.hashCode()
         hashCode = 31 * hashCode + isPremium.hashCode()
         hashCode = 31 * hashCode + isThemeAvailable.hashCode()
         hashCode = 31 * hashCode + usedThemeChatId.hashCode()
@@ -194,6 +211,7 @@ public class UpgradedGift public constructor(
         hashCode = 31 * hashCode + colors.hashCode()
         hashCode = 31 * hashCode + resaleParameters.hashCode()
         hashCode = 31 * hashCode + canSendPurchaseOffer.hashCode()
+        hashCode = 31 * hashCode + craftProbabilityPerMille.hashCode()
         hashCode = 31 * hashCode + valueCurrency.hashCode()
         hashCode = 31 * hashCode + valueAmount.hashCode()
         hashCode = 31 * hashCode + valueUsdAmount.hashCode()
@@ -227,6 +245,12 @@ public class UpgradedGift public constructor(
             append(", ")
             append("maxUpgradedCount=")
             append(maxUpgradedCount)
+            append(", ")
+            append("isBurned=")
+            append(isBurned)
+            append(", ")
+            append("isCrafted=")
+            append(isCrafted)
             append(", ")
             append("isPremium=")
             append(isPremium)
@@ -272,6 +296,9 @@ public class UpgradedGift public constructor(
             append(", ")
             append("canSendPurchaseOffer=")
             append(canSendPurchaseOffer)
+            append(", ")
+            append("craftProbabilityPerMille=")
+            append(craftProbabilityPerMille)
             append(", ")
             append("valueCurrency=")
             append(valueCurrency)

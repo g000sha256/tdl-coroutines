@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Georgii Ippolitov (g000sha256)
+ * Copyright 2025-2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,9 +24,9 @@ import kotlin.String
 /**
  * Contains information about Telegram Stars earned by a user or a chat.
  *
- * @property totalAmount Total amount of Telegram Stars earned.
- * @property currentAmount The amount of Telegram Stars that aren't withdrawn yet.
- * @property availableAmount The amount of Telegram Stars that are available for withdrawal.
+ * @property totalAmount Total Telegram Star amount earned.
+ * @property currentAmount The Telegram Star amount that isn't withdrawn yet.
+ * @property availableAmount The Telegram Star amount that is available for withdrawal.
  * @property withdrawalEnabled True, if Telegram Stars can be withdrawn now or later.
  * @property nextWithdrawalIn Time left before the next withdrawal can be started, in seconds; 0 if withdrawal can be started now.
  */

@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Georgii Ippolitov (g000sha256)
+ * Copyright 2025-2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,7 +26,7 @@ import kotlin.String
 /**
  * The transaction is a purchase of paid media from a bot or a business account by the current user; relevant for regular users only.
  *
- * @property userId Identifier of the bot or the business account user that sent the paid media.
+ * @property userId Identifier of the bot or the business account user who sent the paid media.
  * @property media The bought media if the transaction wasn't refunded.
  */
 public class StarTransactionTypeBotPaidMediaPurchase public constructor(

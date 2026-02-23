@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Georgii Ippolitov (g000sha256)
+ * Copyright 2025-2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,6 +26,7 @@ import kotlin.String
  * Describes a call.
  *
  * @property id Call identifier, not persistent.
+ * @property uniqueId Persistent unique call identifier; 0 if isn't assigned yet by the server.
  * @property userId User identifier of the other call participant.
  * @property isOutgoing True, if the call is outgoing.
  * @property isVideo True, if the call is a video call.
@@ -33,6 +34,7 @@ import kotlin.String
  */
 public class Call public constructor(
     public val id: Int,
+    public val uniqueId: Long,
     public val userId: Long,
     public val isOutgoing: Boolean,
     public val isVideo: Boolean,
@@ -52,6 +54,9 @@ public class Call public constructor(
         if (other.id != id) {
             return false
         }
+        if (other.uniqueId != uniqueId) {
+            return false
+        }
         if (other.userId != userId) {
             return false
         }
@@ -67,6 +72,7 @@ public class Call public constructor(
     override fun hashCode(): Int {
         var hashCode = this::class.hashCode()
         hashCode = 31 * hashCode + id.hashCode()
+        hashCode = 31 * hashCode + uniqueId.hashCode()
         hashCode = 31 * hashCode + userId.hashCode()
         hashCode = 31 * hashCode + isOutgoing.hashCode()
         hashCode = 31 * hashCode + isVideo.hashCode()
@@ -80,6 +86,9 @@ public class Call public constructor(
             append("(")
             append("id=")
             append(id)
+            append(", ")
+            append("uniqueId=")
+            append(uniqueId)
             append(", ")
             append("userId=")
             append(userId)

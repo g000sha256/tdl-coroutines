@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Georgii Ippolitov (g000sha256)
+ * Copyright 2025-2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -38,6 +38,7 @@ import kotlin.String
  * @property nextTransferDate Point in time (Unix timestamp) when the gift can be transferred to another owner; can be in the past; 0 if the gift can be transferred immediately or transfer isn't possible; only for the receiver of the gift.
  * @property nextResaleDate Point in time (Unix timestamp) when the gift can be resold to another user; can be in the past; 0 if the gift can't be resold; only for the receiver of the gift.
  * @property exportDate Point in time (Unix timestamp) when the gift can be transferred to the TON blockchain as an NFT; can be in the past; 0 if NFT export isn't possible; only for the receiver of the gift.
+ * @property craftDate Point in time (Unix timestamp) when the gift can be used to craft another gift can be in the past; only for the receiver of the gift.
  */
 public class MessageUpgradedGift public constructor(
     public val gift: UpgradedGift,
@@ -53,6 +54,7 @@ public class MessageUpgradedGift public constructor(
     public val nextTransferDate: Int,
     public val nextResaleDate: Int,
     public val exportDate: Int,
+    public val craftDate: Int,
 ) : MessageContent() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
@@ -101,7 +103,10 @@ public class MessageUpgradedGift public constructor(
         if (other.nextResaleDate != nextResaleDate) {
             return false
         }
-        return other.exportDate == exportDate
+        if (other.exportDate != exportDate) {
+            return false
+        }
+        return other.craftDate == craftDate
     }
 
     override fun hashCode(): Int {
@@ -119,6 +124,7 @@ public class MessageUpgradedGift public constructor(
         hashCode = 31 * hashCode + nextTransferDate.hashCode()
         hashCode = 31 * hashCode + nextResaleDate.hashCode()
         hashCode = 31 * hashCode + exportDate.hashCode()
+        hashCode = 31 * hashCode + craftDate.hashCode()
         return hashCode
     }
 
@@ -164,6 +170,9 @@ public class MessageUpgradedGift public constructor(
             append(", ")
             append("exportDate=")
             append(exportDate)
+            append(", ")
+            append("craftDate=")
+            append(craftDate)
             append(")")
         }
     }

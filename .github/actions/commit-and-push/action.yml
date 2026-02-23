@@ -1,0 +1,24 @@
+name: Commit and push
+
+inputs:
+  message:
+    description: Commit message
+    required: true
+
+  add:
+    description: Files to add
+    required: true
+
+runs:
+  using: composite
+
+  steps:
+    - uses: EndBug/add-and-commit@v9
+      with:
+        pull: --rebase --autostash
+        author_name: Georgii Ippolitov
+        author_email: detmmpmznb@g000sha256.dev
+        committer_name: GitHub
+        committer_email: noreply@github.com
+        message: ${{ inputs.message }}
+        add: ${{ inputs.add }}

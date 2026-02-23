@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Georgii Ippolitov (g000sha256)
+ * Copyright 2025-2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,12 +29,22 @@ import kotlin.String
  * @property domain A domain of the URL.
  * @property botUserId User identifier of a bot linked with the website.
  * @property requestWriteAccess True, if the user must be asked for the permission to the bot to send them messages.
+ * @property requestPhoneNumberAccess True, if the user must be asked for the permission to share their phone number.
+ * @property browser The version of a browser used for the authorization; may be empty if irrelevant.
+ * @property platform Operating system the browser is running on; may be empty if irrelevant.
+ * @property ipAddress IP address from which the authorization is performed, in human-readable format; may be empty if irrelevant.
+ * @property location Human-readable description of a country and a region from which the authorization is performed, based on the IP address; may be empty if irrelevant.
  */
 public class LoginUrlInfoRequestConfirmation public constructor(
     public val url: String,
     public val domain: String,
     public val botUserId: Long,
     public val requestWriteAccess: Boolean,
+    public val requestPhoneNumberAccess: Boolean,
+    public val browser: String,
+    public val platform: String,
+    public val ipAddress: String,
+    public val location: String,
 ) : LoginUrlInfo() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
@@ -56,7 +66,22 @@ public class LoginUrlInfoRequestConfirmation public constructor(
         if (other.botUserId != botUserId) {
             return false
         }
-        return other.requestWriteAccess == requestWriteAccess
+        if (other.requestWriteAccess != requestWriteAccess) {
+            return false
+        }
+        if (other.requestPhoneNumberAccess != requestPhoneNumberAccess) {
+            return false
+        }
+        if (other.browser != browser) {
+            return false
+        }
+        if (other.platform != platform) {
+            return false
+        }
+        if (other.ipAddress != ipAddress) {
+            return false
+        }
+        return other.location == location
     }
 
     override fun hashCode(): Int {
@@ -65,6 +90,11 @@ public class LoginUrlInfoRequestConfirmation public constructor(
         hashCode = 31 * hashCode + domain.hashCode()
         hashCode = 31 * hashCode + botUserId.hashCode()
         hashCode = 31 * hashCode + requestWriteAccess.hashCode()
+        hashCode = 31 * hashCode + requestPhoneNumberAccess.hashCode()
+        hashCode = 31 * hashCode + browser.hashCode()
+        hashCode = 31 * hashCode + platform.hashCode()
+        hashCode = 31 * hashCode + ipAddress.hashCode()
+        hashCode = 31 * hashCode + location.hashCode()
         return hashCode
     }
 
@@ -83,6 +113,21 @@ public class LoginUrlInfoRequestConfirmation public constructor(
             append(", ")
             append("requestWriteAccess=")
             append(requestWriteAccess)
+            append(", ")
+            append("requestPhoneNumberAccess=")
+            append(requestPhoneNumberAccess)
+            append(", ")
+            append("browser=")
+            append(browser)
+            append(", ")
+            append("platform=")
+            append(platform)
+            append(", ")
+            append("ipAddress=")
+            append(ipAddress)
+            append(", ")
+            append("location=")
+            append(location)
             append(")")
         }
     }
