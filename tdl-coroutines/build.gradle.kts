@@ -148,6 +148,14 @@ val dokkaJavaDocJarTaskProvider = tasks.register<Jar>(name = "dokkaJavaDocJar") 
     from(dokkaGeneratePublicationHtmlTaskProvider)
 }
 
+dokka {
+    dokkaSourceSets.configureEach {
+        if (name != "commonMain") {
+            suppress.set(true)
+        }
+    }
+}
+
 publishing {
     publications {
         withType<MavenPublication> {
