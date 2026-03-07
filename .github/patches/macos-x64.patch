@@ -1,0 +1,63 @@
+diff --git a/td/example/ios/Python-Apple-support.patch b/td/example/ios/Python-Apple-support.patch
+--- a/td/example/ios/Python-Apple-support.patch
++++ b/td/example/ios/Python-Apple-support.patch
+@@ -1,5 +1,4 @@
+ diff --git a/Makefile b/Makefile
+-index a1d13e9..8efcf20 100644
+ --- a/Makefile
+ +++ b/Makefile
+ @@ -18,8 +18,13 @@
+@@ -25,7 +24,7 @@ index a1d13e9..8efcf20 100644
+  # OPENSSL_VERSION_NUMBER=1.1.1
+  # OPENSSL_REVISION=q
+  # OPENSSL_VERSION=$(OPENSSL_VERSION_NUMBER)$(OPENSSL_REVISION)
+-@@ -59,7 +64,7 @@ LIBFFI_VERSION=3.4.2
++@@ -59,32 +64,51 @@ LIBFFI_VERSION=3.4.2
+  
+  # Supported OS and dependencies
+  DEPENDENCIES=BZip2 XZ OpenSSL libFFI
+@@ -34,7 +33,10 @@ index a1d13e9..8efcf20 100644
+  
+  CURL_FLAGS=--disable --fail --location --create-dirs --progress-bar
+  
+-@@ -69,22 +74,41 @@ VERSION_MIN-macOS=10.15
++ # macOS targets
++-TARGETS-macOS=macosx.x86_64 macosx.arm64
+++TARGETS-macOS=macosx.x86_64
++ VERSION_MIN-macOS=10.15
+  CFLAGS-macOS=-mmacosx-version-min=$(VERSION_MIN-macOS)
+  
+  # iOS targets
+diff --git a/td/example/ios/build-openssl.sh b/td/example/ios/build-openssl.sh
+--- a/td/example/ios/build-openssl.sh
++++ b/td/example/ios/build-openssl.sh
+@@ -8,7 +8,7 @@ git reset --hard || exit 1
+ git apply ../Python-Apple-support.patch || exit 1
+ cd ..
+ 
+-platforms="macOS iOS watchOS tvOS visionOS"
++platforms="macOS"
+ 
+ for platform in $platforms;
+ do
+diff --git a/td/example/ios/build.sh b/td/example/ios/build.sh
+--- a/td/example/ios/build.sh
++++ b/td/example/ios/build.sh
+@@ -21,7 +21,7 @@ set_cmake_options () {
+   options="$options -DCMAKE_BUILD_TYPE=Release"
+ }
+ 
+-platforms="macOS iOS watchOS tvOS visionOS"
++platforms="macOS"
+ #platforms="watchOS"
+ for platform in $platforms;
+ do
+@@ -35,7 +35,7 @@ do
+   for simulator in $simulators;
+   do
+     if [[ $platform = "macOS" ]]; then
+-      other_options="-DCMAKE_OSX_ARCHITECTURES='x86_64;arm64'"
++      other_options="-DCMAKE_OSX_ARCHITECTURES=x86_64"
+     else
+       if [[ $platform = "watchOS" ]]; then
+         ios_platform="WATCH"
