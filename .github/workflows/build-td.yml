@@ -633,13 +633,12 @@ jobs:
       - name: Set up dependencies
         run: brew install gperf cmake coreutils
 
+      - name: Apply patch
+        run: git apply .github/patches/macos-arm64.patch
+
       - name: Build OpenSSL
         run: |
           cd td/example/ios
-          sh ../../../.github/scripts/change_line.sh Python-Apple-support.patch 2 'index a1d13e9..8efcf20 100644' 'index a1d13e9..bc349a5 100644'
-          sh ../../../.github/scripts/change_line.sh Python-Apple-support.patch 28 '@@ -59,7 +64,7 @@ LIBFFI_VERSION=3.4.2' '@@ -59,32 +64,51 @@ LIBFFI_VERSION=3.4.2'
-          sh ../../../.github/scripts/change_line.sh Python-Apple-support.patch 37 '@@ -69,22 +74,41 @@ VERSION_MIN-macOS=10.15' ' # macOS targets\n-TARGETS-macOS=macosx.x86_64 macosx.arm64\n+TARGETS-macOS=macosx.arm64\n VERSION_MIN-macOS=10.15'
-          sh ../../../.github/scripts/change_line.sh build-openssl.sh 11 'platforms="macOS iOS watchOS tvOS visionOS"' 'platforms="macOS"'
           ./build-openssl.sh
 
       - name: Build TDLib
@@ -650,8 +649,6 @@ jobs:
           cmake -DTD_GENERATE_SOURCE_FILES=ON ..
           cmake --build .
           cd ../example/ios
-          sh ../../../.github/scripts/change_line.sh build.sh 24 'platforms="macOS iOS watchOS tvOS visionOS"' 'platforms="macOS"'
-          sh ../../../.github/scripts/change_line.sh build.sh 38 '      other_options="-DCMAKE_OSX_ARCHITECTURES='\''x86_64;arm64'\''"' '      other_options="-DCMAKE_OSX_ARCHITECTURES=arm64"'
           ./build.sh
 
       - name: SHA256 checksums
