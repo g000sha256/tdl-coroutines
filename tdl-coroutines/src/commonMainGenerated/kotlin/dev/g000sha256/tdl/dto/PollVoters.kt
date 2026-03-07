@@ -1,5 +1,5 @@
 /*
- * Copyright 2025-2026 Georgii Ippolitov (g000sha256)
+ * Copyright 2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,21 +17,21 @@
 package dev.g000sha256.tdl.dto
 
 import kotlin.Any
+import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
-import kotlin.Long
 import kotlin.String
 
 /**
- * The chat reply markup was changed.
+ * Represents a list of poll voters.
  *
- * @property chatId Chat identifier.
- * @property replyMarkupMessage The message from which the reply markup must be used; may be null if there is no default reply markup in the chat.
+ * @property totalCount Approximate total number of poll voters found.
+ * @property voters List of poll voters.
  */
-public class UpdateChatReplyMarkup public constructor(
-    public val chatId: Long,
-    public val replyMarkupMessage: Message?,
-) : Update() {
+public class PollVoters public constructor(
+    public val totalCount: Int,
+    public val voters: Array<PollVoter>,
+) {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true
@@ -42,29 +42,31 @@ public class UpdateChatReplyMarkup public constructor(
         if (other::class != this::class) {
             return false
         }
-        other as UpdateChatReplyMarkup
-        if (other.chatId != chatId) {
+        other as PollVoters
+        if (other.totalCount != totalCount) {
             return false
         }
-        return other.replyMarkupMessage == replyMarkupMessage
+        return other.voters.contentDeepEquals(voters)
     }
 
     override fun hashCode(): Int {
         var hashCode = this::class.hashCode()
-        hashCode = 31 * hashCode + chatId.hashCode()
-        hashCode = 31 * hashCode + replyMarkupMessage.hashCode()
+        hashCode = 31 * hashCode + totalCount.hashCode()
+        hashCode = 31 * hashCode + voters.contentDeepHashCode()
         return hashCode
     }
 
     override fun toString(): String {
         return buildString {
-            append("UpdateChatReplyMarkup")
+            append("PollVoters")
             append("(")
-            append("chatId=")
-            append(chatId)
+            append("totalCount=")
+            append(totalCount)
             append(", ")
-            append("replyMarkupMessage=")
-            append(replyMarkupMessage)
+            append("voters=")
+            voters
+                .contentDeepToString()
+                .also { append(it) }
             append(")")
         }
     }

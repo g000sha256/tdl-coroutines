@@ -1,5 +1,5 @@
 /*
- * Copyright 2025-2026 Georgii Ippolitov (g000sha256)
+ * Copyright 2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,19 +19,18 @@ package dev.g000sha256.tdl.dto
 import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
-import kotlin.Long
 import kotlin.String
 
 /**
- * The chat reply markup was changed.
+ * A data and time.
  *
- * @property chatId Chat identifier.
- * @property replyMarkupMessage The message from which the reply markup must be used; may be null if there is no default reply markup in the chat.
+ * @property unixTime Point in time (Unix timestamp) representing the data and time.
+ * @property formattingType Date and time formatting type; may be null if none and the original text must not be changed.
  */
-public class UpdateChatReplyMarkup public constructor(
-    public val chatId: Long,
-    public val replyMarkupMessage: Message?,
-) : Update() {
+public class TextEntityTypeDateTime public constructor(
+    public val unixTime: Int,
+    public val formattingType: DateTimeFormattingType?,
+) : TextEntityType() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true
@@ -42,29 +41,29 @@ public class UpdateChatReplyMarkup public constructor(
         if (other::class != this::class) {
             return false
         }
-        other as UpdateChatReplyMarkup
-        if (other.chatId != chatId) {
+        other as TextEntityTypeDateTime
+        if (other.unixTime != unixTime) {
             return false
         }
-        return other.replyMarkupMessage == replyMarkupMessage
+        return other.formattingType == formattingType
     }
 
     override fun hashCode(): Int {
         var hashCode = this::class.hashCode()
-        hashCode = 31 * hashCode + chatId.hashCode()
-        hashCode = 31 * hashCode + replyMarkupMessage.hashCode()
+        hashCode = 31 * hashCode + unixTime.hashCode()
+        hashCode = 31 * hashCode + formattingType.hashCode()
         return hashCode
     }
 
     override fun toString(): String {
         return buildString {
-            append("UpdateChatReplyMarkup")
+            append("TextEntityTypeDateTime")
             append("(")
-            append("chatId=")
-            append(chatId)
+            append("unixTime=")
+            append(unixTime)
             append(", ")
-            append("replyMarkupMessage=")
-            append(replyMarkupMessage)
+            append("formattingType=")
+            append(formattingType)
             append(")")
         }
     }

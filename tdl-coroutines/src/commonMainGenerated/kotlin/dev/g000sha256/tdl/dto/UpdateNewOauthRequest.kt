@@ -1,5 +1,5 @@
 /*
- * Copyright 2025-2026 Georgii Ippolitov (g000sha256)
+ * Copyright 2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,18 +19,19 @@ package dev.g000sha256.tdl.dto
 import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
-import kotlin.Long
 import kotlin.String
 
 /**
- * The chat reply markup was changed.
+ * An OAuth authorization request was received.
  *
- * @property chatId Chat identifier.
- * @property replyMarkupMessage The message from which the reply markup must be used; may be null if there is no default reply markup in the chat.
+ * @property domain A domain of the URL where the user authorizes.
+ * @property location Human-readable description of a country and a region from which the authorization is performed, based on the IP address.
+ * @property url The URL to pass to getOauthLinkInfo; the link is valid for 60 seconds.
  */
-public class UpdateChatReplyMarkup public constructor(
-    public val chatId: Long,
-    public val replyMarkupMessage: Message?,
+public class UpdateNewOauthRequest public constructor(
+    public val domain: String,
+    public val location: String,
+    public val url: String,
 ) : Update() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
@@ -42,29 +43,36 @@ public class UpdateChatReplyMarkup public constructor(
         if (other::class != this::class) {
             return false
         }
-        other as UpdateChatReplyMarkup
-        if (other.chatId != chatId) {
+        other as UpdateNewOauthRequest
+        if (other.domain != domain) {
             return false
         }
-        return other.replyMarkupMessage == replyMarkupMessage
+        if (other.location != location) {
+            return false
+        }
+        return other.url == url
     }
 
     override fun hashCode(): Int {
         var hashCode = this::class.hashCode()
-        hashCode = 31 * hashCode + chatId.hashCode()
-        hashCode = 31 * hashCode + replyMarkupMessage.hashCode()
+        hashCode = 31 * hashCode + domain.hashCode()
+        hashCode = 31 * hashCode + location.hashCode()
+        hashCode = 31 * hashCode + url.hashCode()
         return hashCode
     }
 
     override fun toString(): String {
         return buildString {
-            append("UpdateChatReplyMarkup")
+            append("UpdateNewOauthRequest")
             append("(")
-            append("chatId=")
-            append(chatId)
+            append("domain=")
+            append(domain)
             append(", ")
-            append("replyMarkupMessage=")
-            append(replyMarkupMessage)
+            append("location=")
+            append(location)
+            append(", ")
+            append("url=")
+            append(url)
             append(")")
         }
     }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Georgii Ippolitov (g000sha256)
+ * Copyright 2025-2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -65,7 +65,7 @@ import kotlin.String
  * @property businessBotManageBar Information about bar for managing a business bot in the chat; may be null if none.
  * @property videoChat Information about video chat of the chat.
  * @property pendingJoinRequests Information about pending join requests; may be null if none.
- * @property replyMarkupMessageId Identifier of the message from which reply markup needs to be used; 0 if there is no default custom reply markup in the chat.
+ * @property replyMarkupMessageId Identifier of the message from which reply markup needs to be used; 0 if there is no reply markup in the chat.
  * @property draftMessage A draft of a message in the chat; may be null if none.
  * @property clientData Application-specific data associated with the chat. (For example, the chat scroll position or local chat notification settings can be stored here.) Persistent if the message database is used.
  */

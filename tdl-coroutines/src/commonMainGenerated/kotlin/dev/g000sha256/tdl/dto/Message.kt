@@ -57,6 +57,7 @@ import kotlin.String
  * @property viaBotUserId If non-zero, the user identifier of the inline bot through which this message was sent.
  * @property senderBusinessBotUserId If non-zero, the user identifier of the business bot that sent this message.
  * @property senderBoostCount Number of times the sender of the message boosted the supergroup at the time the message was sent; 0 if none or unknown. For messages sent by the current user, supergroupFullInfo.myBoostCount must be used instead.
+ * @property senderTag Tag of the sender of the message in the supergroup at the time the message was sent; may be empty if none or unknown. For messages sent in basic groups or supergroup administrators, the current custom title or tag must be used instead.
  * @property paidMessageStarCount The number of Telegram Stars the sender paid to send the message.
  * @property authorSignature For channel posts and anonymous group messages, optional author signature.
  * @property mediaAlbumId Unique identifier of an album this message belongs to; 0 if none. Only audios, documents, photos and videos can be grouped together in albums.
@@ -97,6 +98,7 @@ public class Message public constructor(
     public val viaBotUserId: Long,
     public val senderBusinessBotUserId: Long,
     public val senderBoostCount: Int,
+    public val senderTag: String,
     public val paidMessageStarCount: Long,
     public val authorSignature: String,
     public val mediaAlbumId: Long,
@@ -208,6 +210,9 @@ public class Message public constructor(
         if (other.senderBoostCount != senderBoostCount) {
             return false
         }
+        if (other.senderTag != senderTag) {
+            return false
+        }
         if (other.paidMessageStarCount != paidMessageStarCount) {
             return false
         }
@@ -264,6 +269,7 @@ public class Message public constructor(
         hashCode = 31 * hashCode + viaBotUserId.hashCode()
         hashCode = 31 * hashCode + senderBusinessBotUserId.hashCode()
         hashCode = 31 * hashCode + senderBoostCount.hashCode()
+        hashCode = 31 * hashCode + senderTag.hashCode()
         hashCode = 31 * hashCode + paidMessageStarCount.hashCode()
         hashCode = 31 * hashCode + authorSignature.hashCode()
         hashCode = 31 * hashCode + mediaAlbumId.hashCode()
@@ -370,6 +376,9 @@ public class Message public constructor(
             append(", ")
             append("senderBoostCount=")
             append(senderBoostCount)
+            append(", ")
+            append("senderTag=")
+            append(senderTag)
             append(", ")
             append("paidMessageStarCount=")
             append(paidMessageStarCount)

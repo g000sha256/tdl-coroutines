@@ -1,5 +1,5 @@
 /*
- * Copyright 2025-2026 Georgii Ippolitov (g000sha256)
+ * Copyright 2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,19 +19,16 @@ package dev.g000sha256.tdl.dto
 import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
-import kotlin.Long
 import kotlin.String
 
 /**
- * The chat reply markup was changed.
+ * The link is an OAuth link. Call getOauthLinkInfo with the given URL to process the link if the link was received from outside of the application; otherwise, ignore it. After getOauthLinkInfo, show the user confirmation dialog and process it with checkOauthRequestMatchCode, acceptOauthRequest or declineOauthRequest.
  *
- * @property chatId Chat identifier.
- * @property replyMarkupMessage The message from which the reply markup must be used; may be null if there is no default reply markup in the chat.
+ * @property url URL to be passed to getOauthLinkInfo.
  */
-public class UpdateChatReplyMarkup public constructor(
-    public val chatId: Long,
-    public val replyMarkupMessage: Message?,
-) : Update() {
+public class InternalLinkTypeOauth public constructor(
+    public val url: String,
+) : InternalLinkType() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true
@@ -42,29 +39,22 @@ public class UpdateChatReplyMarkup public constructor(
         if (other::class != this::class) {
             return false
         }
-        other as UpdateChatReplyMarkup
-        if (other.chatId != chatId) {
-            return false
-        }
-        return other.replyMarkupMessage == replyMarkupMessage
+        other as InternalLinkTypeOauth
+        return other.url == url
     }
 
     override fun hashCode(): Int {
         var hashCode = this::class.hashCode()
-        hashCode = 31 * hashCode + chatId.hashCode()
-        hashCode = 31 * hashCode + replyMarkupMessage.hashCode()
+        hashCode = 31 * hashCode + url.hashCode()
         return hashCode
     }
 
     override fun toString(): String {
         return buildString {
-            append("UpdateChatReplyMarkup")
+            append("InternalLinkTypeOauth")
             append("(")
-            append("chatId=")
-            append(chatId)
-            append(", ")
-            append("replyMarkupMessage=")
-            append(replyMarkupMessage)
+            append("url=")
+            append(url)
             append(")")
         }
     }

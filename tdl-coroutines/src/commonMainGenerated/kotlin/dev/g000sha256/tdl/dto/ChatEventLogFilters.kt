@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Georgii Ippolitov (g000sha256)
+ * Copyright 2025-2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,6 +32,7 @@ import kotlin.String
  * @property memberInvites True, if invited member events need to be returned.
  * @property memberPromotions True, if member promotion/demotion events need to be returned.
  * @property memberRestrictions True, if member restricted/unrestricted/banned/unbanned events need to be returned.
+ * @property memberTagChanges True, if member tag and custom title change events need to be returned.
  * @property infoChanges True, if changes in chat information need to be returned.
  * @property settingChanges True, if changes in chat settings need to be returned.
  * @property inviteLinkChanges True, if changes to invite links need to be returned.
@@ -48,6 +49,7 @@ public class ChatEventLogFilters public constructor(
     public val memberInvites: Boolean,
     public val memberPromotions: Boolean,
     public val memberRestrictions: Boolean,
+    public val memberTagChanges: Boolean,
     public val infoChanges: Boolean,
     public val settingChanges: Boolean,
     public val inviteLinkChanges: Boolean,
@@ -90,6 +92,9 @@ public class ChatEventLogFilters public constructor(
         if (other.memberRestrictions != memberRestrictions) {
             return false
         }
+        if (other.memberTagChanges != memberTagChanges) {
+            return false
+        }
         if (other.infoChanges != infoChanges) {
             return false
         }
@@ -118,6 +123,7 @@ public class ChatEventLogFilters public constructor(
         hashCode = 31 * hashCode + memberInvites.hashCode()
         hashCode = 31 * hashCode + memberPromotions.hashCode()
         hashCode = 31 * hashCode + memberRestrictions.hashCode()
+        hashCode = 31 * hashCode + memberTagChanges.hashCode()
         hashCode = 31 * hashCode + infoChanges.hashCode()
         hashCode = 31 * hashCode + settingChanges.hashCode()
         hashCode = 31 * hashCode + inviteLinkChanges.hashCode()
@@ -154,6 +160,9 @@ public class ChatEventLogFilters public constructor(
             append(", ")
             append("memberRestrictions=")
             append(memberRestrictions)
+            append(", ")
+            append("memberTagChanges=")
+            append(memberTagChanges)
             append(", ")
             append("infoChanges=")
             append(infoChanges)

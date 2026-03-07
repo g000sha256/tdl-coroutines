@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Georgii Ippolitov (g000sha256)
+ * Copyright 2025-2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,6 +25,7 @@ import kotlin.String
  * The link is a link to an audio player.
  *
  * @property url URL of the external audio player.
+ * @property audio The cached audio; may be null if unknown.
  * @property thumbnail Thumbnail of the audio; may be null if unknown.
  * @property duration Duration of the audio, in seconds.
  * @property width Expected width of the embedded player.
@@ -32,6 +33,7 @@ import kotlin.String
  */
 public class LinkPreviewTypeEmbeddedAudioPlayer public constructor(
     public val url: String,
+    public val audio: Audio?,
     public val thumbnail: Photo?,
     public val duration: Int,
     public val width: Int,
@@ -51,6 +53,9 @@ public class LinkPreviewTypeEmbeddedAudioPlayer public constructor(
         if (other.url != url) {
             return false
         }
+        if (other.audio != audio) {
+            return false
+        }
         if (other.thumbnail != thumbnail) {
             return false
         }
@@ -66,6 +71,7 @@ public class LinkPreviewTypeEmbeddedAudioPlayer public constructor(
     override fun hashCode(): Int {
         var hashCode = this::class.hashCode()
         hashCode = 31 * hashCode + url.hashCode()
+        hashCode = 31 * hashCode + audio.hashCode()
         hashCode = 31 * hashCode + thumbnail.hashCode()
         hashCode = 31 * hashCode + duration.hashCode()
         hashCode = 31 * hashCode + width.hashCode()
@@ -79,6 +85,9 @@ public class LinkPreviewTypeEmbeddedAudioPlayer public constructor(
             append("(")
             append("url=")
             append(url)
+            append(", ")
+            append("audio=")
+            append(audio)
             append(", ")
             append("thumbnail=")
             append(thumbnail)

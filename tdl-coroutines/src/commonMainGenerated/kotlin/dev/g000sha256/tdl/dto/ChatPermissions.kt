@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Georgii Ippolitov (g000sha256)
+ * Copyright 2025-2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -34,6 +34,7 @@ import kotlin.String
  * @property canSendPolls True, if the user can send polls and checklists.
  * @property canSendOtherMessages True, if the user can send animations, games, stickers, and dice and use inline bots.
  * @property canAddLinkPreviews True, if the user may add a link preview to their messages.
+ * @property canEditTag True, if the user may change the tag of self.
  * @property canChangeInfo True, if the user can change the chat title, photo, and other settings.
  * @property canInviteUsers True, if the user can invite new users to the chat.
  * @property canPinMessages True, if the user can pin messages.
@@ -50,6 +51,7 @@ public class ChatPermissions public constructor(
     public val canSendPolls: Boolean,
     public val canSendOtherMessages: Boolean,
     public val canAddLinkPreviews: Boolean,
+    public val canEditTag: Boolean,
     public val canChangeInfo: Boolean,
     public val canInviteUsers: Boolean,
     public val canPinMessages: Boolean,
@@ -96,6 +98,9 @@ public class ChatPermissions public constructor(
         if (other.canAddLinkPreviews != canAddLinkPreviews) {
             return false
         }
+        if (other.canEditTag != canEditTag) {
+            return false
+        }
         if (other.canChangeInfo != canChangeInfo) {
             return false
         }
@@ -120,6 +125,7 @@ public class ChatPermissions public constructor(
         hashCode = 31 * hashCode + canSendPolls.hashCode()
         hashCode = 31 * hashCode + canSendOtherMessages.hashCode()
         hashCode = 31 * hashCode + canAddLinkPreviews.hashCode()
+        hashCode = 31 * hashCode + canEditTag.hashCode()
         hashCode = 31 * hashCode + canChangeInfo.hashCode()
         hashCode = 31 * hashCode + canInviteUsers.hashCode()
         hashCode = 31 * hashCode + canPinMessages.hashCode()
@@ -160,6 +166,9 @@ public class ChatPermissions public constructor(
             append(", ")
             append("canAddLinkPreviews=")
             append(canAddLinkPreviews)
+            append(", ")
+            append("canEditTag=")
+            append(canEditTag)
             append(", ")
             append("canChangeInfo=")
             append(canChangeInfo)

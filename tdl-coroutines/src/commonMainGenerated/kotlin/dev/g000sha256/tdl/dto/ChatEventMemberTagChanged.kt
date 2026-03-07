@@ -1,5 +1,5 @@
 /*
- * Copyright 2025-2026 Georgii Ippolitov (g000sha256)
+ * Copyright 2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,15 +23,17 @@ import kotlin.Long
 import kotlin.String
 
 /**
- * The chat reply markup was changed.
+ * A chat member tag has been changed.
  *
- * @property chatId Chat identifier.
- * @property replyMarkupMessage The message from which the reply markup must be used; may be null if there is no default reply markup in the chat.
+ * @property userId Affected chat member user identifier.
+ * @property oldTag Previous tag of the chat member.
+ * @property newTag New tag of the chat member.
  */
-public class UpdateChatReplyMarkup public constructor(
-    public val chatId: Long,
-    public val replyMarkupMessage: Message?,
-) : Update() {
+public class ChatEventMemberTagChanged public constructor(
+    public val userId: Long,
+    public val oldTag: String,
+    public val newTag: String,
+) : ChatEventAction() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true
@@ -42,29 +44,36 @@ public class UpdateChatReplyMarkup public constructor(
         if (other::class != this::class) {
             return false
         }
-        other as UpdateChatReplyMarkup
-        if (other.chatId != chatId) {
+        other as ChatEventMemberTagChanged
+        if (other.userId != userId) {
             return false
         }
-        return other.replyMarkupMessage == replyMarkupMessage
+        if (other.oldTag != oldTag) {
+            return false
+        }
+        return other.newTag == newTag
     }
 
     override fun hashCode(): Int {
         var hashCode = this::class.hashCode()
-        hashCode = 31 * hashCode + chatId.hashCode()
-        hashCode = 31 * hashCode + replyMarkupMessage.hashCode()
+        hashCode = 31 * hashCode + userId.hashCode()
+        hashCode = 31 * hashCode + oldTag.hashCode()
+        hashCode = 31 * hashCode + newTag.hashCode()
         return hashCode
     }
 
     override fun toString(): String {
         return buildString {
-            append("UpdateChatReplyMarkup")
+            append("ChatEventMemberTagChanged")
             append("(")
-            append("chatId=")
-            append(chatId)
+            append("userId=")
+            append(userId)
             append(", ")
-            append("replyMarkupMessage=")
-            append(replyMarkupMessage)
+            append("oldTag=")
+            append(oldTag)
+            append(", ")
+            append("newTag=")
+            append(newTag)
             append(")")
         }
     }

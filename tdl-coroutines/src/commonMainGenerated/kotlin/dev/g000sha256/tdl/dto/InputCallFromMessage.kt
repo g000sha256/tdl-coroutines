@@ -1,5 +1,5 @@
 /*
- * Copyright 2025-2026 Georgii Ippolitov (g000sha256)
+ * Copyright 2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,15 +23,15 @@ import kotlin.Long
 import kotlin.String
 
 /**
- * The chat reply markup was changed.
+ * A call from a message of the type messageCall with non-zero messageCall.uniqueId.
  *
- * @property chatId Chat identifier.
- * @property replyMarkupMessage The message from which the reply markup must be used; may be null if there is no default reply markup in the chat.
+ * @property chatId Chat identifier of the message.
+ * @property messageId Message identifier.
  */
-public class UpdateChatReplyMarkup public constructor(
+public class InputCallFromMessage public constructor(
     public val chatId: Long,
-    public val replyMarkupMessage: Message?,
-) : Update() {
+    public val messageId: Long,
+) : InputCall() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true
@@ -42,29 +42,29 @@ public class UpdateChatReplyMarkup public constructor(
         if (other::class != this::class) {
             return false
         }
-        other as UpdateChatReplyMarkup
+        other as InputCallFromMessage
         if (other.chatId != chatId) {
             return false
         }
-        return other.replyMarkupMessage == replyMarkupMessage
+        return other.messageId == messageId
     }
 
     override fun hashCode(): Int {
         var hashCode = this::class.hashCode()
         hashCode = 31 * hashCode + chatId.hashCode()
-        hashCode = 31 * hashCode + replyMarkupMessage.hashCode()
+        hashCode = 31 * hashCode + messageId.hashCode()
         return hashCode
     }
 
     override fun toString(): String {
         return buildString {
-            append("UpdateChatReplyMarkup")
+            append("InputCallFromMessage")
             append("(")
             append("chatId=")
             append(chatId)
             append(", ")
-            append("replyMarkupMessage=")
-            append(replyMarkupMessage)
+            append("messageId=")
+            append(messageId)
             append(")")
         }
     }

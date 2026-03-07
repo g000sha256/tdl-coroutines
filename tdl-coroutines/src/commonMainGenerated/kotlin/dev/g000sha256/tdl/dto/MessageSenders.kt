@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Georgii Ippolitov (g000sha256)
+ * Copyright 2025-2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,7 +25,7 @@ import kotlin.String
 /**
  * Represents a list of message senders.
  *
- * @property totalCount Approximate total number of messages senders found.
+ * @property totalCount Approximate total number of message senders found.
  * @property senders List of message senders.
  */
 public class MessageSenders public constructor(
