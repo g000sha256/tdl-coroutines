@@ -450,11 +450,12 @@ jobs:
       - name: Set up dependencies
         run: brew install gperf cmake coreutils
 
+      - name: Apply patch
+        run: git apply .github/patches/ios-arm64.patch
+
       - name: Build OpenSSL
         run: |
           cd td/example/ios
-          sh ../../../.github/scripts/change_line.sh build-openssl.sh 11 'platforms="macOS iOS watchOS tvOS visionOS"' 'platforms="iOS"'
-          sh ../../../.github/scripts/change_line.sh build-openssl.sh 18 '    simulators="0 1"' '    simulators="0"'
           ./build-openssl.sh
 
       - name: Build TDLib
@@ -465,9 +466,6 @@ jobs:
           cmake -DTD_GENERATE_SOURCE_FILES=ON ..
           cmake --build .
           cd ../example/ios
-          sh ../../../.github/scripts/change_line.sh build.sh 24 'platforms="macOS iOS watchOS tvOS visionOS"' 'platforms="iOS"'
-          sh ../../../.github/scripts/change_line.sh build.sh 32 '    simulators="0 1"' '    simulators="0"'
-          sh ../../../.github/scripts/change_line.sh build.sh 58 '      other_options="-DIOS_PLATFORM=${ios_platform} -DCMAKE_TOOLCHAIN_FILE=${td_path}/CMake/iOS.cmake -DCMAKE_MAKE_PROGRAM=make"' '      other_options="-DIOS_PLATFORM=${ios_platform} -DCMAKE_TOOLCHAIN_FILE=${td_path}/CMake/iOS.cmake -DCMAKE_MAKE_PROGRAM=make -DCMAKE_OSX_ARCHITECTURES=arm64"'
           ./build.sh
 
       - name: SHA256 checksums
