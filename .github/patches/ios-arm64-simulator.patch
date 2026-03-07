@@ -1,0 +1,100 @@
+diff --git a/td/example/ios/Python-Apple-support.patch b/td/example/ios/Python-Apple-support.patch
+--- a/td/example/ios/Python-Apple-support.patch
++++ b/td/example/ios/Python-Apple-support.patch
+@@ -1,5 +1,4 @@
+ diff --git a/Makefile b/Makefile
+-index a1d13e9..8efcf20 100644
+ --- a/Makefile
+ +++ b/Makefile
+ @@ -18,8 +18,13 @@
+@@ -44,7 +43,7 @@ index a1d13e9..8efcf20 100644
+  CFLAGS-iOS=-mios-version-min=$(VERSION_MIN-iOS)
+  
+ +# iOS-simulator targets
+-+TARGETS-iOS-simulator=iphonesimulator.x86_64 iphonesimulator.arm64
+++TARGETS-iOS-simulator=iphonesimulator.arm64
+ +CFLAGS-iOS-simulator=-mios-simulator-version-min=$(VERSION_MIN-iOS)
+ +
+  # tvOS targets
+@@ -79,7 +78,7 @@ index a1d13e9..8efcf20 100644
+  # The architecture of the machine doing the build
+  HOST_ARCH=$(shell uname -m)
+  HOST_PYTHON=install/macOS/macosx/python-$(PYTHON_VERSION)
+-@@ -212,6 +236,10 @@ ARCH-$(target)=$$(subst .,,$$(suffix $(target)))
++@@ -212,6 +236,12 @@ ARCH-$(target)=$$(subst .,,$$(suffix $(target)))
+  
+  ifeq ($(os),macOS)
+  TARGET_TRIPLE-$(target)=$$(ARCH-$(target))-apple-darwin
+@@ -87,10 +86,12 @@ index a1d13e9..8efcf20 100644
+ +TARGET_TRIPLE-$(target)=$$(ARCH-$(target))-apple-xros
+ +else ifeq ($(os),visionOS-simulator)
+ +TARGET_TRIPLE-$(target)=$$(ARCH-$(target))-apple-xros-simulator
+++else ifeq ($(os),iOS-simulator)
+++TARGET_TRIPLE-$(target)=$$(ARCH-$(target))-apple-ios-simulator
+  else
+  	ifeq ($$(findstring simulator,$$(SDK-$(target))),)
+  TARGET_TRIPLE-$(target)=$$(ARCH-$(target))-apple-$$(OS_LOWER-$(target))
+-@@ -662,7 +690,7 @@ BZIP2_FATLIB-$(sdk)=$$(BZIP2_MERGE-$(sdk))/lib/libbz2.a
++@@ -662,7 +692,7 @@ BZIP2_FATLIB-$(sdk)=$$(BZIP2_MERGE-$(sdk))/lib/libbz2.a
+  XZ_MERGE-$(sdk)=$(PROJECT_DIR)/merge/$(os)/$(sdk)/xz-$(XZ_VERSION)
+  XZ_FATLIB-$(sdk)=$$(XZ_MERGE-$(sdk))/lib/liblzma.a
+  
+@@ -99,7 +100,7 @@ index a1d13e9..8efcf20 100644
+  OPENSSL_FATINCLUDE-$(sdk)=$$(OPENSSL_MERGE-$(sdk))/include
+  OPENSSL_SSL_FATLIB-$(sdk)=$$(OPENSSL_MERGE-$(sdk))/lib/libssl.a
+  OPENSSL_CRYPTO_FATLIB-$(sdk)=$$(OPENSSL_MERGE-$(sdk))/lib/libcrypto.a
+-@@ -716,14 +744,14 @@ $$(OPENSSL_SSL_FATLIB-$(sdk)): $$(foreach target,$$(SDK_TARGETS-$(sdk)),$$(OPENS
++@@ -716,14 +746,14 @@ $$(OPENSSL_SSL_FATLIB-$(sdk)): $$(foreach target,$$(SDK_TARGETS-$(sdk)),$$(OPENS
+  	mkdir -p $$(OPENSSL_MERGE-$(sdk))/lib
+  	lipo -create -output $$@ \
+  		$$(foreach target,$$(SDK_TARGETS-$(sdk)),$$(OPENSSL_SSL_LIB-$$(target))) \
+diff --git a/td/example/ios/build-openssl.sh b/td/example/ios/build-openssl.sh
+--- a/td/example/ios/build-openssl.sh
++++ b/td/example/ios/build-openssl.sh
+@@ -8,14 +8,14 @@ git reset --hard || exit 1
+ git apply ../Python-Apple-support.patch || exit 1
+ cd ..
+ 
+-platforms="macOS iOS watchOS tvOS visionOS"
++platforms="iOS"
+ 
+ for platform in $platforms;
+ do
+   if [[ $platform = "macOS" ]]; then
+     simulators="0"
+   else
+-    simulators="0 1"
++    simulators="1"
+   fi
+ 
+   for simulator in $simulators;
+diff --git a/td/example/ios/build.sh b/td/example/ios/build.sh
+--- a/td/example/ios/build.sh
++++ b/td/example/ios/build.sh
+@@ -21,7 +21,7 @@ set_cmake_options () {
+   options="$options -DCMAKE_BUILD_TYPE=Release"
+ }
+ 
+-platforms="macOS iOS watchOS tvOS visionOS"
++platforms="iOS"
+ #platforms="watchOS"
+ for platform in $platforms;
+ do
+@@ -29,7 +29,7 @@ do
+   if [[ $platform = "macOS" ]]; then
+     simulators="0"
+   else
+-    simulators="0 1"
++    simulators="1"
+   fi
+ 
+   for simulator in $simulators;
+@@ -55,7 +55,7 @@ do
+       fi
+ 
+       echo "iOS platform = ${ios_platform}"
+-      other_options="-DIOS_PLATFORM=${ios_platform} -DCMAKE_TOOLCHAIN_FILE=${td_path}/CMake/iOS.cmake -DCMAKE_MAKE_PROGRAM=make"
++      other_options="-DIOS_PLATFORM=${ios_platform} -DCMAKE_TOOLCHAIN_FILE=${td_path}/CMake/iOS.cmake -DCMAKE_MAKE_PROGRAM=make -DCMAKE_OSX_ARCHITECTURES=arm64"
+     fi
+ 
+     set_cmake_options $platform

@@ -511,17 +511,12 @@ jobs:
       - name: Set up dependencies
         run: brew install gperf cmake coreutils
 
+      - name: Apply patch
+        run: git apply .github/patches/ios-arm64-simulator.patch
+
       - name: Build OpenSSL
         run: |
           cd td/example/ios
-          sh ../../../.github/scripts/change_line.sh Python-Apple-support.patch 2 'index a1d13e9..8efcf20 100644' 'index a1d13e9..fd35326 100644'
-          sh ../../../.github/scripts/change_line.sh Python-Apple-support.patch 47 '+TARGETS-iOS-simulator=iphonesimulator.x86_64 iphonesimulator.arm64' '+TARGETS-iOS-simulator=iphonesimulator.arm64'
-          sh ../../../.github/scripts/change_line.sh Python-Apple-support.patch 82 '@@ -212,6 +236,10 @@ ARCH-$(target)=$$(subst .,,$$(suffix $(target)))' '@@ -212,6 +236,12 @@ ARCH-$(target)=$$(subst .,,$$(suffix $(target)))'
-          sh ../../../.github/scripts/change_line.sh Python-Apple-support.patch 89 '+TARGET_TRIPLE-$(target)=$$(ARCH-$(target))-apple-xros-simulator' '+TARGET_TRIPLE-$(target)=$$(ARCH-$(target))-apple-xros-simulator\n+else ifeq ($(os),iOS-simulator)\n+TARGET_TRIPLE-$(target)=$$(ARCH-$(target))-apple-ios-simulator'
-          sh ../../../.github/scripts/change_line.sh Python-Apple-support.patch 95 '@@ -662,7 +690,7 @@ BZIP2_FATLIB-$(sdk)=$$(BZIP2_MERGE-$(sdk))/lib/libbz2.a' '@@ -662,7 +692,7 @@ BZIP2_FATLIB-$(sdk)=$$(BZIP2_MERGE-$(sdk))/lib/libbz2.a'
-          sh ../../../.github/scripts/change_line.sh Python-Apple-support.patch 104 '@@ -716,14 +744,14 @@ $$(OPENSSL_SSL_FATLIB-$(sdk)): $$(foreach target,$$(SDK_TARGETS-$(sdk)),$$(OPENS' '@@ -716,14 +746,14 @@ $$(OPENSSL_SSL_FATLIB-$(sdk)): $$(foreach target,$$(SDK_TARGETS-$(sdk)),$$(OPENS'
-          sh ../../../.github/scripts/change_line.sh build-openssl.sh 11 'platforms="macOS iOS watchOS tvOS visionOS"' 'platforms="iOS"'
-          sh ../../../.github/scripts/change_line.sh build-openssl.sh 18 '    simulators="0 1"' '    simulators="1"'
           ./build-openssl.sh
 
       - name: Build TDLib
@@ -532,9 +527,6 @@ jobs:
           cmake -DTD_GENERATE_SOURCE_FILES=ON ..
           cmake --build .
           cd ../example/ios
-          sh ../../../.github/scripts/change_line.sh build.sh 24 'platforms="macOS iOS watchOS tvOS visionOS"' 'platforms="iOS"'
-          sh ../../../.github/scripts/change_line.sh build.sh 32 '    simulators="0 1"' '    simulators="1"'
-          sh ../../../.github/scripts/change_line.sh build.sh 58 '      other_options="-DIOS_PLATFORM=${ios_platform} -DCMAKE_TOOLCHAIN_FILE=${td_path}/CMake/iOS.cmake -DCMAKE_MAKE_PROGRAM=make"' '      other_options="-DIOS_PLATFORM=${ios_platform} -DCMAKE_TOOLCHAIN_FILE=${td_path}/CMake/iOS.cmake -DCMAKE_MAKE_PROGRAM=make -DCMAKE_OSX_ARCHITECTURES=arm64"'
           ./build.sh
 
       - name: SHA256 checksums
