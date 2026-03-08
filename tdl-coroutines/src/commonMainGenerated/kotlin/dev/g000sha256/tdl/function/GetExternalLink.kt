@@ -22,5 +22,4 @@ import kotlin.String
 internal class GetExternalLink internal constructor(
     internal val link: String,
     internal val allowWriteAccess: Boolean,
-    internal val allowPhoneNumberAccess: Boolean,
 )

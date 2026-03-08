@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Georgii Ippolitov (g000sha256)
+ * Copyright 2025-2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -58,6 +58,8 @@ import kotlin.String
  * @property canReportReactions True, if reactions on the message can be reported through reportMessageReactions.
  * @property canReportSupergroupSpam True, if the message can be reported using reportSupergroupSpam.
  * @property canSetFactCheck True, if fact check for the message can be changed through setMessageFactCheck.
+ * @property hasProtectedContentByCurrentUser True, if content of the message can't be saved locally, because it is protected by the current user; if true, then canBeSaved is false.
+ * @property hasProtectedContentByOtherUser True, if content of the message can't be saved locally, because it is protected by the other user; if true, then canBeSaved is false.
  * @property needShowStatistics True, if message statistics must be available from context menu of the message.
  */
 public class MessageProperties public constructor(
@@ -95,6 +97,8 @@ public class MessageProperties public constructor(
     public val canReportReactions: Boolean,
     public val canReportSupergroupSpam: Boolean,
     public val canSetFactCheck: Boolean,
+    public val hasProtectedContentByCurrentUser: Boolean,
+    public val hasProtectedContentByOtherUser: Boolean,
     public val needShowStatistics: Boolean,
 ) {
     override fun equals(other: Any?): Boolean {
@@ -210,6 +214,12 @@ public class MessageProperties public constructor(
         if (other.canSetFactCheck != canSetFactCheck) {
             return false
         }
+        if (other.hasProtectedContentByCurrentUser != hasProtectedContentByCurrentUser) {
+            return false
+        }
+        if (other.hasProtectedContentByOtherUser != hasProtectedContentByOtherUser) {
+            return false
+        }
         return other.needShowStatistics == needShowStatistics
     }
 
@@ -249,6 +259,8 @@ public class MessageProperties public constructor(
         hashCode = 31 * hashCode + canReportReactions.hashCode()
         hashCode = 31 * hashCode + canReportSupergroupSpam.hashCode()
         hashCode = 31 * hashCode + canSetFactCheck.hashCode()
+        hashCode = 31 * hashCode + hasProtectedContentByCurrentUser.hashCode()
+        hashCode = 31 * hashCode + hasProtectedContentByOtherUser.hashCode()
         hashCode = 31 * hashCode + needShowStatistics.hashCode()
         return hashCode
     }
@@ -358,6 +370,12 @@ public class MessageProperties public constructor(
             append(", ")
             append("canSetFactCheck=")
             append(canSetFactCheck)
+            append(", ")
+            append("hasProtectedContentByCurrentUser=")
+            append(hasProtectedContentByCurrentUser)
+            append(", ")
+            append("hasProtectedContentByOtherUser=")
+            append(hasProtectedContentByOtherUser)
             append(", ")
             append("needShowStatistics=")
             append(needShowStatistics)

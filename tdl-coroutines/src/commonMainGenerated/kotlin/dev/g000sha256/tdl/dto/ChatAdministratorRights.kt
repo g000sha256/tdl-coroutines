@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Georgii Ippolitov (g000sha256)
+ * Copyright 2025-2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -39,6 +39,7 @@ import kotlin.String
  * @property canEditStories True, if the administrator can edit stories posted by other users, post stories to the chat page, pin chat stories, and access story archive; applicable to supergroups and channels only.
  * @property canDeleteStories True, if the administrator can delete stories posted by other users; applicable to supergroups and channels only.
  * @property canManageDirectMessages True, if the administrator can answer to channel direct messages; applicable to channels only.
+ * @property canManageTags True, if the administrator can change tags of other users; applicable to basic groups and supergroups only.
  * @property isAnonymous True, if the administrator isn't shown in the chat member list and sends messages anonymously; applicable to supergroups only.
  */
 public class ChatAdministratorRights public constructor(
@@ -57,6 +58,7 @@ public class ChatAdministratorRights public constructor(
     public val canEditStories: Boolean,
     public val canDeleteStories: Boolean,
     public val canManageDirectMessages: Boolean,
+    public val canManageTags: Boolean,
     public val isAnonymous: Boolean,
 ) {
     override fun equals(other: Any?): Boolean {
@@ -115,6 +117,9 @@ public class ChatAdministratorRights public constructor(
         if (other.canManageDirectMessages != canManageDirectMessages) {
             return false
         }
+        if (other.canManageTags != canManageTags) {
+            return false
+        }
         return other.isAnonymous == isAnonymous
     }
 
@@ -135,6 +140,7 @@ public class ChatAdministratorRights public constructor(
         hashCode = 31 * hashCode + canEditStories.hashCode()
         hashCode = 31 * hashCode + canDeleteStories.hashCode()
         hashCode = 31 * hashCode + canManageDirectMessages.hashCode()
+        hashCode = 31 * hashCode + canManageTags.hashCode()
         hashCode = 31 * hashCode + isAnonymous.hashCode()
         return hashCode
     }
@@ -187,6 +193,9 @@ public class ChatAdministratorRights public constructor(
             append(", ")
             append("canManageDirectMessages=")
             append(canManageDirectMessages)
+            append(", ")
+            append("canManageTags=")
+            append(canManageTags)
             append(", ")
             append("isAnonymous=")
             append(isAnonymous)

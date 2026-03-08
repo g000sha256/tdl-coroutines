@@ -26,12 +26,14 @@ import kotlin.String
  * Describes a user or a chat as a member of another chat.
  *
  * @property memberId Identifier of the chat member. Currently, other chats can be only Left or Banned. Only supergroups and channels can have other chats as Left or Banned members and these chats must be supergroups or channels.
+ * @property tag Tag of the chat member or its custom title if the member is an administrator of the chat; 0-16 characters without emoji; applicable to basic groups and supergroups only.
  * @property inviterUserId Identifier of a user who invited/promoted/banned this member in the chat; 0 if unknown.
  * @property joinedChatDate Point in time (Unix timestamp) when the user joined/was promoted/was banned in the chat.
  * @property status Status of the member in the chat.
  */
 public class ChatMember public constructor(
     public val memberId: MessageSender,
+    public val tag: String,
     public val inviterUserId: Long,
     public val joinedChatDate: Int,
     public val status: ChatMemberStatus,
@@ -50,6 +52,9 @@ public class ChatMember public constructor(
         if (other.memberId != memberId) {
             return false
         }
+        if (other.tag != tag) {
+            return false
+        }
         if (other.inviterUserId != inviterUserId) {
             return false
         }
@@ -62,6 +67,7 @@ public class ChatMember public constructor(
     override fun hashCode(): Int {
         var hashCode = this::class.hashCode()
         hashCode = 31 * hashCode + memberId.hashCode()
+        hashCode = 31 * hashCode + tag.hashCode()
         hashCode = 31 * hashCode + inviterUserId.hashCode()
         hashCode = 31 * hashCode + joinedChatDate.hashCode()
         hashCode = 31 * hashCode + status.hashCode()
@@ -74,6 +80,9 @@ public class ChatMember public constructor(
             append("(")
             append("memberId=")
             append(memberId)
+            append(", ")
+            append("tag=")
+            append(tag)
             append(", ")
             append("inviterUserId=")
             append(inviterUserId)

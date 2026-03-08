@@ -201,6 +201,7 @@ import dev.g000sha256.tdl.dto.InlineQueryResultsButton
 import dev.g000sha256.tdl.dto.InputBackground
 import dev.g000sha256.tdl.dto.InputBusinessChatLink
 import dev.g000sha256.tdl.dto.InputBusinessStartPage
+import dev.g000sha256.tdl.dto.InputCall
 import dev.g000sha256.tdl.dto.InputChatPhoto
 import dev.g000sha256.tdl.dto.InputChatTheme
 import dev.g000sha256.tdl.dto.InputChecklist
@@ -264,6 +265,7 @@ import dev.g000sha256.tdl.dto.NewChatPrivacySettings
 import dev.g000sha256.tdl.dto.NotificationSettingsScope
 import dev.g000sha256.tdl.dto.NotificationSound
 import dev.g000sha256.tdl.dto.NotificationSounds
+import dev.g000sha256.tdl.dto.OauthLinkInfo
 import dev.g000sha256.tdl.dto.Ok
 import dev.g000sha256.tdl.dto.OptionValue
 import dev.g000sha256.tdl.dto.OrderInfo
@@ -283,6 +285,7 @@ import dev.g000sha256.tdl.dto.PaymentResult
 import dev.g000sha256.tdl.dto.PhoneNumberAuthenticationSettings
 import dev.g000sha256.tdl.dto.PhoneNumberCodeType
 import dev.g000sha256.tdl.dto.PhoneNumberInfo
+import dev.g000sha256.tdl.dto.PollVoters
 import dev.g000sha256.tdl.dto.PremiumFeature
 import dev.g000sha256.tdl.dto.PremiumFeatures
 import dev.g000sha256.tdl.dto.PremiumGiftCodeInfo
@@ -505,6 +508,7 @@ import dev.g000sha256.tdl.dto.UpdateNewGroupCallPaidReaction
 import dev.g000sha256.tdl.dto.UpdateNewInlineCallbackQuery
 import dev.g000sha256.tdl.dto.UpdateNewInlineQuery
 import dev.g000sha256.tdl.dto.UpdateNewMessage
+import dev.g000sha256.tdl.dto.UpdateNewOauthRequest
 import dev.g000sha256.tdl.dto.UpdateNewPreCheckoutQuery
 import dev.g000sha256.tdl.dto.UpdateNewShippingQuery
 import dev.g000sha256.tdl.dto.UpdateNotification
@@ -577,6 +581,7 @@ import dev.g000sha256.tdl.dto.WebAppInfo
 import dev.g000sha256.tdl.dto.WebAppOpenParameters
 import dev.g000sha256.tdl.dto.WebPageInstantView
 import dev.g000sha256.tdl.function.AcceptCall
+import dev.g000sha256.tdl.function.AcceptOauthRequest
 import dev.g000sha256.tdl.function.AcceptTermsOfService
 import dev.g000sha256.tdl.function.ActivateStoryStealthMode
 import dev.g000sha256.tdl.function.AddBotMediaPreview
@@ -650,6 +655,7 @@ import dev.g000sha256.tdl.function.CheckChatUsername
 import dev.g000sha256.tdl.function.CheckCreatedPublicChatsLimit
 import dev.g000sha256.tdl.function.CheckEmailAddressVerificationCode
 import dev.g000sha256.tdl.function.CheckLoginEmailAddressCode
+import dev.g000sha256.tdl.function.CheckOauthRequestMatchCode
 import dev.g000sha256.tdl.function.CheckPasswordRecoveryCode
 import dev.g000sha256.tdl.function.CheckPhoneNumberCode
 import dev.g000sha256.tdl.function.CheckPremiumGiftCode
@@ -704,6 +710,7 @@ import dev.g000sha256.tdl.function.CreateSupergroupChat
 import dev.g000sha256.tdl.function.CreateTemporaryPassword
 import dev.g000sha256.tdl.function.CreateVideoChat
 import dev.g000sha256.tdl.function.DeclineGroupCallInvitation
+import dev.g000sha256.tdl.function.DeclineOauthRequest
 import dev.g000sha256.tdl.function.DeclineSuggestedPost
 import dev.g000sha256.tdl.function.DecryptGroupCallData
 import dev.g000sha256.tdl.function.DeleteAccount
@@ -991,6 +998,7 @@ import dev.g000sha256.tdl.function.GetMessageViewers
 import dev.g000sha256.tdl.function.GetMessages
 import dev.g000sha256.tdl.function.GetNetworkStatistics
 import dev.g000sha256.tdl.function.GetNewChatPrivacySettings
+import dev.g000sha256.tdl.function.GetOauthLinkInfo
 import dev.g000sha256.tdl.function.GetOption
 import dev.g000sha256.tdl.function.GetOwnedBots
 import dev.g000sha256.tdl.function.GetOwnedStickerSets
@@ -1153,6 +1161,7 @@ import dev.g000sha256.tdl.function.PlaceGiftAuctionBid
 import dev.g000sha256.tdl.function.PostStory
 import dev.g000sha256.tdl.function.PreliminaryUploadFile
 import dev.g000sha256.tdl.function.ProcessChatFolderNewChats
+import dev.g000sha256.tdl.function.ProcessChatHasProtectedContentDisableRequest
 import dev.g000sha256.tdl.function.ProcessChatJoinRequest
 import dev.g000sha256.tdl.function.ProcessChatJoinRequests
 import dev.g000sha256.tdl.function.ProcessGiftPurchaseOffer
@@ -1348,6 +1357,7 @@ import dev.g000sha256.tdl.function.SetChatDraftMessage
 import dev.g000sha256.tdl.function.SetChatEmojiStatus
 import dev.g000sha256.tdl.function.SetChatLocation
 import dev.g000sha256.tdl.function.SetChatMemberStatus
+import dev.g000sha256.tdl.function.SetChatMemberTag
 import dev.g000sha256.tdl.function.SetChatMessageAutoDeleteTime
 import dev.g000sha256.tdl.function.SetChatMessageSender
 import dev.g000sha256.tdl.function.SetChatNotificationSettings
@@ -1787,6 +1797,9 @@ internal class TdlClientImpl internal constructor(
     override val serviceNotificationUpdates: Flow<UpdateServiceNotification>
         get() = repository.updates.filterIsInstance()
 
+    override val newOauthRequestUpdates: Flow<UpdateNewOauthRequest>
+        get() = repository.updates.filterIsInstance()
+
     override val fileUpdates: Flow<UpdateFile>
         get() = repository.updates.filterIsInstance()
 
@@ -2077,6 +2090,21 @@ internal class TdlClientImpl internal constructor(
         val function = AcceptCall(
             callId = callId,
             protocol = protocol,
+        )
+        return repository.send(function = function)
+    }
+
+    override suspend fun acceptOauthRequest(
+        url: String,
+        matchCode: String,
+        allowWriteAccess: Boolean,
+        allowPhoneNumberAccess: Boolean,
+    ): TdlResult<HttpUrl> {
+        val function = AcceptOauthRequest(
+            url = url,
+            matchCode = matchCode,
+            allowWriteAccess = allowWriteAccess,
+            allowPhoneNumberAccess = allowPhoneNumberAccess,
         )
         return repository.send(function = function)
     }
@@ -2781,6 +2809,14 @@ internal class TdlClientImpl internal constructor(
         return repository.send(function = function)
     }
 
+    override suspend fun checkOauthRequestMatchCode(url: String, matchCode: String): TdlResult<Ok> {
+        val function = CheckOauthRequestMatchCode(
+            url = url,
+            matchCode = matchCode,
+        )
+        return repository.send(function = function)
+    }
+
     override suspend fun checkPasswordRecoveryCode(recoveryCode: String): TdlResult<Ok> {
         val function = CheckPasswordRecoveryCode(
             recoveryCode = recoveryCode,
@@ -3255,6 +3291,13 @@ internal class TdlClientImpl internal constructor(
         val function = DeclineGroupCallInvitation(
             chatId = chatId,
             messageId = messageId,
+        )
+        return repository.send(function = function)
+    }
+
+    override suspend fun declineOauthRequest(url: String): TdlResult<Ok> {
+        val function = DeclineOauthRequest(
+            url = url,
         )
         return repository.send(function = function)
     }
@@ -5222,15 +5265,10 @@ internal class TdlClientImpl internal constructor(
         return repository.send(function = function)
     }
 
-    override suspend fun getExternalLink(
-        link: String,
-        allowWriteAccess: Boolean,
-        allowPhoneNumberAccess: Boolean,
-    ): TdlResult<HttpUrl> {
+    override suspend fun getExternalLink(link: String, allowWriteAccess: Boolean): TdlResult<HttpUrl> {
         val function = GetExternalLink(
             link = link,
             allowWriteAccess = allowWriteAccess,
-            allowPhoneNumberAccess = allowPhoneNumberAccess,
         )
         return repository.send(function = function)
     }
@@ -5944,6 +5982,14 @@ internal class TdlClientImpl internal constructor(
         return repository.send(function = function)
     }
 
+    override suspend fun getOauthLinkInfo(url: String, inAppOrigin: String): TdlResult<OauthLinkInfo> {
+        val function = GetOauthLinkInfo(
+            url = url,
+            inAppOrigin = inAppOrigin,
+        )
+        return repository.send(function = function)
+    }
+
     override suspend fun getOption(name: String): TdlResult<OptionValue> {
         val function = GetOption(
             name = name,
@@ -6049,7 +6095,7 @@ internal class TdlClientImpl internal constructor(
         optionId: Int,
         offset: Int,
         limit: Int,
-    ): TdlResult<MessageSenders> {
+    ): TdlResult<PollVoters> {
         val function = GetPollVoters(
             chatId = chatId,
             messageId = messageId,
@@ -7353,6 +7399,19 @@ internal class TdlClientImpl internal constructor(
         return repository.send(function = function)
     }
 
+    override suspend fun processChatHasProtectedContentDisableRequest(
+        chatId: Long,
+        requestMessageId: Long,
+        approve: Boolean,
+    ): TdlResult<Ok> {
+        val function = ProcessChatHasProtectedContentDisableRequest(
+            chatId = chatId,
+            requestMessageId = requestMessageId,
+            approve = approve,
+        )
+        return repository.send(function = function)
+    }
+
     override suspend fun processChatJoinRequest(
         chatId: Long,
         userId: Long,
@@ -8646,7 +8705,7 @@ internal class TdlClientImpl internal constructor(
         return repository.send(function = function)
     }
 
-    override suspend fun sendCallDebugInformation(callId: Int, debugInformation: String): TdlResult<Ok> {
+    override suspend fun sendCallDebugInformation(callId: InputCall, debugInformation: String): TdlResult<Ok> {
         val function = SendCallDebugInformation(
             callId = callId,
             debugInformation = debugInformation,
@@ -8654,7 +8713,7 @@ internal class TdlClientImpl internal constructor(
         return repository.send(function = function)
     }
 
-    override suspend fun sendCallLog(callId: Int, logFile: InputFile): TdlResult<Ok> {
+    override suspend fun sendCallLog(callId: InputCall, logFile: InputFile): TdlResult<Ok> {
         val function = SendCallLog(
             callId = callId,
             logFile = logFile,
@@ -8663,7 +8722,7 @@ internal class TdlClientImpl internal constructor(
     }
 
     override suspend fun sendCallRating(
-        callId: Int,
+        callId: InputCall,
         rating: Int,
         comment: String,
         problems: Array<CallProblem>,
@@ -9321,6 +9380,19 @@ internal class TdlClientImpl internal constructor(
             chatId = chatId,
             memberId = memberId,
             status = status,
+        )
+        return repository.send(function = function)
+    }
+
+    override suspend fun setChatMemberTag(
+        chatId: Long,
+        userId: Long,
+        tag: String,
+    ): TdlResult<Ok> {
+        val function = SetChatMemberTag(
+            chatId = chatId,
+            userId = userId,
+            tag = tag,
         )
         return repository.send(function = function)
     }

@@ -201,6 +201,7 @@ import dev.g000sha256.tdl.dto.InlineQueryResultsButton
 import dev.g000sha256.tdl.dto.InputBackground
 import dev.g000sha256.tdl.dto.InputBusinessChatLink
 import dev.g000sha256.tdl.dto.InputBusinessStartPage
+import dev.g000sha256.tdl.dto.InputCall
 import dev.g000sha256.tdl.dto.InputChatPhoto
 import dev.g000sha256.tdl.dto.InputChatTheme
 import dev.g000sha256.tdl.dto.InputChecklist
@@ -264,6 +265,7 @@ import dev.g000sha256.tdl.dto.NewChatPrivacySettings
 import dev.g000sha256.tdl.dto.NotificationSettingsScope
 import dev.g000sha256.tdl.dto.NotificationSound
 import dev.g000sha256.tdl.dto.NotificationSounds
+import dev.g000sha256.tdl.dto.OauthLinkInfo
 import dev.g000sha256.tdl.dto.Ok
 import dev.g000sha256.tdl.dto.OptionValue
 import dev.g000sha256.tdl.dto.OrderInfo
@@ -283,6 +285,7 @@ import dev.g000sha256.tdl.dto.PaymentResult
 import dev.g000sha256.tdl.dto.PhoneNumberAuthenticationSettings
 import dev.g000sha256.tdl.dto.PhoneNumberCodeType
 import dev.g000sha256.tdl.dto.PhoneNumberInfo
+import dev.g000sha256.tdl.dto.PollVoters
 import dev.g000sha256.tdl.dto.PremiumFeature
 import dev.g000sha256.tdl.dto.PremiumFeatures
 import dev.g000sha256.tdl.dto.PremiumGiftCodeInfo
@@ -505,6 +508,7 @@ import dev.g000sha256.tdl.dto.UpdateNewGroupCallPaidReaction
 import dev.g000sha256.tdl.dto.UpdateNewInlineCallbackQuery
 import dev.g000sha256.tdl.dto.UpdateNewInlineQuery
 import dev.g000sha256.tdl.dto.UpdateNewMessage
+import dev.g000sha256.tdl.dto.UpdateNewOauthRequest
 import dev.g000sha256.tdl.dto.UpdateNewPreCheckoutQuery
 import dev.g000sha256.tdl.dto.UpdateNewShippingQuery
 import dev.g000sha256.tdl.dto.UpdateNotification
@@ -779,7 +783,7 @@ public abstract class TdlClient internal constructor() {
     public abstract val chatPendingJoinRequestsUpdates: Flow<UpdateChatPendingJoinRequests>
 
     /**
-     * The default chat reply markup was changed. Can occur because new messages with reply markup were received or because an old reply markup was hidden by the user.
+     * The chat reply markup was changed.
      */
     public abstract val chatReplyMarkupUpdates: Flow<UpdateChatReplyMarkup>
 
@@ -994,6 +998,11 @@ public abstract class TdlClient internal constructor() {
      * A service notification from the server was received. Upon receiving this the application must show a popup with the content of the notification.
      */
     public abstract val serviceNotificationUpdates: Flow<UpdateServiceNotification>
+
+    /**
+     * An OAuth authorization request was received.
+     */
+    public abstract val newOauthRequestUpdates: Flow<UpdateNewOauthRequest>
 
     /**
      * Information about a file was updated.
@@ -1479,6 +1488,21 @@ public abstract class TdlClient internal constructor() {
      * @param protocol The call protocols supported by the application.
      */
     public abstract suspend fun acceptCall(callId: Int, protocol: CallProtocol): TdlResult<Ok>
+
+    /**
+     * Accepts an OAuth authorization request. Returns an HTTP URL to open after successful authorization. May return an empty link if just a toast about successful login has to be shown.
+     *
+     * @param url URL of the OAuth deep link.
+     * @param matchCode The matching code chosen by the user.
+     * @param allowWriteAccess Pass true if the current user allowed the bot that was returned in getOauthLinkInfo, to send them messages.
+     * @param allowPhoneNumberAccess Pass true if the current user allowed the bot that was returned in getOauthLinkInfo, to access their phone number.
+     */
+    public abstract suspend fun acceptOauthRequest(
+        url: String,
+        matchCode: String,
+        allowWriteAccess: Boolean,
+        allowPhoneNumberAccess: Boolean,
+    ): TdlResult<HttpUrl>
 
     /**
      * Accepts Telegram terms of services.
@@ -2181,6 +2205,14 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun checkLoginEmailAddressCode(code: EmailAddressAuthentication): TdlResult<Ok>
 
     /**
+     * Checks a match-code for an OAuth authorization request. If fails, then the authorization request has failed. Otherwise, authorization confirmation dialog must be shown and the link must be processed using acceptOauthRequest or declineOauthRequest.
+     *
+     * @param url URL of the OAuth deep link.
+     * @param matchCode The matching code chosen by the user.
+     */
+    public abstract suspend fun checkOauthRequestMatchCode(url: String, matchCode: String): TdlResult<Ok>
+
+    /**
      * Checks whether a 2-step verification password recovery code sent to an email address is valid.
      *
      * @param recoveryCode Recovery code to check.
@@ -2404,7 +2436,7 @@ public abstract class TdlClient internal constructor() {
     /**
      * Crafts a new gift from other gifts that will be permanently lost.
      *
-     * @param receivedGiftIds Identifier of the gifts to use for crafting.
+     * @param receivedGiftIds Identifier of the gifts to use for crafting. In the case of a successful craft, the resulting gift will have the number of the first gift. Consequently, the first gift must not have been withdrawn to the TON blockchain as an NFT and must have an empty giftAddress.
      */
     public abstract suspend fun craftGift(receivedGiftIds: Array<String>): TdlResult<CraftGiftResult>
 
@@ -2636,7 +2668,7 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun createTemporaryPassword(password: String, validFor: Int): TdlResult<TemporaryPasswordState>
 
     /**
-     * Creates a video chat (a group call bound to a chat). Available only for basic groups, supergroups and channels; requires canManageVideoChats administrator right.
+     * Creates a video chat (a group call bound to a chat); for basic groups, supergroups and channels only; requires canManageVideoChats administrator right.
      *
      * @param chatId Identifier of a chat in which the video chat will be created.
      * @param title Group call title; if empty, chat title will be used.
@@ -2657,6 +2689,13 @@ public abstract class TdlClient internal constructor() {
      * @param messageId Identifier of the message of the type messageGroupCall.
      */
     public abstract suspend fun declineGroupCallInvitation(chatId: Long, messageId: Long): TdlResult<Ok>
+
+    /**
+     * Declines an OAuth authorization request.
+     *
+     * @param url URL of the OAuth deep link.
+     */
+    public abstract suspend fun declineOauthRequest(url: String): TdlResult<Ok>
 
     /**
      * Declines a suggested post in a channel direct messages chat.
@@ -4253,7 +4292,7 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun getChatNotificationSettingsExceptions(scope: NotificationSettingsScope? = null, compareSound: Boolean): TdlResult<Chats>
 
     /**
-     * Returns the user who will become the owner of the chat after 7 days if the current user does not return to the chat during that period; requires owner privileges in the chat. Available only for supergroups and channel chats.
+     * Returns the user who will become the owner of the chat after 7 days if the current user does not return to the supergroup or channel during that period or immediately for basic groups; requires owner privileges in the chat. Available only for supergroups and channel chats.
      *
      * @param chatId Chat identifier.
      */
@@ -4626,13 +4665,8 @@ public abstract class TdlClient internal constructor() {
      *
      * @param link The HTTP link.
      * @param allowWriteAccess Pass true if the current user allowed the bot that was returned in getExternalLinkInfo, to send them messages.
-     * @param allowPhoneNumberAccess Pass true if the current user allowed the bot that was returned in getExternalLinkInfo, to access their phone number.
      */
-    public abstract suspend fun getExternalLink(
-        link: String,
-        allowWriteAccess: Boolean,
-        allowPhoneNumberAccess: Boolean,
-    ): TdlResult<HttpUrl>
+    public abstract suspend fun getExternalLink(link: String, allowWriteAccess: Boolean): TdlResult<HttpUrl>
 
     /**
      * Returns information about an action to be done when the current user clicks an external link. Don't use this method for links from secret chats if link preview is disabled in secret chats.
@@ -5344,6 +5378,14 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun getNewChatPrivacySettings(): TdlResult<NewChatPrivacySettings>
 
     /**
+     * Returns information about an OAuth deep link. Use checkOauthRequestMatchCode, acceptOauthRequest or declineOauthRequest to process the link.
+     *
+     * @param url URL of the link.
+     * @param inAppOrigin Origin of the OAuth request if the request was received from the in-app browser; pass an empty string otherwise.
+     */
+    public abstract suspend fun getOauthLinkInfo(url: String, inAppOrigin: String): TdlResult<OauthLinkInfo>
+
+    /**
      * Returns the value of an option by its name. (Check the list of available options on https://core.telegram.org/tdlib/options.) Can be called before authorization. Can be called synchronously for options &quot;version&quot; and &quot;commit_hash&quot;.
      *
      * @param name The name of the option.
@@ -5457,7 +5499,7 @@ public abstract class TdlClient internal constructor() {
         optionId: Int,
         offset: Int,
         limit: Int,
-    ): TdlResult<MessageSenders>
+    ): TdlResult<PollVoters>
 
     /**
      * Returns an IETF language tag of the language preferred in the country, which must be used to fill native fields in Telegram Passport personal details. Returns a 404 error if unknown.
@@ -5647,7 +5689,7 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun getRemoteFile(remoteFileId: String, fileType: FileType? = null): TdlResult<File>
 
     /**
-     * Returns information about a non-bundled message that is replied by a given message. Also, returns the pinned message for messagePinMessage, the game message for messageGameScore, the invoice message for messagePaymentSuccessful, the message with a previously set same background for messageChatSetBackground, the giveaway message for messageGiveawayCompleted, the checklist message for messageChecklistTasksDone, messageChecklistTasksAdded, the message with suggested post information for messageSuggestedPostApprovalFailed, messageSuggestedPostApproved, messageSuggestedPostDeclined, messageSuggestedPostPaid, messageSuggestedPostRefunded, the message with the regular gift that was upgraded for messageUpgradedGift with origin of the type upgradedGiftOriginUpgrade, the message with gift purchase offer for messageUpgradedGiftPurchaseOfferRejected, and the topic creation message for topic messages without non-bundled replied message. Returns a 404 error if the message doesn't exist.
+     * Returns information about a non-bundled message that is replied by a given message. Also, returns the pinned message for messagePinMessage, the game message for messageGameScore, the invoice message for messagePaymentSuccessful, the message with a previously set same background for messageChatSetBackground, the giveaway message for messageGiveawayCompleted, the checklist message for messageChecklistTasksDone, messageChecklistTasksAdded, the message with suggested post information for messageSuggestedPostApprovalFailed, messageSuggestedPostApproved, messageSuggestedPostDeclined, messageSuggestedPostPaid, messageSuggestedPostRefunded, the message with the regular gift that was upgraded for messageUpgradedGift with origin of the type upgradedGiftOriginUpgrade, the message with gift purchase offer for messageUpgradedGiftPurchaseOfferRejected, the message with the request to disable content protection for messageChatHasProtectedContentToggled, and the topic creation message for topic messages without non-bundled replied message. Returns a 404 error if the message doesn't exist.
      *
      * @param chatId Identifier of the chat the message belongs to.
      * @param messageId Identifier of the reply message.
@@ -6751,6 +6793,19 @@ public abstract class TdlClient internal constructor() {
      * @param addedChatIds Identifiers of the new chats, which are added to the chat folder. The chats are automatically joined if they aren't joined yet.
      */
     public abstract suspend fun processChatFolderNewChats(chatFolderId: Int, addedChatIds: LongArray): TdlResult<Ok>
+
+    /**
+     * Processes request to disable hasProtectedContent in a chat.
+     *
+     * @param chatId Chat identifier.
+     * @param requestMessageId Identifier of the message with the request. The message must be incoming and has content of the type messageChatHasProtectedContentDisableRequested.
+     * @param approve Pass true to approve the request; pass false to reject the request.
+     */
+    public abstract suspend fun processChatHasProtectedContentDisableRequest(
+        chatId: Long,
+        requestMessageId: Long,
+        approve: Boolean,
+    ): TdlResult<Ok>
 
     /**
      * Handles a pending join request in a chat.
@@ -8051,7 +8106,7 @@ public abstract class TdlClient internal constructor() {
      * @param callId Call identifier.
      * @param debugInformation Debug information in application-specific format.
      */
-    public abstract suspend fun sendCallDebugInformation(callId: Int, debugInformation: String): TdlResult<Ok>
+    public abstract suspend fun sendCallDebugInformation(callId: InputCall, debugInformation: String): TdlResult<Ok>
 
     /**
      * Sends log file for a call to Telegram servers.
@@ -8059,7 +8114,7 @@ public abstract class TdlClient internal constructor() {
      * @param callId Call identifier.
      * @param logFile Call log file. Only inputFileLocal and inputFileGenerated are supported.
      */
-    public abstract suspend fun sendCallLog(callId: Int, logFile: InputFile): TdlResult<Ok>
+    public abstract suspend fun sendCallLog(callId: InputCall, logFile: InputFile): TdlResult<Ok>
 
     /**
      * Sends a call rating.
@@ -8070,7 +8125,7 @@ public abstract class TdlClient internal constructor() {
      * @param problems List of the exact types of problems with the call, specified by the user.
      */
     public abstract suspend fun sendCallRating(
-        callId: Int,
+        callId: InputCall,
         rating: Int,
         comment: String,
         problems: Array<CallProblem>,
@@ -8722,6 +8777,19 @@ public abstract class TdlClient internal constructor() {
         chatId: Long,
         memberId: MessageSender,
         status: ChatMemberStatus,
+    ): TdlResult<Ok>
+
+    /**
+     * Changes the tag or custom title of a chat member; requires canManageTags administrator right to change tag of other users; for basic groups and supergroups only.
+     *
+     * @param chatId Chat identifier.
+     * @param userId Identifier of the user, which tag is changed. Chats can't have member tags.
+     * @param tag The new tag of the member in the chat; 0-16 characters without emoji.
+     */
+    public abstract suspend fun setChatMemberTag(
+        chatId: Long,
+        userId: Long,
+        tag: String,
     ): TdlResult<Ok>
 
     /**
@@ -9927,7 +9995,7 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun toggleChatGiftNotifications(chatId: Long, areEnabled: Boolean): TdlResult<Ok>
 
     /**
-     * Changes the ability of users to save, forward, or copy chat content. Supported only for basic groups, supergroups and channels. Requires owner privileges.
+     * Changes the ability of users to save, forward, or copy chat content. Requires owner privileges in basic groups, supergroups and channels. Requires Telegram Premium to enable protected content in private chats. Not available in Saved Messages and private chats with bots or support accounts.
      *
      * @param chatId Chat identifier.
      * @param hasProtectedContent New value of hasProtectedContent.
@@ -10273,7 +10341,7 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun transferBusinessAccountStars(businessConnectionId: String, starCount: Long): TdlResult<Ok>
 
     /**
-     * Changes the owner of a chat; requires owner privileges in the chat. Use the method canTransferOwnership to check whether the ownership can be transferred from the current session. Available only for supergroups and channel chats.
+     * Changes the owner of a chat; for basic groups, supergroups and channel chats only; requires owner privileges in the chat. Use the method canTransferOwnership to check whether the ownership can be transferred from the current session.
      *
      * @param chatId Chat identifier.
      * @param userId Identifier of the user to which transfer the ownership. The ownership can't be transferred to a bot or to a deleted user.
@@ -10460,12 +10528,12 @@ public abstract class TdlClient internal constructor() {
         /**
          * The Git commit hash of the TDLib.
          */
-        public const val TDL_GIT_COMMIT_HASH: String = "6d509061574d684117f74133056aa43df89022fc"
+        public const val TDL_GIT_COMMIT_HASH: String = "e597838871547131ef92332fca601f5effba4e8a"
 
         /**
          * The version of the TDLib.
          */
-        public const val TDL_VERSION: String = "1.8.61"
+        public const val TDL_VERSION: String = "1.8.62"
 
         /**
          * Creates a new instance of the [TdlClient].

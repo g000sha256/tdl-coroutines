@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Georgii Ippolitov (g000sha256)
+ * Copyright 2025-2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,14 +23,14 @@ import kotlin.Long
 import kotlin.String
 
 /**
- * The default chat reply markup was changed. Can occur because new messages with reply markup were received or because an old reply markup was hidden by the user.
+ * The chat reply markup was changed.
  *
  * @property chatId Chat identifier.
- * @property replyMarkupMessageId Identifier of the message from which reply markup needs to be used; 0 if there is no default custom reply markup in the chat.
+ * @property replyMarkupMessage The message from which the reply markup must be used; may be null if there is no default reply markup in the chat.
  */
 public class UpdateChatReplyMarkup public constructor(
     public val chatId: Long,
-    public val replyMarkupMessageId: Long,
+    public val replyMarkupMessage: Message?,
 ) : Update() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
@@ -46,13 +46,13 @@ public class UpdateChatReplyMarkup public constructor(
         if (other.chatId != chatId) {
             return false
         }
-        return other.replyMarkupMessageId == replyMarkupMessageId
+        return other.replyMarkupMessage == replyMarkupMessage
     }
 
     override fun hashCode(): Int {
         var hashCode = this::class.hashCode()
         hashCode = 31 * hashCode + chatId.hashCode()
-        hashCode = 31 * hashCode + replyMarkupMessageId.hashCode()
+        hashCode = 31 * hashCode + replyMarkupMessage.hashCode()
         return hashCode
     }
 
@@ -63,8 +63,8 @@ public class UpdateChatReplyMarkup public constructor(
             append("chatId=")
             append(chatId)
             append(", ")
-            append("replyMarkupMessageId=")
-            append(replyMarkupMessageId)
+            append("replyMarkupMessage=")
+            append(replyMarkupMessage)
             append(")")
         }
     }

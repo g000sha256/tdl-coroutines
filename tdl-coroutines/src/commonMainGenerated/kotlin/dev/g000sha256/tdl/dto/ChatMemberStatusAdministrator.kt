@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Georgii Ippolitov (g000sha256)
+ * Copyright 2025-2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,12 +24,10 @@ import kotlin.String
 /**
  * The user is a member of the chat and has some additional privileges. In basic groups, administrators can edit and delete messages sent by others, add new members, ban unprivileged members, and manage video chats. In supergroups and channels, there are more detailed options for administrator privileges.
  *
- * @property customTitle A custom title of the administrator; 0-16 characters without emoji; applicable to supergroups only.
  * @property canBeEdited True, if the current user can edit the administrator privileges for the called user.
  * @property rights Rights of the administrator.
  */
 public class ChatMemberStatusAdministrator public constructor(
-    public val customTitle: String,
     public val canBeEdited: Boolean,
     public val rights: ChatAdministratorRights,
 ) : ChatMemberStatus() {
@@ -44,9 +42,6 @@ public class ChatMemberStatusAdministrator public constructor(
             return false
         }
         other as ChatMemberStatusAdministrator
-        if (other.customTitle != customTitle) {
-            return false
-        }
         if (other.canBeEdited != canBeEdited) {
             return false
         }
@@ -55,7 +50,6 @@ public class ChatMemberStatusAdministrator public constructor(
 
     override fun hashCode(): Int {
         var hashCode = this::class.hashCode()
-        hashCode = 31 * hashCode + customTitle.hashCode()
         hashCode = 31 * hashCode + canBeEdited.hashCode()
         hashCode = 31 * hashCode + rights.hashCode()
         return hashCode
@@ -65,9 +59,6 @@ public class ChatMemberStatusAdministrator public constructor(
         return buildString {
             append("ChatMemberStatusAdministrator")
             append("(")
-            append("customTitle=")
-            append(customTitle)
-            append(", ")
             append("canBeEdited=")
             append(canBeEdited)
             append(", ")

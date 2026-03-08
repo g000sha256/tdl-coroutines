@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Georgii Ippolitov (g000sha256)
+ * Copyright 2025-2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,12 +24,10 @@ import kotlin.String
 /**
  * The user is the owner of the chat and has all the administrator privileges.
  *
- * @property customTitle A custom title of the owner; 0-16 characters without emoji; applicable to supergroups only.
  * @property isAnonymous True, if the creator isn't shown in the chat member list and sends messages anonymously; applicable to supergroups only.
  * @property isMember True, if the user is a member of the chat.
  */
 public class ChatMemberStatusCreator public constructor(
-    public val customTitle: String,
     public val isAnonymous: Boolean,
     public val isMember: Boolean,
 ) : ChatMemberStatus() {
@@ -44,9 +42,6 @@ public class ChatMemberStatusCreator public constructor(
             return false
         }
         other as ChatMemberStatusCreator
-        if (other.customTitle != customTitle) {
-            return false
-        }
         if (other.isAnonymous != isAnonymous) {
             return false
         }
@@ -55,7 +50,6 @@ public class ChatMemberStatusCreator public constructor(
 
     override fun hashCode(): Int {
         var hashCode = this::class.hashCode()
-        hashCode = 31 * hashCode + customTitle.hashCode()
         hashCode = 31 * hashCode + isAnonymous.hashCode()
         hashCode = 31 * hashCode + isMember.hashCode()
         return hashCode
@@ -65,9 +59,6 @@ public class ChatMemberStatusCreator public constructor(
         return buildString {
             append("ChatMemberStatusCreator")
             append("(")
-            append("customTitle=")
-            append(customTitle)
-            append(", ")
             append("isAnonymous=")
             append(isAnonymous)
             append(", ")
