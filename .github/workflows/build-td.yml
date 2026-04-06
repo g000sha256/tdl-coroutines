@@ -19,6 +19,12 @@ on:
         type: boolean
         default: false
 
+      build-linux:
+        description: 'Build Linux'
+        required: false
+        type: boolean
+        default: false
+
       build-ios:
         description: 'Build iOS'
         required: false
@@ -426,6 +432,102 @@ jobs:
         uses: ./.github/actions/commit-and-push
         with:
           message: TDLib for JVM Windows x64 [skip ci]
+          add: tdl-coroutines
+
+  build-linux-arm64:
+    if: github.event_name == 'push' || inputs.build-linux
+    needs: run-generator
+    runs-on: ubuntu-24.04-arm
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          lfs: true
+          submodules: true
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          tools: none
+
+      - name: Set up dependencies
+        run: sudo apt-get install make git zlib1g-dev libssl-dev gperf cmake g++
+
+      - name: Build TDLib
+        run: |
+          cd td
+          mkdir build
+          cd build
+          cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX:PATH=../tdlib ..
+          cmake --build . --target install
+
+      - name: SHA256 checksums
+        run: shasum -a 256 td/tdlib/lib/*.a
+
+      - name: Copy files
+        run: |
+          rm -rf tdl-coroutines/generated/linuxArm64
+          mkdir -p tdl-coroutines/generated/linuxArm64/include/td/telegram
+          mkdir -p tdl-coroutines/generated/linuxArm64/libs
+          cp td/tdlib/include/td/telegram/td_json_client.h tdl-coroutines/generated/linuxArm64/include/td/telegram
+          cp td/tdlib/include/td/telegram/tdjson_export.h tdl-coroutines/generated/linuxArm64/include/td/telegram
+          cp td/tdlib/lib/*.a tdl-coroutines/generated/linuxArm64/libs
+
+      - name: Commit and push
+        uses: ./.github/actions/commit-and-push
+        with:
+          message: TDLib for Linux Arm64 [skip ci]
+          add: tdl-coroutines
+
+  build-linux-x64:
+    if: github.event_name == 'push' || inputs.build-linux
+    needs: run-generator
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          lfs: true
+          submodules: true
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          tools: none
+
+      - name: Set up dependencies
+        run: sudo apt-get install make git zlib1g-dev libssl-dev gperf cmake g++
+
+      - name: Build TDLib
+        run: |
+          cd td
+          mkdir build
+          cd build
+          cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX:PATH=../tdlib ..
+          cmake --build . --target install
+
+      - name: SHA256 checksums
+        run: shasum -a 256 td/tdlib/lib/*.a
+
+      - name: Copy files
+        run: |
+          rm -rf tdl-coroutines/generated/linuxX64
+          mkdir -p tdl-coroutines/generated/linuxX64/include/td/telegram
+          mkdir -p tdl-coroutines/generated/linuxX64/libs
+          cp td/tdlib/include/td/telegram/td_json_client.h tdl-coroutines/generated/linuxX64/include/td/telegram
+          cp td/tdlib/include/td/telegram/tdjson_export.h tdl-coroutines/generated/linuxX64/include/td/telegram
+          cp td/tdlib/lib/*.a tdl-coroutines/generated/linuxX64/libs
+
+      - name: Commit and push
+        uses: ./.github/actions/commit-and-push
+        with:
+          message: TDLib for Linux x64 [skip ci]
           add: tdl-coroutines
 
   build-ios-arm64:
