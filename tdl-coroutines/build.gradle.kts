@@ -74,27 +74,35 @@ kotlin {
 
     iosArm64 {
         configureBinaries()
-        configureCompilations(platform = "iosArm64")
+        configureCompilationsApple(platform = "iosArm64")
     }
 
     iosSimulatorArm64(name = "iosArm64Simulator") {
         configureBinaries()
-        configureCompilations(platform = "iosArm64Simulator")
+        configureCompilationsApple(platform = "iosArm64Simulator")
     }
 
     iosX64(name = "iosX64Simulator") {
         configureBinaries()
-        configureCompilations(platform = "iosX64Simulator")
+        configureCompilationsApple(platform = "iosX64Simulator")
     }
 
     macosArm64 {
         configureBinaries()
-        configureCompilations(platform = "macosArm64")
+        configureCompilationsApple(platform = "macosArm64")
     }
 
     macosX64 {
         configureBinaries()
-        configureCompilations(platform = "macosX64")
+        configureCompilationsApple(platform = "macosX64")
+    }
+
+    linuxArm64 {
+        configureCompilationsLinux(platform = "linuxArm64")
+    }
+
+    linuxX64 {
+        configureCompilationsLinux(platform = "linuxX64")
     }
 
     sourceSets {
@@ -117,25 +125,33 @@ kotlin {
         }
 
         iosArm64Main {
-            configureAppleKotlin()
+            configureNativeKotlin()
         }
 
         @Suppress("unused")
         val iosArm64SimulatorMain by getting {
-            configureAppleKotlin()
+            configureNativeKotlin()
         }
 
         @Suppress("unused")
         val iosX64SimulatorMain by getting {
-            configureAppleKotlin()
+            configureNativeKotlin()
         }
 
         macosArm64Main {
-            configureAppleKotlin()
+            configureNativeKotlin()
         }
 
         macosX64Main {
-            configureAppleKotlin()
+            configureNativeKotlin()
+        }
+
+        linuxArm64Main {
+            configureNativeKotlin()
+        }
+
+        linuxX64Main {
+            configureNativeKotlin()
         }
     }
 }
@@ -248,11 +264,19 @@ class CustomSignatureType(
 
 }
 
-private fun KotlinOnlyTarget<KotlinNativeCompilation>.configureCompilations(platform: String) {
+private fun KotlinOnlyTarget<KotlinNativeCompilation>.configureCompilationsApple(platform: String) {
+    configureCompilations(platform = platform, fileName = "config-apple.def")
+}
+
+private fun KotlinOnlyTarget<KotlinNativeCompilation>.configureCompilationsLinux(platform: String) {
+    configureCompilations(platform = platform, fileName = "config-linux.def")
+}
+
+private fun KotlinOnlyTarget<KotlinNativeCompilation>.configureCompilations(platform: String, fileName: String) {
     compilations.getByName("main") {
         cinterops {
             register("main") {
-                definitionFile = file("cinterop/config.def")
+                definitionFile = file("cinterop/$fileName")
                 includeDirs("generated/$platform/include")
 
                 val libsFile = file("generated/$platform/libs")
@@ -272,6 +296,6 @@ private fun KotlinTargetWithBinaries<*, AbstractKotlinNativeBinaryContainer>.con
     }
 }
 
-private fun KotlinSourceSet.configureAppleKotlin() {
-    kotlin.srcDirs("src/apple/kotlin")
+private fun KotlinSourceSet.configureNativeKotlin() {
+    kotlin.srcDirs("src/native/kotlin")
 }
