@@ -11,14 +11,43 @@ inputs:
 
 runs:
   using: composite
-
   steps:
-    - uses: EndBug/add-and-commit@v9
-      with:
-        pull: --rebase --autostash
-        author_name: Georgii Ippolitov
-        author_email: detmmpmznb@g000sha256.dev
-        committer_name: GitHub
-        committer_email: noreply@github.com
-        message: ${{ inputs.message }}
-        add: ${{ inputs.add }}
+    - name: Commit and push
+      shell: bash
+      env:
+        INPUT_MESSAGE: ${{ inputs.message }}
+        INPUT_ADD: ${{ inputs.add }}
+
+      run: |
+        echo "$INPUT_ADD" | sed 's/^- //' | while read file; do
+          if [ -n "$file" ]; then
+            git add "$file"
+          fi
+        done
+
+        if git diff --cached --quiet; then
+          echo "⏭️ No changes to commit"
+          exit 0
+        fi
+
+        git \
+          -c user.name="GitHub" \
+          -c user.email="noreply@github.com" \
+          commit \
+          --author="Georgii Ippolitov <detmmpmznb@g000sha256.dev>" \
+          -m "$INPUT_MESSAGE"
+
+        for attempt in 1 2 3; do
+          if [ "$attempt" -gt 1 ]; then
+            sleep 15
+            git -c user.name="GitHub" -c user.email="noreply@github.com" pull --rebase
+          fi
+          if git push; then
+            echo "✅ Push succeeded"
+            exit 0
+          fi
+          echo "⚠️ Push attempt $attempt failed"
+        done
+
+        echo "❌ Push failed after 3 attempts"
+        exit 1
