@@ -465,7 +465,10 @@ jobs:
           cmake --build . --target install
 
       - name: SHA256 checksums
-        run: shasum -a 256 td/tdlib/lib/*.a
+        run: |
+          shasum -a 256 td/tdlib/lib/*.a
+          shasum -a 256 /usr/lib/aarch64-linux-gnu/libssl.a
+          shasum -a 256 /usr/lib/aarch64-linux-gnu/libcrypto.a
 
       - name: Copy files
         run: |
@@ -475,6 +478,8 @@ jobs:
           cp td/tdlib/include/td/telegram/td_json_client.h tdl-coroutines/generated/linuxArm64/include/td/telegram
           cp td/tdlib/include/td/telegram/tdjson_export.h tdl-coroutines/generated/linuxArm64/include/td/telegram
           cp td/tdlib/lib/*.a tdl-coroutines/generated/linuxArm64/libs
+          cp /usr/lib/aarch64-linux-gnu/libssl.a tdl-coroutines/generated/linuxArm64/libs
+          cp /usr/lib/aarch64-linux-gnu/libcrypto.a tdl-coroutines/generated/linuxArm64/libs
 
       - name: Commit and push
         uses: ./.github/actions/commit-and-push
@@ -513,7 +518,10 @@ jobs:
           cmake --build . --target install
 
       - name: SHA256 checksums
-        run: shasum -a 256 td/tdlib/lib/*.a
+        run: |
+          shasum -a 256 td/tdlib/lib/*.a
+          shasum -a 256 /usr/lib/x86_64-linux-gnu/libssl.a
+          shasum -a 256 /usr/lib/x86_64-linux-gnu/libcrypto.a
 
       - name: Copy files
         run: |
@@ -523,6 +531,8 @@ jobs:
           cp td/tdlib/include/td/telegram/td_json_client.h tdl-coroutines/generated/linuxX64/include/td/telegram
           cp td/tdlib/include/td/telegram/tdjson_export.h tdl-coroutines/generated/linuxX64/include/td/telegram
           cp td/tdlib/lib/*.a tdl-coroutines/generated/linuxX64/libs
+          cp /usr/lib/x86_64-linux-gnu/libssl.a tdl-coroutines/generated/linuxX64/libs
+          cp /usr/lib/x86_64-linux-gnu/libcrypto.a tdl-coroutines/generated/linuxX64/libs
 
       - name: Commit and push
         uses: ./.github/actions/commit-and-push
