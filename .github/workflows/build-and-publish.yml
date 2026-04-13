@@ -21,7 +21,7 @@ jobs:
       - name: Assemble libraries
         run: |
           ./gradlew \
-            tdl-coroutines:bundleReleaseAar \
+            tdl-coroutines:bundleAndroidMainAar \
             tdl-coroutines:jvmJar \
             tdl-coroutines:iosArm64Cinterop-mainKlib \
             tdl-coroutines:iosArm64Klib \

@@ -1,6 +1,6 @@
 plugins {
     alias(notation = catalog.plugins.android.application) apply false
-    alias(notation = catalog.plugins.android.library) apply false
+    alias(notation = catalog.plugins.android.kotlin.multiplatform.library) apply false
     alias(notation = catalog.plugins.g000sha256.sonatypeMavenCentral) apply false
     alias(notation = catalog.plugins.gmazzo.buildConfig) apply false
     alias(notation = catalog.plugins.jetBrains.dokka) apply false

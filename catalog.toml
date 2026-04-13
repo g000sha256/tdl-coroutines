@@ -14,7 +14,7 @@ sonatypeMavenCentral = "2.1.1"
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "android" }
-android-library = { id = "com.android.library", version.ref = "android" }
+android-kotlin-multiplatform-library = { id = "com.android.kotlin.multiplatform.library", version.ref = "android" }
 g000sha256-sonatypeMavenCentral = { id = "dev.g000sha256.sonatype-maven-central", version.ref = "sonatypeMavenCentral" }
 gmazzo-buildConfig = { id = "com.github.gmazzo.buildconfig", version.ref = "buildConfig" }
 gradle-application = { id = "application" }

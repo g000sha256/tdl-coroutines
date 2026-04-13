@@ -9,45 +9,13 @@ group = "dev.g000sha256"
 version = "12.0.0"
 
 plugins {
-    alias(notation = catalog.plugins.android.library)
+    alias(notation = catalog.plugins.android.kotlin.multiplatform.library)
     alias(notation = catalog.plugins.g000sha256.sonatypeMavenCentral)
     alias(notation = catalog.plugins.jetBrains.dokka)
     alias(notation = catalog.plugins.jetBrains.kotlin.multiplatform)
 }
 
 private val packageName = "dev.g000sha256.tdl"
-
-android {
-    buildToolsVersion = "36.0.0"
-    compileSdk = 36
-    namespace = packageName
-
-    buildTypes {
-        release {
-            isMinifyEnabled = true
-
-            consumerProguardFile(proguardFile = "proguard-consumer.pro")
-
-            proguardFile(proguardFile = "proguard-consumer.pro")
-            proguardFile(proguardFile = "proguard.pro")
-        }
-    }
-
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
-    }
-
-    defaultConfig {
-        minSdk = 21
-    }
-
-    sourceSets {
-        getByName("main") {
-            jniLibs.srcDir(srcDir = "generated/android")
-        }
-    }
-}
 
 kotlin {
     explicitApi()
@@ -63,11 +31,29 @@ kotlin {
         allWarningsAsErrors = true
     }
 
-    androidTarget {
-        publishLibraryVariants("release")
+    android {
+        buildToolsVersion = "36.0.0"
+        compileSdk = 36
+        minSdk = 21
+        namespace = packageName
 
         compilerOptions {
             moduleName = packageName
+        }
+
+        @Suppress("UnstableApiUsage")
+        optimization {
+            minify = true
+
+            keepRules.apply {
+                file(file = "proguard-consumer.pro")
+                file(file = "proguard.pro")
+            }
+
+            consumerKeepRules.apply {
+                publish = true
+                file(file = "proguard-consumer.pro")
+            }
         }
     }
 
@@ -139,6 +125,12 @@ kotlin {
         macosX64Main {
             configureAppleKotlin()
         }
+    }
+}
+
+androidComponents {
+    onVariants { variant ->
+        variant.sources.jniLibs?.addStaticSourceDirectory(srcDir = "generated/android")
     }
 }
 
