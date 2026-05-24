@@ -9,7 +9,7 @@ dokka = "2.2.0"
 kotlin = "2.3.21"
 kotlinPoet = "2.3.0"
 kotlinSerialization = "1.11.0"
-shadow = "8.1.1"
+shadow = "9.4.1"
 sonatypeMavenCentral = "2.1.1"
 
 [plugins]
@@ -18,11 +18,11 @@ android-kotlin-multiplatform-library = { id = "com.android.kotlin.multiplatform.
 g000sha256-sonatypeMavenCentral = { id = "dev.g000sha256.sonatype-maven-central", version.ref = "sonatypeMavenCentral" }
 gmazzo-buildConfig = { id = "com.github.gmazzo.buildconfig", version.ref = "buildConfig" }
 gradle-application = { id = "application" }
+gradleup-shadow = { id = "com.gradleup.shadow", version.ref = "shadow" }
 jetBrains-dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }
 jetBrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 jetBrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 jetBrains-kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
-johnRengelman-shadow = { id = "com.github.johnrengelman.shadow", version.ref = "shadow" }
 
 [libraries]
 libraries-androidX-activity = { module = "androidx.activity:activity", version.ref = "androidX-activity" }

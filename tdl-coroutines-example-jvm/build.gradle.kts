@@ -1,8 +1,8 @@
 plugins {
     alias(notation = catalog.plugins.gmazzo.buildConfig)
     alias(notation = catalog.plugins.gradle.application)
+    alias(notation = catalog.plugins.gradleup.shadow)
     alias(notation = catalog.plugins.jetBrains.kotlin.jvm)
-    alias(notation = catalog.plugins.johnRengelman.shadow)
 }
 
 application {
