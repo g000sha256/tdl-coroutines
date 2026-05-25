@@ -176,6 +176,9 @@ jobs:
           mkdir -p tdl-coroutines/generated/jvm/linux/arm64
           cp td/tdlib/bin/*.so tdl-coroutines/generated/jvm/linux/arm64
 
+      - name: Verify
+        run: ./gradlew :example:verification:app:jvm:run
+
       - name: Commit and push
         uses: ./.github/actions/commit-and-push
         with:
@@ -229,6 +232,9 @@ jobs:
           mkdir -p tdl-coroutines/generated/jvm/linux/x64
           cp td/tdlib/bin/*.so tdl-coroutines/generated/jvm/linux/x64
 
+      - name: Verify
+        run: ./gradlew :example:verification:app:jvm:run
+
       - name: Commit and push
         uses: ./.github/actions/commit-and-push
         with:
@@ -279,6 +285,9 @@ jobs:
           mkdir -p tdl-coroutines/generated/jvm/macos/arm64
           cp td/tdlib/bin/*.dylib tdl-coroutines/generated/jvm/macos/arm64
 
+      - name: Verify
+        run: ./gradlew :example:verification:app:jvm:run
+
       - name: Commit and push
         uses: ./.github/actions/commit-and-push
         with:
@@ -323,6 +332,9 @@ jobs:
           rm -rf tdl-coroutines/generated/jvm/macos/x64
           mkdir -p tdl-coroutines/generated/jvm/macos/x64
           cp td/tdlib/bin/*.dylib tdl-coroutines/generated/jvm/macos/x64
+
+      - name: Verify
+        run: ./gradlew :example:verification:app:jvm:run
 
       - name: Commit and push
         uses: ./.github/actions/commit-and-push
@@ -379,6 +391,13 @@ jobs:
           New-Item -Force -ItemType Directory -Path tdl-coroutines/generated/jvm/windows/arm64
           Copy-Item td/tdlib/bin/*.dll -Destination tdl-coroutines/generated/jvm/windows/arm64
 
+      - name: Set up Java
+        uses: ./.github/actions/set-up-java
+
+      - name: Verify
+        shell: bash
+        run: ./gradlew :example:verification:app:jvm:run
+
       - name: Commit and push
         uses: ./.github/actions/commit-and-push
         with:
@@ -433,6 +452,13 @@ jobs:
           Remove-Item -ErrorAction SilentlyContinue -Recurse tdl-coroutines/generated/jvm/windows/x64
           New-Item -Force -ItemType Directory -Path tdl-coroutines/generated/jvm/windows/x64
           Copy-Item td/tdlib/bin/*.dll -Destination tdl-coroutines/generated/jvm/windows/x64
+
+      - name: Set up Java
+        uses: ./.github/actions/set-up-java
+
+      - name: Verify
+        shell: bash
+        run: ./gradlew :example:verification:app:jvm:run
 
       - name: Commit and push
         uses: ./.github/actions/commit-and-push
