@@ -48,7 +48,7 @@ internal fun loadSystemLibrary() {
                         libraryNames = buildList {
                             add(element = "libcrypto-3-arm64.dll")
                             add(element = "libssl-3-arm64.dll")
-                            add(element = "zlib1.dll")
+                            add(element = "z.dll")
                             add(element = "tdjsonjava.dll")
                         },
                     )
@@ -59,7 +59,7 @@ internal fun loadSystemLibrary() {
                         libraryNames = buildList {
                             add(element = "libcrypto-3-x64.dll")
                             add(element = "libssl-3-x64.dll")
-                            add(element = "zlib1.dll")
+                            add(element = "z.dll")
                             add(element = "tdjsonjava.dll")
                         },
                     )
