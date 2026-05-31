@@ -72,7 +72,7 @@ jobs:
   build-android:
     if: github.event_name == 'push' || inputs.build-android
     needs: run-generator
-    runs-on: ubuntu-24.04
+    runs-on: self-hosted
     permissions:
       contents: write
 
@@ -83,16 +83,16 @@ jobs:
           lfs: true
           submodules: true
 
+      - name: Clean submodule
+        run: |
+          cd td
+          git clean -ffdx
+
       - name: Set up Java
         uses: ./.github/actions/set-up-java
 
-      - name: Set up PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          tools: none
-
       - name: Set up dependencies
-        run: sudo apt-get install make git zlib1g-dev libssl-dev gperf cmake g++
+        run: brew install cmake coreutils gperf openssl php
 
       - name: Check environment
         run: |
