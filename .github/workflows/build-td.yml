@@ -704,6 +704,12 @@ jobs:
           cp td/example/ios/build/install-macOS/lib/*.a tdl-coroutines/generated/macos/arm64/libs
           cp td/example/ios/third_party/openssl/macOS/lib/*.a tdl-coroutines/generated/macos/arm64/libs
 
+      - name: Set up Java
+        uses: ./.github/actions/set-up-java
+
+      - name: Verify
+        run: ./gradlew :example:verification:app:macos:runReleaseExecutableMacosArm64
+
       - name: Commit and push
         uses: ./.github/actions/commit-and-push
         with:
@@ -759,6 +765,12 @@ jobs:
           cp td/example/ios/build/install-macOS/include/td/telegram/tdjson_export.h tdl-coroutines/generated/macos/x64/include/td/telegram
           cp td/example/ios/build/install-macOS/lib/*.a tdl-coroutines/generated/macos/x64/libs
           cp td/example/ios/third_party/openssl/macOS/lib/*.a tdl-coroutines/generated/macos/x64/libs
+
+      - name: Set up Java
+        uses: ./.github/actions/set-up-java
+
+      - name: Verify
+        run: ./gradlew :example:verification:app:macos:runReleaseExecutableMacosX64
 
       - name: Commit and push
         uses: ./.github/actions/commit-and-push

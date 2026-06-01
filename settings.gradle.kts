@@ -1,4 +1,5 @@
 include(":example:verification:app:jvm")
+include(":example:verification:app:macos")
 include(":example:verification:shared")
 include(":tdl-coroutines")
 include(":tdl-coroutines-example")
