@@ -123,6 +123,44 @@ jobs:
           mkdir -p tdl-coroutines/generated/android
           cp -r td/example/android/tdlib/libs/* tdl-coroutines/generated/android
 
+      - name: Verify
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 36
+          arch: arm64-v8a
+          script: |
+            ./gradlew :example:verification:app:android:installDebug
+            adb logcat -c
+            adb shell am start -n dev.g000sha256.tdl.example.verification.app.android/.MainActivity
+
+            TIMEOUT=60
+            ELAPSED=0
+            RESULT=""
+            while [ $ELAPSED -lt $TIMEOUT ]; do
+              if adb logcat -d 2>/dev/null | grep -q "\[TDL\] Success"; then
+                RESULT="SUCCESS"
+                break
+              fi
+              if adb logcat -d 2>/dev/null | grep -q "\[TDL\] Failure"; then
+                RESULT="FAILURE"
+                break
+              fi
+              sleep 2
+              ELAPSED=$((ELAPSED + 2))
+            done
+
+            echo "--- TDL log output ---"
+            adb logcat -d | grep "\[TDL\]" || echo "(no [TDL] entries)"
+
+            if [ "$RESULT" = "SUCCESS" ]; then
+              exit 0
+            elif [ "$RESULT" = "FAILURE" ]; then
+              exit 1
+            else
+              echo "Timed out after ${TIMEOUT}s"
+              exit 1
+            fi
+
       - name: Commit and push
         uses: ./.github/actions/commit-and-push
         with:

@@ -1,3 +1,4 @@
+include(":example:verification:app:android")
 include(":example:verification:app:jvm")
 include(":example:verification:app:linux")
 include(":example:verification:app:macos")
