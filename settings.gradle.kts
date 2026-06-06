@@ -1,4 +1,5 @@
 include(":example:verification:app:jvm")
+include(":example:verification:app:linux")
 include(":example:verification:app:macos")
 include(":example:verification:app:windows")
 include(":example:verification:shared")
