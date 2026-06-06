@@ -35,6 +35,7 @@ include {
         directory(name = "verification") {
             directory(name = "app") {
                 module(name = "android")
+                module(name = "ios")
                 module(name = "jvm")
                 module(name = "linux")
                 module(name = "macos")
