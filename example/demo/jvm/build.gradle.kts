@@ -27,6 +27,8 @@ dependencies {
 }
 
 buildConfig {
+    packageName(packageName = "dev.g000sha256.tdl.example")
+
     val apiId = findInt(key = "Telergam.ApiId") ?: 0
     buildConfigField(name = "API_ID", value = apiId)
 

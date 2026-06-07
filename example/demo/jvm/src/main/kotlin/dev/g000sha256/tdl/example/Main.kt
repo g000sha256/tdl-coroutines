@@ -17,7 +17,6 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
-import tdl_coroutines.tdl_coroutines_example_jvm.BuildConfig
 
 private const val API_ID = BuildConfig.API_ID
 private const val API_HASH = BuildConfig.API_HASH

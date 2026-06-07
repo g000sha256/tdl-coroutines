@@ -43,8 +43,8 @@ jobs:
       - name: Assemble examples
         run: |
           ./gradlew \
-            tdl-coroutines-example:assembleRelease \
-            tdl-coroutines-example-jvm:assemble
+            :example:demo:android:assembleRelease \
+            :example:demo:jvm:assemble
 
       - name: Check API compatibility
         run: ./gradlew :tdl-coroutines:checkKotlinAbi

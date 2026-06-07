@@ -1,6 +1,6 @@
+example/demo/android/keystore.jks filter=lfs diff=lfs merge=lfs -text
 gradle/wrapper/gradle-wrapper.jar filter=lfs diff=lfs merge=lfs -text
 tdl-coroutines/generated/**/*.a filter=lfs diff=lfs merge=lfs -text
 tdl-coroutines/generated/**/*.dll filter=lfs diff=lfs merge=lfs -text
 tdl-coroutines/generated/**/*.dylib filter=lfs diff=lfs merge=lfs -text
 tdl-coroutines/generated/**/*.so filter=lfs diff=lfs merge=lfs -text
-tdl-coroutines-example/keystore.jks filter=lfs diff=lfs merge=lfs -text
