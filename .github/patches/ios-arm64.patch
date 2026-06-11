@@ -18,6 +18,15 @@ diff --git a/td/example/ios/build-openssl.sh b/td/example/ios/build-openssl.sh
    fi
  
    for simulator in $simulators;
+@@ -25,7 +25,7 @@ do
+     echo $platform
+     cd Python-Apple-support
+     #NB: -j will fail
+-    SOURCE_DATE_EPOCH=1 ZERO_AR_DATE=1 make OpenSSL-$platform || exit 1
++    SOURCE_DATE_EPOCH=1 ZERO_AR_DATE=1 make OpenSSL-$platform TARGETS-iOS=iphoneos.arm64 || exit 1
+     cd ..
+     rm -rf third_party/openssl/$platform || exit 1
+     mkdir -p third_party/openssl/$platform/lib || exit 1
 diff --git a/td/example/ios/build.sh b/td/example/ios/build.sh
 --- a/td/example/ios/build.sh
 +++ b/td/example/ios/build.sh
