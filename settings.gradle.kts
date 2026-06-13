@@ -1,20 +1,13 @@
-include(":example:demo:android")
-include(":example:demo:jvm")
-include(":example:verification:app:android")
-include(":example:verification:app:jvm")
-include(":example:verification:app:linux")
-include(":example:verification:app:macos")
-include(":example:verification:app:windows")
-include(":example:verification:shared")
-include(":tdl-coroutines")
-include(":tdl-coroutines-generator")
-
 pluginManagement {
     repositories {
         google()
         gradlePluginPortal()
         mavenCentral()
     }
+}
+
+plugins {
+    id(id = "dev.g000sha256.gradle-module-tree") version "2.0.2"
 }
 
 dependencyResolutionManagement {
@@ -30,4 +23,28 @@ dependencyResolutionManagement {
             from(file)
         }
     }
+}
+
+include {
+    directory(name = "example") {
+        directory(name = "demo") {
+            module(name = "android")
+            module(name = "jvm")
+        }
+
+        directory(name = "verification") {
+            directory(name = "app") {
+                module(name = "android")
+                module(name = "jvm")
+                module(name = "linux")
+                module(name = "macos")
+                module(name = "windows")
+            }
+
+            module(name = "shared")
+        }
+    }
+
+    module(name = "tdl-coroutines")
+    module(name = "tdl-coroutines-generator")
 }
