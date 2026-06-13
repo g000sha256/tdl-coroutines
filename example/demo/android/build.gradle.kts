@@ -45,10 +45,10 @@ android {
         versionCode = 1
         versionName = "1.0"
 
-        val apiId = findProperty("Telergam.ApiId") ?: 0
+        val apiId = findProperty("Telegram.ApiId") ?: 0
         buildConfigField(type = "int", name = "API_ID", value = "$apiId")
 
-        val apiHash = findProperty("Telergam.ApiHash") ?: ""
+        val apiHash = findProperty("Telegram.ApiHash") ?: ""
         buildConfigField(type = "String", name = "API_HASH", value = "\"$apiHash\"")
     }
 

@@ -29,10 +29,10 @@ dependencies {
 buildConfig {
     packageName(packageName = "dev.g000sha256.tdl.example")
 
-    val apiId = findInt(key = "Telergam.ApiId") ?: 0
+    val apiId = findInt(key = "Telegram.ApiId") ?: 0
     buildConfigField(name = "API_ID", value = apiId)
 
-    val apiHash = findString(key = "Telergam.ApiHash") ?: ""
+    val apiHash = findString(key = "Telegram.ApiHash") ?: ""
     buildConfigField(name = "API_HASH", value = apiHash)
 }
 
