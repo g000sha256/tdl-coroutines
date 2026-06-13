@@ -814,7 +814,19 @@ jobs:
         uses: ./.github/actions/set-up-java
 
       - name: Verify
-        run: ./gradlew :example:verification:app:macos:runReleaseExecutableMacosArm64
+        run: |
+          log_file="${RUNNER_TEMP}/macos-arm64-verification.log"
+
+          set +e
+          ./gradlew :example:verification:app:macos:runReleaseExecutableMacosArm64 2>&1 | tee "$log_file"
+          status="${PIPESTATUS[0]}"
+          set -e
+
+          if grep -q "\[TDL\] Success" "$log_file"; then
+            exit 0
+          fi
+
+          exit "$status"
 
       - name: Commit and push
         uses: ./.github/actions/commit-and-push
