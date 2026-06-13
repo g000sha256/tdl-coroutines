@@ -1,16 +1,17 @@
 # TDL Coroutines
 
-[![Maven Central](https://img.shields.io/github/v/release/g000sha256/tdl-coroutines?label=Maven%20Central&labelColor=171C35&color=E38E33)](https://central.sonatype.com/artifact/dev.g000sha256/tdl-coroutines)
-[![TDLib](https://img.shields.io/badge/TDLib-v1.8.65-blue?labelColor=19212A&color=53A5E3)](https://github.com/tdlib/td/tree/a8f21f5230172634becc1739050ef23ecd6ea291)
+[![Maven Central](https://img.shields.io/maven-central/v/dev.g000sha256/tdl-coroutines?label=Maven%20Central&labelColor=171C35&color=E38E33)](https://central.sonatype.com/artifact/dev.g000sha256/tdl-coroutines)
+[![TDLib](https://img.shields.io/badge/TDLib-v1.8.65-blue?labelColor=000000&color=24A1DE)](https://github.com/tdlib/td/tree/a8f21f5230172634becc1739050ef23ecd6ea291)
 
-[![Platform Android](https://img.shields.io/static/v1?label=Platform&labelColor=333333&message=Android&color=3DDC84)](https://klibs.io/project/g000sha256/tdl-coroutines)
-[![Platform JVM](https://img.shields.io/static/v1?label=Platform&labelColor=333333&message=JVM&color=ED8B00)](https://klibs.io/project/g000sha256/tdl-coroutines)
-[![Platform iOS](https://img.shields.io/static/v1?label=Platform&labelColor=333333&message=iOS&color=A2AAAD)](https://klibs.io/project/g000sha256/tdl-coroutines)
-[![Platform macOS](https://img.shields.io/static/v1?label=Platform&labelColor=333333&message=macOS&color=A2AAAD)](https://klibs.io/project/g000sha256/tdl-coroutines)
+[![Platform Android](https://img.shields.io/static/v1?label=Platform&labelColor=000000&message=Android&color=3DDC84)](https://klibs.io/project/g000sha256/tdl-coroutines)
+[![Platform JVM](https://img.shields.io/static/v1?label=Platform&labelColor=007396&message=JVM&color=ED8B00)](https://klibs.io/project/g000sha256/tdl-coroutines)
+[![Platform iOS](https://img.shields.io/static/v1?label=Platform&labelColor=000000&message=iOS&color=FFFFFF)](https://klibs.io/project/g000sha256/tdl-coroutines)
+[![Platform macOS](https://img.shields.io/static/v1?label=Platform&labelColor=000000&message=macOS&color=FFFFFF)](https://klibs.io/project/g000sha256/tdl-coroutines)
+[![Platform Windows](https://img.shields.io/static/v1?label=Platform&labelColor=000000&message=Windows&color=0078D4)](https://klibs.io/project/g000sha256/tdl-coroutines)
 
 `TDL Coroutines` is a `Kotlin Multiplatform` library that provides a coroutine-based client for the
 `Telegram Database Library` ([TDLib](https://github.com/tdlib/td)). It simplifies sending requests and handling updates, making
-integration with `TDLib` more straightforward and idiomatic for `Kotlin` and `Kotlin Multiplatform` projects.
+integration with `TDLib` more straightforward and idiomatic for `Kotlin Multiplatform` projects.
 
 ## Gradle setup
 
@@ -33,7 +34,7 @@ dependencies {
 > [!CAUTION]
 > The upstream `TDLib` library frequently introduces breaking changes even in patch versions.
 > Since `TDL Coroutines` wraps `TDLib`, these changes propagate to this library as well.
-> To minimize the impact, use named arguments for constructors and methods,
+> To minimize the impact, use named arguments when calling generated constructors and request methods,
 > as parameters may be added, renamed, or removed in future releases.
 
 ### How to create a client
@@ -43,7 +44,7 @@ val client = TdlClient.create()
 ```
 
 > [!IMPORTANT]
-> To start using `TdlClient`, you should first subscribe to important updates, and then call any request method.
+> Start collecting the update flows you need before sending the first request.
 
 ### How to subscribe to updates
 
@@ -51,8 +52,8 @@ The `TdlClient` provides 182 update flows and the `allUpdates` flow, which combi
 
 ```kotlin
 coroutineScope.launch {
-    client.authorizationStateUpdates.collect { updateAuthorizationState ->
-        val authorizationState = updateAuthorizationState.authorizationState
+    client.authorizationStateUpdates.collect { update ->
+        val authorizationState = update.authorizationState
         // TODO
     }
 }
