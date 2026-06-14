@@ -21,20 +21,20 @@ jobs:
       - name: Assemble libraries
         run: |
           ./gradlew \
-            tdl-coroutines:bundleAndroidMainAar \
-            tdl-coroutines:jvmJar \
-            tdl-coroutines:iosArm64Cinterop-mainKlib \
-            tdl-coroutines:iosArm64Klib \
-            tdl-coroutines:iosArm64SimulatorCinterop-mainKlib \
-            tdl-coroutines:iosArm64SimulatorKlib \
-            tdl-coroutines:iosX64SimulatorCinterop-mainKlib \
-            tdl-coroutines:iosX64SimulatorKlib \
-            tdl-coroutines:macosArm64Cinterop-mainKlib \
-            tdl-coroutines:macosArm64Klib \
-            tdl-coroutines:macosX64Cinterop-mainKlib \
-            tdl-coroutines:macosX64Klib \
-            tdl-coroutines:mingwX64Cinterop-mainKlib \
-            tdl-coroutines:mingwX64Klib
+            :tdl-coroutines:bundleAndroidMainAar \
+            :tdl-coroutines:jvmJar \
+            :tdl-coroutines:iosArm64Cinterop-mainKlib \
+            :tdl-coroutines:iosArm64Klib \
+            :tdl-coroutines:iosArm64SimulatorCinterop-mainKlib \
+            :tdl-coroutines:iosArm64SimulatorKlib \
+            :tdl-coroutines:iosX64SimulatorCinterop-mainKlib \
+            :tdl-coroutines:iosX64SimulatorKlib \
+            :tdl-coroutines:macosArm64Cinterop-mainKlib \
+            :tdl-coroutines:macosArm64Klib \
+            :tdl-coroutines:macosX64Cinterop-mainKlib \
+            :tdl-coroutines:macosX64Klib \
+            :tdl-coroutines:mingwX64Cinterop-mainKlib \
+            :tdl-coroutines:mingwX64Klib
 
       - name: Assemble examples
         run: |
@@ -51,4 +51,4 @@ jobs:
           SIGNING_PASSWORD: ${{ secrets.SIGNING_PASSWORD }}
           SONATYPE_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
           SONATYPE_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
-        run: ./gradlew publish
+        run: ./gradlew :tdl-coroutines:publish

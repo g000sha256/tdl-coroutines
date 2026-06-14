@@ -59,10 +59,10 @@ jobs:
         uses: ./.github/actions/set-up-java
 
       - name: Assemble generator
-        run: ./gradlew tdl-coroutines-generator:assemble
+        run: ./gradlew :tdl-coroutines-generator:assemble
 
       - name: Run generator
-        run: ./gradlew tdl-coroutines-generator:run
+        run: ./gradlew :tdl-coroutines-generator:run
 
       - name: Dump API
         run: ./gradlew :tdl-coroutines:updateKotlinAbi
