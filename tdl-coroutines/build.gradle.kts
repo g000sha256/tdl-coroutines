@@ -92,6 +92,14 @@ kotlin {
         configureCompilations(platform = "windows/x64")
     }
 
+    linuxX64 {
+        configureCompilations(platform = "linux/x64")
+    }
+
+    linuxArm64 {
+        configureCompilations(platform = "linux/arm64")
+    }
+
     sourceSets {
         commonMain {
             kotlin.srcDirs("src/commonMainGenerated/kotlin")
@@ -131,6 +139,14 @@ kotlin {
         }
 
         mingwX64Main {
+            configureNativeKotlin()
+        }
+
+        linuxX64Main {
+            configureNativeKotlin()
+        }
+
+        linuxArm64Main {
             configureNativeKotlin()
         }
     }
@@ -249,8 +265,9 @@ private fun KotlinOnlyTarget<KotlinNativeCompilation>.configureCompilations(plat
 
 private fun String.extractConfigName(): String {
     return when {
-        startsWith(prefix = "ios") || startsWith(prefix = "mac") -> "config-apple.def"
-        startsWith(prefix = "windows") -> "config-windows.def"
+        this.startsWith("mac") || this.startsWith("ios") -> "config-apple.def"
+        this.startsWith("windows") -> "config-windows.def"
+        this.startsWith("linux") -> "config-linux.def"
         else -> error(message = "Unknown platform")
     }
 }
