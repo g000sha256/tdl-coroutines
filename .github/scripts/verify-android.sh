@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 
-set -eu
+./gradlew :example:verification:app:android:installDebug
+
+adb logcat -c
+adb shell am start -n dev.g000sha256.tdl.example.verification.app.android/.MainActivity
 
 timeout_seconds=60
 elapsed_seconds=0
