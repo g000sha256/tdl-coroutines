@@ -6,8 +6,127 @@ on:
       - '[0-9]+.[0-9]+.[0-9]+'
 
 jobs:
-  build-and-publish:
+  verify-android:
+    name: Verify Android
     runs-on: self-hosted
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          lfs: true
+
+      - name: Set up Java
+        uses: ./.github/actions/set-up-java
+
+      - name: Verify
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 36
+          arch: arm64-v8a
+          script: |
+            ./gradlew :example:verification:app:android:installDebug
+            adb logcat -c
+            adb shell am start -n dev.g000sha256.tdl.example.verification.app.android/.MainActivity
+            bash .github/scripts/wait-for-android-verification.sh
+
+  verify-jvm:
+    name: Verify JVM ${{ matrix.platform }}
+    runs-on: ${{ matrix.runner }}
+
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - platform: Linux Arm64
+            runner: ubuntu-24.04-arm
+            gradle: ./gradlew
+
+          - platform: Linux x64
+            runner: ubuntu-24.04
+            gradle: ./gradlew
+
+          - platform: macOS Arm64
+            runner: self-hosted
+            gradle: ./gradlew
+
+          - platform: macOS x64
+            runner: macos-15-intel
+            gradle: ./gradlew
+
+          - platform: Windows Arm64
+            runner: windows-11-arm
+            gradle: ./gradlew.bat
+
+          - platform: Windows x64
+            runner: windows-2025
+            gradle: ./gradlew.bat
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          lfs: true
+
+      - name: Set up Java
+        uses: ./.github/actions/set-up-java
+
+      - name: Verify
+        run: ${{ matrix.gradle }} :example:verification:app:jvm:run
+
+  verify-macos:
+    name: Verify macOS ${{ matrix.arch }}
+    runs-on: ${{ matrix.runner }}
+
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - arch: Arm64
+            runner: self-hosted
+            task: runReleaseExecutableMacosArm64
+
+          - arch: x64
+            runner: macos-15-intel
+            task: runReleaseExecutableMacosX64
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          lfs: true
+
+      - name: Set up Java
+        uses: ./.github/actions/set-up-java
+
+      - name: Verify
+        run: bash .github/scripts/verify-macos.sh "${{ matrix.task }}" "${{ matrix.arch }}"
+
+  verify-windows:
+    name: Verify Windows x64
+    runs-on: windows-2025
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          lfs: true
+
+      - name: Set up Java
+        uses: ./.github/actions/set-up-java
+
+      - name: Verify
+        run: ./gradlew.bat :example:verification:app:windows:runReleaseExecutableMingwX64
+
+  build-and-publish:
+    name: Build and publish
+    runs-on: self-hosted
+
+    needs:
+      - verify-android
+      - verify-jvm
+      - verify-macos
+      - verify-windows
 
     steps:
       - name: Checkout
@@ -22,13 +141,13 @@ jobs:
         run: |
           ./gradlew \
             :tdl-coroutines:bundleAndroidMainAar \
-            :tdl-coroutines:jvmJar \
             :tdl-coroutines:iosArm64Cinterop-mainKlib \
             :tdl-coroutines:iosArm64Klib \
             :tdl-coroutines:iosArm64SimulatorCinterop-mainKlib \
             :tdl-coroutines:iosArm64SimulatorKlib \
             :tdl-coroutines:iosX64SimulatorCinterop-mainKlib \
             :tdl-coroutines:iosX64SimulatorKlib \
+            :tdl-coroutines:jvmJar \
             :tdl-coroutines:macosArm64Cinterop-mainKlib \
             :tdl-coroutines:macosArm64Klib \
             :tdl-coroutines:macosX64Cinterop-mainKlib \
@@ -51,4 +170,5 @@ jobs:
           SIGNING_PASSWORD: ${{ secrets.SIGNING_PASSWORD }}
           SONATYPE_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
           SONATYPE_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
+
         run: ./gradlew :tdl-coroutines:publish

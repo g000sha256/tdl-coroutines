@@ -418,8 +418,7 @@ jobs:
         uses: ./.github/actions/set-up-java
 
       - name: Verify
-        shell: bash
-        run: ./gradlew :example:verification:app:jvm:run
+        run: ./gradlew.bat :example:verification:app:jvm:run
 
       - name: Commit and push
         uses: ./.github/actions/commit-and-push
@@ -481,8 +480,7 @@ jobs:
         uses: ./.github/actions/set-up-java
 
       - name: Verify
-        shell: bash
-        run: ./gradlew :example:verification:app:jvm:run
+        run: ./gradlew.bat :example:verification:app:jvm:run
 
       - name: Commit and push
         uses: ./.github/actions/commit-and-push
@@ -551,8 +549,7 @@ jobs:
         uses: ./.github/actions/set-up-java
 
       - name: Verify
-        shell: bash
-        run: ./gradlew :example:verification:app:windows:runReleaseExecutableMingwX64
+        run: ./gradlew.bat :example:verification:app:windows:runReleaseExecutableMingwX64
 
       - name: Commit and push
         uses: ./.github/actions/commit-and-push
@@ -806,19 +803,7 @@ jobs:
         uses: ./.github/actions/set-up-java
 
       - name: Verify
-        run: |
-          log_file="${RUNNER_TEMP}/macos-arm64-verification.log"
-
-          set +e
-          ./gradlew :example:verification:app:macos:runReleaseExecutableMacosArm64 2>&1 | tee "$log_file"
-          status="${PIPESTATUS[0]}"
-          set -e
-
-          if grep -q "\[TDL\] Success" "$log_file"; then
-            exit 0
-          fi
-
-          exit "$status"
+        run: bash .github/scripts/verify-macos.sh runReleaseExecutableMacosArm64 arm64
 
       - name: Commit and push
         uses: ./.github/actions/commit-and-push
@@ -881,7 +866,7 @@ jobs:
         uses: ./.github/actions/set-up-java
 
       - name: Verify
-        run: ./gradlew :example:verification:app:macos:runReleaseExecutableMacosX64
+        run: bash .github/scripts/verify-macos.sh runReleaseExecutableMacosX64 x64
 
       - name: Commit and push
         uses: ./.github/actions/commit-and-push
