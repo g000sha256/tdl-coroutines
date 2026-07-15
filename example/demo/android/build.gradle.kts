@@ -3,8 +3,8 @@ plugins {
 }
 
 android {
-    buildToolsVersion = "36.0.0"
-    compileSdk = 36
+    buildToolsVersion = "37.0.0"
+    compileSdk = 37
     namespace = "dev.g000sha256.tdl.example"
 
     buildFeatures {
@@ -26,6 +26,7 @@ android {
         }
 
         release {
+            //noinspection NotShrinkingResources
             isMinifyEnabled = true
             signingConfig = signingConfigs.getByName("keystore")
 
@@ -40,7 +41,7 @@ android {
 
     defaultConfig {
         minSdk = 23
-        targetSdk = 36
+        targetSdk = 37
         versionCode = 1
         versionName = "1.0"
 

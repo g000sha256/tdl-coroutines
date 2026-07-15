@@ -30,8 +30,8 @@ kotlin {
     }
 
     android {
-        buildToolsVersion = "36.0.0"
-        compileSdk = 36
+        buildToolsVersion = "37.0.0"
+        compileSdk = 37
         minSdk = 23
         namespace = packageName
 
