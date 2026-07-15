@@ -28,15 +28,15 @@ import kotlin.String
  * @property initialState The animated stickers with the initial dice animation; may be null if unknown. The update updateMessageContent will be sent when the sticker became known.
  * @property finalState The animated stickers with the final dice animation; may be null if unknown. The update updateMessageContent will be sent when the sticker became known.
  * @property value The dice value. If the value is 0, then the dice don't have final state yet.
- * @property stakeToncoinAmount The Toncoin amount that was staked; in the smallest units of the currency.
- * @property prizeToncoinAmount The Toncoin amount that was gained from the roll; in the smallest units of the currency; -1 if the dice don't have final state yet.
+ * @property stakeGramAmount The TON Gram amount that was staked; in the smallest units of the currency.
+ * @property prizeGramAmount The TON Gram amount that was gained from the roll; in the smallest units of the currency; -1 if the dice don't have final state yet.
  */
 public class MessageStakeDice public constructor(
     public val initialState: DiceStickers?,
     public val finalState: DiceStickers?,
     public val value: Int,
-    public val stakeToncoinAmount: Long,
-    public val prizeToncoinAmount: Long,
+    public val stakeGramAmount: Long,
+    public val prizeGramAmount: Long,
 ) : MessageContent() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
@@ -58,10 +58,10 @@ public class MessageStakeDice public constructor(
         if (other.value != value) {
             return false
         }
-        if (other.stakeToncoinAmount != stakeToncoinAmount) {
+        if (other.stakeGramAmount != stakeGramAmount) {
             return false
         }
-        return other.prizeToncoinAmount == prizeToncoinAmount
+        return other.prizeGramAmount == prizeGramAmount
     }
 
     override fun hashCode(): Int {
@@ -69,8 +69,8 @@ public class MessageStakeDice public constructor(
         hashCode = 31 * hashCode + initialState.hashCode()
         hashCode = 31 * hashCode + finalState.hashCode()
         hashCode = 31 * hashCode + value.hashCode()
-        hashCode = 31 * hashCode + stakeToncoinAmount.hashCode()
-        hashCode = 31 * hashCode + prizeToncoinAmount.hashCode()
+        hashCode = 31 * hashCode + stakeGramAmount.hashCode()
+        hashCode = 31 * hashCode + prizeGramAmount.hashCode()
         return hashCode
     }
 
@@ -87,11 +87,11 @@ public class MessageStakeDice public constructor(
             append("value=")
             append(value)
             append(", ")
-            append("stakeToncoinAmount=")
-            append(stakeToncoinAmount)
+            append("stakeGramAmount=")
+            append(stakeGramAmount)
             append(", ")
-            append("prizeToncoinAmount=")
-            append(prizeToncoinAmount)
+            append("prizeGramAmount=")
+            append(prizeGramAmount)
             append(")")
         }
     }

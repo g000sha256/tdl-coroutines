@@ -131,6 +131,8 @@ abstract class dev.g000sha256.tdl/TdlClient { // dev.g000sha256.tdl/TdlClient|nu
         abstract fun <get-chatVideoChatUpdates>(): kotlinx.coroutines.flow/Flow<dev.g000sha256.tdl.dto/UpdateChatVideoChat> // dev.g000sha256.tdl/TdlClient.chatVideoChatUpdates.<get-chatVideoChatUpdates>|<get-chatVideoChatUpdates>(){}[0]
     abstract val chatViewAsTopicsUpdates // dev.g000sha256.tdl/TdlClient.chatViewAsTopicsUpdates|{}chatViewAsTopicsUpdates[0]
         abstract fun <get-chatViewAsTopicsUpdates>(): kotlinx.coroutines.flow/Flow<dev.g000sha256.tdl.dto/UpdateChatViewAsTopics> // dev.g000sha256.tdl/TdlClient.chatViewAsTopicsUpdates.<get-chatViewAsTopicsUpdates>|<get-chatViewAsTopicsUpdates>(){}[0]
+    abstract val communityUpdates // dev.g000sha256.tdl/TdlClient.communityUpdates|{}communityUpdates[0]
+        abstract fun <get-communityUpdates>(): kotlinx.coroutines.flow/Flow<dev.g000sha256.tdl.dto/UpdateCommunity> // dev.g000sha256.tdl/TdlClient.communityUpdates.<get-communityUpdates>|<get-communityUpdates>(){}[0]
     abstract val connectionStateUpdates // dev.g000sha256.tdl/TdlClient.connectionStateUpdates|{}connectionStateUpdates[0]
         abstract fun <get-connectionStateUpdates>(): kotlinx.coroutines.flow/Flow<dev.g000sha256.tdl.dto/UpdateConnectionState> // dev.g000sha256.tdl/TdlClient.connectionStateUpdates.<get-connectionStateUpdates>|<get-connectionStateUpdates>(){}[0]
     abstract val contactCloseBirthdaysUpdates // dev.g000sha256.tdl/TdlClient.contactCloseBirthdaysUpdates|{}contactCloseBirthdaysUpdates[0]
@@ -173,6 +175,8 @@ abstract class dev.g000sha256.tdl/TdlClient { // dev.g000sha256.tdl/TdlClient|nu
         abstract fun <get-freezeStateUpdates>(): kotlinx.coroutines.flow/Flow<dev.g000sha256.tdl.dto/UpdateFreezeState> // dev.g000sha256.tdl/TdlClient.freezeStateUpdates.<get-freezeStateUpdates>|<get-freezeStateUpdates>(){}[0]
     abstract val giftAuctionStateUpdates // dev.g000sha256.tdl/TdlClient.giftAuctionStateUpdates|{}giftAuctionStateUpdates[0]
         abstract fun <get-giftAuctionStateUpdates>(): kotlinx.coroutines.flow/Flow<dev.g000sha256.tdl.dto/UpdateGiftAuctionState> // dev.g000sha256.tdl/TdlClient.giftAuctionStateUpdates.<get-giftAuctionStateUpdates>|<get-giftAuctionStateUpdates>(){}[0]
+    abstract val gramRevenueStatusUpdates // dev.g000sha256.tdl/TdlClient.gramRevenueStatusUpdates|{}gramRevenueStatusUpdates[0]
+        abstract fun <get-gramRevenueStatusUpdates>(): kotlinx.coroutines.flow/Flow<dev.g000sha256.tdl.dto/UpdateGramRevenueStatus> // dev.g000sha256.tdl/TdlClient.gramRevenueStatusUpdates.<get-gramRevenueStatusUpdates>|<get-gramRevenueStatusUpdates>(){}[0]
     abstract val groupCallMessageLevelsUpdates // dev.g000sha256.tdl/TdlClient.groupCallMessageLevelsUpdates|{}groupCallMessageLevelsUpdates[0]
         abstract fun <get-groupCallMessageLevelsUpdates>(): kotlinx.coroutines.flow/Flow<dev.g000sha256.tdl.dto/UpdateGroupCallMessageLevels> // dev.g000sha256.tdl/TdlClient.groupCallMessageLevelsUpdates.<get-groupCallMessageLevelsUpdates>|<get-groupCallMessageLevelsUpdates>(){}[0]
     abstract val groupCallMessageSendFailedUpdates // dev.g000sha256.tdl/TdlClient.groupCallMessageSendFailedUpdates|{}groupCallMessageSendFailedUpdates[0]
@@ -271,10 +275,10 @@ abstract class dev.g000sha256.tdl/TdlClient { // dev.g000sha256.tdl/TdlClient|nu
         abstract fun <get-notificationUpdates>(): kotlinx.coroutines.flow/Flow<dev.g000sha256.tdl.dto/UpdateNotification> // dev.g000sha256.tdl/TdlClient.notificationUpdates.<get-notificationUpdates>|<get-notificationUpdates>(){}[0]
     abstract val optionUpdates // dev.g000sha256.tdl/TdlClient.optionUpdates|{}optionUpdates[0]
         abstract fun <get-optionUpdates>(): kotlinx.coroutines.flow/Flow<dev.g000sha256.tdl.dto/UpdateOption> // dev.g000sha256.tdl/TdlClient.optionUpdates.<get-optionUpdates>|<get-optionUpdates>(){}[0]
+    abstract val ownedGramCountUpdates // dev.g000sha256.tdl/TdlClient.ownedGramCountUpdates|{}ownedGramCountUpdates[0]
+        abstract fun <get-ownedGramCountUpdates>(): kotlinx.coroutines.flow/Flow<dev.g000sha256.tdl.dto/UpdateOwnedGramCount> // dev.g000sha256.tdl/TdlClient.ownedGramCountUpdates.<get-ownedGramCountUpdates>|<get-ownedGramCountUpdates>(){}[0]
     abstract val ownedStarCountUpdates // dev.g000sha256.tdl/TdlClient.ownedStarCountUpdates|{}ownedStarCountUpdates[0]
         abstract fun <get-ownedStarCountUpdates>(): kotlinx.coroutines.flow/Flow<dev.g000sha256.tdl.dto/UpdateOwnedStarCount> // dev.g000sha256.tdl/TdlClient.ownedStarCountUpdates.<get-ownedStarCountUpdates>|<get-ownedStarCountUpdates>(){}[0]
-    abstract val ownedTonCountUpdates // dev.g000sha256.tdl/TdlClient.ownedTonCountUpdates|{}ownedTonCountUpdates[0]
-        abstract fun <get-ownedTonCountUpdates>(): kotlinx.coroutines.flow/Flow<dev.g000sha256.tdl.dto/UpdateOwnedTonCount> // dev.g000sha256.tdl/TdlClient.ownedTonCountUpdates.<get-ownedTonCountUpdates>|<get-ownedTonCountUpdates>(){}[0]
     abstract val paidMediaPurchasedUpdates // dev.g000sha256.tdl/TdlClient.paidMediaPurchasedUpdates|{}paidMediaPurchasedUpdates[0]
         abstract fun <get-paidMediaPurchasedUpdates>(): kotlinx.coroutines.flow/Flow<dev.g000sha256.tdl.dto/UpdatePaidMediaPurchased> // dev.g000sha256.tdl/TdlClient.paidMediaPurchasedUpdates.<get-paidMediaPurchasedUpdates>|<get-paidMediaPurchasedUpdates>(){}[0]
     abstract val pendingMessageUpdates // dev.g000sha256.tdl/TdlClient.pendingMessageUpdates|{}pendingMessageUpdates[0]
@@ -345,8 +349,6 @@ abstract class dev.g000sha256.tdl/TdlClient { // dev.g000sha256.tdl/TdlClient|nu
         abstract fun <get-termsOfServiceUpdates>(): kotlinx.coroutines.flow/Flow<dev.g000sha256.tdl.dto/UpdateTermsOfService> // dev.g000sha256.tdl/TdlClient.termsOfServiceUpdates.<get-termsOfServiceUpdates>|<get-termsOfServiceUpdates>(){}[0]
     abstract val textCompositionStylesUpdates // dev.g000sha256.tdl/TdlClient.textCompositionStylesUpdates|{}textCompositionStylesUpdates[0]
         abstract fun <get-textCompositionStylesUpdates>(): kotlinx.coroutines.flow/Flow<dev.g000sha256.tdl.dto/UpdateTextCompositionStyles> // dev.g000sha256.tdl/TdlClient.textCompositionStylesUpdates.<get-textCompositionStylesUpdates>|<get-textCompositionStylesUpdates>(){}[0]
-    abstract val tonRevenueStatusUpdates // dev.g000sha256.tdl/TdlClient.tonRevenueStatusUpdates|{}tonRevenueStatusUpdates[0]
-        abstract fun <get-tonRevenueStatusUpdates>(): kotlinx.coroutines.flow/Flow<dev.g000sha256.tdl.dto/UpdateTonRevenueStatus> // dev.g000sha256.tdl/TdlClient.tonRevenueStatusUpdates.<get-tonRevenueStatusUpdates>|<get-tonRevenueStatusUpdates>(){}[0]
     abstract val topicMessageCountUpdates // dev.g000sha256.tdl/TdlClient.topicMessageCountUpdates|{}topicMessageCountUpdates[0]
         abstract fun <get-topicMessageCountUpdates>(): kotlinx.coroutines.flow/Flow<dev.g000sha256.tdl.dto/UpdateTopicMessageCount> // dev.g000sha256.tdl/TdlClient.topicMessageCountUpdates.<get-topicMessageCountUpdates>|<get-topicMessageCountUpdates>(){}[0]
     abstract val trendingStickerSetsUpdates // dev.g000sha256.tdl/TdlClient.trendingStickerSetsUpdates|{}trendingStickerSetsUpdates[0]
@@ -365,6 +367,8 @@ abstract class dev.g000sha256.tdl/TdlClient { // dev.g000sha256.tdl/TdlClient|nu
         abstract fun <get-userPrivacySettingRulesUpdates>(): kotlinx.coroutines.flow/Flow<dev.g000sha256.tdl.dto/UpdateUserPrivacySettingRules> // dev.g000sha256.tdl/TdlClient.userPrivacySettingRulesUpdates.<get-userPrivacySettingRulesUpdates>|<get-userPrivacySettingRulesUpdates>(){}[0]
     abstract val userStatusUpdates // dev.g000sha256.tdl/TdlClient.userStatusUpdates|{}userStatusUpdates[0]
         abstract fun <get-userStatusUpdates>(): kotlinx.coroutines.flow/Flow<dev.g000sha256.tdl.dto/UpdateUserStatus> // dev.g000sha256.tdl/TdlClient.userStatusUpdates.<get-userStatusUpdates>|<get-userStatusUpdates>(){}[0]
+    abstract val userSubscriptionUpdates // dev.g000sha256.tdl/TdlClient.userSubscriptionUpdates|{}userSubscriptionUpdates[0]
+        abstract fun <get-userSubscriptionUpdates>(): kotlinx.coroutines.flow/Flow<dev.g000sha256.tdl.dto/UpdateUserSubscription> // dev.g000sha256.tdl/TdlClient.userSubscriptionUpdates.<get-userSubscriptionUpdates>|<get-userSubscriptionUpdates>(){}[0]
     abstract val userUpdates // dev.g000sha256.tdl/TdlClient.userUpdates|{}userUpdates[0]
         abstract fun <get-userUpdates>(): kotlinx.coroutines.flow/Flow<dev.g000sha256.tdl.dto/UpdateUser> // dev.g000sha256.tdl/TdlClient.userUpdates.<get-userUpdates>|<get-userUpdates>(){}[0]
     abstract val videoPublishedUpdates // dev.g000sha256.tdl/TdlClient.videoPublishedUpdates|{}videoPublishedUpdates[0]
@@ -398,7 +402,7 @@ abstract class dev.g000sha256.tdl/TdlClient { // dev.g000sha256.tdl/TdlClient|nu
     abstract suspend fun addPendingLiveStoryReaction(kotlin/Int, kotlin/Long): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.addPendingLiveStoryReaction|addPendingLiveStoryReaction(kotlin.Int;kotlin.Long){}[0]
     abstract suspend fun addPendingPaidMessageReaction(kotlin/Long, kotlin/Long, kotlin/Long, dev.g000sha256.tdl.dto/PaidReactionType? = ...): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.addPendingPaidMessageReaction|addPendingPaidMessageReaction(kotlin.Long;kotlin.Long;kotlin.Long;dev.g000sha256.tdl.dto.PaidReactionType?){}[0]
     abstract suspend fun addPollOption(kotlin/Long, kotlin/Long, dev.g000sha256.tdl.dto/InputPollOption): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.addPollOption|addPollOption(kotlin.Long;kotlin.Long;dev.g000sha256.tdl.dto.InputPollOption){}[0]
-    abstract suspend fun addProfileAudio(dev.g000sha256.tdl.dto/InputFile, kotlin/Int, kotlin/String, kotlin/String): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.addProfileAudio|addProfileAudio(dev.g000sha256.tdl.dto.InputFile;kotlin.Int;kotlin.String;kotlin.String){}[0]
+    abstract suspend fun addProfileAudio(dev.g000sha256.tdl.dto/InputAudio): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.addProfileAudio|addProfileAudio(dev.g000sha256.tdl.dto.InputAudio){}[0]
     abstract suspend fun addProxy(dev.g000sha256.tdl.dto/Proxy, kotlin/Boolean, kotlin/String): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/AddedProxy> // dev.g000sha256.tdl/TdlClient.addProxy|addProxy(dev.g000sha256.tdl.dto.Proxy;kotlin.Boolean;kotlin.String){}[0]
     abstract suspend fun addQuickReplyShortcutInlineQueryResultMessage(kotlin/String, kotlin/Long, kotlin/Long, kotlin/String, kotlin/Boolean): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/QuickReplyMessage> // dev.g000sha256.tdl/TdlClient.addQuickReplyShortcutInlineQueryResultMessage|addQuickReplyShortcutInlineQueryResultMessage(kotlin.String;kotlin.Long;kotlin.Long;kotlin.String;kotlin.Boolean){}[0]
     abstract suspend fun addQuickReplyShortcutMessage(kotlin/String, kotlin/Long, dev.g000sha256.tdl.dto/InputMessageContent): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/QuickReplyMessage> // dev.g000sha256.tdl/TdlClient.addQuickReplyShortcutMessage|addQuickReplyShortcutMessage(kotlin.String;kotlin.Long;dev.g000sha256.tdl.dto.InputMessageContent){}[0]
@@ -407,7 +411,7 @@ abstract class dev.g000sha256.tdl/TdlClient { // dev.g000sha256.tdl/TdlClient|nu
     abstract suspend fun addRecentlyFoundChat(kotlin/Long): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.addRecentlyFoundChat|addRecentlyFoundChat(kotlin.Long){}[0]
     abstract suspend fun addSavedAnimation(dev.g000sha256.tdl.dto/InputFile): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.addSavedAnimation|addSavedAnimation(dev.g000sha256.tdl.dto.InputFile){}[0]
     abstract suspend fun addSavedNotificationSound(dev.g000sha256.tdl.dto/InputFile): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/NotificationSound> // dev.g000sha256.tdl/TdlClient.addSavedNotificationSound|addSavedNotificationSound(dev.g000sha256.tdl.dto.InputFile){}[0]
-    abstract suspend fun addStickerToSet(kotlin/Long, kotlin/String, dev.g000sha256.tdl.dto/InputSticker): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.addStickerToSet|addStickerToSet(kotlin.Long;kotlin.String;dev.g000sha256.tdl.dto.InputSticker){}[0]
+    abstract suspend fun addStickerToSet(kotlin/Long, kotlin/String, dev.g000sha256.tdl.dto/NewSticker): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.addStickerToSet|addStickerToSet(kotlin.Long;kotlin.String;dev.g000sha256.tdl.dto.NewSticker){}[0]
     abstract suspend fun addStoryAlbumStories(kotlin/Long, kotlin/Int, kotlin/IntArray): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/StoryAlbum> // dev.g000sha256.tdl/TdlClient.addStoryAlbumStories|addStoryAlbumStories(kotlin.Long;kotlin.Int;kotlin.IntArray){}[0]
     abstract suspend fun addTextCompositionStyle(kotlin/String): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.addTextCompositionStyle|addTextCompositionStyle(kotlin.String){}[0]
     abstract suspend fun addWebBrowserSettingsException(kotlin/Boolean, kotlin/String): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.addWebBrowserSettingsException|addWebBrowserSettingsException(kotlin.Boolean;kotlin.String){}[0]
@@ -486,6 +490,7 @@ abstract class dev.g000sha256.tdl/TdlClient { // dev.g000sha256.tdl/TdlClient|nu
     abstract suspend fun closeWebApp(kotlin/Long): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.closeWebApp|closeWebApp(kotlin.Long){}[0]
     abstract suspend fun commitPendingLiveStoryReactions(kotlin/Int): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.commitPendingLiveStoryReactions|commitPendingLiveStoryReactions(kotlin.Int){}[0]
     abstract suspend fun commitPendingPaidMessageReactions(kotlin/Long, kotlin/Long): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.commitPendingPaidMessageReactions|commitPendingPaidMessageReactions(kotlin.Long;kotlin.Long){}[0]
+    abstract suspend fun composeRichMessageWithAi(dev.g000sha256.tdl.dto/InputRichMessage, kotlin/String, kotlin/String, kotlin/String, kotlin/Boolean): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/RichMessage> // dev.g000sha256.tdl/TdlClient.composeRichMessageWithAi|composeRichMessageWithAi(dev.g000sha256.tdl.dto.InputRichMessage;kotlin.String;kotlin.String;kotlin.String;kotlin.Boolean){}[0]
     abstract suspend fun composeTextWithAi(dev.g000sha256.tdl.dto/FormattedText, kotlin/String, kotlin/String, kotlin/Boolean): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/FormattedText> // dev.g000sha256.tdl/TdlClient.composeTextWithAi|composeTextWithAi(dev.g000sha256.tdl.dto.FormattedText;kotlin.String;kotlin.String;kotlin.Boolean){}[0]
     abstract suspend fun confirmBusinessConnectedBot(kotlin/Long): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.confirmBusinessConnectedBot|confirmBusinessConnectedBot(kotlin.Long){}[0]
     abstract suspend fun confirmQrCodeAuthentication(kotlin/String): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Session> // dev.g000sha256.tdl/TdlClient.confirmQrCodeAuthentication|confirmQrCodeAuthentication(kotlin.String){}[0]
@@ -506,9 +511,10 @@ abstract class dev.g000sha256.tdl/TdlClient { // dev.g000sha256.tdl/TdlClient|nu
     abstract suspend fun createInvoiceLink(kotlin/String, dev.g000sha256.tdl.dto/InputMessageContent): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/HttpUrl> // dev.g000sha256.tdl/TdlClient.createInvoiceLink|createInvoiceLink(kotlin.String;dev.g000sha256.tdl.dto.InputMessageContent){}[0]
     abstract suspend fun createNewBasicGroupChat(kotlin/LongArray, kotlin/String, kotlin/Int): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/CreatedBasicGroupChat> // dev.g000sha256.tdl/TdlClient.createNewBasicGroupChat|createNewBasicGroupChat(kotlin.LongArray;kotlin.String;kotlin.Int){}[0]
     abstract suspend fun createNewSecretChat(kotlin/Long): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Chat> // dev.g000sha256.tdl/TdlClient.createNewSecretChat|createNewSecretChat(kotlin.Long){}[0]
-    abstract suspend fun createNewStickerSet(kotlin/Long, kotlin/String, kotlin/String, dev.g000sha256.tdl.dto/StickerType, kotlin/Boolean, kotlin/Array<dev.g000sha256.tdl.dto/InputSticker>, kotlin/String): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/StickerSet> // dev.g000sha256.tdl/TdlClient.createNewStickerSet|createNewStickerSet(kotlin.Long;kotlin.String;kotlin.String;dev.g000sha256.tdl.dto.StickerType;kotlin.Boolean;kotlin.Array<dev.g000sha256.tdl.dto.InputSticker>;kotlin.String){}[0]
+    abstract suspend fun createNewStickerSet(kotlin/Long, kotlin/String, kotlin/String, dev.g000sha256.tdl.dto/StickerType, kotlin/Boolean, kotlin/Array<dev.g000sha256.tdl.dto/NewSticker>, kotlin/String): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/StickerSet> // dev.g000sha256.tdl/TdlClient.createNewStickerSet|createNewStickerSet(kotlin.Long;kotlin.String;kotlin.String;dev.g000sha256.tdl.dto.StickerType;kotlin.Boolean;kotlin.Array<dev.g000sha256.tdl.dto.NewSticker>;kotlin.String){}[0]
     abstract suspend fun createNewSupergroupChat(kotlin/String, kotlin/Boolean, kotlin/Boolean, kotlin/String, dev.g000sha256.tdl.dto/ChatLocation? = ..., kotlin/Int, kotlin/Boolean): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Chat> // dev.g000sha256.tdl/TdlClient.createNewSupergroupChat|createNewSupergroupChat(kotlin.String;kotlin.Boolean;kotlin.Boolean;kotlin.String;dev.g000sha256.tdl.dto.ChatLocation?;kotlin.Int;kotlin.Boolean){}[0]
     abstract suspend fun createPrivateChat(kotlin/Long, kotlin/Boolean): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Chat> // dev.g000sha256.tdl/TdlClient.createPrivateChat|createPrivateChat(kotlin.Long;kotlin.Boolean){}[0]
+    abstract suspend fun createRichMessageWithAi(kotlin/String, kotlin/String, kotlin/Boolean): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/RichMessage> // dev.g000sha256.tdl/TdlClient.createRichMessageWithAi|createRichMessageWithAi(kotlin.String;kotlin.String;kotlin.Boolean){}[0]
     abstract suspend fun createSecretChat(kotlin/Int): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Chat> // dev.g000sha256.tdl/TdlClient.createSecretChat|createSecretChat(kotlin.Int){}[0]
     abstract suspend fun createStoryAlbum(kotlin/Long, kotlin/String, kotlin/IntArray): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/StoryAlbum> // dev.g000sha256.tdl/TdlClient.createStoryAlbum|createStoryAlbum(kotlin.Long;kotlin.String;kotlin.IntArray){}[0]
     abstract suspend fun createSupergroupChat(kotlin/Long, kotlin/Boolean): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Chat> // dev.g000sha256.tdl/TdlClient.createSupergroupChat|createSupergroupChat(kotlin.Long;kotlin.Boolean){}[0]
@@ -540,6 +546,7 @@ abstract class dev.g000sha256.tdl/TdlClient { // dev.g000sha256.tdl/TdlClient|nu
     abstract suspend fun deleteDefaultBackground(kotlin/Boolean): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.deleteDefaultBackground|deleteDefaultBackground(kotlin.Boolean){}[0]
     abstract suspend fun deleteDirectMessagesChatTopicHistory(kotlin/Long, kotlin/Long): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.deleteDirectMessagesChatTopicHistory|deleteDirectMessagesChatTopicHistory(kotlin.Long;kotlin.Long){}[0]
     abstract suspend fun deleteDirectMessagesChatTopicMessagesByDate(kotlin/Long, kotlin/Long, kotlin/Int, kotlin/Int): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.deleteDirectMessagesChatTopicMessagesByDate|deleteDirectMessagesChatTopicMessagesByDate(kotlin.Long;kotlin.Long;kotlin.Int;kotlin.Int){}[0]
+    abstract suspend fun deleteEphemeralMessage(kotlin/Long, kotlin/Long, kotlin/Int): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.deleteEphemeralMessage|deleteEphemeralMessage(kotlin.Long;kotlin.Long;kotlin.Int){}[0]
     abstract suspend fun deleteFile(kotlin/Int): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.deleteFile|deleteFile(kotlin.Int){}[0]
     abstract suspend fun deleteForumTopic(kotlin/Long, kotlin/Int): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.deleteForumTopic|deleteForumTopic(kotlin.Long;kotlin.Int){}[0]
     abstract suspend fun deleteGiftCollection(dev.g000sha256.tdl.dto/MessageSender, kotlin/Int): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.deleteGiftCollection|deleteGiftCollection(dev.g000sha256.tdl.dto.MessageSender;kotlin.Int){}[0]
@@ -585,6 +592,7 @@ abstract class dev.g000sha256.tdl/TdlClient { // dev.g000sha256.tdl/TdlClient|nu
     abstract suspend fun editChatInviteLink(kotlin/Long, kotlin/String, kotlin/String, kotlin/Int, kotlin/Int, kotlin/Boolean): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/ChatInviteLink> // dev.g000sha256.tdl/TdlClient.editChatInviteLink|editChatInviteLink(kotlin.Long;kotlin.String;kotlin.String;kotlin.Int;kotlin.Int;kotlin.Boolean){}[0]
     abstract suspend fun editChatSubscriptionInviteLink(kotlin/Long, kotlin/String, kotlin/String): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/ChatInviteLink> // dev.g000sha256.tdl/TdlClient.editChatSubscriptionInviteLink|editChatSubscriptionInviteLink(kotlin.Long;kotlin.String;kotlin.String){}[0]
     abstract suspend fun editCustomLanguagePackInfo(dev.g000sha256.tdl.dto/LanguagePackInfo): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.editCustomLanguagePackInfo|editCustomLanguagePackInfo(dev.g000sha256.tdl.dto.LanguagePackInfo){}[0]
+    abstract suspend fun editEphemeralMessage(kotlin/Long, kotlin/Long, kotlin/Int, dev.g000sha256.tdl.dto/ReplyMarkup? = ..., dev.g000sha256.tdl.dto/InputMessageContent? = ...): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.editEphemeralMessage|editEphemeralMessage(kotlin.Long;kotlin.Long;kotlin.Int;dev.g000sha256.tdl.dto.ReplyMarkup?;dev.g000sha256.tdl.dto.InputMessageContent?){}[0]
     abstract suspend fun editForumTopic(kotlin/Long, kotlin/Int, kotlin/String, kotlin/Boolean, kotlin/Long): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.editForumTopic|editForumTopic(kotlin.Long;kotlin.Int;kotlin.String;kotlin.Boolean;kotlin.Long){}[0]
     abstract suspend fun editInlineMessageCaption(kotlin/String, dev.g000sha256.tdl.dto/ReplyMarkup? = ..., dev.g000sha256.tdl.dto/FormattedText? = ..., kotlin/Boolean): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.editInlineMessageCaption|editInlineMessageCaption(kotlin.String;dev.g000sha256.tdl.dto.ReplyMarkup?;dev.g000sha256.tdl.dto.FormattedText?;kotlin.Boolean){}[0]
     abstract suspend fun editInlineMessageLiveLocation(kotlin/String, dev.g000sha256.tdl.dto/ReplyMarkup? = ..., dev.g000sha256.tdl.dto/LiveLocation? = ...): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.editInlineMessageLiveLocation|editInlineMessageLiveLocation(kotlin.String;dev.g000sha256.tdl.dto.ReplyMarkup?;dev.g000sha256.tdl.dto.LiveLocation?){}[0]
@@ -611,6 +619,7 @@ abstract class dev.g000sha256.tdl/TdlClient { // dev.g000sha256.tdl/TdlClient|nu
     abstract suspend fun endGroupCallRecording(kotlin/Int): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.endGroupCallRecording|endGroupCallRecording(kotlin.Int){}[0]
     abstract suspend fun endGroupCallScreenSharing(kotlin/Int): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.endGroupCallScreenSharing|endGroupCallScreenSharing(kotlin.Int){}[0]
     abstract suspend fun finishFileGeneration(kotlin/Long, dev.g000sha256.tdl.dto/Error? = ...): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.finishFileGeneration|finishFileGeneration(kotlin.Long;dev.g000sha256.tdl.dto.Error?){}[0]
+    abstract suspend fun fixRichMessageWithAi(dev.g000sha256.tdl.dto/InputRichMessage): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/RichMessage> // dev.g000sha256.tdl/TdlClient.fixRichMessageWithAi|fixRichMessageWithAi(dev.g000sha256.tdl.dto.InputRichMessage){}[0]
     abstract suspend fun fixTextWithAi(dev.g000sha256.tdl.dto/FormattedText): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/FixedText> // dev.g000sha256.tdl/TdlClient.fixTextWithAi|fixTextWithAi(dev.g000sha256.tdl.dto.FormattedText){}[0]
     abstract suspend fun forwardMessages(kotlin/Long, dev.g000sha256.tdl.dto/MessageTopic? = ..., kotlin/Long, kotlin/LongArray, dev.g000sha256.tdl.dto/MessageSendOptions? = ..., kotlin/Boolean, kotlin/Boolean): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Messages> // dev.g000sha256.tdl/TdlClient.forwardMessages|forwardMessages(kotlin.Long;dev.g000sha256.tdl.dto.MessageTopic?;kotlin.Long;kotlin.LongArray;dev.g000sha256.tdl.dto.MessageSendOptions?;kotlin.Boolean;kotlin.Boolean){}[0]
     abstract suspend fun getAccountTtl(): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/AccountTtl> // dev.g000sha256.tdl/TdlClient.getAccountTtl|getAccountTtl(){}[0]
@@ -752,6 +761,8 @@ abstract class dev.g000sha256.tdl/TdlClient { // dev.g000sha256.tdl/TdlClient|nu
     abstract suspend fun getGiftUpgradePreview(kotlin/Long): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/GiftUpgradePreview> // dev.g000sha256.tdl/TdlClient.getGiftUpgradePreview|getGiftUpgradePreview(kotlin.Long){}[0]
     abstract suspend fun getGiftsForCrafting(kotlin/Long, kotlin/String, kotlin/Int): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/GiftsForCrafting> // dev.g000sha256.tdl/TdlClient.getGiftsForCrafting|getGiftsForCrafting(kotlin.Long;kotlin.String;kotlin.Int){}[0]
     abstract suspend fun getGiveawayInfo(kotlin/Long, kotlin/Long): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/GiveawayInfo> // dev.g000sha256.tdl/TdlClient.getGiveawayInfo|getGiveawayInfo(kotlin.Long;kotlin.Long){}[0]
+    abstract suspend fun getGramRevenueStatistics(kotlin/Boolean): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/GramRevenueStatistics> // dev.g000sha256.tdl/TdlClient.getGramRevenueStatistics|getGramRevenueStatistics(kotlin.Boolean){}[0]
+    abstract suspend fun getGramWithdrawalUrl(kotlin/String): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/HttpUrl> // dev.g000sha256.tdl/TdlClient.getGramWithdrawalUrl|getGramWithdrawalUrl(kotlin.String){}[0]
     abstract suspend fun getGreetingStickers(): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Stickers> // dev.g000sha256.tdl/TdlClient.getGreetingStickers|getGreetingStickers(){}[0]
     abstract suspend fun getGrossingWebAppBots(kotlin/String, kotlin/Int): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/FoundUsers> // dev.g000sha256.tdl/TdlClient.getGrossingWebAppBots|getGrossingWebAppBots(kotlin.String;kotlin.Int){}[0]
     abstract suspend fun getGroupCall(kotlin/Int): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/GroupCall> // dev.g000sha256.tdl/TdlClient.getGroupCall|getGroupCall(kotlin.Int){}[0]
@@ -759,6 +770,7 @@ abstract class dev.g000sha256.tdl/TdlClient { // dev.g000sha256.tdl/TdlClient|nu
     abstract suspend fun getGroupCallStreamSegment(kotlin/Int, kotlin/Long, kotlin/Int, kotlin/Int, dev.g000sha256.tdl.dto/GroupCallVideoQuality? = ...): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Data> // dev.g000sha256.tdl/TdlClient.getGroupCallStreamSegment|getGroupCallStreamSegment(kotlin.Int;kotlin.Long;kotlin.Int;kotlin.Int;dev.g000sha256.tdl.dto.GroupCallVideoQuality?){}[0]
     abstract suspend fun getGroupCallStreams(kotlin/Int): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/GroupCallStreams> // dev.g000sha256.tdl/TdlClient.getGroupCallStreams|getGroupCallStreams(kotlin.Int){}[0]
     abstract suspend fun getGroupsInCommon(kotlin/Long, kotlin/Long, kotlin/Int): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Chats> // dev.g000sha256.tdl/TdlClient.getGroupsInCommon|getGroupsInCommon(kotlin.Long;kotlin.Long;kotlin.Int){}[0]
+    abstract suspend fun getGuardBotWebAppUrl(kotlin/Long, dev.g000sha256.tdl.dto/WebAppOpenParameters): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/WebAppUrl> // dev.g000sha256.tdl/TdlClient.getGuardBotWebAppUrl|getGuardBotWebAppUrl(kotlin.Long;dev.g000sha256.tdl.dto.WebAppOpenParameters){}[0]
     abstract suspend fun getImportedContactCount(): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Count> // dev.g000sha256.tdl/TdlClient.getImportedContactCount|getImportedContactCount(){}[0]
     abstract suspend fun getInactiveSupergroupChats(): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Chats> // dev.g000sha256.tdl/TdlClient.getInactiveSupergroupChats|getInactiveSupergroupChats(){}[0]
     abstract suspend fun getInlineGameHighScores(kotlin/String, kotlin/Long): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/GameHighScores> // dev.g000sha256.tdl/TdlClient.getInlineGameHighScores|getInlineGameHighScores(kotlin.String;kotlin.Long){}[0]
@@ -912,9 +924,7 @@ abstract class dev.g000sha256.tdl/TdlClient { // dev.g000sha256.tdl/TdlClient|nu
     abstract suspend fun getThemedChatEmojiStatuses(): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/EmojiStatusCustomEmojis> // dev.g000sha256.tdl/TdlClient.getThemedChatEmojiStatuses|getThemedChatEmojiStatuses(){}[0]
     abstract suspend fun getThemedEmojiStatuses(): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/EmojiStatusCustomEmojis> // dev.g000sha256.tdl/TdlClient.getThemedEmojiStatuses|getThemedEmojiStatuses(){}[0]
     abstract suspend fun getTimeZones(): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/TimeZones> // dev.g000sha256.tdl/TdlClient.getTimeZones|getTimeZones(){}[0]
-    abstract suspend fun getTonRevenueStatistics(kotlin/Boolean): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/TonRevenueStatistics> // dev.g000sha256.tdl/TdlClient.getTonRevenueStatistics|getTonRevenueStatistics(kotlin.Boolean){}[0]
     abstract suspend fun getTonTransactions(dev.g000sha256.tdl.dto/TransactionDirection? = ..., kotlin/String, kotlin/Int): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/TonTransactions> // dev.g000sha256.tdl/TdlClient.getTonTransactions|getTonTransactions(dev.g000sha256.tdl.dto.TransactionDirection?;kotlin.String;kotlin.Int){}[0]
-    abstract suspend fun getTonWithdrawalUrl(kotlin/String): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/HttpUrl> // dev.g000sha256.tdl/TdlClient.getTonWithdrawalUrl|getTonWithdrawalUrl(kotlin.String){}[0]
     abstract suspend fun getTopChats(dev.g000sha256.tdl.dto/TopChatCategory, kotlin/Int): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Chats> // dev.g000sha256.tdl/TdlClient.getTopChats|getTopChats(dev.g000sha256.tdl.dto.TopChatCategory;kotlin.Int){}[0]
     abstract suspend fun getTrendingStickerSets(dev.g000sha256.tdl.dto/StickerType, kotlin/Int, kotlin/Int): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/TrendingStickerSets> // dev.g000sha256.tdl/TdlClient.getTrendingStickerSets|getTrendingStickerSets(dev.g000sha256.tdl.dto.StickerType;kotlin.Int;kotlin.Int){}[0]
     abstract suspend fun getUpgradedGift(kotlin/String): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/UpgradedGift> // dev.g000sha256.tdl/TdlClient.getUpgradedGift|getUpgradedGift(kotlin.String){}[0]
@@ -1049,7 +1059,7 @@ abstract class dev.g000sha256.tdl/TdlClient { // dev.g000sha256.tdl/TdlClient|nu
     abstract suspend fun reorderSupergroupActiveUsernames(kotlin/Long, kotlin/Array<kotlin/String>): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.reorderSupergroupActiveUsernames|reorderSupergroupActiveUsernames(kotlin.Long;kotlin.Array<kotlin.String>){}[0]
     abstract suspend fun replaceLiveStoryRtmpUrl(kotlin/Long): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/RtmpUrl> // dev.g000sha256.tdl/TdlClient.replaceLiveStoryRtmpUrl|replaceLiveStoryRtmpUrl(kotlin.Long){}[0]
     abstract suspend fun replacePrimaryChatInviteLink(kotlin/Long): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/ChatInviteLink> // dev.g000sha256.tdl/TdlClient.replacePrimaryChatInviteLink|replacePrimaryChatInviteLink(kotlin.Long){}[0]
-    abstract suspend fun replaceStickerInSet(kotlin/Long, kotlin/String, dev.g000sha256.tdl.dto/InputFile, dev.g000sha256.tdl.dto/InputSticker): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.replaceStickerInSet|replaceStickerInSet(kotlin.Long;kotlin.String;dev.g000sha256.tdl.dto.InputFile;dev.g000sha256.tdl.dto.InputSticker){}[0]
+    abstract suspend fun replaceStickerInSet(kotlin/Long, kotlin/String, dev.g000sha256.tdl.dto/InputFile, dev.g000sha256.tdl.dto/NewSticker): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.replaceStickerInSet|replaceStickerInSet(kotlin.Long;kotlin.String;dev.g000sha256.tdl.dto.InputFile;dev.g000sha256.tdl.dto.NewSticker){}[0]
     abstract suspend fun replaceVideoChatRtmpUrl(kotlin/Long): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/RtmpUrl> // dev.g000sha256.tdl/TdlClient.replaceVideoChatRtmpUrl|replaceVideoChatRtmpUrl(kotlin.Long){}[0]
     abstract suspend fun reportAuthenticationCodeMissing(kotlin/String): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.reportAuthenticationCodeMissing|reportAuthenticationCodeMissing(kotlin.String){}[0]
     abstract suspend fun reportChat(kotlin/Long, kotlin/ByteArray, kotlin/LongArray, kotlin/String): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/ReportChatResult> // dev.g000sha256.tdl/TdlClient.reportChat|reportChat(kotlin.Long;kotlin.ByteArray;kotlin.LongArray;kotlin.String){}[0]
@@ -1130,6 +1140,7 @@ abstract class dev.g000sha256.tdl/TdlClient { // dev.g000sha256.tdl/TdlClient|nu
     abstract suspend fun sendChatAction(kotlin/Long, dev.g000sha256.tdl.dto/MessageTopic? = ..., kotlin/String, dev.g000sha256.tdl.dto/ChatAction? = ...): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.sendChatAction|sendChatAction(kotlin.Long;dev.g000sha256.tdl.dto.MessageTopic?;kotlin.String;dev.g000sha256.tdl.dto.ChatAction?){}[0]
     abstract suspend fun sendCustomRequest(kotlin/String, kotlin/String): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/CustomRequestResult> // dev.g000sha256.tdl/TdlClient.sendCustomRequest|sendCustomRequest(kotlin.String;kotlin.String){}[0]
     abstract suspend fun sendEmailAddressVerificationCode(kotlin/String): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/EmailAddressAuthenticationCodeInfo> // dev.g000sha256.tdl/TdlClient.sendEmailAddressVerificationCode|sendEmailAddressVerificationCode(kotlin.String){}[0]
+    abstract suspend fun sendEphemeralMessage(kotlin/Long, dev.g000sha256.tdl.dto/MessageTopic? = ..., kotlin/Long, kotlin/Long, dev.g000sha256.tdl.dto/InputMessageReplyTo? = ..., kotlin/Int, kotlin/Boolean, dev.g000sha256.tdl.dto/ReplyMarkup? = ..., dev.g000sha256.tdl.dto/InputMessageContent): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Message> // dev.g000sha256.tdl/TdlClient.sendEphemeralMessage|sendEphemeralMessage(kotlin.Long;dev.g000sha256.tdl.dto.MessageTopic?;kotlin.Long;kotlin.Long;dev.g000sha256.tdl.dto.InputMessageReplyTo?;kotlin.Int;kotlin.Boolean;dev.g000sha256.tdl.dto.ReplyMarkup?;dev.g000sha256.tdl.dto.InputMessageContent){}[0]
     abstract suspend fun sendGift(kotlin/Long, dev.g000sha256.tdl.dto/MessageSender, dev.g000sha256.tdl.dto/FormattedText, kotlin/Boolean, kotlin/Boolean): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.sendGift|sendGift(kotlin.Long;dev.g000sha256.tdl.dto.MessageSender;dev.g000sha256.tdl.dto.FormattedText;kotlin.Boolean;kotlin.Boolean){}[0]
     abstract suspend fun sendGiftPurchaseOffer(dev.g000sha256.tdl.dto/MessageSender, kotlin/String, dev.g000sha256.tdl.dto/GiftResalePrice, kotlin/Int, kotlin/Long): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.sendGiftPurchaseOffer|sendGiftPurchaseOffer(dev.g000sha256.tdl.dto.MessageSender;kotlin.String;dev.g000sha256.tdl.dto.GiftResalePrice;kotlin.Int;kotlin.Long){}[0]
     abstract suspend fun sendGroupCallMessage(kotlin/Int, dev.g000sha256.tdl.dto/FormattedText, kotlin/Long): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.sendGroupCallMessage|sendGroupCallMessage(kotlin.Int;dev.g000sha256.tdl.dto.FormattedText;kotlin.Long){}[0]
@@ -1359,7 +1370,9 @@ abstract class dev.g000sha256.tdl/TdlClient { // dev.g000sha256.tdl/TdlClient|nu
     abstract suspend fun transferBusinessAccountStars(kotlin/String, kotlin/Long): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.transferBusinessAccountStars|transferBusinessAccountStars(kotlin.String;kotlin.Long){}[0]
     abstract suspend fun transferChatOwnership(kotlin/Long, kotlin/Long, kotlin/String): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.transferChatOwnership|transferChatOwnership(kotlin.Long;kotlin.Long;kotlin.String){}[0]
     abstract suspend fun transferGift(kotlin/String, kotlin/String, dev.g000sha256.tdl.dto/MessageSender, kotlin/Long): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.transferGift|transferGift(kotlin.String;kotlin.String;dev.g000sha256.tdl.dto.MessageSender;kotlin.Long){}[0]
+    abstract suspend fun translateMessageRichMessage(kotlin/Long, kotlin/Long, kotlin/String, kotlin/String): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/RichMessage> // dev.g000sha256.tdl/TdlClient.translateMessageRichMessage|translateMessageRichMessage(kotlin.Long;kotlin.Long;kotlin.String;kotlin.String){}[0]
     abstract suspend fun translateMessageText(kotlin/Long, kotlin/Long, kotlin/String, kotlin/String): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/FormattedText> // dev.g000sha256.tdl/TdlClient.translateMessageText|translateMessageText(kotlin.Long;kotlin.Long;kotlin.String;kotlin.String){}[0]
+    abstract suspend fun translateRichMessage(dev.g000sha256.tdl.dto/InputRichMessage, kotlin/String, kotlin/String): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/RichMessage> // dev.g000sha256.tdl/TdlClient.translateRichMessage|translateRichMessage(dev.g000sha256.tdl.dto.InputRichMessage;kotlin.String;kotlin.String){}[0]
     abstract suspend fun translateText(dev.g000sha256.tdl.dto/FormattedText, kotlin/String, kotlin/String): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/FormattedText> // dev.g000sha256.tdl/TdlClient.translateText|translateText(dev.g000sha256.tdl.dto.FormattedText;kotlin.String;kotlin.String){}[0]
     abstract suspend fun unpinAllChatMessages(kotlin/Long): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.unpinAllChatMessages|unpinAllChatMessages(kotlin.Long){}[0]
     abstract suspend fun unpinAllDirectMessagesChatTopicMessages(kotlin/Long, kotlin/Long): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.unpinAllDirectMessagesChatTopicMessages|unpinAllDirectMessagesChatTopicMessages(kotlin.Long;kotlin.Long){}[0]
@@ -2695,12 +2708,14 @@ final class dev.g000sha256.tdl.dto/BotAccessSettings { // dev.g000sha256.tdl.dto
 }
 
 final class dev.g000sha256.tdl.dto/BotCommand { // dev.g000sha256.tdl.dto/BotCommand|null[0]
-    constructor <init>(kotlin/String, kotlin/String) // dev.g000sha256.tdl.dto/BotCommand.<init>|<init>(kotlin.String;kotlin.String){}[0]
+    constructor <init>(kotlin/String, kotlin/String, kotlin/Boolean) // dev.g000sha256.tdl.dto/BotCommand.<init>|<init>(kotlin.String;kotlin.String;kotlin.Boolean){}[0]
 
     final val command // dev.g000sha256.tdl.dto/BotCommand.command|{}command[0]
         final fun <get-command>(): kotlin/String // dev.g000sha256.tdl.dto/BotCommand.command.<get-command>|<get-command>(){}[0]
     final val description // dev.g000sha256.tdl.dto/BotCommand.description|{}description[0]
         final fun <get-description>(): kotlin/String // dev.g000sha256.tdl.dto/BotCommand.description.<get-description>|<get-description>(){}[0]
+    final val isEphemeral // dev.g000sha256.tdl.dto/BotCommand.isEphemeral|{}isEphemeral[0]
+        final fun <get-isEphemeral>(): kotlin/Boolean // dev.g000sha256.tdl.dto/BotCommand.isEphemeral.<get-isEphemeral>|<get-isEphemeral>(){}[0]
 
     final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/BotCommand.equals|equals(kotlin.Any?){}[0]
     final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/BotCommand.hashCode|hashCode(){}[0]
@@ -5713,14 +5728,12 @@ final class dev.g000sha256.tdl.dto/ChatJoinResultDeclined : dev.g000sha256.tdl.d
 }
 
 final class dev.g000sha256.tdl.dto/ChatJoinResultGuardBotApprovalRequired : dev.g000sha256.tdl.dto/ChatJoinResult { // dev.g000sha256.tdl.dto/ChatJoinResultGuardBotApprovalRequired|null[0]
-    constructor <init>(kotlin/Long, dev.g000sha256.tdl.dto/WebAppUrl, kotlin/Long) // dev.g000sha256.tdl.dto/ChatJoinResultGuardBotApprovalRequired.<init>|<init>(kotlin.Long;dev.g000sha256.tdl.dto.WebAppUrl;kotlin.Long){}[0]
+    constructor <init>(kotlin/Long, kotlin/Long) // dev.g000sha256.tdl.dto/ChatJoinResultGuardBotApprovalRequired.<init>|<init>(kotlin.Long;kotlin.Long){}[0]
 
     final val botUserId // dev.g000sha256.tdl.dto/ChatJoinResultGuardBotApprovalRequired.botUserId|{}botUserId[0]
         final fun <get-botUserId>(): kotlin/Long // dev.g000sha256.tdl.dto/ChatJoinResultGuardBotApprovalRequired.botUserId.<get-botUserId>|<get-botUserId>(){}[0]
     final val queryId // dev.g000sha256.tdl.dto/ChatJoinResultGuardBotApprovalRequired.queryId|{}queryId[0]
         final fun <get-queryId>(): kotlin/Long // dev.g000sha256.tdl.dto/ChatJoinResultGuardBotApprovalRequired.queryId.<get-queryId>|<get-queryId>(){}[0]
-    final val url // dev.g000sha256.tdl.dto/ChatJoinResultGuardBotApprovalRequired.url|{}url[0]
-        final fun <get-url>(): dev.g000sha256.tdl.dto/WebAppUrl // dev.g000sha256.tdl.dto/ChatJoinResultGuardBotApprovalRequired.url.<get-url>|<get-url>(){}[0]
 
     final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/ChatJoinResultGuardBotApprovalRequired.equals|equals(kotlin.Any?){}[0]
     final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/ChatJoinResultGuardBotApprovalRequired.hashCode|hashCode(){}[0]
@@ -6284,10 +6297,10 @@ final class dev.g000sha256.tdl.dto/ChatRevenueTransactionTypeUnsupported : dev.g
 final class dev.g000sha256.tdl.dto/ChatRevenueTransactions { // dev.g000sha256.tdl.dto/ChatRevenueTransactions|null[0]
     constructor <init>(kotlin/Long, kotlin/Array<dev.g000sha256.tdl.dto/ChatRevenueTransaction>, kotlin/String) // dev.g000sha256.tdl.dto/ChatRevenueTransactions.<init>|<init>(kotlin.Long;kotlin.Array<dev.g000sha256.tdl.dto.ChatRevenueTransaction>;kotlin.String){}[0]
 
+    final val gramAmount // dev.g000sha256.tdl.dto/ChatRevenueTransactions.gramAmount|{}gramAmount[0]
+        final fun <get-gramAmount>(): kotlin/Long // dev.g000sha256.tdl.dto/ChatRevenueTransactions.gramAmount.<get-gramAmount>|<get-gramAmount>(){}[0]
     final val nextOffset // dev.g000sha256.tdl.dto/ChatRevenueTransactions.nextOffset|{}nextOffset[0]
         final fun <get-nextOffset>(): kotlin/String // dev.g000sha256.tdl.dto/ChatRevenueTransactions.nextOffset.<get-nextOffset>|<get-nextOffset>(){}[0]
-    final val tonAmount // dev.g000sha256.tdl.dto/ChatRevenueTransactions.tonAmount|{}tonAmount[0]
-        final fun <get-tonAmount>(): kotlin/Long // dev.g000sha256.tdl.dto/ChatRevenueTransactions.tonAmount.<get-tonAmount>|<get-tonAmount>(){}[0]
     final val transactions // dev.g000sha256.tdl.dto/ChatRevenueTransactions.transactions|{}transactions[0]
         final fun <get-transactions>(): kotlin/Array<dev.g000sha256.tdl.dto/ChatRevenueTransaction> // dev.g000sha256.tdl.dto/ChatRevenueTransactions.transactions.<get-transactions>|<get-transactions>(){}[0]
 
@@ -6755,6 +6768,104 @@ final class dev.g000sha256.tdl.dto/CollectibleItemTypeUsername : dev.g000sha256.
     final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/CollectibleItemTypeUsername.toString|toString(){}[0]
 }
 
+final class dev.g000sha256.tdl.dto/Community { // dev.g000sha256.tdl.dto/Community|null[0]
+    constructor <init>(kotlin/Long, kotlin/Boolean, kotlin/String, dev.g000sha256.tdl.dto/ChatPhotoInfo?, kotlin/Int, dev.g000sha256.tdl.dto/CommunityMemberStatus, dev.g000sha256.tdl.dto/CommunityPermissions) // dev.g000sha256.tdl.dto/Community.<init>|<init>(kotlin.Long;kotlin.Boolean;kotlin.String;dev.g000sha256.tdl.dto.ChatPhotoInfo?;kotlin.Int;dev.g000sha256.tdl.dto.CommunityMemberStatus;dev.g000sha256.tdl.dto.CommunityPermissions){}[0]
+
+    final val date // dev.g000sha256.tdl.dto/Community.date|{}date[0]
+        final fun <get-date>(): kotlin/Int // dev.g000sha256.tdl.dto/Community.date.<get-date>|<get-date>(){}[0]
+    final val haveAccess // dev.g000sha256.tdl.dto/Community.haveAccess|{}haveAccess[0]
+        final fun <get-haveAccess>(): kotlin/Boolean // dev.g000sha256.tdl.dto/Community.haveAccess.<get-haveAccess>|<get-haveAccess>(){}[0]
+    final val id // dev.g000sha256.tdl.dto/Community.id|{}id[0]
+        final fun <get-id>(): kotlin/Long // dev.g000sha256.tdl.dto/Community.id.<get-id>|<get-id>(){}[0]
+    final val name // dev.g000sha256.tdl.dto/Community.name|{}name[0]
+        final fun <get-name>(): kotlin/String // dev.g000sha256.tdl.dto/Community.name.<get-name>|<get-name>(){}[0]
+    final val permissions // dev.g000sha256.tdl.dto/Community.permissions|{}permissions[0]
+        final fun <get-permissions>(): dev.g000sha256.tdl.dto/CommunityPermissions // dev.g000sha256.tdl.dto/Community.permissions.<get-permissions>|<get-permissions>(){}[0]
+    final val photo // dev.g000sha256.tdl.dto/Community.photo|{}photo[0]
+        final fun <get-photo>(): dev.g000sha256.tdl.dto/ChatPhotoInfo? // dev.g000sha256.tdl.dto/Community.photo.<get-photo>|<get-photo>(){}[0]
+    final val status // dev.g000sha256.tdl.dto/Community.status|{}status[0]
+        final fun <get-status>(): dev.g000sha256.tdl.dto/CommunityMemberStatus // dev.g000sha256.tdl.dto/Community.status.<get-status>|<get-status>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/Community.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/Community.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/Community.toString|toString(){}[0]
+}
+
+final class dev.g000sha256.tdl.dto/CommunityAdministratorRights { // dev.g000sha256.tdl.dto/CommunityAdministratorRights|null[0]
+    constructor <init>(kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean) // dev.g000sha256.tdl.dto/CommunityAdministratorRights.<init>|<init>(kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean){}[0]
+
+    final val canBanMembers // dev.g000sha256.tdl.dto/CommunityAdministratorRights.canBanMembers|{}canBanMembers[0]
+        final fun <get-canBanMembers>(): kotlin/Boolean // dev.g000sha256.tdl.dto/CommunityAdministratorRights.canBanMembers.<get-canBanMembers>|<get-canBanMembers>(){}[0]
+    final val canChangeInfo // dev.g000sha256.tdl.dto/CommunityAdministratorRights.canChangeInfo|{}canChangeInfo[0]
+        final fun <get-canChangeInfo>(): kotlin/Boolean // dev.g000sha256.tdl.dto/CommunityAdministratorRights.canChangeInfo.<get-canChangeInfo>|<get-canChangeInfo>(){}[0]
+    final val canEditChatList // dev.g000sha256.tdl.dto/CommunityAdministratorRights.canEditChatList|{}canEditChatList[0]
+        final fun <get-canEditChatList>(): kotlin/Boolean // dev.g000sha256.tdl.dto/CommunityAdministratorRights.canEditChatList.<get-canEditChatList>|<get-canEditChatList>(){}[0]
+    final val canManageCommunity // dev.g000sha256.tdl.dto/CommunityAdministratorRights.canManageCommunity|{}canManageCommunity[0]
+        final fun <get-canManageCommunity>(): kotlin/Boolean // dev.g000sha256.tdl.dto/CommunityAdministratorRights.canManageCommunity.<get-canManageCommunity>|<get-canManageCommunity>(){}[0]
+    final val canPromoteMembers // dev.g000sha256.tdl.dto/CommunityAdministratorRights.canPromoteMembers|{}canPromoteMembers[0]
+        final fun <get-canPromoteMembers>(): kotlin/Boolean // dev.g000sha256.tdl.dto/CommunityAdministratorRights.canPromoteMembers.<get-canPromoteMembers>|<get-canPromoteMembers>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/CommunityAdministratorRights.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/CommunityAdministratorRights.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/CommunityAdministratorRights.toString|toString(){}[0]
+}
+
+final class dev.g000sha256.tdl.dto/CommunityMemberStatusAdministrator : dev.g000sha256.tdl.dto/CommunityMemberStatus { // dev.g000sha256.tdl.dto/CommunityMemberStatusAdministrator|null[0]
+    constructor <init>(kotlin/Boolean, dev.g000sha256.tdl.dto/CommunityAdministratorRights) // dev.g000sha256.tdl.dto/CommunityMemberStatusAdministrator.<init>|<init>(kotlin.Boolean;dev.g000sha256.tdl.dto.CommunityAdministratorRights){}[0]
+
+    final val canBeEdited // dev.g000sha256.tdl.dto/CommunityMemberStatusAdministrator.canBeEdited|{}canBeEdited[0]
+        final fun <get-canBeEdited>(): kotlin/Boolean // dev.g000sha256.tdl.dto/CommunityMemberStatusAdministrator.canBeEdited.<get-canBeEdited>|<get-canBeEdited>(){}[0]
+    final val rights // dev.g000sha256.tdl.dto/CommunityMemberStatusAdministrator.rights|{}rights[0]
+        final fun <get-rights>(): dev.g000sha256.tdl.dto/CommunityAdministratorRights // dev.g000sha256.tdl.dto/CommunityMemberStatusAdministrator.rights.<get-rights>|<get-rights>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/CommunityMemberStatusAdministrator.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/CommunityMemberStatusAdministrator.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/CommunityMemberStatusAdministrator.toString|toString(){}[0]
+}
+
+final class dev.g000sha256.tdl.dto/CommunityMemberStatusBanned : dev.g000sha256.tdl.dto/CommunityMemberStatus { // dev.g000sha256.tdl.dto/CommunityMemberStatusBanned|null[0]
+    constructor <init>() // dev.g000sha256.tdl.dto/CommunityMemberStatusBanned.<init>|<init>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/CommunityMemberStatusBanned.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/CommunityMemberStatusBanned.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/CommunityMemberStatusBanned.toString|toString(){}[0]
+}
+
+final class dev.g000sha256.tdl.dto/CommunityMemberStatusCreator : dev.g000sha256.tdl.dto/CommunityMemberStatus { // dev.g000sha256.tdl.dto/CommunityMemberStatusCreator|null[0]
+    constructor <init>() // dev.g000sha256.tdl.dto/CommunityMemberStatusCreator.<init>|<init>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/CommunityMemberStatusCreator.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/CommunityMemberStatusCreator.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/CommunityMemberStatusCreator.toString|toString(){}[0]
+}
+
+final class dev.g000sha256.tdl.dto/CommunityMemberStatusLeft : dev.g000sha256.tdl.dto/CommunityMemberStatus { // dev.g000sha256.tdl.dto/CommunityMemberStatusLeft|null[0]
+    constructor <init>() // dev.g000sha256.tdl.dto/CommunityMemberStatusLeft.<init>|<init>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/CommunityMemberStatusLeft.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/CommunityMemberStatusLeft.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/CommunityMemberStatusLeft.toString|toString(){}[0]
+}
+
+final class dev.g000sha256.tdl.dto/CommunityMemberStatusMember : dev.g000sha256.tdl.dto/CommunityMemberStatus { // dev.g000sha256.tdl.dto/CommunityMemberStatusMember|null[0]
+    constructor <init>() // dev.g000sha256.tdl.dto/CommunityMemberStatusMember.<init>|<init>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/CommunityMemberStatusMember.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/CommunityMemberStatusMember.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/CommunityMemberStatusMember.toString|toString(){}[0]
+}
+
+final class dev.g000sha256.tdl.dto/CommunityPermissions { // dev.g000sha256.tdl.dto/CommunityPermissions|null[0]
+    constructor <init>(kotlin/Boolean) // dev.g000sha256.tdl.dto/CommunityPermissions.<init>|<init>(kotlin.Boolean){}[0]
+
+    final val canEditChatList // dev.g000sha256.tdl.dto/CommunityPermissions.canEditChatList|{}canEditChatList[0]
+        final fun <get-canEditChatList>(): kotlin/Boolean // dev.g000sha256.tdl.dto/CommunityPermissions.canEditChatList.<get-canEditChatList>|<get-canEditChatList>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/CommunityPermissions.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/CommunityPermissions.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/CommunityPermissions.toString|toString(){}[0]
+}
+
 final class dev.g000sha256.tdl.dto/ConnectedAffiliateProgram { // dev.g000sha256.tdl.dto/ConnectedAffiliateProgram|null[0]
     constructor <init>(kotlin/String, kotlin/Long, dev.g000sha256.tdl.dto/AffiliateProgramParameters, kotlin/Int, kotlin/Boolean, kotlin/Long, kotlin/Long) // dev.g000sha256.tdl.dto/ConnectedAffiliateProgram.<init>|<init>(kotlin.String;kotlin.Long;dev.g000sha256.tdl.dto.AffiliateProgramParameters;kotlin.Int;kotlin.Boolean;kotlin.Long;kotlin.Long){}[0]
 
@@ -6913,7 +7024,7 @@ final class dev.g000sha256.tdl.dto/Countries { // dev.g000sha256.tdl.dto/Countri
 }
 
 final class dev.g000sha256.tdl.dto/CountryInfo { // dev.g000sha256.tdl.dto/CountryInfo|null[0]
-    constructor <init>(kotlin/String, kotlin/String, kotlin/String, kotlin/Boolean, kotlin/Array<kotlin/String>) // dev.g000sha256.tdl.dto/CountryInfo.<init>|<init>(kotlin.String;kotlin.String;kotlin.String;kotlin.Boolean;kotlin.Array<kotlin.String>){}[0]
+    constructor <init>(kotlin/String, kotlin/String, kotlin/String, kotlin/String, kotlin/Boolean, kotlin/Array<kotlin/String>) // dev.g000sha256.tdl.dto/CountryInfo.<init>|<init>(kotlin.String;kotlin.String;kotlin.String;kotlin.String;kotlin.Boolean;kotlin.Array<kotlin.String>){}[0]
 
     final val callingCodes // dev.g000sha256.tdl.dto/CountryInfo.callingCodes|{}callingCodes[0]
         final fun <get-callingCodes>(): kotlin/Array<kotlin/String> // dev.g000sha256.tdl.dto/CountryInfo.callingCodes.<get-callingCodes>|<get-callingCodes>(){}[0]
@@ -6921,6 +7032,8 @@ final class dev.g000sha256.tdl.dto/CountryInfo { // dev.g000sha256.tdl.dto/Count
         final fun <get-countryCode>(): kotlin/String // dev.g000sha256.tdl.dto/CountryInfo.countryCode.<get-countryCode>|<get-countryCode>(){}[0]
     final val englishName // dev.g000sha256.tdl.dto/CountryInfo.englishName|{}englishName[0]
         final fun <get-englishName>(): kotlin/String // dev.g000sha256.tdl.dto/CountryInfo.englishName.<get-englishName>|<get-englishName>(){}[0]
+    final val flagEmoji // dev.g000sha256.tdl.dto/CountryInfo.flagEmoji|{}flagEmoji[0]
+        final fun <get-flagEmoji>(): kotlin/String // dev.g000sha256.tdl.dto/CountryInfo.flagEmoji.<get-flagEmoji>|<get-flagEmoji>(){}[0]
     final val isHidden // dev.g000sha256.tdl.dto/CountryInfo.isHidden|{}isHidden[0]
         final fun <get-isHidden>(): kotlin/Boolean // dev.g000sha256.tdl.dto/CountryInfo.isHidden.<get-isHidden>|<get-isHidden>(){}[0]
     final val name // dev.g000sha256.tdl.dto/CountryInfo.name|{}name[0]
@@ -8806,16 +8919,27 @@ final class dev.g000sha256.tdl.dto/GiftPurchaseOfferStateRejected : dev.g000sha2
 final class dev.g000sha256.tdl.dto/GiftResaleParameters { // dev.g000sha256.tdl.dto/GiftResaleParameters|null[0]
     constructor <init>(kotlin/Long, kotlin/Long, kotlin/Boolean) // dev.g000sha256.tdl.dto/GiftResaleParameters.<init>|<init>(kotlin.Long;kotlin.Long;kotlin.Boolean){}[0]
 
+    final val gramCentCount // dev.g000sha256.tdl.dto/GiftResaleParameters.gramCentCount|{}gramCentCount[0]
+        final fun <get-gramCentCount>(): kotlin/Long // dev.g000sha256.tdl.dto/GiftResaleParameters.gramCentCount.<get-gramCentCount>|<get-gramCentCount>(){}[0]
+    final val gramOnly // dev.g000sha256.tdl.dto/GiftResaleParameters.gramOnly|{}gramOnly[0]
+        final fun <get-gramOnly>(): kotlin/Boolean // dev.g000sha256.tdl.dto/GiftResaleParameters.gramOnly.<get-gramOnly>|<get-gramOnly>(){}[0]
     final val starCount // dev.g000sha256.tdl.dto/GiftResaleParameters.starCount|{}starCount[0]
         final fun <get-starCount>(): kotlin/Long // dev.g000sha256.tdl.dto/GiftResaleParameters.starCount.<get-starCount>|<get-starCount>(){}[0]
-    final val toncoinCentCount // dev.g000sha256.tdl.dto/GiftResaleParameters.toncoinCentCount|{}toncoinCentCount[0]
-        final fun <get-toncoinCentCount>(): kotlin/Long // dev.g000sha256.tdl.dto/GiftResaleParameters.toncoinCentCount.<get-toncoinCentCount>|<get-toncoinCentCount>(){}[0]
-    final val toncoinOnly // dev.g000sha256.tdl.dto/GiftResaleParameters.toncoinOnly|{}toncoinOnly[0]
-        final fun <get-toncoinOnly>(): kotlin/Boolean // dev.g000sha256.tdl.dto/GiftResaleParameters.toncoinOnly.<get-toncoinOnly>|<get-toncoinOnly>(){}[0]
 
     final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/GiftResaleParameters.equals|equals(kotlin.Any?){}[0]
     final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/GiftResaleParameters.hashCode|hashCode(){}[0]
     final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/GiftResaleParameters.toString|toString(){}[0]
+}
+
+final class dev.g000sha256.tdl.dto/GiftResalePriceGram : dev.g000sha256.tdl.dto/GiftResalePrice { // dev.g000sha256.tdl.dto/GiftResalePriceGram|null[0]
+    constructor <init>(kotlin/Long) // dev.g000sha256.tdl.dto/GiftResalePriceGram.<init>|<init>(kotlin.Long){}[0]
+
+    final val gramCentCount // dev.g000sha256.tdl.dto/GiftResalePriceGram.gramCentCount|{}gramCentCount[0]
+        final fun <get-gramCentCount>(): kotlin/Long // dev.g000sha256.tdl.dto/GiftResalePriceGram.gramCentCount.<get-gramCentCount>|<get-gramCentCount>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/GiftResalePriceGram.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/GiftResalePriceGram.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/GiftResalePriceGram.toString|toString(){}[0]
 }
 
 final class dev.g000sha256.tdl.dto/GiftResalePriceStar : dev.g000sha256.tdl.dto/GiftResalePrice { // dev.g000sha256.tdl.dto/GiftResalePriceStar|null[0]
@@ -8827,17 +8951,6 @@ final class dev.g000sha256.tdl.dto/GiftResalePriceStar : dev.g000sha256.tdl.dto/
     final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/GiftResalePriceStar.equals|equals(kotlin.Any?){}[0]
     final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/GiftResalePriceStar.hashCode|hashCode(){}[0]
     final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/GiftResalePriceStar.toString|toString(){}[0]
-}
-
-final class dev.g000sha256.tdl.dto/GiftResalePriceTon : dev.g000sha256.tdl.dto/GiftResalePrice { // dev.g000sha256.tdl.dto/GiftResalePriceTon|null[0]
-    constructor <init>(kotlin/Long) // dev.g000sha256.tdl.dto/GiftResalePriceTon.<init>|<init>(kotlin.Long){}[0]
-
-    final val toncoinCentCount // dev.g000sha256.tdl.dto/GiftResalePriceTon.toncoinCentCount|{}toncoinCentCount[0]
-        final fun <get-toncoinCentCount>(): kotlin/Long // dev.g000sha256.tdl.dto/GiftResalePriceTon.toncoinCentCount.<get-toncoinCentCount>|<get-toncoinCentCount>(){}[0]
-
-    final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/GiftResalePriceTon.equals|equals(kotlin.Any?){}[0]
-    final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/GiftResalePriceTon.hashCode|hashCode(){}[0]
-    final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/GiftResalePriceTon.toString|toString(){}[0]
 }
 
 final class dev.g000sha256.tdl.dto/GiftResaleResultOk : dev.g000sha256.tdl.dto/GiftResaleResult { // dev.g000sha256.tdl.dto/GiftResaleResultOk|null[0]
@@ -9092,6 +9205,38 @@ final class dev.g000sha256.tdl.dto/GiveawayPrizeStars : dev.g000sha256.tdl.dto/G
     final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/GiveawayPrizeStars.equals|equals(kotlin.Any?){}[0]
     final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/GiveawayPrizeStars.hashCode|hashCode(){}[0]
     final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/GiveawayPrizeStars.toString|toString(){}[0]
+}
+
+final class dev.g000sha256.tdl.dto/GramRevenueStatistics { // dev.g000sha256.tdl.dto/GramRevenueStatistics|null[0]
+    constructor <init>(dev.g000sha256.tdl.dto/StatisticalGraph, dev.g000sha256.tdl.dto/GramRevenueStatus, kotlin/Double) // dev.g000sha256.tdl.dto/GramRevenueStatistics.<init>|<init>(dev.g000sha256.tdl.dto.StatisticalGraph;dev.g000sha256.tdl.dto.GramRevenueStatus;kotlin.Double){}[0]
+
+    final val revenueByDayGraph // dev.g000sha256.tdl.dto/GramRevenueStatistics.revenueByDayGraph|{}revenueByDayGraph[0]
+        final fun <get-revenueByDayGraph>(): dev.g000sha256.tdl.dto/StatisticalGraph // dev.g000sha256.tdl.dto/GramRevenueStatistics.revenueByDayGraph.<get-revenueByDayGraph>|<get-revenueByDayGraph>(){}[0]
+    final val status // dev.g000sha256.tdl.dto/GramRevenueStatistics.status|{}status[0]
+        final fun <get-status>(): dev.g000sha256.tdl.dto/GramRevenueStatus // dev.g000sha256.tdl.dto/GramRevenueStatistics.status.<get-status>|<get-status>(){}[0]
+    final val usdRate // dev.g000sha256.tdl.dto/GramRevenueStatistics.usdRate|{}usdRate[0]
+        final fun <get-usdRate>(): kotlin/Double // dev.g000sha256.tdl.dto/GramRevenueStatistics.usdRate.<get-usdRate>|<get-usdRate>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/GramRevenueStatistics.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/GramRevenueStatistics.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/GramRevenueStatistics.toString|toString(){}[0]
+}
+
+final class dev.g000sha256.tdl.dto/GramRevenueStatus { // dev.g000sha256.tdl.dto/GramRevenueStatus|null[0]
+    constructor <init>(kotlin/Long, kotlin/Long, kotlin/Long, kotlin/Boolean) // dev.g000sha256.tdl.dto/GramRevenueStatus.<init>|<init>(kotlin.Long;kotlin.Long;kotlin.Long;kotlin.Boolean){}[0]
+
+    final val availableAmount // dev.g000sha256.tdl.dto/GramRevenueStatus.availableAmount|{}availableAmount[0]
+        final fun <get-availableAmount>(): kotlin/Long // dev.g000sha256.tdl.dto/GramRevenueStatus.availableAmount.<get-availableAmount>|<get-availableAmount>(){}[0]
+    final val balanceAmount // dev.g000sha256.tdl.dto/GramRevenueStatus.balanceAmount|{}balanceAmount[0]
+        final fun <get-balanceAmount>(): kotlin/Long // dev.g000sha256.tdl.dto/GramRevenueStatus.balanceAmount.<get-balanceAmount>|<get-balanceAmount>(){}[0]
+    final val totalAmount // dev.g000sha256.tdl.dto/GramRevenueStatus.totalAmount|{}totalAmount[0]
+        final fun <get-totalAmount>(): kotlin/Long // dev.g000sha256.tdl.dto/GramRevenueStatus.totalAmount.<get-totalAmount>|<get-totalAmount>(){}[0]
+    final val withdrawalEnabled // dev.g000sha256.tdl.dto/GramRevenueStatus.withdrawalEnabled|{}withdrawalEnabled[0]
+        final fun <get-withdrawalEnabled>(): kotlin/Boolean // dev.g000sha256.tdl.dto/GramRevenueStatus.withdrawalEnabled.<get-withdrawalEnabled>|<get-withdrawalEnabled>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/GramRevenueStatus.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/GramRevenueStatus.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/GramRevenueStatus.toString|toString(){}[0]
 }
 
 final class dev.g000sha256.tdl.dto/GroupCall { // dev.g000sha256.tdl.dto/GroupCall|null[0]
@@ -10826,6 +10971,17 @@ final class dev.g000sha256.tdl.dto/InputMessagePoll : dev.g000sha256.tdl.dto/Inp
     final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/InputMessagePoll.toString|toString(){}[0]
 }
 
+final class dev.g000sha256.tdl.dto/InputMessageReplyToEphemeralMessage : dev.g000sha256.tdl.dto/InputMessageReplyTo { // dev.g000sha256.tdl.dto/InputMessageReplyToEphemeralMessage|null[0]
+    constructor <init>(kotlin/Int) // dev.g000sha256.tdl.dto/InputMessageReplyToEphemeralMessage.<init>|<init>(kotlin.Int){}[0]
+
+    final val ephemeralMessageId // dev.g000sha256.tdl.dto/InputMessageReplyToEphemeralMessage.ephemeralMessageId|{}ephemeralMessageId[0]
+        final fun <get-ephemeralMessageId>(): kotlin/Int // dev.g000sha256.tdl.dto/InputMessageReplyToEphemeralMessage.ephemeralMessageId.<get-ephemeralMessageId>|<get-ephemeralMessageId>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/InputMessageReplyToEphemeralMessage.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/InputMessageReplyToEphemeralMessage.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/InputMessageReplyToEphemeralMessage.toString|toString(){}[0]
+}
+
 final class dev.g000sha256.tdl.dto/InputMessageReplyToExternalMessage : dev.g000sha256.tdl.dto/InputMessageReplyTo { // dev.g000sha256.tdl.dto/InputMessageReplyToExternalMessage|null[0]
     constructor <init>(kotlin/Long, kotlin/Long, dev.g000sha256.tdl.dto/InputTextQuote?, kotlin/Int, kotlin/String) // dev.g000sha256.tdl.dto/InputMessageReplyToExternalMessage.<init>|<init>(kotlin.Long;kotlin.Long;dev.g000sha256.tdl.dto.InputTextQuote?;kotlin.Int;kotlin.String){}[0]
 
@@ -10893,8 +11049,8 @@ final class dev.g000sha256.tdl.dto/InputMessageStakeDice : dev.g000sha256.tdl.dt
 
     final val clearDraft // dev.g000sha256.tdl.dto/InputMessageStakeDice.clearDraft|{}clearDraft[0]
         final fun <get-clearDraft>(): kotlin/Boolean // dev.g000sha256.tdl.dto/InputMessageStakeDice.clearDraft.<get-clearDraft>|<get-clearDraft>(){}[0]
-    final val stakeToncoinAmount // dev.g000sha256.tdl.dto/InputMessageStakeDice.stakeToncoinAmount|{}stakeToncoinAmount[0]
-        final fun <get-stakeToncoinAmount>(): kotlin/Long // dev.g000sha256.tdl.dto/InputMessageStakeDice.stakeToncoinAmount.<get-stakeToncoinAmount>|<get-stakeToncoinAmount>(){}[0]
+    final val stakeGramAmount // dev.g000sha256.tdl.dto/InputMessageStakeDice.stakeGramAmount|{}stakeGramAmount[0]
+        final fun <get-stakeGramAmount>(): kotlin/Long // dev.g000sha256.tdl.dto/InputMessageStakeDice.stakeGramAmount.<get-stakeGramAmount>|<get-stakeGramAmount>(){}[0]
     final val stateHash // dev.g000sha256.tdl.dto/InputMessageStakeDice.stateHash|{}stateHash[0]
         final fun <get-stateHash>(): kotlin/String // dev.g000sha256.tdl.dto/InputMessageStakeDice.stateHash.<get-stateHash>|<get-stateHash>(){}[0]
 
@@ -10904,18 +11060,12 @@ final class dev.g000sha256.tdl.dto/InputMessageStakeDice : dev.g000sha256.tdl.dt
 }
 
 final class dev.g000sha256.tdl.dto/InputMessageSticker : dev.g000sha256.tdl.dto/InputMessageContent { // dev.g000sha256.tdl.dto/InputMessageSticker|null[0]
-    constructor <init>(dev.g000sha256.tdl.dto/InputFile, dev.g000sha256.tdl.dto/InputThumbnail?, kotlin/Int, kotlin/Int, kotlin/String) // dev.g000sha256.tdl.dto/InputMessageSticker.<init>|<init>(dev.g000sha256.tdl.dto.InputFile;dev.g000sha256.tdl.dto.InputThumbnail?;kotlin.Int;kotlin.Int;kotlin.String){}[0]
+    constructor <init>(dev.g000sha256.tdl.dto/InputSticker, kotlin/String) // dev.g000sha256.tdl.dto/InputMessageSticker.<init>|<init>(dev.g000sha256.tdl.dto.InputSticker;kotlin.String){}[0]
 
     final val emoji // dev.g000sha256.tdl.dto/InputMessageSticker.emoji|{}emoji[0]
         final fun <get-emoji>(): kotlin/String // dev.g000sha256.tdl.dto/InputMessageSticker.emoji.<get-emoji>|<get-emoji>(){}[0]
-    final val height // dev.g000sha256.tdl.dto/InputMessageSticker.height|{}height[0]
-        final fun <get-height>(): kotlin/Int // dev.g000sha256.tdl.dto/InputMessageSticker.height.<get-height>|<get-height>(){}[0]
     final val sticker // dev.g000sha256.tdl.dto/InputMessageSticker.sticker|{}sticker[0]
-        final fun <get-sticker>(): dev.g000sha256.tdl.dto/InputFile // dev.g000sha256.tdl.dto/InputMessageSticker.sticker.<get-sticker>|<get-sticker>(){}[0]
-    final val thumbnail // dev.g000sha256.tdl.dto/InputMessageSticker.thumbnail|{}thumbnail[0]
-        final fun <get-thumbnail>(): dev.g000sha256.tdl.dto/InputThumbnail? // dev.g000sha256.tdl.dto/InputMessageSticker.thumbnail.<get-thumbnail>|<get-thumbnail>(){}[0]
-    final val width // dev.g000sha256.tdl.dto/InputMessageSticker.width|{}width[0]
-        final fun <get-width>(): kotlin/Int // dev.g000sha256.tdl.dto/InputMessageSticker.width.<get-width>|<get-width>(){}[0]
+        final fun <get-sticker>(): dev.g000sha256.tdl.dto/InputSticker // dev.g000sha256.tdl.dto/InputMessageSticker.sticker.<get-sticker>|<get-sticker>(){}[0]
 
     final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/InputMessageSticker.equals|equals(kotlin.Any?){}[0]
     final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/InputMessageSticker.hashCode|hashCode(){}[0]
@@ -10981,18 +11131,12 @@ final class dev.g000sha256.tdl.dto/InputMessageVideo : dev.g000sha256.tdl.dto/In
 }
 
 final class dev.g000sha256.tdl.dto/InputMessageVideoNote : dev.g000sha256.tdl.dto/InputMessageContent { // dev.g000sha256.tdl.dto/InputMessageVideoNote|null[0]
-    constructor <init>(dev.g000sha256.tdl.dto/InputFile, dev.g000sha256.tdl.dto/InputThumbnail?, kotlin/Int, kotlin/Int, dev.g000sha256.tdl.dto/MessageSelfDestructType?) // dev.g000sha256.tdl.dto/InputMessageVideoNote.<init>|<init>(dev.g000sha256.tdl.dto.InputFile;dev.g000sha256.tdl.dto.InputThumbnail?;kotlin.Int;kotlin.Int;dev.g000sha256.tdl.dto.MessageSelfDestructType?){}[0]
+    constructor <init>(dev.g000sha256.tdl.dto/InputVideoNote, dev.g000sha256.tdl.dto/MessageSelfDestructType?) // dev.g000sha256.tdl.dto/InputMessageVideoNote.<init>|<init>(dev.g000sha256.tdl.dto.InputVideoNote;dev.g000sha256.tdl.dto.MessageSelfDestructType?){}[0]
 
-    final val duration // dev.g000sha256.tdl.dto/InputMessageVideoNote.duration|{}duration[0]
-        final fun <get-duration>(): kotlin/Int // dev.g000sha256.tdl.dto/InputMessageVideoNote.duration.<get-duration>|<get-duration>(){}[0]
-    final val length // dev.g000sha256.tdl.dto/InputMessageVideoNote.length|{}length[0]
-        final fun <get-length>(): kotlin/Int // dev.g000sha256.tdl.dto/InputMessageVideoNote.length.<get-length>|<get-length>(){}[0]
     final val selfDestructType // dev.g000sha256.tdl.dto/InputMessageVideoNote.selfDestructType|{}selfDestructType[0]
         final fun <get-selfDestructType>(): dev.g000sha256.tdl.dto/MessageSelfDestructType? // dev.g000sha256.tdl.dto/InputMessageVideoNote.selfDestructType.<get-selfDestructType>|<get-selfDestructType>(){}[0]
-    final val thumbnail // dev.g000sha256.tdl.dto/InputMessageVideoNote.thumbnail|{}thumbnail[0]
-        final fun <get-thumbnail>(): dev.g000sha256.tdl.dto/InputThumbnail? // dev.g000sha256.tdl.dto/InputMessageVideoNote.thumbnail.<get-thumbnail>|<get-thumbnail>(){}[0]
     final val videoNote // dev.g000sha256.tdl.dto/InputMessageVideoNote.videoNote|{}videoNote[0]
-        final fun <get-videoNote>(): dev.g000sha256.tdl.dto/InputFile // dev.g000sha256.tdl.dto/InputMessageVideoNote.videoNote.<get-videoNote>|<get-videoNote>(){}[0]
+        final fun <get-videoNote>(): dev.g000sha256.tdl.dto/InputVideoNote // dev.g000sha256.tdl.dto/InputMessageVideoNote.videoNote.<get-videoNote>|<get-videoNote>(){}[0]
 
     final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/InputMessageVideoNote.equals|equals(kotlin.Any?){}[0]
     final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/InputMessageVideoNote.hashCode|hashCode(){}[0]
@@ -11000,22 +11144,311 @@ final class dev.g000sha256.tdl.dto/InputMessageVideoNote : dev.g000sha256.tdl.dt
 }
 
 final class dev.g000sha256.tdl.dto/InputMessageVoiceNote : dev.g000sha256.tdl.dto/InputMessageContent { // dev.g000sha256.tdl.dto/InputMessageVoiceNote|null[0]
-    constructor <init>(dev.g000sha256.tdl.dto/InputFile, kotlin/Int, kotlin/ByteArray, dev.g000sha256.tdl.dto/FormattedText?, dev.g000sha256.tdl.dto/MessageSelfDestructType?) // dev.g000sha256.tdl.dto/InputMessageVoiceNote.<init>|<init>(dev.g000sha256.tdl.dto.InputFile;kotlin.Int;kotlin.ByteArray;dev.g000sha256.tdl.dto.FormattedText?;dev.g000sha256.tdl.dto.MessageSelfDestructType?){}[0]
+    constructor <init>(dev.g000sha256.tdl.dto/InputVoiceNote, dev.g000sha256.tdl.dto/FormattedText?, dev.g000sha256.tdl.dto/MessageSelfDestructType?) // dev.g000sha256.tdl.dto/InputMessageVoiceNote.<init>|<init>(dev.g000sha256.tdl.dto.InputVoiceNote;dev.g000sha256.tdl.dto.FormattedText?;dev.g000sha256.tdl.dto.MessageSelfDestructType?){}[0]
 
     final val caption // dev.g000sha256.tdl.dto/InputMessageVoiceNote.caption|{}caption[0]
         final fun <get-caption>(): dev.g000sha256.tdl.dto/FormattedText? // dev.g000sha256.tdl.dto/InputMessageVoiceNote.caption.<get-caption>|<get-caption>(){}[0]
-    final val duration // dev.g000sha256.tdl.dto/InputMessageVoiceNote.duration|{}duration[0]
-        final fun <get-duration>(): kotlin/Int // dev.g000sha256.tdl.dto/InputMessageVoiceNote.duration.<get-duration>|<get-duration>(){}[0]
     final val selfDestructType // dev.g000sha256.tdl.dto/InputMessageVoiceNote.selfDestructType|{}selfDestructType[0]
         final fun <get-selfDestructType>(): dev.g000sha256.tdl.dto/MessageSelfDestructType? // dev.g000sha256.tdl.dto/InputMessageVoiceNote.selfDestructType.<get-selfDestructType>|<get-selfDestructType>(){}[0]
     final val voiceNote // dev.g000sha256.tdl.dto/InputMessageVoiceNote.voiceNote|{}voiceNote[0]
-        final fun <get-voiceNote>(): dev.g000sha256.tdl.dto/InputFile // dev.g000sha256.tdl.dto/InputMessageVoiceNote.voiceNote.<get-voiceNote>|<get-voiceNote>(){}[0]
-    final val waveform // dev.g000sha256.tdl.dto/InputMessageVoiceNote.waveform|{}waveform[0]
-        final fun <get-waveform>(): kotlin/ByteArray // dev.g000sha256.tdl.dto/InputMessageVoiceNote.waveform.<get-waveform>|<get-waveform>(){}[0]
+        final fun <get-voiceNote>(): dev.g000sha256.tdl.dto/InputVoiceNote // dev.g000sha256.tdl.dto/InputMessageVoiceNote.voiceNote.<get-voiceNote>|<get-voiceNote>(){}[0]
 
     final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/InputMessageVoiceNote.equals|equals(kotlin.Any?){}[0]
     final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/InputMessageVoiceNote.hashCode|hashCode(){}[0]
     final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/InputMessageVoiceNote.toString|toString(){}[0]
+}
+
+final class dev.g000sha256.tdl.dto/InputPageBlockAnchor : dev.g000sha256.tdl.dto/InputPageBlock { // dev.g000sha256.tdl.dto/InputPageBlockAnchor|null[0]
+    constructor <init>(kotlin/String) // dev.g000sha256.tdl.dto/InputPageBlockAnchor.<init>|<init>(kotlin.String){}[0]
+
+    final val name // dev.g000sha256.tdl.dto/InputPageBlockAnchor.name|{}name[0]
+        final fun <get-name>(): kotlin/String // dev.g000sha256.tdl.dto/InputPageBlockAnchor.name.<get-name>|<get-name>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/InputPageBlockAnchor.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/InputPageBlockAnchor.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/InputPageBlockAnchor.toString|toString(){}[0]
+}
+
+final class dev.g000sha256.tdl.dto/InputPageBlockAnimation : dev.g000sha256.tdl.dto/InputPageBlock { // dev.g000sha256.tdl.dto/InputPageBlockAnimation|null[0]
+    constructor <init>(dev.g000sha256.tdl.dto/InputAnimation, dev.g000sha256.tdl.dto/PageBlockCaption?, kotlin/Boolean) // dev.g000sha256.tdl.dto/InputPageBlockAnimation.<init>|<init>(dev.g000sha256.tdl.dto.InputAnimation;dev.g000sha256.tdl.dto.PageBlockCaption?;kotlin.Boolean){}[0]
+
+    final val animation // dev.g000sha256.tdl.dto/InputPageBlockAnimation.animation|{}animation[0]
+        final fun <get-animation>(): dev.g000sha256.tdl.dto/InputAnimation // dev.g000sha256.tdl.dto/InputPageBlockAnimation.animation.<get-animation>|<get-animation>(){}[0]
+    final val caption // dev.g000sha256.tdl.dto/InputPageBlockAnimation.caption|{}caption[0]
+        final fun <get-caption>(): dev.g000sha256.tdl.dto/PageBlockCaption? // dev.g000sha256.tdl.dto/InputPageBlockAnimation.caption.<get-caption>|<get-caption>(){}[0]
+    final val hasSpoiler // dev.g000sha256.tdl.dto/InputPageBlockAnimation.hasSpoiler|{}hasSpoiler[0]
+        final fun <get-hasSpoiler>(): kotlin/Boolean // dev.g000sha256.tdl.dto/InputPageBlockAnimation.hasSpoiler.<get-hasSpoiler>|<get-hasSpoiler>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/InputPageBlockAnimation.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/InputPageBlockAnimation.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/InputPageBlockAnimation.toString|toString(){}[0]
+}
+
+final class dev.g000sha256.tdl.dto/InputPageBlockAudio : dev.g000sha256.tdl.dto/InputPageBlock { // dev.g000sha256.tdl.dto/InputPageBlockAudio|null[0]
+    constructor <init>(dev.g000sha256.tdl.dto/InputAudio, dev.g000sha256.tdl.dto/PageBlockCaption?) // dev.g000sha256.tdl.dto/InputPageBlockAudio.<init>|<init>(dev.g000sha256.tdl.dto.InputAudio;dev.g000sha256.tdl.dto.PageBlockCaption?){}[0]
+
+    final val audio // dev.g000sha256.tdl.dto/InputPageBlockAudio.audio|{}audio[0]
+        final fun <get-audio>(): dev.g000sha256.tdl.dto/InputAudio // dev.g000sha256.tdl.dto/InputPageBlockAudio.audio.<get-audio>|<get-audio>(){}[0]
+    final val caption // dev.g000sha256.tdl.dto/InputPageBlockAudio.caption|{}caption[0]
+        final fun <get-caption>(): dev.g000sha256.tdl.dto/PageBlockCaption? // dev.g000sha256.tdl.dto/InputPageBlockAudio.caption.<get-caption>|<get-caption>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/InputPageBlockAudio.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/InputPageBlockAudio.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/InputPageBlockAudio.toString|toString(){}[0]
+}
+
+final class dev.g000sha256.tdl.dto/InputPageBlockBlockQuote : dev.g000sha256.tdl.dto/InputPageBlock { // dev.g000sha256.tdl.dto/InputPageBlockBlockQuote|null[0]
+    constructor <init>(kotlin/Array<dev.g000sha256.tdl.dto/InputPageBlock>, dev.g000sha256.tdl.dto/RichText?) // dev.g000sha256.tdl.dto/InputPageBlockBlockQuote.<init>|<init>(kotlin.Array<dev.g000sha256.tdl.dto.InputPageBlock>;dev.g000sha256.tdl.dto.RichText?){}[0]
+
+    final val blocks // dev.g000sha256.tdl.dto/InputPageBlockBlockQuote.blocks|{}blocks[0]
+        final fun <get-blocks>(): kotlin/Array<dev.g000sha256.tdl.dto/InputPageBlock> // dev.g000sha256.tdl.dto/InputPageBlockBlockQuote.blocks.<get-blocks>|<get-blocks>(){}[0]
+    final val credit // dev.g000sha256.tdl.dto/InputPageBlockBlockQuote.credit|{}credit[0]
+        final fun <get-credit>(): dev.g000sha256.tdl.dto/RichText? // dev.g000sha256.tdl.dto/InputPageBlockBlockQuote.credit.<get-credit>|<get-credit>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/InputPageBlockBlockQuote.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/InputPageBlockBlockQuote.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/InputPageBlockBlockQuote.toString|toString(){}[0]
+}
+
+final class dev.g000sha256.tdl.dto/InputPageBlockCollage : dev.g000sha256.tdl.dto/InputPageBlock { // dev.g000sha256.tdl.dto/InputPageBlockCollage|null[0]
+    constructor <init>(kotlin/Array<dev.g000sha256.tdl.dto/InputPageBlock>, dev.g000sha256.tdl.dto/PageBlockCaption?) // dev.g000sha256.tdl.dto/InputPageBlockCollage.<init>|<init>(kotlin.Array<dev.g000sha256.tdl.dto.InputPageBlock>;dev.g000sha256.tdl.dto.PageBlockCaption?){}[0]
+
+    final val blocks // dev.g000sha256.tdl.dto/InputPageBlockCollage.blocks|{}blocks[0]
+        final fun <get-blocks>(): kotlin/Array<dev.g000sha256.tdl.dto/InputPageBlock> // dev.g000sha256.tdl.dto/InputPageBlockCollage.blocks.<get-blocks>|<get-blocks>(){}[0]
+    final val caption // dev.g000sha256.tdl.dto/InputPageBlockCollage.caption|{}caption[0]
+        final fun <get-caption>(): dev.g000sha256.tdl.dto/PageBlockCaption? // dev.g000sha256.tdl.dto/InputPageBlockCollage.caption.<get-caption>|<get-caption>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/InputPageBlockCollage.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/InputPageBlockCollage.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/InputPageBlockCollage.toString|toString(){}[0]
+}
+
+final class dev.g000sha256.tdl.dto/InputPageBlockDetails : dev.g000sha256.tdl.dto/InputPageBlock { // dev.g000sha256.tdl.dto/InputPageBlockDetails|null[0]
+    constructor <init>(dev.g000sha256.tdl.dto/RichText, kotlin/Array<dev.g000sha256.tdl.dto/InputPageBlock>, kotlin/Boolean) // dev.g000sha256.tdl.dto/InputPageBlockDetails.<init>|<init>(dev.g000sha256.tdl.dto.RichText;kotlin.Array<dev.g000sha256.tdl.dto.InputPageBlock>;kotlin.Boolean){}[0]
+
+    final val blocks // dev.g000sha256.tdl.dto/InputPageBlockDetails.blocks|{}blocks[0]
+        final fun <get-blocks>(): kotlin/Array<dev.g000sha256.tdl.dto/InputPageBlock> // dev.g000sha256.tdl.dto/InputPageBlockDetails.blocks.<get-blocks>|<get-blocks>(){}[0]
+    final val header // dev.g000sha256.tdl.dto/InputPageBlockDetails.header|{}header[0]
+        final fun <get-header>(): dev.g000sha256.tdl.dto/RichText // dev.g000sha256.tdl.dto/InputPageBlockDetails.header.<get-header>|<get-header>(){}[0]
+    final val isOpen // dev.g000sha256.tdl.dto/InputPageBlockDetails.isOpen|{}isOpen[0]
+        final fun <get-isOpen>(): kotlin/Boolean // dev.g000sha256.tdl.dto/InputPageBlockDetails.isOpen.<get-isOpen>|<get-isOpen>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/InputPageBlockDetails.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/InputPageBlockDetails.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/InputPageBlockDetails.toString|toString(){}[0]
+}
+
+final class dev.g000sha256.tdl.dto/InputPageBlockDivider : dev.g000sha256.tdl.dto/InputPageBlock { // dev.g000sha256.tdl.dto/InputPageBlockDivider|null[0]
+    constructor <init>() // dev.g000sha256.tdl.dto/InputPageBlockDivider.<init>|<init>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/InputPageBlockDivider.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/InputPageBlockDivider.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/InputPageBlockDivider.toString|toString(){}[0]
+}
+
+final class dev.g000sha256.tdl.dto/InputPageBlockFooter : dev.g000sha256.tdl.dto/InputPageBlock { // dev.g000sha256.tdl.dto/InputPageBlockFooter|null[0]
+    constructor <init>(dev.g000sha256.tdl.dto/RichText) // dev.g000sha256.tdl.dto/InputPageBlockFooter.<init>|<init>(dev.g000sha256.tdl.dto.RichText){}[0]
+
+    final val footer // dev.g000sha256.tdl.dto/InputPageBlockFooter.footer|{}footer[0]
+        final fun <get-footer>(): dev.g000sha256.tdl.dto/RichText // dev.g000sha256.tdl.dto/InputPageBlockFooter.footer.<get-footer>|<get-footer>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/InputPageBlockFooter.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/InputPageBlockFooter.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/InputPageBlockFooter.toString|toString(){}[0]
+}
+
+final class dev.g000sha256.tdl.dto/InputPageBlockList : dev.g000sha256.tdl.dto/InputPageBlock { // dev.g000sha256.tdl.dto/InputPageBlockList|null[0]
+    constructor <init>(kotlin/Array<dev.g000sha256.tdl.dto/InputPageBlockListItem>) // dev.g000sha256.tdl.dto/InputPageBlockList.<init>|<init>(kotlin.Array<dev.g000sha256.tdl.dto.InputPageBlockListItem>){}[0]
+
+    final val items // dev.g000sha256.tdl.dto/InputPageBlockList.items|{}items[0]
+        final fun <get-items>(): kotlin/Array<dev.g000sha256.tdl.dto/InputPageBlockListItem> // dev.g000sha256.tdl.dto/InputPageBlockList.items.<get-items>|<get-items>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/InputPageBlockList.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/InputPageBlockList.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/InputPageBlockList.toString|toString(){}[0]
+}
+
+final class dev.g000sha256.tdl.dto/InputPageBlockListItem { // dev.g000sha256.tdl.dto/InputPageBlockListItem|null[0]
+    constructor <init>(kotlin/Array<dev.g000sha256.tdl.dto/InputPageBlock>, kotlin/Boolean, kotlin/Boolean, kotlin/Int, kotlin/String) // dev.g000sha256.tdl.dto/InputPageBlockListItem.<init>|<init>(kotlin.Array<dev.g000sha256.tdl.dto.InputPageBlock>;kotlin.Boolean;kotlin.Boolean;kotlin.Int;kotlin.String){}[0]
+
+    final val blocks // dev.g000sha256.tdl.dto/InputPageBlockListItem.blocks|{}blocks[0]
+        final fun <get-blocks>(): kotlin/Array<dev.g000sha256.tdl.dto/InputPageBlock> // dev.g000sha256.tdl.dto/InputPageBlockListItem.blocks.<get-blocks>|<get-blocks>(){}[0]
+    final val hasCheckbox // dev.g000sha256.tdl.dto/InputPageBlockListItem.hasCheckbox|{}hasCheckbox[0]
+        final fun <get-hasCheckbox>(): kotlin/Boolean // dev.g000sha256.tdl.dto/InputPageBlockListItem.hasCheckbox.<get-hasCheckbox>|<get-hasCheckbox>(){}[0]
+    final val isChecked // dev.g000sha256.tdl.dto/InputPageBlockListItem.isChecked|{}isChecked[0]
+        final fun <get-isChecked>(): kotlin/Boolean // dev.g000sha256.tdl.dto/InputPageBlockListItem.isChecked.<get-isChecked>|<get-isChecked>(){}[0]
+    final val type // dev.g000sha256.tdl.dto/InputPageBlockListItem.type|{}type[0]
+        final fun <get-type>(): kotlin/String // dev.g000sha256.tdl.dto/InputPageBlockListItem.type.<get-type>|<get-type>(){}[0]
+    final val value // dev.g000sha256.tdl.dto/InputPageBlockListItem.value|{}value[0]
+        final fun <get-value>(): kotlin/Int // dev.g000sha256.tdl.dto/InputPageBlockListItem.value.<get-value>|<get-value>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/InputPageBlockListItem.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/InputPageBlockListItem.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/InputPageBlockListItem.toString|toString(){}[0]
+}
+
+final class dev.g000sha256.tdl.dto/InputPageBlockMap : dev.g000sha256.tdl.dto/InputPageBlock { // dev.g000sha256.tdl.dto/InputPageBlockMap|null[0]
+    constructor <init>(dev.g000sha256.tdl.dto/Location, kotlin/Int, kotlin/Int, kotlin/Int, dev.g000sha256.tdl.dto/PageBlockCaption?) // dev.g000sha256.tdl.dto/InputPageBlockMap.<init>|<init>(dev.g000sha256.tdl.dto.Location;kotlin.Int;kotlin.Int;kotlin.Int;dev.g000sha256.tdl.dto.PageBlockCaption?){}[0]
+
+    final val caption // dev.g000sha256.tdl.dto/InputPageBlockMap.caption|{}caption[0]
+        final fun <get-caption>(): dev.g000sha256.tdl.dto/PageBlockCaption? // dev.g000sha256.tdl.dto/InputPageBlockMap.caption.<get-caption>|<get-caption>(){}[0]
+    final val height // dev.g000sha256.tdl.dto/InputPageBlockMap.height|{}height[0]
+        final fun <get-height>(): kotlin/Int // dev.g000sha256.tdl.dto/InputPageBlockMap.height.<get-height>|<get-height>(){}[0]
+    final val location // dev.g000sha256.tdl.dto/InputPageBlockMap.location|{}location[0]
+        final fun <get-location>(): dev.g000sha256.tdl.dto/Location // dev.g000sha256.tdl.dto/InputPageBlockMap.location.<get-location>|<get-location>(){}[0]
+    final val width // dev.g000sha256.tdl.dto/InputPageBlockMap.width|{}width[0]
+        final fun <get-width>(): kotlin/Int // dev.g000sha256.tdl.dto/InputPageBlockMap.width.<get-width>|<get-width>(){}[0]
+    final val zoom // dev.g000sha256.tdl.dto/InputPageBlockMap.zoom|{}zoom[0]
+        final fun <get-zoom>(): kotlin/Int // dev.g000sha256.tdl.dto/InputPageBlockMap.zoom.<get-zoom>|<get-zoom>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/InputPageBlockMap.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/InputPageBlockMap.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/InputPageBlockMap.toString|toString(){}[0]
+}
+
+final class dev.g000sha256.tdl.dto/InputPageBlockMathematicalExpression : dev.g000sha256.tdl.dto/InputPageBlock { // dev.g000sha256.tdl.dto/InputPageBlockMathematicalExpression|null[0]
+    constructor <init>(kotlin/String) // dev.g000sha256.tdl.dto/InputPageBlockMathematicalExpression.<init>|<init>(kotlin.String){}[0]
+
+    final val expression // dev.g000sha256.tdl.dto/InputPageBlockMathematicalExpression.expression|{}expression[0]
+        final fun <get-expression>(): kotlin/String // dev.g000sha256.tdl.dto/InputPageBlockMathematicalExpression.expression.<get-expression>|<get-expression>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/InputPageBlockMathematicalExpression.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/InputPageBlockMathematicalExpression.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/InputPageBlockMathematicalExpression.toString|toString(){}[0]
+}
+
+final class dev.g000sha256.tdl.dto/InputPageBlockParagraph : dev.g000sha256.tdl.dto/InputPageBlock { // dev.g000sha256.tdl.dto/InputPageBlockParagraph|null[0]
+    constructor <init>(dev.g000sha256.tdl.dto/RichText) // dev.g000sha256.tdl.dto/InputPageBlockParagraph.<init>|<init>(dev.g000sha256.tdl.dto.RichText){}[0]
+
+    final val text // dev.g000sha256.tdl.dto/InputPageBlockParagraph.text|{}text[0]
+        final fun <get-text>(): dev.g000sha256.tdl.dto/RichText // dev.g000sha256.tdl.dto/InputPageBlockParagraph.text.<get-text>|<get-text>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/InputPageBlockParagraph.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/InputPageBlockParagraph.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/InputPageBlockParagraph.toString|toString(){}[0]
+}
+
+final class dev.g000sha256.tdl.dto/InputPageBlockPhoto : dev.g000sha256.tdl.dto/InputPageBlock { // dev.g000sha256.tdl.dto/InputPageBlockPhoto|null[0]
+    constructor <init>(dev.g000sha256.tdl.dto/InputPhoto, dev.g000sha256.tdl.dto/PageBlockCaption?, kotlin/Boolean) // dev.g000sha256.tdl.dto/InputPageBlockPhoto.<init>|<init>(dev.g000sha256.tdl.dto.InputPhoto;dev.g000sha256.tdl.dto.PageBlockCaption?;kotlin.Boolean){}[0]
+
+    final val caption // dev.g000sha256.tdl.dto/InputPageBlockPhoto.caption|{}caption[0]
+        final fun <get-caption>(): dev.g000sha256.tdl.dto/PageBlockCaption? // dev.g000sha256.tdl.dto/InputPageBlockPhoto.caption.<get-caption>|<get-caption>(){}[0]
+    final val hasSpoiler // dev.g000sha256.tdl.dto/InputPageBlockPhoto.hasSpoiler|{}hasSpoiler[0]
+        final fun <get-hasSpoiler>(): kotlin/Boolean // dev.g000sha256.tdl.dto/InputPageBlockPhoto.hasSpoiler.<get-hasSpoiler>|<get-hasSpoiler>(){}[0]
+    final val photo // dev.g000sha256.tdl.dto/InputPageBlockPhoto.photo|{}photo[0]
+        final fun <get-photo>(): dev.g000sha256.tdl.dto/InputPhoto // dev.g000sha256.tdl.dto/InputPageBlockPhoto.photo.<get-photo>|<get-photo>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/InputPageBlockPhoto.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/InputPageBlockPhoto.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/InputPageBlockPhoto.toString|toString(){}[0]
+}
+
+final class dev.g000sha256.tdl.dto/InputPageBlockPreformatted : dev.g000sha256.tdl.dto/InputPageBlock { // dev.g000sha256.tdl.dto/InputPageBlockPreformatted|null[0]
+    constructor <init>(dev.g000sha256.tdl.dto/RichText, kotlin/String) // dev.g000sha256.tdl.dto/InputPageBlockPreformatted.<init>|<init>(dev.g000sha256.tdl.dto.RichText;kotlin.String){}[0]
+
+    final val language // dev.g000sha256.tdl.dto/InputPageBlockPreformatted.language|{}language[0]
+        final fun <get-language>(): kotlin/String // dev.g000sha256.tdl.dto/InputPageBlockPreformatted.language.<get-language>|<get-language>(){}[0]
+    final val text // dev.g000sha256.tdl.dto/InputPageBlockPreformatted.text|{}text[0]
+        final fun <get-text>(): dev.g000sha256.tdl.dto/RichText // dev.g000sha256.tdl.dto/InputPageBlockPreformatted.text.<get-text>|<get-text>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/InputPageBlockPreformatted.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/InputPageBlockPreformatted.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/InputPageBlockPreformatted.toString|toString(){}[0]
+}
+
+final class dev.g000sha256.tdl.dto/InputPageBlockPullQuote : dev.g000sha256.tdl.dto/InputPageBlock { // dev.g000sha256.tdl.dto/InputPageBlockPullQuote|null[0]
+    constructor <init>(dev.g000sha256.tdl.dto/RichText, dev.g000sha256.tdl.dto/RichText?) // dev.g000sha256.tdl.dto/InputPageBlockPullQuote.<init>|<init>(dev.g000sha256.tdl.dto.RichText;dev.g000sha256.tdl.dto.RichText?){}[0]
+
+    final val credit // dev.g000sha256.tdl.dto/InputPageBlockPullQuote.credit|{}credit[0]
+        final fun <get-credit>(): dev.g000sha256.tdl.dto/RichText? // dev.g000sha256.tdl.dto/InputPageBlockPullQuote.credit.<get-credit>|<get-credit>(){}[0]
+    final val text // dev.g000sha256.tdl.dto/InputPageBlockPullQuote.text|{}text[0]
+        final fun <get-text>(): dev.g000sha256.tdl.dto/RichText // dev.g000sha256.tdl.dto/InputPageBlockPullQuote.text.<get-text>|<get-text>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/InputPageBlockPullQuote.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/InputPageBlockPullQuote.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/InputPageBlockPullQuote.toString|toString(){}[0]
+}
+
+final class dev.g000sha256.tdl.dto/InputPageBlockSectionHeading : dev.g000sha256.tdl.dto/InputPageBlock { // dev.g000sha256.tdl.dto/InputPageBlockSectionHeading|null[0]
+    constructor <init>(dev.g000sha256.tdl.dto/RichText, kotlin/Int) // dev.g000sha256.tdl.dto/InputPageBlockSectionHeading.<init>|<init>(dev.g000sha256.tdl.dto.RichText;kotlin.Int){}[0]
+
+    final val size // dev.g000sha256.tdl.dto/InputPageBlockSectionHeading.size|{}size[0]
+        final fun <get-size>(): kotlin/Int // dev.g000sha256.tdl.dto/InputPageBlockSectionHeading.size.<get-size>|<get-size>(){}[0]
+    final val text // dev.g000sha256.tdl.dto/InputPageBlockSectionHeading.text|{}text[0]
+        final fun <get-text>(): dev.g000sha256.tdl.dto/RichText // dev.g000sha256.tdl.dto/InputPageBlockSectionHeading.text.<get-text>|<get-text>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/InputPageBlockSectionHeading.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/InputPageBlockSectionHeading.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/InputPageBlockSectionHeading.toString|toString(){}[0]
+}
+
+final class dev.g000sha256.tdl.dto/InputPageBlockSlideshow : dev.g000sha256.tdl.dto/InputPageBlock { // dev.g000sha256.tdl.dto/InputPageBlockSlideshow|null[0]
+    constructor <init>(kotlin/Array<dev.g000sha256.tdl.dto/InputPageBlock>, dev.g000sha256.tdl.dto/PageBlockCaption?) // dev.g000sha256.tdl.dto/InputPageBlockSlideshow.<init>|<init>(kotlin.Array<dev.g000sha256.tdl.dto.InputPageBlock>;dev.g000sha256.tdl.dto.PageBlockCaption?){}[0]
+
+    final val blocks // dev.g000sha256.tdl.dto/InputPageBlockSlideshow.blocks|{}blocks[0]
+        final fun <get-blocks>(): kotlin/Array<dev.g000sha256.tdl.dto/InputPageBlock> // dev.g000sha256.tdl.dto/InputPageBlockSlideshow.blocks.<get-blocks>|<get-blocks>(){}[0]
+    final val caption // dev.g000sha256.tdl.dto/InputPageBlockSlideshow.caption|{}caption[0]
+        final fun <get-caption>(): dev.g000sha256.tdl.dto/PageBlockCaption? // dev.g000sha256.tdl.dto/InputPageBlockSlideshow.caption.<get-caption>|<get-caption>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/InputPageBlockSlideshow.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/InputPageBlockSlideshow.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/InputPageBlockSlideshow.toString|toString(){}[0]
+}
+
+final class dev.g000sha256.tdl.dto/InputPageBlockTable : dev.g000sha256.tdl.dto/InputPageBlock { // dev.g000sha256.tdl.dto/InputPageBlockTable|null[0]
+    constructor <init>(dev.g000sha256.tdl.dto/RichText, kotlin/Array<kotlin/Array<dev.g000sha256.tdl.dto/PageBlockTableCell>>, kotlin/Boolean, kotlin/Boolean) // dev.g000sha256.tdl.dto/InputPageBlockTable.<init>|<init>(dev.g000sha256.tdl.dto.RichText;kotlin.Array<kotlin.Array<dev.g000sha256.tdl.dto.PageBlockTableCell>>;kotlin.Boolean;kotlin.Boolean){}[0]
+
+    final val caption // dev.g000sha256.tdl.dto/InputPageBlockTable.caption|{}caption[0]
+        final fun <get-caption>(): dev.g000sha256.tdl.dto/RichText // dev.g000sha256.tdl.dto/InputPageBlockTable.caption.<get-caption>|<get-caption>(){}[0]
+    final val cells // dev.g000sha256.tdl.dto/InputPageBlockTable.cells|{}cells[0]
+        final fun <get-cells>(): kotlin/Array<kotlin/Array<dev.g000sha256.tdl.dto/PageBlockTableCell>> // dev.g000sha256.tdl.dto/InputPageBlockTable.cells.<get-cells>|<get-cells>(){}[0]
+    final val isBordered // dev.g000sha256.tdl.dto/InputPageBlockTable.isBordered|{}isBordered[0]
+        final fun <get-isBordered>(): kotlin/Boolean // dev.g000sha256.tdl.dto/InputPageBlockTable.isBordered.<get-isBordered>|<get-isBordered>(){}[0]
+    final val isStriped // dev.g000sha256.tdl.dto/InputPageBlockTable.isStriped|{}isStriped[0]
+        final fun <get-isStriped>(): kotlin/Boolean // dev.g000sha256.tdl.dto/InputPageBlockTable.isStriped.<get-isStriped>|<get-isStriped>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/InputPageBlockTable.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/InputPageBlockTable.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/InputPageBlockTable.toString|toString(){}[0]
+}
+
+final class dev.g000sha256.tdl.dto/InputPageBlockThinking : dev.g000sha256.tdl.dto/InputPageBlock { // dev.g000sha256.tdl.dto/InputPageBlockThinking|null[0]
+    constructor <init>(dev.g000sha256.tdl.dto/RichText) // dev.g000sha256.tdl.dto/InputPageBlockThinking.<init>|<init>(dev.g000sha256.tdl.dto.RichText){}[0]
+
+    final val text // dev.g000sha256.tdl.dto/InputPageBlockThinking.text|{}text[0]
+        final fun <get-text>(): dev.g000sha256.tdl.dto/RichText // dev.g000sha256.tdl.dto/InputPageBlockThinking.text.<get-text>|<get-text>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/InputPageBlockThinking.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/InputPageBlockThinking.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/InputPageBlockThinking.toString|toString(){}[0]
+}
+
+final class dev.g000sha256.tdl.dto/InputPageBlockVideo : dev.g000sha256.tdl.dto/InputPageBlock { // dev.g000sha256.tdl.dto/InputPageBlockVideo|null[0]
+    constructor <init>(dev.g000sha256.tdl.dto/InputVideo, dev.g000sha256.tdl.dto/PageBlockCaption?, kotlin/Boolean) // dev.g000sha256.tdl.dto/InputPageBlockVideo.<init>|<init>(dev.g000sha256.tdl.dto.InputVideo;dev.g000sha256.tdl.dto.PageBlockCaption?;kotlin.Boolean){}[0]
+
+    final val caption // dev.g000sha256.tdl.dto/InputPageBlockVideo.caption|{}caption[0]
+        final fun <get-caption>(): dev.g000sha256.tdl.dto/PageBlockCaption? // dev.g000sha256.tdl.dto/InputPageBlockVideo.caption.<get-caption>|<get-caption>(){}[0]
+    final val hasSpoiler // dev.g000sha256.tdl.dto/InputPageBlockVideo.hasSpoiler|{}hasSpoiler[0]
+        final fun <get-hasSpoiler>(): kotlin/Boolean // dev.g000sha256.tdl.dto/InputPageBlockVideo.hasSpoiler.<get-hasSpoiler>|<get-hasSpoiler>(){}[0]
+    final val video // dev.g000sha256.tdl.dto/InputPageBlockVideo.video|{}video[0]
+        final fun <get-video>(): dev.g000sha256.tdl.dto/InputVideo // dev.g000sha256.tdl.dto/InputPageBlockVideo.video.<get-video>|<get-video>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/InputPageBlockVideo.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/InputPageBlockVideo.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/InputPageBlockVideo.toString|toString(){}[0]
+}
+
+final class dev.g000sha256.tdl.dto/InputPageBlockVoiceNote : dev.g000sha256.tdl.dto/InputPageBlock { // dev.g000sha256.tdl.dto/InputPageBlockVoiceNote|null[0]
+    constructor <init>(dev.g000sha256.tdl.dto/InputVoiceNote, dev.g000sha256.tdl.dto/PageBlockCaption?) // dev.g000sha256.tdl.dto/InputPageBlockVoiceNote.<init>|<init>(dev.g000sha256.tdl.dto.InputVoiceNote;dev.g000sha256.tdl.dto.PageBlockCaption?){}[0]
+
+    final val caption // dev.g000sha256.tdl.dto/InputPageBlockVoiceNote.caption|{}caption[0]
+        final fun <get-caption>(): dev.g000sha256.tdl.dto/PageBlockCaption? // dev.g000sha256.tdl.dto/InputPageBlockVoiceNote.caption.<get-caption>|<get-caption>(){}[0]
+    final val voiceNote // dev.g000sha256.tdl.dto/InputPageBlockVoiceNote.voiceNote|{}voiceNote[0]
+        final fun <get-voiceNote>(): dev.g000sha256.tdl.dto/InputVoiceNote // dev.g000sha256.tdl.dto/InputPageBlockVoiceNote.voiceNote.<get-voiceNote>|<get-voiceNote>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/InputPageBlockVoiceNote.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/InputPageBlockVoiceNote.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/InputPageBlockVoiceNote.toString|toString(){}[0]
 }
 
 final class dev.g000sha256.tdl.dto/InputPaidMedia { // dev.g000sha256.tdl.dto/InputPaidMedia|null[0]
@@ -11427,16 +11860,10 @@ final class dev.g000sha256.tdl.dto/InputPollMediaPhoto : dev.g000sha256.tdl.dto/
 }
 
 final class dev.g000sha256.tdl.dto/InputPollMediaSticker : dev.g000sha256.tdl.dto/InputPollMedia { // dev.g000sha256.tdl.dto/InputPollMediaSticker|null[0]
-    constructor <init>(dev.g000sha256.tdl.dto/InputFile, dev.g000sha256.tdl.dto/InputThumbnail?, kotlin/Int, kotlin/Int) // dev.g000sha256.tdl.dto/InputPollMediaSticker.<init>|<init>(dev.g000sha256.tdl.dto.InputFile;dev.g000sha256.tdl.dto.InputThumbnail?;kotlin.Int;kotlin.Int){}[0]
+    constructor <init>(dev.g000sha256.tdl.dto/InputSticker) // dev.g000sha256.tdl.dto/InputPollMediaSticker.<init>|<init>(dev.g000sha256.tdl.dto.InputSticker){}[0]
 
-    final val height // dev.g000sha256.tdl.dto/InputPollMediaSticker.height|{}height[0]
-        final fun <get-height>(): kotlin/Int // dev.g000sha256.tdl.dto/InputPollMediaSticker.height.<get-height>|<get-height>(){}[0]
     final val sticker // dev.g000sha256.tdl.dto/InputPollMediaSticker.sticker|{}sticker[0]
-        final fun <get-sticker>(): dev.g000sha256.tdl.dto/InputFile // dev.g000sha256.tdl.dto/InputPollMediaSticker.sticker.<get-sticker>|<get-sticker>(){}[0]
-    final val thumbnail // dev.g000sha256.tdl.dto/InputPollMediaSticker.thumbnail|{}thumbnail[0]
-        final fun <get-thumbnail>(): dev.g000sha256.tdl.dto/InputThumbnail? // dev.g000sha256.tdl.dto/InputPollMediaSticker.thumbnail.<get-thumbnail>|<get-thumbnail>(){}[0]
-    final val width // dev.g000sha256.tdl.dto/InputPollMediaSticker.width|{}width[0]
-        final fun <get-width>(): kotlin/Int // dev.g000sha256.tdl.dto/InputPollMediaSticker.width.<get-width>|<get-width>(){}[0]
+        final fun <get-sticker>(): dev.g000sha256.tdl.dto/InputSticker // dev.g000sha256.tdl.dto/InputPollMediaSticker.sticker.<get-sticker>|<get-sticker>(){}[0]
 
     final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/InputPollMediaSticker.equals|equals(kotlin.Any?){}[0]
     final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/InputPollMediaSticker.hashCode|hashCode(){}[0]
@@ -11519,19 +11946,30 @@ final class dev.g000sha256.tdl.dto/InputRichMessage { // dev.g000sha256.tdl.dto/
     final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/InputRichMessage.toString|toString(){}[0]
 }
 
-final class dev.g000sha256.tdl.dto/InputSticker { // dev.g000sha256.tdl.dto/InputSticker|null[0]
-    constructor <init>(dev.g000sha256.tdl.dto/InputFile, dev.g000sha256.tdl.dto/StickerFormat, kotlin/String, dev.g000sha256.tdl.dto/MaskPosition?, kotlin/Array<kotlin/String>) // dev.g000sha256.tdl.dto/InputSticker.<init>|<init>(dev.g000sha256.tdl.dto.InputFile;dev.g000sha256.tdl.dto.StickerFormat;kotlin.String;dev.g000sha256.tdl.dto.MaskPosition?;kotlin.Array<kotlin.String>){}[0]
+final class dev.g000sha256.tdl.dto/InputRichMessageMedia { // dev.g000sha256.tdl.dto/InputRichMessageMedia|null[0]
+    constructor <init>(kotlin/String, dev.g000sha256.tdl.dto/InputMessageContent) // dev.g000sha256.tdl.dto/InputRichMessageMedia.<init>|<init>(kotlin.String;dev.g000sha256.tdl.dto.InputMessageContent){}[0]
 
-    final val emojis // dev.g000sha256.tdl.dto/InputSticker.emojis|{}emojis[0]
-        final fun <get-emojis>(): kotlin/String // dev.g000sha256.tdl.dto/InputSticker.emojis.<get-emojis>|<get-emojis>(){}[0]
-    final val format // dev.g000sha256.tdl.dto/InputSticker.format|{}format[0]
-        final fun <get-format>(): dev.g000sha256.tdl.dto/StickerFormat // dev.g000sha256.tdl.dto/InputSticker.format.<get-format>|<get-format>(){}[0]
-    final val keywords // dev.g000sha256.tdl.dto/InputSticker.keywords|{}keywords[0]
-        final fun <get-keywords>(): kotlin/Array<kotlin/String> // dev.g000sha256.tdl.dto/InputSticker.keywords.<get-keywords>|<get-keywords>(){}[0]
-    final val maskPosition // dev.g000sha256.tdl.dto/InputSticker.maskPosition|{}maskPosition[0]
-        final fun <get-maskPosition>(): dev.g000sha256.tdl.dto/MaskPosition? // dev.g000sha256.tdl.dto/InputSticker.maskPosition.<get-maskPosition>|<get-maskPosition>(){}[0]
+    final val id // dev.g000sha256.tdl.dto/InputRichMessageMedia.id|{}id[0]
+        final fun <get-id>(): kotlin/String // dev.g000sha256.tdl.dto/InputRichMessageMedia.id.<get-id>|<get-id>(){}[0]
+    final val media // dev.g000sha256.tdl.dto/InputRichMessageMedia.media|{}media[0]
+        final fun <get-media>(): dev.g000sha256.tdl.dto/InputMessageContent // dev.g000sha256.tdl.dto/InputRichMessageMedia.media.<get-media>|<get-media>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/InputRichMessageMedia.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/InputRichMessageMedia.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/InputRichMessageMedia.toString|toString(){}[0]
+}
+
+final class dev.g000sha256.tdl.dto/InputSticker { // dev.g000sha256.tdl.dto/InputSticker|null[0]
+    constructor <init>(dev.g000sha256.tdl.dto/InputFile, dev.g000sha256.tdl.dto/InputThumbnail?, kotlin/Int, kotlin/Int) // dev.g000sha256.tdl.dto/InputSticker.<init>|<init>(dev.g000sha256.tdl.dto.InputFile;dev.g000sha256.tdl.dto.InputThumbnail?;kotlin.Int;kotlin.Int){}[0]
+
+    final val height // dev.g000sha256.tdl.dto/InputSticker.height|{}height[0]
+        final fun <get-height>(): kotlin/Int // dev.g000sha256.tdl.dto/InputSticker.height.<get-height>|<get-height>(){}[0]
     final val sticker // dev.g000sha256.tdl.dto/InputSticker.sticker|{}sticker[0]
         final fun <get-sticker>(): dev.g000sha256.tdl.dto/InputFile // dev.g000sha256.tdl.dto/InputSticker.sticker.<get-sticker>|<get-sticker>(){}[0]
+    final val thumbnail // dev.g000sha256.tdl.dto/InputSticker.thumbnail|{}thumbnail[0]
+        final fun <get-thumbnail>(): dev.g000sha256.tdl.dto/InputThumbnail? // dev.g000sha256.tdl.dto/InputSticker.thumbnail.<get-thumbnail>|<get-thumbnail>(){}[0]
+    final val width // dev.g000sha256.tdl.dto/InputSticker.width|{}width[0]
+        final fun <get-width>(): kotlin/Int // dev.g000sha256.tdl.dto/InputSticker.width.<get-width>|<get-width>(){}[0]
 
     final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/InputSticker.equals|equals(kotlin.Any?){}[0]
     final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/InputSticker.hashCode|hashCode(){}[0]
@@ -11764,6 +12202,38 @@ final class dev.g000sha256.tdl.dto/InputVideo { // dev.g000sha256.tdl.dto/InputV
     final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/InputVideo.equals|equals(kotlin.Any?){}[0]
     final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/InputVideo.hashCode|hashCode(){}[0]
     final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/InputVideo.toString|toString(){}[0]
+}
+
+final class dev.g000sha256.tdl.dto/InputVideoNote { // dev.g000sha256.tdl.dto/InputVideoNote|null[0]
+    constructor <init>(dev.g000sha256.tdl.dto/InputFile, dev.g000sha256.tdl.dto/InputThumbnail?, kotlin/Int, kotlin/Int) // dev.g000sha256.tdl.dto/InputVideoNote.<init>|<init>(dev.g000sha256.tdl.dto.InputFile;dev.g000sha256.tdl.dto.InputThumbnail?;kotlin.Int;kotlin.Int){}[0]
+
+    final val duration // dev.g000sha256.tdl.dto/InputVideoNote.duration|{}duration[0]
+        final fun <get-duration>(): kotlin/Int // dev.g000sha256.tdl.dto/InputVideoNote.duration.<get-duration>|<get-duration>(){}[0]
+    final val length // dev.g000sha256.tdl.dto/InputVideoNote.length|{}length[0]
+        final fun <get-length>(): kotlin/Int // dev.g000sha256.tdl.dto/InputVideoNote.length.<get-length>|<get-length>(){}[0]
+    final val thumbnail // dev.g000sha256.tdl.dto/InputVideoNote.thumbnail|{}thumbnail[0]
+        final fun <get-thumbnail>(): dev.g000sha256.tdl.dto/InputThumbnail? // dev.g000sha256.tdl.dto/InputVideoNote.thumbnail.<get-thumbnail>|<get-thumbnail>(){}[0]
+    final val videoNote // dev.g000sha256.tdl.dto/InputVideoNote.videoNote|{}videoNote[0]
+        final fun <get-videoNote>(): dev.g000sha256.tdl.dto/InputFile // dev.g000sha256.tdl.dto/InputVideoNote.videoNote.<get-videoNote>|<get-videoNote>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/InputVideoNote.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/InputVideoNote.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/InputVideoNote.toString|toString(){}[0]
+}
+
+final class dev.g000sha256.tdl.dto/InputVoiceNote { // dev.g000sha256.tdl.dto/InputVoiceNote|null[0]
+    constructor <init>(dev.g000sha256.tdl.dto/InputFile, kotlin/Int, kotlin/ByteArray) // dev.g000sha256.tdl.dto/InputVoiceNote.<init>|<init>(dev.g000sha256.tdl.dto.InputFile;kotlin.Int;kotlin.ByteArray){}[0]
+
+    final val duration // dev.g000sha256.tdl.dto/InputVoiceNote.duration|{}duration[0]
+        final fun <get-duration>(): kotlin/Int // dev.g000sha256.tdl.dto/InputVoiceNote.duration.<get-duration>|<get-duration>(){}[0]
+    final val voiceNote // dev.g000sha256.tdl.dto/InputVoiceNote.voiceNote|{}voiceNote[0]
+        final fun <get-voiceNote>(): dev.g000sha256.tdl.dto/InputFile // dev.g000sha256.tdl.dto/InputVoiceNote.voiceNote.<get-voiceNote>|<get-voiceNote>(){}[0]
+    final val waveform // dev.g000sha256.tdl.dto/InputVoiceNote.waveform|{}waveform[0]
+        final fun <get-waveform>(): kotlin/ByteArray // dev.g000sha256.tdl.dto/InputVoiceNote.waveform.<get-waveform>|<get-waveform>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/InputVoiceNote.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/InputVoiceNote.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/InputVoiceNote.toString|toString(){}[0]
 }
 
 final class dev.g000sha256.tdl.dto/InternalLinkTypeAttachmentMenuBot : dev.g000sha256.tdl.dto/InternalLinkType { // dev.g000sha256.tdl.dto/InternalLinkTypeAttachmentMenuBot|null[0]
@@ -13702,7 +14172,7 @@ final class dev.g000sha256.tdl.dto/MaskPosition { // dev.g000sha256.tdl.dto/Mask
 }
 
 final class dev.g000sha256.tdl.dto/Message { // dev.g000sha256.tdl.dto/Message|null[0]
-    constructor <init>(kotlin/Long, dev.g000sha256.tdl.dto/MessageSender, kotlin/Long, dev.g000sha256.tdl.dto/MessageSendingState?, dev.g000sha256.tdl.dto/MessageSchedulingState?, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Int, kotlin/Int, dev.g000sha256.tdl.dto/MessageForwardInfo?, dev.g000sha256.tdl.dto/MessageImportInfo?, dev.g000sha256.tdl.dto/MessageInteractionInfo?, kotlin/Array<dev.g000sha256.tdl.dto/UnreadReaction>, dev.g000sha256.tdl.dto/FactCheck?, dev.g000sha256.tdl.dto/SuggestedPostInfo?, dev.g000sha256.tdl.dto/MessageReplyTo?, dev.g000sha256.tdl.dto/MessageTopic?, dev.g000sha256.tdl.dto/MessageSelfDestructType?, kotlin/Double, kotlin/Double, kotlin/Long, dev.g000sha256.tdl.dto/MessageSender?, kotlin/Long, kotlin/Int, kotlin/String, kotlin/Long, kotlin/String, kotlin/Long, kotlin/Long, dev.g000sha256.tdl.dto/RestrictionInfo?, kotlin/String, dev.g000sha256.tdl.dto/MessageContent, dev.g000sha256.tdl.dto/ReplyMarkup?) // dev.g000sha256.tdl.dto/Message.<init>|<init>(kotlin.Long;dev.g000sha256.tdl.dto.MessageSender;kotlin.Long;dev.g000sha256.tdl.dto.MessageSendingState?;dev.g000sha256.tdl.dto.MessageSchedulingState?;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Int;kotlin.Int;dev.g000sha256.tdl.dto.MessageForwardInfo?;dev.g000sha256.tdl.dto.MessageImportInfo?;dev.g000sha256.tdl.dto.MessageInteractionInfo?;kotlin.Array<dev.g000sha256.tdl.dto.UnreadReaction>;dev.g000sha256.tdl.dto.FactCheck?;dev.g000sha256.tdl.dto.SuggestedPostInfo?;dev.g000sha256.tdl.dto.MessageReplyTo?;dev.g000sha256.tdl.dto.MessageTopic?;dev.g000sha256.tdl.dto.MessageSelfDestructType?;kotlin.Double;kotlin.Double;kotlin.Long;dev.g000sha256.tdl.dto.MessageSender?;kotlin.Long;kotlin.Int;kotlin.String;kotlin.Long;kotlin.String;kotlin.Long;kotlin.Long;dev.g000sha256.tdl.dto.RestrictionInfo?;kotlin.String;dev.g000sha256.tdl.dto.MessageContent;dev.g000sha256.tdl.dto.ReplyMarkup?){}[0]
+    constructor <init>(kotlin/Long, dev.g000sha256.tdl.dto/MessageSender, dev.g000sha256.tdl.dto/MessageSender?, kotlin/Long, dev.g000sha256.tdl.dto/MessageSendingState?, dev.g000sha256.tdl.dto/MessageSchedulingState?, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Int, kotlin/Int, dev.g000sha256.tdl.dto/MessageForwardInfo?, dev.g000sha256.tdl.dto/MessageImportInfo?, dev.g000sha256.tdl.dto/MessageInteractionInfo?, kotlin/Array<dev.g000sha256.tdl.dto/UnreadReaction>, dev.g000sha256.tdl.dto/FactCheck?, dev.g000sha256.tdl.dto/SuggestedPostInfo?, dev.g000sha256.tdl.dto/MessageReplyTo?, dev.g000sha256.tdl.dto/MessageTopic?, dev.g000sha256.tdl.dto/MessageSelfDestructType?, kotlin/Double, kotlin/Double, kotlin/Long, dev.g000sha256.tdl.dto/MessageSender?, kotlin/Long, kotlin/Int, kotlin/String, kotlin/Long, kotlin/String, kotlin/Long, kotlin/Long, dev.g000sha256.tdl.dto/RestrictionInfo?, kotlin/String, dev.g000sha256.tdl.dto/MessageContent, dev.g000sha256.tdl.dto/ReplyMarkup?, kotlin/Int) // dev.g000sha256.tdl.dto/Message.<init>|<init>(kotlin.Long;dev.g000sha256.tdl.dto.MessageSender;dev.g000sha256.tdl.dto.MessageSender?;kotlin.Long;dev.g000sha256.tdl.dto.MessageSendingState?;dev.g000sha256.tdl.dto.MessageSchedulingState?;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Int;kotlin.Int;dev.g000sha256.tdl.dto.MessageForwardInfo?;dev.g000sha256.tdl.dto.MessageImportInfo?;dev.g000sha256.tdl.dto.MessageInteractionInfo?;kotlin.Array<dev.g000sha256.tdl.dto.UnreadReaction>;dev.g000sha256.tdl.dto.FactCheck?;dev.g000sha256.tdl.dto.SuggestedPostInfo?;dev.g000sha256.tdl.dto.MessageReplyTo?;dev.g000sha256.tdl.dto.MessageTopic?;dev.g000sha256.tdl.dto.MessageSelfDestructType?;kotlin.Double;kotlin.Double;kotlin.Long;dev.g000sha256.tdl.dto.MessageSender?;kotlin.Long;kotlin.Int;kotlin.String;kotlin.Long;kotlin.String;kotlin.Long;kotlin.Long;dev.g000sha256.tdl.dto.RestrictionInfo?;kotlin.String;dev.g000sha256.tdl.dto.MessageContent;dev.g000sha256.tdl.dto.ReplyMarkup?;kotlin.Int){}[0]
 
     final val authorSignature // dev.g000sha256.tdl.dto/Message.authorSignature|{}authorSignature[0]
         final fun <get-authorSignature>(): kotlin/String // dev.g000sha256.tdl.dto/Message.authorSignature.<get-authorSignature>|<get-authorSignature>(){}[0]
@@ -13724,6 +14194,8 @@ final class dev.g000sha256.tdl.dto/Message { // dev.g000sha256.tdl.dto/Message|n
         final fun <get-editDate>(): kotlin/Int // dev.g000sha256.tdl.dto/Message.editDate.<get-editDate>|<get-editDate>(){}[0]
     final val effectId // dev.g000sha256.tdl.dto/Message.effectId|{}effectId[0]
         final fun <get-effectId>(): kotlin/Long // dev.g000sha256.tdl.dto/Message.effectId.<get-effectId>|<get-effectId>(){}[0]
+    final val ephemeralMessageId // dev.g000sha256.tdl.dto/Message.ephemeralMessageId|{}ephemeralMessageId[0]
+        final fun <get-ephemeralMessageId>(): kotlin/Int // dev.g000sha256.tdl.dto/Message.ephemeralMessageId.<get-ephemeralMessageId>|<get-ephemeralMessageId>(){}[0]
     final val factCheck // dev.g000sha256.tdl.dto/Message.factCheck|{}factCheck[0]
         final fun <get-factCheck>(): dev.g000sha256.tdl.dto/FactCheck? // dev.g000sha256.tdl.dto/Message.factCheck.<get-factCheck>|<get-factCheck>(){}[0]
     final val forwardInfo // dev.g000sha256.tdl.dto/Message.forwardInfo|{}forwardInfo[0]
@@ -13744,16 +14216,18 @@ final class dev.g000sha256.tdl.dto/Message { // dev.g000sha256.tdl.dto/Message|n
         final fun <get-isFromOffline>(): kotlin/Boolean // dev.g000sha256.tdl.dto/Message.isFromOffline.<get-isFromOffline>|<get-isFromOffline>(){}[0]
     final val isOutgoing // dev.g000sha256.tdl.dto/Message.isOutgoing|{}isOutgoing[0]
         final fun <get-isOutgoing>(): kotlin/Boolean // dev.g000sha256.tdl.dto/Message.isOutgoing.<get-isOutgoing>|<get-isOutgoing>(){}[0]
+    final val isPaidGramSuggestedPost // dev.g000sha256.tdl.dto/Message.isPaidGramSuggestedPost|{}isPaidGramSuggestedPost[0]
+        final fun <get-isPaidGramSuggestedPost>(): kotlin/Boolean // dev.g000sha256.tdl.dto/Message.isPaidGramSuggestedPost.<get-isPaidGramSuggestedPost>|<get-isPaidGramSuggestedPost>(){}[0]
     final val isPaidStarSuggestedPost // dev.g000sha256.tdl.dto/Message.isPaidStarSuggestedPost|{}isPaidStarSuggestedPost[0]
         final fun <get-isPaidStarSuggestedPost>(): kotlin/Boolean // dev.g000sha256.tdl.dto/Message.isPaidStarSuggestedPost.<get-isPaidStarSuggestedPost>|<get-isPaidStarSuggestedPost>(){}[0]
-    final val isPaidTonSuggestedPost // dev.g000sha256.tdl.dto/Message.isPaidTonSuggestedPost|{}isPaidTonSuggestedPost[0]
-        final fun <get-isPaidTonSuggestedPost>(): kotlin/Boolean // dev.g000sha256.tdl.dto/Message.isPaidTonSuggestedPost.<get-isPaidTonSuggestedPost>|<get-isPaidTonSuggestedPost>(){}[0]
     final val isPinned // dev.g000sha256.tdl.dto/Message.isPinned|{}isPinned[0]
         final fun <get-isPinned>(): kotlin/Boolean // dev.g000sha256.tdl.dto/Message.isPinned.<get-isPinned>|<get-isPinned>(){}[0]
     final val mediaAlbumId // dev.g000sha256.tdl.dto/Message.mediaAlbumId|{}mediaAlbumId[0]
         final fun <get-mediaAlbumId>(): kotlin/Long // dev.g000sha256.tdl.dto/Message.mediaAlbumId.<get-mediaAlbumId>|<get-mediaAlbumId>(){}[0]
     final val paidMessageStarCount // dev.g000sha256.tdl.dto/Message.paidMessageStarCount|{}paidMessageStarCount[0]
         final fun <get-paidMessageStarCount>(): kotlin/Long // dev.g000sha256.tdl.dto/Message.paidMessageStarCount.<get-paidMessageStarCount>|<get-paidMessageStarCount>(){}[0]
+    final val receiverId // dev.g000sha256.tdl.dto/Message.receiverId|{}receiverId[0]
+        final fun <get-receiverId>(): dev.g000sha256.tdl.dto/MessageSender? // dev.g000sha256.tdl.dto/Message.receiverId.<get-receiverId>|<get-receiverId>(){}[0]
     final val replyMarkup // dev.g000sha256.tdl.dto/Message.replyMarkup|{}replyMarkup[0]
         final fun <get-replyMarkup>(): dev.g000sha256.tdl.dto/ReplyMarkup? // dev.g000sha256.tdl.dto/Message.replyMarkup.<get-replyMarkup>|<get-replyMarkup>(){}[0]
     final val replyTo // dev.g000sha256.tdl.dto/Message.replyTo|{}replyTo[0]
@@ -13926,6 +14400,17 @@ final class dev.g000sha256.tdl.dto/MessageChatAddMembers : dev.g000sha256.tdl.dt
     final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/MessageChatAddMembers.toString|toString(){}[0]
 }
 
+final class dev.g000sha256.tdl.dto/MessageChatAddedToCommunity : dev.g000sha256.tdl.dto/MessageContent { // dev.g000sha256.tdl.dto/MessageChatAddedToCommunity|null[0]
+    constructor <init>(kotlin/Long) // dev.g000sha256.tdl.dto/MessageChatAddedToCommunity.<init>|<init>(kotlin.Long){}[0]
+
+    final val communityId // dev.g000sha256.tdl.dto/MessageChatAddedToCommunity.communityId|{}communityId[0]
+        final fun <get-communityId>(): kotlin/Long // dev.g000sha256.tdl.dto/MessageChatAddedToCommunity.communityId.<get-communityId>|<get-communityId>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/MessageChatAddedToCommunity.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/MessageChatAddedToCommunity.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/MessageChatAddedToCommunity.toString|toString(){}[0]
+}
+
 final class dev.g000sha256.tdl.dto/MessageChatBoost : dev.g000sha256.tdl.dto/MessageContent { // dev.g000sha256.tdl.dto/MessageChatBoost|null[0]
     constructor <init>(kotlin/Int) // dev.g000sha256.tdl.dto/MessageChatBoost.<init>|<init>(kotlin.Int){}[0]
 
@@ -14040,6 +14525,14 @@ final class dev.g000sha256.tdl.dto/MessageChatOwnerLeft : dev.g000sha256.tdl.dto
     final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/MessageChatOwnerLeft.equals|equals(kotlin.Any?){}[0]
     final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/MessageChatOwnerLeft.hashCode|hashCode(){}[0]
     final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/MessageChatOwnerLeft.toString|toString(){}[0]
+}
+
+final class dev.g000sha256.tdl.dto/MessageChatRemovedFromCommunity : dev.g000sha256.tdl.dto/MessageContent { // dev.g000sha256.tdl.dto/MessageChatRemovedFromCommunity|null[0]
+    constructor <init>() // dev.g000sha256.tdl.dto/MessageChatRemovedFromCommunity.<init>|<init>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/MessageChatRemovedFromCommunity.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/MessageChatRemovedFromCommunity.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/MessageChatRemovedFromCommunity.toString|toString(){}[0]
 }
 
 final class dev.g000sha256.tdl.dto/MessageChatSetBackground : dev.g000sha256.tdl.dto/MessageContent { // dev.g000sha256.tdl.dto/MessageChatSetBackground|null[0]
@@ -14557,12 +15050,12 @@ final class dev.g000sha256.tdl.dto/MessageGiftedTon : dev.g000sha256.tdl.dto/Mes
 
     final val gifterUserId // dev.g000sha256.tdl.dto/MessageGiftedTon.gifterUserId|{}gifterUserId[0]
         final fun <get-gifterUserId>(): kotlin/Long // dev.g000sha256.tdl.dto/MessageGiftedTon.gifterUserId.<get-gifterUserId>|<get-gifterUserId>(){}[0]
+    final val gramAmount // dev.g000sha256.tdl.dto/MessageGiftedTon.gramAmount|{}gramAmount[0]
+        final fun <get-gramAmount>(): kotlin/Long // dev.g000sha256.tdl.dto/MessageGiftedTon.gramAmount.<get-gramAmount>|<get-gramAmount>(){}[0]
     final val receiverUserId // dev.g000sha256.tdl.dto/MessageGiftedTon.receiverUserId|{}receiverUserId[0]
         final fun <get-receiverUserId>(): kotlin/Long // dev.g000sha256.tdl.dto/MessageGiftedTon.receiverUserId.<get-receiverUserId>|<get-receiverUserId>(){}[0]
     final val sticker // dev.g000sha256.tdl.dto/MessageGiftedTon.sticker|{}sticker[0]
         final fun <get-sticker>(): dev.g000sha256.tdl.dto/Sticker? // dev.g000sha256.tdl.dto/MessageGiftedTon.sticker.<get-sticker>|<get-sticker>(){}[0]
-    final val tonAmount // dev.g000sha256.tdl.dto/MessageGiftedTon.tonAmount|{}tonAmount[0]
-        final fun <get-tonAmount>(): kotlin/Long // dev.g000sha256.tdl.dto/MessageGiftedTon.tonAmount.<get-tonAmount>|<get-tonAmount>(){}[0]
     final val transactionId // dev.g000sha256.tdl.dto/MessageGiftedTon.transactionId|{}transactionId[0]
         final fun <get-transactionId>(): kotlin/String // dev.g000sha256.tdl.dto/MessageGiftedTon.transactionId.<get-transactionId>|<get-transactionId>(){}[0]
 
@@ -15682,10 +16175,10 @@ final class dev.g000sha256.tdl.dto/MessageStakeDice : dev.g000sha256.tdl.dto/Mes
         final fun <get-finalState>(): dev.g000sha256.tdl.dto/DiceStickers? // dev.g000sha256.tdl.dto/MessageStakeDice.finalState.<get-finalState>|<get-finalState>(){}[0]
     final val initialState // dev.g000sha256.tdl.dto/MessageStakeDice.initialState|{}initialState[0]
         final fun <get-initialState>(): dev.g000sha256.tdl.dto/DiceStickers? // dev.g000sha256.tdl.dto/MessageStakeDice.initialState.<get-initialState>|<get-initialState>(){}[0]
-    final val prizeToncoinAmount // dev.g000sha256.tdl.dto/MessageStakeDice.prizeToncoinAmount|{}prizeToncoinAmount[0]
-        final fun <get-prizeToncoinAmount>(): kotlin/Long // dev.g000sha256.tdl.dto/MessageStakeDice.prizeToncoinAmount.<get-prizeToncoinAmount>|<get-prizeToncoinAmount>(){}[0]
-    final val stakeToncoinAmount // dev.g000sha256.tdl.dto/MessageStakeDice.stakeToncoinAmount|{}stakeToncoinAmount[0]
-        final fun <get-stakeToncoinAmount>(): kotlin/Long // dev.g000sha256.tdl.dto/MessageStakeDice.stakeToncoinAmount.<get-stakeToncoinAmount>|<get-stakeToncoinAmount>(){}[0]
+    final val prizeGramAmount // dev.g000sha256.tdl.dto/MessageStakeDice.prizeGramAmount|{}prizeGramAmount[0]
+        final fun <get-prizeGramAmount>(): kotlin/Long // dev.g000sha256.tdl.dto/MessageStakeDice.prizeGramAmount.<get-prizeGramAmount>|<get-prizeGramAmount>(){}[0]
+    final val stakeGramAmount // dev.g000sha256.tdl.dto/MessageStakeDice.stakeGramAmount|{}stakeGramAmount[0]
+        final fun <get-stakeGramAmount>(): kotlin/Long // dev.g000sha256.tdl.dto/MessageStakeDice.stakeGramAmount.<get-stakeGramAmount>|<get-stakeGramAmount>(){}[0]
     final val value // dev.g000sha256.tdl.dto/MessageStakeDice.value|{}value[0]
         final fun <get-value>(): kotlin/Int // dev.g000sha256.tdl.dto/MessageStakeDice.value.<get-value>|<get-value>(){}[0]
 
@@ -15801,12 +16294,12 @@ final class dev.g000sha256.tdl.dto/MessageSuggestedPostDeclined : dev.g000sha256
 final class dev.g000sha256.tdl.dto/MessageSuggestedPostPaid : dev.g000sha256.tdl.dto/MessageContent { // dev.g000sha256.tdl.dto/MessageSuggestedPostPaid|null[0]
     constructor <init>(kotlin/Long, dev.g000sha256.tdl.dto/StarAmount, kotlin/Long) // dev.g000sha256.tdl.dto/MessageSuggestedPostPaid.<init>|<init>(kotlin.Long;dev.g000sha256.tdl.dto.StarAmount;kotlin.Long){}[0]
 
+    final val gramAmount // dev.g000sha256.tdl.dto/MessageSuggestedPostPaid.gramAmount|{}gramAmount[0]
+        final fun <get-gramAmount>(): kotlin/Long // dev.g000sha256.tdl.dto/MessageSuggestedPostPaid.gramAmount.<get-gramAmount>|<get-gramAmount>(){}[0]
     final val starAmount // dev.g000sha256.tdl.dto/MessageSuggestedPostPaid.starAmount|{}starAmount[0]
         final fun <get-starAmount>(): dev.g000sha256.tdl.dto/StarAmount // dev.g000sha256.tdl.dto/MessageSuggestedPostPaid.starAmount.<get-starAmount>|<get-starAmount>(){}[0]
     final val suggestedPostMessageId // dev.g000sha256.tdl.dto/MessageSuggestedPostPaid.suggestedPostMessageId|{}suggestedPostMessageId[0]
         final fun <get-suggestedPostMessageId>(): kotlin/Long // dev.g000sha256.tdl.dto/MessageSuggestedPostPaid.suggestedPostMessageId.<get-suggestedPostMessageId>|<get-suggestedPostMessageId>(){}[0]
-    final val tonAmount // dev.g000sha256.tdl.dto/MessageSuggestedPostPaid.tonAmount|{}tonAmount[0]
-        final fun <get-tonAmount>(): kotlin/Long // dev.g000sha256.tdl.dto/MessageSuggestedPostPaid.tonAmount.<get-tonAmount>|<get-tonAmount>(){}[0]
 
     final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/MessageSuggestedPostPaid.equals|equals(kotlin.Any?){}[0]
     final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/MessageSuggestedPostPaid.hashCode|hashCode(){}[0]
@@ -16286,6 +16779,25 @@ final class dev.g000sha256.tdl.dto/NewChatPrivacySettings { // dev.g000sha256.td
     final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/NewChatPrivacySettings.equals|equals(kotlin.Any?){}[0]
     final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/NewChatPrivacySettings.hashCode|hashCode(){}[0]
     final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/NewChatPrivacySettings.toString|toString(){}[0]
+}
+
+final class dev.g000sha256.tdl.dto/NewSticker { // dev.g000sha256.tdl.dto/NewSticker|null[0]
+    constructor <init>(dev.g000sha256.tdl.dto/InputFile, dev.g000sha256.tdl.dto/StickerFormat, kotlin/String, dev.g000sha256.tdl.dto/MaskPosition?, kotlin/Array<kotlin/String>) // dev.g000sha256.tdl.dto/NewSticker.<init>|<init>(dev.g000sha256.tdl.dto.InputFile;dev.g000sha256.tdl.dto.StickerFormat;kotlin.String;dev.g000sha256.tdl.dto.MaskPosition?;kotlin.Array<kotlin.String>){}[0]
+
+    final val emojis // dev.g000sha256.tdl.dto/NewSticker.emojis|{}emojis[0]
+        final fun <get-emojis>(): kotlin/String // dev.g000sha256.tdl.dto/NewSticker.emojis.<get-emojis>|<get-emojis>(){}[0]
+    final val format // dev.g000sha256.tdl.dto/NewSticker.format|{}format[0]
+        final fun <get-format>(): dev.g000sha256.tdl.dto/StickerFormat // dev.g000sha256.tdl.dto/NewSticker.format.<get-format>|<get-format>(){}[0]
+    final val keywords // dev.g000sha256.tdl.dto/NewSticker.keywords|{}keywords[0]
+        final fun <get-keywords>(): kotlin/Array<kotlin/String> // dev.g000sha256.tdl.dto/NewSticker.keywords.<get-keywords>|<get-keywords>(){}[0]
+    final val maskPosition // dev.g000sha256.tdl.dto/NewSticker.maskPosition|{}maskPosition[0]
+        final fun <get-maskPosition>(): dev.g000sha256.tdl.dto/MaskPosition? // dev.g000sha256.tdl.dto/NewSticker.maskPosition.<get-maskPosition>|<get-maskPosition>(){}[0]
+    final val sticker // dev.g000sha256.tdl.dto/NewSticker.sticker|{}sticker[0]
+        final fun <get-sticker>(): dev.g000sha256.tdl.dto/InputFile // dev.g000sha256.tdl.dto/NewSticker.sticker.<get-sticker>|<get-sticker>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/NewSticker.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/NewSticker.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/NewSticker.toString|toString(){}[0]
 }
 
 final class dev.g000sha256.tdl.dto/Notification { // dev.g000sha256.tdl.dto/Notification|null[0]
@@ -18543,6 +19055,14 @@ final class dev.g000sha256.tdl.dto/PremiumFeatureRealTimeChatTranslation : dev.g
     final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/PremiumFeatureRealTimeChatTranslation.toString|toString(){}[0]
 }
 
+final class dev.g000sha256.tdl.dto/PremiumFeatureRichMessages : dev.g000sha256.tdl.dto/PremiumFeature { // dev.g000sha256.tdl.dto/PremiumFeatureRichMessages|null[0]
+    constructor <init>() // dev.g000sha256.tdl.dto/PremiumFeatureRichMessages.<init>|<init>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/PremiumFeatureRichMessages.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/PremiumFeatureRichMessages.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/PremiumFeatureRichMessages.toString|toString(){}[0]
+}
+
 final class dev.g000sha256.tdl.dto/PremiumFeatureSavedMessagesTags : dev.g000sha256.tdl.dto/PremiumFeature { // dev.g000sha256.tdl.dto/PremiumFeatureSavedMessagesTags|null[0]
     constructor <init>() // dev.g000sha256.tdl.dto/PremiumFeatureSavedMessagesTags.<init>|<init>(){}[0]
 
@@ -20598,9 +21118,22 @@ final class dev.g000sha256.tdl.dto/RichMessage { // dev.g000sha256.tdl.dto/RichM
     final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/RichMessage.toString|toString(){}[0]
 }
 
-final class dev.g000sha256.tdl.dto/RichMessageSourceHtml : dev.g000sha256.tdl.dto/RichMessageSource { // dev.g000sha256.tdl.dto/RichMessageSourceHtml|null[0]
-    constructor <init>(kotlin/String) // dev.g000sha256.tdl.dto/RichMessageSourceHtml.<init>|<init>(kotlin.String){}[0]
+final class dev.g000sha256.tdl.dto/RichMessageSourceBlocks : dev.g000sha256.tdl.dto/RichMessageSource { // dev.g000sha256.tdl.dto/RichMessageSourceBlocks|null[0]
+    constructor <init>(kotlin/Array<dev.g000sha256.tdl.dto/InputPageBlock>) // dev.g000sha256.tdl.dto/RichMessageSourceBlocks.<init>|<init>(kotlin.Array<dev.g000sha256.tdl.dto.InputPageBlock>){}[0]
 
+    final val blocks // dev.g000sha256.tdl.dto/RichMessageSourceBlocks.blocks|{}blocks[0]
+        final fun <get-blocks>(): kotlin/Array<dev.g000sha256.tdl.dto/InputPageBlock> // dev.g000sha256.tdl.dto/RichMessageSourceBlocks.blocks.<get-blocks>|<get-blocks>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/RichMessageSourceBlocks.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/RichMessageSourceBlocks.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/RichMessageSourceBlocks.toString|toString(){}[0]
+}
+
+final class dev.g000sha256.tdl.dto/RichMessageSourceHtml : dev.g000sha256.tdl.dto/RichMessageSource { // dev.g000sha256.tdl.dto/RichMessageSourceHtml|null[0]
+    constructor <init>(kotlin/String, kotlin/Array<dev.g000sha256.tdl.dto/InputRichMessageMedia>) // dev.g000sha256.tdl.dto/RichMessageSourceHtml.<init>|<init>(kotlin.String;kotlin.Array<dev.g000sha256.tdl.dto.InputRichMessageMedia>){}[0]
+
+    final val media // dev.g000sha256.tdl.dto/RichMessageSourceHtml.media|{}media[0]
+        final fun <get-media>(): kotlin/Array<dev.g000sha256.tdl.dto/InputRichMessageMedia> // dev.g000sha256.tdl.dto/RichMessageSourceHtml.media.<get-media>|<get-media>(){}[0]
     final val text // dev.g000sha256.tdl.dto/RichMessageSourceHtml.text|{}text[0]
         final fun <get-text>(): kotlin/String // dev.g000sha256.tdl.dto/RichMessageSourceHtml.text.<get-text>|<get-text>(){}[0]
 
@@ -20610,8 +21143,10 @@ final class dev.g000sha256.tdl.dto/RichMessageSourceHtml : dev.g000sha256.tdl.dt
 }
 
 final class dev.g000sha256.tdl.dto/RichMessageSourceMarkdown : dev.g000sha256.tdl.dto/RichMessageSource { // dev.g000sha256.tdl.dto/RichMessageSourceMarkdown|null[0]
-    constructor <init>(kotlin/String) // dev.g000sha256.tdl.dto/RichMessageSourceMarkdown.<init>|<init>(kotlin.String){}[0]
+    constructor <init>(kotlin/String, kotlin/Array<dev.g000sha256.tdl.dto/InputRichMessageMedia>) // dev.g000sha256.tdl.dto/RichMessageSourceMarkdown.<init>|<init>(kotlin.String;kotlin.Array<dev.g000sha256.tdl.dto.InputRichMessageMedia>){}[0]
 
+    final val media // dev.g000sha256.tdl.dto/RichMessageSourceMarkdown.media|{}media[0]
+        final fun <get-media>(): kotlin/Array<dev.g000sha256.tdl.dto/InputRichMessageMedia> // dev.g000sha256.tdl.dto/RichMessageSourceMarkdown.media.<get-media>|<get-media>(){}[0]
     final val text // dev.g000sha256.tdl.dto/RichMessageSourceMarkdown.text|{}text[0]
         final fun <get-text>(): kotlin/String // dev.g000sha256.tdl.dto/RichMessageSourceMarkdown.text.<get-text>|<get-text>(){}[0]
 
@@ -20722,6 +21257,19 @@ final class dev.g000sha256.tdl.dto/RichTextDateTime : dev.g000sha256.tdl.dto/Ric
     final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/RichTextDateTime.equals|equals(kotlin.Any?){}[0]
     final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/RichTextDateTime.hashCode|hashCode(){}[0]
     final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/RichTextDateTime.toString|toString(){}[0]
+}
+
+final class dev.g000sha256.tdl.dto/RichTextDiff : dev.g000sha256.tdl.dto/RichText { // dev.g000sha256.tdl.dto/RichTextDiff|null[0]
+    constructor <init>(dev.g000sha256.tdl.dto/RichText, dev.g000sha256.tdl.dto/RichText) // dev.g000sha256.tdl.dto/RichTextDiff.<init>|<init>(dev.g000sha256.tdl.dto.RichText;dev.g000sha256.tdl.dto.RichText){}[0]
+
+    final val oldText // dev.g000sha256.tdl.dto/RichTextDiff.oldText|{}oldText[0]
+        final fun <get-oldText>(): dev.g000sha256.tdl.dto/RichText // dev.g000sha256.tdl.dto/RichTextDiff.oldText.<get-oldText>|<get-oldText>(){}[0]
+    final val text // dev.g000sha256.tdl.dto/RichTextDiff.text|{}text[0]
+        final fun <get-text>(): dev.g000sha256.tdl.dto/RichText // dev.g000sha256.tdl.dto/RichTextDiff.text.<get-text>|<get-text>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/RichTextDiff.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/RichTextDiff.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/RichTextDiff.toString|toString(){}[0]
 }
 
 final class dev.g000sha256.tdl.dto/RichTextEmailAddress : dev.g000sha256.tdl.dto/RichText { // dev.g000sha256.tdl.dto/RichTextEmailAddress|null[0]
@@ -21708,6 +22256,14 @@ final class dev.g000sha256.tdl.dto/SettingsSectionLanguage : dev.g000sha256.tdl.
     final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/SettingsSectionLanguage.toString|toString(){}[0]
 }
 
+final class dev.g000sha256.tdl.dto/SettingsSectionMyGrams : dev.g000sha256.tdl.dto/SettingsSection { // dev.g000sha256.tdl.dto/SettingsSectionMyGrams|null[0]
+    constructor <init>() // dev.g000sha256.tdl.dto/SettingsSectionMyGrams.<init>|<init>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/SettingsSectionMyGrams.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/SettingsSectionMyGrams.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/SettingsSectionMyGrams.toString|toString(){}[0]
+}
+
 final class dev.g000sha256.tdl.dto/SettingsSectionMyStars : dev.g000sha256.tdl.dto/SettingsSection { // dev.g000sha256.tdl.dto/SettingsSectionMyStars|null[0]
     constructor <init>(kotlin/String) // dev.g000sha256.tdl.dto/SettingsSectionMyStars.<init>|<init>(kotlin.String){}[0]
 
@@ -21717,14 +22273,6 @@ final class dev.g000sha256.tdl.dto/SettingsSectionMyStars : dev.g000sha256.tdl.d
     final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/SettingsSectionMyStars.equals|equals(kotlin.Any?){}[0]
     final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/SettingsSectionMyStars.hashCode|hashCode(){}[0]
     final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/SettingsSectionMyStars.toString|toString(){}[0]
-}
-
-final class dev.g000sha256.tdl.dto/SettingsSectionMyToncoins : dev.g000sha256.tdl.dto/SettingsSection { // dev.g000sha256.tdl.dto/SettingsSectionMyToncoins|null[0]
-    constructor <init>() // dev.g000sha256.tdl.dto/SettingsSectionMyToncoins.<init>|<init>(){}[0]
-
-    final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/SettingsSectionMyToncoins.equals|equals(kotlin.Any?){}[0]
-    final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/SettingsSectionMyToncoins.hashCode|hashCode(){}[0]
-    final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/SettingsSectionMyToncoins.toString|toString(){}[0]
 }
 
 final class dev.g000sha256.tdl.dto/SettingsSectionNotifications : dev.g000sha256.tdl.dto/SettingsSection { // dev.g000sha256.tdl.dto/SettingsSectionNotifications|null[0]
@@ -21967,14 +22515,14 @@ final class dev.g000sha256.tdl.dto/StakeDiceState { // dev.g000sha256.tdl.dto/St
         final fun <get-currentStreak>(): kotlin/Int // dev.g000sha256.tdl.dto/StakeDiceState.currentStreak.<get-currentStreak>|<get-currentStreak>(){}[0]
     final val prizePerMille // dev.g000sha256.tdl.dto/StakeDiceState.prizePerMille|{}prizePerMille[0]
         final fun <get-prizePerMille>(): kotlin/IntArray // dev.g000sha256.tdl.dto/StakeDiceState.prizePerMille.<get-prizePerMille>|<get-prizePerMille>(){}[0]
-    final val stakeToncoinAmount // dev.g000sha256.tdl.dto/StakeDiceState.stakeToncoinAmount|{}stakeToncoinAmount[0]
-        final fun <get-stakeToncoinAmount>(): kotlin/Long // dev.g000sha256.tdl.dto/StakeDiceState.stakeToncoinAmount.<get-stakeToncoinAmount>|<get-stakeToncoinAmount>(){}[0]
+    final val stakeGramAmount // dev.g000sha256.tdl.dto/StakeDiceState.stakeGramAmount|{}stakeGramAmount[0]
+        final fun <get-stakeGramAmount>(): kotlin/Long // dev.g000sha256.tdl.dto/StakeDiceState.stakeGramAmount.<get-stakeGramAmount>|<get-stakeGramAmount>(){}[0]
     final val stateHash // dev.g000sha256.tdl.dto/StakeDiceState.stateHash|{}stateHash[0]
         final fun <get-stateHash>(): kotlin/String // dev.g000sha256.tdl.dto/StakeDiceState.stateHash.<get-stateHash>|<get-stateHash>(){}[0]
     final val streakPrizePerMille // dev.g000sha256.tdl.dto/StakeDiceState.streakPrizePerMille|{}streakPrizePerMille[0]
         final fun <get-streakPrizePerMille>(): kotlin/Int // dev.g000sha256.tdl.dto/StakeDiceState.streakPrizePerMille.<get-streakPrizePerMille>|<get-streakPrizePerMille>(){}[0]
-    final val suggestedStakeToncoinAmounts // dev.g000sha256.tdl.dto/StakeDiceState.suggestedStakeToncoinAmounts|{}suggestedStakeToncoinAmounts[0]
-        final fun <get-suggestedStakeToncoinAmounts>(): kotlin/LongArray // dev.g000sha256.tdl.dto/StakeDiceState.suggestedStakeToncoinAmounts.<get-suggestedStakeToncoinAmounts>|<get-suggestedStakeToncoinAmounts>(){}[0]
+    final val suggestedStakeGramAmounts // dev.g000sha256.tdl.dto/StakeDiceState.suggestedStakeGramAmounts|{}suggestedStakeGramAmounts[0]
+        final fun <get-suggestedStakeGramAmounts>(): kotlin/LongArray // dev.g000sha256.tdl.dto/StakeDiceState.suggestedStakeGramAmounts.<get-suggestedStakeGramAmounts>|<get-suggestedStakeGramAmounts>(){}[0]
 
     final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/StakeDiceState.equals|equals(kotlin.Any?){}[0]
     final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/StakeDiceState.hashCode|hashCode(){}[0]
@@ -24034,6 +24582,17 @@ final class dev.g000sha256.tdl.dto/SuggestedPostInfo { // dev.g000sha256.tdl.dto
     final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/SuggestedPostInfo.toString|toString(){}[0]
 }
 
+final class dev.g000sha256.tdl.dto/SuggestedPostPriceGram : dev.g000sha256.tdl.dto/SuggestedPostPrice { // dev.g000sha256.tdl.dto/SuggestedPostPriceGram|null[0]
+    constructor <init>(kotlin/Long) // dev.g000sha256.tdl.dto/SuggestedPostPriceGram.<init>|<init>(kotlin.Long){}[0]
+
+    final val gramCentCount // dev.g000sha256.tdl.dto/SuggestedPostPriceGram.gramCentCount|{}gramCentCount[0]
+        final fun <get-gramCentCount>(): kotlin/Long // dev.g000sha256.tdl.dto/SuggestedPostPriceGram.gramCentCount.<get-gramCentCount>|<get-gramCentCount>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/SuggestedPostPriceGram.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/SuggestedPostPriceGram.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/SuggestedPostPriceGram.toString|toString(){}[0]
+}
+
 final class dev.g000sha256.tdl.dto/SuggestedPostPriceStar : dev.g000sha256.tdl.dto/SuggestedPostPrice { // dev.g000sha256.tdl.dto/SuggestedPostPriceStar|null[0]
     constructor <init>(kotlin/Long) // dev.g000sha256.tdl.dto/SuggestedPostPriceStar.<init>|<init>(kotlin.Long){}[0]
 
@@ -24043,17 +24602,6 @@ final class dev.g000sha256.tdl.dto/SuggestedPostPriceStar : dev.g000sha256.tdl.d
     final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/SuggestedPostPriceStar.equals|equals(kotlin.Any?){}[0]
     final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/SuggestedPostPriceStar.hashCode|hashCode(){}[0]
     final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/SuggestedPostPriceStar.toString|toString(){}[0]
-}
-
-final class dev.g000sha256.tdl.dto/SuggestedPostPriceTon : dev.g000sha256.tdl.dto/SuggestedPostPrice { // dev.g000sha256.tdl.dto/SuggestedPostPriceTon|null[0]
-    constructor <init>(kotlin/Long) // dev.g000sha256.tdl.dto/SuggestedPostPriceTon.<init>|<init>(kotlin.Long){}[0]
-
-    final val toncoinCentCount // dev.g000sha256.tdl.dto/SuggestedPostPriceTon.toncoinCentCount|{}toncoinCentCount[0]
-        final fun <get-toncoinCentCount>(): kotlin/Long // dev.g000sha256.tdl.dto/SuggestedPostPriceTon.toncoinCentCount.<get-toncoinCentCount>|<get-toncoinCentCount>(){}[0]
-
-    final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/SuggestedPostPriceTon.equals|equals(kotlin.Any?){}[0]
-    final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/SuggestedPostPriceTon.hashCode|hashCode(){}[0]
-    final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/SuggestedPostPriceTon.toString|toString(){}[0]
 }
 
 final class dev.g000sha256.tdl.dto/SuggestedPostRefundReasonPaymentRefunded : dev.g000sha256.tdl.dto/SuggestedPostRefundReason { // dev.g000sha256.tdl.dto/SuggestedPostRefundReasonPaymentRefunded|null[0]
@@ -24156,7 +24704,7 @@ final class dev.g000sha256.tdl.dto/Supergroup { // dev.g000sha256.tdl.dto/Superg
 }
 
 final class dev.g000sha256.tdl.dto/SupergroupFullInfo { // dev.g000sha256.tdl.dto/SupergroupFullInfo|null[0]
-    constructor <init>(dev.g000sha256.tdl.dto/ChatPhoto?, kotlin/String, kotlin/Int, kotlin/Int, kotlin/Int, kotlin/Int, kotlin/Long, kotlin/Long, kotlin/Int, kotlin/Double, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Int, kotlin/Int, kotlin/Int, kotlin/Long, kotlin/Long, kotlin/Long, dev.g000sha256.tdl.dto/ChatLocation?, dev.g000sha256.tdl.dto/ChatInviteLink?, kotlin/Long, kotlin/Array<dev.g000sha256.tdl.dto/BotCommands>, dev.g000sha256.tdl.dto/BotVerification?, dev.g000sha256.tdl.dto/ProfileTab?, kotlin/Long, kotlin/Long) // dev.g000sha256.tdl.dto/SupergroupFullInfo.<init>|<init>(dev.g000sha256.tdl.dto.ChatPhoto?;kotlin.String;kotlin.Int;kotlin.Int;kotlin.Int;kotlin.Int;kotlin.Long;kotlin.Long;kotlin.Int;kotlin.Double;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Int;kotlin.Int;kotlin.Int;kotlin.Long;kotlin.Long;kotlin.Long;dev.g000sha256.tdl.dto.ChatLocation?;dev.g000sha256.tdl.dto.ChatInviteLink?;kotlin.Long;kotlin.Array<dev.g000sha256.tdl.dto.BotCommands>;dev.g000sha256.tdl.dto.BotVerification?;dev.g000sha256.tdl.dto.ProfileTab?;kotlin.Long;kotlin.Long){}[0]
+    constructor <init>(dev.g000sha256.tdl.dto/ChatPhoto?, kotlin/Long, kotlin/String, kotlin/Int, kotlin/Int, kotlin/Int, kotlin/Int, kotlin/Long, kotlin/Long, kotlin/Int, kotlin/Double, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Int, kotlin/Int, kotlin/Int, kotlin/Long, kotlin/Long, kotlin/Long, dev.g000sha256.tdl.dto/ChatLocation?, dev.g000sha256.tdl.dto/ChatInviteLink?, kotlin/Long, kotlin/Array<dev.g000sha256.tdl.dto/BotCommands>, dev.g000sha256.tdl.dto/BotVerification?, dev.g000sha256.tdl.dto/ProfileTab?, kotlin/Long, kotlin/Long) // dev.g000sha256.tdl.dto/SupergroupFullInfo.<init>|<init>(dev.g000sha256.tdl.dto.ChatPhoto?;kotlin.Long;kotlin.String;kotlin.Int;kotlin.Int;kotlin.Int;kotlin.Int;kotlin.Long;kotlin.Long;kotlin.Int;kotlin.Double;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Int;kotlin.Int;kotlin.Int;kotlin.Long;kotlin.Long;kotlin.Long;dev.g000sha256.tdl.dto.ChatLocation?;dev.g000sha256.tdl.dto.ChatInviteLink?;kotlin.Long;kotlin.Array<dev.g000sha256.tdl.dto.BotCommands>;dev.g000sha256.tdl.dto.BotVerification?;dev.g000sha256.tdl.dto.ProfileTab?;kotlin.Long;kotlin.Long){}[0]
 
     final val administratorCount // dev.g000sha256.tdl.dto/SupergroupFullInfo.administratorCount|{}administratorCount[0]
         final fun <get-administratorCount>(): kotlin/Int // dev.g000sha256.tdl.dto/SupergroupFullInfo.administratorCount.<get-administratorCount>|<get-administratorCount>(){}[0]
@@ -24190,6 +24738,8 @@ final class dev.g000sha256.tdl.dto/SupergroupFullInfo { // dev.g000sha256.tdl.dt
         final fun <get-canSetStickerSet>(): kotlin/Boolean // dev.g000sha256.tdl.dto/SupergroupFullInfo.canSetStickerSet.<get-canSetStickerSet>|<get-canSetStickerSet>(){}[0]
     final val canToggleAggressiveAntiSpam // dev.g000sha256.tdl.dto/SupergroupFullInfo.canToggleAggressiveAntiSpam|{}canToggleAggressiveAntiSpam[0]
         final fun <get-canToggleAggressiveAntiSpam>(): kotlin/Boolean // dev.g000sha256.tdl.dto/SupergroupFullInfo.canToggleAggressiveAntiSpam.<get-canToggleAggressiveAntiSpam>|<get-canToggleAggressiveAntiSpam>(){}[0]
+    final val communityId // dev.g000sha256.tdl.dto/SupergroupFullInfo.communityId|{}communityId[0]
+        final fun <get-communityId>(): kotlin/Long // dev.g000sha256.tdl.dto/SupergroupFullInfo.communityId.<get-communityId>|<get-communityId>(){}[0]
     final val customEmojiStickerSetId // dev.g000sha256.tdl.dto/SupergroupFullInfo.customEmojiStickerSetId|{}customEmojiStickerSetId[0]
         final fun <get-customEmojiStickerSetId>(): kotlin/Long // dev.g000sha256.tdl.dto/SupergroupFullInfo.customEmojiStickerSetId.<get-customEmojiStickerSetId>|<get-customEmojiStickerSetId>(){}[0]
     final val description // dev.g000sha256.tdl.dto/SupergroupFullInfo.description|{}description[0]
@@ -25144,49 +25694,17 @@ final class dev.g000sha256.tdl.dto/TimeZones { // dev.g000sha256.tdl.dto/TimeZon
     final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/TimeZones.toString|toString(){}[0]
 }
 
-final class dev.g000sha256.tdl.dto/TonRevenueStatistics { // dev.g000sha256.tdl.dto/TonRevenueStatistics|null[0]
-    constructor <init>(dev.g000sha256.tdl.dto/StatisticalGraph, dev.g000sha256.tdl.dto/TonRevenueStatus, kotlin/Double) // dev.g000sha256.tdl.dto/TonRevenueStatistics.<init>|<init>(dev.g000sha256.tdl.dto.StatisticalGraph;dev.g000sha256.tdl.dto.TonRevenueStatus;kotlin.Double){}[0]
-
-    final val revenueByDayGraph // dev.g000sha256.tdl.dto/TonRevenueStatistics.revenueByDayGraph|{}revenueByDayGraph[0]
-        final fun <get-revenueByDayGraph>(): dev.g000sha256.tdl.dto/StatisticalGraph // dev.g000sha256.tdl.dto/TonRevenueStatistics.revenueByDayGraph.<get-revenueByDayGraph>|<get-revenueByDayGraph>(){}[0]
-    final val status // dev.g000sha256.tdl.dto/TonRevenueStatistics.status|{}status[0]
-        final fun <get-status>(): dev.g000sha256.tdl.dto/TonRevenueStatus // dev.g000sha256.tdl.dto/TonRevenueStatistics.status.<get-status>|<get-status>(){}[0]
-    final val usdRate // dev.g000sha256.tdl.dto/TonRevenueStatistics.usdRate|{}usdRate[0]
-        final fun <get-usdRate>(): kotlin/Double // dev.g000sha256.tdl.dto/TonRevenueStatistics.usdRate.<get-usdRate>|<get-usdRate>(){}[0]
-
-    final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/TonRevenueStatistics.equals|equals(kotlin.Any?){}[0]
-    final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/TonRevenueStatistics.hashCode|hashCode(){}[0]
-    final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/TonRevenueStatistics.toString|toString(){}[0]
-}
-
-final class dev.g000sha256.tdl.dto/TonRevenueStatus { // dev.g000sha256.tdl.dto/TonRevenueStatus|null[0]
-    constructor <init>(kotlin/Long, kotlin/Long, kotlin/Long, kotlin/Boolean) // dev.g000sha256.tdl.dto/TonRevenueStatus.<init>|<init>(kotlin.Long;kotlin.Long;kotlin.Long;kotlin.Boolean){}[0]
-
-    final val availableAmount // dev.g000sha256.tdl.dto/TonRevenueStatus.availableAmount|{}availableAmount[0]
-        final fun <get-availableAmount>(): kotlin/Long // dev.g000sha256.tdl.dto/TonRevenueStatus.availableAmount.<get-availableAmount>|<get-availableAmount>(){}[0]
-    final val balanceAmount // dev.g000sha256.tdl.dto/TonRevenueStatus.balanceAmount|{}balanceAmount[0]
-        final fun <get-balanceAmount>(): kotlin/Long // dev.g000sha256.tdl.dto/TonRevenueStatus.balanceAmount.<get-balanceAmount>|<get-balanceAmount>(){}[0]
-    final val totalAmount // dev.g000sha256.tdl.dto/TonRevenueStatus.totalAmount|{}totalAmount[0]
-        final fun <get-totalAmount>(): kotlin/Long // dev.g000sha256.tdl.dto/TonRevenueStatus.totalAmount.<get-totalAmount>|<get-totalAmount>(){}[0]
-    final val withdrawalEnabled // dev.g000sha256.tdl.dto/TonRevenueStatus.withdrawalEnabled|{}withdrawalEnabled[0]
-        final fun <get-withdrawalEnabled>(): kotlin/Boolean // dev.g000sha256.tdl.dto/TonRevenueStatus.withdrawalEnabled.<get-withdrawalEnabled>|<get-withdrawalEnabled>(){}[0]
-
-    final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/TonRevenueStatus.equals|equals(kotlin.Any?){}[0]
-    final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/TonRevenueStatus.hashCode|hashCode(){}[0]
-    final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/TonRevenueStatus.toString|toString(){}[0]
-}
-
 final class dev.g000sha256.tdl.dto/TonTransaction { // dev.g000sha256.tdl.dto/TonTransaction|null[0]
     constructor <init>(kotlin/String, kotlin/Long, kotlin/Boolean, kotlin/Int, dev.g000sha256.tdl.dto/TonTransactionType) // dev.g000sha256.tdl.dto/TonTransaction.<init>|<init>(kotlin.String;kotlin.Long;kotlin.Boolean;kotlin.Int;dev.g000sha256.tdl.dto.TonTransactionType){}[0]
 
     final val date // dev.g000sha256.tdl.dto/TonTransaction.date|{}date[0]
         final fun <get-date>(): kotlin/Int // dev.g000sha256.tdl.dto/TonTransaction.date.<get-date>|<get-date>(){}[0]
+    final val gramAmount // dev.g000sha256.tdl.dto/TonTransaction.gramAmount|{}gramAmount[0]
+        final fun <get-gramAmount>(): kotlin/Long // dev.g000sha256.tdl.dto/TonTransaction.gramAmount.<get-gramAmount>|<get-gramAmount>(){}[0]
     final val id // dev.g000sha256.tdl.dto/TonTransaction.id|{}id[0]
         final fun <get-id>(): kotlin/String // dev.g000sha256.tdl.dto/TonTransaction.id.<get-id>|<get-id>(){}[0]
     final val isRefund // dev.g000sha256.tdl.dto/TonTransaction.isRefund|{}isRefund[0]
         final fun <get-isRefund>(): kotlin/Boolean // dev.g000sha256.tdl.dto/TonTransaction.isRefund.<get-isRefund>|<get-isRefund>(){}[0]
-    final val tonAmount // dev.g000sha256.tdl.dto/TonTransaction.tonAmount|{}tonAmount[0]
-        final fun <get-tonAmount>(): kotlin/Long // dev.g000sha256.tdl.dto/TonTransaction.tonAmount.<get-tonAmount>|<get-tonAmount>(){}[0]
     final val type // dev.g000sha256.tdl.dto/TonTransaction.type|{}type[0]
         final fun <get-type>(): dev.g000sha256.tdl.dto/TonTransactionType // dev.g000sha256.tdl.dto/TonTransaction.type.<get-type>|<get-type>(){}[0]
 
@@ -25281,10 +25799,10 @@ final class dev.g000sha256.tdl.dto/TonTransactionTypeUpgradedGiftPurchase : dev.
 final class dev.g000sha256.tdl.dto/TonTransactionTypeUpgradedGiftSale : dev.g000sha256.tdl.dto/TonTransactionType { // dev.g000sha256.tdl.dto/TonTransactionTypeUpgradedGiftSale|null[0]
     constructor <init>(kotlin/Long, dev.g000sha256.tdl.dto/UpgradedGift, kotlin/Int, kotlin/Long, kotlin/Boolean) // dev.g000sha256.tdl.dto/TonTransactionTypeUpgradedGiftSale.<init>|<init>(kotlin.Long;dev.g000sha256.tdl.dto.UpgradedGift;kotlin.Int;kotlin.Long;kotlin.Boolean){}[0]
 
+    final val commissionGramAmount // dev.g000sha256.tdl.dto/TonTransactionTypeUpgradedGiftSale.commissionGramAmount|{}commissionGramAmount[0]
+        final fun <get-commissionGramAmount>(): kotlin/Long // dev.g000sha256.tdl.dto/TonTransactionTypeUpgradedGiftSale.commissionGramAmount.<get-commissionGramAmount>|<get-commissionGramAmount>(){}[0]
     final val commissionPerMille // dev.g000sha256.tdl.dto/TonTransactionTypeUpgradedGiftSale.commissionPerMille|{}commissionPerMille[0]
         final fun <get-commissionPerMille>(): kotlin/Int // dev.g000sha256.tdl.dto/TonTransactionTypeUpgradedGiftSale.commissionPerMille.<get-commissionPerMille>|<get-commissionPerMille>(){}[0]
-    final val commissionToncoinAmount // dev.g000sha256.tdl.dto/TonTransactionTypeUpgradedGiftSale.commissionToncoinAmount|{}commissionToncoinAmount[0]
-        final fun <get-commissionToncoinAmount>(): kotlin/Long // dev.g000sha256.tdl.dto/TonTransactionTypeUpgradedGiftSale.commissionToncoinAmount.<get-commissionToncoinAmount>|<get-commissionToncoinAmount>(){}[0]
     final val gift // dev.g000sha256.tdl.dto/TonTransactionTypeUpgradedGiftSale.gift|{}gift[0]
         final fun <get-gift>(): dev.g000sha256.tdl.dto/UpgradedGift // dev.g000sha256.tdl.dto/TonTransactionTypeUpgradedGiftSale.gift.<get-gift>|<get-gift>(){}[0]
     final val userId // dev.g000sha256.tdl.dto/TonTransactionTypeUpgradedGiftSale.userId|{}userId[0]
@@ -25300,10 +25818,10 @@ final class dev.g000sha256.tdl.dto/TonTransactionTypeUpgradedGiftSale : dev.g000
 final class dev.g000sha256.tdl.dto/TonTransactions { // dev.g000sha256.tdl.dto/TonTransactions|null[0]
     constructor <init>(kotlin/Long, kotlin/Array<dev.g000sha256.tdl.dto/TonTransaction>, kotlin/String) // dev.g000sha256.tdl.dto/TonTransactions.<init>|<init>(kotlin.Long;kotlin.Array<dev.g000sha256.tdl.dto.TonTransaction>;kotlin.String){}[0]
 
+    final val gramAmount // dev.g000sha256.tdl.dto/TonTransactions.gramAmount|{}gramAmount[0]
+        final fun <get-gramAmount>(): kotlin/Long // dev.g000sha256.tdl.dto/TonTransactions.gramAmount.<get-gramAmount>|<get-gramAmount>(){}[0]
     final val nextOffset // dev.g000sha256.tdl.dto/TonTransactions.nextOffset|{}nextOffset[0]
         final fun <get-nextOffset>(): kotlin/String // dev.g000sha256.tdl.dto/TonTransactions.nextOffset.<get-nextOffset>|<get-nextOffset>(){}[0]
-    final val tonAmount // dev.g000sha256.tdl.dto/TonTransactions.tonAmount|{}tonAmount[0]
-        final fun <get-tonAmount>(): kotlin/Long // dev.g000sha256.tdl.dto/TonTransactions.tonAmount.<get-tonAmount>|<get-tonAmount>(){}[0]
     final val transactions // dev.g000sha256.tdl.dto/TonTransactions.transactions|{}transactions[0]
         final fun <get-transactions>(): kotlin/Array<dev.g000sha256.tdl.dto/TonTransaction> // dev.g000sha256.tdl.dto/TonTransactions.transactions.<get-transactions>|<get-transactions>(){}[0]
 
@@ -26260,6 +26778,17 @@ final class dev.g000sha256.tdl.dto/UpdateChatViewAsTopics : dev.g000sha256.tdl.d
     final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/UpdateChatViewAsTopics.toString|toString(){}[0]
 }
 
+final class dev.g000sha256.tdl.dto/UpdateCommunity : dev.g000sha256.tdl.dto/Update { // dev.g000sha256.tdl.dto/UpdateCommunity|null[0]
+    constructor <init>(dev.g000sha256.tdl.dto/Community) // dev.g000sha256.tdl.dto/UpdateCommunity.<init>|<init>(dev.g000sha256.tdl.dto.Community){}[0]
+
+    final val community // dev.g000sha256.tdl.dto/UpdateCommunity.community|{}community[0]
+        final fun <get-community>(): dev.g000sha256.tdl.dto/Community // dev.g000sha256.tdl.dto/UpdateCommunity.community.<get-community>|<get-community>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/UpdateCommunity.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/UpdateCommunity.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/UpdateCommunity.toString|toString(){}[0]
+}
+
 final class dev.g000sha256.tdl.dto/UpdateConnectionState : dev.g000sha256.tdl.dto/Update { // dev.g000sha256.tdl.dto/UpdateConnectionState|null[0]
     constructor <init>(dev.g000sha256.tdl.dto/ConnectionState) // dev.g000sha256.tdl.dto/UpdateConnectionState.<init>|<init>(dev.g000sha256.tdl.dto.ConnectionState){}[0]
 
@@ -26541,6 +27070,17 @@ final class dev.g000sha256.tdl.dto/UpdateGiftAuctionState : dev.g000sha256.tdl.d
     final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/UpdateGiftAuctionState.equals|equals(kotlin.Any?){}[0]
     final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/UpdateGiftAuctionState.hashCode|hashCode(){}[0]
     final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/UpdateGiftAuctionState.toString|toString(){}[0]
+}
+
+final class dev.g000sha256.tdl.dto/UpdateGramRevenueStatus : dev.g000sha256.tdl.dto/Update { // dev.g000sha256.tdl.dto/UpdateGramRevenueStatus|null[0]
+    constructor <init>(dev.g000sha256.tdl.dto/GramRevenueStatus) // dev.g000sha256.tdl.dto/UpdateGramRevenueStatus.<init>|<init>(dev.g000sha256.tdl.dto.GramRevenueStatus){}[0]
+
+    final val status // dev.g000sha256.tdl.dto/UpdateGramRevenueStatus.status|{}status[0]
+        final fun <get-status>(): dev.g000sha256.tdl.dto/GramRevenueStatus // dev.g000sha256.tdl.dto/UpdateGramRevenueStatus.status.<get-status>|<get-status>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/UpdateGramRevenueStatus.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/UpdateGramRevenueStatus.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/UpdateGramRevenueStatus.toString|toString(){}[0]
 }
 
 final class dev.g000sha256.tdl.dto/UpdateGroupCall : dev.g000sha256.tdl.dto/Update { // dev.g000sha256.tdl.dto/UpdateGroupCall|null[0]
@@ -27290,6 +27830,17 @@ final class dev.g000sha256.tdl.dto/UpdateOption : dev.g000sha256.tdl.dto/Update 
     final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/UpdateOption.toString|toString(){}[0]
 }
 
+final class dev.g000sha256.tdl.dto/UpdateOwnedGramCount : dev.g000sha256.tdl.dto/Update { // dev.g000sha256.tdl.dto/UpdateOwnedGramCount|null[0]
+    constructor <init>(kotlin/Long) // dev.g000sha256.tdl.dto/UpdateOwnedGramCount.<init>|<init>(kotlin.Long){}[0]
+
+    final val gramAmount // dev.g000sha256.tdl.dto/UpdateOwnedGramCount.gramAmount|{}gramAmount[0]
+        final fun <get-gramAmount>(): kotlin/Long // dev.g000sha256.tdl.dto/UpdateOwnedGramCount.gramAmount.<get-gramAmount>|<get-gramAmount>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/UpdateOwnedGramCount.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/UpdateOwnedGramCount.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/UpdateOwnedGramCount.toString|toString(){}[0]
+}
+
 final class dev.g000sha256.tdl.dto/UpdateOwnedStarCount : dev.g000sha256.tdl.dto/Update { // dev.g000sha256.tdl.dto/UpdateOwnedStarCount|null[0]
     constructor <init>(dev.g000sha256.tdl.dto/StarAmount) // dev.g000sha256.tdl.dto/UpdateOwnedStarCount.<init>|<init>(dev.g000sha256.tdl.dto.StarAmount){}[0]
 
@@ -27299,17 +27850,6 @@ final class dev.g000sha256.tdl.dto/UpdateOwnedStarCount : dev.g000sha256.tdl.dto
     final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/UpdateOwnedStarCount.equals|equals(kotlin.Any?){}[0]
     final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/UpdateOwnedStarCount.hashCode|hashCode(){}[0]
     final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/UpdateOwnedStarCount.toString|toString(){}[0]
-}
-
-final class dev.g000sha256.tdl.dto/UpdateOwnedTonCount : dev.g000sha256.tdl.dto/Update { // dev.g000sha256.tdl.dto/UpdateOwnedTonCount|null[0]
-    constructor <init>(kotlin/Long) // dev.g000sha256.tdl.dto/UpdateOwnedTonCount.<init>|<init>(kotlin.Long){}[0]
-
-    final val tonAmount // dev.g000sha256.tdl.dto/UpdateOwnedTonCount.tonAmount|{}tonAmount[0]
-        final fun <get-tonAmount>(): kotlin/Long // dev.g000sha256.tdl.dto/UpdateOwnedTonCount.tonAmount.<get-tonAmount>|<get-tonAmount>(){}[0]
-
-    final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/UpdateOwnedTonCount.equals|equals(kotlin.Any?){}[0]
-    final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/UpdateOwnedTonCount.hashCode|hashCode(){}[0]
-    final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/UpdateOwnedTonCount.toString|toString(){}[0]
 }
 
 final class dev.g000sha256.tdl.dto/UpdatePaidMediaPurchased : dev.g000sha256.tdl.dto/Update { // dev.g000sha256.tdl.dto/UpdatePaidMediaPurchased|null[0]
@@ -27749,17 +28289,6 @@ final class dev.g000sha256.tdl.dto/UpdateTextCompositionStyles : dev.g000sha256.
     final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/UpdateTextCompositionStyles.toString|toString(){}[0]
 }
 
-final class dev.g000sha256.tdl.dto/UpdateTonRevenueStatus : dev.g000sha256.tdl.dto/Update { // dev.g000sha256.tdl.dto/UpdateTonRevenueStatus|null[0]
-    constructor <init>(dev.g000sha256.tdl.dto/TonRevenueStatus) // dev.g000sha256.tdl.dto/UpdateTonRevenueStatus.<init>|<init>(dev.g000sha256.tdl.dto.TonRevenueStatus){}[0]
-
-    final val status // dev.g000sha256.tdl.dto/UpdateTonRevenueStatus.status|{}status[0]
-        final fun <get-status>(): dev.g000sha256.tdl.dto/TonRevenueStatus // dev.g000sha256.tdl.dto/UpdateTonRevenueStatus.status.<get-status>|<get-status>(){}[0]
-
-    final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/UpdateTonRevenueStatus.equals|equals(kotlin.Any?){}[0]
-    final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/UpdateTonRevenueStatus.hashCode|hashCode(){}[0]
-    final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/UpdateTonRevenueStatus.toString|toString(){}[0]
-}
-
 final class dev.g000sha256.tdl.dto/UpdateTopicMessageCount : dev.g000sha256.tdl.dto/Update { // dev.g000sha256.tdl.dto/UpdateTopicMessageCount|null[0]
     constructor <init>(kotlin/Long, dev.g000sha256.tdl.dto/MessageTopic, kotlin/Int) // dev.g000sha256.tdl.dto/UpdateTopicMessageCount.<init>|<init>(kotlin.Long;dev.g000sha256.tdl.dto.MessageTopic;kotlin.Int){}[0]
 
@@ -27896,6 +28425,25 @@ final class dev.g000sha256.tdl.dto/UpdateUserStatus : dev.g000sha256.tdl.dto/Upd
     final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/UpdateUserStatus.equals|equals(kotlin.Any?){}[0]
     final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/UpdateUserStatus.hashCode|hashCode(){}[0]
     final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/UpdateUserStatus.toString|toString(){}[0]
+}
+
+final class dev.g000sha256.tdl.dto/UpdateUserSubscription : dev.g000sha256.tdl.dto/Update { // dev.g000sha256.tdl.dto/UpdateUserSubscription|null[0]
+    constructor <init>(kotlin/Long, kotlin/String, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean) // dev.g000sha256.tdl.dto/UpdateUserSubscription.<init>|<init>(kotlin.Long;kotlin.String;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean){}[0]
+
+    final val isCanceled // dev.g000sha256.tdl.dto/UpdateUserSubscription.isCanceled|{}isCanceled[0]
+        final fun <get-isCanceled>(): kotlin/Boolean // dev.g000sha256.tdl.dto/UpdateUserSubscription.isCanceled.<get-isCanceled>|<get-isCanceled>(){}[0]
+    final val isPaymentFailed // dev.g000sha256.tdl.dto/UpdateUserSubscription.isPaymentFailed|{}isPaymentFailed[0]
+        final fun <get-isPaymentFailed>(): kotlin/Boolean // dev.g000sha256.tdl.dto/UpdateUserSubscription.isPaymentFailed.<get-isPaymentFailed>|<get-isPaymentFailed>(){}[0]
+    final val isRestored // dev.g000sha256.tdl.dto/UpdateUserSubscription.isRestored|{}isRestored[0]
+        final fun <get-isRestored>(): kotlin/Boolean // dev.g000sha256.tdl.dto/UpdateUserSubscription.isRestored.<get-isRestored>|<get-isRestored>(){}[0]
+    final val payload // dev.g000sha256.tdl.dto/UpdateUserSubscription.payload|{}payload[0]
+        final fun <get-payload>(): kotlin/String // dev.g000sha256.tdl.dto/UpdateUserSubscription.payload.<get-payload>|<get-payload>(){}[0]
+    final val userId // dev.g000sha256.tdl.dto/UpdateUserSubscription.userId|{}userId[0]
+        final fun <get-userId>(): kotlin/Long // dev.g000sha256.tdl.dto/UpdateUserSubscription.userId.<get-userId>|<get-userId>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/UpdateUserSubscription.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/UpdateUserSubscription.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/UpdateUserSubscription.toString|toString(){}[0]
 }
 
 final class dev.g000sha256.tdl.dto/UpdateVideoPublished : dev.g000sha256.tdl.dto/Update { // dev.g000sha256.tdl.dto/UpdateVideoPublished|null[0]
@@ -28444,7 +28992,7 @@ final class dev.g000sha256.tdl.dto/UserAuctionBid { // dev.g000sha256.tdl.dto/Us
 }
 
 final class dev.g000sha256.tdl.dto/UserFullInfo { // dev.g000sha256.tdl.dto/UserFullInfo|null[0]
-    constructor <init>(dev.g000sha256.tdl.dto/ChatPhoto?, dev.g000sha256.tdl.dto/ChatPhoto?, dev.g000sha256.tdl.dto/ChatPhoto?, dev.g000sha256.tdl.dto/BlockList?, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, dev.g000sha256.tdl.dto/FormattedText?, dev.g000sha256.tdl.dto/Birthdate?, kotlin/Long, kotlin/Int, kotlin/Int, kotlin/Long, kotlin/Long, dev.g000sha256.tdl.dto/GiftSettings, dev.g000sha256.tdl.dto/BotVerification?, dev.g000sha256.tdl.dto/ProfileTab?, dev.g000sha256.tdl.dto/Audio?, dev.g000sha256.tdl.dto/UserRating?, dev.g000sha256.tdl.dto/UserRating?, kotlin/Int, dev.g000sha256.tdl.dto/FormattedText?, dev.g000sha256.tdl.dto/BusinessInfo?, dev.g000sha256.tdl.dto/BotInfo?) // dev.g000sha256.tdl.dto/UserFullInfo.<init>|<init>(dev.g000sha256.tdl.dto.ChatPhoto?;dev.g000sha256.tdl.dto.ChatPhoto?;dev.g000sha256.tdl.dto.ChatPhoto?;dev.g000sha256.tdl.dto.BlockList?;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;dev.g000sha256.tdl.dto.FormattedText?;dev.g000sha256.tdl.dto.Birthdate?;kotlin.Long;kotlin.Int;kotlin.Int;kotlin.Long;kotlin.Long;dev.g000sha256.tdl.dto.GiftSettings;dev.g000sha256.tdl.dto.BotVerification?;dev.g000sha256.tdl.dto.ProfileTab?;dev.g000sha256.tdl.dto.Audio?;dev.g000sha256.tdl.dto.UserRating?;dev.g000sha256.tdl.dto.UserRating?;kotlin.Int;dev.g000sha256.tdl.dto.FormattedText?;dev.g000sha256.tdl.dto.BusinessInfo?;dev.g000sha256.tdl.dto.BotInfo?){}[0]
+    constructor <init>(dev.g000sha256.tdl.dto/ChatPhoto?, dev.g000sha256.tdl.dto/ChatPhoto?, dev.g000sha256.tdl.dto/ChatPhoto?, kotlin/Long, dev.g000sha256.tdl.dto/BlockList?, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, dev.g000sha256.tdl.dto/FormattedText?, dev.g000sha256.tdl.dto/Birthdate?, kotlin/Long, kotlin/Int, kotlin/Int, kotlin/Long, kotlin/Long, dev.g000sha256.tdl.dto/GiftSettings, dev.g000sha256.tdl.dto/BotVerification?, dev.g000sha256.tdl.dto/ProfileTab?, dev.g000sha256.tdl.dto/Audio?, dev.g000sha256.tdl.dto/UserRating?, dev.g000sha256.tdl.dto/UserRating?, kotlin/Int, dev.g000sha256.tdl.dto/FormattedText?, dev.g000sha256.tdl.dto/BusinessInfo?, dev.g000sha256.tdl.dto/BotInfo?) // dev.g000sha256.tdl.dto/UserFullInfo.<init>|<init>(dev.g000sha256.tdl.dto.ChatPhoto?;dev.g000sha256.tdl.dto.ChatPhoto?;dev.g000sha256.tdl.dto.ChatPhoto?;kotlin.Long;dev.g000sha256.tdl.dto.BlockList?;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;dev.g000sha256.tdl.dto.FormattedText?;dev.g000sha256.tdl.dto.Birthdate?;kotlin.Long;kotlin.Int;kotlin.Int;kotlin.Long;kotlin.Long;dev.g000sha256.tdl.dto.GiftSettings;dev.g000sha256.tdl.dto.BotVerification?;dev.g000sha256.tdl.dto.ProfileTab?;dev.g000sha256.tdl.dto.Audio?;dev.g000sha256.tdl.dto.UserRating?;dev.g000sha256.tdl.dto.UserRating?;kotlin.Int;dev.g000sha256.tdl.dto.FormattedText?;dev.g000sha256.tdl.dto.BusinessInfo?;dev.g000sha256.tdl.dto.BotInfo?){}[0]
 
     final val bio // dev.g000sha256.tdl.dto/UserFullInfo.bio|{}bio[0]
         final fun <get-bio>(): dev.g000sha256.tdl.dto/FormattedText? // dev.g000sha256.tdl.dto/UserFullInfo.bio.<get-bio>|<get-bio>(){}[0]
@@ -28460,6 +29008,8 @@ final class dev.g000sha256.tdl.dto/UserFullInfo { // dev.g000sha256.tdl.dto/User
         final fun <get-businessInfo>(): dev.g000sha256.tdl.dto/BusinessInfo? // dev.g000sha256.tdl.dto/UserFullInfo.businessInfo.<get-businessInfo>|<get-businessInfo>(){}[0]
     final val canBeCalled // dev.g000sha256.tdl.dto/UserFullInfo.canBeCalled|{}canBeCalled[0]
         final fun <get-canBeCalled>(): kotlin/Boolean // dev.g000sha256.tdl.dto/UserFullInfo.canBeCalled.<get-canBeCalled>|<get-canBeCalled>(){}[0]
+    final val communityId // dev.g000sha256.tdl.dto/UserFullInfo.communityId|{}communityId[0]
+        final fun <get-communityId>(): kotlin/Long // dev.g000sha256.tdl.dto/UserFullInfo.communityId.<get-communityId>|<get-communityId>(){}[0]
     final val firstProfileAudio // dev.g000sha256.tdl.dto/UserFullInfo.firstProfileAudio|{}firstProfileAudio[0]
         final fun <get-firstProfileAudio>(): dev.g000sha256.tdl.dto/Audio? // dev.g000sha256.tdl.dto/UserFullInfo.firstProfileAudio.<get-firstProfileAudio>|<get-firstProfileAudio>(){}[0]
     final val giftCount // dev.g000sha256.tdl.dto/UserFullInfo.giftCount|{}giftCount[0]
@@ -29426,6 +29976,8 @@ sealed class dev.g000sha256.tdl.dto/CheckStickerSetNameResult // dev.g000sha256.
 
 sealed class dev.g000sha256.tdl.dto/CollectibleItemType // dev.g000sha256.tdl.dto/CollectibleItemType|null[0]
 
+sealed class dev.g000sha256.tdl.dto/CommunityMemberStatus // dev.g000sha256.tdl.dto/CommunityMemberStatus|null[0]
+
 sealed class dev.g000sha256.tdl.dto/ConnectionState // dev.g000sha256.tdl.dto/ConnectionState|null[0]
 
 sealed class dev.g000sha256.tdl.dto/CraftGiftResult // dev.g000sha256.tdl.dto/CraftGiftResult|null[0]
@@ -29503,6 +30055,8 @@ sealed class dev.g000sha256.tdl.dto/InputInvoice // dev.g000sha256.tdl.dto/Input
 sealed class dev.g000sha256.tdl.dto/InputMessageContent // dev.g000sha256.tdl.dto/InputMessageContent|null[0]
 
 sealed class dev.g000sha256.tdl.dto/InputMessageReplyTo // dev.g000sha256.tdl.dto/InputMessageReplyTo|null[0]
+
+sealed class dev.g000sha256.tdl.dto/InputPageBlock // dev.g000sha256.tdl.dto/InputPageBlock|null[0]
 
 sealed class dev.g000sha256.tdl.dto/InputPaidMediaType // dev.g000sha256.tdl.dto/InputPaidMediaType|null[0]
 

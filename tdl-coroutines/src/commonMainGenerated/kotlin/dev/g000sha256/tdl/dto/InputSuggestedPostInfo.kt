@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Georgii Ippolitov (g000sha256)
+ * Copyright 2025-2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,7 +24,7 @@ import kotlin.String
 /**
  * Contains information about a post to suggest.
  *
- * @property price Price of the suggested post; pass null to suggest a post without payment. If the current user isn't an administrator of the channel direct messages chat and has no enough funds to pay for the post, then the error &quot;BALANCE_TOO_LOW&quot; will be returned immediately.
+ * @property price Price of the suggested post; pass null to suggest a post without payment. If the current user isn't an administrator of the channel direct messages chat and doesn't have enough funds to pay for the post, then the error &quot;BALANCE_TOO_LOW&quot; will be returned immediately.
  * @property sendDate Point in time (Unix timestamp) when the post is expected to be published; pass 0 if the date isn't restricted. If specified, then the date must be getOption(&quot;suggested_post_send_delay_min&quot;)-getOption(&quot;suggested_post_send_delay_max&quot;) seconds in the future.
  */
 public class InputSuggestedPostInfo public constructor(

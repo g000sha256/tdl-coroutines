@@ -1,5 +1,5 @@
 /*
- * Copyright 2025-2026 Georgii Ippolitov (g000sha256)
+ * Copyright 2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,14 +23,14 @@ import kotlin.Long
 import kotlin.String
 
 /**
- * Contains information about Toncoins earned by the current user.
+ * Contains information about TON Grams earned by the current user.
  *
- * @property totalAmount Total Toncoin amount earned; in the smallest units of the cryptocurrency.
- * @property balanceAmount The Toncoin amount that isn't withdrawn yet; in the smallest units of the cryptocurrency.
- * @property availableAmount The Toncoin amount that is available for withdrawal; in the smallest units of the cryptocurrency.
- * @property withdrawalEnabled True, if Toncoins can be withdrawn.
+ * @property totalAmount Total Gram amount earned; in the smallest units of the cryptocurrency.
+ * @property balanceAmount The Gram amount that isn't withdrawn yet; in the smallest units of the cryptocurrency.
+ * @property availableAmount The Gram amount that is available for withdrawal; in the smallest units of the cryptocurrency.
+ * @property withdrawalEnabled True, if Grams can be withdrawn.
  */
-public class TonRevenueStatus public constructor(
+public class GramRevenueStatus public constructor(
     public val totalAmount: Long,
     public val balanceAmount: Long,
     public val availableAmount: Long,
@@ -46,7 +46,7 @@ public class TonRevenueStatus public constructor(
         if (other::class != this::class) {
             return false
         }
-        other as TonRevenueStatus
+        other as GramRevenueStatus
         if (other.totalAmount != totalAmount) {
             return false
         }
@@ -70,7 +70,7 @@ public class TonRevenueStatus public constructor(
 
     override fun toString(): String {
         return buildString {
-            append("TonRevenueStatus")
+            append("GramRevenueStatus")
             append("(")
             append("totalAmount=")
             append(totalAmount)

@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Georgii Ippolitov (g000sha256)
+ * Copyright 2025-2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,12 +27,12 @@ import kotlin.String
  *
  * @property suggestedPostMessageId Identifier of the message with the suggested post; may be 0 or an identifier of a deleted message.
  * @property starAmount The amount of received Telegram Stars.
- * @property tonAmount The amount of received Toncoins; in the smallest units of the cryptocurrency.
+ * @property gramAmount The amount of received TON Grams; in the smallest units of the cryptocurrency.
  */
 public class MessageSuggestedPostPaid public constructor(
     public val suggestedPostMessageId: Long,
     public val starAmount: StarAmount,
-    public val tonAmount: Long,
+    public val gramAmount: Long,
 ) : MessageContent() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
@@ -51,14 +51,14 @@ public class MessageSuggestedPostPaid public constructor(
         if (other.starAmount != starAmount) {
             return false
         }
-        return other.tonAmount == tonAmount
+        return other.gramAmount == gramAmount
     }
 
     override fun hashCode(): Int {
         var hashCode = this::class.hashCode()
         hashCode = 31 * hashCode + suggestedPostMessageId.hashCode()
         hashCode = 31 * hashCode + starAmount.hashCode()
-        hashCode = 31 * hashCode + tonAmount.hashCode()
+        hashCode = 31 * hashCode + gramAmount.hashCode()
         return hashCode
     }
 
@@ -72,8 +72,8 @@ public class MessageSuggestedPostPaid public constructor(
             append("starAmount=")
             append(starAmount)
             append(", ")
-            append("tonAmount=")
-            append(tonAmount)
+            append("gramAmount=")
+            append(gramAmount)
             append(")")
         }
     }

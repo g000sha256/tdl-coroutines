@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Georgii Ippolitov (g000sha256)
+ * Copyright 2025-2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,16 +25,10 @@ import kotlin.String
  * A sticker message.
  *
  * @property sticker Sticker to be sent.
- * @property thumbnail Sticker thumbnail; pass null to skip thumbnail uploading.
- * @property width Sticker width.
- * @property height Sticker height.
  * @property emoji Emoji used to choose the sticker.
  */
 public class InputMessageSticker public constructor(
-    public val sticker: InputFile,
-    public val thumbnail: InputThumbnail?,
-    public val width: Int,
-    public val height: Int,
+    public val sticker: InputSticker,
     public val emoji: String,
 ) : InputMessageContent() {
     override fun equals(other: Any?): Boolean {
@@ -51,24 +45,12 @@ public class InputMessageSticker public constructor(
         if (other.sticker != sticker) {
             return false
         }
-        if (other.thumbnail != thumbnail) {
-            return false
-        }
-        if (other.width != width) {
-            return false
-        }
-        if (other.height != height) {
-            return false
-        }
         return other.emoji == emoji
     }
 
     override fun hashCode(): Int {
         var hashCode = this::class.hashCode()
         hashCode = 31 * hashCode + sticker.hashCode()
-        hashCode = 31 * hashCode + thumbnail.hashCode()
-        hashCode = 31 * hashCode + width.hashCode()
-        hashCode = 31 * hashCode + height.hashCode()
         hashCode = 31 * hashCode + emoji.hashCode()
         return hashCode
     }
@@ -79,15 +61,6 @@ public class InputMessageSticker public constructor(
             append("(")
             append("sticker=")
             append(sticker)
-            append(", ")
-            append("thumbnail=")
-            append(thumbnail)
-            append(", ")
-            append("width=")
-            append(width)
-            append(", ")
-            append("height=")
-            append(height)
             append(", ")
             append("emoji=")
             append(emoji)

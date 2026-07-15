@@ -29,6 +29,7 @@ import kotlin.String
  *
  * @property id Message identifier; unique for the chat to which the message belongs.
  * @property senderId Identifier of the sender of the message.
+ * @property receiverId Identifier of the user or the chat which received the ephemeral message; may be null. Always null for non-ephemeral messages.
  * @property chatId Chat identifier.
  * @property sendingState The sending state of the message; may be null if the message isn't being sent and didn't fail to be sent.
  * @property schedulingState The scheduling state of the message; may be null if the message isn't scheduled.
@@ -39,11 +40,11 @@ import kotlin.String
  * @property hasTimestampedMedia True, if media timestamp entities refers to a media in this message as opposed to a media in the replied message.
  * @property isChannelPost True, if the message is a channel post. All messages to channels are channel posts, all other messages are not channel posts.
  * @property isPaidStarSuggestedPost True, if the message is a suggested channel post which was paid in Telegram Stars; a warning must be shown if the message is deleted in less than getOption(&quot;suggested_post_lifetime_min&quot;) seconds after sending.
- * @property isPaidTonSuggestedPost True, if the message is a suggested channel post which was paid in Toncoins; a warning must be shown if the message is deleted in less than getOption(&quot;suggested_post_lifetime_min&quot;) seconds after sending.
+ * @property isPaidGramSuggestedPost True, if the message is a suggested channel post which was paid in TON Grams; a warning must be shown if the message is deleted in less than getOption(&quot;suggested_post_lifetime_min&quot;) seconds after sending.
  * @property containsUnreadMention True, if the message contains an unread mention for the current user.
  * @property containsUnreadPollVotes True, if the message is a poll message with unread votes.
  * @property date Point in time (Unix timestamp) when the message was sent; 0 for scheduled messages.
- * @property editDate Point in time (Unix timestamp) when the message was last edited; 0 for scheduled messages.
+ * @property editDate Point in time (Unix timestamp) when the message was last edited; 0 for scheduled messages. If getOption(&quot;show_message_edit_date_by_default&quot;) is true, then the date must be shown along with the message instead of the date when the message was sent.
  * @property forwardInfo Information about the initial message sender; may be null if none or unknown.
  * @property importInfo Information about the initial message for messages created with importMessages; may be null if the message isn't imported.
  * @property interactionInfo Information about interactions with the message; may be null if none.
@@ -68,10 +69,12 @@ import kotlin.String
  * @property summaryLanguageCode IETF language tag of the message language on which it can be summarized; empty if summary isn't available for the message.
  * @property content Content of the message.
  * @property replyMarkup Reply markup for the message; may be null if none.
+ * @property ephemeralMessageId Unique identifier of the ephemeral message if the message is ephemeral; for bots only.
  */
 public class Message public constructor(
     public val id: Long,
     public val senderId: MessageSender,
+    public val receiverId: MessageSender?,
     public val chatId: Long,
     public val sendingState: MessageSendingState?,
     public val schedulingState: MessageSchedulingState?,
@@ -82,7 +85,7 @@ public class Message public constructor(
     public val hasTimestampedMedia: Boolean,
     public val isChannelPost: Boolean,
     public val isPaidStarSuggestedPost: Boolean,
-    public val isPaidTonSuggestedPost: Boolean,
+    public val isPaidGramSuggestedPost: Boolean,
     public val containsUnreadMention: Boolean,
     public val containsUnreadPollVotes: Boolean,
     public val date: Int,
@@ -111,6 +114,7 @@ public class Message public constructor(
     public val summaryLanguageCode: String,
     public val content: MessageContent,
     public val replyMarkup: ReplyMarkup?,
+    public val ephemeralMessageId: Int,
 ) {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
@@ -127,6 +131,9 @@ public class Message public constructor(
             return false
         }
         if (other.senderId != senderId) {
+            return false
+        }
+        if (other.receiverId != receiverId) {
             return false
         }
         if (other.chatId != chatId) {
@@ -159,7 +166,7 @@ public class Message public constructor(
         if (other.isPaidStarSuggestedPost != isPaidStarSuggestedPost) {
             return false
         }
-        if (other.isPaidTonSuggestedPost != isPaidTonSuggestedPost) {
+        if (other.isPaidGramSuggestedPost != isPaidGramSuggestedPost) {
             return false
         }
         if (other.containsUnreadMention != containsUnreadMention) {
@@ -244,13 +251,17 @@ public class Message public constructor(
         if (other.content != content) {
             return false
         }
-        return other.replyMarkup == replyMarkup
+        if (other.replyMarkup != replyMarkup) {
+            return false
+        }
+        return other.ephemeralMessageId == ephemeralMessageId
     }
 
     override fun hashCode(): Int {
         var hashCode = this::class.hashCode()
         hashCode = 31 * hashCode + id.hashCode()
         hashCode = 31 * hashCode + senderId.hashCode()
+        hashCode = 31 * hashCode + receiverId.hashCode()
         hashCode = 31 * hashCode + chatId.hashCode()
         hashCode = 31 * hashCode + sendingState.hashCode()
         hashCode = 31 * hashCode + schedulingState.hashCode()
@@ -261,7 +272,7 @@ public class Message public constructor(
         hashCode = 31 * hashCode + hasTimestampedMedia.hashCode()
         hashCode = 31 * hashCode + isChannelPost.hashCode()
         hashCode = 31 * hashCode + isPaidStarSuggestedPost.hashCode()
-        hashCode = 31 * hashCode + isPaidTonSuggestedPost.hashCode()
+        hashCode = 31 * hashCode + isPaidGramSuggestedPost.hashCode()
         hashCode = 31 * hashCode + containsUnreadMention.hashCode()
         hashCode = 31 * hashCode + containsUnreadPollVotes.hashCode()
         hashCode = 31 * hashCode + date.hashCode()
@@ -290,6 +301,7 @@ public class Message public constructor(
         hashCode = 31 * hashCode + summaryLanguageCode.hashCode()
         hashCode = 31 * hashCode + content.hashCode()
         hashCode = 31 * hashCode + replyMarkup.hashCode()
+        hashCode = 31 * hashCode + ephemeralMessageId.hashCode()
         return hashCode
     }
 
@@ -302,6 +314,9 @@ public class Message public constructor(
             append(", ")
             append("senderId=")
             append(senderId)
+            append(", ")
+            append("receiverId=")
+            append(receiverId)
             append(", ")
             append("chatId=")
             append(chatId)
@@ -333,8 +348,8 @@ public class Message public constructor(
             append("isPaidStarSuggestedPost=")
             append(isPaidStarSuggestedPost)
             append(", ")
-            append("isPaidTonSuggestedPost=")
-            append(isPaidTonSuggestedPost)
+            append("isPaidGramSuggestedPost=")
+            append(isPaidGramSuggestedPost)
             append(", ")
             append("containsUnreadMention=")
             append(containsUnreadMention)
@@ -421,6 +436,9 @@ public class Message public constructor(
             append(", ")
             append("replyMarkup=")
             append(replyMarkup)
+            append(", ")
+            append("ephemeralMessageId=")
+            append(ephemeralMessageId)
             append(")")
         }
     }

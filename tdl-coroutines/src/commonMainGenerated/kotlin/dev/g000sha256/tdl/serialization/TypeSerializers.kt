@@ -317,6 +317,12 @@ import dev.g000sha256.tdl.dto.CheckStickerSetNameResultOk
 import dev.g000sha256.tdl.dto.CollectibleItemType
 import dev.g000sha256.tdl.dto.CollectibleItemTypePhoneNumber
 import dev.g000sha256.tdl.dto.CollectibleItemTypeUsername
+import dev.g000sha256.tdl.dto.CommunityMemberStatus
+import dev.g000sha256.tdl.dto.CommunityMemberStatusAdministrator
+import dev.g000sha256.tdl.dto.CommunityMemberStatusBanned
+import dev.g000sha256.tdl.dto.CommunityMemberStatusCreator
+import dev.g000sha256.tdl.dto.CommunityMemberStatusLeft
+import dev.g000sha256.tdl.dto.CommunityMemberStatusMember
 import dev.g000sha256.tdl.dto.ConnectionState
 import dev.g000sha256.tdl.dto.ConnectionStateConnecting
 import dev.g000sha256.tdl.dto.ConnectionStateConnectingToProxy
@@ -419,8 +425,8 @@ import dev.g000sha256.tdl.dto.GiftPurchaseOfferStateAccepted
 import dev.g000sha256.tdl.dto.GiftPurchaseOfferStatePending
 import dev.g000sha256.tdl.dto.GiftPurchaseOfferStateRejected
 import dev.g000sha256.tdl.dto.GiftResalePrice
+import dev.g000sha256.tdl.dto.GiftResalePriceGram
 import dev.g000sha256.tdl.dto.GiftResalePriceStar
-import dev.g000sha256.tdl.dto.GiftResalePriceTon
 import dev.g000sha256.tdl.dto.GiftResaleResult
 import dev.g000sha256.tdl.dto.GiftResaleResultOk
 import dev.g000sha256.tdl.dto.GiftResaleResultPriceIncreased
@@ -531,6 +537,7 @@ import dev.g000sha256.tdl.dto.InputMessagePaidMedia
 import dev.g000sha256.tdl.dto.InputMessagePhoto
 import dev.g000sha256.tdl.dto.InputMessagePoll
 import dev.g000sha256.tdl.dto.InputMessageReplyTo
+import dev.g000sha256.tdl.dto.InputMessageReplyToEphemeralMessage
 import dev.g000sha256.tdl.dto.InputMessageReplyToExternalMessage
 import dev.g000sha256.tdl.dto.InputMessageReplyToMessage
 import dev.g000sha256.tdl.dto.InputMessageReplyToStory
@@ -543,6 +550,28 @@ import dev.g000sha256.tdl.dto.InputMessageVenue
 import dev.g000sha256.tdl.dto.InputMessageVideo
 import dev.g000sha256.tdl.dto.InputMessageVideoNote
 import dev.g000sha256.tdl.dto.InputMessageVoiceNote
+import dev.g000sha256.tdl.dto.InputPageBlock
+import dev.g000sha256.tdl.dto.InputPageBlockAnchor
+import dev.g000sha256.tdl.dto.InputPageBlockAnimation
+import dev.g000sha256.tdl.dto.InputPageBlockAudio
+import dev.g000sha256.tdl.dto.InputPageBlockBlockQuote
+import dev.g000sha256.tdl.dto.InputPageBlockCollage
+import dev.g000sha256.tdl.dto.InputPageBlockDetails
+import dev.g000sha256.tdl.dto.InputPageBlockDivider
+import dev.g000sha256.tdl.dto.InputPageBlockFooter
+import dev.g000sha256.tdl.dto.InputPageBlockList
+import dev.g000sha256.tdl.dto.InputPageBlockMap
+import dev.g000sha256.tdl.dto.InputPageBlockMathematicalExpression
+import dev.g000sha256.tdl.dto.InputPageBlockParagraph
+import dev.g000sha256.tdl.dto.InputPageBlockPhoto
+import dev.g000sha256.tdl.dto.InputPageBlockPreformatted
+import dev.g000sha256.tdl.dto.InputPageBlockPullQuote
+import dev.g000sha256.tdl.dto.InputPageBlockSectionHeading
+import dev.g000sha256.tdl.dto.InputPageBlockSlideshow
+import dev.g000sha256.tdl.dto.InputPageBlockTable
+import dev.g000sha256.tdl.dto.InputPageBlockThinking
+import dev.g000sha256.tdl.dto.InputPageBlockVideo
+import dev.g000sha256.tdl.dto.InputPageBlockVoiceNote
 import dev.g000sha256.tdl.dto.InputPaidMediaType
 import dev.g000sha256.tdl.dto.InputPaidMediaTypePhoto
 import dev.g000sha256.tdl.dto.InputPaidMediaTypeVideo
@@ -748,6 +777,7 @@ import dev.g000sha256.tdl.dto.MessageBasicGroupChatCreate
 import dev.g000sha256.tdl.dto.MessageBotWriteAccessAllowed
 import dev.g000sha256.tdl.dto.MessageCall
 import dev.g000sha256.tdl.dto.MessageChatAddMembers
+import dev.g000sha256.tdl.dto.MessageChatAddedToCommunity
 import dev.g000sha256.tdl.dto.MessageChatBoost
 import dev.g000sha256.tdl.dto.MessageChatChangePhoto
 import dev.g000sha256.tdl.dto.MessageChatChangeTitle
@@ -759,6 +789,7 @@ import dev.g000sha256.tdl.dto.MessageChatJoinByLink
 import dev.g000sha256.tdl.dto.MessageChatJoinByRequest
 import dev.g000sha256.tdl.dto.MessageChatOwnerChanged
 import dev.g000sha256.tdl.dto.MessageChatOwnerLeft
+import dev.g000sha256.tdl.dto.MessageChatRemovedFromCommunity
 import dev.g000sha256.tdl.dto.MessageChatSetBackground
 import dev.g000sha256.tdl.dto.MessageChatSetMessageAutoDeleteTime
 import dev.g000sha256.tdl.dto.MessageChatSetTheme
@@ -1069,6 +1100,7 @@ import dev.g000sha256.tdl.dto.PremiumFeaturePaidMessages
 import dev.g000sha256.tdl.dto.PremiumFeatureProfileBadge
 import dev.g000sha256.tdl.dto.PremiumFeatureProtectPrivateChatContent
 import dev.g000sha256.tdl.dto.PremiumFeatureRealTimeChatTranslation
+import dev.g000sha256.tdl.dto.PremiumFeatureRichMessages
 import dev.g000sha256.tdl.dto.PremiumFeatureSavedMessagesTags
 import dev.g000sha256.tdl.dto.PremiumFeatureTextComposition
 import dev.g000sha256.tdl.dto.PremiumFeatureUniqueReactions
@@ -1234,6 +1266,7 @@ import dev.g000sha256.tdl.dto.RevenueWithdrawalStateFailed
 import dev.g000sha256.tdl.dto.RevenueWithdrawalStatePending
 import dev.g000sha256.tdl.dto.RevenueWithdrawalStateSucceeded
 import dev.g000sha256.tdl.dto.RichMessageSource
+import dev.g000sha256.tdl.dto.RichMessageSourceBlocks
 import dev.g000sha256.tdl.dto.RichMessageSourceHtml
 import dev.g000sha256.tdl.dto.RichMessageSourceMarkdown
 import dev.g000sha256.tdl.dto.RichText
@@ -1245,6 +1278,7 @@ import dev.g000sha256.tdl.dto.RichTextBotCommand
 import dev.g000sha256.tdl.dto.RichTextCashtag
 import dev.g000sha256.tdl.dto.RichTextCustomEmoji
 import dev.g000sha256.tdl.dto.RichTextDateTime
+import dev.g000sha256.tdl.dto.RichTextDiff
 import dev.g000sha256.tdl.dto.RichTextEmailAddress
 import dev.g000sha256.tdl.dto.RichTextFixed
 import dev.g000sha256.tdl.dto.RichTextHashtag
@@ -1336,8 +1370,8 @@ import dev.g000sha256.tdl.dto.SettingsSectionFaq
 import dev.g000sha256.tdl.dto.SettingsSectionFeatures
 import dev.g000sha256.tdl.dto.SettingsSectionInAppBrowser
 import dev.g000sha256.tdl.dto.SettingsSectionLanguage
+import dev.g000sha256.tdl.dto.SettingsSectionMyGrams
 import dev.g000sha256.tdl.dto.SettingsSectionMyStars
-import dev.g000sha256.tdl.dto.SettingsSectionMyToncoins
 import dev.g000sha256.tdl.dto.SettingsSectionNotifications
 import dev.g000sha256.tdl.dto.SettingsSectionPowerSaving
 import dev.g000sha256.tdl.dto.SettingsSectionPremium
@@ -1481,8 +1515,8 @@ import dev.g000sha256.tdl.dto.SuggestedActionSubscribeToAnnualPremium
 import dev.g000sha256.tdl.dto.SuggestedActionUpgradePremium
 import dev.g000sha256.tdl.dto.SuggestedActionViewChecksHint
 import dev.g000sha256.tdl.dto.SuggestedPostPrice
+import dev.g000sha256.tdl.dto.SuggestedPostPriceGram
 import dev.g000sha256.tdl.dto.SuggestedPostPriceStar
-import dev.g000sha256.tdl.dto.SuggestedPostPriceTon
 import dev.g000sha256.tdl.dto.SuggestedPostRefundReason
 import dev.g000sha256.tdl.dto.SuggestedPostRefundReasonPaymentRefunded
 import dev.g000sha256.tdl.dto.SuggestedPostRefundReasonPostDeleted
@@ -1636,6 +1670,7 @@ import dev.g000sha256.tdl.dto.UpdateChatUnreadPollVoteCount
 import dev.g000sha256.tdl.dto.UpdateChatUnreadReactionCount
 import dev.g000sha256.tdl.dto.UpdateChatVideoChat
 import dev.g000sha256.tdl.dto.UpdateChatViewAsTopics
+import dev.g000sha256.tdl.dto.UpdateCommunity
 import dev.g000sha256.tdl.dto.UpdateConnectionState
 import dev.g000sha256.tdl.dto.UpdateContactCloseBirthdays
 import dev.g000sha256.tdl.dto.UpdateDefaultBackground
@@ -1657,6 +1692,7 @@ import dev.g000sha256.tdl.dto.UpdateForumTopic
 import dev.g000sha256.tdl.dto.UpdateForumTopicInfo
 import dev.g000sha256.tdl.dto.UpdateFreezeState
 import dev.g000sha256.tdl.dto.UpdateGiftAuctionState
+import dev.g000sha256.tdl.dto.UpdateGramRevenueStatus
 import dev.g000sha256.tdl.dto.UpdateGroupCall
 import dev.g000sha256.tdl.dto.UpdateGroupCallMessageLevels
 import dev.g000sha256.tdl.dto.UpdateGroupCallMessageSendFailed
@@ -1706,8 +1742,8 @@ import dev.g000sha256.tdl.dto.UpdateNewShippingQuery
 import dev.g000sha256.tdl.dto.UpdateNotification
 import dev.g000sha256.tdl.dto.UpdateNotificationGroup
 import dev.g000sha256.tdl.dto.UpdateOption
+import dev.g000sha256.tdl.dto.UpdateOwnedGramCount
 import dev.g000sha256.tdl.dto.UpdateOwnedStarCount
-import dev.g000sha256.tdl.dto.UpdateOwnedTonCount
 import dev.g000sha256.tdl.dto.UpdatePaidMediaPurchased
 import dev.g000sha256.tdl.dto.UpdatePendingMessage
 import dev.g000sha256.tdl.dto.UpdatePoll
@@ -1743,7 +1779,6 @@ import dev.g000sha256.tdl.dto.UpdateSupergroup
 import dev.g000sha256.tdl.dto.UpdateSupergroupFullInfo
 import dev.g000sha256.tdl.dto.UpdateTermsOfService
 import dev.g000sha256.tdl.dto.UpdateTextCompositionStyles
-import dev.g000sha256.tdl.dto.UpdateTonRevenueStatus
 import dev.g000sha256.tdl.dto.UpdateTopicMessageCount
 import dev.g000sha256.tdl.dto.UpdateTrendingStickerSets
 import dev.g000sha256.tdl.dto.UpdateTrustedMiniAppBots
@@ -1754,6 +1789,7 @@ import dev.g000sha256.tdl.dto.UpdateUser
 import dev.g000sha256.tdl.dto.UpdateUserFullInfo
 import dev.g000sha256.tdl.dto.UpdateUserPrivacySettingRules
 import dev.g000sha256.tdl.dto.UpdateUserStatus
+import dev.g000sha256.tdl.dto.UpdateUserSubscription
 import dev.g000sha256.tdl.dto.UpdateVideoPublished
 import dev.g000sha256.tdl.dto.UpdateWebAppMessageSent
 import dev.g000sha256.tdl.dto.UpdateWebBrowserSettings
@@ -1858,6 +1894,7 @@ internal fun serialize(dto: EmailAddressResetState): JsonElement {
 
 internal fun serialize(dto: RichMessageSource): JsonElement {
     when(dto) {
+        is RichMessageSourceBlocks -> return serialize(dto = dto)
         is RichMessageSourceMarkdown -> return serialize(dto = dto)
         is RichMessageSourceHtml -> return serialize(dto = dto)
     }
@@ -2024,7 +2061,7 @@ internal fun serialize(dto: WebAppOpenMode): JsonElement {
 internal fun serialize(dto: GiftResalePrice): JsonElement {
     when(dto) {
         is GiftResalePriceStar -> return serialize(dto = dto)
-        is GiftResalePriceTon -> return serialize(dto = dto)
+        is GiftResalePriceGram -> return serialize(dto = dto)
     }
 }
 
@@ -2039,7 +2076,7 @@ internal fun serialize(dto: GiftPurchaseOfferState): JsonElement {
 internal fun serialize(dto: SuggestedPostPrice): JsonElement {
     when(dto) {
         is SuggestedPostPriceStar -> return serialize(dto = dto)
-        is SuggestedPostPriceTon -> return serialize(dto = dto)
+        is SuggestedPostPriceGram -> return serialize(dto = dto)
     }
 }
 
@@ -2259,6 +2296,16 @@ internal fun serialize(dto: GiveawayPrize): JsonElement {
     }
 }
 
+internal fun serialize(dto: CommunityMemberStatus): JsonElement {
+    when(dto) {
+        is CommunityMemberStatusCreator -> return serialize(dto = dto)
+        is CommunityMemberStatusAdministrator -> return serialize(dto = dto)
+        is CommunityMemberStatusMember -> return serialize(dto = dto)
+        is CommunityMemberStatusLeft -> return serialize(dto = dto)
+        is CommunityMemberStatusBanned -> return serialize(dto = dto)
+    }
+}
+
 internal fun serialize(dto: EmojiStatusType): JsonElement {
     when(dto) {
         is EmojiStatusTypeCustomEmoji -> return serialize(dto = dto)
@@ -2412,6 +2459,7 @@ internal fun serialize(dto: InputMessageReplyTo): JsonElement {
         is InputMessageReplyToMessage -> return serialize(dto = dto)
         is InputMessageReplyToExternalMessage -> return serialize(dto = dto)
         is InputMessageReplyToStory -> return serialize(dto = dto)
+        is InputMessageReplyToEphemeralMessage -> return serialize(dto = dto)
     }
 }
 
@@ -2601,23 +2649,24 @@ internal fun serialize(dto: RichText): JsonElement {
         is RichTextUnderline -> return serialize(dto = dto)
         is RichTextStrikethrough -> return serialize(dto = dto)
         is RichTextSpoiler -> return serialize(dto = dto)
+        is RichTextSubscript -> return serialize(dto = dto)
+        is RichTextSuperscript -> return serialize(dto = dto)
+        is RichTextMarked -> return serialize(dto = dto)
         is RichTextDateTime -> return serialize(dto = dto)
         is RichTextMention -> return serialize(dto = dto)
         is RichTextHashtag -> return serialize(dto = dto)
         is RichTextCashtag -> return serialize(dto = dto)
+        is RichTextBankCardNumber -> return serialize(dto = dto)
         is RichTextBotCommand -> return serialize(dto = dto)
         is RichTextFixed -> return serialize(dto = dto)
         is RichTextMentionName -> return serialize(dto = dto)
         is RichTextUrl -> return serialize(dto = dto)
         is RichTextEmailAddress -> return serialize(dto = dto)
-        is RichTextBankCardNumber -> return serialize(dto = dto)
-        is RichTextSubscript -> return serialize(dto = dto)
-        is RichTextSuperscript -> return serialize(dto = dto)
-        is RichTextMarked -> return serialize(dto = dto)
         is RichTextPhoneNumber -> return serialize(dto = dto)
         is RichTextCustomEmoji -> return serialize(dto = dto)
         is RichTextIcon -> return serialize(dto = dto)
         is RichTextMathematicalExpression -> return serialize(dto = dto)
+        is RichTextDiff -> return serialize(dto = dto)
         is RichTextReference -> return serialize(dto = dto)
         is RichTextReferenceLink -> return serialize(dto = dto)
         is RichTextAnchor -> return serialize(dto = dto)
@@ -2933,6 +2982,8 @@ internal fun serialize(dto: MessageContent): JsonElement {
         is MessageChatJoinByLink -> return serialize(dto = dto)
         is MessageChatJoinByRequest -> return serialize(dto = dto)
         is MessageChatDeleteMember -> return serialize(dto = dto)
+        is MessageChatAddedToCommunity -> return serialize(dto = dto)
+        is MessageChatRemovedFromCommunity -> return serialize(dto = dto)
         is MessageChatUpgradeTo -> return serialize(dto = dto)
         is MessageChatUpgradeFrom -> return serialize(dto = dto)
         is MessagePinMessage -> return serialize(dto = dto)
@@ -3074,6 +3125,32 @@ internal fun serialize(dto: InputPollMedia): JsonElement {
         is InputPollMediaSticker -> return serialize(dto = dto)
         is InputPollMediaVenue -> return serialize(dto = dto)
         is InputPollMediaVideo -> return serialize(dto = dto)
+    }
+}
+
+internal fun serialize(dto: InputPageBlock): JsonElement {
+    when(dto) {
+        is InputPageBlockSectionHeading -> return serialize(dto = dto)
+        is InputPageBlockParagraph -> return serialize(dto = dto)
+        is InputPageBlockPreformatted -> return serialize(dto = dto)
+        is InputPageBlockFooter -> return serialize(dto = dto)
+        is InputPageBlockThinking -> return serialize(dto = dto)
+        is InputPageBlockDivider -> return serialize(dto = dto)
+        is InputPageBlockMathematicalExpression -> return serialize(dto = dto)
+        is InputPageBlockAnchor -> return serialize(dto = dto)
+        is InputPageBlockList -> return serialize(dto = dto)
+        is InputPageBlockBlockQuote -> return serialize(dto = dto)
+        is InputPageBlockPullQuote -> return serialize(dto = dto)
+        is InputPageBlockAnimation -> return serialize(dto = dto)
+        is InputPageBlockAudio -> return serialize(dto = dto)
+        is InputPageBlockPhoto -> return serialize(dto = dto)
+        is InputPageBlockVideo -> return serialize(dto = dto)
+        is InputPageBlockVoiceNote -> return serialize(dto = dto)
+        is InputPageBlockCollage -> return serialize(dto = dto)
+        is InputPageBlockSlideshow -> return serialize(dto = dto)
+        is InputPageBlockTable -> return serialize(dto = dto)
+        is InputPageBlockDetails -> return serialize(dto = dto)
+        is InputPageBlockMap -> return serialize(dto = dto)
     }
 }
 
@@ -3585,6 +3662,7 @@ internal fun serialize(dto: PremiumFeature): JsonElement {
         is PremiumFeaturePaidMessages -> return serialize(dto = dto)
         is PremiumFeatureProtectPrivateChatContent -> return serialize(dto = dto)
         is PremiumFeatureTextComposition -> return serialize(dto = dto)
+        is PremiumFeatureRichMessages -> return serialize(dto = dto)
     }
 }
 
@@ -3994,7 +4072,7 @@ internal fun serialize(dto: SettingsSection): JsonElement {
         is SettingsSectionInAppBrowser -> return serialize(dto = dto)
         is SettingsSectionLanguage -> return serialize(dto = dto)
         is SettingsSectionMyStars -> return serialize(dto = dto)
-        is SettingsSectionMyToncoins -> return serialize(dto = dto)
+        is SettingsSectionMyGrams -> return serialize(dto = dto)
         is SettingsSectionNotifications -> return serialize(dto = dto)
         is SettingsSectionPowerSaving -> return serialize(dto = dto)
         is SettingsSectionPremium -> return serialize(dto = dto)
@@ -4349,6 +4427,7 @@ internal fun serialize(dto: Update): JsonElement {
         is UpdateDeleteMessages -> return serialize(dto = dto)
         is UpdateChatAction -> return serialize(dto = dto)
         is UpdatePendingMessage -> return serialize(dto = dto)
+        is UpdateCommunity -> return serialize(dto = dto)
         is UpdateUserStatus -> return serialize(dto = dto)
         is UpdateUser -> return serialize(dto = dto)
         is UpdateBasicGroup -> return serialize(dto = dto)
@@ -4421,10 +4500,10 @@ internal fun serialize(dto: Update): JsonElement {
         is UpdateSavedMessagesTags -> return serialize(dto = dto)
         is UpdateActiveLiveLocationMessages -> return serialize(dto = dto)
         is UpdateOwnedStarCount -> return serialize(dto = dto)
-        is UpdateOwnedTonCount -> return serialize(dto = dto)
+        is UpdateOwnedGramCount -> return serialize(dto = dto)
         is UpdateChatRevenueAmount -> return serialize(dto = dto)
         is UpdateStarRevenueStatus -> return serialize(dto = dto)
-        is UpdateTonRevenueStatus -> return serialize(dto = dto)
+        is UpdateGramRevenueStatus -> return serialize(dto = dto)
         is UpdateSpeechRecognitionTrial -> return serialize(dto = dto)
         is UpdateGroupCallMessageLevels -> return serialize(dto = dto)
         is UpdateDiceEmojis -> return serialize(dto = dto)
@@ -4450,6 +4529,7 @@ internal fun serialize(dto: Update): JsonElement {
         is UpdateNewPreCheckoutQuery -> return serialize(dto = dto)
         is UpdateNewCustomEvent -> return serialize(dto = dto)
         is UpdateNewCustomQuery -> return serialize(dto = dto)
+        is UpdateUserSubscription -> return serialize(dto = dto)
         is UpdatePoll -> return serialize(dto = dto)
         is UpdatePollAnswer -> return serialize(dto = dto)
         is UpdateManagedBot -> return serialize(dto = dto)

@@ -28,6 +28,7 @@ import kotlin.String
  * @property personalPhoto User profile photo set by the current user for the contact; may be null. If null and user.profilePhoto is null, then the photo is empty; otherwise, it is unknown. If non-null, then it is the same photo as in user.profilePhoto and chat.photo. This photo isn't returned in the list of user photos.
  * @property photo User profile photo; may be null. If null and user.profilePhoto is null, then the photo is empty; otherwise, it is unknown. If non-null and personalPhoto is null, then it is the same photo as in user.profilePhoto and chat.photo.
  * @property publicPhoto User profile photo visible if the main photo is hidden by privacy settings; may be null. If null and user.profilePhoto is null, then the photo is empty; otherwise, it is unknown. If non-null and both photo and personalPhoto are null, then it is the same photo as in user.profilePhoto and chat.photo. This photo isn't returned in the list of user photos.
+ * @property communityId Identifier of the community to which chat with the bot was added; for bots only.
  * @property blockList Block list to which the user is added; may be null if none.
  * @property canBeCalled True, if the user can be called.
  * @property supportsVideoCalls True, if a video call can be created with the user.
@@ -61,6 +62,7 @@ public class UserFullInfo public constructor(
     public val personalPhoto: ChatPhoto?,
     public val photo: ChatPhoto?,
     public val publicPhoto: ChatPhoto?,
+    public val communityId: Long,
     public val blockList: BlockList?,
     public val canBeCalled: Boolean,
     public val supportsVideoCalls: Boolean,
@@ -108,6 +110,9 @@ public class UserFullInfo public constructor(
             return false
         }
         if (other.publicPhoto != publicPhoto) {
+            return false
+        }
+        if (other.communityId != communityId) {
             return false
         }
         if (other.blockList != blockList) {
@@ -199,6 +204,7 @@ public class UserFullInfo public constructor(
         hashCode = 31 * hashCode + personalPhoto.hashCode()
         hashCode = 31 * hashCode + photo.hashCode()
         hashCode = 31 * hashCode + publicPhoto.hashCode()
+        hashCode = 31 * hashCode + communityId.hashCode()
         hashCode = 31 * hashCode + blockList.hashCode()
         hashCode = 31 * hashCode + canBeCalled.hashCode()
         hashCode = 31 * hashCode + supportsVideoCalls.hashCode()
@@ -242,6 +248,9 @@ public class UserFullInfo public constructor(
             append(", ")
             append("publicPhoto=")
             append(publicPhoto)
+            append(", ")
+            append("communityId=")
+            append(communityId)
             append(", ")
             append("blockList=")
             append(blockList)

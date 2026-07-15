@@ -28,16 +28,16 @@ import kotlin.String
  * Describes state of the stake dice.
  *
  * @property stateHash Hash of the state to use for sending the next dice; may be empty if the stake dice can't be sent by the current user.
- * @property stakeToncoinAmount The Toncoin amount that was staked in the previous roll; in the smallest units of the currency.
- * @property suggestedStakeToncoinAmounts The amounts of Toncoins that are suggested to be staked; in the smallest units of the currency.
+ * @property stakeGramAmount The amount of TON Grams staked in the previous roll; in the smallest units of the currency.
+ * @property suggestedStakeGramAmounts The amounts of Grams that are suggested to be staked; in the smallest units of the currency.
  * @property currentStreak The number of rolled sixes towards the streak; 0-2.
- * @property prizePerMille The number of Toncoins received by the user for each 1000 Toncoins staked if the dice outcome is 1-6 correspondingly; may be empty if the stake dice can't be sent by the current user.
- * @property streakPrizePerMille The number of Toncoins received by the user for each 1000 Toncoins staked if the dice outcome is 6 three times in a row with the same stake.
+ * @property prizePerMille The number of Grams received by the user for each 1000 Grams staked if the dice outcome is 1-6 correspondingly; may be empty if the stake dice can't be sent by the current user.
+ * @property streakPrizePerMille The number of Grams received by the user for each 1000 Grams staked if the dice outcome is 6 three times in a row with the same stake.
  */
 public class StakeDiceState public constructor(
     public val stateHash: String,
-    public val stakeToncoinAmount: Long,
-    public val suggestedStakeToncoinAmounts: LongArray,
+    public val stakeGramAmount: Long,
+    public val suggestedStakeGramAmounts: LongArray,
     public val currentStreak: Int,
     public val prizePerMille: IntArray,
     public val streakPrizePerMille: Int,
@@ -56,11 +56,11 @@ public class StakeDiceState public constructor(
         if (other.stateHash != stateHash) {
             return false
         }
-        if (other.stakeToncoinAmount != stakeToncoinAmount) {
+        if (other.stakeGramAmount != stakeGramAmount) {
             return false
         }
-        val suggestedStakeToncoinAmountsEquals = other.suggestedStakeToncoinAmounts.contentEquals(suggestedStakeToncoinAmounts)
-        if (!suggestedStakeToncoinAmountsEquals) {
+        val suggestedStakeGramAmountsEquals = other.suggestedStakeGramAmounts.contentEquals(suggestedStakeGramAmounts)
+        if (!suggestedStakeGramAmountsEquals) {
             return false
         }
         if (other.currentStreak != currentStreak) {
@@ -76,8 +76,8 @@ public class StakeDiceState public constructor(
     override fun hashCode(): Int {
         var hashCode = this::class.hashCode()
         hashCode = 31 * hashCode + stateHash.hashCode()
-        hashCode = 31 * hashCode + stakeToncoinAmount.hashCode()
-        hashCode = 31 * hashCode + suggestedStakeToncoinAmounts.contentHashCode()
+        hashCode = 31 * hashCode + stakeGramAmount.hashCode()
+        hashCode = 31 * hashCode + suggestedStakeGramAmounts.contentHashCode()
         hashCode = 31 * hashCode + currentStreak.hashCode()
         hashCode = 31 * hashCode + prizePerMille.contentHashCode()
         hashCode = 31 * hashCode + streakPrizePerMille.hashCode()
@@ -91,11 +91,11 @@ public class StakeDiceState public constructor(
             append("stateHash=")
             append(stateHash)
             append(", ")
-            append("stakeToncoinAmount=")
-            append(stakeToncoinAmount)
+            append("stakeGramAmount=")
+            append(stakeGramAmount)
             append(", ")
-            append("suggestedStakeToncoinAmounts=")
-            suggestedStakeToncoinAmounts
+            append("suggestedStakeGramAmounts=")
+            suggestedStakeGramAmounts
                 .contentToString()
                 .also { append(it) }
             append(", ")

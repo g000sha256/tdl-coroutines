@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Georgii Ippolitov (g000sha256)
+ * Copyright 2025-2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,26 +17,23 @@
 package dev.g000sha256.tdl.dto
 
 import kotlin.Any
-import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
 
 /**
- * A sticker to be added to a sticker set.
+ * A sticker to be sent.
  *
- * @property sticker File with the sticker; must fit in a 512x512 square. For WEBP stickers the file must be in WEBP or PNG format, which will be converted to WEBP server-side. See https://core.telegram.org/animated_stickers#technical-requirements for technical requirements.
- * @property format Format of the sticker.
- * @property emojis String with 1-20 emoji corresponding to the sticker.
- * @property maskPosition Position where the mask is placed; pass null if not specified.
- * @property keywords List of up to 20 keywords with total length up to 64 characters, which can be used to find the sticker.
+ * @property sticker Sticker to be sent.
+ * @property thumbnail Sticker thumbnail; pass null to skip thumbnail uploading.
+ * @property width Sticker width.
+ * @property height Sticker height.
  */
 public class InputSticker public constructor(
     public val sticker: InputFile,
-    public val format: StickerFormat,
-    public val emojis: String,
-    public val maskPosition: MaskPosition?,
-    public val keywords: Array<String>,
+    public val thumbnail: InputThumbnail?,
+    public val width: Int,
+    public val height: Int,
 ) {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
@@ -52,25 +49,21 @@ public class InputSticker public constructor(
         if (other.sticker != sticker) {
             return false
         }
-        if (other.format != format) {
+        if (other.thumbnail != thumbnail) {
             return false
         }
-        if (other.emojis != emojis) {
+        if (other.width != width) {
             return false
         }
-        if (other.maskPosition != maskPosition) {
-            return false
-        }
-        return other.keywords.contentDeepEquals(keywords)
+        return other.height == height
     }
 
     override fun hashCode(): Int {
         var hashCode = this::class.hashCode()
         hashCode = 31 * hashCode + sticker.hashCode()
-        hashCode = 31 * hashCode + format.hashCode()
-        hashCode = 31 * hashCode + emojis.hashCode()
-        hashCode = 31 * hashCode + maskPosition.hashCode()
-        hashCode = 31 * hashCode + keywords.contentDeepHashCode()
+        hashCode = 31 * hashCode + thumbnail.hashCode()
+        hashCode = 31 * hashCode + width.hashCode()
+        hashCode = 31 * hashCode + height.hashCode()
         return hashCode
     }
 
@@ -81,19 +74,14 @@ public class InputSticker public constructor(
             append("sticker=")
             append(sticker)
             append(", ")
-            append("format=")
-            append(format)
+            append("thumbnail=")
+            append(thumbnail)
             append(", ")
-            append("emojis=")
-            append(emojis)
+            append("width=")
+            append(width)
             append(", ")
-            append("maskPosition=")
-            append(maskPosition)
-            append(", ")
-            append("keywords=")
-            keywords
-                .contentDeepToString()
-                .also { append(it) }
+            append("height=")
+            append(height)
             append(")")
         }
     }

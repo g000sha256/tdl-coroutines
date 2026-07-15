@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Georgii Ippolitov (g000sha256)
+ * Copyright 2025-2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,7 +22,7 @@ import kotlin.Int
 import kotlin.String
 
 /**
- * The parameters of speech recognition without Telegram Premium subscription has changed.
+ * The parameters of speech recognition without Telegram Premium subscription have changed.
  *
  * @property maxMediaDuration The maximum allowed duration of media for speech recognition without Telegram Premium subscription, in seconds.
  * @property weeklyCount The total number of allowed speech recognitions per week; 0 if none.

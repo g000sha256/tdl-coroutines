@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Georgii Ippolitov (g000sha256)
+ * Copyright 2025-2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,7 +16,7 @@
 
 package dev.g000sha256.tdl.function
 
-import dev.g000sha256.tdl.dto.InputSticker
+import dev.g000sha256.tdl.dto.NewSticker
 import dev.g000sha256.tdl.dto.StickerType
 import kotlin.Array
 import kotlin.Boolean
@@ -29,6 +29,6 @@ internal class CreateNewStickerSet internal constructor(
     internal val name: String,
     internal val stickerType: StickerType,
     internal val needsRepainting: Boolean,
-    internal val stickers: Array<InputSticker>,
+    internal val stickers: Array<NewSticker>,
     internal val source: String,
 )

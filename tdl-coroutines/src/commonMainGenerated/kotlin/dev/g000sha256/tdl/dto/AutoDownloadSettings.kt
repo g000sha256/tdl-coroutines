@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Georgii Ippolitov (g000sha256)
+ * Copyright 2025-2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,7 +32,7 @@ import kotlin.String
  * @property videoUploadBitrate The maximum suggested bitrate for uploaded videos, in kbit/s.
  * @property preloadLargeVideos True, if the beginning of video files needs to be preloaded for instant playback.
  * @property preloadNextAudio True, if the next audio track needs to be preloaded while the user is listening to an audio file.
- * @property preloadStories True, if stories needs to be preloaded.
+ * @property preloadStories True, if stories need to be preloaded.
  * @property useLessDataForCalls True, if &quot;use less data for calls&quot; option needs to be enabled.
  */
 public class AutoDownloadSettings public constructor(

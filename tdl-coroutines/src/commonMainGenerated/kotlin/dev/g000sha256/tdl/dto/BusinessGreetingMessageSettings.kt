@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Georgii Ippolitov (g000sha256)
+ * Copyright 2025-2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,7 +26,7 @@ import kotlin.String
  *
  * @property shortcutId Unique quick reply shortcut identifier for the greeting messages.
  * @property recipients Chosen recipients of the greeting messages.
- * @property inactivityDays The number of days after which a chat will be considered as inactive; currently, must be on of 7, 14, 21, or 28.
+ * @property inactivityDays The number of days after which a chat will be considered as inactive; currently, must be one of 7, 14, 21, or 28.
  */
 public class BusinessGreetingMessageSettings public constructor(
     public val shortcutId: Int,

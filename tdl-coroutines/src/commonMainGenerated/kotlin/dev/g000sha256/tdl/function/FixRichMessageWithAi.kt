@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Georgii Ippolitov (g000sha256)
+ * Copyright 2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,8 +16,8 @@
 
 package dev.g000sha256.tdl.function
 
-import kotlin.Boolean
+import dev.g000sha256.tdl.dto.InputRichMessage
 
-internal class GetTonRevenueStatistics internal constructor(
-    internal val isDark: Boolean,
+internal class FixRichMessageWithAi internal constructor(
+    internal val message: InputRichMessage,
 )

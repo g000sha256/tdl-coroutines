@@ -25,15 +25,9 @@ import kotlin.String
  * A sticker.
  *
  * @property sticker Sticker to be sent.
- * @property thumbnail Sticker thumbnail; pass null to skip thumbnail uploading.
- * @property width Sticker width.
- * @property height Sticker height.
  */
 public class InputPollMediaSticker public constructor(
-    public val sticker: InputFile,
-    public val thumbnail: InputThumbnail?,
-    public val width: Int,
-    public val height: Int,
+    public val sticker: InputSticker,
 ) : InputPollMedia() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
@@ -46,24 +40,12 @@ public class InputPollMediaSticker public constructor(
             return false
         }
         other as InputPollMediaSticker
-        if (other.sticker != sticker) {
-            return false
-        }
-        if (other.thumbnail != thumbnail) {
-            return false
-        }
-        if (other.width != width) {
-            return false
-        }
-        return other.height == height
+        return other.sticker == sticker
     }
 
     override fun hashCode(): Int {
         var hashCode = this::class.hashCode()
         hashCode = 31 * hashCode + sticker.hashCode()
-        hashCode = 31 * hashCode + thumbnail.hashCode()
-        hashCode = 31 * hashCode + width.hashCode()
-        hashCode = 31 * hashCode + height.hashCode()
         return hashCode
     }
 
@@ -73,15 +55,6 @@ public class InputPollMediaSticker public constructor(
             append("(")
             append("sticker=")
             append(sticker)
-            append(", ")
-            append("thumbnail=")
-            append(thumbnail)
-            append(", ")
-            append("width=")
-            append(width)
-            append(", ")
-            append("height=")
-            append(height)
             append(")")
         }
     }

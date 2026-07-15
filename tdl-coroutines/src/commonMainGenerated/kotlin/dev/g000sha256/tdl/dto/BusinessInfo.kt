@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Georgii Ippolitov (g000sha256)
+ * Copyright 2025-2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,8 +25,8 @@ import kotlin.String
  * Contains information about a Telegram Business account.
  *
  * @property location Location of the business; may be null if none.
- * @property openingHours Opening hours of the business; may be null if none. The hours are guaranteed to be valid and has already been split by week days.
- * @property localOpeningHours Opening hours of the business in the local time; may be null if none. The hours are guaranteed to be valid and has already been split by week days. Local time zone identifier will be empty. An updateUserFullInfo update is not triggered when value of this field changes.
+ * @property openingHours Opening hours of the business; may be null if none. The hours are guaranteed to be valid and have already been split by week days.
+ * @property localOpeningHours Opening hours of the business in the local time; may be null if none. The hours are guaranteed to be valid and have already been split by week days. Local time zone identifier will be empty. An updateUserFullInfo update is not triggered when value of this field changes.
  * @property nextOpenIn Time left before the business will open the next time, in seconds; 0 if unknown. An updateUserFullInfo update is not triggered when value of this field changes.
  * @property nextCloseIn Time left before the business will close the next time, in seconds; 0 if unknown. An updateUserFullInfo update is not triggered when value of this field changes.
  * @property greetingMessageSettings The greeting message; may be null if none or the Business account is not of the current user.

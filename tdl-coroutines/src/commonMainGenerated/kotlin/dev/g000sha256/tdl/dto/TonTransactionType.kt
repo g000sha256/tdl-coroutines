@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Georgii Ippolitov (g000sha256)
+ * Copyright 2025-2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,6 @@ package dev.g000sha256.tdl.dto
 
 /**
  * This class is an abstract base class.
- * Describes type of transaction with Toncoins.
+ * Describes type of transaction with TON Grams.
  */
 public sealed class TonTransactionType protected constructor()

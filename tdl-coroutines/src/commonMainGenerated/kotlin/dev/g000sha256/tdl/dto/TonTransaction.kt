@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Georgii Ippolitov (g000sha256)
+ * Copyright 2025-2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,17 +23,17 @@ import kotlin.Long
 import kotlin.String
 
 /**
- * Represents a transaction changing the amount of owned Toncoins.
+ * Represents a transaction changing the amount of owned TON Grams.
  *
  * @property id Unique identifier of the transaction.
- * @property tonAmount The amount of added owned Toncoins; negative for outgoing transactions.
+ * @property gramAmount The amount of added owned Grams, in the smallest units of the cryptocurrency; negative for outgoing transactions.
  * @property isRefund True, if the transaction is a refund of a previous transaction.
  * @property date Point in time (Unix timestamp) when the transaction was completed.
  * @property type Type of the transaction.
  */
 public class TonTransaction public constructor(
     public val id: String,
-    public val tonAmount: Long,
+    public val gramAmount: Long,
     public val isRefund: Boolean,
     public val date: Int,
     public val type: TonTransactionType,
@@ -52,7 +52,7 @@ public class TonTransaction public constructor(
         if (other.id != id) {
             return false
         }
-        if (other.tonAmount != tonAmount) {
+        if (other.gramAmount != gramAmount) {
             return false
         }
         if (other.isRefund != isRefund) {
@@ -67,7 +67,7 @@ public class TonTransaction public constructor(
     override fun hashCode(): Int {
         var hashCode = this::class.hashCode()
         hashCode = 31 * hashCode + id.hashCode()
-        hashCode = 31 * hashCode + tonAmount.hashCode()
+        hashCode = 31 * hashCode + gramAmount.hashCode()
         hashCode = 31 * hashCode + isRefund.hashCode()
         hashCode = 31 * hashCode + date.hashCode()
         hashCode = 31 * hashCode + type.hashCode()
@@ -81,8 +81,8 @@ public class TonTransaction public constructor(
             append("id=")
             append(id)
             append(", ")
-            append("tonAmount=")
-            append(tonAmount)
+            append("gramAmount=")
+            append(gramAmount)
             append(", ")
             append("isRefund=")
             append(isRefund)

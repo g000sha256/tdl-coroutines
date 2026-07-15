@@ -26,12 +26,10 @@ import kotlin.String
  * An approval from a guard bot through a Web App is required to join the chat.
  *
  * @property botUserId Identifier of the guard bot.
- * @property url The URL of the Web App to open.
- * @property queryId Unique identifier of the join request, which will be used in updateChatJoinResult.
+ * @property queryId Unique identifier of the join request, which will be used in getGuardBotWebAppUrl and updateChatJoinResult.
  */
 public class ChatJoinResultGuardBotApprovalRequired public constructor(
     public val botUserId: Long,
-    public val url: WebAppUrl,
     public val queryId: Long,
 ) : ChatJoinResult() {
     override fun equals(other: Any?): Boolean {
@@ -48,16 +46,12 @@ public class ChatJoinResultGuardBotApprovalRequired public constructor(
         if (other.botUserId != botUserId) {
             return false
         }
-        if (other.url != url) {
-            return false
-        }
         return other.queryId == queryId
     }
 
     override fun hashCode(): Int {
         var hashCode = this::class.hashCode()
         hashCode = 31 * hashCode + botUserId.hashCode()
-        hashCode = 31 * hashCode + url.hashCode()
         hashCode = 31 * hashCode + queryId.hashCode()
         return hashCode
     }
@@ -68,9 +62,6 @@ public class ChatJoinResultGuardBotApprovalRequired public constructor(
             append("(")
             append("botUserId=")
             append(botUserId)
-            append(", ")
-            append("url=")
-            append(url)
             append(", ")
             append("queryId=")
             append(queryId)

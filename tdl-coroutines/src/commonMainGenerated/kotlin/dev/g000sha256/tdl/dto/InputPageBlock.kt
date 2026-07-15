@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Georgii Ippolitov (g000sha256)
+ * Copyright 2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package dev.g000sha256.tdl.function
+package dev.g000sha256.tdl.dto
 
-import kotlin.String
-
-internal class GetTonWithdrawalUrl internal constructor(
-    internal val password: String,
-)
+/**
+ * This class is an abstract base class.
+ * Describes a block of a rich message to send.
+ */
+public sealed class InputPageBlock protected constructor()

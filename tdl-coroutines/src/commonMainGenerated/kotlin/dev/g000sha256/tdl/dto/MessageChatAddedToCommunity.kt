@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Georgii Ippolitov (g000sha256)
+ * Copyright 2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,13 +23,13 @@ import kotlin.Long
 import kotlin.String
 
 /**
- * The number of Toncoins owned by the current user has changed.
+ * The chat was added to a community.
  *
- * @property tonAmount The new amount of owned Toncoins; in the smallest units of the cryptocurrency.
+ * @property communityId Identifier of the community to which the chat was added.
  */
-public class UpdateOwnedTonCount public constructor(
-    public val tonAmount: Long,
-) : Update() {
+public class MessageChatAddedToCommunity public constructor(
+    public val communityId: Long,
+) : MessageContent() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true
@@ -40,22 +40,22 @@ public class UpdateOwnedTonCount public constructor(
         if (other::class != this::class) {
             return false
         }
-        other as UpdateOwnedTonCount
-        return other.tonAmount == tonAmount
+        other as MessageChatAddedToCommunity
+        return other.communityId == communityId
     }
 
     override fun hashCode(): Int {
         var hashCode = this::class.hashCode()
-        hashCode = 31 * hashCode + tonAmount.hashCode()
+        hashCode = 31 * hashCode + communityId.hashCode()
         return hashCode
     }
 
     override fun toString(): String {
         return buildString {
-            append("UpdateOwnedTonCount")
+            append("MessageChatAddedToCommunity")
             append("(")
-            append("tonAmount=")
-            append(tonAmount)
+            append("communityId=")
+            append(communityId)
             append(")")
         }
     }

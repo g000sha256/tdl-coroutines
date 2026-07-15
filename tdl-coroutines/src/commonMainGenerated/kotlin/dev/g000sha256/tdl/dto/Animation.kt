@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Georgii Ippolitov (g000sha256)
+ * Copyright 2025-2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,7 +29,7 @@ import kotlin.String
  * @property height Height of the animation.
  * @property fileName Original name of the file; as defined by the sender.
  * @property mimeType MIME type of the file, usually &quot;image/gif&quot; or &quot;video/mp4&quot;.
- * @property hasStickers True, if stickers were added to the animation. The list of corresponding sticker set can be received using getAttachedStickerSets.
+ * @property hasStickers True, if stickers were added to the animation. The list of corresponding sticker sets can be received using getAttachedStickerSets.
  * @property minithumbnail Animation minithumbnail; may be null.
  * @property thumbnail Animation thumbnail in JPEG or MPEG4 format; may be null.
  * @property animation File containing the animation.

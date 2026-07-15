@@ -16,13 +16,8 @@
 
 package dev.g000sha256.tdl.function
 
-import dev.g000sha256.tdl.dto.InputFile
-import kotlin.Int
-import kotlin.String
+import dev.g000sha256.tdl.dto.InputAudio
 
 internal class AddProfileAudio internal constructor(
-    internal val audio: InputFile,
-    internal val duration: Int,
-    internal val title: String,
-    internal val performer: String,
+    internal val audio: InputAudio,
 )

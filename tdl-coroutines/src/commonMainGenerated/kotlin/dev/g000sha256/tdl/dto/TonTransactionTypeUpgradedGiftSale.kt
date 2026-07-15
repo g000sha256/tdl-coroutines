@@ -27,15 +27,15 @@ import kotlin.String
  *
  * @property userId Identifier of the user who bought the gift.
  * @property gift The gift.
- * @property commissionPerMille The number of Toncoins received by the Telegram for each 1000 Toncoins received by the seller of the gift.
- * @property commissionToncoinAmount The Toncoin amount that was received by the Telegram; in the smallest units of the currency.
+ * @property commissionPerMille The number of Grams received by the Telegram for each 1000 Grams received by the seller of the gift.
+ * @property commissionGramAmount The Gram amount that was received by the Telegram; in the smallest units of the currency.
  * @property viaOffer True, if the gift was sold through a purchase offer.
  */
 public class TonTransactionTypeUpgradedGiftSale public constructor(
     public val userId: Long,
     public val gift: UpgradedGift,
     public val commissionPerMille: Int,
-    public val commissionToncoinAmount: Long,
+    public val commissionGramAmount: Long,
     public val viaOffer: Boolean,
 ) : TonTransactionType() {
     override fun equals(other: Any?): Boolean {
@@ -58,7 +58,7 @@ public class TonTransactionTypeUpgradedGiftSale public constructor(
         if (other.commissionPerMille != commissionPerMille) {
             return false
         }
-        if (other.commissionToncoinAmount != commissionToncoinAmount) {
+        if (other.commissionGramAmount != commissionGramAmount) {
             return false
         }
         return other.viaOffer == viaOffer
@@ -69,7 +69,7 @@ public class TonTransactionTypeUpgradedGiftSale public constructor(
         hashCode = 31 * hashCode + userId.hashCode()
         hashCode = 31 * hashCode + gift.hashCode()
         hashCode = 31 * hashCode + commissionPerMille.hashCode()
-        hashCode = 31 * hashCode + commissionToncoinAmount.hashCode()
+        hashCode = 31 * hashCode + commissionGramAmount.hashCode()
         hashCode = 31 * hashCode + viaOffer.hashCode()
         return hashCode
     }
@@ -87,8 +87,8 @@ public class TonTransactionTypeUpgradedGiftSale public constructor(
             append("commissionPerMille=")
             append(commissionPerMille)
             append(", ")
-            append("commissionToncoinAmount=")
-            append(commissionToncoinAmount)
+            append("commissionGramAmount=")
+            append(commissionGramAmount)
             append(", ")
             append("viaOffer=")
             append(viaOffer)

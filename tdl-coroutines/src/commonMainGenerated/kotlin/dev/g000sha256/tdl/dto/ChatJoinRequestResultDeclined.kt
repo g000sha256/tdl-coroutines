@@ -22,7 +22,7 @@ import kotlin.Int
 import kotlin.String
 
 /**
- * The request was decline.
+ * The request was declined.
  */
 public class ChatJoinRequestResultDeclined public constructor() : ChatJoinRequestResult() {
     override fun equals(other: Any?): Boolean {
