@@ -23,9 +23,7 @@ kotlin {
     withSourcesJar(publish = true)
 
     @OptIn(ExperimentalAbiValidation::class)
-    abiValidation {
-        enabled = true
-    }
+    abiValidation()
 
     compilerOptions {
         allWarningsAsErrors = true
@@ -34,7 +32,7 @@ kotlin {
     android {
         buildToolsVersion = "36.0.0"
         compileSdk = 36
-        minSdk = 21
+        minSdk = 23
         namespace = packageName
 
         compilerOptions {

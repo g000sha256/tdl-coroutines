@@ -2,7 +2,6 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
     alias(notation = catalog.plugins.android.application)
-    alias(notation = catalog.plugins.jetBrains.kotlin.android)
 }
 
 android {
@@ -16,7 +15,7 @@ android {
     }
 
     defaultConfig {
-        minSdk = 21
+        minSdk = 23
         targetSdk = 36
         versionCode = 1
         versionName = "1.0"

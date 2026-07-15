@@ -16,7 +16,7 @@ kotlin {
     android {
         buildToolsVersion = "36.0.0"
         compileSdk = 36
-        minSdk = 21
+        minSdk = 23
         namespace = packageName
 
         compilerOptions {
