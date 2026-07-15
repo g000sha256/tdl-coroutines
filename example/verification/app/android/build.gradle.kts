@@ -5,8 +5,8 @@ plugins {
 }
 
 android {
-    buildToolsVersion = "36.0.0"
-    compileSdk = 36
+    buildToolsVersion = "37.0.0"
+    compileSdk = 37
     namespace = "dev.g000sha256.tdl.example.verification.app.android"
 
     compileOptions {
@@ -16,9 +16,13 @@ android {
 
     defaultConfig {
         minSdk = 23
-        targetSdk = 36
+        targetSdk = 37
         versionCode = 1
         versionName = "1.0"
+    }
+
+    lint {
+        checkReleaseBuilds = false
     }
 }
 
