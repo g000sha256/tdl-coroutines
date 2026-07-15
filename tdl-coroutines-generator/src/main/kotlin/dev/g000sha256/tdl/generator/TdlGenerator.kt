@@ -74,6 +74,7 @@ private fun getLicense(year: String): String {
 private const val PACKAGE = "dev.g000sha256.tdl"
 private const val PACKAGE_DTO = "$PACKAGE.dto"
 private const val PACKAGE_FUNCTION = "$PACKAGE.function"
+private const val PACKAGE_SERIALIZATION = "$PACKAGE.serialization"
 private const val PACKAGE_UTIL = "$PACKAGE.util"
 
 private val currentPath = System
@@ -1464,176 +1465,184 @@ private fun writeDeserializer(dtoCommonElements: List<CommonElement>) {
 
 private fun writeSerializer(functionCommonElements: List<CommonElement>, dtoCommonElements: List<CommonElement>) {
     FileSpec
-        .builder(packageName = PACKAGE, fileName = "TdlSerializer")
-        .addType(
-            typeSpec = TypeSpec
-                .classBuilder(name = "TdlSerializer")
-                .addModifier(modifier = KModifier.INTERNAL)
-                .primaryConstructor(
-                    primaryConstructor = FunSpec
-                        .constructorBuilder()
-                        .addModifier(modifier = KModifier.INTERNAL)
-                        .build(),
-                )
-                .addFunction(
-                    funSpec = FunSpec
-                        .builder(name = "serialize")
-                        .addModifier(modifier = KModifier.INTERNAL)
-                        .addParameter(
-                            parameterSpec = ParameterSpec
-                                .builder(name = "function", type = ANY)
-                                .build(),
-                        )
-                        .addParameter(
-                            parameterSpec = ParameterSpec
-                                .builder(name = "requestId", type = LONG)
-                                .build(),
-                        )
-                        .returns(returnType = STRING)
-                        .beginControlFlow(controlFlow = "when(function)")
-                        .apply {
-                            functionCommonElements.map { commonElement ->
-                                addStatement(
-                                    format = "is %T -> return serialize(requestId = requestId, function = function)",
-                                    functionTypeName(simpleName = commonElement.name.capitalized),
-                                )
-                            }
-                            addStatement(format = "else -> error(message = \"Unknown function type: \${function::class}\")")
-                        }
-                        .endControlFlow()
-                        .build(),
-                )
-                .addFunctions(
-                    funSpecs = functionCommonElements.map { commonElement ->
-                        val className = commonElement.name.capitalized
-
-                        val properties = createProperties(
-                            properties = commonElement.properties,
-                            fields = commonElement.description.fields,
-                        )
-
-                        return@map FunSpec
-                            .builder(name = "serialize")
-                            .addModifier(modifier = KModifier.PRIVATE)
-                            .addParameter(
-                                parameterSpec = ParameterSpec
-                                    .builder(name = "requestId", type = LONG)
-                                    .build(),
-                            )
-                            .addParameter(
-                                parameterSpec = ParameterSpec
-                                    .builder(
-                                        name = "function",
-                                        type = functionTypeName(simpleName = className),
-                                    )
-                                    .build(),
-                            )
-                            .returns(returnType = STRING)
-                            .addStatement(format = "REMOVE_LINE")
-                            .beginControlFlow(
-                                controlFlow = "return %T",
-                                utilTypeName(simpleName = "buildJsonObjectString"),
-                            )
-                            .addStatement(
-                                format = "%T(key = \"@type\", string = \"%L\")",
-                                utilTypeName(simpleName = "put"),
-                                commonElement.name,
-                            )
-                            .addStatement(
-                                format = "%T(key = \"@extra\", long = requestId)",
-                                utilTypeName(simpleName = "put"),
-                            )
-                            .addSerializerProperties(properties = properties, objectName = "function")
-                            .endControlFlow()
-                            .build()
-                    },
-                )
-                .addFunctions(
-                    funSpecs = dtoCommonElements
-                        .filter { commonElement ->
-                            return@filter !commonElement.returns.equals(other = commonElement.name, ignoreCase = true)
-                        }
-                        .groupBy(
-                            keySelector = { commonElement -> commonElement.returns },
-                            valueTransform = { commonElement -> commonElement.name },
-                        )
-                        .map { entry ->
-                            return@map FunSpec
-                                .builder(name = "serialize")
-                                .addModifier(modifier = KModifier.PRIVATE)
-                                .addParameter(
-                                    parameterSpec = ParameterSpec
-                                        .builder(
-                                            name = "dto",
-                                            type = dtoTypeName(simpleName = entry.key),
-                                        )
-                                        .build(),
-                                )
-                                .returns(
-                                    returnType = TypeName(
-                                        packageName = "kotlinx.serialization.json",
-                                        simpleName = "JsonElement",
-                                    ),
-                                )
-                                .beginControlFlow(controlFlow = "when(dto)")
-                                .apply {
-                                    entry.value.map { name ->
-                                        addStatement(
-                                            format = "is %T -> return serialize(dto = dto)",
-                                            dtoTypeName(simpleName = name.capitalized),
-                                        )
-                                    }
-                                    if (entry.key == "Update") {
-                                        addStatement(format = "else -> error(message = \"Unknown dto type: \${dto::class}\")")
-                                    }
-                                }
-                                .endControlFlow()
-                                .build()
-                        },
-                )
-                .addFunctions(
-                    funSpecs = dtoCommonElements.map { commonElement ->
-                        val className = commonElement.name.capitalized
-
-                        val properties = createProperties(
-                            properties = commonElement.properties,
-                            fields = commonElement.description.fields,
-                        )
-
-                        return@map FunSpec
-                            .builder(name = "serialize")
-                            .addModifier(modifier = KModifier.PRIVATE)
-                            .addParameter(
-                                parameterSpec = ParameterSpec
-                                    .builder(
-                                        name = "dto",
-                                        type = dtoTypeName(simpleName = className),
-                                    )
-                                    .build(),
-                            )
-                            .returns(
-                                returnType = TypeName(packageName = "kotlinx.serialization.json", simpleName = "JsonElement"),
-                            )
-                            .addStatement(format = "REMOVE_LINE")
-                            .beginControlFlow(
-                                controlFlow = "return %T",
-                                TypeName(packageName = "kotlinx.serialization.json", simpleName = "buildJsonObject"),
-                            )
-                            .addStatement(
-                                format = "%T(key = \"@type\", string = \"%L\")",
-                                utilTypeName(simpleName = "put"),
-                                commonElement.name,
-                            )
-                            .addSerializerProperties(properties = properties, objectName = "dto")
-                            .endControlFlow()
-                            .build()
-                    },
-                )
-                .build(),
+        .builder(packageName = PACKAGE_SERIALIZATION, fileName = "FunctionSerializers")
+        .addFunction(
+            funSpec = buildFunctionDispatcherFunSpec(functionCommonElements = functionCommonElements),
+        )
+        .addFunctions(
+            funSpecs = functionCommonElements.map { commonElement ->
+                buildFunctionSerializerFunSpec(commonElement = commonElement)
+            },
         )
         .setIndent()
         .build()
         .writeAndFixContent(folderName = "commonMainGenerated")
+
+    FileSpec
+        .builder(packageName = PACKAGE_SERIALIZATION, fileName = "TypeSerializers")
+        .addFunctions(
+            funSpecs = dtoCommonElements
+                .filter { commonElement -> !commonElement.returns.equals(other = commonElement.name, ignoreCase = true) }
+                .groupBy(
+                    keySelector = { commonElement -> commonElement.returns },
+                    valueTransform = { commonElement -> commonElement.name },
+                )
+                .entries
+                .map { entry -> buildTypeSerializerFunSpec(entry = entry) },
+        )
+        .setIndent()
+        .build()
+        .writeAndFixContent(folderName = "commonMainGenerated")
+
+    FileSpec
+        .builder(packageName = PACKAGE_SERIALIZATION, fileName = "DtoSerializers")
+        .addFunctions(
+            funSpecs = dtoCommonElements.map { commonElement -> buildDtoSerializerFunSpec(commonElement = commonElement) },
+        )
+        .setIndent()
+        .build()
+        .writeAndFixContent(folderName = "commonMainGenerated")
+}
+
+private fun buildFunctionDispatcherFunSpec(functionCommonElements: List<CommonElement>): FunSpec {
+    return FunSpec
+        .builder(name = "serialize")
+        .addModifier(modifier = KModifier.INTERNAL)
+        .addParameter(
+            parameterSpec = ParameterSpec
+                .builder(name = "function", type = ANY)
+                .build(),
+        )
+        .addParameter(
+            parameterSpec = ParameterSpec
+                .builder(name = "requestId", type = LONG)
+                .build(),
+        )
+        .returns(returnType = STRING)
+        .beginControlFlow(controlFlow = "when(function)")
+        .apply {
+            functionCommonElements.forEach { commonElement ->
+                addStatement(
+                    format = "is %T -> return serialize(requestId = requestId, function = function)",
+                    functionTypeName(simpleName = commonElement.name.capitalized),
+                )
+            }
+            addStatement(format = "else -> error(message = \"Unknown function type: \${function.toString()}\")")
+        }
+        .endControlFlow()
+        .build()
+}
+
+private fun buildFunctionSerializerFunSpec(commonElement: CommonElement): FunSpec {
+    val className = commonElement.name.capitalized
+
+    val properties = createProperties(
+        properties = commonElement.properties,
+        fields = commonElement.description.fields,
+    )
+
+    return FunSpec
+        .builder(name = "serialize")
+        .addModifier(modifier = KModifier.PRIVATE)
+        .addParameter(
+            parameterSpec = ParameterSpec
+                .builder(name = "requestId", type = LONG)
+                .build(),
+        )
+        .addParameter(
+            parameterSpec = ParameterSpec
+                .builder(
+                    name = "function",
+                    type = functionTypeName(simpleName = className),
+                )
+                .build(),
+        )
+        .returns(returnType = STRING)
+        .addStatement(format = "REMOVE_LINE")
+        .beginControlFlow(
+            controlFlow = "return %T",
+            utilTypeName(simpleName = "buildJsonObjectString"),
+        )
+        .addStatement(
+            format = "%T(key = \"@type\", string = \"%L\")",
+            utilTypeName(simpleName = "put"),
+            commonElement.name,
+        )
+        .addStatement(
+            format = "%T(key = \"@extra\", long = requestId)",
+            utilTypeName(simpleName = "put"),
+        )
+        .addSerializerProperties(properties = properties, objectName = "function")
+        .endControlFlow()
+        .build()
+}
+
+private fun buildTypeSerializerFunSpec(entry: Map.Entry<String, List<String>>): FunSpec {
+    return FunSpec
+        .builder(name = "serialize")
+        .addModifier(modifier = KModifier.INTERNAL)
+        .addParameter(
+            parameterSpec = ParameterSpec
+                .builder(
+                    name = "dto",
+                    type = dtoTypeName(simpleName = entry.key),
+                )
+                .build(),
+        )
+        .returns(
+            returnType = TypeName(packageName = "kotlinx.serialization.json", simpleName = "JsonElement"),
+        )
+        .beginControlFlow(controlFlow = "when(dto)")
+        .apply {
+            entry.value.forEach { name ->
+                addStatement(
+                    format = "is %T -> return serialize(dto = dto)",
+                    dtoTypeName(simpleName = name.capitalized),
+                )
+            }
+            if (entry.key == "Update") {
+                addStatement(format = "else -> error(message = \"Unknown dto type: \${dto.toString()}\")")
+            }
+        }
+        .endControlFlow()
+        .build()
+}
+
+private fun buildDtoSerializerFunSpec(commonElement: CommonElement): FunSpec {
+    val className = commonElement.name.capitalized
+
+    val properties = createProperties(
+        properties = commonElement.properties,
+        fields = commonElement.description.fields,
+    )
+
+    return FunSpec
+        .builder(name = "serialize")
+        .addModifier(modifier = KModifier.INTERNAL)
+        .addParameter(
+            parameterSpec = ParameterSpec
+                .builder(
+                    name = "dto",
+                    type = dtoTypeName(simpleName = className),
+                )
+                .build(),
+        )
+        .returns(
+            returnType = TypeName(packageName = "kotlinx.serialization.json", simpleName = "JsonElement"),
+        )
+        .addStatement(format = "REMOVE_LINE")
+        .beginControlFlow(
+            controlFlow = "return %T",
+            TypeName(packageName = "kotlinx.serialization.json", simpleName = "buildJsonObject"),
+        )
+        .addStatement(
+            format = "%T(key = \"@type\", string = \"%L\")",
+            utilTypeName(simpleName = "put"),
+            commonElement.name,
+        )
+        .addSerializerProperties(properties = properties, objectName = "dto")
+        .endControlFlow()
+        .build()
 }
 
 //////  //////  //////
