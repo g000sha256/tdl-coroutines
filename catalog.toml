@@ -1,15 +1,15 @@
 [versions]
-android = "8.13.2"
-androidX-activity = "1.11.0"
-androidX-lifecycle = "2.9.4"
-atomic = "0.32.1"
-buildConfig = "6.0.9"
+android = "9.2.1"
+androidX-activity = "1.13.0"
+androidX-lifecycle = "2.11.0"
+atomic = "0.33.0"
+buildConfig = "6.0.10"
 coroutines = "1.11.0"
 dokka = "2.2.0"
-kotlin = "2.3.21"
+kotlin = "2.4.10"
 kotlinPoet = "2.3.0"
 kotlinSerialization = "1.11.0"
-shadow = "9.4.1"
+shadow = "9.5.1"
 sonatypeMavenCentral = "2.1.1"
 
 [plugins]
@@ -20,7 +20,6 @@ gmazzo-buildConfig = { id = "com.github.gmazzo.buildconfig", version.ref = "buil
 gradle-application = { id = "application" }
 gradleup-shadow = { id = "com.gradleup.shadow", version.ref = "shadow" }
 jetBrains-dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }
-jetBrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 jetBrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 jetBrains-kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 
