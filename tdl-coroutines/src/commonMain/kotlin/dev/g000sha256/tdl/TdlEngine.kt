@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Georgii Ippolitov (g000sha256)
+ * Copyright 2025-2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,6 +17,7 @@
 package dev.g000sha256.tdl
 
 import dev.g000sha256.tdl.dto.Update
+import dev.g000sha256.tdl.serialization.serialize
 import dev.g000sha256.tdl.util.buildJsonObjectString
 import dev.g000sha256.tdl.util.put
 import kotlin.time.Duration.Companion.hours
@@ -41,7 +42,6 @@ internal class TdlEngine(
     private val coroutineScope: CoroutineScope,
     private val native: TdlNative,
     private val deserializer: TdlDeserializer,
-    private val serializer: TdlSerializer,
 ) {
 
     private val requestIdsCounter = atomic(initial = 0L)
@@ -106,7 +106,7 @@ internal class TdlEngine(
         return withContext(context = coroutineDispatcherSender) {
             val requestId = requestIdsCounter.incrementAndGet()
 
-            val json = serializer.serialize(function = function, requestId = requestId)
+            val json = serialize(function = function, requestId = requestId)
 
             return@withContext responsesMutableSharedFlow
                 .onSubscription { native.send(clientId = clientId, request = json) }

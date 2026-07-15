@@ -31,7 +31,6 @@ private val engine by lazy { createEngine() }
 private val native by lazy { TdlNative() }
 
 private val deserializer by lazy { TdlDeserializer() }
-private val serializer by lazy { TdlSerializer() }
 
 private val repository: TdlRepository
     get() = TdlRepository(engine = engine)
@@ -57,6 +56,5 @@ private fun createEngine(): TdlEngine {
         coroutineScope = coroutineScope,
         native = native,
         deserializer = deserializer,
-        serializer = serializer,
     )
 }
