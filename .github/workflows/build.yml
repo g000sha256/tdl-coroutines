@@ -82,7 +82,7 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - platform: Linux Arm64
+          - platform: Linux ARM64
             runner: ubuntu-24.04-arm
             gradle: ./gradlew
 
@@ -90,7 +90,7 @@ jobs:
             runner: ubuntu-24.04
             gradle: ./gradlew
 
-          - platform: macOS Arm64
+          - platform: macOS ARM64
             runner: self-hosted
             gradle: ./gradlew
 
@@ -98,7 +98,7 @@ jobs:
             runner: macos-15-intel
             gradle: ./gradlew
 
-          - platform: Windows Arm64
+          - platform: Windows ARM64
             runner: windows-11-arm
             gradle: ./gradlew.bat
 
@@ -127,7 +127,7 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - arch: Arm64
+          - arch: ARM64
             runner: self-hosted
             task: runReleaseExecutableMacosArm64
 
@@ -145,7 +145,7 @@ jobs:
         uses: ./.github/actions/set-up-java
 
       - name: Verify
-        run: bash .github/scripts/verify-macos.sh "${{ matrix.task }}" "${{ matrix.arch }}"
+        run: bash .github/scripts/verify-macos.sh "${{ matrix.task }}"
 
   verify-windows:
     name: Verify Windows x64

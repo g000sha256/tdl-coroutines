@@ -39,6 +39,7 @@ on:
 
 jobs:
   run-generator:
+    name: Run generator
     runs-on: self-hosted
     permissions:
       contents: write
@@ -76,6 +77,7 @@ jobs:
             - README.md
 
   build-android:
+    name: Build Android
     if: github.event_name == 'push' || inputs.build-android
     needs: run-generator
     runs-on: self-hosted
@@ -144,6 +146,7 @@ jobs:
           add: tdl-coroutines
 
   build-jvm-linux-arm64:
+    name: Build JVM Linux ARM64
     if: github.event_name == 'push' || inputs.build-jvm
     needs: run-generator
     runs-on: ubuntu-24.04-arm
@@ -197,10 +200,11 @@ jobs:
       - name: Commit and push
         uses: ./.github/actions/commit-and-push
         with:
-          message: TDLib for JVM Linux Arm64 [skip ci]
+          message: TDLib for JVM Linux ARM64 [skip ci]
           add: tdl-coroutines
 
   build-jvm-linux-x64:
+    name: Build JVM Linux x64
     if: github.event_name == 'push' || inputs.build-jvm
     needs: run-generator
     runs-on: ubuntu-24.04
@@ -258,6 +262,7 @@ jobs:
           add: tdl-coroutines
 
   build-jvm-macos-arm64:
+    name: Build JVM macOS ARM64
     if: github.event_name == 'push' || inputs.build-jvm
     needs: run-generator
     runs-on: self-hosted
@@ -308,10 +313,11 @@ jobs:
       - name: Commit and push
         uses: ./.github/actions/commit-and-push
         with:
-          message: TDLib for JVM macOS Arm64 [skip ci]
+          message: TDLib for JVM macOS ARM64 [skip ci]
           add: tdl-coroutines
 
   build-jvm-macos-x64:
+    name: Build JVM macOS x64
     if: github.event_name == 'push' || inputs.build-jvm
     needs: run-generator
     runs-on: macos-15-intel
@@ -361,6 +367,7 @@ jobs:
           add: tdl-coroutines
 
   build-jvm-windows-arm64:
+    name: Build JVM Windows ARM64
     if: github.event_name == 'push' || inputs.build-jvm
     needs: run-generator
     runs-on: windows-11-arm
@@ -419,10 +426,11 @@ jobs:
       - name: Commit and push
         uses: ./.github/actions/commit-and-push
         with:
-          message: TDLib for JVM Windows Arm64 [skip ci]
+          message: TDLib for JVM Windows ARM64 [skip ci]
           add: tdl-coroutines
 
   build-jvm-windows-x64:
+    name: Build JVM Windows x64
     if: github.event_name == 'push' || inputs.build-jvm
     needs: run-generator
     runs-on: windows-2025
@@ -485,6 +493,7 @@ jobs:
           add: tdl-coroutines
 
   build-windows-x64:
+    name: Build Windows x64
     if: github.event_name == 'push' || inputs.build-windows
     needs: run-generator
     runs-on: windows-2025
@@ -554,6 +563,7 @@ jobs:
           add: tdl-coroutines
 
   build-ios-arm64:
+    name: Build iOS ARM64
     if: github.event_name == 'push' || inputs.build-ios
     needs: run-generator
     runs-on: self-hosted
@@ -612,10 +622,11 @@ jobs:
       - name: Commit and push
         uses: ./.github/actions/commit-and-push
         with:
-          message: TDLib for iOS Arm64 [skip ci]
+          message: TDLib for iOS ARM64 [skip ci]
           add: tdl-coroutines
 
   build-ios-arm64-simulator:
+    name: Build iOS ARM64 Simulator
     if: github.event_name == 'push' || inputs.build-ios
     needs: run-generator
     runs-on: self-hosted
@@ -674,10 +685,11 @@ jobs:
       - name: Commit and push
         uses: ./.github/actions/commit-and-push
         with:
-          message: TDLib for iOS Arm64 simulator [skip ci]
+          message: TDLib for iOS ARM64 Simulator [skip ci]
           add: tdl-coroutines
 
   build-ios-x64-simulator:
+    name: Build iOS x64 Simulator
     if: github.event_name == 'push' || inputs.build-ios
     needs: run-generator
     runs-on: self-hosted
@@ -736,10 +748,11 @@ jobs:
       - name: Commit and push
         uses: ./.github/actions/commit-and-push
         with:
-          message: TDLib for iOS x64 simulator [skip ci]
+          message: TDLib for iOS x64 Simulator [skip ci]
           add: tdl-coroutines
 
   build-macos-arm64:
+    name: Build macOS ARM64
     if: github.event_name == 'push' || inputs.build-macos
     needs: run-generator
     runs-on: self-hosted
@@ -799,15 +812,16 @@ jobs:
         uses: ./.github/actions/set-up-java
 
       - name: Verify
-        run: bash .github/scripts/verify-macos.sh runReleaseExecutableMacosArm64 arm64
+        run: bash .github/scripts/verify-macos.sh runReleaseExecutableMacosArm64
 
       - name: Commit and push
         uses: ./.github/actions/commit-and-push
         with:
-          message: TDLib for macOS Arm64 [skip ci]
+          message: TDLib for macOS ARM64 [skip ci]
           add: tdl-coroutines
 
   build-macos-x64:
+    name: Build macOS x64
     if: github.event_name == 'push' || inputs.build-macos
     needs: run-generator
     runs-on: macos-15-intel
@@ -862,7 +876,7 @@ jobs:
         uses: ./.github/actions/set-up-java
 
       - name: Verify
-        run: bash .github/scripts/verify-macos.sh runReleaseExecutableMacosX64 x64
+        run: bash .github/scripts/verify-macos.sh runReleaseExecutableMacosX64
 
       - name: Commit and push
         uses: ./.github/actions/commit-and-push
