@@ -1,10 +1,9 @@
 #!/usr/bin/env bash
 
 task="$1"
-arch="$2"
 
 status=0
-log_file="${RUNNER_TEMP}/macos-${arch}-verification.log"
+log_file="${RUNNER_TEMP}/${task}.log"
 
 ./gradlew ":example:verification:app:macos:${task}" > "$log_file" 2>&1 || status="$?"
 
