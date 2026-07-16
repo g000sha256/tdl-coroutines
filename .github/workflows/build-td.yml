@@ -682,6 +682,12 @@ jobs:
           cp td/example/ios/build/install-iOS-simulator/lib/*.a tdl-coroutines/generated/ios/arm64Simulator/libs
           cp td/example/ios/third_party/openssl/iOS-simulator/lib/*.a tdl-coroutines/generated/ios/arm64Simulator/libs
 
+      - name: Set up Java
+        uses: ./.github/actions/set-up-java
+
+      - name: Verify
+        run: ./gradlew :example:verification:app:ios:iosSimulatorArm64Test
+
       - name: Commit and push
         uses: ./.github/actions/commit-and-push
         with:
