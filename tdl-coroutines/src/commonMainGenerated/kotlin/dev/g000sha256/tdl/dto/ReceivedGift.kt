@@ -48,7 +48,7 @@ import kotlin.String
  * @property nextResaleDate Point in time (Unix timestamp) when the gift can be resold to another user; can be in the past; 0 if the gift can't be resold; only for the receiver of the gift.
  * @property exportDate Point in time (Unix timestamp) when the upgraded gift can be transferred to the TON blockchain as an NFT; can be in the past; 0 if NFT export isn't possible; only for the receiver of the gift.
  * @property prepaidUpgradeHash If non-empty, then the user can pay for an upgrade of the gift using buyGiftUpgrade.
- * @property craftDate Point in time (Unix timestamp) when the gift can be used to craft another gift can be in the past; only for the receiver of the gift.
+ * @property craftDate Point in time (Unix timestamp) when the gift can be used to craft another gift; can be in the past; only for the receiver of the gift.
  */
 public class ReceivedGift public constructor(
     public val receivedGiftId: String,

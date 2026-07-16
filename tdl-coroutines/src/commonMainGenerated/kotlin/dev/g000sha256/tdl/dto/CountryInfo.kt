@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Georgii Ippolitov (g000sha256)
+ * Copyright 2025-2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,6 +28,7 @@ import kotlin.String
  * @property countryCode A two-letter ISO 3166-1 alpha-2 country code.
  * @property name Native name of the country.
  * @property englishName English name of the country.
+ * @property flagEmoji An emoji for the flag of the country; may be empty if unknown.
  * @property isHidden True, if the country must be hidden from the list of all countries.
  * @property callingCodes List of country calling codes.
  */
@@ -35,6 +36,7 @@ public class CountryInfo public constructor(
     public val countryCode: String,
     public val name: String,
     public val englishName: String,
+    public val flagEmoji: String,
     public val isHidden: Boolean,
     public val callingCodes: Array<String>,
 ) {
@@ -58,6 +60,9 @@ public class CountryInfo public constructor(
         if (other.englishName != englishName) {
             return false
         }
+        if (other.flagEmoji != flagEmoji) {
+            return false
+        }
         if (other.isHidden != isHidden) {
             return false
         }
@@ -69,6 +74,7 @@ public class CountryInfo public constructor(
         hashCode = 31 * hashCode + countryCode.hashCode()
         hashCode = 31 * hashCode + name.hashCode()
         hashCode = 31 * hashCode + englishName.hashCode()
+        hashCode = 31 * hashCode + flagEmoji.hashCode()
         hashCode = 31 * hashCode + isHidden.hashCode()
         hashCode = 31 * hashCode + callingCodes.contentDeepHashCode()
         return hashCode
@@ -86,6 +92,9 @@ public class CountryInfo public constructor(
             append(", ")
             append("englishName=")
             append(englishName)
+            append(", ")
+            append("flagEmoji=")
+            append(flagEmoji)
             append(", ")
             append("isHidden=")
             append(isHidden)

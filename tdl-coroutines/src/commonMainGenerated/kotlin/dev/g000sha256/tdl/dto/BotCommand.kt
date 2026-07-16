@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Georgii Ippolitov (g000sha256)
+ * Copyright 2025-2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,10 +26,12 @@ import kotlin.String
  *
  * @property command Text of the bot command.
  * @property description Description of the bot command.
+ * @property isEphemeral True, if the command must send an ephemeral message instead of a regular one.
  */
 public class BotCommand public constructor(
     public val command: String,
     public val description: String,
+    public val isEphemeral: Boolean,
 ) {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
@@ -45,13 +47,17 @@ public class BotCommand public constructor(
         if (other.command != command) {
             return false
         }
-        return other.description == description
+        if (other.description != description) {
+            return false
+        }
+        return other.isEphemeral == isEphemeral
     }
 
     override fun hashCode(): Int {
         var hashCode = this::class.hashCode()
         hashCode = 31 * hashCode + command.hashCode()
         hashCode = 31 * hashCode + description.hashCode()
+        hashCode = 31 * hashCode + isEphemeral.hashCode()
         return hashCode
     }
 
@@ -64,6 +70,9 @@ public class BotCommand public constructor(
             append(", ")
             append("description=")
             append(description)
+            append(", ")
+            append("isEphemeral=")
+            append(isEphemeral)
             append(")")
         }
     }

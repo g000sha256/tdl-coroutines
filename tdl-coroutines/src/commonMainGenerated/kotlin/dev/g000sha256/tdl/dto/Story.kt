@@ -45,7 +45,7 @@ import kotlin.String
  * @property canToggleIsPostedToChatPage True, if the story's isPostedToChatPage value can be changed.
  * @property canGetStatistics True, if the story statistics are available through getStoryStatistics.
  * @property canGetInteractions True, if interactions with the story can be received through getStoryInteractions.
- * @property hasExpiredViewers True, if users viewed the story can't be received, because the story has expired more than getOption(&quot;story_viewers_expiration_delay&quot;) seconds ago.
+ * @property hasExpiredViewers True, if users who viewed the story can't be received, because the story has expired more than getOption(&quot;story_viewers_expiration_delay&quot;) seconds ago.
  * @property repostInfo Information about the original story; may be null if the story wasn't reposted.
  * @property interactionInfo Information about interactions with the story; may be null if the story isn't owned or there were no interactions.
  * @property chosenReactionType Type of the chosen reaction; may be null if none.

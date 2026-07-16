@@ -36,7 +36,7 @@ import kotlin.String
  * @property canBeForwarded True, if the message can be forwarded using inputMessageForwarded or forwardMessages without copy options.
  * @property canBePaid True, if the message can be paid using inputInvoiceMessage.
  * @property canBePinned True, if the message can be pinned or unpinned in the chat using pinChatMessage or unpinChatMessage.
- * @property canBeReplied True, if the message can be replied in the same chat and forum topic using inputMessageReplyToMessage.
+ * @property canBeReplied True, if the message can be replied in the same chat and forum topic using inputMessageReplyToMessage. Ephemeral messages can be replied only by other ephemeral messages.
  * @property canBeRepliedInAnotherChat True, if the message can be replied in another chat or forum topic using inputMessageReplyToExternalMessage.
  * @property canBeSaved True, if content of the message can be saved locally.
  * @property canBeSharedInStory True, if the message can be shared in a story using inputStoryAreaTypeMessage.

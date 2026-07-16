@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Georgii Ippolitov (g000sha256)
+ * Copyright 2025-2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,7 +22,7 @@ import kotlin.Int
 import kotlin.String
 
 /**
- * The sender or receiver of the message has paid for upgraid of the gift, which has been completed.
+ * The sender or receiver of the message has paid for upgrade of the gift, which has been completed.
  */
 public class UpgradedGiftOriginPrepaidUpgrade public constructor() : UpgradedGiftOrigin() {
     override fun equals(other: Any?): Boolean {

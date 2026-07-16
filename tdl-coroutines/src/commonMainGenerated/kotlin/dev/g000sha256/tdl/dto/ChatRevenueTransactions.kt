@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Georgii Ippolitov (g000sha256)
+ * Copyright 2025-2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,12 +26,12 @@ import kotlin.String
 /**
  * Contains a list of chat revenue transactions.
  *
- * @property tonAmount The amount of owned Toncoins; in the smallest units of the cryptocurrency.
+ * @property gramAmount The amount of owned TON Grams; in the smallest units of the cryptocurrency.
  * @property transactions List of transactions.
  * @property nextOffset The offset for the next request. If empty, then there are no more results.
  */
 public class ChatRevenueTransactions public constructor(
-    public val tonAmount: Long,
+    public val gramAmount: Long,
     public val transactions: Array<ChatRevenueTransaction>,
     public val nextOffset: String,
 ) {
@@ -46,7 +46,7 @@ public class ChatRevenueTransactions public constructor(
             return false
         }
         other as ChatRevenueTransactions
-        if (other.tonAmount != tonAmount) {
+        if (other.gramAmount != gramAmount) {
             return false
         }
         val transactionsEquals = other.transactions.contentDeepEquals(transactions)
@@ -58,7 +58,7 @@ public class ChatRevenueTransactions public constructor(
 
     override fun hashCode(): Int {
         var hashCode = this::class.hashCode()
-        hashCode = 31 * hashCode + tonAmount.hashCode()
+        hashCode = 31 * hashCode + gramAmount.hashCode()
         hashCode = 31 * hashCode + transactions.contentDeepHashCode()
         hashCode = 31 * hashCode + nextOffset.hashCode()
         return hashCode
@@ -68,8 +68,8 @@ public class ChatRevenueTransactions public constructor(
         return buildString {
             append("ChatRevenueTransactions")
             append("(")
-            append("tonAmount=")
-            append(tonAmount)
+            append("gramAmount=")
+            append(gramAmount)
             append(", ")
             append("transactions=")
             transactions

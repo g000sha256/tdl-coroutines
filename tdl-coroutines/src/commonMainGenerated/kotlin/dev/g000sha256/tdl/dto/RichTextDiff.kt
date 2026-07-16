@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Georgii Ippolitov (g000sha256)
+ * Copyright 2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,13 +22,15 @@ import kotlin.Int
 import kotlin.String
 
 /**
- * The Toncoin revenue earned by the current user has changed. If Toncoin transaction screen of the chat is opened, then getTonTransactions may be called to fetch new transactions.
+ * A rich text replacing another rich text; not supported in inputRichMessage.
  *
- * @property status New Toncoin revenue status.
+ * @property text Text.
+ * @property oldText The old text.
  */
-public class UpdateTonRevenueStatus public constructor(
-    public val status: TonRevenueStatus,
-) : Update() {
+public class RichTextDiff public constructor(
+    public val text: RichText,
+    public val oldText: RichText,
+) : RichText() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true
@@ -39,22 +41,29 @@ public class UpdateTonRevenueStatus public constructor(
         if (other::class != this::class) {
             return false
         }
-        other as UpdateTonRevenueStatus
-        return other.status == status
+        other as RichTextDiff
+        if (other.text != text) {
+            return false
+        }
+        return other.oldText == oldText
     }
 
     override fun hashCode(): Int {
         var hashCode = this::class.hashCode()
-        hashCode = 31 * hashCode + status.hashCode()
+        hashCode = 31 * hashCode + text.hashCode()
+        hashCode = 31 * hashCode + oldText.hashCode()
         return hashCode
     }
 
     override fun toString(): String {
         return buildString {
-            append("UpdateTonRevenueStatus")
+            append("RichTextDiff")
             append("(")
-            append("status=")
-            append(status)
+            append("text=")
+            append(text)
+            append(", ")
+            append("oldText=")
+            append(oldText)
             append(")")
         }
     }

@@ -23,7 +23,7 @@ import kotlin.Long
 import kotlin.String
 
 /**
- * Represents a supergroup or channel with zero or more members (subscribers in the case of channels). From the point of view of the system, a channel is a special kind of a supergroup: only administrators can post and see the list of members, and posts from all administrators use the name and photo of the channel instead of individual names and profile photos. Unlike supergroups, channels can have an unlimited number of subscribers.
+ * Represents a supergroup or channel with zero or more members (subscribers in the case of channels).
  *
  * @property id Supergroup or channel identifier.
  * @property usernames Usernames of the supergroup or channel; may be null.
@@ -39,7 +39,7 @@ import kotlin.String
  * @property joinToSendMessages True, if users need to join the supergroup before they can send messages. May be false only for discussion supergroups and channel direct messages groups.
  * @property joinByRequest True, if all users directly joining the supergroup need to be approved by supergroup administrators.
  * @property isSlowModeEnabled True, if the slow mode is enabled in the supergroup.
- * @property isChannel True, if the supergroup is a channel.
+ * @property isChannel True, if the supergroup is a channel, which can have an unlimited number of subscribers, but only administrators can post there and see the list of subscribers.
  * @property isBroadcastGroup True, if the supergroup is a broadcast group, i.e. only administrators can send messages and there is no limit on the number of members.
  * @property isForum True, if the supergroup is a forum with topics.
  * @property isDirectMessagesGroup True, if the supergroup is a direct message group for a channel chat.

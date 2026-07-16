@@ -26,12 +26,12 @@ import kotlin.String
  * A stake dice message.
  *
  * @property stateHash Hash of the stake dice state. The state hash can be used only if it was received recently enough. Otherwise, a new state must be requested using getStakeDiceState.
- * @property stakeToncoinAmount The Toncoin amount that will be staked; in the smallest units of the currency. Must be in the range getOption(&quot;stake_dice_stake_amount_min&quot;)-getOption(&quot;stake_dice_stake_amount_max&quot;).
+ * @property stakeGramAmount The TON Gram amount that will be staked; in the smallest units of the currency. Must be in the range getOption(&quot;stake_dice_stake_amount_min&quot;)-getOption(&quot;stake_dice_stake_amount_max&quot;).
  * @property clearDraft Pass true to delete message draft in the chat.
  */
 public class InputMessageStakeDice public constructor(
     public val stateHash: String,
-    public val stakeToncoinAmount: Long,
+    public val stakeGramAmount: Long,
     public val clearDraft: Boolean,
 ) : InputMessageContent() {
     override fun equals(other: Any?): Boolean {
@@ -48,7 +48,7 @@ public class InputMessageStakeDice public constructor(
         if (other.stateHash != stateHash) {
             return false
         }
-        if (other.stakeToncoinAmount != stakeToncoinAmount) {
+        if (other.stakeGramAmount != stakeGramAmount) {
             return false
         }
         return other.clearDraft == clearDraft
@@ -57,7 +57,7 @@ public class InputMessageStakeDice public constructor(
     override fun hashCode(): Int {
         var hashCode = this::class.hashCode()
         hashCode = 31 * hashCode + stateHash.hashCode()
-        hashCode = 31 * hashCode + stakeToncoinAmount.hashCode()
+        hashCode = 31 * hashCode + stakeGramAmount.hashCode()
         hashCode = 31 * hashCode + clearDraft.hashCode()
         return hashCode
     }
@@ -69,8 +69,8 @@ public class InputMessageStakeDice public constructor(
             append("stateHash=")
             append(stateHash)
             append(", ")
-            append("stakeToncoinAmount=")
-            append(stakeToncoinAmount)
+            append("stakeGramAmount=")
+            append(stakeGramAmount)
             append(", ")
             append("clearDraft=")
             append(clearDraft)

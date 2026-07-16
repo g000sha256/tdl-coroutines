@@ -17,6 +17,7 @@
 package dev.g000sha256.tdl.dto
 
 import kotlin.Any
+import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
@@ -25,9 +26,11 @@ import kotlin.String
  * An HTML-formatted rich message; for bots only.
  *
  * @property text HTML-formatted text of the message.
+ * @property media Media used in the message.
  */
 public class RichMessageSourceHtml public constructor(
     public val text: String,
+    public val media: Array<InputRichMessageMedia>,
 ) : RichMessageSource() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
@@ -40,12 +43,16 @@ public class RichMessageSourceHtml public constructor(
             return false
         }
         other as RichMessageSourceHtml
-        return other.text == text
+        if (other.text != text) {
+            return false
+        }
+        return other.media.contentDeepEquals(media)
     }
 
     override fun hashCode(): Int {
         var hashCode = this::class.hashCode()
         hashCode = 31 * hashCode + text.hashCode()
+        hashCode = 31 * hashCode + media.contentDeepHashCode()
         return hashCode
     }
 
@@ -55,6 +62,11 @@ public class RichMessageSourceHtml public constructor(
             append("(")
             append("text=")
             append(text)
+            append(", ")
+            append("media=")
+            media
+                .contentDeepToString()
+                .also { append(it) }
             append(")")
         }
     }

@@ -33,7 +33,7 @@ import kotlin.String
  * @property canRestrictMembers True, if the administrator can restrict, ban, or unban chat members or view supergroup statistics.
  * @property canPinMessages True, if the administrator can pin messages; applicable to basic groups and supergroups only.
  * @property canManageTopics True, if the administrator can create, rename, close, reopen, hide, and unhide forum topics; applicable to forum supergroups only.
- * @property canPromoteMembers True, if the administrator can add new administrators with a subset of their own privileges or demote administrators that were directly or indirectly promoted by them.
+ * @property canPromoteMembers True, if the administrator can add new administrators with a subset of their own privileges or demote administrators that were directly or indirectly promoted by them; applicable to supergroups and channels only.
  * @property canManageVideoChats True, if the administrator can manage video chats.
  * @property canPostStories True, if the administrator can create new chat stories, or edit and delete posted stories; applicable to supergroups and channels only.
  * @property canEditStories True, if the administrator can edit stories posted by other users, post stories to the chat page, pin chat stories, and access story archive; applicable to supergroups and channels only.

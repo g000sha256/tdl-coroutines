@@ -32,7 +32,7 @@ import kotlin.String
  * @property isCreator True, if the user is creator of the style.
  * @property installCount Number of users that installed the style; for created custom styles only; 0 if unknown.
  * @property prompt Prompt of the style; for created custom styles only.
- * @property creatorUserId User identifier of the creator of the style; 0 if none of unknown.
+ * @property creatorUserId User identifier of the creator of the style; 0 if none or unknown.
  * @property englishExample Example of the style usage in English; may be null if unknown.
  */
 public class TextCompositionStyle public constructor(

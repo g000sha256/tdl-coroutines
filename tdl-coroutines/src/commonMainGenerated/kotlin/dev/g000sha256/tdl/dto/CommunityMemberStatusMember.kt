@@ -22,9 +22,9 @@ import kotlin.Int
 import kotlin.String
 
 /**
- * The Toncoin balance and transaction section.
+ * The user is a member of the community, without any additional privileges or restrictions.
  */
-public class SettingsSectionMyToncoins public constructor() : SettingsSection() {
+public class CommunityMemberStatusMember public constructor() : CommunityMemberStatus() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true
@@ -40,6 +40,6 @@ public class SettingsSectionMyToncoins public constructor() : SettingsSection() 
     }
 
     override fun toString(): String {
-        return "SettingsSectionMyToncoins()"
+        return "CommunityMemberStatusMember()"
     }
 }

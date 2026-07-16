@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Georgii Ippolitov (g000sha256)
+ * Copyright 2025-2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,7 +29,7 @@ import kotlin.String
  * @property chatId Identifier of the chat that is subscribed.
  * @property expirationDate Point in time (Unix timestamp) when the subscription will expire or expired.
  * @property isCanceled True, if the subscription was canceled.
- * @property isExpiring True, if the subscription expires soon and there are no enough Telegram Stars on the user's balance to extend it.
+ * @property isExpiring True, if the subscription expires soon and there aren't enough Telegram Stars on the user's balance to extend it.
  * @property pricing The subscription plan.
  * @property type Type of the subscription.
  */

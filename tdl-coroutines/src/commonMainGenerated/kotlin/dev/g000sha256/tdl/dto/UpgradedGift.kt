@@ -34,7 +34,7 @@ import kotlin.String
  * @property totalUpgradedCount Total number of gifts that were upgraded from the same gift.
  * @property maxUpgradedCount The maximum number of gifts that can be upgraded from the same gift.
  * @property isBurned True, if the gift was used to craft another gift.
- * @property isCrafted True, if the gift was craft from another gifts.
+ * @property isCrafted True, if the gift was crafted from other gifts.
  * @property isPremium True, if the original gift could have been bought only by Telegram Premium subscribers.
  * @property isThemeAvailable True, if the gift can be used to set a theme in a chat.
  * @property usedThemeChatId Identifier of the chat for which the gift is used to set a theme; 0 if none or the gift isn't owned by the current user.

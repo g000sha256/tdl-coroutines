@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Georgii Ippolitov (g000sha256)
+ * Copyright 2025-2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,13 +26,13 @@ import kotlin.String
  * Describes parameters of a unique gift available for resale.
  *
  * @property starCount Resale price of the gift in Telegram Stars.
- * @property toncoinCentCount Resale price of the gift in 1/100 of Toncoin.
- * @property toncoinOnly True, if the gift can be bought only using Toncoins.
+ * @property gramCentCount Resale price of the gift in 1/100 of TON Gram.
+ * @property gramOnly True, if the gift can be bought only using Grams.
  */
 public class GiftResaleParameters public constructor(
     public val starCount: Long,
-    public val toncoinCentCount: Long,
-    public val toncoinOnly: Boolean,
+    public val gramCentCount: Long,
+    public val gramOnly: Boolean,
 ) {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
@@ -48,17 +48,17 @@ public class GiftResaleParameters public constructor(
         if (other.starCount != starCount) {
             return false
         }
-        if (other.toncoinCentCount != toncoinCentCount) {
+        if (other.gramCentCount != gramCentCount) {
             return false
         }
-        return other.toncoinOnly == toncoinOnly
+        return other.gramOnly == gramOnly
     }
 
     override fun hashCode(): Int {
         var hashCode = this::class.hashCode()
         hashCode = 31 * hashCode + starCount.hashCode()
-        hashCode = 31 * hashCode + toncoinCentCount.hashCode()
-        hashCode = 31 * hashCode + toncoinOnly.hashCode()
+        hashCode = 31 * hashCode + gramCentCount.hashCode()
+        hashCode = 31 * hashCode + gramOnly.hashCode()
         return hashCode
     }
 
@@ -69,11 +69,11 @@ public class GiftResaleParameters public constructor(
             append("starCount=")
             append(starCount)
             append(", ")
-            append("toncoinCentCount=")
-            append(toncoinCentCount)
+            append("gramCentCount=")
+            append(gramCentCount)
             append(", ")
-            append("toncoinOnly=")
-            append(toncoinOnly)
+            append("gramOnly=")
+            append(gramOnly)
             append(")")
         }
     }

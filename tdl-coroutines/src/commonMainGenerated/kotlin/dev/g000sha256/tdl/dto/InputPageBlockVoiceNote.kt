@@ -1,5 +1,5 @@
 /*
- * Copyright 2025-2026 Georgii Ippolitov (g000sha256)
+ * Copyright 2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,17 +19,18 @@ package dev.g000sha256.tdl.dto
 import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
-import kotlin.Long
 import kotlin.String
 
 /**
- * Describes price of a resold gift in Toncoins.
+ * A voice note.
  *
- * @property toncoinCentCount The amount of 1/100 of Toncoin expected to be paid for the gift. Must be in the range getOption(&quot;gift_resale_toncoin_cent_count_min&quot;)-getOption(&quot;gift_resale_toncoin_cent_count_max&quot;).
+ * @property voiceNote The voice note to be sent.
+ * @property caption Voice note caption; pass null if none.
  */
-public class GiftResalePriceTon public constructor(
-    public val toncoinCentCount: Long,
-) : GiftResalePrice() {
+public class InputPageBlockVoiceNote public constructor(
+    public val voiceNote: InputVoiceNote,
+    public val caption: PageBlockCaption?,
+) : InputPageBlock() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true
@@ -40,22 +41,29 @@ public class GiftResalePriceTon public constructor(
         if (other::class != this::class) {
             return false
         }
-        other as GiftResalePriceTon
-        return other.toncoinCentCount == toncoinCentCount
+        other as InputPageBlockVoiceNote
+        if (other.voiceNote != voiceNote) {
+            return false
+        }
+        return other.caption == caption
     }
 
     override fun hashCode(): Int {
         var hashCode = this::class.hashCode()
-        hashCode = 31 * hashCode + toncoinCentCount.hashCode()
+        hashCode = 31 * hashCode + voiceNote.hashCode()
+        hashCode = 31 * hashCode + caption.hashCode()
         return hashCode
     }
 
     override fun toString(): String {
         return buildString {
-            append("GiftResalePriceTon")
+            append("InputPageBlockVoiceNote")
             append("(")
-            append("toncoinCentCount=")
-            append(toncoinCentCount)
+            append("voiceNote=")
+            append(voiceNote)
+            append(", ")
+            append("caption=")
+            append(caption)
             append(")")
         }
     }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Georgii Ippolitov (g000sha256)
+ * Copyright 2025-2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,7 +25,7 @@ import kotlin.String
  * Describes a subscription to a channel chat.
  *
  * @property canReuse True, if the subscription is active and the user can use the method reuseStarSubscription to join the subscribed chat again.
- * @property inviteLink The invite link that can be used to renew the subscription if it has been expired; may be empty, if the link isn't available anymore.
+ * @property inviteLink The invite link that can be used to renew the subscription if it has expired; may be empty if the link isn't available anymore.
  */
 public class StarSubscriptionTypeChannel public constructor(
     public val canReuse: Boolean,

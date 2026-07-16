@@ -189,6 +189,7 @@ import dev.g000sha256.tdl.dto.GiftsForCrafting
 import dev.g000sha256.tdl.dto.GiftsForResale
 import dev.g000sha256.tdl.dto.GiveawayInfo
 import dev.g000sha256.tdl.dto.GiveawayParameters
+import dev.g000sha256.tdl.dto.GramRevenueStatistics
 import dev.g000sha256.tdl.dto.GroupCall
 import dev.g000sha256.tdl.dto.GroupCallDataChannel
 import dev.g000sha256.tdl.dto.GroupCallId
@@ -205,6 +206,7 @@ import dev.g000sha256.tdl.dto.ImportedContacts
 import dev.g000sha256.tdl.dto.InlineMessageId
 import dev.g000sha256.tdl.dto.InlineQueryResults
 import dev.g000sha256.tdl.dto.InlineQueryResultsButton
+import dev.g000sha256.tdl.dto.InputAudio
 import dev.g000sha256.tdl.dto.InputBackground
 import dev.g000sha256.tdl.dto.InputBusinessChatLink
 import dev.g000sha256.tdl.dto.InputBusinessStartPage
@@ -224,7 +226,6 @@ import dev.g000sha256.tdl.dto.InputPassportElement
 import dev.g000sha256.tdl.dto.InputPassportElementError
 import dev.g000sha256.tdl.dto.InputPollOption
 import dev.g000sha256.tdl.dto.InputRichMessage
-import dev.g000sha256.tdl.dto.InputSticker
 import dev.g000sha256.tdl.dto.InputStoryAreas
 import dev.g000sha256.tdl.dto.InputStoryContent
 import dev.g000sha256.tdl.dto.InputTextQuote
@@ -274,6 +275,7 @@ import dev.g000sha256.tdl.dto.NetworkStatistics
 import dev.g000sha256.tdl.dto.NetworkStatisticsEntry
 import dev.g000sha256.tdl.dto.NetworkType
 import dev.g000sha256.tdl.dto.NewChatPrivacySettings
+import dev.g000sha256.tdl.dto.NewSticker
 import dev.g000sha256.tdl.dto.NotificationSettingsScope
 import dev.g000sha256.tdl.dto.NotificationSound
 import dev.g000sha256.tdl.dto.NotificationSounds
@@ -399,7 +401,6 @@ import dev.g000sha256.tdl.dto.TextEntities
 import dev.g000sha256.tdl.dto.TextParseMode
 import dev.g000sha256.tdl.dto.ThemeParameters
 import dev.g000sha256.tdl.dto.TimeZones
-import dev.g000sha256.tdl.dto.TonRevenueStatistics
 import dev.g000sha256.tdl.dto.TonTransactions
 import dev.g000sha256.tdl.dto.TopChatCategory
 import dev.g000sha256.tdl.dto.TransactionDirection
@@ -466,6 +467,7 @@ import dev.g000sha256.tdl.dto.UpdateChatUnreadPollVoteCount
 import dev.g000sha256.tdl.dto.UpdateChatUnreadReactionCount
 import dev.g000sha256.tdl.dto.UpdateChatVideoChat
 import dev.g000sha256.tdl.dto.UpdateChatViewAsTopics
+import dev.g000sha256.tdl.dto.UpdateCommunity
 import dev.g000sha256.tdl.dto.UpdateConnectionState
 import dev.g000sha256.tdl.dto.UpdateContactCloseBirthdays
 import dev.g000sha256.tdl.dto.UpdateDefaultBackground
@@ -487,6 +489,7 @@ import dev.g000sha256.tdl.dto.UpdateForumTopic
 import dev.g000sha256.tdl.dto.UpdateForumTopicInfo
 import dev.g000sha256.tdl.dto.UpdateFreezeState
 import dev.g000sha256.tdl.dto.UpdateGiftAuctionState
+import dev.g000sha256.tdl.dto.UpdateGramRevenueStatus
 import dev.g000sha256.tdl.dto.UpdateGroupCall
 import dev.g000sha256.tdl.dto.UpdateGroupCallMessageLevels
 import dev.g000sha256.tdl.dto.UpdateGroupCallMessageSendFailed
@@ -536,8 +539,8 @@ import dev.g000sha256.tdl.dto.UpdateNewShippingQuery
 import dev.g000sha256.tdl.dto.UpdateNotification
 import dev.g000sha256.tdl.dto.UpdateNotificationGroup
 import dev.g000sha256.tdl.dto.UpdateOption
+import dev.g000sha256.tdl.dto.UpdateOwnedGramCount
 import dev.g000sha256.tdl.dto.UpdateOwnedStarCount
-import dev.g000sha256.tdl.dto.UpdateOwnedTonCount
 import dev.g000sha256.tdl.dto.UpdatePaidMediaPurchased
 import dev.g000sha256.tdl.dto.UpdatePendingMessage
 import dev.g000sha256.tdl.dto.UpdatePoll
@@ -573,7 +576,6 @@ import dev.g000sha256.tdl.dto.UpdateSupergroup
 import dev.g000sha256.tdl.dto.UpdateSupergroupFullInfo
 import dev.g000sha256.tdl.dto.UpdateTermsOfService
 import dev.g000sha256.tdl.dto.UpdateTextCompositionStyles
-import dev.g000sha256.tdl.dto.UpdateTonRevenueStatus
 import dev.g000sha256.tdl.dto.UpdateTopicMessageCount
 import dev.g000sha256.tdl.dto.UpdateTrendingStickerSets
 import dev.g000sha256.tdl.dto.UpdateTrustedMiniAppBots
@@ -584,6 +586,7 @@ import dev.g000sha256.tdl.dto.UpdateUser
 import dev.g000sha256.tdl.dto.UpdateUserFullInfo
 import dev.g000sha256.tdl.dto.UpdateUserPrivacySettingRules
 import dev.g000sha256.tdl.dto.UpdateUserStatus
+import dev.g000sha256.tdl.dto.UpdateUserSubscription
 import dev.g000sha256.tdl.dto.UpdateVideoPublished
 import dev.g000sha256.tdl.dto.UpdateWebAppMessageSent
 import dev.g000sha256.tdl.dto.UpdateWebBrowserSettings
@@ -992,6 +995,11 @@ public abstract class TdlClient internal constructor() {
     public abstract val pendingMessageUpdates: Flow<UpdatePendingMessage>
 
     /**
+     * Some data of a community has changed. This update is guaranteed to come before the community identifier is returned to the application.
+     */
+    public abstract val communityUpdates: Flow<UpdateCommunity>
+
+    /**
      * The user went online or offline.
      */
     public abstract val userStatusUpdates: Flow<UpdateUserStatus>
@@ -1149,7 +1157,7 @@ public abstract class TdlClient internal constructor() {
     public abstract val giftAuctionStateUpdates: Flow<UpdateGiftAuctionState>
 
     /**
-     * The list of auctions in which participate the current user has changed.
+     * The list of auctions in which the current user participates has changed.
      */
     public abstract val activeGiftAuctionsUpdates: Flow<UpdateActiveGiftAuctions>
 
@@ -1294,7 +1302,7 @@ public abstract class TdlClient internal constructor() {
     public abstract val freezeStateUpdates: Flow<UpdateFreezeState>
 
     /**
-     * The parameters for age verification of the current user's account has changed.
+     * The parameters for age verification of the current user's account have changed.
      */
     public abstract val ageVerificationParametersUpdates: Flow<UpdateAgeVerificationParameters>
 
@@ -1354,9 +1362,9 @@ public abstract class TdlClient internal constructor() {
     public abstract val ownedStarCountUpdates: Flow<UpdateOwnedStarCount>
 
     /**
-     * The number of Toncoins owned by the current user has changed.
+     * The number of TON Grams owned by the current user has changed.
      */
-    public abstract val ownedTonCountUpdates: Flow<UpdateOwnedTonCount>
+    public abstract val ownedGramCountUpdates: Flow<UpdateOwnedGramCount>
 
     /**
      * The revenue earned from sponsored messages in a chat has changed. If chat revenue screen is opened, then getChatRevenueTransactions may be called to fetch new transactions.
@@ -1369,12 +1377,12 @@ public abstract class TdlClient internal constructor() {
     public abstract val starRevenueStatusUpdates: Flow<UpdateStarRevenueStatus>
 
     /**
-     * The Toncoin revenue earned by the current user has changed. If Toncoin transaction screen of the chat is opened, then getTonTransactions may be called to fetch new transactions.
+     * The TON Gram revenue earned by the current user has changed. If Gram transaction screen of the chat is opened, then getTonTransactions may be called to fetch new transactions.
      */
-    public abstract val tonRevenueStatusUpdates: Flow<UpdateTonRevenueStatus>
+    public abstract val gramRevenueStatusUpdates: Flow<UpdateGramRevenueStatus>
 
     /**
-     * The parameters of speech recognition without Telegram Premium subscription has changed.
+     * The parameters of speech recognition without Telegram Premium subscription have changed.
      */
     public abstract val speechRecognitionTrialUpdates: Flow<UpdateSpeechRecognitionTrial>
 
@@ -1399,7 +1407,7 @@ public abstract class TdlClient internal constructor() {
     public abstract val animatedEmojiMessageClickedUpdates: Flow<UpdateAnimatedEmojiMessageClicked>
 
     /**
-     * The parameters of animation search through getOption(&quot;animation_search_bot_username&quot;) bot has changed.
+     * The parameters of animation search through getOption(&quot;animation_search_bot_username&quot;) bot have changed.
      */
     public abstract val animationSearchParametersUpdates: Flow<UpdateAnimationSearchParameters>
 
@@ -1414,7 +1422,7 @@ public abstract class TdlClient internal constructor() {
     public abstract val suggestedActionsUpdates: Flow<UpdateSuggestedActions>
 
     /**
-     * Download or upload file speed for the user was limited, but it can be restored by subscription to Telegram Premium. The notification can be postponed until a being downloaded or uploaded file is visible to the user. Use getOption(&quot;premium_download_speedup&quot;) or getOption(&quot;premium_upload_speedup&quot;) to get expected speedup after subscription to Telegram Premium.
+     * Download or upload file speed for the user was limited, but it can be restored by subscription to Telegram Premium. The notification can be postponed until a file being downloaded or uploaded is visible to the user. Use getOption(&quot;premium_download_speedup&quot;) or getOption(&quot;premium_upload_speedup&quot;) to get expected speedup after subscription to Telegram Premium.
      */
     public abstract val speedLimitNotificationUpdates: Flow<UpdateSpeedLimitNotification>
 
@@ -1499,6 +1507,11 @@ public abstract class TdlClient internal constructor() {
     public abstract val newCustomQueryUpdates: Flow<UpdateNewCustomQuery>
 
     /**
+     * Subscription of a user to the bot was changed; for bots only.
+     */
+    public abstract val userSubscriptionUpdates: Flow<UpdateUserSubscription>
+
+    /**
      * A poll was updated; for bots only.
      */
     public abstract val pollUpdates: Flow<UpdatePoll>
@@ -1567,7 +1580,7 @@ public abstract class TdlClient internal constructor() {
     ): TdlResult<HttpUrl>
 
     /**
-     * Accepts Telegram terms of services.
+     * Accepts Telegram terms of service.
      *
      * @param termsOfServiceId Terms of service identifier.
      */
@@ -1805,17 +1818,9 @@ public abstract class TdlClient internal constructor() {
     /**
      * Adds an audio file to the beginning of the profile audio files of the current user.
      *
-     * @param audio The audio file to be added.
-     * @param duration Duration of the audio, in seconds; may be replaced by the server; ignored for already uploaded files.
-     * @param title Title of the audio; 0-64 characters; may be replaced by the server; ignored for already uploaded files.
-     * @param performer Performer of the audio; 0-64 characters, may be replaced by the server; ignored for already uploaded files.
+     * @param audio The audio to add.
      */
-    public abstract suspend fun addProfileAudio(
-        audio: InputFile,
-        duration: Int,
-        title: String,
-        performer: String,
-    ): TdlResult<Ok>
+    public abstract suspend fun addProfileAudio(audio: InputAudio): TdlResult<Ok>
 
     /**
      * Adds a proxy server for network requests. Can be called before authorization.
@@ -1912,7 +1917,7 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun addStickerToSet(
         userId: Long,
         name: String,
-        sticker: InputSticker,
+        sticker: NewSticker,
     ): TdlResult<Ok>
 
     /**
@@ -1929,7 +1934,7 @@ public abstract class TdlClient internal constructor() {
     ): TdlResult<StoryAlbum>
 
     /**
-     * Adds a custom text composition style to the list of used by the user styles. May return an error with a message &quot;TONES_SAVED_TOO_MANY&quot; if the maximum number of added custom styles has been reached.
+     * Adds a custom text composition style to the list of used by the user styles. May return an error with a message &quot;TONES_SAVED_TOO_MANY&quot; if the maximum number of added custom styles getOption(&quot;added_text_composition_style_count_max&quot;) has been reached.
      *
      * @param name Name of the style.
      */
@@ -2564,6 +2569,23 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun commitPendingPaidMessageReactions(chatId: Long, messageId: Long): TdlResult<Ok>
 
     /**
+     * Changes a rich message using an AI model. May return an error with a message &quot;AICOMPOSE_FLOOD_PREMIUM&quot; if Telegram Premium is required to send further requests.
+     *
+     * @param message The original message.
+     * @param translateToLanguageCode Pass a language code to which the text will be translated; pass an empty string if translation isn't needed. See translateText.toLanguageCode for the list of supported values.
+     * @param styleName Name of the style of the resulted text; handle updateTextCompositionStyles to get the list of supported styles; pass an empty string to keep the current style of the text or if a custom prompt is used.
+     * @param customPrompt Custom prompt that will be used instead of styleName; 0-getOption(&quot;text_composition_style_prompt_length_max&quot;) characters.
+     * @param addEmojis Pass true to add emoji to the text.
+     */
+    public abstract suspend fun composeRichMessageWithAi(
+        message: InputRichMessage,
+        translateToLanguageCode: String,
+        styleName: String,
+        customPrompt: String,
+        addEmojis: Boolean,
+    ): TdlResult<RichMessage>
+
+    /**
      * Changes text using an AI model; must not be used in secret chats. May return an error with a message &quot;AICOMPOSE_FLOOD_PREMIUM&quot; if Telegram Premium is required to send further requests.
      *
      * @param text The original text.
@@ -2623,7 +2645,7 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun createBasicGroupChat(basicGroupId: Long, force: Boolean): TdlResult<Chat>
 
     /**
-     * Creates a bot which will be managed by another bot. Returns the created bot. May return an error with a message &quot;BOT_CREATE_LIMIT_EXCEEDED&quot; if the user already owns the maximum allowed number of bots as per premiumLimitTypeOwnedBotCount. An internal link &quot;https://t.me/BotFather?start=deletebot&quot; can be processed to handle the error.
+     * Creates a bot which will be managed by another bot. Returns the created bot. May return an error with a message &quot;BOT_CREATE_LIMIT_EXCEEDED&quot; if the user already owns the maximum allowed number of bots as per getOption(&quot;owned_bot_count_max&quot;). An internal link &quot;https://t.me/BotFather?start=deletebot&quot; can be processed to handle the error.
      *
      * @param managerBotUserId Identifier of the bot that will manage the created bot.
      * @param name Name of the bot; 1-64 characters.
@@ -2787,7 +2809,7 @@ public abstract class TdlClient internal constructor() {
         name: String,
         stickerType: StickerType,
         needsRepainting: Boolean,
-        stickers: Array<InputSticker>,
+        stickers: Array<NewSticker>,
         source: String,
     ): TdlResult<StickerSet>
 
@@ -2819,6 +2841,19 @@ public abstract class TdlClient internal constructor() {
      * @param force Pass true to create the chat without a network request. In this case all information about the chat except its type, title and photo can be incorrect.
      */
     public abstract suspend fun createPrivateChat(userId: Long, force: Boolean): TdlResult<Chat>
+
+    /**
+     * Creates a new rich message using an AI model. May return an error with a message &quot;AICOMPOSE_FLOOD_PREMIUM&quot; if Telegram Premium is required to send further requests.
+     *
+     * @param prompt Prompt that will be used to create the message; 0-getOption(&quot;text_composition_style_prompt_length_max&quot;) characters.
+     * @param languageCode Pass a language code in which the text will be created.
+     * @param addEmojis Pass true to add emoji to the text.
+     */
+    public abstract suspend fun createRichMessageWithAi(
+        prompt: String,
+        languageCode: String,
+        addEmojis: Boolean,
+    ): TdlResult<RichMessage>
 
     /**
      * Returns an existing chat corresponding to a known secret chat.
@@ -3114,6 +3149,19 @@ public abstract class TdlClient internal constructor() {
         topicId: Long,
         minDate: Int,
         maxDate: Int,
+    ): TdlResult<Ok>
+
+    /**
+     * Deletes an ephemeral message; for bots only.
+     *
+     * @param chatId Chat identifier.
+     * @param receiverUserId Identifier of the user who received the message.
+     * @param ephemeralMessageId Identifiers of the message to be deleted.
+     */
+    public abstract suspend fun deleteEphemeralMessage(
+        chatId: Long,
+        receiverUserId: Long,
+        ephemeralMessageId: Int,
     ): TdlResult<Ok>
 
     /**
@@ -3596,6 +3644,23 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun editCustomLanguagePackInfo(info: LanguagePackInfo): TdlResult<Ok>
 
     /**
+     * Edits the text, caption or reply markup of an ephemeral message sent by the bot; for bots only.
+     *
+     * @param chatId The chat the message belongs to.
+     * @param receiverUserId Identifier of the user who received the message.
+     * @param ephemeralMessageId Identifier of the ephemeral message.
+     * @param replyMarkup The new message reply markup; pass null if none.
+     * @param inputMessageContent New content of the message; pass null to edit only reply markup. Must be one of the following types: inputMessageText, inputMessageAnimation, inputMessageAudio, inputMessageDocument, inputMessagePhoto, inputMessageSticker, inputMessageVideo, inputMessageVideoNote, inputMessageVoiceNote.
+     */
+    public abstract suspend fun editEphemeralMessage(
+        chatId: Long,
+        receiverUserId: Long,
+        ephemeralMessageId: Int,
+        replyMarkup: ReplyMarkup? = null,
+        inputMessageContent: InputMessageContent? = null,
+    ): TdlResult<Ok>
+
+    /**
      * Edits title and icon of a topic in a forum supergroup chat or a chat with a bot with topics; for supergroup chats requires canManageTopics administrator right unless the user is creator of the topic.
      *
      * @param chatId Identifier of the chat.
@@ -3662,11 +3727,11 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun editInlineMessageReplyMarkup(inlineMessageId: String, replyMarkup: ReplyMarkup? = null): TdlResult<Ok>
 
     /**
-     * Edits the text of an inline text or game message sent via a bot; for bots only.
+     * Edits the text of an inline text or game message sent via the bot; for bots only.
      *
      * @param inlineMessageId Inline message identifier.
      * @param replyMarkup The new message reply markup; pass null if none.
-     * @param inputMessageContent New text content of the message. Must be of type inputMessageText or inputMessageRichMessage.
+     * @param inputMessageContent New text content of the message. Must be of type inputMessageText or inputMessageRichMessage; file upload isn't supported.
      */
     public abstract suspend fun editInlineMessageText(
         inlineMessageId: String,
@@ -3923,6 +3988,13 @@ public abstract class TdlClient internal constructor() {
      * @param error If passed, the file generation has failed and must be terminated; pass null if the file generation succeeded.
      */
     public abstract suspend fun finishFileGeneration(generationId: Long, error: Error? = null): TdlResult<Ok>
+
+    /**
+     * Fixes a rich message using an AI model. May return an error with a message &quot;AICOMPOSE_FLOOD_PREMIUM&quot; if Telegram Premium is required to send further requests.
+     *
+     * @param message The original message.
+     */
+    public abstract suspend fun fixRichMessageWithAi(message: InputRichMessage): TdlResult<RichMessage>
 
     /**
      * Fixes text using an AI model; must not be used in secret chats. May return an error with a message &quot;AICOMPOSE_FLOOD_PREMIUM&quot; if Telegram Premium is required to send further requests.
@@ -4437,7 +4509,7 @@ public abstract class TdlClient internal constructor() {
      *
      * @param chatId Chat identifier.
      * @param creatorUserId User identifier of a chat administrator. Must be an identifier of the current user for non-owner.
-     * @param isRevoked Pass true if revoked links needs to be returned instead of active or expired.
+     * @param isRevoked Pass true if revoked links need to be returned instead of active or expired.
      * @param offsetDate Creation date of an invite link starting after which to return invite links; use 0 to get results from the beginning.
      * @param offsetInviteLink Invite link starting after which to return invite links; use empty string to get results from the beginning.
      * @param limit The maximum number of invite links to return; up to 100.
@@ -4731,7 +4803,7 @@ public abstract class TdlClient internal constructor() {
     /**
      * Returns affiliate programs that were connected to the given affiliate.
      *
-     * @param affiliate The affiliate to which the affiliate program were connected.
+     * @param affiliate The affiliate to which the affiliate programs were connected.
      * @param offset Offset of the first affiliate program to return as received from the previous request; use empty string to get the first chunk of results.
      * @param limit The maximum number of affiliate programs to return.
      */
@@ -4769,7 +4841,7 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun getCountryCode(): TdlResult<Text>
 
     /**
-     * Returns an emoji for the given country. Returns an empty string on failure. Can be called synchronously.
+     * Returns an emoji for the flag of the given country. Returns an empty string on failure. Can be called synchronously.
      *
      * @param countryCode A two-letter ISO 3166-1 alpha-2 country code as received from getCountries.
      */
@@ -5105,6 +5177,20 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun getGiveawayInfo(chatId: Long, messageId: Long): TdlResult<GiveawayInfo>
 
     /**
+     * Returns detailed TON Gram revenue statistics of the current user.
+     *
+     * @param isDark Pass true if a dark theme is used by the application.
+     */
+    public abstract suspend fun getGramRevenueStatistics(isDark: Boolean): TdlResult<GramRevenueStatistics>
+
+    /**
+     * Returns a URL for TON Gram withdrawal from the current user's account. The user must have at least 10 Grams to withdraw and can withdraw up to 100000 Grams in one transaction.
+     *
+     * @param password The 2-step verification password of the current user.
+     */
+    public abstract suspend fun getGramWithdrawalUrl(password: String): TdlResult<HttpUrl>
+
+    /**
      * Returns greeting stickers from regular sticker sets that can be used for the start page of other users.
      */
     public abstract suspend fun getGreetingStickers(): TdlResult<Stickers>
@@ -5168,6 +5254,14 @@ public abstract class TdlClient internal constructor() {
         offsetChatId: Long,
         limit: Int,
     ): TdlResult<Chats>
+
+    /**
+     * Returns an HTTPS URL of a Web App of a guard bot to open after receiving chatJoinResultGuardBotApprovalRequired.
+     *
+     * @param queryId Unique identifier of the join request as received in chatJoinResultGuardBotApprovalRequired.
+     * @param parameters Parameters to use to open the Web App.
+     */
+    public abstract suspend fun getGuardBotWebAppUrl(queryId: Long, parameters: WebAppOpenParameters): TdlResult<WebAppUrl>
 
     /**
      * Returns the total number of imported contacts.
@@ -6017,7 +6111,7 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun getRecoveryEmailAddress(password: String): TdlResult<RecoveryEmailAddress>
 
     /**
-     * Returns information about a file by its remote identifier. This is an offline method. Can be used to register a URL as a file for further uploading, or sending as a message. Even the request succeeds, the file can be used only if it is still accessible to the user. For example, if the file is from a message, then the message must be not deleted and accessible to the user. If the file database is disabled, then the corresponding object with the file must be preloaded by the application.
+     * Returns information about a file by its remote identifier. This is an offline method. Can be used to register a URL as a file for further uploading, or sending as a message. Even if the request succeeds, the file can be used only if it is still accessible to the user. For example, if the file is from a message, then the message must be not deleted and accessible to the user. If the file database is disabled, then the corresponding object with the file must be preloaded by the application.
      *
      * @param remoteFileId Remote identifier of the file to get.
      * @param fileType File type; pass null if unknown.
@@ -6153,7 +6247,7 @@ public abstract class TdlClient internal constructor() {
     /**
      * Returns the list of Telegram Star subscriptions for the current user.
      *
-     * @param onlyExpiring Pass true to receive only expiring subscriptions for which there are no enough Telegram Stars to extend.
+     * @param onlyExpiring Pass true to receive only expiring subscriptions for which there aren't enough Telegram Stars to extend.
      * @param offset Offset of the first subscription to return as received from the previous request; use empty string to get the first chunk of results.
      */
     public abstract suspend fun getStarSubscriptions(onlyExpiring: Boolean, offset: String): TdlResult<StarSubscriptions>
@@ -6471,14 +6565,7 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun getTimeZones(): TdlResult<TimeZones>
 
     /**
-     * Returns detailed Toncoin revenue statistics of the current user.
-     *
-     * @param isDark Pass true if a dark theme is used by the application.
-     */
-    public abstract suspend fun getTonRevenueStatistics(isDark: Boolean): TdlResult<TonRevenueStatistics>
-
-    /**
-     * Returns the list of Toncoin transactions of the current user.
+     * Returns the list of TON blockchain transactions of the current user.
      *
      * @param direction Direction of the transactions to receive; pass null to get all transactions.
      * @param offset Offset of the first transaction to return as received from the previous request; use empty string to get the first chunk of results.
@@ -6489,13 +6576,6 @@ public abstract class TdlClient internal constructor() {
         offset: String,
         limit: Int,
     ): TdlResult<TonTransactions>
-
-    /**
-     * Returns a URL for Toncoin withdrawal from the current user's account. The user must have at least 10 toncoins to withdraw and can withdraw up to 100000 Toncoins in one transaction.
-     *
-     * @param password The 2-step verification password of the current user.
-     */
-    public abstract suspend fun getTonWithdrawalUrl(password: String): TdlResult<HttpUrl>
 
     /**
      * Returns a list of frequently used chats.
@@ -7729,7 +7809,7 @@ public abstract class TdlClient internal constructor() {
         userId: Long,
         name: String,
         oldSticker: InputFile,
-        newSticker: InputSticker,
+        newSticker: NewSticker,
     ): TdlResult<Ok>
 
     /**
@@ -8589,6 +8669,31 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun sendEmailAddressVerificationCode(emailAddress: String): TdlResult<EmailAddressAuthenticationCodeInfo>
 
     /**
+     * Sends an ephemeral message which will be received only by one bot in a chat. Currently, only ephemeral bot commands and replies to bot ephemeral messages can be sent using the method. The message is persistent across application restarts only if the message database is used. Returns the sent message.
+     *
+     * @param chatId Target chat.
+     * @param topicId Topic in which the message will be sent; pass null if none.
+     * @param receiverUserId Identifier of the user who will receive the message.
+     * @param callbackQueryId Identifier of the callback query which triggered the message; for bots only.
+     * @param replyTo Information about the message to be replied; pass null if none. The message can be an incoming ephemeral message.
+     * @param sendingId Non-persistent identifier, which will be returned back in messageSendingStatePending object and can be used to match sent messages and corresponding updateNewMessage updates.
+     * @param onlyPreview Pass true to get a fake message instead of actually sending them.
+     * @param replyMarkup Markup for replying to the message; pass null if none; for bots only.
+     * @param inputMessageContent The content of the message to be sent. Must be one of the following types: inputMessageText, inputMessageAnimation, inputMessageAudio, inputMessageDocument, inputMessagePhoto, inputMessageSticker, inputMessageVideo, inputMessageVideoNote, inputMessageVoiceNote, inputMessageLocation, inputMessageVenue, inputMessageContact.
+     */
+    public abstract suspend fun sendEphemeralMessage(
+        chatId: Long,
+        topicId: MessageTopic? = null,
+        receiverUserId: Long,
+        callbackQueryId: Long,
+        replyTo: InputMessageReplyTo? = null,
+        sendingId: Int,
+        onlyPreview: Boolean,
+        replyMarkup: ReplyMarkup? = null,
+        inputMessageContent: InputMessageContent,
+    ): TdlResult<Message>
+
+    /**
      * Sends a gift to another user or channel chat. May return an error with a message &quot;STARGIFT_USAGE_LIMITED&quot; if the gift was sold out.
      *
      * @param giftId Identifier of the gift to send.
@@ -8790,7 +8895,7 @@ public abstract class TdlClient internal constructor() {
      * @param chatId Chat identifier.
      * @param forumTopicId The forum topic identifier in which the message will be sent; pass 0 if none.
      * @param draftId Unique identifier of the draft.
-     * @param message Draft of the message.
+     * @param message Draft of the message; file upload isn't supported.
      */
     public abstract suspend fun sendRichMessageDraft(
         chatId: Long,
@@ -9222,7 +9327,7 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun setChatLocation(chatId: Long, location: ChatLocation): TdlResult<Ok>
 
     /**
-     * Changes the status of a chat member; requires canInviteUsers member right to add a chat member, canPromoteMembers administrator right to change administrator rights of the member, and canRestrictMembers administrator right to change restrictions of a user. This function is currently not suitable for transferring chat ownership; use transferChatOwnership instead. Use addChatMember or banChatMember if some additional parameters needs to be passed.
+     * Changes the status of a chat member; requires canInviteUsers member right to add a chat member, canPromoteMembers administrator right to change administrator rights of the member, and canRestrictMembers administrator right to change restrictions of a user. This function is currently not suitable for transferring chat ownership; use transferChatOwnership instead. Use addChatMember or banChatMember if some additional parameters need to be passed.
      *
      * @param chatId Chat identifier.
      * @param memberId Member identifier. Chats can be only banned and unbanned in supergroups and channels.
@@ -9514,7 +9619,7 @@ public abstract class TdlClient internal constructor() {
      * Changes resale price of a unique gift owned by the current user.
      *
      * @param receivedGiftId Identifier of the unique gift.
-     * @param price The new price for the unique gift; pass null to disallow gift resale. The current user will receive getOption(&quot;gift_resale_star_earnings_per_mille&quot;) Telegram Stars for each 1000 Telegram Stars paid for the gift if the gift price is in Telegram Stars or getOption(&quot;gift_resale_ton_earnings_per_mille&quot;) Toncoins for each 1000 Toncoins paid for the gift if the gift price is in Toncoins.
+     * @param price The new price for the unique gift; pass null to disallow gift resale. The current user will receive getOption(&quot;gift_resale_star_earnings_per_mille&quot;) Telegram Stars for each 1000 Telegram Stars paid for the gift if the gift price is in Telegram Stars or getOption(&quot;gift_resale_ton_earnings_per_mille&quot;) TON Grams for each 1000 Grams paid for the gift if the gift price is in Grams.
      */
     public abstract suspend fun setGiftResalePrice(receivedGiftId: String, price: GiftResalePrice? = null): TdlResult<Ok>
 
@@ -9744,7 +9849,7 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun setPassportElement(element: InputPassportElement, password: String): TdlResult<PassportElement>
 
     /**
-     * Informs the user who some of the elements in their Telegram Passport contain errors; for bots only. The user will not be able to resend the elements, until the errors are fixed.
+     * Informs the user that some of the elements in their Telegram Passport contain errors; for bots only. The user will not be able to resend the elements, until the errors are fixed.
      *
      * @param userId User identifier.
      * @param errors The errors.
@@ -10837,6 +10942,21 @@ public abstract class TdlClient internal constructor() {
     ): TdlResult<Ok>
 
     /**
+     * Extracts rich message of the given message and translates it to the given language.
+     *
+     * @param chatId Identifier of the chat to which the message belongs.
+     * @param messageId Identifier of the message.
+     * @param toLanguageCode Language code of the language to which the message is translated. See translateText.toLanguageCode for the list of supported values.
+     * @param tone Tone of the translation; see translateText.tone for the list of supported values.
+     */
+    public abstract suspend fun translateMessageRichMessage(
+        chatId: Long,
+        messageId: Long,
+        toLanguageCode: String,
+        tone: String,
+    ): TdlResult<RichMessage>
+
+    /**
      * Extracts text or caption of the given message and translates it to the given language; must not be used in secret chats. If the current user is a Telegram Premium user, then text formatting is preserved.
      *
      * @param chatId Identifier of the chat to which the message belongs.
@@ -10850,6 +10970,19 @@ public abstract class TdlClient internal constructor() {
         toLanguageCode: String,
         tone: String,
     ): TdlResult<FormattedText>
+
+    /**
+     * Translates a rich message to the given language.
+     *
+     * @param message Rich message to translate.
+     * @param toLanguageCode Language code of the language to which the message is translated. See translateText.toLanguageCode for the list of supported values.
+     * @param tone Tone of the translation; see translateText.tone for the list of supported values.
+     */
+    public abstract suspend fun translateRichMessage(
+        message: InputRichMessage,
+        toLanguageCode: String,
+        tone: String,
+    ): TdlResult<RichMessage>
 
     /**
      * Translates a text to the given language; must not be used in secret chats. If the current user is a Telegram Premium user, then text formatting is preserved.
@@ -10908,7 +11041,7 @@ public abstract class TdlClient internal constructor() {
      * @param businessConnectionId Unique identifier of business connection on behalf of which to send the request; for bots only.
      * @param receivedGiftId Identifier of the gift.
      * @param keepOriginalDetails Pass true to keep the original gift text, sender and receiver in the upgraded gift.
-     * @param starCount The Telegram Star amount required to pay for the upgrade. It the gift has prepaidUpgradeStarCount &gt; 0, then pass 0, otherwise, pass gift.upgradeStarCount.
+     * @param starCount The Telegram Star amount required to pay for the upgrade. If the gift has prepaidUpgradeStarCount &gt; 0, then pass 0, otherwise, pass gift.upgradeStarCount.
      */
     public abstract suspend fun upgradeGift(
         businessConnectionId: String,
@@ -10922,7 +11055,7 @@ public abstract class TdlClient internal constructor() {
      *
      * @param userId Sticker file owner; ignored for regular users.
      * @param stickerFormat Sticker format.
-     * @param sticker File file to upload; must fit in a 512x512 square. For WEBP stickers the file must be in WEBP or PNG format, which will be converted to WEBP server-side. See https://core.telegram.org/animated_stickers#technical-requirements for technical requirements.
+     * @param sticker File to upload; must fit in a 512x512 square. For WEBP stickers the file must be in WEBP or PNG format, which will be converted to WEBP server-side. See https://core.telegram.org/animated_stickers#technical-requirements for technical requirements.
      */
     public abstract suspend fun uploadStickerFile(
         userId: Long,
@@ -11003,12 +11136,12 @@ public abstract class TdlClient internal constructor() {
         /**
          * The Git commit hash of the TDLib.
          */
-        public const val TDL_GIT_COMMIT_HASH: String = "a8f21f5230172634becc1739050ef23ecd6ea291"
+        public const val TDL_GIT_COMMIT_HASH: String = "a9966eb3704a3351568c28013fed67d797c17828"
 
         /**
          * The version of the TDLib.
          */
-        public const val TDL_VERSION: String = "1.8.65"
+        public const val TDL_VERSION: String = "1.8.66"
 
         /**
          * Creates a new instance of the [TdlClient].

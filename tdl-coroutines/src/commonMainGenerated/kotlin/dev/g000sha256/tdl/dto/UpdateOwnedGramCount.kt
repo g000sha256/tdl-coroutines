@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Georgii Ippolitov (g000sha256)
+ * Copyright 2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,13 +23,13 @@ import kotlin.Long
 import kotlin.String
 
 /**
- * Describes price of a suggested post in Toncoins.
+ * The number of TON Grams owned by the current user has changed.
  *
- * @property toncoinCentCount The amount of 1/100 of Toncoin expected to be paid for the post; getOption(&quot;suggested_post_toncoin_cent_count_min&quot;)-getOption(&quot;suggested_post_toncoin_cent_count_max&quot;).
+ * @property gramAmount The new amount of owned Grams; in the smallest units of the cryptocurrency.
  */
-public class SuggestedPostPriceTon public constructor(
-    public val toncoinCentCount: Long,
-) : SuggestedPostPrice() {
+public class UpdateOwnedGramCount public constructor(
+    public val gramAmount: Long,
+) : Update() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true
@@ -40,22 +40,22 @@ public class SuggestedPostPriceTon public constructor(
         if (other::class != this::class) {
             return false
         }
-        other as SuggestedPostPriceTon
-        return other.toncoinCentCount == toncoinCentCount
+        other as UpdateOwnedGramCount
+        return other.gramAmount == gramAmount
     }
 
     override fun hashCode(): Int {
         var hashCode = this::class.hashCode()
-        hashCode = 31 * hashCode + toncoinCentCount.hashCode()
+        hashCode = 31 * hashCode + gramAmount.hashCode()
         return hashCode
     }
 
     override fun toString(): String {
         return buildString {
-            append("SuggestedPostPriceTon")
+            append("UpdateOwnedGramCount")
             append("(")
-            append("toncoinCentCount=")
-            append(toncoinCentCount)
+            append("gramAmount=")
+            append(gramAmount)
             append(")")
         }
     }

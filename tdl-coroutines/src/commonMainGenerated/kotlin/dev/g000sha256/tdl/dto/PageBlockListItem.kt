@@ -30,7 +30,7 @@ import kotlin.String
  * @property hasCheckbox True, if the item has a checkbox.
  * @property isChecked True, if the item is checked.
  * @property value Value of the item; 0 for unordered lists.
- * @property type Type of the item numbering type; must be one of &quot;a&quot; for a lowercase letters, &quot;A&quot; for an uppercase letters, &quot;i&quot; for lowercase Roman numerals, &quot;I&quot; for uppercase Roman numerals, &quot;1&quot; for decimal numbers, or empty for unordered lists.
+ * @property type Type of the item numbering type; must be one of &quot;a&quot; for lowercase letters, &quot;A&quot; for uppercase letters, &quot;i&quot; for lowercase Roman numerals, &quot;I&quot; for uppercase Roman numerals, &quot;1&quot; for decimal numbers, or empty for unordered lists.
  */
 public class PageBlockListItem public constructor(
     public val label: String,

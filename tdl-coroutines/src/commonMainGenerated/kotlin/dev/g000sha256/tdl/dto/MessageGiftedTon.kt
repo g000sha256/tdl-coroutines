@@ -23,18 +23,18 @@ import kotlin.Long
 import kotlin.String
 
 /**
- * Toncoins were gifted to a user.
+ * TON Grams were gifted to a user.
  *
- * @property gifterUserId The identifier of a user who gifted Toncoins; 0 if the gift was anonymous or is outgoing.
- * @property receiverUserId The identifier of a user who received Toncoins; 0 if the gift is incoming.
- * @property tonAmount The received Toncoin amount, in the smallest units of the cryptocurrency.
- * @property transactionId Identifier of the transaction for Toncoin credit; for receiver only.
+ * @property gifterUserId The identifier of a user who gifted Grams; 0 if the gift was anonymous or is outgoing.
+ * @property receiverUserId The identifier of a user who received Grams; 0 if the gift is incoming.
+ * @property gramAmount The received Gram amount, in the smallest units of the cryptocurrency.
+ * @property transactionId Identifier of the transaction for Gram credit; for receiver only.
  * @property sticker A sticker to be shown in the message; may be null if unknown.
  */
 public class MessageGiftedTon public constructor(
     public val gifterUserId: Long,
     public val receiverUserId: Long,
-    public val tonAmount: Long,
+    public val gramAmount: Long,
     public val transactionId: String,
     public val sticker: Sticker?,
 ) : MessageContent() {
@@ -55,7 +55,7 @@ public class MessageGiftedTon public constructor(
         if (other.receiverUserId != receiverUserId) {
             return false
         }
-        if (other.tonAmount != tonAmount) {
+        if (other.gramAmount != gramAmount) {
             return false
         }
         if (other.transactionId != transactionId) {
@@ -68,7 +68,7 @@ public class MessageGiftedTon public constructor(
         var hashCode = this::class.hashCode()
         hashCode = 31 * hashCode + gifterUserId.hashCode()
         hashCode = 31 * hashCode + receiverUserId.hashCode()
-        hashCode = 31 * hashCode + tonAmount.hashCode()
+        hashCode = 31 * hashCode + gramAmount.hashCode()
         hashCode = 31 * hashCode + transactionId.hashCode()
         hashCode = 31 * hashCode + sticker.hashCode()
         return hashCode
@@ -84,8 +84,8 @@ public class MessageGiftedTon public constructor(
             append("receiverUserId=")
             append(receiverUserId)
             append(", ")
-            append("tonAmount=")
-            append(tonAmount)
+            append("gramAmount=")
+            append(gramAmount)
             append(", ")
             append("transactionId=")
             append(transactionId)

@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Georgii Ippolitov (g000sha256)
+ * Copyright 2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,15 +23,15 @@ import kotlin.Int
 import kotlin.String
 
 /**
- * A detailed statistics about Toncoins earned by the current user.
+ * A detailed statistics about TON Grams earned by the current user.
  *
  * @property revenueByDayGraph A graph containing amount of revenue in a given day.
  * @property status Amount of earned revenue.
- * @property usdRate Current conversion rate of nanotoncoin to USD cents.
+ * @property usdRate Current conversion rate of nanogram to USD cents.
  */
-public class TonRevenueStatistics public constructor(
+public class GramRevenueStatistics public constructor(
     public val revenueByDayGraph: StatisticalGraph,
-    public val status: TonRevenueStatus,
+    public val status: GramRevenueStatus,
     public val usdRate: Double,
 ) {
     override fun equals(other: Any?): Boolean {
@@ -44,7 +44,7 @@ public class TonRevenueStatistics public constructor(
         if (other::class != this::class) {
             return false
         }
-        other as TonRevenueStatistics
+        other as GramRevenueStatistics
         if (other.revenueByDayGraph != revenueByDayGraph) {
             return false
         }
@@ -64,7 +64,7 @@ public class TonRevenueStatistics public constructor(
 
     override fun toString(): String {
         return buildString {
-            append("TonRevenueStatistics")
+            append("GramRevenueStatistics")
             append("(")
             append("revenueByDayGraph=")
             append(revenueByDayGraph)

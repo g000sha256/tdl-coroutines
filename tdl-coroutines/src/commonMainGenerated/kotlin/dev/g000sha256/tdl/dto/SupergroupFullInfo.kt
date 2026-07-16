@@ -28,6 +28,7 @@ import kotlin.String
  * Contains full information about a supergroup or channel.
  *
  * @property photo Chat photo; may be null if empty or unknown. If non-null, then it is the same photo as in chat.photo.
+ * @property communityId Identifier of the community to which the corresponding chat was added.
  * @property description Supergroup or channel description.
  * @property memberCount Number of members in the supergroup or channel; 0 if unknown.
  * @property administratorCount Number of privileged users in the supergroup or channel; 0 if unknown.
@@ -71,6 +72,7 @@ import kotlin.String
  */
 public class SupergroupFullInfo public constructor(
     public val photo: ChatPhoto?,
+    public val communityId: Long,
     public val description: String,
     public val memberCount: Int,
     public val administratorCount: Int,
@@ -124,6 +126,9 @@ public class SupergroupFullInfo public constructor(
         }
         other as SupergroupFullInfo
         if (other.photo != photo) {
+            return false
+        }
+        if (other.communityId != communityId) {
             return false
         }
         if (other.description != description) {
@@ -250,6 +255,7 @@ public class SupergroupFullInfo public constructor(
     override fun hashCode(): Int {
         var hashCode = this::class.hashCode()
         hashCode = 31 * hashCode + photo.hashCode()
+        hashCode = 31 * hashCode + communityId.hashCode()
         hashCode = 31 * hashCode + description.hashCode()
         hashCode = 31 * hashCode + memberCount.hashCode()
         hashCode = 31 * hashCode + administratorCount.hashCode()
@@ -299,6 +305,9 @@ public class SupergroupFullInfo public constructor(
             append("(")
             append("photo=")
             append(photo)
+            append(", ")
+            append("communityId=")
+            append(communityId)
             append(", ")
             append("description=")
             append(description)

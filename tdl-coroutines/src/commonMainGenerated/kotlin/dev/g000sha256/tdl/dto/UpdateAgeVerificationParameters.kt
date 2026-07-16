@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Georgii Ippolitov (g000sha256)
+ * Copyright 2025-2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,7 +22,7 @@ import kotlin.Int
 import kotlin.String
 
 /**
- * The parameters for age verification of the current user's account has changed.
+ * The parameters for age verification of the current user's account have changed.
  *
  * @property parameters Parameters for the age verification; may be null if age verification isn't needed.
  */

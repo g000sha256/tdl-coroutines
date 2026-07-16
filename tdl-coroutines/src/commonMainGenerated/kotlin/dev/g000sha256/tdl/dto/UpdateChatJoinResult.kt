@@ -25,7 +25,7 @@ import kotlin.String
 /**
  * A join request from the user was completed.
  *
- * @property queryId Identifier of the join request query as received in chatJoinResultGuardBotApprovalRequired. If the corresponding Web App is stiil open, then it must be closed.
+ * @property queryId Identifier of the join request query as received in chatJoinResultGuardBotApprovalRequired. If the corresponding Web App is still open, then it must be closed.
  * @property chatId Identifier of the joined chat, or 0 if the request wasn't approved.
  * @property result Result of the join.
  */
