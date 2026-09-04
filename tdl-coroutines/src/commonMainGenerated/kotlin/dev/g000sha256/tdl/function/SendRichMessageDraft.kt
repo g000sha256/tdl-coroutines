@@ -17,6 +17,7 @@
 package dev.g000sha256.tdl.function
 
 import dev.g000sha256.tdl.dto.InputRichMessage
+import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 
@@ -24,5 +25,7 @@ internal class SendRichMessageDraft internal constructor(
     internal val chatId: Long,
     internal val forumTopicId: Int,
     internal val draftId: Long,
+    internal val canStop: Boolean,
+    internal val keepOnStop: Boolean,
     internal val message: InputRichMessage,
 )

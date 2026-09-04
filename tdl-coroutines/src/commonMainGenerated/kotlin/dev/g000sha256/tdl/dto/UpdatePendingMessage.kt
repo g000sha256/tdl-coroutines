@@ -23,17 +23,21 @@ import kotlin.Long
 import kotlin.String
 
 /**
- * A new pending text or rich message was received in a chat with a bot. The message must be shown in the chat for at most getOption(&quot;pending_text_message_period&quot;) seconds, replace any other pending message with the same draftId, and be deleted whenever any incoming message from the bot in the message thread is received.
+ * A new pending text or rich message was received in a chat with a bot. The message must be shown in the chat for at most getOption(&quot;pending_text_message_period&quot;) seconds, replace any other pending message with the same draftId with animation, and be deleted whenever any incoming message or a pending message with another draftId is received in the message thread.
  *
  * @property chatId Chat identifier.
  * @property forumTopicId The forum topic identifier in which the message will be sent; 0 if none.
  * @property draftId Unique identifier of the message draft within the message thread.
+ * @property canStop True, if a button that calls stopPendingMessage to stop further message generation must be shown.
+ * @property keepOnStop True, if the pending message must not be automatically deleted when the user presses the Stop button.
  * @property content Content of the message; always of the type messageText or messageRichMessage.
  */
 public class UpdatePendingMessage public constructor(
     public val chatId: Long,
     public val forumTopicId: Int,
     public val draftId: Long,
+    public val canStop: Boolean,
+    public val keepOnStop: Boolean,
     public val content: MessageContent,
 ) : Update() {
     override fun equals(other: Any?): Boolean {
@@ -56,6 +60,12 @@ public class UpdatePendingMessage public constructor(
         if (other.draftId != draftId) {
             return false
         }
+        if (other.canStop != canStop) {
+            return false
+        }
+        if (other.keepOnStop != keepOnStop) {
+            return false
+        }
         return other.content == content
     }
 
@@ -64,6 +74,8 @@ public class UpdatePendingMessage public constructor(
         hashCode = 31 * hashCode + chatId.hashCode()
         hashCode = 31 * hashCode + forumTopicId.hashCode()
         hashCode = 31 * hashCode + draftId.hashCode()
+        hashCode = 31 * hashCode + canStop.hashCode()
+        hashCode = 31 * hashCode + keepOnStop.hashCode()
         hashCode = 31 * hashCode + content.hashCode()
         return hashCode
     }
@@ -80,6 +92,12 @@ public class UpdatePendingMessage public constructor(
             append(", ")
             append("draftId=")
             append(draftId)
+            append(", ")
+            append("canStop=")
+            append(canStop)
+            append(", ")
+            append("keepOnStop=")
+            append(keepOnStop)
             append(", ")
             append("content=")
             append(content)

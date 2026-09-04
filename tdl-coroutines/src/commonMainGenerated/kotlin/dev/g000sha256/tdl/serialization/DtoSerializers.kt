@@ -168,6 +168,7 @@ import dev.g000sha256.tdl.dto.BusinessRecipients
 import dev.g000sha256.tdl.dto.BusinessStartPage
 import dev.g000sha256.tdl.dto.ButtonStyleDanger
 import dev.g000sha256.tdl.dto.ButtonStyleDefault
+import dev.g000sha256.tdl.dto.ButtonStyleLink
 import dev.g000sha256.tdl.dto.ButtonStylePrimary
 import dev.g000sha256.tdl.dto.ButtonStyleSuccess
 import dev.g000sha256.tdl.dto.Call
@@ -414,6 +415,9 @@ import dev.g000sha256.tdl.dto.CollectibleItemTypePhoneNumber
 import dev.g000sha256.tdl.dto.CollectibleItemTypeUsername
 import dev.g000sha256.tdl.dto.Community
 import dev.g000sha256.tdl.dto.CommunityAdministratorRights
+import dev.g000sha256.tdl.dto.CommunityChat
+import dev.g000sha256.tdl.dto.CommunityFullInfo
+import dev.g000sha256.tdl.dto.CommunityId
 import dev.g000sha256.tdl.dto.CommunityMemberStatusAdministrator
 import dev.g000sha256.tdl.dto.CommunityMemberStatusBanned
 import dev.g000sha256.tdl.dto.CommunityMemberStatusCreator
@@ -474,6 +478,7 @@ import dev.g000sha256.tdl.dto.DirectMessagesChatTopic
 import dev.g000sha256.tdl.dto.Document
 import dev.g000sha256.tdl.dto.DownloadedFileCounts
 import dev.g000sha256.tdl.dto.DraftMessage
+import dev.g000sha256.tdl.dto.DraftMessageContentInputRichMessage
 import dev.g000sha256.tdl.dto.DraftMessageContentRichMessage
 import dev.g000sha256.tdl.dto.DraftMessageContentText
 import dev.g000sha256.tdl.dto.DraftMessageContentVideoNote
@@ -504,6 +509,7 @@ import dev.g000sha256.tdl.dto.EmojiStatuses
 import dev.g000sha256.tdl.dto.Emojis
 import dev.g000sha256.tdl.dto.EncryptedCredentials
 import dev.g000sha256.tdl.dto.EncryptedPassportElement
+import dev.g000sha256.tdl.dto.EphemeralMessageContent
 import dev.g000sha256.tdl.dto.Error
 import dev.g000sha256.tdl.dto.FactCheck
 import dev.g000sha256.tdl.dto.FailedToAddMember
@@ -626,12 +632,14 @@ import dev.g000sha256.tdl.dto.HttpUrl
 import dev.g000sha256.tdl.dto.IdentityDocument
 import dev.g000sha256.tdl.dto.ImportedContact
 import dev.g000sha256.tdl.dto.ImportedContacts
+import dev.g000sha256.tdl.dto.InlineButton
 import dev.g000sha256.tdl.dto.InlineKeyboardButton
 import dev.g000sha256.tdl.dto.InlineKeyboardButtonTypeBuy
 import dev.g000sha256.tdl.dto.InlineKeyboardButtonTypeCallback
 import dev.g000sha256.tdl.dto.InlineKeyboardButtonTypeCallbackGame
 import dev.g000sha256.tdl.dto.InlineKeyboardButtonTypeCallbackWithPassword
 import dev.g000sha256.tdl.dto.InlineKeyboardButtonTypeCopyText
+import dev.g000sha256.tdl.dto.InlineKeyboardButtonTypeDisabled
 import dev.g000sha256.tdl.dto.InlineKeyboardButtonTypeLoginUrl
 import dev.g000sha256.tdl.dto.InlineKeyboardButtonTypeSwitchInline
 import dev.g000sha256.tdl.dto.InlineKeyboardButtonTypeUrl
@@ -729,9 +737,12 @@ import dev.g000sha256.tdl.dto.InputPageBlockAnchor
 import dev.g000sha256.tdl.dto.InputPageBlockAnimation
 import dev.g000sha256.tdl.dto.InputPageBlockAudio
 import dev.g000sha256.tdl.dto.InputPageBlockBlockQuote
+import dev.g000sha256.tdl.dto.InputPageBlockButtonRow
 import dev.g000sha256.tdl.dto.InputPageBlockCollage
 import dev.g000sha256.tdl.dto.InputPageBlockDetails
 import dev.g000sha256.tdl.dto.InputPageBlockDivider
+import dev.g000sha256.tdl.dto.InputPageBlockDocument
+import dev.g000sha256.tdl.dto.InputPageBlockExpandableBlockQuote
 import dev.g000sha256.tdl.dto.InputPageBlockFooter
 import dev.g000sha256.tdl.dto.InputPageBlockList
 import dev.g000sha256.tdl.dto.InputPageBlockListItem
@@ -982,6 +993,7 @@ import dev.g000sha256.tdl.dto.MessageChatHasProtectedContentDisableRequested
 import dev.g000sha256.tdl.dto.MessageChatHasProtectedContentToggled
 import dev.g000sha256.tdl.dto.MessageChatJoinByLink
 import dev.g000sha256.tdl.dto.MessageChatJoinByRequest
+import dev.g000sha256.tdl.dto.MessageChatJoinFromCommunity
 import dev.g000sha256.tdl.dto.MessageChatOwnerChanged
 import dev.g000sha256.tdl.dto.MessageChatOwnerLeft
 import dev.g000sha256.tdl.dto.MessageChatRemovedFromCommunity
@@ -1019,9 +1031,9 @@ import dev.g000sha256.tdl.dto.MessageForwardInfo
 import dev.g000sha256.tdl.dto.MessageGame
 import dev.g000sha256.tdl.dto.MessageGameScore
 import dev.g000sha256.tdl.dto.MessageGift
+import dev.g000sha256.tdl.dto.MessageGiftedGrams
 import dev.g000sha256.tdl.dto.MessageGiftedPremium
 import dev.g000sha256.tdl.dto.MessageGiftedStars
-import dev.g000sha256.tdl.dto.MessageGiftedTon
 import dev.g000sha256.tdl.dto.MessageGiveaway
 import dev.g000sha256.tdl.dto.MessageGiveawayCompleted
 import dev.g000sha256.tdl.dto.MessageGiveawayCreated
@@ -1168,14 +1180,17 @@ import dev.g000sha256.tdl.dto.PageBlockAnimation
 import dev.g000sha256.tdl.dto.PageBlockAudio
 import dev.g000sha256.tdl.dto.PageBlockAuthorDate
 import dev.g000sha256.tdl.dto.PageBlockBlockQuote
+import dev.g000sha256.tdl.dto.PageBlockButtonRow
 import dev.g000sha256.tdl.dto.PageBlockCaption
 import dev.g000sha256.tdl.dto.PageBlockChatLink
 import dev.g000sha256.tdl.dto.PageBlockCollage
 import dev.g000sha256.tdl.dto.PageBlockCover
 import dev.g000sha256.tdl.dto.PageBlockDetails
 import dev.g000sha256.tdl.dto.PageBlockDivider
+import dev.g000sha256.tdl.dto.PageBlockDocument
 import dev.g000sha256.tdl.dto.PageBlockEmbedded
 import dev.g000sha256.tdl.dto.PageBlockEmbeddedPost
+import dev.g000sha256.tdl.dto.PageBlockExpandableBlockQuote
 import dev.g000sha256.tdl.dto.PageBlockFooter
 import dev.g000sha256.tdl.dto.PageBlockHeader
 import dev.g000sha256.tdl.dto.PageBlockHorizontalAlignmentCenter
@@ -1200,6 +1215,7 @@ import dev.g000sha256.tdl.dto.PageBlockTable
 import dev.g000sha256.tdl.dto.PageBlockTableCell
 import dev.g000sha256.tdl.dto.PageBlockThinking
 import dev.g000sha256.tdl.dto.PageBlockTitle
+import dev.g000sha256.tdl.dto.PageBlockUnsupported
 import dev.g000sha256.tdl.dto.PageBlockVerticalAlignmentBottom
 import dev.g000sha256.tdl.dto.PageBlockVerticalAlignmentMiddle
 import dev.g000sha256.tdl.dto.PageBlockVerticalAlignmentTop
@@ -1514,6 +1530,7 @@ import dev.g000sha256.tdl.dto.RichTextAnchorLink
 import dev.g000sha256.tdl.dto.RichTextBankCardNumber
 import dev.g000sha256.tdl.dto.RichTextBold
 import dev.g000sha256.tdl.dto.RichTextBotCommand
+import dev.g000sha256.tdl.dto.RichTextButton
 import dev.g000sha256.tdl.dto.RichTextCashtag
 import dev.g000sha256.tdl.dto.RichTextCustomEmoji
 import dev.g000sha256.tdl.dto.RichTextDateTime
@@ -1551,6 +1568,7 @@ import dev.g000sha256.tdl.dto.ScopeNotificationSettings
 import dev.g000sha256.tdl.dto.SearchChatTypeFilterBot
 import dev.g000sha256.tdl.dto.SearchChatTypeFilterChannel
 import dev.g000sha256.tdl.dto.SearchMessagesChatTypeFilterChannel
+import dev.g000sha256.tdl.dto.SearchMessagesChatTypeFilterCommunity
 import dev.g000sha256.tdl.dto.SearchMessagesChatTypeFilterGroup
 import dev.g000sha256.tdl.dto.SearchMessagesChatTypeFilterPrivate
 import dev.g000sha256.tdl.dto.SearchMessagesFilterAnimation
@@ -1931,6 +1949,7 @@ import dev.g000sha256.tdl.dto.UpdateChatEmojiStatus
 import dev.g000sha256.tdl.dto.UpdateChatFolders
 import dev.g000sha256.tdl.dto.UpdateChatHasProtectedContent
 import dev.g000sha256.tdl.dto.UpdateChatHasScheduledMessages
+import dev.g000sha256.tdl.dto.UpdateChatHasWelcomeMessages
 import dev.g000sha256.tdl.dto.UpdateChatIsMarkedAsUnread
 import dev.g000sha256.tdl.dto.UpdateChatIsTranslatable
 import dev.g000sha256.tdl.dto.UpdateChatJoinResult
@@ -1956,7 +1975,9 @@ import dev.g000sha256.tdl.dto.UpdateChatUnreadPollVoteCount
 import dev.g000sha256.tdl.dto.UpdateChatUnreadReactionCount
 import dev.g000sha256.tdl.dto.UpdateChatVideoChat
 import dev.g000sha256.tdl.dto.UpdateChatViewAsTopics
+import dev.g000sha256.tdl.dto.UpdateChatWelcomeMessages
 import dev.g000sha256.tdl.dto.UpdateCommunity
+import dev.g000sha256.tdl.dto.UpdateCommunityFullInfo
 import dev.g000sha256.tdl.dto.UpdateConnectionState
 import dev.g000sha256.tdl.dto.UpdateContactCloseBirthdays
 import dev.g000sha256.tdl.dto.UpdateDefaultBackground
@@ -1995,6 +2016,7 @@ import dev.g000sha256.tdl.dto.UpdateMessageContainsUnreadPollVotes
 import dev.g000sha256.tdl.dto.UpdateMessageContent
 import dev.g000sha256.tdl.dto.UpdateMessageContentOpened
 import dev.g000sha256.tdl.dto.UpdateMessageEdited
+import dev.g000sha256.tdl.dto.UpdateMessageEphemeralContent
 import dev.g000sha256.tdl.dto.UpdateMessageFactCheck
 import dev.g000sha256.tdl.dto.UpdateMessageInteractionInfo
 import dev.g000sha256.tdl.dto.UpdateMessageIsPinned
@@ -2054,6 +2076,7 @@ import dev.g000sha256.tdl.dto.UpdateSpeedLimitNotification
 import dev.g000sha256.tdl.dto.UpdateStakeDiceState
 import dev.g000sha256.tdl.dto.UpdateStarRevenueStatus
 import dev.g000sha256.tdl.dto.UpdateStickerSet
+import dev.g000sha256.tdl.dto.UpdateStopMessageDraft
 import dev.g000sha256.tdl.dto.UpdateStory
 import dev.g000sha256.tdl.dto.UpdateStoryDeleted
 import dev.g000sha256.tdl.dto.UpdateStoryListChatCount
@@ -2175,6 +2198,7 @@ import dev.g000sha256.tdl.dto.WebBrowserTypeExternal
 import dev.g000sha256.tdl.dto.WebBrowserTypeInApp
 import dev.g000sha256.tdl.dto.WebDomainException
 import dev.g000sha256.tdl.dto.WebPageInstantView
+import dev.g000sha256.tdl.dto.WelcomeMessage
 import dev.g000sha256.tdl.util.put
 import dev.g000sha256.tdl.util.putNullable
 import kotlinx.serialization.json.JsonElement
@@ -3760,6 +3784,7 @@ internal fun serialize(dto: ChatAdministratorRights): JsonElement {
         put(key = "can_delete_stories", boolean = dto.canDeleteStories)
         put(key = "can_manage_direct_messages", boolean = dto.canManageDirectMessages)
         put(key = "can_manage_tags", boolean = dto.canManageTags)
+        put(key = "can_send_welcome_messages", boolean = dto.canSendWelcomeMessages)
         put(key = "is_anonymous", boolean = dto.isAnonymous)
     }
 }
@@ -5481,6 +5506,13 @@ internal fun serialize(dto: ProfileAccentColor): JsonElement {
     }
 }
 
+internal fun serialize(dto: CommunityId): JsonElement {
+    return buildJsonObject {
+        put(key = "@type", string = "communityId")
+        put(key = "id", long = dto.id)
+    }
+}
+
 internal fun serialize(dto: CommunityPermissions): JsonElement {
     return buildJsonObject {
         put(key = "@type", string = "communityPermissions")
@@ -5541,6 +5573,26 @@ internal fun serialize(dto: Community): JsonElement {
         put(key = "date", int = dto.date)
         put(key = "status", value = dto.status) { data -> serialize(dto = data) }
         put(key = "permissions", value = dto.permissions) { data -> serialize(dto = data) }
+    }
+}
+
+internal fun serialize(dto: CommunityChat): JsonElement {
+    return buildJsonObject {
+        put(key = "@type", string = "communityChat")
+        put(key = "chat_id", long = dto.chatId)
+        put(key = "can_view_history", boolean = dto.canViewHistory)
+        put(key = "is_hidden", boolean = dto.isHidden)
+    }
+}
+
+internal fun serialize(dto: CommunityFullInfo): JsonElement {
+    return buildJsonObject {
+        put(key = "@type", string = "communityFullInfo")
+        put(key = "photo", value = dto.photo) { data -> serialize(dto = data) }
+        put(key = "chats", objects = dto.chats) { data -> serialize(dto = data) }
+        put(key = "administrator_count", int = dto.administratorCount)
+        put(key = "banned_count", int = dto.bannedCount)
+        put(key = "add_chat_request_count", int = dto.addChatRequestCount)
     }
 }
 
@@ -6657,6 +6709,16 @@ internal fun serialize(dto: FactCheck): JsonElement {
     }
 }
 
+internal fun serialize(dto: EphemeralMessageContent): JsonElement {
+    return buildJsonObject {
+        put(key = "@type", string = "ephemeralMessageContent")
+        put(key = "can_be_saved", boolean = dto.canBeSaved)
+        put(key = "has_timestamped_media", boolean = dto.hasTimestampedMedia)
+        put(key = "content", value = dto.content) { data -> serialize(dto = data) }
+        put(key = "reply_markup", value = dto.replyMarkup) { data -> serialize(dto = data) }
+    }
+}
+
 internal fun serialize(dto: Message): JsonElement {
     return buildJsonObject {
         put(key = "@type", string = "message")
@@ -6701,8 +6763,10 @@ internal fun serialize(dto: Message): JsonElement {
         put(key = "restriction_info", value = dto.restrictionInfo) { data -> serialize(dto = data) }
         put(key = "summary_language_code", string = dto.summaryLanguageCode)
         put(key = "content", value = dto.content) { data -> serialize(dto = data) }
+        put(key = "ephemeral_content", value = dto.ephemeralContent) { data -> serialize(dto = data) }
         put(key = "reply_markup", value = dto.replyMarkup) { data -> serialize(dto = data) }
         put(key = "ephemeral_message_id", int = dto.ephemeralMessageId)
+        put(key = "chat_instance", long = dto.chatInstance)
     }
 }
 
@@ -7097,6 +7161,13 @@ internal fun serialize(dto: DraftMessageContentRichMessage): JsonElement {
     }
 }
 
+internal fun serialize(dto: DraftMessageContentInputRichMessage): JsonElement {
+    return buildJsonObject {
+        put(key = "@type", string = "draftMessageContentInputRichMessage")
+        put(key = "message", value = dto.message) { data -> serialize(dto = data) }
+    }
+}
+
 internal fun serialize(dto: DraftMessageContentVideoNote): JsonElement {
     return buildJsonObject {
         put(key = "@type", string = "draftMessageContentVideoNote")
@@ -7378,6 +7449,7 @@ internal fun serialize(dto: Chat): JsonElement {
         put(key = "is_marked_as_unread", boolean = dto.isMarkedAsUnread)
         put(key = "view_as_topics", boolean = dto.viewAsTopics)
         put(key = "has_scheduled_messages", boolean = dto.hasScheduledMessages)
+        put(key = "has_welcome_messages", boolean = dto.hasWelcomeMessages)
         put(key = "can_be_deleted_only_for_self", boolean = dto.canBeDeletedOnlyForSelf)
         put(key = "can_be_deleted_for_all_users", boolean = dto.canBeDeletedForAllUsers)
         put(key = "can_be_reported", boolean = dto.canBeReported)
@@ -7522,6 +7594,12 @@ internal fun serialize(dto: ButtonStyleDanger): JsonElement {
 internal fun serialize(dto: ButtonStyleSuccess): JsonElement {
     return buildJsonObject {
         put(key = "@type", string = "buttonStyleSuccess")
+    }
+}
+
+internal fun serialize(dto: ButtonStyleLink): JsonElement {
+    return buildJsonObject {
+        put(key = "@type", string = "buttonStyleLink")
     }
 }
 
@@ -7682,6 +7760,12 @@ internal fun serialize(dto: InlineKeyboardButtonTypeCopyText): JsonElement {
     }
 }
 
+internal fun serialize(dto: InlineKeyboardButtonTypeDisabled): JsonElement {
+    return buildJsonObject {
+        put(key = "@type", string = "inlineKeyboardButtonTypeDisabled")
+    }
+}
+
 internal fun serialize(dto: KeyboardButtonSourceMessage): JsonElement {
     return buildJsonObject {
         put(key = "@type", string = "keyboardButtonSourceMessage")
@@ -7731,6 +7815,7 @@ internal fun serialize(dto: ReplyMarkupShowKeyboard): JsonElement {
         put(key = "resize_keyboard", boolean = dto.resizeKeyboard)
         put(key = "one_time", boolean = dto.oneTime)
         put(key = "is_personal", boolean = dto.isPersonal)
+        put(key = "force_reply", boolean = dto.forceReply)
         put(key = "input_field_placeholder", string = dto.inputFieldPlaceholder)
     }
 }
@@ -7739,6 +7824,7 @@ internal fun serialize(dto: ReplyMarkupInlineKeyboard): JsonElement {
     return buildJsonObject {
         put(key = "@type", string = "replyMarkupInlineKeyboard")
         put(key = "rows", objectArrays = dto.rows) { data -> serialize(dto = data) }
+        put(key = "force_reply", boolean = dto.forceReply)
     }
 }
 
@@ -7958,6 +8044,15 @@ internal fun serialize(dto: ThemeSettings): JsonElement {
     }
 }
 
+internal fun serialize(dto: InlineButton): JsonElement {
+    return buildJsonObject {
+        put(key = "@type", string = "inlineButton")
+        put(key = "text", value = dto.text) { data -> serialize(dto = data) }
+        put(key = "style", value = dto.style) { data -> serialize(dto = data) }
+        put(key = "type", value = dto.type) { data -> serialize(dto = data) }
+    }
+}
+
 internal fun serialize(dto: RichTextPlain): JsonElement {
     return buildJsonObject {
         put(key = "@type", string = "richTextPlain")
@@ -8131,6 +8226,13 @@ internal fun serialize(dto: RichTextMathematicalExpression): JsonElement {
     return buildJsonObject {
         put(key = "@type", string = "richTextMathematicalExpression")
         put(key = "expression", string = dto.expression)
+    }
+}
+
+internal fun serialize(dto: RichTextButton): JsonElement {
+    return buildJsonObject {
+        put(key = "@type", string = "richTextButton")
+        put(key = "button", value = dto.button) { data -> serialize(dto = data) }
     }
 }
 
@@ -8388,6 +8490,14 @@ internal fun serialize(dto: PageBlockBlockQuote): JsonElement {
     }
 }
 
+internal fun serialize(dto: PageBlockExpandableBlockQuote): JsonElement {
+    return buildJsonObject {
+        put(key = "@type", string = "pageBlockExpandableBlockQuote")
+        put(key = "text", value = dto.text) { data -> serialize(dto = data) }
+        put(key = "credit", value = dto.credit) { data -> serialize(dto = data) }
+    }
+}
+
 internal fun serialize(dto: PageBlockPullQuote): JsonElement {
     return buildJsonObject {
         put(key = "@type", string = "pageBlockPullQuote")
@@ -8410,6 +8520,14 @@ internal fun serialize(dto: PageBlockAudio): JsonElement {
     return buildJsonObject {
         put(key = "@type", string = "pageBlockAudio")
         put(key = "audio", value = dto.audio) { data -> serialize(dto = data) }
+        put(key = "caption", value = dto.caption) { data -> serialize(dto = data) }
+    }
+}
+
+internal fun serialize(dto: PageBlockDocument): JsonElement {
+    return buildJsonObject {
+        put(key = "@type", string = "pageBlockDocument")
+        put(key = "document", value = dto.document) { data -> serialize(dto = data) }
         put(key = "caption", value = dto.caption) { data -> serialize(dto = data) }
     }
 }
@@ -8509,6 +8627,7 @@ internal fun serialize(dto: PageBlockTable): JsonElement {
         put(key = "cells", objectArrays = dto.cells) { data -> serialize(dto = data) }
         put(key = "is_bordered", boolean = dto.isBordered)
         put(key = "is_striped", boolean = dto.isStriped)
+        put(key = "is_compact", boolean = dto.isCompact)
     }
 }
 
@@ -8537,6 +8656,20 @@ internal fun serialize(dto: PageBlockMap): JsonElement {
         put(key = "width", int = dto.width)
         put(key = "height", int = dto.height)
         put(key = "caption", value = dto.caption) { data -> serialize(dto = data) }
+    }
+}
+
+internal fun serialize(dto: PageBlockButtonRow): JsonElement {
+    return buildJsonObject {
+        put(key = "@type", string = "pageBlockButtonRow")
+        put(key = "buttons", objects = dto.buttons) { data -> serialize(dto = data) }
+        put(key = "align", value = dto.align) { data -> serialize(dto = data) }
+    }
+}
+
+internal fun serialize(dto: PageBlockUnsupported): JsonElement {
+    return buildJsonObject {
+        put(key = "@type", string = "pageBlockUnsupported")
     }
 }
 
@@ -10253,6 +10386,13 @@ internal fun serialize(dto: MessageChatJoinByRequest): JsonElement {
     }
 }
 
+internal fun serialize(dto: MessageChatJoinFromCommunity): JsonElement {
+    return buildJsonObject {
+        put(key = "@type", string = "messageChatJoinFromCommunity")
+        put(key = "community_id", long = dto.communityId)
+    }
+}
+
 internal fun serialize(dto: MessageChatDeleteMember): JsonElement {
     return buildJsonObject {
         put(key = "@type", string = "messageChatDeleteMember")
@@ -10398,6 +10538,7 @@ internal fun serialize(dto: MessageManagedBotCreated): JsonElement {
     return buildJsonObject {
         put(key = "@type", string = "messageManagedBotCreated")
         put(key = "bot_user_id", long = dto.botUserId)
+        put(key = "manager_bot_user_id", long = dto.managerBotUserId)
     }
 }
 
@@ -10536,9 +10677,9 @@ internal fun serialize(dto: MessageGiftedStars): JsonElement {
     }
 }
 
-internal fun serialize(dto: MessageGiftedTon): JsonElement {
+internal fun serialize(dto: MessageGiftedGrams): JsonElement {
     return buildJsonObject {
-        put(key = "@type", string = "messageGiftedTon")
+        put(key = "@type", string = "messageGiftedGrams")
         put(key = "gifter_user_id", long = dto.gifterUserId)
         put(key = "receiver_user_id", long = dto.receiverUserId)
         put(key = "gram_amount", long = dto.gramAmount)
@@ -10592,6 +10733,8 @@ internal fun serialize(dto: MessageUpgradedGift): JsonElement {
         put(key = "receiver_id", value = dto.receiverId) { data -> serialize(dto = data) }
         put(key = "origin", value = dto.origin) { data -> serialize(dto = data) }
         put(key = "received_gift_id", string = dto.receivedGiftId)
+        put(key = "text", value = dto.text) { data -> serialize(dto = data) }
+        put(key = "is_private", boolean = dto.isPrivate)
         put(key = "is_saved", boolean = dto.isSaved)
         put(key = "can_be_transferred", boolean = dto.canBeTransferred)
         put(key = "was_transferred", boolean = dto.wasTransferred)
@@ -11309,6 +11452,14 @@ internal fun serialize(dto: InputPageBlockBlockQuote): JsonElement {
     }
 }
 
+internal fun serialize(dto: InputPageBlockExpandableBlockQuote): JsonElement {
+    return buildJsonObject {
+        put(key = "@type", string = "inputPageBlockExpandableBlockQuote")
+        put(key = "text", value = dto.text) { data -> serialize(dto = data) }
+        put(key = "credit", value = dto.credit) { data -> serialize(dto = data) }
+    }
+}
+
 internal fun serialize(dto: InputPageBlockPullQuote): JsonElement {
     return buildJsonObject {
         put(key = "@type", string = "inputPageBlockPullQuote")
@@ -11330,6 +11481,14 @@ internal fun serialize(dto: InputPageBlockAudio): JsonElement {
     return buildJsonObject {
         put(key = "@type", string = "inputPageBlockAudio")
         put(key = "audio", value = dto.audio) { data -> serialize(dto = data) }
+        put(key = "caption", value = dto.caption) { data -> serialize(dto = data) }
+    }
+}
+
+internal fun serialize(dto: InputPageBlockDocument): JsonElement {
+    return buildJsonObject {
+        put(key = "@type", string = "inputPageBlockDocument")
+        put(key = "document", value = dto.document) { data -> serialize(dto = data) }
         put(key = "caption", value = dto.caption) { data -> serialize(dto = data) }
     }
 }
@@ -11383,6 +11542,7 @@ internal fun serialize(dto: InputPageBlockTable): JsonElement {
         put(key = "cells", objectArrays = dto.cells) { data -> serialize(dto = data) }
         put(key = "is_bordered", boolean = dto.isBordered)
         put(key = "is_striped", boolean = dto.isStriped)
+        put(key = "is_compact", boolean = dto.isCompact)
     }
 }
 
@@ -11403,6 +11563,14 @@ internal fun serialize(dto: InputPageBlockMap): JsonElement {
         put(key = "width", int = dto.width)
         put(key = "height", int = dto.height)
         put(key = "caption", value = dto.caption) { data -> serialize(dto = data) }
+    }
+}
+
+internal fun serialize(dto: InputPageBlockButtonRow): JsonElement {
+    return buildJsonObject {
+        put(key = "@type", string = "inputPageBlockButtonRow")
+        put(key = "buttons", objects = dto.buttons) { data -> serialize(dto = data) }
+        put(key = "align", value = dto.align) { data -> serialize(dto = data) }
     }
 }
 
@@ -11811,6 +11979,13 @@ internal fun serialize(dto: SearchMessagesChatTypeFilterGroup): JsonElement {
 internal fun serialize(dto: SearchMessagesChatTypeFilterChannel): JsonElement {
     return buildJsonObject {
         put(key = "@type", string = "searchMessagesChatTypeFilterChannel")
+    }
+}
+
+internal fun serialize(dto: SearchMessagesChatTypeFilterCommunity): JsonElement {
+    return buildJsonObject {
+        put(key = "@type", string = "searchMessagesChatTypeFilterCommunity")
+        put(key = "community_id", long = dto.communityId)
     }
 }
 
@@ -12569,6 +12744,14 @@ internal fun serialize(dto: QuickReplyShortcut): JsonElement {
         put(key = "name", string = dto.name)
         put(key = "first_message", value = dto.firstMessage) { data -> serialize(dto = data) }
         put(key = "message_count", int = dto.messageCount)
+    }
+}
+
+internal fun serialize(dto: WelcomeMessage): JsonElement {
+    return buildJsonObject {
+        put(key = "@type", string = "welcomeMessage")
+        put(key = "id", int = dto.id)
+        put(key = "content", value = dto.content) { data -> serialize(dto = data) }
     }
 }
 
@@ -18347,6 +18530,15 @@ internal fun serialize(dto: UpdateMessageContent): JsonElement {
     }
 }
 
+internal fun serialize(dto: UpdateMessageEphemeralContent): JsonElement {
+    return buildJsonObject {
+        put(key = "@type", string = "updateMessageEphemeralContent")
+        put(key = "chat_id", long = dto.chatId)
+        put(key = "message_id", long = dto.messageId)
+        put(key = "ephemeral_content", value = dto.ephemeralContent) { data -> serialize(dto = data) }
+    }
+}
+
 internal fun serialize(dto: UpdateMessageEdited): JsonElement {
     return buildJsonObject {
         put(key = "@type", string = "updateMessageEdited")
@@ -18724,6 +18916,14 @@ internal fun serialize(dto: UpdateChatHasScheduledMessages): JsonElement {
     }
 }
 
+internal fun serialize(dto: UpdateChatHasWelcomeMessages): JsonElement {
+    return buildJsonObject {
+        put(key = "@type", string = "updateChatHasWelcomeMessages")
+        put(key = "chat_id", long = dto.chatId)
+        put(key = "has_welcome_messages", boolean = dto.hasWelcomeMessages)
+    }
+}
+
 internal fun serialize(dto: UpdateChatFolders): JsonElement {
     return buildJsonObject {
         put(key = "@type", string = "updateChatFolders")
@@ -18796,6 +18996,14 @@ internal fun serialize(dto: UpdateQuickReplyShortcutMessages): JsonElement {
     return buildJsonObject {
         put(key = "@type", string = "updateQuickReplyShortcutMessages")
         put(key = "shortcut_id", int = dto.shortcutId)
+        put(key = "messages", objects = dto.messages) { data -> serialize(dto = data) }
+    }
+}
+
+internal fun serialize(dto: UpdateChatWelcomeMessages): JsonElement {
+    return buildJsonObject {
+        put(key = "@type", string = "updateChatWelcomeMessages")
+        put(key = "chat_id", long = dto.chatId)
         put(key = "messages", objects = dto.messages) { data -> serialize(dto = data) }
     }
 }
@@ -18901,7 +19109,18 @@ internal fun serialize(dto: UpdatePendingMessage): JsonElement {
         put(key = "chat_id", long = dto.chatId)
         put(key = "forum_topic_id", int = dto.forumTopicId)
         put(key = "draft_id", long = dto.draftId)
+        put(key = "can_stop", boolean = dto.canStop)
+        put(key = "keep_on_stop", boolean = dto.keepOnStop)
         put(key = "content", value = dto.content) { data -> serialize(dto = data) }
+    }
+}
+
+internal fun serialize(dto: UpdateStopMessageDraft): JsonElement {
+    return buildJsonObject {
+        put(key = "@type", string = "updateStopMessageDraft")
+        put(key = "chat_id", long = dto.chatId)
+        put(key = "forum_topic_id", int = dto.forumTopicId)
+        put(key = "draft_id", long = dto.draftId)
     }
 }
 
@@ -18969,6 +19188,14 @@ internal fun serialize(dto: UpdateSupergroupFullInfo): JsonElement {
         put(key = "@type", string = "updateSupergroupFullInfo")
         put(key = "supergroup_id", long = dto.supergroupId)
         put(key = "supergroup_full_info", value = dto.supergroupFullInfo) { data -> serialize(dto = data) }
+    }
+}
+
+internal fun serialize(dto: UpdateCommunityFullInfo): JsonElement {
+    return buildJsonObject {
+        put(key = "@type", string = "updateCommunityFullInfo")
+        put(key = "community_id", long = dto.communityId)
+        put(key = "community_full_info", value = dto.communityFullInfo) { data -> serialize(dto = data) }
     }
 }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Georgii Ippolitov (g000sha256)
+ * Copyright 2025-2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,7 +22,7 @@ import kotlin.Int
 import kotlin.String
 
 /**
- * The user can't participate in the giveaway, because they phone number is from a disallowed country.
+ * The user can't participate in the giveaway, because their phone number is from a disallowed country.
  *
  * @property userCountryCode A two-letter ISO 3166-1 alpha-2 country code of the user's country.
  */

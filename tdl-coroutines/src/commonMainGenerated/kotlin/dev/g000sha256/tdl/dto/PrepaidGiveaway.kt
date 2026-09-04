@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Georgii Ippolitov (g000sha256)
+ * Copyright 2025-2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,7 +26,7 @@ import kotlin.String
  * Describes a prepaid giveaway.
  *
  * @property id Unique identifier of the prepaid giveaway.
- * @property winnerCount Number of users which will receive giveaway prize.
+ * @property winnerCount Number of users who will receive giveaway prize.
  * @property prize Prize of the giveaway.
  * @property boostCount The number of boosts received by the chat from the giveaway; for Telegram Star giveaways only.
  * @property paymentDate Point in time (Unix timestamp) when the giveaway was paid.

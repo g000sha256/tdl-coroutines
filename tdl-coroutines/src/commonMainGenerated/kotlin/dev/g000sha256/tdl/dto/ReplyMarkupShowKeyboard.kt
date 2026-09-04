@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Georgii Ippolitov (g000sha256)
+ * Copyright 2025-2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,6 +30,7 @@ import kotlin.String
  * @property resizeKeyboard True, if the application needs to resize the keyboard vertically.
  * @property oneTime True, if the application needs to hide the keyboard after use.
  * @property isPersonal True, if the keyboard must automatically be shown to the current user. For outgoing messages, specify true to show the keyboard only for the mentioned users and for the target user of a reply.
+ * @property forceReply True, if the keyboard must force reply to the message with the keyboard.
  * @property inputFieldPlaceholder If non-empty, the placeholder to be shown in the input field when the keyboard is active; 0-64 characters.
  */
 public class ReplyMarkupShowKeyboard public constructor(
@@ -38,6 +39,7 @@ public class ReplyMarkupShowKeyboard public constructor(
     public val resizeKeyboard: Boolean,
     public val oneTime: Boolean,
     public val isPersonal: Boolean,
+    public val forceReply: Boolean,
     public val inputFieldPlaceholder: String,
 ) : ReplyMarkup() {
     override fun equals(other: Any?): Boolean {
@@ -67,6 +69,9 @@ public class ReplyMarkupShowKeyboard public constructor(
         if (other.isPersonal != isPersonal) {
             return false
         }
+        if (other.forceReply != forceReply) {
+            return false
+        }
         return other.inputFieldPlaceholder == inputFieldPlaceholder
     }
 
@@ -77,6 +82,7 @@ public class ReplyMarkupShowKeyboard public constructor(
         hashCode = 31 * hashCode + resizeKeyboard.hashCode()
         hashCode = 31 * hashCode + oneTime.hashCode()
         hashCode = 31 * hashCode + isPersonal.hashCode()
+        hashCode = 31 * hashCode + forceReply.hashCode()
         hashCode = 31 * hashCode + inputFieldPlaceholder.hashCode()
         return hashCode
     }
@@ -101,6 +107,9 @@ public class ReplyMarkupShowKeyboard public constructor(
             append(", ")
             append("isPersonal=")
             append(isPersonal)
+            append(", ")
+            append("forceReply=")
+            append(forceReply)
             append(", ")
             append("inputFieldPlaceholder=")
             append(inputFieldPlaceholder)

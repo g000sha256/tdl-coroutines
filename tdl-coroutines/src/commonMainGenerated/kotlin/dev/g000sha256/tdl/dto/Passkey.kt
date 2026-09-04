@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Georgii Ippolitov (g000sha256)
+ * Copyright 2025-2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,7 +29,7 @@ import kotlin.String
  * @property name Name of the passkey.
  * @property additionDate Point in time (Unix timestamp) when the passkey was added.
  * @property lastUsageDate Point in time (Unix timestamp) when the passkey was used last time; 0 if never.
- * @property softwareIconCustomEmojiId Identifier of the custom emoji that is used as the icon of the software, which created the passkey; 0 if unknown.
+ * @property softwareIconCustomEmojiId Identifier of the custom emoji that is used as the icon of the software that created the passkey; 0 if unknown.
  */
 public class Passkey public constructor(
     public val id: String,

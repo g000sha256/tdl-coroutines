@@ -40,6 +40,7 @@ import kotlin.String
  * @property canDeleteStories True, if the administrator can delete stories posted by other users; applicable to supergroups and channels only.
  * @property canManageDirectMessages True, if the administrator can answer to channel direct messages; applicable to channels only.
  * @property canManageTags True, if the administrator can change tags of other users; applicable to basic groups and supergroups only.
+ * @property canSendWelcomeMessages True, if the administrator can manage and send welcome messages.
  * @property isAnonymous True, if the administrator isn't shown in the chat member list and sends messages anonymously; applicable to supergroups only.
  */
 public class ChatAdministratorRights public constructor(
@@ -59,6 +60,7 @@ public class ChatAdministratorRights public constructor(
     public val canDeleteStories: Boolean,
     public val canManageDirectMessages: Boolean,
     public val canManageTags: Boolean,
+    public val canSendWelcomeMessages: Boolean,
     public val isAnonymous: Boolean,
 ) {
     override fun equals(other: Any?): Boolean {
@@ -120,6 +122,9 @@ public class ChatAdministratorRights public constructor(
         if (other.canManageTags != canManageTags) {
             return false
         }
+        if (other.canSendWelcomeMessages != canSendWelcomeMessages) {
+            return false
+        }
         return other.isAnonymous == isAnonymous
     }
 
@@ -141,6 +146,7 @@ public class ChatAdministratorRights public constructor(
         hashCode = 31 * hashCode + canDeleteStories.hashCode()
         hashCode = 31 * hashCode + canManageDirectMessages.hashCode()
         hashCode = 31 * hashCode + canManageTags.hashCode()
+        hashCode = 31 * hashCode + canSendWelcomeMessages.hashCode()
         hashCode = 31 * hashCode + isAnonymous.hashCode()
         return hashCode
     }
@@ -196,6 +202,9 @@ public class ChatAdministratorRights public constructor(
             append(", ")
             append("canManageTags=")
             append(canManageTags)
+            append(", ")
+            append("canSendWelcomeMessages=")
+            append(canSendWelcomeMessages)
             append(", ")
             append("isAnonymous=")
             append(isAnonymous)

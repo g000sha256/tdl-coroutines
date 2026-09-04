@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Georgii Ippolitov (g000sha256)
+ * Copyright 2025-2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,9 +26,11 @@ import kotlin.String
  * Contains an inline keyboard layout.
  *
  * @property rows A list of rows of inline keyboard buttons.
+ * @property forceReply True, if a reply to the message must be forced when the message is received.
  */
 public class ReplyMarkupInlineKeyboard public constructor(
     public val rows: Array<Array<InlineKeyboardButton>>,
+    public val forceReply: Boolean,
 ) : ReplyMarkup() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
@@ -41,12 +43,17 @@ public class ReplyMarkupInlineKeyboard public constructor(
             return false
         }
         other as ReplyMarkupInlineKeyboard
-        return other.rows.contentDeepEquals(rows)
+        val rowsEquals = other.rows.contentDeepEquals(rows)
+        if (!rowsEquals) {
+            return false
+        }
+        return other.forceReply == forceReply
     }
 
     override fun hashCode(): Int {
         var hashCode = this::class.hashCode()
         hashCode = 31 * hashCode + rows.contentDeepHashCode()
+        hashCode = 31 * hashCode + forceReply.hashCode()
         return hashCode
     }
 
@@ -58,6 +65,9 @@ public class ReplyMarkupInlineKeyboard public constructor(
             rows
                 .contentDeepToString()
                 .also { append(it) }
+            append(", ")
+            append("forceReply=")
+            append(forceReply)
             append(")")
         }
     }

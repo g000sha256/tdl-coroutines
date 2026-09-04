@@ -26,9 +26,11 @@ import kotlin.String
  * A bot managed by another bot was created by the user.
  *
  * @property botUserId User identifier of the created bot.
+ * @property managerBotUserId Identifier of the bot which will manage the new bot.
  */
 public class MessageManagedBotCreated public constructor(
     public val botUserId: Long,
+    public val managerBotUserId: Long,
 ) : MessageContent() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
@@ -41,12 +43,16 @@ public class MessageManagedBotCreated public constructor(
             return false
         }
         other as MessageManagedBotCreated
-        return other.botUserId == botUserId
+        if (other.botUserId != botUserId) {
+            return false
+        }
+        return other.managerBotUserId == managerBotUserId
     }
 
     override fun hashCode(): Int {
         var hashCode = this::class.hashCode()
         hashCode = 31 * hashCode + botUserId.hashCode()
+        hashCode = 31 * hashCode + managerBotUserId.hashCode()
         return hashCode
     }
 
@@ -56,6 +62,9 @@ public class MessageManagedBotCreated public constructor(
             append("(")
             append("botUserId=")
             append(botUserId)
+            append(", ")
+            append("managerBotUserId=")
+            append(managerBotUserId)
             append(")")
         }
     }

@@ -27,7 +27,7 @@ import kotlin.String
  *
  * @property currency ISO 4217 currency code of the payment currency.
  * @property amount Paid amount, in the smallest units of the currency.
- * @property userId Identifiers of the user which will receive Telegram Premium.
+ * @property userId Identifier of the user who will receive Telegram Premium.
  * @property text Text to show along with the gift codes; 0-getOption(&quot;gift_text_length_max&quot;) characters. Only Bold, Italic, Underline, Strikethrough, Spoiler, CustomEmoji, and DateTime entities are allowed.
  */
 public class StorePaymentPurposePremiumGift public constructor(

@@ -25,6 +25,7 @@ import dev.g000sha256.tdl.function.AddChatFolderByInviteLink
 import dev.g000sha256.tdl.function.AddChatMember
 import dev.g000sha256.tdl.function.AddChatMembers
 import dev.g000sha256.tdl.function.AddChatToList
+import dev.g000sha256.tdl.function.AddChatWelcomeMessage
 import dev.g000sha256.tdl.function.AddChecklistTasks
 import dev.g000sha256.tdl.function.AddContact
 import dev.g000sha256.tdl.function.AddCustomServerLanguagePack
@@ -143,6 +144,7 @@ import dev.g000sha256.tdl.function.CreateChatFolder
 import dev.g000sha256.tdl.function.CreateChatFolderInviteLink
 import dev.g000sha256.tdl.function.CreateChatInviteLink
 import dev.g000sha256.tdl.function.CreateChatSubscriptionInviteLink
+import dev.g000sha256.tdl.function.CreateCommunity
 import dev.g000sha256.tdl.function.CreateForumTopic
 import dev.g000sha256.tdl.function.CreateGiftCollection
 import dev.g000sha256.tdl.function.CreateGroupCall
@@ -165,6 +167,7 @@ import dev.g000sha256.tdl.function.DeclineSuggestedPost
 import dev.g000sha256.tdl.function.DecryptGroupCallData
 import dev.g000sha256.tdl.function.DeleteAccount
 import dev.g000sha256.tdl.function.DeleteAllCallMessages
+import dev.g000sha256.tdl.function.DeleteAllChatWelcomeMessages
 import dev.g000sha256.tdl.function.DeleteAllRecentMessageReactionsFromSender
 import dev.g000sha256.tdl.function.DeleteAllRevokedChatInviteLinks
 import dev.g000sha256.tdl.function.DeleteBotMediaPreviews
@@ -180,6 +183,7 @@ import dev.g000sha256.tdl.function.DeleteChatHistory
 import dev.g000sha256.tdl.function.DeleteChatMessagesByDate
 import dev.g000sha256.tdl.function.DeleteChatMessagesBySender
 import dev.g000sha256.tdl.function.DeleteChatReplyMarkup
+import dev.g000sha256.tdl.function.DeleteChatWelcomeMessage
 import dev.g000sha256.tdl.function.DeleteCommands
 import dev.g000sha256.tdl.function.DeleteDefaultBackground
 import dev.g000sha256.tdl.function.DeleteDirectMessagesChatTopicHistory
@@ -191,6 +195,7 @@ import dev.g000sha256.tdl.function.DeleteGiftCollection
 import dev.g000sha256.tdl.function.DeleteGroupCallMessages
 import dev.g000sha256.tdl.function.DeleteGroupCallMessagesBySender
 import dev.g000sha256.tdl.function.DeleteLanguagePack
+import dev.g000sha256.tdl.function.DeleteMessageEphemeralContent
 import dev.g000sha256.tdl.function.DeleteMessageReactionsFromSender
 import dev.g000sha256.tdl.function.DeleteMessages
 import dev.g000sha256.tdl.function.DeletePassportElement
@@ -225,12 +230,15 @@ import dev.g000sha256.tdl.function.EditBusinessMessageMedia
 import dev.g000sha256.tdl.function.EditBusinessMessageReplyMarkup
 import dev.g000sha256.tdl.function.EditBusinessMessageText
 import dev.g000sha256.tdl.function.EditBusinessStory
+import dev.g000sha256.tdl.function.EditCallbackQueryMessage
 import dev.g000sha256.tdl.function.EditChatFolder
 import dev.g000sha256.tdl.function.EditChatFolderInviteLink
 import dev.g000sha256.tdl.function.EditChatInviteLink
 import dev.g000sha256.tdl.function.EditChatSubscriptionInviteLink
+import dev.g000sha256.tdl.function.EditChatWelcomeMessage
 import dev.g000sha256.tdl.function.EditCustomLanguagePackInfo
 import dev.g000sha256.tdl.function.EditEphemeralMessage
+import dev.g000sha256.tdl.function.EditEphemeralMessageCaption
 import dev.g000sha256.tdl.function.EditForumTopic
 import dev.g000sha256.tdl.function.EditInlineMessageCaption
 import dev.g000sha256.tdl.function.EditInlineMessageLiveLocation
@@ -607,7 +615,9 @@ import dev.g000sha256.tdl.function.LeaveChat
 import dev.g000sha256.tdl.function.LeaveGroupCall
 import dev.g000sha256.tdl.function.ListenToAudio
 import dev.g000sha256.tdl.function.LoadActiveStories
+import dev.g000sha256.tdl.function.LoadChatWelcomeMessages
 import dev.g000sha256.tdl.function.LoadChats
+import dev.g000sha256.tdl.function.LoadCommunityFullInfo
 import dev.g000sha256.tdl.function.LoadDirectMessagesChatTopics
 import dev.g000sha256.tdl.function.LoadGroupCallParticipants
 import dev.g000sha256.tdl.function.LoadQuickReplyShortcutMessages
@@ -852,6 +862,7 @@ import dev.g000sha256.tdl.function.SetChatTheme
 import dev.g000sha256.tdl.function.SetChatTitle
 import dev.g000sha256.tdl.function.SetCloseFriends
 import dev.g000sha256.tdl.function.SetCommands
+import dev.g000sha256.tdl.function.SetCommunityName
 import dev.g000sha256.tdl.function.SetCustomEmojiStickerSetThumbnail
 import dev.g000sha256.tdl.function.SetCustomLanguagePack
 import dev.g000sha256.tdl.function.SetCustomLanguagePackString
@@ -941,6 +952,7 @@ import dev.g000sha256.tdl.function.StartGroupCallScreenSharing
 import dev.g000sha256.tdl.function.StartLiveStory
 import dev.g000sha256.tdl.function.StartScheduledVideoChat
 import dev.g000sha256.tdl.function.StopBusinessPoll
+import dev.g000sha256.tdl.function.StopPendingMessage
 import dev.g000sha256.tdl.function.StopPoll
 import dev.g000sha256.tdl.function.SuggestUserBirthdate
 import dev.g000sha256.tdl.function.SuggestUserProfilePhoto
@@ -1043,6 +1055,7 @@ internal fun serialize(function: Any, requestId: Long): String {
         is AddChatMember -> return serialize(requestId = requestId, function = function)
         is AddChatMembers -> return serialize(requestId = requestId, function = function)
         is AddChatToList -> return serialize(requestId = requestId, function = function)
+        is AddChatWelcomeMessage -> return serialize(requestId = requestId, function = function)
         is AddChecklistTasks -> return serialize(requestId = requestId, function = function)
         is AddContact -> return serialize(requestId = requestId, function = function)
         is AddCustomServerLanguagePack -> return serialize(requestId = requestId, function = function)
@@ -1161,6 +1174,7 @@ internal fun serialize(function: Any, requestId: Long): String {
         is CreateChatFolderInviteLink -> return serialize(requestId = requestId, function = function)
         is CreateChatInviteLink -> return serialize(requestId = requestId, function = function)
         is CreateChatSubscriptionInviteLink -> return serialize(requestId = requestId, function = function)
+        is CreateCommunity -> return serialize(requestId = requestId, function = function)
         is CreateForumTopic -> return serialize(requestId = requestId, function = function)
         is CreateGiftCollection -> return serialize(requestId = requestId, function = function)
         is CreateGroupCall -> return serialize(requestId = requestId, function = function)
@@ -1183,6 +1197,7 @@ internal fun serialize(function: Any, requestId: Long): String {
         is DecryptGroupCallData -> return serialize(requestId = requestId, function = function)
         is DeleteAccount -> return serialize(requestId = requestId, function = function)
         is DeleteAllCallMessages -> return serialize(requestId = requestId, function = function)
+        is DeleteAllChatWelcomeMessages -> return serialize(requestId = requestId, function = function)
         is DeleteAllRecentMessageReactionsFromSender -> return serialize(requestId = requestId, function = function)
         is DeleteAllRevokedChatInviteLinks -> return serialize(requestId = requestId, function = function)
         is DeleteBotMediaPreviews -> return serialize(requestId = requestId, function = function)
@@ -1198,6 +1213,7 @@ internal fun serialize(function: Any, requestId: Long): String {
         is DeleteChatMessagesByDate -> return serialize(requestId = requestId, function = function)
         is DeleteChatMessagesBySender -> return serialize(requestId = requestId, function = function)
         is DeleteChatReplyMarkup -> return serialize(requestId = requestId, function = function)
+        is DeleteChatWelcomeMessage -> return serialize(requestId = requestId, function = function)
         is DeleteCommands -> return serialize(requestId = requestId, function = function)
         is DeleteDefaultBackground -> return serialize(requestId = requestId, function = function)
         is DeleteDirectMessagesChatTopicHistory -> return serialize(requestId = requestId, function = function)
@@ -1209,6 +1225,7 @@ internal fun serialize(function: Any, requestId: Long): String {
         is DeleteGroupCallMessages -> return serialize(requestId = requestId, function = function)
         is DeleteGroupCallMessagesBySender -> return serialize(requestId = requestId, function = function)
         is DeleteLanguagePack -> return serialize(requestId = requestId, function = function)
+        is DeleteMessageEphemeralContent -> return serialize(requestId = requestId, function = function)
         is DeleteMessageReactionsFromSender -> return serialize(requestId = requestId, function = function)
         is DeleteMessages -> return serialize(requestId = requestId, function = function)
         is DeletePassportElement -> return serialize(requestId = requestId, function = function)
@@ -1243,12 +1260,15 @@ internal fun serialize(function: Any, requestId: Long): String {
         is EditBusinessMessageReplyMarkup -> return serialize(requestId = requestId, function = function)
         is EditBusinessMessageText -> return serialize(requestId = requestId, function = function)
         is EditBusinessStory -> return serialize(requestId = requestId, function = function)
+        is EditCallbackQueryMessage -> return serialize(requestId = requestId, function = function)
         is EditChatFolder -> return serialize(requestId = requestId, function = function)
         is EditChatFolderInviteLink -> return serialize(requestId = requestId, function = function)
         is EditChatInviteLink -> return serialize(requestId = requestId, function = function)
         is EditChatSubscriptionInviteLink -> return serialize(requestId = requestId, function = function)
+        is EditChatWelcomeMessage -> return serialize(requestId = requestId, function = function)
         is EditCustomLanguagePackInfo -> return serialize(requestId = requestId, function = function)
         is EditEphemeralMessage -> return serialize(requestId = requestId, function = function)
+        is EditEphemeralMessageCaption -> return serialize(requestId = requestId, function = function)
         is EditForumTopic -> return serialize(requestId = requestId, function = function)
         is EditInlineMessageCaption -> return serialize(requestId = requestId, function = function)
         is EditInlineMessageLiveLocation -> return serialize(requestId = requestId, function = function)
@@ -1625,7 +1645,9 @@ internal fun serialize(function: Any, requestId: Long): String {
         is LeaveGroupCall -> return serialize(requestId = requestId, function = function)
         is ListenToAudio -> return serialize(requestId = requestId, function = function)
         is LoadActiveStories -> return serialize(requestId = requestId, function = function)
+        is LoadChatWelcomeMessages -> return serialize(requestId = requestId, function = function)
         is LoadChats -> return serialize(requestId = requestId, function = function)
+        is LoadCommunityFullInfo -> return serialize(requestId = requestId, function = function)
         is LoadDirectMessagesChatTopics -> return serialize(requestId = requestId, function = function)
         is LoadGroupCallParticipants -> return serialize(requestId = requestId, function = function)
         is LoadQuickReplyShortcutMessages -> return serialize(requestId = requestId, function = function)
@@ -1870,6 +1892,7 @@ internal fun serialize(function: Any, requestId: Long): String {
         is SetChatTitle -> return serialize(requestId = requestId, function = function)
         is SetCloseFriends -> return serialize(requestId = requestId, function = function)
         is SetCommands -> return serialize(requestId = requestId, function = function)
+        is SetCommunityName -> return serialize(requestId = requestId, function = function)
         is SetCustomEmojiStickerSetThumbnail -> return serialize(requestId = requestId, function = function)
         is SetCustomLanguagePack -> return serialize(requestId = requestId, function = function)
         is SetCustomLanguagePackString -> return serialize(requestId = requestId, function = function)
@@ -1959,6 +1982,7 @@ internal fun serialize(function: Any, requestId: Long): String {
         is StartLiveStory -> return serialize(requestId = requestId, function = function)
         is StartScheduledVideoChat -> return serialize(requestId = requestId, function = function)
         is StopBusinessPoll -> return serialize(requestId = requestId, function = function)
+        is StopPendingMessage -> return serialize(requestId = requestId, function = function)
         is StopPoll -> return serialize(requestId = requestId, function = function)
         is SuggestUserBirthdate -> return serialize(requestId = requestId, function = function)
         is SuggestUserProfilePhoto -> return serialize(requestId = requestId, function = function)
@@ -2127,6 +2151,15 @@ private fun serialize(requestId: Long, function: AddChatToList): String {
         put(key = "@extra", long = requestId)
         put(key = "chat_id", long = function.chatId)
         put(key = "chat_list", value = function.chatList) { data -> serialize(dto = data) }
+    }
+}
+
+private fun serialize(requestId: Long, function: AddChatWelcomeMessage): String {
+    return buildJsonObjectString {
+        put(key = "@type", string = "addChatWelcomeMessage")
+        put(key = "@extra", long = requestId)
+        put(key = "chat_id", long = function.chatId)
+        put(key = "input_message_content", value = function.inputMessageContent) { data -> serialize(dto = data) }
     }
 }
 
@@ -3182,6 +3215,16 @@ private fun serialize(requestId: Long, function: CreateChatSubscriptionInviteLin
     }
 }
 
+private fun serialize(requestId: Long, function: CreateCommunity): String {
+    return buildJsonObjectString {
+        put(key = "@type", string = "createCommunity")
+        put(key = "@extra", long = requestId)
+        put(key = "name", string = function.name)
+        put(key = "chat_id", long = function.chatId)
+        put(key = "is_chat_hidden", boolean = function.isChatHidden)
+    }
+}
+
 private fun serialize(requestId: Long, function: CreateForumTopic): String {
     return buildJsonObjectString {
         put(key = "@type", string = "createForumTopic")
@@ -3398,6 +3441,14 @@ private fun serialize(requestId: Long, function: DeleteAllCallMessages): String 
     }
 }
 
+private fun serialize(requestId: Long, function: DeleteAllChatWelcomeMessages): String {
+    return buildJsonObjectString {
+        put(key = "@type", string = "deleteAllChatWelcomeMessages")
+        put(key = "@extra", long = requestId)
+        put(key = "chat_id", long = function.chatId)
+    }
+}
+
 private fun serialize(requestId: Long, function: DeleteAllRecentMessageReactionsFromSender): String {
     return buildJsonObjectString {
         put(key = "@type", string = "deleteAllRecentMessageReactionsFromSender")
@@ -3534,6 +3585,15 @@ private fun serialize(requestId: Long, function: DeleteChatReplyMarkup): String 
     }
 }
 
+private fun serialize(requestId: Long, function: DeleteChatWelcomeMessage): String {
+    return buildJsonObjectString {
+        put(key = "@type", string = "deleteChatWelcomeMessage")
+        put(key = "@extra", long = requestId)
+        put(key = "chat_id", long = function.chatId)
+        put(key = "welcome_message_id", int = function.welcomeMessageId)
+    }
+}
+
 private fun serialize(requestId: Long, function: DeleteCommands): String {
     return buildJsonObjectString {
         put(key = "@type", string = "deleteCommands")
@@ -3632,6 +3692,15 @@ private fun serialize(requestId: Long, function: DeleteLanguagePack): String {
         put(key = "@type", string = "deleteLanguagePack")
         put(key = "@extra", long = requestId)
         put(key = "language_pack_id", string = function.languagePackId)
+    }
+}
+
+private fun serialize(requestId: Long, function: DeleteMessageEphemeralContent): String {
+    return buildJsonObjectString {
+        put(key = "@type", string = "deleteMessageEphemeralContent")
+        put(key = "@extra", long = requestId)
+        put(key = "chat_id", long = function.chatId)
+        put(key = "message_id", long = function.messageId)
     }
 }
 
@@ -3958,6 +4027,17 @@ private fun serialize(requestId: Long, function: EditBusinessStory): String {
     }
 }
 
+private fun serialize(requestId: Long, function: EditCallbackQueryMessage): String {
+    return buildJsonObjectString {
+        put(key = "@type", string = "editCallbackQueryMessage")
+        put(key = "@extra", long = requestId)
+        put(key = "callback_query_id", long = function.callbackQueryId)
+        put(key = "protect_content", boolean = function.protectContent)
+        put(key = "reply_markup", value = function.replyMarkup) { data -> serialize(dto = data) }
+        put(key = "input_message_content", value = function.inputMessageContent) { data -> serialize(dto = data) }
+    }
+}
+
 private fun serialize(requestId: Long, function: EditChatFolder): String {
     return buildJsonObjectString {
         put(key = "@type", string = "editChatFolder")
@@ -4001,6 +4081,16 @@ private fun serialize(requestId: Long, function: EditChatSubscriptionInviteLink)
     }
 }
 
+private fun serialize(requestId: Long, function: EditChatWelcomeMessage): String {
+    return buildJsonObjectString {
+        put(key = "@type", string = "editChatWelcomeMessage")
+        put(key = "@extra", long = requestId)
+        put(key = "chat_id", long = function.chatId)
+        put(key = "welcome_message_id", int = function.welcomeMessageId)
+        put(key = "input_message_content", value = function.inputMessageContent) { data -> serialize(dto = data) }
+    }
+}
+
 private fun serialize(requestId: Long, function: EditCustomLanguagePackInfo): String {
     return buildJsonObjectString {
         put(key = "@type", string = "editCustomLanguagePackInfo")
@@ -4018,6 +4108,19 @@ private fun serialize(requestId: Long, function: EditEphemeralMessage): String {
         put(key = "ephemeral_message_id", int = function.ephemeralMessageId)
         put(key = "reply_markup", value = function.replyMarkup) { data -> serialize(dto = data) }
         put(key = "input_message_content", value = function.inputMessageContent) { data -> serialize(dto = data) }
+    }
+}
+
+private fun serialize(requestId: Long, function: EditEphemeralMessageCaption): String {
+    return buildJsonObjectString {
+        put(key = "@type", string = "editEphemeralMessageCaption")
+        put(key = "@extra", long = requestId)
+        put(key = "chat_id", long = function.chatId)
+        put(key = "receiver_user_id", long = function.receiverUserId)
+        put(key = "ephemeral_message_id", int = function.ephemeralMessageId)
+        put(key = "reply_markup", value = function.replyMarkup) { data -> serialize(dto = data) }
+        put(key = "caption", value = function.caption) { data -> serialize(dto = data) }
+        put(key = "show_caption_above_media", boolean = function.showCaptionAboveMedia)
     }
 }
 
@@ -7312,12 +7415,28 @@ private fun serialize(requestId: Long, function: LoadActiveStories): String {
     }
 }
 
+private fun serialize(requestId: Long, function: LoadChatWelcomeMessages): String {
+    return buildJsonObjectString {
+        put(key = "@type", string = "loadChatWelcomeMessages")
+        put(key = "@extra", long = requestId)
+        put(key = "chat_id", long = function.chatId)
+    }
+}
+
 private fun serialize(requestId: Long, function: LoadChats): String {
     return buildJsonObjectString {
         put(key = "@type", string = "loadChats")
         put(key = "@extra", long = requestId)
         put(key = "chat_list", value = function.chatList) { data -> serialize(dto = data) }
         put(key = "limit", int = function.limit)
+    }
+}
+
+private fun serialize(requestId: Long, function: LoadCommunityFullInfo): String {
+    return buildJsonObjectString {
+        put(key = "@type", string = "loadCommunityFullInfo")
+        put(key = "@extra", long = requestId)
+        put(key = "community_id", long = function.communityId)
     }
 }
 
@@ -8910,7 +9029,9 @@ private fun serialize(requestId: Long, function: SendEphemeralMessage): String {
         put(key = "topic_id", value = function.topicId) { data -> serialize(dto = data) }
         put(key = "receiver_user_id", long = function.receiverUserId)
         put(key = "callback_query_id", long = function.callbackQueryId)
+        put(key = "replace_callback_query_message", boolean = function.replaceCallbackQueryMessage)
         put(key = "reply_to", value = function.replyTo) { data -> serialize(dto = data) }
+        put(key = "protect_content", boolean = function.protectContent)
         put(key = "sending_id", int = function.sendingId)
         put(key = "only_preview", boolean = function.onlyPreview)
         put(key = "reply_markup", value = function.replyMarkup) { data -> serialize(dto = data) }
@@ -9061,6 +9182,8 @@ private fun serialize(requestId: Long, function: SendResoldGift): String {
         put(key = "gift_name", string = function.giftName)
         put(key = "owner_id", value = function.ownerId) { data -> serialize(dto = data) }
         put(key = "price", value = function.price) { data -> serialize(dto = data) }
+        put(key = "text", value = function.text) { data -> serialize(dto = data) }
+        put(key = "is_private", boolean = function.isPrivate)
     }
 }
 
@@ -9071,6 +9194,8 @@ private fun serialize(requestId: Long, function: SendRichMessageDraft): String {
         put(key = "chat_id", long = function.chatId)
         put(key = "forum_topic_id", int = function.forumTopicId)
         put(key = "draft_id", long = function.draftId)
+        put(key = "can_stop", boolean = function.canStop)
+        put(key = "keep_on_stop", boolean = function.keepOnStop)
         put(key = "message", value = function.message) { data -> serialize(dto = data) }
     }
 }
@@ -9082,6 +9207,8 @@ private fun serialize(requestId: Long, function: SendTextMessageDraft): String {
         put(key = "chat_id", long = function.chatId)
         put(key = "forum_topic_id", int = function.forumTopicId)
         put(key = "draft_id", long = function.draftId)
+        put(key = "can_stop", boolean = function.canStop)
+        put(key = "keep_on_stop", boolean = function.keepOnStop)
         put(key = "text", value = function.text) { data -> serialize(dto = data) }
     }
 }
@@ -9614,6 +9741,15 @@ private fun serialize(requestId: Long, function: SetCommands): String {
         put(key = "scope", value = function.scope) { data -> serialize(dto = data) }
         put(key = "language_code", string = function.languageCode)
         put(key = "commands", objects = function.commands) { data -> serialize(dto = data) }
+    }
+}
+
+private fun serialize(requestId: Long, function: SetCommunityName): String {
+    return buildJsonObjectString {
+        put(key = "@type", string = "setCommunityName")
+        put(key = "@extra", long = requestId)
+        put(key = "community_id", long = function.communityId)
+        put(key = "name", string = function.name)
     }
 }
 
@@ -10446,6 +10582,16 @@ private fun serialize(requestId: Long, function: StopBusinessPoll): String {
         put(key = "chat_id", long = function.chatId)
         put(key = "message_id", long = function.messageId)
         put(key = "reply_markup", value = function.replyMarkup) { data -> serialize(dto = data) }
+    }
+}
+
+private fun serialize(requestId: Long, function: StopPendingMessage): String {
+    return buildJsonObjectString {
+        put(key = "@type", string = "stopPendingMessage")
+        put(key = "@extra", long = requestId)
+        put(key = "chat_id", long = function.chatId)
+        put(key = "topic_id", value = function.topicId) { data -> serialize(dto = data) }
+        put(key = "draft_id", long = function.draftId)
     }
 }
 

@@ -30,6 +30,8 @@ import kotlin.String
  * @property receiverId Receiver of the gift.
  * @property origin Origin of the upgraded gift.
  * @property receivedGiftId Unique identifier of the received gift for the current user; only for the receiver of the gift.
+ * @property text Message added to the gift.
+ * @property isPrivate True, if the sender and gift text are shown only to the gift receiver; otherwise, everyone will be able to see them.
  * @property isSaved True, if the gift is displayed on the user's or the channel's profile page; only for the receiver of the gift.
  * @property canBeTransferred True, if the gift can be transferred to another owner; only for the receiver of the gift.
  * @property wasTransferred True, if the gift has already been transferred to another owner; only for the receiver of the gift.
@@ -46,6 +48,8 @@ public class MessageUpgradedGift public constructor(
     public val receiverId: MessageSender,
     public val origin: UpgradedGiftOrigin,
     public val receivedGiftId: String,
+    public val text: FormattedText,
+    public val isPrivate: Boolean,
     public val isSaved: Boolean,
     public val canBeTransferred: Boolean,
     public val wasTransferred: Boolean,
@@ -82,6 +86,12 @@ public class MessageUpgradedGift public constructor(
         if (other.receivedGiftId != receivedGiftId) {
             return false
         }
+        if (other.text != text) {
+            return false
+        }
+        if (other.isPrivate != isPrivate) {
+            return false
+        }
         if (other.isSaved != isSaved) {
             return false
         }
@@ -116,6 +126,8 @@ public class MessageUpgradedGift public constructor(
         hashCode = 31 * hashCode + receiverId.hashCode()
         hashCode = 31 * hashCode + origin.hashCode()
         hashCode = 31 * hashCode + receivedGiftId.hashCode()
+        hashCode = 31 * hashCode + text.hashCode()
+        hashCode = 31 * hashCode + isPrivate.hashCode()
         hashCode = 31 * hashCode + isSaved.hashCode()
         hashCode = 31 * hashCode + canBeTransferred.hashCode()
         hashCode = 31 * hashCode + wasTransferred.hashCode()
@@ -146,6 +158,12 @@ public class MessageUpgradedGift public constructor(
             append(", ")
             append("receivedGiftId=")
             append(receivedGiftId)
+            append(", ")
+            append("text=")
+            append(text)
+            append(", ")
+            append("isPrivate=")
+            append(isPrivate)
             append(", ")
             append("isSaved=")
             append(isSaved)
