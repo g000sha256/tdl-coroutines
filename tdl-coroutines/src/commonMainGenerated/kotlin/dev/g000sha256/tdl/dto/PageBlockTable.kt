@@ -29,12 +29,14 @@ import kotlin.String
  * @property cells Table cells.
  * @property isBordered True, if the table is bordered.
  * @property isStriped True, if the table is striped.
+ * @property isCompact True, if table cells must have smaller indents.
  */
 public class PageBlockTable public constructor(
     public val caption: RichText?,
     public val cells: Array<Array<PageBlockTableCell>>,
     public val isBordered: Boolean,
     public val isStriped: Boolean,
+    public val isCompact: Boolean,
 ) : PageBlock() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
@@ -57,7 +59,10 @@ public class PageBlockTable public constructor(
         if (other.isBordered != isBordered) {
             return false
         }
-        return other.isStriped == isStriped
+        if (other.isStriped != isStriped) {
+            return false
+        }
+        return other.isCompact == isCompact
     }
 
     override fun hashCode(): Int {
@@ -66,6 +71,7 @@ public class PageBlockTable public constructor(
         hashCode = 31 * hashCode + cells.contentDeepHashCode()
         hashCode = 31 * hashCode + isBordered.hashCode()
         hashCode = 31 * hashCode + isStriped.hashCode()
+        hashCode = 31 * hashCode + isCompact.hashCode()
         return hashCode
     }
 
@@ -86,6 +92,9 @@ public class PageBlockTable public constructor(
             append(", ")
             append("isStriped=")
             append(isStriped)
+            append(", ")
+            append("isCompact=")
+            append(isCompact)
             append(")")
         }
     }

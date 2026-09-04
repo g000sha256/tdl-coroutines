@@ -24,11 +24,11 @@ import kotlin.String
 /**
  * A voice note.
  *
- * @property voiceNote Voice note; may be null.
+ * @property voiceNote Voice note.
  * @property caption Voice note caption; may be null if none.
  */
 public class PageBlockVoiceNote public constructor(
-    public val voiceNote: VoiceNote?,
+    public val voiceNote: VoiceNote,
     public val caption: PageBlockCaption?,
 ) : PageBlock() {
     override fun equals(other: Any?): Boolean {

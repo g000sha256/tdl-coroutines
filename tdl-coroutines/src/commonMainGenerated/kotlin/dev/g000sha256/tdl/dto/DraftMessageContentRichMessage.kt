@@ -24,7 +24,7 @@ import kotlin.String
 /**
  * A rich message draft; not supported in setChatDraftMessage.
  *
- * @property message The rich message; the message must not have not yet uploaded media.
+ * @property message The rich message.
  */
 public class DraftMessageContentRichMessage public constructor(
     public val message: RichMessage,

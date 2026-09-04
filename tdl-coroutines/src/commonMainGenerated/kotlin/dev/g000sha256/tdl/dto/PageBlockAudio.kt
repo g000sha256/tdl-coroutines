@@ -24,11 +24,11 @@ import kotlin.String
 /**
  * An audio file.
  *
- * @property audio Audio file; may be null.
+ * @property audio Audio file.
  * @property caption Audio file caption; may be null if none.
  */
 public class PageBlockAudio public constructor(
-    public val audio: Audio?,
+    public val audio: Audio,
     public val caption: PageBlockCaption?,
 ) : PageBlock() {
     override fun equals(other: Any?): Boolean {

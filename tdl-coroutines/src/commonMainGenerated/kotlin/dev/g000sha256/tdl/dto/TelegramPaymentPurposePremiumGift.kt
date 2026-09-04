@@ -27,7 +27,7 @@ import kotlin.String
  *
  * @property currency ISO 4217 currency code of the payment currency, or &quot;XTR&quot; for payments in Telegram Stars.
  * @property amount Paid amount, in the smallest units of the currency.
- * @property userId Identifier of the user which will receive Telegram Premium.
+ * @property userId Identifier of the user who will receive Telegram Premium.
  * @property monthCount Number of months the Telegram Premium subscription will be active for the user.
  * @property text Text to show to the user receiving Telegram Premium; 0-getOption(&quot;gift_text_length_max&quot;) characters. Only Bold, Italic, Underline, Strikethrough, Spoiler, CustomEmoji, and DateTime entities are allowed.
  */

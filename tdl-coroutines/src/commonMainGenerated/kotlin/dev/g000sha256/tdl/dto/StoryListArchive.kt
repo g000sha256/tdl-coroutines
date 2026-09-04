@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Georgii Ippolitov (g000sha256)
+ * Copyright 2025-2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,7 +22,7 @@ import kotlin.Int
 import kotlin.String
 
 /**
- * The list of stories, shown in the Arvhive chat list.
+ * The list of stories, shown in the Archive chat list.
  */
 public class StoryListArchive public constructor() : StoryList() {
     override fun equals(other: Any?): Boolean {

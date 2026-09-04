@@ -1,5 +1,5 @@
 /*
- * Copyright 2025-2026 Georgii Ippolitov (g000sha256)
+ * Copyright 2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,7 +31,7 @@ import kotlin.String
  * @property transactionId Identifier of the transaction for Gram credit; for receiver only.
  * @property sticker A sticker to be shown in the message; may be null if unknown.
  */
-public class MessageGiftedTon public constructor(
+public class MessageGiftedGrams public constructor(
     public val gifterUserId: Long,
     public val receiverUserId: Long,
     public val gramAmount: Long,
@@ -48,7 +48,7 @@ public class MessageGiftedTon public constructor(
         if (other::class != this::class) {
             return false
         }
-        other as MessageGiftedTon
+        other as MessageGiftedGrams
         if (other.gifterUserId != gifterUserId) {
             return false
         }
@@ -76,7 +76,7 @@ public class MessageGiftedTon public constructor(
 
     override fun toString(): String {
         return buildString {
-            append("MessageGiftedTon")
+            append("MessageGiftedGrams")
             append("(")
             append("gifterUserId=")
             append(gifterUserId)

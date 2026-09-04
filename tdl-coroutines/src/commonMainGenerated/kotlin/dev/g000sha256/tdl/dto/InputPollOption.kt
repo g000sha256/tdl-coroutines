@@ -25,7 +25,7 @@ import kotlin.String
  * Describes one answer option of a poll to be created.
  *
  * @property text Option text; 1-100 characters. Only custom emoji entities are allowed to be added and only by Premium users.
- * @property media Option media; pass null if none; ignored in addPollOption. Must be one of the following types: inputPollMediaAnimation, inputPollMediaLink, inputPollMediaLocation, inputPollMediaPhoto, inputPollMediaSticker, inputPollMediaVenue, or inputPollMediaVideo without caption.
+ * @property media Option media; pass null if none. Must be one of the following types: inputPollMediaAnimation, inputPollMediaLink, inputPollMediaLocation, inputPollMediaPhoto, inputPollMediaSticker, inputPollMediaVenue, or inputPollMediaVideo without caption.
  */
 public class InputPollOption public constructor(
     public val text: FormattedText,

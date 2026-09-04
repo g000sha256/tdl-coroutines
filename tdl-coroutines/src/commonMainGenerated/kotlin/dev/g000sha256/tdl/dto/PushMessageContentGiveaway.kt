@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Georgii Ippolitov (g000sha256)
+ * Copyright 2025-2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,7 +24,7 @@ import kotlin.String
 /**
  * A message with a giveaway.
  *
- * @property winnerCount Number of users which will receive giveaway prizes; 0 for pinned message.
+ * @property winnerCount Number of users who will receive giveaway prizes; 0 for pinned message.
  * @property prize Prize of the giveaway; may be null for pinned message.
  * @property isPinned True, if the message is a pinned message with the specified content.
  */

@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Georgii Ippolitov (g000sha256)
+ * Copyright 2025-2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,7 +22,7 @@ import kotlin.Int
 import kotlin.String
 
 /**
- * Returns users which can be mentioned in the chat.
+ * Returns users who can be mentioned in the chat.
  *
  * @property topicId Identifier of the topic in which the users will be mentioned; pass null if none.
  */

@@ -125,6 +125,7 @@ import dev.g000sha256.tdl.dto.CheckChatUsernameResult
 import dev.g000sha256.tdl.dto.CheckStickerSetNameResult
 import dev.g000sha256.tdl.dto.CollectibleItemInfo
 import dev.g000sha256.tdl.dto.CollectibleItemType
+import dev.g000sha256.tdl.dto.CommunityId
 import dev.g000sha256.tdl.dto.ConnectedAffiliateProgram
 import dev.g000sha256.tdl.dto.ConnectedAffiliatePrograms
 import dev.g000sha256.tdl.dto.ConnectedWebsites
@@ -442,6 +443,7 @@ import dev.g000sha256.tdl.dto.UpdateChatEmojiStatus
 import dev.g000sha256.tdl.dto.UpdateChatFolders
 import dev.g000sha256.tdl.dto.UpdateChatHasProtectedContent
 import dev.g000sha256.tdl.dto.UpdateChatHasScheduledMessages
+import dev.g000sha256.tdl.dto.UpdateChatHasWelcomeMessages
 import dev.g000sha256.tdl.dto.UpdateChatIsMarkedAsUnread
 import dev.g000sha256.tdl.dto.UpdateChatIsTranslatable
 import dev.g000sha256.tdl.dto.UpdateChatJoinResult
@@ -467,7 +469,9 @@ import dev.g000sha256.tdl.dto.UpdateChatUnreadPollVoteCount
 import dev.g000sha256.tdl.dto.UpdateChatUnreadReactionCount
 import dev.g000sha256.tdl.dto.UpdateChatVideoChat
 import dev.g000sha256.tdl.dto.UpdateChatViewAsTopics
+import dev.g000sha256.tdl.dto.UpdateChatWelcomeMessages
 import dev.g000sha256.tdl.dto.UpdateCommunity
+import dev.g000sha256.tdl.dto.UpdateCommunityFullInfo
 import dev.g000sha256.tdl.dto.UpdateConnectionState
 import dev.g000sha256.tdl.dto.UpdateContactCloseBirthdays
 import dev.g000sha256.tdl.dto.UpdateDefaultBackground
@@ -506,6 +510,7 @@ import dev.g000sha256.tdl.dto.UpdateMessageContainsUnreadPollVotes
 import dev.g000sha256.tdl.dto.UpdateMessageContent
 import dev.g000sha256.tdl.dto.UpdateMessageContentOpened
 import dev.g000sha256.tdl.dto.UpdateMessageEdited
+import dev.g000sha256.tdl.dto.UpdateMessageEphemeralContent
 import dev.g000sha256.tdl.dto.UpdateMessageFactCheck
 import dev.g000sha256.tdl.dto.UpdateMessageInteractionInfo
 import dev.g000sha256.tdl.dto.UpdateMessageIsPinned
@@ -565,6 +570,7 @@ import dev.g000sha256.tdl.dto.UpdateSpeedLimitNotification
 import dev.g000sha256.tdl.dto.UpdateStakeDiceState
 import dev.g000sha256.tdl.dto.UpdateStarRevenueStatus
 import dev.g000sha256.tdl.dto.UpdateStickerSet
+import dev.g000sha256.tdl.dto.UpdateStopMessageDraft
 import dev.g000sha256.tdl.dto.UpdateStory
 import dev.g000sha256.tdl.dto.UpdateStoryDeleted
 import dev.g000sha256.tdl.dto.UpdateStoryListChatCount
@@ -660,6 +666,11 @@ public abstract class TdlClient internal constructor() {
      * The message content has changed.
      */
     public abstract val messageContentUpdates: Flow<UpdateMessageContent>
+
+    /**
+     * The message ephemeral content has changed.
+     */
+    public abstract val messageEphemeralContentUpdates: Flow<UpdateMessageEphemeralContent>
 
     /**
      * A message was edited. Changes in the message content will come in a separate updateMessageContent.
@@ -889,6 +900,11 @@ public abstract class TdlClient internal constructor() {
     public abstract val chatHasScheduledMessagesUpdates: Flow<UpdateChatHasScheduledMessages>
 
     /**
+     * A chat's hasWelcomeMessages field has changed.
+     */
+    public abstract val chatHasWelcomeMessagesUpdates: Flow<UpdateChatHasWelcomeMessages>
+
+    /**
      * The list of chat folders or a chat folder has changed.
      */
     public abstract val chatFoldersUpdates: Flow<UpdateChatFolders>
@@ -937,6 +953,11 @@ public abstract class TdlClient internal constructor() {
      * The list of quick reply shortcut messages has changed.
      */
     public abstract val quickReplyShortcutMessagesUpdates: Flow<UpdateQuickReplyShortcutMessages>
+
+    /**
+     * The list of welcome messages of a chat has changed.
+     */
+    public abstract val chatWelcomeMessagesUpdates: Flow<UpdateChatWelcomeMessages>
 
     /**
      * Basic information about a topic in a forum chat was changed.
@@ -990,9 +1011,14 @@ public abstract class TdlClient internal constructor() {
     public abstract val chatActionUpdates: Flow<UpdateChatAction>
 
     /**
-     * A new pending text or rich message was received in a chat with a bot. The message must be shown in the chat for at most getOption(&quot;pending_text_message_period&quot;) seconds, replace any other pending message with the same draftId, and be deleted whenever any incoming message from the bot in the message thread is received.
+     * A new pending text or rich message was received in a chat with a bot. The message must be shown in the chat for at most getOption(&quot;pending_text_message_period&quot;) seconds, replace any other pending message with the same draftId with animation, and be deleted whenever any incoming message or a pending message with another draftId is received in the message thread.
      */
     public abstract val pendingMessageUpdates: Flow<UpdatePendingMessage>
+
+    /**
+     * A message draft generation was stopped by the user.
+     */
+    public abstract val stopMessageDraftUpdates: Flow<UpdateStopMessageDraft>
 
     /**
      * Some data of a community has changed. This update is guaranteed to come before the community identifier is returned to the application.
@@ -1038,6 +1064,11 @@ public abstract class TdlClient internal constructor() {
      * Some data in supergroupFullInfo has been changed.
      */
     public abstract val supergroupFullInfoUpdates: Flow<UpdateSupergroupFullInfo>
+
+    /**
+     * Some data in communityFullInfo has been changed.
+     */
+    public abstract val communityFullInfoUpdates: Flow<UpdateCommunityFullInfo>
 
     /**
      * A service notification from the server was received. Upon receiving this the application must show a popup with the content of the notification.
@@ -1626,7 +1657,7 @@ public abstract class TdlClient internal constructor() {
     ): TdlResult<FailedToAddMembers>
 
     /**
-     * Adds multiple new members to a chat; requires canInviteUsers member right. Currently, this method is only available for supergroups and channels. This method can't be used to join a chat. Members can't be added to a channel if it has more than 200 members. Returns information about members that weren't added.
+     * Adds multiple new members to a chat; requires canInviteUsers member right. Currently, this method is available only in supergroups and channels. This method can't be used to join a chat. Members can't be added to a channel if it has more than 200 members. Returns information about members that weren't added.
      *
      * @param chatId Chat identifier.
      * @param userIds Identifiers of the users to be added to the chat. The maximum number of added users is 20 for supergroups and 100 for channels.
@@ -1640,6 +1671,14 @@ public abstract class TdlClient internal constructor() {
      * @param chatList The chat list. Use getChatListsToAddChat to get suitable chat lists.
      */
     public abstract suspend fun addChatToList(chatId: Long, chatList: ChatList): TdlResult<Ok>
+
+    /**
+     * Adds a message to the list of welcome messages of a chat; requires canSendWelcomeMessages administrator right in the chat. There can be up to getOption(&quot;welcome_message_count_max&quot;) welcome messages in a chat.
+     *
+     * @param chatId The identifier of the chat.
+     * @param inputMessageContent The content of the message to be sent. Must be one of the following types: inputMessageText, inputMessageAnimation, inputMessageAudio, inputMessageDocument, inputMessagePhoto, inputMessageRichMessage, inputMessageSticker, inputMessageVideo, inputMessageVideoNote, inputMessageVoiceNote, inputMessageLocation, inputMessageVenue, inputMessageContact.
+     */
+    public abstract suspend fun addChatWelcomeMessage(chatId: Long, inputMessageContent: InputMessageContent): TdlResult<Ok>
 
     /**
      * Adds tasks to a checklist in a message.
@@ -2730,6 +2769,19 @@ public abstract class TdlClient internal constructor() {
     ): TdlResult<ChatInviteLink>
 
     /**
+     * Creates a new community for the given chat. Returns identifier of the created community.
+     *
+     * @param name Name of the new community.
+     * @param chatId Identifier of the chat in the community; only chats with owned bots and owned basic group, supergroup and channel chats are allowed; basic group chats will be automatically upgraded to supergroup chats.
+     * @param isChatHidden Pass true if the chat will be visible only to administrators of the community.
+     */
+    public abstract suspend fun createCommunity(
+        name: String,
+        chatId: Long,
+        isChatHidden: Boolean,
+    ): TdlResult<CommunityId>
+
+    /**
      * Creates a topic in a forum supergroup chat or a chat with a bot with topics; requires canManageTopics administrator or canCreateTopics member right in the supergroup.
      *
      * @param chatId Identifier of the chat.
@@ -2980,6 +3032,13 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun deleteAllCallMessages(revoke: Boolean): TdlResult<Ok>
 
     /**
+     * Deletes all welcome messages of a chat; requires canSendWelcomeMessages administrator right in the chat.
+     *
+     * @param chatId The identifier of the chat.
+     */
+    public abstract suspend fun deleteAllChatWelcomeMessages(chatId: Long): TdlResult<Ok>
+
+    /**
      * Deletes all recent reactions added by the specified sender in a chat. Supported only for basic groups and supergroups; requires canDeleteMessages administrator right.
      *
      * @param chatId Chat identifier.
@@ -3114,6 +3173,14 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun deleteChatReplyMarkup(chatId: Long, messageId: Long): TdlResult<Ok>
 
     /**
+     * Deletes a welcome message of a chat; requires canSendWelcomeMessages administrator right in the chat.
+     *
+     * @param chatId The identifier of the chat.
+     * @param welcomeMessageId The identifier of the welcome message.
+     */
+    public abstract suspend fun deleteChatWelcomeMessage(chatId: Long, welcomeMessageId: Int): TdlResult<Ok>
+
+    /**
      * Deletes commands supported by the bot for the given user scope and language; for bots only.
      *
      * @param scope The scope to which the commands are relevant; pass null to delete commands in the default bot command scope.
@@ -3156,7 +3223,7 @@ public abstract class TdlClient internal constructor() {
      *
      * @param chatId Chat identifier.
      * @param receiverUserId Identifier of the user who received the message.
-     * @param ephemeralMessageId Identifiers of the message to be deleted.
+     * @param ephemeralMessageId Identifier of the message to be deleted.
      */
     public abstract suspend fun deleteEphemeralMessage(
         chatId: Long,
@@ -3219,6 +3286,14 @@ public abstract class TdlClient internal constructor() {
      * @param languagePackId Identifier of the language pack to delete.
      */
     public abstract suspend fun deleteLanguagePack(languagePackId: String): TdlResult<Ok>
+
+    /**
+     * Removes message ephemeral content and reverts message state to the original.
+     *
+     * @param chatId The chat the message belongs to.
+     * @param messageId Identifier of the message.
+     */
+    public abstract suspend fun deleteMessageEphemeralContent(chatId: Long, messageId: Long): TdlResult<Ok>
 
     /**
      * Deletes all reactions added by the specified sender on a message.
@@ -3582,6 +3657,21 @@ public abstract class TdlClient internal constructor() {
     ): TdlResult<Story>
 
     /**
+     * Edits the message from which a callback query has originated with an ephemeral message; for bots only.
+     *
+     * @param callbackQueryId Identifier of the callback query.
+     * @param protectContent Pass true if the content of the message must be protected from forwarding and saving.
+     * @param replyMarkup The new message reply markup; pass null if none.
+     * @param inputMessageContent New content of the message. Must be one of the following types: inputMessageText, inputMessageAnimation, inputMessageAudio, inputMessageDocument, inputMessagePhoto, inputMessageRichMessage, inputMessageSticker, inputMessageVideo, inputMessageVideoNote, inputMessageVoiceNote.
+     */
+    public abstract suspend fun editCallbackQueryMessage(
+        callbackQueryId: Long,
+        protectContent: Boolean,
+        replyMarkup: ReplyMarkup? = null,
+        inputMessageContent: InputMessageContent,
+    ): TdlResult<Ok>
+
+    /**
      * Edits existing chat folder. Returns information about the edited chat folder.
      *
      * @param chatFolderId Chat folder identifier.
@@ -3605,7 +3695,7 @@ public abstract class TdlClient internal constructor() {
     ): TdlResult<ChatFolderInviteLink>
 
     /**
-     * Edits a non-primary invite link for a chat. Available for basic groups, supergroups, and channels. If the link creates a subscription, then expirationDate, memberLimit and createsJoinRequest must not be used. Requires administrator privileges and canInviteUsers right in the chat for own links and owner privileges for other links.
+     * Edits a non-primary invite link for a chat. Available in basic groups, supergroups, and channels. If the link creates a subscription, then expirationDate, memberLimit and createsJoinRequest must not be used. Requires administrator privileges and canInviteUsers right in the chat for own links and owner privileges for other links.
      *
      * @param chatId Chat identifier.
      * @param inviteLink Invite link to be edited.
@@ -3637,6 +3727,19 @@ public abstract class TdlClient internal constructor() {
     ): TdlResult<ChatInviteLink>
 
     /**
+     * Edits a welcome message of a chat; requires canSendWelcomeMessages administrator right in the chat.
+     *
+     * @param chatId The identifier of the chat.
+     * @param welcomeMessageId The identifier of the welcome message.
+     * @param inputMessageContent New content of the message. Must be one of the following types: inputMessageText, inputMessageAnimation, inputMessageAudio, inputMessageDocument, inputMessagePhoto, inputMessageRichMessage, inputMessageSticker, inputMessageVideo, inputMessageVideoNote, inputMessageVoiceNote.
+     */
+    public abstract suspend fun editChatWelcomeMessage(
+        chatId: Long,
+        welcomeMessageId: Int,
+        inputMessageContent: InputMessageContent,
+    ): TdlResult<Ok>
+
+    /**
      * Edits information about a custom local language pack in the current localization target. Can be called before authorization.
      *
      * @param info New information about the custom local language pack.
@@ -3644,13 +3747,13 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun editCustomLanguagePackInfo(info: LanguagePackInfo): TdlResult<Ok>
 
     /**
-     * Edits the text, caption or reply markup of an ephemeral message sent by the bot; for bots only.
+     * Edits the text, media, or reply markup of an ephemeral message sent by the bot; for bots only.
      *
      * @param chatId The chat the message belongs to.
      * @param receiverUserId Identifier of the user who received the message.
      * @param ephemeralMessageId Identifier of the ephemeral message.
      * @param replyMarkup The new message reply markup; pass null if none.
-     * @param inputMessageContent New content of the message; pass null to edit only reply markup. Must be one of the following types: inputMessageText, inputMessageAnimation, inputMessageAudio, inputMessageDocument, inputMessagePhoto, inputMessageSticker, inputMessageVideo, inputMessageVideoNote, inputMessageVoiceNote.
+     * @param inputMessageContent New content of the message; pass null to edit only reply markup. Must be one of the following types: inputMessageText, inputMessageAnimation, inputMessageAudio, inputMessageDocument, inputMessagePhoto, inputMessageRichMessage, inputMessageSticker, inputMessageVideo, inputMessageVideoNote, inputMessageVoiceNote.
      */
     public abstract suspend fun editEphemeralMessage(
         chatId: Long,
@@ -3658,6 +3761,25 @@ public abstract class TdlClient internal constructor() {
         ephemeralMessageId: Int,
         replyMarkup: ReplyMarkup? = null,
         inputMessageContent: InputMessageContent? = null,
+    ): TdlResult<Ok>
+
+    /**
+     * Edits the caption and reply markup of an ephemeral message sent by the bot; for bots only.
+     *
+     * @param chatId The chat the message belongs to.
+     * @param receiverUserId Identifier of the user who received the message.
+     * @param ephemeralMessageId Identifier of the ephemeral message.
+     * @param replyMarkup The new message reply markup; pass null if none.
+     * @param caption New message content caption; pass null to remove caption; 0-getOption(&quot;message_caption_length_max&quot;) characters.
+     * @param showCaptionAboveMedia Pass true to show the caption above the media; otherwise, the caption will be shown below the media. May be true only for animation, photo, and video messages.
+     */
+    public abstract suspend fun editEphemeralMessageCaption(
+        chatId: Long,
+        receiverUserId: Long,
+        ephemeralMessageId: Int,
+        replyMarkup: ReplyMarkup? = null,
+        caption: FormattedText? = null,
+        showCaptionAboveMedia: Boolean,
     ): TdlResult<Ok>
 
     /**
@@ -4395,7 +4517,7 @@ public abstract class TdlClient internal constructor() {
     ): TdlResult<FoundChatBoosts>
 
     /**
-     * Returns a list of service actions taken by chat members and administrators in the last 48 hours. Available only for supergroups and channels. Requires administrator rights. Returns results in reverse chronological order (i.e., in order of decreasing eventId).
+     * Returns a list of service actions taken by chat members and administrators in the last 48 hours. Available only in supergroups and channels. Requires administrator rights. Returns results in reverse chronological order (i.e., in order of decreasing eventId).
      *
      * @param chatId Chat identifier.
      * @param query Search query by which to filter events.
@@ -6790,7 +6912,7 @@ public abstract class TdlClient internal constructor() {
     /**
      * Allows to buy a Telegram Premium subscription for another user with payment in Telegram Stars; for bots only.
      *
-     * @param userId Identifier of the user which will receive Telegram Premium.
+     * @param userId Identifier of the user who will receive Telegram Premium.
      * @param starCount The number of Telegram Stars to pay for subscription.
      * @param monthCount Number of months the Telegram Premium subscription will be active for the user.
      * @param text Text to show to the user receiving Telegram Premium; 0-getOption(&quot;gift_text_length_max&quot;) characters. Only Bold, Italic, Underline, Strikethrough, Spoiler, CustomEmoji, and DateTime entities are allowed.
@@ -6965,12 +7087,26 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun loadActiveStories(storyList: StoryList): TdlResult<Ok>
 
     /**
+     * Loads welcome messages of a chat; requires canSendWelcomeMessages administrator right in the chat. The loaded messages will be sent through updateChatWelcomeMessages.
+     *
+     * @param chatId The identifier of the chat.
+     */
+    public abstract suspend fun loadChatWelcomeMessages(chatId: Long): TdlResult<Ok>
+
+    /**
      * Loads more chats from a chat list. The loaded chats and their positions in the chat list will be sent through updates. Chats are sorted by the pair (chat.position.order, chat.id) in descending order. Returns a 404 error if all chats have been loaded.
      *
      * @param chatList The chat list in which to load chats; pass null to load chats from the main chat list.
      * @param limit The maximum number of chats to be loaded. For optimal performance, the number of loaded chats is chosen by TDLib and can be smaller than the specified limit, even if the end of the list is not reached.
      */
     public abstract suspend fun loadChats(chatList: ChatList? = null, limit: Int): TdlResult<Ok>
+
+    /**
+     * Returns full information about a community. The data will be sent through update.
+     *
+     * @param communityId Community identifier.
+     */
+    public abstract suspend fun loadCommunityFullInfo(communityId: Long): TdlResult<Ok>
 
     /**
      * Loads more topics in a channel direct messages chat administered by the current user. The loaded topics will be sent through updateDirectMessagesChatTopic. Topics are sorted by their topic.order in descending order. Returns a 404 error if all topics have been loaded.
@@ -7380,10 +7516,10 @@ public abstract class TdlClient internal constructor() {
     ): TdlResult<Data>
 
     /**
-     * Readds quick reply messages which failed to add. Can be called only for messages for which messageSendingStateFailed.canRetry is true and after specified in messageSendingStateFailed.retryAfter time passed. If a message is readded, the corresponding failed to send message is deleted. Returns the sent messages in the same order as the message identifiers passed in messageIds. If a message can't be readded, null will be returned instead of the message.
+     * Re-adds quick reply messages which failed to add. Can be called only for messages for which messageSendingStateFailed.canRetry is true and after specified in messageSendingStateFailed.retryAfter time passed. If a message is re-added, the corresponding failed to send message is deleted. Returns the sent messages in the same order as the message identifiers passed in messageIds. If a message can't be re-added, null will be returned instead of the message.
      *
      * @param shortcutName Name of the target shortcut.
-     * @param messageIds Identifiers of the quick reply messages to readd. Message identifiers must be in a strictly increasing order.
+     * @param messageIds Identifiers of the quick reply messages to re-add. Message identifiers must be in a strictly increasing order.
      */
     public abstract suspend fun readdQuickReplyShortcutMessages(shortcutName: String, messageIds: LongArray): TdlResult<QuickReplyMessages>
 
@@ -8030,7 +8166,7 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun reuseStarSubscription(subscriptionId: String): TdlResult<Ok>
 
     /**
-     * Revokes invite link for a chat. Available for basic groups, supergroups, and channels. Requires administrator privileges and canInviteUsers right in the chat for own links and owner privileges for other links. If a primary link is revoked, then additionally to the revoked link returns new primary link.
+     * Revokes invite link for a chat. Available in basic groups, supergroups, and channels. Requires administrator privileges and canInviteUsers right in the chat for own links and owner privileges for other links. If a primary link is revoked, then additionally to the revoked link returns new primary link.
      *
      * @param chatId Chat identifier.
      * @param inviteLink Invite link to be revoked.
@@ -8675,18 +8811,22 @@ public abstract class TdlClient internal constructor() {
      * @param topicId Topic in which the message will be sent; pass null if none.
      * @param receiverUserId Identifier of the user who will receive the message.
      * @param callbackQueryId Identifier of the callback query which triggered the message; for bots only.
+     * @param replaceCallbackQueryMessage Pass true if the ephemeral message must replace the message from which the callback query originated; for bots only.
      * @param replyTo Information about the message to be replied; pass null if none. The message can be an incoming ephemeral message.
+     * @param protectContent Pass true if the content of the message must be protected from forwarding and saving; for bots only.
      * @param sendingId Non-persistent identifier, which will be returned back in messageSendingStatePending object and can be used to match sent messages and corresponding updateNewMessage updates.
      * @param onlyPreview Pass true to get a fake message instead of actually sending them.
      * @param replyMarkup Markup for replying to the message; pass null if none; for bots only.
-     * @param inputMessageContent The content of the message to be sent. Must be one of the following types: inputMessageText, inputMessageAnimation, inputMessageAudio, inputMessageDocument, inputMessagePhoto, inputMessageSticker, inputMessageVideo, inputMessageVideoNote, inputMessageVoiceNote, inputMessageLocation, inputMessageVenue, inputMessageContact.
+     * @param inputMessageContent The content of the message to be sent. Must be one of the following types: inputMessageText, inputMessageAnimation, inputMessageAudio, inputMessageDocument, inputMessagePhoto, inputMessageRichMessage, inputMessageSticker, inputMessageVideo, inputMessageVideoNote, inputMessageVoiceNote, inputMessageLocation, inputMessageVenue, inputMessageContact.
      */
     public abstract suspend fun sendEphemeralMessage(
         chatId: Long,
         topicId: MessageTopic? = null,
         receiverUserId: Long,
         callbackQueryId: Long,
+        replaceCallbackQueryMessage: Boolean,
         replyTo: InputMessageReplyTo? = null,
+        protectContent: Boolean,
         sendingId: Int,
         onlyPreview: Boolean,
         replyMarkup: ReplyMarkup? = null,
@@ -8882,11 +9022,15 @@ public abstract class TdlClient internal constructor() {
      * @param giftName Name of the upgraded gift to send.
      * @param ownerId Identifier of the user or the channel chat that will receive the gift.
      * @param price The price that the user agreed to pay for the gift.
+     * @param text Text to show along with the gift; 0-getOption(&quot;gift_text_length_max&quot;) characters. Only Bold, Italic, Underline, Strikethrough, Spoiler, CustomEmoji, and DateTime entities are allowed. Must be empty if the receiver enabled paid messages and the price of the gift is less than the price of a paid message to the user.
+     * @param isPrivate Pass true to show gift text and sender only to the gift receiver; otherwise, everyone will be able to see them.
      */
     public abstract suspend fun sendResoldGift(
         giftName: String,
         ownerId: MessageSender,
         price: GiftResalePrice,
+        text: FormattedText,
+        isPrivate: Boolean,
     ): TdlResult<GiftResaleResult>
 
     /**
@@ -8895,12 +9039,16 @@ public abstract class TdlClient internal constructor() {
      * @param chatId Chat identifier.
      * @param forumTopicId The forum topic identifier in which the message will be sent; pass 0 if none.
      * @param draftId Unique identifier of the draft.
+     * @param canStop Pass true to show the user a button to stop further drafts.
+     * @param keepOnStop Pass true to keep the current draft when the user stops further generation.
      * @param message Draft of the message; file upload isn't supported.
      */
     public abstract suspend fun sendRichMessageDraft(
         chatId: Long,
         forumTopicId: Int,
         draftId: Long,
+        canStop: Boolean,
+        keepOnStop: Boolean,
         message: InputRichMessage,
     ): TdlResult<Ok>
 
@@ -8910,12 +9058,16 @@ public abstract class TdlClient internal constructor() {
      * @param chatId Chat identifier.
      * @param forumTopicId The forum topic identifier in which the message will be sent; pass 0 if none.
      * @param draftId Unique identifier of the draft.
+     * @param canStop Pass true to show the user a button to stop further drafts.
+     * @param keepOnStop Pass true to keep the current draft when the user stops further generation.
      * @param text Draft text of the message; pass null to show a &quot;Thinking...&quot; placeholder.
      */
     public abstract suspend fun sendTextMessageDraft(
         chatId: Long,
         forumTopicId: Int,
         draftId: Long,
+        canStop: Boolean,
+        keepOnStop: Boolean,
         text: FormattedText? = null,
     ): TdlResult<Ok>
 
@@ -9302,7 +9454,7 @@ public abstract class TdlClient internal constructor() {
      *
      * @param chatId Chat identifier.
      * @param topicId Topic in which the draft will be changed; pass null to change the draft for the chat itself.
-     * @param draftMessage New draft message; pass null to remove the draft. All files in draft message content must be of the type inputFileLocal. Media thumbnails and captions are ignored.
+     * @param draftMessage New draft message; pass null to remove the draft.
      */
     public abstract suspend fun setChatDraftMessage(
         chatId: Long,
@@ -9343,7 +9495,7 @@ public abstract class TdlClient internal constructor() {
      * Changes the tag or custom title of a chat member; requires canManageTags administrator right to change tag of other users; for basic groups and supergroups only.
      *
      * @param chatId Chat identifier.
-     * @param userId Identifier of the user, which tag is changed. Chats can't have member tags.
+     * @param userId Identifier of the user whose tag is changed. Chats can't have member tags.
      * @param tag The new tag of the member in the chat; 0-16 characters without emoji.
      */
     public abstract suspend fun setChatMemberTag(
@@ -9464,6 +9616,14 @@ public abstract class TdlClient internal constructor() {
         languageCode: String,
         commands: Array<BotCommand>,
     ): TdlResult<Ok>
+
+    /**
+     * Changes name of the given community; requires canChangeInfo administrator right in the community.
+     *
+     * @param communityId Identifier of the community.
+     * @param name New name of the community.
+     */
+    public abstract suspend fun setCommunityName(communityId: Long, name: String): TdlResult<Ok>
 
     /**
      * Sets a custom emoji sticker set thumbnail.
@@ -9619,7 +9779,7 @@ public abstract class TdlClient internal constructor() {
      * Changes resale price of a unique gift owned by the current user.
      *
      * @param receivedGiftId Identifier of the unique gift.
-     * @param price The new price for the unique gift; pass null to disallow gift resale. The current user will receive getOption(&quot;gift_resale_star_earnings_per_mille&quot;) Telegram Stars for each 1000 Telegram Stars paid for the gift if the gift price is in Telegram Stars or getOption(&quot;gift_resale_ton_earnings_per_mille&quot;) TON Grams for each 1000 Grams paid for the gift if the gift price is in Grams.
+     * @param price The new price for the unique gift; pass null to disallow gift resale. The current user will receive getOption(&quot;gift_resale_star_earnings_per_mille&quot;) Telegram Stars for each 1000 Telegram Stars paid for the gift if the gift price is in Telegram Stars or getOption(&quot;gift_resale_gram_earnings_per_mille&quot;) TON Grams for each 1000 Grams paid for the gift if the gift price is in Grams.
      */
     public abstract suspend fun setGiftResalePrice(receivedGiftId: String, price: GiftResalePrice? = null): TdlResult<Ok>
 
@@ -10335,6 +10495,19 @@ public abstract class TdlClient internal constructor() {
         messageId: Long,
         replyMarkup: ReplyMarkup? = null,
     ): TdlResult<BusinessMessage>
+
+    /**
+     * Stops a pending message generation by a bot.
+     *
+     * @param chatId Identifier of the chat with the bot.
+     * @param topicId Identifier of the topic in which the action is performed; pass null if none.
+     * @param draftId Unique identifier of the message draft within the message thread.
+     */
+    public abstract suspend fun stopPendingMessage(
+        chatId: Long,
+        topicId: MessageTopic? = null,
+        draftId: Long,
+    ): TdlResult<Ok>
 
     /**
      * Stops a poll.
@@ -11136,12 +11309,12 @@ public abstract class TdlClient internal constructor() {
         /**
          * The Git commit hash of the TDLib.
          */
-        public const val TDL_GIT_COMMIT_HASH: String = "a9966eb3704a3351568c28013fed67d797c17828"
+        public const val TDL_GIT_COMMIT_HASH: String = "bc9c263e2bfee06aaab41e82db51a103376030bc"
 
         /**
          * The version of the TDLib.
          */
-        public const val TDL_VERSION: String = "1.8.66"
+        public const val TDL_VERSION: String = "1.8.67"
 
         /**
          * Creates a new instance of the [TdlClient].

@@ -111,6 +111,7 @@ import dev.g000sha256.tdl.dto.BusinessFeatureUpgradedStories
 import dev.g000sha256.tdl.dto.ButtonStyle
 import dev.g000sha256.tdl.dto.ButtonStyleDanger
 import dev.g000sha256.tdl.dto.ButtonStyleDefault
+import dev.g000sha256.tdl.dto.ButtonStyleLink
 import dev.g000sha256.tdl.dto.ButtonStylePrimary
 import dev.g000sha256.tdl.dto.ButtonStyleSuccess
 import dev.g000sha256.tdl.dto.CallDiscardReason
@@ -362,6 +363,7 @@ import dev.g000sha256.tdl.dto.DiffEntityTypeDelete
 import dev.g000sha256.tdl.dto.DiffEntityTypeInsert
 import dev.g000sha256.tdl.dto.DiffEntityTypeReplace
 import dev.g000sha256.tdl.dto.DraftMessageContent
+import dev.g000sha256.tdl.dto.DraftMessageContentInputRichMessage
 import dev.g000sha256.tdl.dto.DraftMessageContentRichMessage
 import dev.g000sha256.tdl.dto.DraftMessageContentText
 import dev.g000sha256.tdl.dto.DraftMessageContentVideoNote
@@ -455,6 +457,7 @@ import dev.g000sha256.tdl.dto.InlineKeyboardButtonTypeCallback
 import dev.g000sha256.tdl.dto.InlineKeyboardButtonTypeCallbackGame
 import dev.g000sha256.tdl.dto.InlineKeyboardButtonTypeCallbackWithPassword
 import dev.g000sha256.tdl.dto.InlineKeyboardButtonTypeCopyText
+import dev.g000sha256.tdl.dto.InlineKeyboardButtonTypeDisabled
 import dev.g000sha256.tdl.dto.InlineKeyboardButtonTypeLoginUrl
 import dev.g000sha256.tdl.dto.InlineKeyboardButtonTypeSwitchInline
 import dev.g000sha256.tdl.dto.InlineKeyboardButtonTypeUrl
@@ -555,9 +558,12 @@ import dev.g000sha256.tdl.dto.InputPageBlockAnchor
 import dev.g000sha256.tdl.dto.InputPageBlockAnimation
 import dev.g000sha256.tdl.dto.InputPageBlockAudio
 import dev.g000sha256.tdl.dto.InputPageBlockBlockQuote
+import dev.g000sha256.tdl.dto.InputPageBlockButtonRow
 import dev.g000sha256.tdl.dto.InputPageBlockCollage
 import dev.g000sha256.tdl.dto.InputPageBlockDetails
 import dev.g000sha256.tdl.dto.InputPageBlockDivider
+import dev.g000sha256.tdl.dto.InputPageBlockDocument
+import dev.g000sha256.tdl.dto.InputPageBlockExpandableBlockQuote
 import dev.g000sha256.tdl.dto.InputPageBlockFooter
 import dev.g000sha256.tdl.dto.InputPageBlockList
 import dev.g000sha256.tdl.dto.InputPageBlockMap
@@ -787,6 +793,7 @@ import dev.g000sha256.tdl.dto.MessageChatHasProtectedContentDisableRequested
 import dev.g000sha256.tdl.dto.MessageChatHasProtectedContentToggled
 import dev.g000sha256.tdl.dto.MessageChatJoinByLink
 import dev.g000sha256.tdl.dto.MessageChatJoinByRequest
+import dev.g000sha256.tdl.dto.MessageChatJoinFromCommunity
 import dev.g000sha256.tdl.dto.MessageChatOwnerChanged
 import dev.g000sha256.tdl.dto.MessageChatOwnerLeft
 import dev.g000sha256.tdl.dto.MessageChatRemovedFromCommunity
@@ -824,9 +831,9 @@ import dev.g000sha256.tdl.dto.MessageForumTopicIsHiddenToggled
 import dev.g000sha256.tdl.dto.MessageGame
 import dev.g000sha256.tdl.dto.MessageGameScore
 import dev.g000sha256.tdl.dto.MessageGift
+import dev.g000sha256.tdl.dto.MessageGiftedGrams
 import dev.g000sha256.tdl.dto.MessageGiftedPremium
 import dev.g000sha256.tdl.dto.MessageGiftedStars
-import dev.g000sha256.tdl.dto.MessageGiftedTon
 import dev.g000sha256.tdl.dto.MessageGiveaway
 import dev.g000sha256.tdl.dto.MessageGiveawayCompleted
 import dev.g000sha256.tdl.dto.MessageGiveawayCreated
@@ -960,13 +967,16 @@ import dev.g000sha256.tdl.dto.PageBlockAnimation
 import dev.g000sha256.tdl.dto.PageBlockAudio
 import dev.g000sha256.tdl.dto.PageBlockAuthorDate
 import dev.g000sha256.tdl.dto.PageBlockBlockQuote
+import dev.g000sha256.tdl.dto.PageBlockButtonRow
 import dev.g000sha256.tdl.dto.PageBlockChatLink
 import dev.g000sha256.tdl.dto.PageBlockCollage
 import dev.g000sha256.tdl.dto.PageBlockCover
 import dev.g000sha256.tdl.dto.PageBlockDetails
 import dev.g000sha256.tdl.dto.PageBlockDivider
+import dev.g000sha256.tdl.dto.PageBlockDocument
 import dev.g000sha256.tdl.dto.PageBlockEmbedded
 import dev.g000sha256.tdl.dto.PageBlockEmbeddedPost
+import dev.g000sha256.tdl.dto.PageBlockExpandableBlockQuote
 import dev.g000sha256.tdl.dto.PageBlockFooter
 import dev.g000sha256.tdl.dto.PageBlockHeader
 import dev.g000sha256.tdl.dto.PageBlockHorizontalAlignment
@@ -989,6 +999,7 @@ import dev.g000sha256.tdl.dto.PageBlockSubtitle
 import dev.g000sha256.tdl.dto.PageBlockTable
 import dev.g000sha256.tdl.dto.PageBlockThinking
 import dev.g000sha256.tdl.dto.PageBlockTitle
+import dev.g000sha256.tdl.dto.PageBlockUnsupported
 import dev.g000sha256.tdl.dto.PageBlockVerticalAlignment
 import dev.g000sha256.tdl.dto.PageBlockVerticalAlignmentBottom
 import dev.g000sha256.tdl.dto.PageBlockVerticalAlignmentMiddle
@@ -1275,6 +1286,7 @@ import dev.g000sha256.tdl.dto.RichTextAnchorLink
 import dev.g000sha256.tdl.dto.RichTextBankCardNumber
 import dev.g000sha256.tdl.dto.RichTextBold
 import dev.g000sha256.tdl.dto.RichTextBotCommand
+import dev.g000sha256.tdl.dto.RichTextButton
 import dev.g000sha256.tdl.dto.RichTextCashtag
 import dev.g000sha256.tdl.dto.RichTextCustomEmoji
 import dev.g000sha256.tdl.dto.RichTextDateTime
@@ -1308,6 +1320,7 @@ import dev.g000sha256.tdl.dto.SearchChatTypeFilterBot
 import dev.g000sha256.tdl.dto.SearchChatTypeFilterChannel
 import dev.g000sha256.tdl.dto.SearchMessagesChatTypeFilter
 import dev.g000sha256.tdl.dto.SearchMessagesChatTypeFilterChannel
+import dev.g000sha256.tdl.dto.SearchMessagesChatTypeFilterCommunity
 import dev.g000sha256.tdl.dto.SearchMessagesChatTypeFilterGroup
 import dev.g000sha256.tdl.dto.SearchMessagesChatTypeFilterPrivate
 import dev.g000sha256.tdl.dto.SearchMessagesFilter
@@ -1645,6 +1658,7 @@ import dev.g000sha256.tdl.dto.UpdateChatEmojiStatus
 import dev.g000sha256.tdl.dto.UpdateChatFolders
 import dev.g000sha256.tdl.dto.UpdateChatHasProtectedContent
 import dev.g000sha256.tdl.dto.UpdateChatHasScheduledMessages
+import dev.g000sha256.tdl.dto.UpdateChatHasWelcomeMessages
 import dev.g000sha256.tdl.dto.UpdateChatIsMarkedAsUnread
 import dev.g000sha256.tdl.dto.UpdateChatIsTranslatable
 import dev.g000sha256.tdl.dto.UpdateChatJoinResult
@@ -1670,7 +1684,9 @@ import dev.g000sha256.tdl.dto.UpdateChatUnreadPollVoteCount
 import dev.g000sha256.tdl.dto.UpdateChatUnreadReactionCount
 import dev.g000sha256.tdl.dto.UpdateChatVideoChat
 import dev.g000sha256.tdl.dto.UpdateChatViewAsTopics
+import dev.g000sha256.tdl.dto.UpdateChatWelcomeMessages
 import dev.g000sha256.tdl.dto.UpdateCommunity
+import dev.g000sha256.tdl.dto.UpdateCommunityFullInfo
 import dev.g000sha256.tdl.dto.UpdateConnectionState
 import dev.g000sha256.tdl.dto.UpdateContactCloseBirthdays
 import dev.g000sha256.tdl.dto.UpdateDefaultBackground
@@ -1709,6 +1725,7 @@ import dev.g000sha256.tdl.dto.UpdateMessageContainsUnreadPollVotes
 import dev.g000sha256.tdl.dto.UpdateMessageContent
 import dev.g000sha256.tdl.dto.UpdateMessageContentOpened
 import dev.g000sha256.tdl.dto.UpdateMessageEdited
+import dev.g000sha256.tdl.dto.UpdateMessageEphemeralContent
 import dev.g000sha256.tdl.dto.UpdateMessageFactCheck
 import dev.g000sha256.tdl.dto.UpdateMessageInteractionInfo
 import dev.g000sha256.tdl.dto.UpdateMessageIsPinned
@@ -1768,6 +1785,7 @@ import dev.g000sha256.tdl.dto.UpdateSpeedLimitNotification
 import dev.g000sha256.tdl.dto.UpdateStakeDiceState
 import dev.g000sha256.tdl.dto.UpdateStarRevenueStatus
 import dev.g000sha256.tdl.dto.UpdateStickerSet
+import dev.g000sha256.tdl.dto.UpdateStopMessageDraft
 import dev.g000sha256.tdl.dto.UpdateStory
 import dev.g000sha256.tdl.dto.UpdateStoryDeleted
 import dev.g000sha256.tdl.dto.UpdateStoryListChatCount
@@ -2509,6 +2527,7 @@ internal fun serialize(dto: DraftMessageContent): JsonElement {
     when(dto) {
         is DraftMessageContentText -> return serialize(dto = dto)
         is DraftMessageContentRichMessage -> return serialize(dto = dto)
+        is DraftMessageContentInputRichMessage -> return serialize(dto = dto)
         is DraftMessageContentVideoNote -> return serialize(dto = dto)
         is DraftMessageContentVoiceNote -> return serialize(dto = dto)
     }
@@ -2569,6 +2588,7 @@ internal fun serialize(dto: ButtonStyle): JsonElement {
         is ButtonStylePrimary -> return serialize(dto = dto)
         is ButtonStyleDanger -> return serialize(dto = dto)
         is ButtonStyleSuccess -> return serialize(dto = dto)
+        is ButtonStyleLink -> return serialize(dto = dto)
     }
 }
 
@@ -2597,6 +2617,7 @@ internal fun serialize(dto: InlineKeyboardButtonType): JsonElement {
         is InlineKeyboardButtonTypeBuy -> return serialize(dto = dto)
         is InlineKeyboardButtonTypeUser -> return serialize(dto = dto)
         is InlineKeyboardButtonTypeCopyText -> return serialize(dto = dto)
+        is InlineKeyboardButtonTypeDisabled -> return serialize(dto = dto)
     }
 }
 
@@ -2666,6 +2687,7 @@ internal fun serialize(dto: RichText): JsonElement {
         is RichTextCustomEmoji -> return serialize(dto = dto)
         is RichTextIcon -> return serialize(dto = dto)
         is RichTextMathematicalExpression -> return serialize(dto = dto)
+        is RichTextButton -> return serialize(dto = dto)
         is RichTextDiff -> return serialize(dto = dto)
         is RichTextReference -> return serialize(dto = dto)
         is RichTextReferenceLink -> return serialize(dto = dto)
@@ -2709,9 +2731,11 @@ internal fun serialize(dto: PageBlock): JsonElement {
         is PageBlockAnchor -> return serialize(dto = dto)
         is PageBlockList -> return serialize(dto = dto)
         is PageBlockBlockQuote -> return serialize(dto = dto)
+        is PageBlockExpandableBlockQuote -> return serialize(dto = dto)
         is PageBlockPullQuote -> return serialize(dto = dto)
         is PageBlockAnimation -> return serialize(dto = dto)
         is PageBlockAudio -> return serialize(dto = dto)
+        is PageBlockDocument -> return serialize(dto = dto)
         is PageBlockPhoto -> return serialize(dto = dto)
         is PageBlockVideo -> return serialize(dto = dto)
         is PageBlockVoiceNote -> return serialize(dto = dto)
@@ -2725,6 +2749,8 @@ internal fun serialize(dto: PageBlock): JsonElement {
         is PageBlockDetails -> return serialize(dto = dto)
         is PageBlockRelatedArticles -> return serialize(dto = dto)
         is PageBlockMap -> return serialize(dto = dto)
+        is PageBlockButtonRow -> return serialize(dto = dto)
+        is PageBlockUnsupported -> return serialize(dto = dto)
     }
 }
 
@@ -2981,6 +3007,7 @@ internal fun serialize(dto: MessageContent): JsonElement {
         is MessageChatAddMembers -> return serialize(dto = dto)
         is MessageChatJoinByLink -> return serialize(dto = dto)
         is MessageChatJoinByRequest -> return serialize(dto = dto)
+        is MessageChatJoinFromCommunity -> return serialize(dto = dto)
         is MessageChatDeleteMember -> return serialize(dto = dto)
         is MessageChatAddedToCommunity -> return serialize(dto = dto)
         is MessageChatRemovedFromCommunity -> return serialize(dto = dto)
@@ -3011,7 +3038,7 @@ internal fun serialize(dto: MessageContent): JsonElement {
         is MessageGiveawayCompleted -> return serialize(dto = dto)
         is MessageGiveawayWinners -> return serialize(dto = dto)
         is MessageGiftedStars -> return serialize(dto = dto)
-        is MessageGiftedTon -> return serialize(dto = dto)
+        is MessageGiftedGrams -> return serialize(dto = dto)
         is MessageGiveawayPrizeStars -> return serialize(dto = dto)
         is MessageGift -> return serialize(dto = dto)
         is MessageUpgradedGift -> return serialize(dto = dto)
@@ -3140,9 +3167,11 @@ internal fun serialize(dto: InputPageBlock): JsonElement {
         is InputPageBlockAnchor -> return serialize(dto = dto)
         is InputPageBlockList -> return serialize(dto = dto)
         is InputPageBlockBlockQuote -> return serialize(dto = dto)
+        is InputPageBlockExpandableBlockQuote -> return serialize(dto = dto)
         is InputPageBlockPullQuote -> return serialize(dto = dto)
         is InputPageBlockAnimation -> return serialize(dto = dto)
         is InputPageBlockAudio -> return serialize(dto = dto)
+        is InputPageBlockDocument -> return serialize(dto = dto)
         is InputPageBlockPhoto -> return serialize(dto = dto)
         is InputPageBlockVideo -> return serialize(dto = dto)
         is InputPageBlockVoiceNote -> return serialize(dto = dto)
@@ -3151,6 +3180,7 @@ internal fun serialize(dto: InputPageBlock): JsonElement {
         is InputPageBlockTable -> return serialize(dto = dto)
         is InputPageBlockDetails -> return serialize(dto = dto)
         is InputPageBlockMap -> return serialize(dto = dto)
+        is InputPageBlockButtonRow -> return serialize(dto = dto)
     }
 }
 
@@ -3211,6 +3241,7 @@ internal fun serialize(dto: SearchMessagesChatTypeFilter): JsonElement {
         is SearchMessagesChatTypeFilterPrivate -> return serialize(dto = dto)
         is SearchMessagesChatTypeFilterGroup -> return serialize(dto = dto)
         is SearchMessagesChatTypeFilterChannel -> return serialize(dto = dto)
+        is SearchMessagesChatTypeFilterCommunity -> return serialize(dto = dto)
     }
 }
 
@@ -4361,6 +4392,7 @@ internal fun serialize(dto: Update): JsonElement {
         is UpdateMessageSendSucceeded -> return serialize(dto = dto)
         is UpdateMessageSendFailed -> return serialize(dto = dto)
         is UpdateMessageContent -> return serialize(dto = dto)
+        is UpdateMessageEphemeralContent -> return serialize(dto = dto)
         is UpdateMessageEdited -> return serialize(dto = dto)
         is UpdateMessageIsPinned -> return serialize(dto = dto)
         is UpdateMessageInteractionInfo -> return serialize(dto = dto)
@@ -4406,6 +4438,7 @@ internal fun serialize(dto: Update): JsonElement {
         is UpdateChatViewAsTopics -> return serialize(dto = dto)
         is UpdateChatBlockList -> return serialize(dto = dto)
         is UpdateChatHasScheduledMessages -> return serialize(dto = dto)
+        is UpdateChatHasWelcomeMessages -> return serialize(dto = dto)
         is UpdateChatFolders -> return serialize(dto = dto)
         is UpdateChatOnlineMemberCount -> return serialize(dto = dto)
         is UpdateSavedMessagesTopic -> return serialize(dto = dto)
@@ -4416,6 +4449,7 @@ internal fun serialize(dto: Update): JsonElement {
         is UpdateQuickReplyShortcutDeleted -> return serialize(dto = dto)
         is UpdateQuickReplyShortcuts -> return serialize(dto = dto)
         is UpdateQuickReplyShortcutMessages -> return serialize(dto = dto)
+        is UpdateChatWelcomeMessages -> return serialize(dto = dto)
         is UpdateForumTopicInfo -> return serialize(dto = dto)
         is UpdateForumTopic -> return serialize(dto = dto)
         is UpdateScopeNotificationSettings -> return serialize(dto = dto)
@@ -4427,6 +4461,7 @@ internal fun serialize(dto: Update): JsonElement {
         is UpdateDeleteMessages -> return serialize(dto = dto)
         is UpdateChatAction -> return serialize(dto = dto)
         is UpdatePendingMessage -> return serialize(dto = dto)
+        is UpdateStopMessageDraft -> return serialize(dto = dto)
         is UpdateCommunity -> return serialize(dto = dto)
         is UpdateUserStatus -> return serialize(dto = dto)
         is UpdateUser -> return serialize(dto = dto)
@@ -4436,6 +4471,7 @@ internal fun serialize(dto: Update): JsonElement {
         is UpdateUserFullInfo -> return serialize(dto = dto)
         is UpdateBasicGroupFullInfo -> return serialize(dto = dto)
         is UpdateSupergroupFullInfo -> return serialize(dto = dto)
+        is UpdateCommunityFullInfo -> return serialize(dto = dto)
         is UpdateServiceNotification -> return serialize(dto = dto)
         is UpdateNewOauthRequest -> return serialize(dto = dto)
         is UpdateFile -> return serialize(dto = dto)

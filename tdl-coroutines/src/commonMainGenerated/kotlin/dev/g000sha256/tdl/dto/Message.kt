@@ -68,8 +68,10 @@ import kotlin.String
  * @property restrictionInfo Information about the restrictions that must be applied to the message content; may be null if none.
  * @property summaryLanguageCode IETF language tag of the message language on which it can be summarized; empty if summary isn't available for the message.
  * @property content Content of the message.
+ * @property ephemeralContent Content of the message, which is visible only to the current user and must be shown instead of the regular content; may be null if none.
  * @property replyMarkup Reply markup for the message; may be null if none.
  * @property ephemeralMessageId Unique identifier of the ephemeral message if the message is ephemeral; for bots only.
+ * @property chatInstance Identifier that uniquely corresponds to the chat to which the message was sent; for bots only.
  */
 public class Message public constructor(
     public val id: Long,
@@ -113,8 +115,10 @@ public class Message public constructor(
     public val restrictionInfo: RestrictionInfo?,
     public val summaryLanguageCode: String,
     public val content: MessageContent,
+    public val ephemeralContent: EphemeralMessageContent?,
     public val replyMarkup: ReplyMarkup?,
     public val ephemeralMessageId: Int,
+    public val chatInstance: Long,
 ) {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
@@ -251,10 +255,16 @@ public class Message public constructor(
         if (other.content != content) {
             return false
         }
+        if (other.ephemeralContent != ephemeralContent) {
+            return false
+        }
         if (other.replyMarkup != replyMarkup) {
             return false
         }
-        return other.ephemeralMessageId == ephemeralMessageId
+        if (other.ephemeralMessageId != ephemeralMessageId) {
+            return false
+        }
+        return other.chatInstance == chatInstance
     }
 
     override fun hashCode(): Int {
@@ -300,8 +310,10 @@ public class Message public constructor(
         hashCode = 31 * hashCode + restrictionInfo.hashCode()
         hashCode = 31 * hashCode + summaryLanguageCode.hashCode()
         hashCode = 31 * hashCode + content.hashCode()
+        hashCode = 31 * hashCode + ephemeralContent.hashCode()
         hashCode = 31 * hashCode + replyMarkup.hashCode()
         hashCode = 31 * hashCode + ephemeralMessageId.hashCode()
+        hashCode = 31 * hashCode + chatInstance.hashCode()
         return hashCode
     }
 
@@ -434,11 +446,17 @@ public class Message public constructor(
             append("content=")
             append(content)
             append(", ")
+            append("ephemeralContent=")
+            append(ephemeralContent)
+            append(", ")
             append("replyMarkup=")
             append(replyMarkup)
             append(", ")
             append("ephemeralMessageId=")
             append(ephemeralMessageId)
+            append(", ")
+            append("chatInstance=")
+            append(chatInstance)
             append(")")
         }
     }

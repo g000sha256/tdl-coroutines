@@ -46,6 +46,7 @@ import kotlin.String
  * @property isMarkedAsUnread True, if the chat is marked as unread.
  * @property viewAsTopics True, if the chat is a forum supergroup that must be shown in the &quot;View as topics&quot; mode, or Saved Messages chat that must be shown in the &quot;View as chats&quot;.
  * @property hasScheduledMessages True, if the chat has scheduled messages.
+ * @property hasWelcomeMessages True, if the chat has welcome messages; for chat administrators with canChangeInfo administrator right only.
  * @property canBeDeletedOnlyForSelf True, if the chat messages can be deleted only for the current user while other users will continue to see the messages.
  * @property canBeDeletedForAllUsers True, if the chat messages can be deleted for all users.
  * @property canBeReported True, if the chat can be reported to Telegram moderators through reportChat or reportChatPhoto.
@@ -91,6 +92,7 @@ public class Chat public constructor(
     public val isMarkedAsUnread: Boolean,
     public val viewAsTopics: Boolean,
     public val hasScheduledMessages: Boolean,
+    public val hasWelcomeMessages: Boolean,
     public val canBeDeletedOnlyForSelf: Boolean,
     public val canBeDeletedForAllUsers: Boolean,
     public val canBeReported: Boolean,
@@ -188,6 +190,9 @@ public class Chat public constructor(
         if (other.hasScheduledMessages != hasScheduledMessages) {
             return false
         }
+        if (other.hasWelcomeMessages != hasWelcomeMessages) {
+            return false
+        }
         if (other.canBeDeletedOnlyForSelf != canBeDeletedOnlyForSelf) {
             return false
         }
@@ -279,6 +284,7 @@ public class Chat public constructor(
         hashCode = 31 * hashCode + isMarkedAsUnread.hashCode()
         hashCode = 31 * hashCode + viewAsTopics.hashCode()
         hashCode = 31 * hashCode + hasScheduledMessages.hashCode()
+        hashCode = 31 * hashCode + hasWelcomeMessages.hashCode()
         hashCode = 31 * hashCode + canBeDeletedOnlyForSelf.hashCode()
         hashCode = 31 * hashCode + canBeDeletedForAllUsers.hashCode()
         hashCode = 31 * hashCode + canBeReported.hashCode()
@@ -372,6 +378,9 @@ public class Chat public constructor(
             append(", ")
             append("hasScheduledMessages=")
             append(hasScheduledMessages)
+            append(", ")
+            append("hasWelcomeMessages=")
+            append(hasWelcomeMessages)
             append(", ")
             append("canBeDeletedOnlyForSelf=")
             append(canBeDeletedOnlyForSelf)

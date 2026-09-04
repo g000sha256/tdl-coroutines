@@ -125,6 +125,7 @@ import dev.g000sha256.tdl.dto.CheckChatUsernameResult
 import dev.g000sha256.tdl.dto.CheckStickerSetNameResult
 import dev.g000sha256.tdl.dto.CollectibleItemInfo
 import dev.g000sha256.tdl.dto.CollectibleItemType
+import dev.g000sha256.tdl.dto.CommunityId
 import dev.g000sha256.tdl.dto.ConnectedAffiliateProgram
 import dev.g000sha256.tdl.dto.ConnectedAffiliatePrograms
 import dev.g000sha256.tdl.dto.ConnectedWebsites
@@ -442,6 +443,7 @@ import dev.g000sha256.tdl.dto.UpdateChatEmojiStatus
 import dev.g000sha256.tdl.dto.UpdateChatFolders
 import dev.g000sha256.tdl.dto.UpdateChatHasProtectedContent
 import dev.g000sha256.tdl.dto.UpdateChatHasScheduledMessages
+import dev.g000sha256.tdl.dto.UpdateChatHasWelcomeMessages
 import dev.g000sha256.tdl.dto.UpdateChatIsMarkedAsUnread
 import dev.g000sha256.tdl.dto.UpdateChatIsTranslatable
 import dev.g000sha256.tdl.dto.UpdateChatJoinResult
@@ -467,7 +469,9 @@ import dev.g000sha256.tdl.dto.UpdateChatUnreadPollVoteCount
 import dev.g000sha256.tdl.dto.UpdateChatUnreadReactionCount
 import dev.g000sha256.tdl.dto.UpdateChatVideoChat
 import dev.g000sha256.tdl.dto.UpdateChatViewAsTopics
+import dev.g000sha256.tdl.dto.UpdateChatWelcomeMessages
 import dev.g000sha256.tdl.dto.UpdateCommunity
+import dev.g000sha256.tdl.dto.UpdateCommunityFullInfo
 import dev.g000sha256.tdl.dto.UpdateConnectionState
 import dev.g000sha256.tdl.dto.UpdateContactCloseBirthdays
 import dev.g000sha256.tdl.dto.UpdateDefaultBackground
@@ -506,6 +510,7 @@ import dev.g000sha256.tdl.dto.UpdateMessageContainsUnreadPollVotes
 import dev.g000sha256.tdl.dto.UpdateMessageContent
 import dev.g000sha256.tdl.dto.UpdateMessageContentOpened
 import dev.g000sha256.tdl.dto.UpdateMessageEdited
+import dev.g000sha256.tdl.dto.UpdateMessageEphemeralContent
 import dev.g000sha256.tdl.dto.UpdateMessageFactCheck
 import dev.g000sha256.tdl.dto.UpdateMessageInteractionInfo
 import dev.g000sha256.tdl.dto.UpdateMessageIsPinned
@@ -565,6 +570,7 @@ import dev.g000sha256.tdl.dto.UpdateSpeedLimitNotification
 import dev.g000sha256.tdl.dto.UpdateStakeDiceState
 import dev.g000sha256.tdl.dto.UpdateStarRevenueStatus
 import dev.g000sha256.tdl.dto.UpdateStickerSet
+import dev.g000sha256.tdl.dto.UpdateStopMessageDraft
 import dev.g000sha256.tdl.dto.UpdateStory
 import dev.g000sha256.tdl.dto.UpdateStoryDeleted
 import dev.g000sha256.tdl.dto.UpdateStoryListChatCount
@@ -618,6 +624,7 @@ import dev.g000sha256.tdl.function.AddChatFolderByInviteLink
 import dev.g000sha256.tdl.function.AddChatMember
 import dev.g000sha256.tdl.function.AddChatMembers
 import dev.g000sha256.tdl.function.AddChatToList
+import dev.g000sha256.tdl.function.AddChatWelcomeMessage
 import dev.g000sha256.tdl.function.AddChecklistTasks
 import dev.g000sha256.tdl.function.AddContact
 import dev.g000sha256.tdl.function.AddCustomServerLanguagePack
@@ -736,6 +743,7 @@ import dev.g000sha256.tdl.function.CreateChatFolder
 import dev.g000sha256.tdl.function.CreateChatFolderInviteLink
 import dev.g000sha256.tdl.function.CreateChatInviteLink
 import dev.g000sha256.tdl.function.CreateChatSubscriptionInviteLink
+import dev.g000sha256.tdl.function.CreateCommunity
 import dev.g000sha256.tdl.function.CreateForumTopic
 import dev.g000sha256.tdl.function.CreateGiftCollection
 import dev.g000sha256.tdl.function.CreateGroupCall
@@ -758,6 +766,7 @@ import dev.g000sha256.tdl.function.DeclineSuggestedPost
 import dev.g000sha256.tdl.function.DecryptGroupCallData
 import dev.g000sha256.tdl.function.DeleteAccount
 import dev.g000sha256.tdl.function.DeleteAllCallMessages
+import dev.g000sha256.tdl.function.DeleteAllChatWelcomeMessages
 import dev.g000sha256.tdl.function.DeleteAllRecentMessageReactionsFromSender
 import dev.g000sha256.tdl.function.DeleteAllRevokedChatInviteLinks
 import dev.g000sha256.tdl.function.DeleteBotMediaPreviews
@@ -773,6 +782,7 @@ import dev.g000sha256.tdl.function.DeleteChatHistory
 import dev.g000sha256.tdl.function.DeleteChatMessagesByDate
 import dev.g000sha256.tdl.function.DeleteChatMessagesBySender
 import dev.g000sha256.tdl.function.DeleteChatReplyMarkup
+import dev.g000sha256.tdl.function.DeleteChatWelcomeMessage
 import dev.g000sha256.tdl.function.DeleteCommands
 import dev.g000sha256.tdl.function.DeleteDefaultBackground
 import dev.g000sha256.tdl.function.DeleteDirectMessagesChatTopicHistory
@@ -784,6 +794,7 @@ import dev.g000sha256.tdl.function.DeleteGiftCollection
 import dev.g000sha256.tdl.function.DeleteGroupCallMessages
 import dev.g000sha256.tdl.function.DeleteGroupCallMessagesBySender
 import dev.g000sha256.tdl.function.DeleteLanguagePack
+import dev.g000sha256.tdl.function.DeleteMessageEphemeralContent
 import dev.g000sha256.tdl.function.DeleteMessageReactionsFromSender
 import dev.g000sha256.tdl.function.DeleteMessages
 import dev.g000sha256.tdl.function.DeletePassportElement
@@ -818,12 +829,15 @@ import dev.g000sha256.tdl.function.EditBusinessMessageMedia
 import dev.g000sha256.tdl.function.EditBusinessMessageReplyMarkup
 import dev.g000sha256.tdl.function.EditBusinessMessageText
 import dev.g000sha256.tdl.function.EditBusinessStory
+import dev.g000sha256.tdl.function.EditCallbackQueryMessage
 import dev.g000sha256.tdl.function.EditChatFolder
 import dev.g000sha256.tdl.function.EditChatFolderInviteLink
 import dev.g000sha256.tdl.function.EditChatInviteLink
 import dev.g000sha256.tdl.function.EditChatSubscriptionInviteLink
+import dev.g000sha256.tdl.function.EditChatWelcomeMessage
 import dev.g000sha256.tdl.function.EditCustomLanguagePackInfo
 import dev.g000sha256.tdl.function.EditEphemeralMessage
+import dev.g000sha256.tdl.function.EditEphemeralMessageCaption
 import dev.g000sha256.tdl.function.EditForumTopic
 import dev.g000sha256.tdl.function.EditInlineMessageCaption
 import dev.g000sha256.tdl.function.EditInlineMessageLiveLocation
@@ -1200,7 +1214,9 @@ import dev.g000sha256.tdl.function.LeaveChat
 import dev.g000sha256.tdl.function.LeaveGroupCall
 import dev.g000sha256.tdl.function.ListenToAudio
 import dev.g000sha256.tdl.function.LoadActiveStories
+import dev.g000sha256.tdl.function.LoadChatWelcomeMessages
 import dev.g000sha256.tdl.function.LoadChats
+import dev.g000sha256.tdl.function.LoadCommunityFullInfo
 import dev.g000sha256.tdl.function.LoadDirectMessagesChatTopics
 import dev.g000sha256.tdl.function.LoadGroupCallParticipants
 import dev.g000sha256.tdl.function.LoadQuickReplyShortcutMessages
@@ -1445,6 +1461,7 @@ import dev.g000sha256.tdl.function.SetChatTheme
 import dev.g000sha256.tdl.function.SetChatTitle
 import dev.g000sha256.tdl.function.SetCloseFriends
 import dev.g000sha256.tdl.function.SetCommands
+import dev.g000sha256.tdl.function.SetCommunityName
 import dev.g000sha256.tdl.function.SetCustomEmojiStickerSetThumbnail
 import dev.g000sha256.tdl.function.SetCustomLanguagePack
 import dev.g000sha256.tdl.function.SetCustomLanguagePackString
@@ -1534,6 +1551,7 @@ import dev.g000sha256.tdl.function.StartGroupCallScreenSharing
 import dev.g000sha256.tdl.function.StartLiveStory
 import dev.g000sha256.tdl.function.StartScheduledVideoChat
 import dev.g000sha256.tdl.function.StopBusinessPoll
+import dev.g000sha256.tdl.function.StopPendingMessage
 import dev.g000sha256.tdl.function.StopPoll
 import dev.g000sha256.tdl.function.SuggestUserBirthdate
 import dev.g000sha256.tdl.function.SuggestUserProfilePhoto
@@ -1653,6 +1671,9 @@ internal class TdlClientImpl internal constructor(
         get() = repository.updates.filterIsInstance()
 
     override val messageContentUpdates: Flow<UpdateMessageContent>
+        get() = repository.updates.filterIsInstance()
+
+    override val messageEphemeralContentUpdates: Flow<UpdateMessageEphemeralContent>
         get() = repository.updates.filterIsInstance()
 
     override val messageEditedUpdates: Flow<UpdateMessageEdited>
@@ -1790,6 +1811,9 @@ internal class TdlClientImpl internal constructor(
     override val chatHasScheduledMessagesUpdates: Flow<UpdateChatHasScheduledMessages>
         get() = repository.updates.filterIsInstance()
 
+    override val chatHasWelcomeMessagesUpdates: Flow<UpdateChatHasWelcomeMessages>
+        get() = repository.updates.filterIsInstance()
+
     override val chatFoldersUpdates: Flow<UpdateChatFolders>
         get() = repository.updates.filterIsInstance()
 
@@ -1818,6 +1842,9 @@ internal class TdlClientImpl internal constructor(
         get() = repository.updates.filterIsInstance()
 
     override val quickReplyShortcutMessagesUpdates: Flow<UpdateQuickReplyShortcutMessages>
+        get() = repository.updates.filterIsInstance()
+
+    override val chatWelcomeMessagesUpdates: Flow<UpdateChatWelcomeMessages>
         get() = repository.updates.filterIsInstance()
 
     override val forumTopicInfoUpdates: Flow<UpdateForumTopicInfo>
@@ -1853,6 +1880,9 @@ internal class TdlClientImpl internal constructor(
     override val pendingMessageUpdates: Flow<UpdatePendingMessage>
         get() = repository.updates.filterIsInstance()
 
+    override val stopMessageDraftUpdates: Flow<UpdateStopMessageDraft>
+        get() = repository.updates.filterIsInstance()
+
     override val communityUpdates: Flow<UpdateCommunity>
         get() = repository.updates.filterIsInstance()
 
@@ -1878,6 +1908,9 @@ internal class TdlClientImpl internal constructor(
         get() = repository.updates.filterIsInstance()
 
     override val supergroupFullInfoUpdates: Flow<UpdateSupergroupFullInfo>
+        get() = repository.updates.filterIsInstance()
+
+    override val communityFullInfoUpdates: Flow<UpdateCommunityFullInfo>
         get() = repository.updates.filterIsInstance()
 
     override val serviceNotificationUpdates: Flow<UpdateServiceNotification>
@@ -2271,6 +2304,14 @@ internal class TdlClientImpl internal constructor(
         val function = AddChatToList(
             chatId = chatId,
             chatList = chatList,
+        )
+        return repository.send(function = function)
+    }
+
+    override suspend fun addChatWelcomeMessage(chatId: Long, inputMessageContent: InputMessageContent): TdlResult<Ok> {
+        val function = AddChatWelcomeMessage(
+            chatId = chatId,
+            inputMessageContent = inputMessageContent,
         )
         return repository.send(function = function)
     }
@@ -3363,6 +3404,19 @@ internal class TdlClientImpl internal constructor(
         return repository.send(function = function)
     }
 
+    override suspend fun createCommunity(
+        name: String,
+        chatId: Long,
+        isChatHidden: Boolean,
+    ): TdlResult<CommunityId> {
+        val function = CreateCommunity(
+            name = name,
+            chatId = chatId,
+            isChatHidden = isChatHidden,
+        )
+        return repository.send(function = function)
+    }
+
     override suspend fun createForumTopic(
         chatId: Long,
         name: String,
@@ -3613,6 +3667,13 @@ internal class TdlClientImpl internal constructor(
         return repository.send(function = function)
     }
 
+    override suspend fun deleteAllChatWelcomeMessages(chatId: Long): TdlResult<Ok> {
+        val function = DeleteAllChatWelcomeMessages(
+            chatId = chatId,
+        )
+        return repository.send(function = function)
+    }
+
     override suspend fun deleteAllRecentMessageReactionsFromSender(chatId: Long, senderId: MessageSender): TdlResult<Ok> {
         val function = DeleteAllRecentMessageReactionsFromSender(
             chatId = chatId,
@@ -3747,6 +3808,14 @@ internal class TdlClientImpl internal constructor(
         return repository.send(function = function)
     }
 
+    override suspend fun deleteChatWelcomeMessage(chatId: Long, welcomeMessageId: Int): TdlResult<Ok> {
+        val function = DeleteChatWelcomeMessage(
+            chatId = chatId,
+            welcomeMessageId = welcomeMessageId,
+        )
+        return repository.send(function = function)
+    }
+
     override suspend fun deleteCommands(scope: BotCommandScope?, languageCode: String): TdlResult<Ok> {
         val function = DeleteCommands(
             scope = scope,
@@ -3850,6 +3919,14 @@ internal class TdlClientImpl internal constructor(
     override suspend fun deleteLanguagePack(languagePackId: String): TdlResult<Ok> {
         val function = DeleteLanguagePack(
             languagePackId = languagePackId,
+        )
+        return repository.send(function = function)
+    }
+
+    override suspend fun deleteMessageEphemeralContent(chatId: Long, messageId: Long): TdlResult<Ok> {
+        val function = DeleteMessageEphemeralContent(
+            chatId = chatId,
+            messageId = messageId,
         )
         return repository.send(function = function)
     }
@@ -4215,6 +4292,21 @@ internal class TdlClientImpl internal constructor(
         return repository.send(function = function)
     }
 
+    override suspend fun editCallbackQueryMessage(
+        callbackQueryId: Long,
+        protectContent: Boolean,
+        replyMarkup: ReplyMarkup?,
+        inputMessageContent: InputMessageContent,
+    ): TdlResult<Ok> {
+        val function = EditCallbackQueryMessage(
+            callbackQueryId = callbackQueryId,
+            protectContent = protectContent,
+            replyMarkup = replyMarkup,
+            inputMessageContent = inputMessageContent,
+        )
+        return repository.send(function = function)
+    }
+
     override suspend fun editChatFolder(chatFolderId: Int, folder: ChatFolder): TdlResult<ChatFolderInfo> {
         val function = EditChatFolder(
             chatFolderId = chatFolderId,
@@ -4270,6 +4362,19 @@ internal class TdlClientImpl internal constructor(
         return repository.send(function = function)
     }
 
+    override suspend fun editChatWelcomeMessage(
+        chatId: Long,
+        welcomeMessageId: Int,
+        inputMessageContent: InputMessageContent,
+    ): TdlResult<Ok> {
+        val function = EditChatWelcomeMessage(
+            chatId = chatId,
+            welcomeMessageId = welcomeMessageId,
+            inputMessageContent = inputMessageContent,
+        )
+        return repository.send(function = function)
+    }
+
     override suspend fun editCustomLanguagePackInfo(info: LanguagePackInfo): TdlResult<Ok> {
         val function = EditCustomLanguagePackInfo(
             info = info,
@@ -4290,6 +4395,25 @@ internal class TdlClientImpl internal constructor(
             ephemeralMessageId = ephemeralMessageId,
             replyMarkup = replyMarkup,
             inputMessageContent = inputMessageContent,
+        )
+        return repository.send(function = function)
+    }
+
+    override suspend fun editEphemeralMessageCaption(
+        chatId: Long,
+        receiverUserId: Long,
+        ephemeralMessageId: Int,
+        replyMarkup: ReplyMarkup?,
+        caption: FormattedText?,
+        showCaptionAboveMedia: Boolean,
+    ): TdlResult<Ok> {
+        val function = EditEphemeralMessageCaption(
+            chatId = chatId,
+            receiverUserId = receiverUserId,
+            ephemeralMessageId = ephemeralMessageId,
+            replyMarkup = replyMarkup,
+            caption = caption,
+            showCaptionAboveMedia = showCaptionAboveMedia,
         )
         return repository.send(function = function)
     }
@@ -7598,10 +7722,24 @@ internal class TdlClientImpl internal constructor(
         return repository.send(function = function)
     }
 
+    override suspend fun loadChatWelcomeMessages(chatId: Long): TdlResult<Ok> {
+        val function = LoadChatWelcomeMessages(
+            chatId = chatId,
+        )
+        return repository.send(function = function)
+    }
+
     override suspend fun loadChats(chatList: ChatList?, limit: Int): TdlResult<Ok> {
         val function = LoadChats(
             chatList = chatList,
             limit = limit,
+        )
+        return repository.send(function = function)
+    }
+
+    override suspend fun loadCommunityFullInfo(communityId: Long): TdlResult<Ok> {
+        val function = LoadCommunityFullInfo(
+            communityId = communityId,
         )
         return repository.send(function = function)
     }
@@ -9307,7 +9445,9 @@ internal class TdlClientImpl internal constructor(
         topicId: MessageTopic?,
         receiverUserId: Long,
         callbackQueryId: Long,
+        replaceCallbackQueryMessage: Boolean,
         replyTo: InputMessageReplyTo?,
+        protectContent: Boolean,
         sendingId: Int,
         onlyPreview: Boolean,
         replyMarkup: ReplyMarkup?,
@@ -9318,7 +9458,9 @@ internal class TdlClientImpl internal constructor(
             topicId = topicId,
             receiverUserId = receiverUserId,
             callbackQueryId = callbackQueryId,
+            replaceCallbackQueryMessage = replaceCallbackQueryMessage,
             replyTo = replyTo,
+            protectContent = protectContent,
             sendingId = sendingId,
             onlyPreview = onlyPreview,
             replyMarkup = replyMarkup,
@@ -9514,11 +9656,15 @@ internal class TdlClientImpl internal constructor(
         giftName: String,
         ownerId: MessageSender,
         price: GiftResalePrice,
+        text: FormattedText,
+        isPrivate: Boolean,
     ): TdlResult<GiftResaleResult> {
         val function = SendResoldGift(
             giftName = giftName,
             ownerId = ownerId,
             price = price,
+            text = text,
+            isPrivate = isPrivate,
         )
         return repository.send(function = function)
     }
@@ -9527,12 +9673,16 @@ internal class TdlClientImpl internal constructor(
         chatId: Long,
         forumTopicId: Int,
         draftId: Long,
+        canStop: Boolean,
+        keepOnStop: Boolean,
         message: InputRichMessage,
     ): TdlResult<Ok> {
         val function = SendRichMessageDraft(
             chatId = chatId,
             forumTopicId = forumTopicId,
             draftId = draftId,
+            canStop = canStop,
+            keepOnStop = keepOnStop,
             message = message,
         )
         return repository.send(function = function)
@@ -9542,12 +9692,16 @@ internal class TdlClientImpl internal constructor(
         chatId: Long,
         forumTopicId: Int,
         draftId: Long,
+        canStop: Boolean,
+        keepOnStop: Boolean,
         text: FormattedText?,
     ): TdlResult<Ok> {
         val function = SendTextMessageDraft(
             chatId = chatId,
             forumTopicId = forumTopicId,
             draftId = draftId,
+            canStop = canStop,
+            keepOnStop = keepOnStop,
             text = text,
         )
         return repository.send(function = function)
@@ -10095,6 +10249,14 @@ internal class TdlClientImpl internal constructor(
             scope = scope,
             languageCode = languageCode,
             commands = commands,
+        )
+        return repository.send(function = function)
+    }
+
+    override suspend fun setCommunityName(communityId: Long, name: String): TdlResult<Ok> {
+        val function = SetCommunityName(
+            communityId = communityId,
+            name = name,
         )
         return repository.send(function = function)
     }
@@ -10966,6 +11128,19 @@ internal class TdlClientImpl internal constructor(
             chatId = chatId,
             messageId = messageId,
             replyMarkup = replyMarkup,
+        )
+        return repository.send(function = function)
+    }
+
+    override suspend fun stopPendingMessage(
+        chatId: Long,
+        topicId: MessageTopic?,
+        draftId: Long,
+    ): TdlResult<Ok> {
+        val function = StopPendingMessage(
+            chatId = chatId,
+            topicId = topicId,
+            draftId = draftId,
         )
         return repository.send(function = function)
     }
