@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+: "${KONAN_LLVM_HOME:?KONAN_LLVM_HOME is required}"
+: "${KONAN_TOOLCHAIN:?KONAN_TOOLCHAIN is required}"
+
+exec "$KONAN_LLVM_HOME/bin/clang++" \
+  -B"$KONAN_LLVM_HOME/bin" \
+  -fno-stack-protector \
+  "--gcc-toolchain=$KONAN_TOOLCHAIN" \
+  -target x86_64-unknown-linux-gnu \
+  "--sysroot=$KONAN_TOOLCHAIN/x86_64-unknown-linux-gnu/sysroot" \
+  -fPIC \
+  "$@"

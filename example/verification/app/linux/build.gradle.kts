@@ -11,10 +11,6 @@ kotlin {
         allWarningsAsErrors = true
     }
 
-    linuxArm64 {
-        configureBinaries()
-    }
-
     linuxX64 {
         configureBinaries()
     }
