@@ -41,7 +41,9 @@ jobs:
             :tdl-coroutines:macosX64Cinterop-mainKlib \
             :tdl-coroutines:macosX64Klib \
             :tdl-coroutines:mingwX64Cinterop-mainKlib \
-            :tdl-coroutines:mingwX64Klib
+            :tdl-coroutines:mingwX64Klib \
+            :tdl-coroutines:linuxX64Cinterop-mainKlib \
+            :tdl-coroutines:linuxX64Klib
 
       - name: Assemble examples
         run: |

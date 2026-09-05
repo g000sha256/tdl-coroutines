@@ -33,6 +33,12 @@ on:
         type: boolean
         default: false
 
+      build-linux:
+        description: 'Build Linux'
+        required: false
+        type: boolean
+        default: false
+
       build-windows:
         description: 'Build Windows'
         required: false
@@ -492,6 +498,159 @@ jobs:
         uses: ./.github/actions/commit-and-push
         with:
           message: TDLib for JVM Windows x64
+          add: tdl-coroutines
+
+  build-linux-x64:
+    name: Build Linux x64
+    if: github.event_name == 'push' || inputs.build-linux
+    needs: run-generator
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+          lfs: true
+          submodules: true
+
+      - name: Checkout OpenSSL
+        uses: actions/checkout@v4
+        with:
+          repository: openssl/openssl
+          ref: openssl-3.0.16
+          path: native-dependencies/openssl
+
+      - name: Checkout zlib
+        uses: actions/checkout@v4
+        with:
+          repository: madler/zlib
+          ref: v1.3.1
+          path: native-dependencies/zlib
+
+      - name: Clean submodule
+        run: git -C td clean -ffdx
+
+      - name: Set up Java
+        uses: ./.github/actions/set-up-java
+
+      - name: Set up dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y cmake ninja-build gperf make perl php-cli
+
+      - name: Set up Kotlin/Native toolchain
+        run: |
+          ./gradlew --configure-on-demand :tdl-coroutines:downloadKotlinNativeDistribution
+
+          KOTLIN_VERSION="$(sed -n 's/^kotlin = "\([^"]*\)"/\1/p' catalog.toml)"
+          KONAN_HOME="$HOME/.konan/kotlin-native-prebuilt-linux-x86_64-$KOTLIN_VERSION"
+
+          "$KONAN_HOME/bin/run_konan" clang clang linux_x64 --version
+
+          KONAN_LLVM_HOME="$(find "$HOME/.konan/dependencies" -maxdepth 1 -type d -name 'llvm-*-x86_64-linux-essentials-*' -print -quit)"
+          KONAN_TOOLCHAIN="$(find "$HOME/.konan/dependencies" -maxdepth 1 -type d -name 'x86_64-unknown-linux-gnu-gcc-*' -print -quit)"
+
+          test -x "$KONAN_LLVM_HOME/bin/clang"
+          test -x "$KONAN_TOOLCHAIN/x86_64-unknown-linux-gnu/bin/ar"
+
+          echo "KONAN_LLVM_HOME=$KONAN_LLVM_HOME" >> "$GITHUB_ENV"
+          echo "KONAN_TOOLCHAIN=$KONAN_TOOLCHAIN" >> "$GITHUB_ENV"
+
+      - name: Build OpenSSL
+        run: |
+          export CC="$GITHUB_WORKSPACE/.github/scripts/konan-clang-linux-x64"
+          export AR="$KONAN_TOOLCHAIN/x86_64-unknown-linux-gnu/bin/ar"
+          export RANLIB="$KONAN_TOOLCHAIN/x86_64-unknown-linux-gnu/bin/ranlib"
+
+          cd native-dependencies/openssl
+          ./Configure linux-x86_64 \
+            no-apps \
+            no-module \
+            no-shared \
+            no-tests \
+            --prefix="$RUNNER_TEMP/konan-native-deps" \
+            --libdir=lib
+          make -j"$(nproc)" build_libs
+          make install_sw
+
+      - name: Build zlib
+        run: |
+          cmake -S native-dependencies/zlib -B native-dependencies/zlib/build-linux-x64 \
+            -G Ninja \
+            -DCMAKE_BUILD_TYPE=Release \
+            -DCMAKE_INSTALL_PREFIX="$RUNNER_TEMP/konan-native-deps" \
+            -DCMAKE_C_COMPILER="$GITHUB_WORKSPACE/.github/scripts/konan-clang-linux-x64" \
+            -DCMAKE_AR="$KONAN_TOOLCHAIN/x86_64-unknown-linux-gnu/bin/ar" \
+            -DCMAKE_RANLIB="$KONAN_TOOLCHAIN/x86_64-unknown-linux-gnu/bin/ranlib" \
+            -DCMAKE_POSITION_INDEPENDENT_CODE=ON \
+            -DBUILD_SHARED_LIBS=OFF \
+            -DZLIB_BUILD_EXAMPLES=OFF
+          cmake --build native-dependencies/zlib/build-linux-x64 --target install --parallel
+
+      - name: Build TDLib
+        run: |
+          cmake -S td -B td/build-linux-x64 \
+            -G Ninja \
+            -DCMAKE_BUILD_TYPE=Release \
+            -DCMAKE_INSTALL_PREFIX="$RUNNER_TEMP/tdlib-linux-x64" \
+            -DCMAKE_C_COMPILER="$GITHUB_WORKSPACE/.github/scripts/konan-clang-linux-x64" \
+            -DCMAKE_CXX_COMPILER="$GITHUB_WORKSPACE/.github/scripts/konan-clangxx-linux-x64" \
+            -DCMAKE_AR="$KONAN_TOOLCHAIN/x86_64-unknown-linux-gnu/bin/ar" \
+            -DCMAKE_RANLIB="$KONAN_TOOLCHAIN/x86_64-unknown-linux-gnu/bin/ranlib" \
+            -DOPENSSL_INCLUDE_DIR="$RUNNER_TEMP/konan-native-deps/include" \
+            -DOPENSSL_SSL_LIBRARY="$RUNNER_TEMP/konan-native-deps/lib/libssl.a" \
+            -DOPENSSL_CRYPTO_LIBRARY="$RUNNER_TEMP/konan-native-deps/lib/libcrypto.a" \
+            -DOPENSSL_USE_STATIC_LIBS=ON \
+            -DZLIB_INCLUDE_DIR="$RUNNER_TEMP/konan-native-deps/include" \
+            -DZLIB_LIBRARY="$RUNNER_TEMP/konan-native-deps/lib/libz.a" \
+            -DTD_INSTALL_SHARED_LIBRARIES=OFF \
+            -DTD_INSTALL_STATIC_LIBRARIES=ON \
+            -DBUILD_TESTING=OFF
+          cmake --build td/build-linux-x64 --target install --parallel
+
+      - name: Copy files
+        run: |
+          DEST="tdl-coroutines/generated/linux/x64"
+          rm -rf "$DEST"
+          mkdir -p "$DEST/include/td/telegram" "$DEST/libs"
+
+          cp "$RUNNER_TEMP/tdlib-linux-x64/include/td/telegram/td_json_client.h" "$DEST/include/td/telegram/"
+          cp "$RUNNER_TEMP/tdlib-linux-x64/include/td/telegram/tdjson_export.h" "$DEST/include/td/telegram/"
+
+          for archive in \
+            libtdjson_static.a \
+            libtdjson_private.a \
+            libtdclient.a \
+            libtdcore.a \
+            libtdapi.a \
+            libtdactor.a \
+            libtddb.a \
+            libtde2e.a \
+            libtdmtproto.a \
+            libtdnet.a \
+            libtdsqlite.a \
+            libtdutils.a
+          do
+            cp "$RUNNER_TEMP/tdlib-linux-x64/lib/$archive" "$DEST/libs/"
+          done
+
+          cp "$RUNNER_TEMP/konan-native-deps/lib/libssl.a" "$DEST/libs/"
+          cp "$RUNNER_TEMP/konan-native-deps/lib/libcrypto.a" "$DEST/libs/"
+          cp "$RUNNER_TEMP/konan-native-deps/lib/libz.a" "$DEST/libs/"
+
+      - name: SHA256 checksums
+        run: shasum -a 256 tdl-coroutines/generated/linux/x64/libs/*.a
+
+      - name: Verify
+        run: ./gradlew :example:verification:app:linux:runReleaseExecutableLinuxX64
+
+      - name: Commit and push
+        uses: ./.github/actions/commit-and-push
+        with:
+          message: TDLib for Linux x64
           add: tdl-coroutines
 
   build-windows-x64:
