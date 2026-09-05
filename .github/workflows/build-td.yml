@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - build-td
+    paths:
+      - td
 
   workflow_dispatch:
     inputs:
@@ -71,7 +73,7 @@ jobs:
       - name: Commit and push
         uses: ./.github/actions/commit-and-push
         with:
-          message: Update API [skip ci]
+          message: Update API
           add: |
             - tdl-coroutines
             - README.md
@@ -142,7 +144,7 @@ jobs:
       - name: Commit and push
         uses: ./.github/actions/commit-and-push
         with:
-          message: TDLib for Android [skip ci]
+          message: TDLib for Android
           add: tdl-coroutines
 
   build-jvm-linux-arm64:
@@ -200,7 +202,7 @@ jobs:
       - name: Commit and push
         uses: ./.github/actions/commit-and-push
         with:
-          message: TDLib for JVM Linux ARM64 [skip ci]
+          message: TDLib for JVM Linux ARM64
           add: tdl-coroutines
 
   build-jvm-linux-x64:
@@ -258,7 +260,7 @@ jobs:
       - name: Commit and push
         uses: ./.github/actions/commit-and-push
         with:
-          message: TDLib for JVM Linux x64 [skip ci]
+          message: TDLib for JVM Linux x64
           add: tdl-coroutines
 
   build-jvm-macos-arm64:
@@ -313,7 +315,7 @@ jobs:
       - name: Commit and push
         uses: ./.github/actions/commit-and-push
         with:
-          message: TDLib for JVM macOS ARM64 [skip ci]
+          message: TDLib for JVM macOS ARM64
           add: tdl-coroutines
 
   build-jvm-macos-x64:
@@ -363,7 +365,7 @@ jobs:
       - name: Commit and push
         uses: ./.github/actions/commit-and-push
         with:
-          message: TDLib for JVM macOS x64 [skip ci]
+          message: TDLib for JVM macOS x64
           add: tdl-coroutines
 
   build-jvm-windows-arm64:
@@ -426,7 +428,7 @@ jobs:
       - name: Commit and push
         uses: ./.github/actions/commit-and-push
         with:
-          message: TDLib for JVM Windows ARM64 [skip ci]
+          message: TDLib for JVM Windows ARM64
           add: tdl-coroutines
 
   build-jvm-windows-x64:
@@ -489,7 +491,7 @@ jobs:
       - name: Commit and push
         uses: ./.github/actions/commit-and-push
         with:
-          message: TDLib for JVM Windows x64 [skip ci]
+          message: TDLib for JVM Windows x64
           add: tdl-coroutines
 
   build-windows-x64:
@@ -559,7 +561,7 @@ jobs:
       - name: Commit and push
         uses: ./.github/actions/commit-and-push
         with:
-          message: TDLib for Windows x64 [skip ci]
+          message: TDLib for Windows x64
           add: tdl-coroutines
 
   build-ios-arm64:
@@ -620,7 +622,7 @@ jobs:
       - name: Commit and push
         uses: ./.github/actions/commit-and-push
         with:
-          message: TDLib for iOS ARM64 [skip ci]
+          message: TDLib for iOS ARM64
           add: tdl-coroutines
 
   build-ios-arm64-simulator:
@@ -687,7 +689,7 @@ jobs:
       - name: Commit and push
         uses: ./.github/actions/commit-and-push
         with:
-          message: TDLib for iOS ARM64 Simulator [skip ci]
+          message: TDLib for iOS ARM64 Simulator
           add: tdl-coroutines
 
   build-ios-x64-simulator:
@@ -748,7 +750,7 @@ jobs:
       - name: Commit and push
         uses: ./.github/actions/commit-and-push
         with:
-          message: TDLib for iOS x64 Simulator [skip ci]
+          message: TDLib for iOS x64 Simulator
           add: tdl-coroutines
 
   build-macos-arm64:
@@ -815,7 +817,7 @@ jobs:
       - name: Commit and push
         uses: ./.github/actions/commit-and-push
         with:
-          message: TDLib for macOS ARM64 [skip ci]
+          message: TDLib for macOS ARM64
           add: tdl-coroutines
 
   build-macos-x64:
@@ -877,5 +879,5 @@ jobs:
       - name: Commit and push
         uses: ./.github/actions/commit-and-push
         with:
-          message: TDLib for macOS x64 [skip ci]
+          message: TDLib for macOS x64
           add: tdl-coroutines
