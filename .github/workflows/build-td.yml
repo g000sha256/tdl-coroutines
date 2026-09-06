@@ -818,7 +818,7 @@ jobs:
         uses: ./.github/actions/set-up-java
 
       - name: Verify
-        run: bash .github/scripts/verify-macos.sh runReleaseExecutableMacosArm64
+        run: bash ./gradlew :example:verification:app:macos:runReleaseExecutableMacosArm64
 
       - name: Commit and push
         uses: ./.github/actions/commit-and-push
@@ -882,7 +882,7 @@ jobs:
         uses: ./.github/actions/set-up-java
 
       - name: Verify
-        run: bash .github/scripts/verify-macos.sh runReleaseExecutableMacosX64
+        run: bash ./gradlew :example:verification:app:macos:runReleaseExecutableMacosX64
 
       - name: Commit and push
         uses: ./.github/actions/commit-and-push
