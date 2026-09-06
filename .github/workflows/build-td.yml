@@ -48,6 +48,7 @@ on:
 jobs:
   run-generator:
     name: Run generator
+    if: false
     runs-on: self-hosted
     permissions:
       contents: write
@@ -503,7 +504,7 @@ jobs:
   build-linux-x64:
     name: Build Linux x64
     if: github.event_name == 'push' || inputs.build-linux
-    needs: run-generator
+#    needs: run-generator
     runs-on: ubuntu-24.04
     permissions:
       contents: write
