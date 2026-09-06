@@ -568,7 +568,6 @@ jobs:
 
           cd native-dependencies/openssl
           ./Configure linux-x86_64 \
-            no-apps \
             no-module \
             no-shared \
             no-tests \
