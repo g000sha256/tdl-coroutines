@@ -1600,9 +1600,6 @@ private fun buildTypeSerializerFunSpec(entry: Map.Entry<String, List<String>>): 
                     dtoTypeName(simpleName = name.capitalized),
                 )
             }
-            if (entry.key == "Update") {
-                addStatement(format = "else -> error(message = \"Unknown dto type: \${dto.toString()}\")")
-            }
         }
         .endControlFlow()
         .build()

@@ -4575,7 +4575,6 @@ internal fun serialize(dto: Update): JsonElement {
         is UpdateMessageReaction -> return serialize(dto = dto)
         is UpdateMessageReactions -> return serialize(dto = dto)
         is UpdatePaidMediaPurchased -> return serialize(dto = dto)
-        else -> error(message = "Unknown dto type: ${dto.toString()}")
     }
 }
 
