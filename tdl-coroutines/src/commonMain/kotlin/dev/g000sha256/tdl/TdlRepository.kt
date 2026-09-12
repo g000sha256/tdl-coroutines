@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Georgii Ippolitov (g000sha256)
+ * Copyright 2025-2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,8 +21,8 @@ import dev.g000sha256.tdl.dto.Error
 import dev.g000sha256.tdl.dto.ServiceUpdate
 import dev.g000sha256.tdl.dto.Update
 import dev.g000sha256.tdl.dto.UpdateAuthorizationState
-import kotlinx.atomicfu.atomic
-import kotlinx.atomicfu.updateAndGet
+import kotlin.concurrent.atomics.AtomicBoolean
+import kotlin.concurrent.atomics.ExperimentalAtomicApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.FlowCollector
 import kotlinx.coroutines.flow.filter
@@ -30,9 +30,10 @@ import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.takeWhile
 import kotlinx.coroutines.flow.transform
 
+@OptIn(ExperimentalAtomicApi::class)
 internal class TdlRepository(private val engine: TdlEngine) {
 
-    private val stopped = atomic(initial = false)
+    private val stopped = AtomicBoolean(value = false)
     private val clientId = engine.createClientId()
 
     val updates: Flow<Update>
@@ -82,4 +83,15 @@ internal class TdlRepository(private val engine: TdlEngine) {
         }
     }
 
+    private fun AtomicBoolean.updateAndGet(function: (Boolean) -> Boolean): Boolean {
+        while (true) {
+            val current = load()
+            val updated = function(current)
+
+            val success = compareAndSet(expectedValue = current, newValue = updated)
+            if (success) {
+                return updated
+            }
+        }
+    }
 }

@@ -2,7 +2,6 @@
 android = "9.2.1"
 androidX-activity = "1.13.0"
 androidX-lifecycle = "2.11.0"
-atomic = "0.33.0"
 buildConfig = "6.0.10"
 coroutines = "1.11.0"
 dokka = "2.2.0"
@@ -27,7 +26,6 @@ jetBrains-kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", ve
 libraries-androidX-activity = { module = "androidx.activity:activity", version.ref = "androidX-activity" }
 libraries-androidX-lifecycle-common = { module = "androidx.lifecycle:lifecycle-common", version.ref = "androidX-lifecycle" }
 libraries-androidX-lifecycle-viewModel = { module = "androidx.lifecycle:lifecycle-viewmodel", version.ref = "androidX-lifecycle" }
-libraries-jetBrains-atomic = { module = "org.jetbrains.kotlinx:atomicfu", version.ref = "atomic" }
 libraries-jetBrains-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutines" }
 libraries-jetBrains-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
 libraries-jetBrains-kotlinSerialization-core = { module = "org.jetbrains.kotlinx:kotlinx-serialization-core", version.ref = "kotlinSerialization" }

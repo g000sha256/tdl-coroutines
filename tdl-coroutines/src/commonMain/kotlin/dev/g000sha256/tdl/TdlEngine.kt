@@ -20,8 +20,10 @@ import dev.g000sha256.tdl.dto.Update
 import dev.g000sha256.tdl.serialization.serialize
 import dev.g000sha256.tdl.util.buildJsonObjectString
 import dev.g000sha256.tdl.util.put
+import kotlin.concurrent.atomics.AtomicLong
+import kotlin.concurrent.atomics.ExperimentalAtomicApi
+import kotlin.concurrent.atomics.incrementAndFetch
 import kotlin.time.Duration.Companion.hours
-import kotlinx.atomicfu.atomic
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
@@ -36,6 +38,7 @@ import kotlinx.serialization.json.putJsonObject
 
 private val MAX_TIMEOUT = 24.hours.inWholeSeconds.toDouble()
 
+@OptIn(ExperimentalAtomicApi::class)
 internal class TdlEngine(
     private val coroutineDispatcherReceiver: CoroutineDispatcher,
     private val coroutineDispatcherSender: CoroutineDispatcher,
@@ -44,7 +47,7 @@ internal class TdlEngine(
     private val deserializer: TdlDeserializer,
 ) {
 
-    private val requestIdsCounter = atomic(initial = 0L)
+    private val requestIdsCounter = AtomicLong(value = 0L)
     private val startedCompletableDeferred = CompletableDeferred<Unit>()
     private val responsesMutableSharedFlow = MutableSharedFlow<Triple<Int, Long, Any>>(extraBufferCapacity = Int.MAX_VALUE)
 
@@ -104,7 +107,7 @@ internal class TdlEngine(
         startedCompletableDeferred.await()
 
         return withContext(context = coroutineDispatcherSender) {
-            val requestId = requestIdsCounter.incrementAndGet()
+            val requestId = requestIdsCounter.incrementAndFetch()
 
             val json = serialize(function = function, requestId = requestId)
 
