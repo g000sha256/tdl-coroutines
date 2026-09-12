@@ -27,6 +27,8 @@ import kotlin.time.Duration.Companion.hours
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.CoroutineStart
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.first
@@ -47,9 +49,10 @@ internal class TdlEngine(
     private val deserializer: TdlDeserializer,
 ) {
 
-    private val requestIdsCounter = AtomicLong(value = 0L)
-    private val startedCompletableDeferred = CompletableDeferred<Unit>()
-    private val responsesMutableSharedFlow = MutableSharedFlow<Triple<Int, Long, Any>>(extraBufferCapacity = Int.MAX_VALUE)
+    private val requestIdCounter = AtomicLong(value = 0L)
+    private val receiverStarted = CompletableDeferred<Unit>()
+    private val job: Job
+    private val events = MutableSharedFlow<Triple<Int, Long, Any>>(extraBufferCapacity = Int.MAX_VALUE)
 
     init {
         native.execute(
@@ -67,15 +70,15 @@ internal class TdlEngine(
             },
         )
 
-        coroutineScope.launch(context = coroutineDispatcherReceiver) {
-            startedCompletableDeferred.complete(value = Unit)
+        job = coroutineScope.launch(context = coroutineDispatcherReceiver, start = CoroutineStart.LAZY) {
+            receiverStarted.complete(value = Unit)
 
             while (true) {
                 native
                     .receive(timeoutInSeconds = MAX_TIMEOUT)
                     .let { json -> json ?: continue }
                     .let { json -> deserializer.deserialize(json = json) }
-                    .also { triple -> responsesMutableSharedFlow.emit(value = triple) }
+                    .also { triple -> events.emit(value = triple) }
             }
         }
     }
@@ -85,7 +88,7 @@ internal class TdlEngine(
     }
 
     fun getUpdates(clientId: Int): Flow<Update> {
-        return responsesMutableSharedFlow.mapNotNull { triple ->
+        return events.mapNotNull { triple ->
             if (triple.first != clientId) {
                 return@mapNotNull null
             }
@@ -104,18 +107,19 @@ internal class TdlEngine(
     }
 
     suspend fun <F : Any> send(function: F, clientId: Int): Any {
-        startedCompletableDeferred.await()
-
         return withContext(context = coroutineDispatcherSender) {
-            val requestId = requestIdsCounter.incrementAndFetch()
+            val requestId = requestIdCounter.incrementAndFetch()
 
-            val json = serialize(function = function, requestId = requestId)
+            return@withContext events
+                .onSubscription {
+                    job.start()
+                    receiverStarted.await()
 
-            return@withContext responsesMutableSharedFlow
-                .onSubscription { native.send(clientId = clientId, request = json) }
+                    val json = serialize(function = function, requestId = requestId)
+                    native.send(clientId = clientId, request = json)
+                }
                 .first { triple -> triple.first == clientId && triple.second == requestId }
                 .third
         }
     }
-
 }
