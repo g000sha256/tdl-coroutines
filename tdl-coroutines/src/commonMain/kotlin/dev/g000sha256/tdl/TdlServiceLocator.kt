@@ -33,7 +33,7 @@ private val native by lazy { TdlNative() }
 private val deserializer by lazy { TdlDeserializer() }
 
 private val repository: TdlRepository
-    get() = TdlRepository(engine = engine)
+    get() = TdlRepository(coroutineScope = coroutineScope, engine = engine)
 
 internal fun createClient(): TdlClient {
     return TdlClientImpl(repository = repository)

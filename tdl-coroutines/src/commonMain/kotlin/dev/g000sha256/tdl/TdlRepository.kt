@@ -18,34 +18,26 @@ package dev.g000sha256.tdl
 
 import dev.g000sha256.tdl.dto.AuthorizationStateClosed
 import dev.g000sha256.tdl.dto.Error
-import dev.g000sha256.tdl.dto.ServiceUpdate
 import dev.g000sha256.tdl.dto.Update
 import dev.g000sha256.tdl.dto.UpdateAuthorizationState
 import kotlin.concurrent.atomics.AtomicBoolean
 import kotlin.concurrent.atomics.ExperimentalAtomicApi
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.CoroutineStart
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.FlowCollector
-import kotlinx.coroutines.flow.filter
-import kotlinx.coroutines.flow.onStart
-import kotlinx.coroutines.flow.takeWhile
-import kotlinx.coroutines.flow.transform
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.onSubscription
+import kotlinx.coroutines.flow.transformWhile
+import kotlinx.coroutines.launch
 
-@OptIn(ExperimentalAtomicApi::class)
-internal class TdlRepository(private val engine: TdlEngine) {
+internal class TdlRepository(
+    private val coroutineScope: CoroutineScope,
+    private val engine: TdlEngine,
+) {
 
-    private val stopped = AtomicBoolean(value = false)
     private val clientId = engine.createClientId()
 
-    val updates: Flow<Update>
-
-    init {
-        updates = engine
-            .getUpdates(clientId = clientId)
-            .onStart { emit(value = ServiceUpdate.Start) }
-            .transform { update -> transform(update = update) }
-            .takeWhile { update -> !checkStopped(update = update) }
-            .filter { update -> update !is ServiceUpdate }
-    }
+    val updates = createUpdates()
 
     @Suppress("UNCHECKED_CAST")
     suspend fun <F : Any, M> send(function: F): TdlResult<M> {
@@ -56,42 +48,55 @@ internal class TdlRepository(private val engine: TdlEngine) {
         }
     }
 
-    private suspend fun FlowCollector<Update>.transform(update: Update) {
-        emit(value = update)
+    @OptIn(ExperimentalAtomicApi::class)
+    private fun createUpdates(): Flow<Update> {
+        val updates = MutableSharedFlow<Update?>(extraBufferCapacity = Int.MAX_VALUE)
+        val stopped = AtomicBoolean(value = false)
 
-        val closed = checkClosed(update = update)
-        if (closed) {
-            emit(value = ServiceUpdate.Stop)
+        coroutineScope.launch(start = CoroutineStart.UNDISPATCHED) {
+            engine
+                .getUpdates(clientId = clientId)
+                .transformWhile { update ->
+                    val closed = update.isClosed()
+
+                    if (closed) {
+                        stopped.store(newValue = true)
+                    }
+
+                    emit(value = update)
+
+                    if (closed) {
+                        emit(value = null)
+                    }
+
+                    return@transformWhile closed.not()
+                }
+                .collect(collector = updates)
         }
+
+        return updates
+            .onSubscription {
+                val stopped = stopped.load()
+                if (stopped) {
+                    emit(value = null)
+                }
+            }
+            .transformWhile { update ->
+                if (update == null) {
+                    return@transformWhile false
+                }
+
+                emit(value = update)
+
+                return@transformWhile true
+            }
     }
 
-    private fun checkClosed(update: Update): Boolean {
-        if (update !is UpdateAuthorizationState) {
+    private fun Update.isClosed(): Boolean {
+        if (this !is UpdateAuthorizationState) {
             return false
         }
 
-        return update.authorizationState is AuthorizationStateClosed
-    }
-
-    private fun checkStopped(update: Update): Boolean {
-        return stopped.updateAndGet { alreadyStopped ->
-            if (alreadyStopped) {
-                return@updateAndGet true
-            }
-
-            return@updateAndGet update == ServiceUpdate.Stop
-        }
-    }
-
-    private fun AtomicBoolean.updateAndGet(function: (Boolean) -> Boolean): Boolean {
-        while (true) {
-            val current = load()
-            val updated = function(current)
-
-            val success = compareAndSet(expectedValue = current, newValue = updated)
-            if (success) {
-                return updated
-            }
-        }
+        return authorizationState is AuthorizationStateClosed
     }
 }
