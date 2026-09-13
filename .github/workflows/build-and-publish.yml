@@ -112,7 +112,7 @@ jobs:
         uses: ./.github/actions/set-up-java
 
       - name: Verify
-        run: bash .github/scripts/verify-macos.sh "${{ matrix.task }}"
+        run: bash ./gradlew ":example:verification:app:macos:${{ matrix.task }}"
 
   verify-windows:
     name: Verify Windows x64

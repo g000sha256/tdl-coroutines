@@ -9,6 +9,7 @@ public fun main() {
     val result = runBlocking { testTdlClient.run() }
     if (result) {
         println(message = "[TDL] Success")
+        exitProcess(status = 0)
     } else {
         println(message = "[TDL] Failure")
         exitProcess(status = 1)

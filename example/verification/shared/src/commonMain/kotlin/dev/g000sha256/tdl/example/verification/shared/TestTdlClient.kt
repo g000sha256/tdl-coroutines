@@ -2,8 +2,13 @@ package dev.g000sha256.tdl.example.verification.shared
 
 import dev.g000sha256.tdl.TdlClient
 import dev.g000sha256.tdl.TdlResult
+import dev.g000sha256.tdl.dto.AuthorizationStateClosed
 import dev.g000sha256.tdl.dto.AuthorizationStateWaitTdlibParameters
 import dev.g000sha256.tdl.dto.OptionValueString
+import kotlinx.coroutines.CoroutineStart
+import kotlinx.coroutines.async
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.flow.first
 
 public class TestTdlClient {
 
@@ -14,9 +19,9 @@ public class TestTdlClient {
         val versionIsOk = tdlClient.checkVersion()
         val authorizationStateIsOk = tdlClient.checkAuthorizationState()
 
-        tdlClient.close()
+        val closeIsOk = tdlClient.closeAndWait()
 
-        return hashIsOk && versionIsOk && authorizationStateIsOk
+        return hashIsOk && versionIsOk && authorizationStateIsOk && closeIsOk
     }
 
     private suspend fun TdlClient.checkAuthorizationState(): Boolean {
@@ -84,6 +89,29 @@ public class TestTdlClient {
                         println(message = "[TDL][checkVersion] unexpected type: $optionValue")
                         return false
                     }
+                }
+            }
+        }
+    }
+
+    private suspend fun TdlClient.closeAndWait(): Boolean {
+        return coroutineScope {
+            val deferred = async(start = CoroutineStart.UNDISPATCHED) {
+                return@async authorizationStateUpdates.first { update -> update.authorizationState is AuthorizationStateClosed }
+            }
+
+            val result = close()
+            when (result) {
+                is TdlResult.Failure -> {
+                    deferred.cancel()
+                    println(message = "[TDL][close] failure: ${result.code}, ${result.message}")
+                    return@coroutineScope false
+                }
+
+                is TdlResult.Success -> {
+                    val updateAuthorizationState = deferred.await()
+                    println(message = "[TDL][close] success: ${updateAuthorizationState.authorizationState}")
+                    return@coroutineScope true
                 }
             }
         }
