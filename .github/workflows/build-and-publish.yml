@@ -63,7 +63,7 @@ jobs:
             gradle: ./gradlew
 
           - platform: macOS x64
-            runner: macos-15-intel
+            runner: macos-26-intel
             gradle: ./gradlew
 
           - platform: Windows ARM64
@@ -99,7 +99,7 @@ jobs:
             task: runReleaseExecutableMacosArm64
 
           - arch: x64
-            runner: macos-15-intel
+            runner: macos-26-intel
             task: runReleaseExecutableMacosX64
 
     steps:
