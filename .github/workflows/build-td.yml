@@ -323,7 +323,7 @@ jobs:
     name: Build JVM macOS x64
     if: github.event_name == 'push' || inputs.build-jvm
     needs: run-generator
-    runs-on: macos-15-intel
+    runs-on: macos-26-intel
     permissions:
       contents: write
 
@@ -825,7 +825,7 @@ jobs:
     name: Build macOS x64
     if: github.event_name == 'push' || inputs.build-macos
     needs: run-generator
-    runs-on: macos-15-intel
+    runs-on: macos-26-intel
     permissions:
       contents: write
 
