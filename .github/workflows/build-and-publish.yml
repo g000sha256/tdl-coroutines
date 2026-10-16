@@ -51,11 +51,11 @@ jobs:
       matrix:
         include:
           - platform: Linux ARM64
-            runner: ubuntu-24.04-arm
+            runner: ubuntu-22.04-arm
             gradle: ./gradlew
 
           - platform: Linux x64
-            runner: ubuntu-24.04
+            runner: ubuntu-22.04
             gradle: ./gradlew
 
           - platform: macOS ARM64
