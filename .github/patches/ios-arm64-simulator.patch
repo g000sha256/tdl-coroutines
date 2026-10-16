@@ -23,7 +23,7 @@ diff --git a/td/example/ios/build-openssl.sh b/td/example/ios/build-openssl.sh
      cd Python-Apple-support
      #NB: -j will fail
 -    SOURCE_DATE_EPOCH=1 ZERO_AR_DATE=1 make OpenSSL-$platform || exit 1
-+    SOURCE_DATE_EPOCH=1 ZERO_AR_DATE=1 make OpenSSL-$platform TARGETS-iOS-simulator=iphonesimulator.arm64 || exit 1
++    SOURCE_DATE_EPOCH=1 ZERO_AR_DATE=1 make OpenSSL-$platform TARGETS-iOS-simulator=iphonesimulator.arm64 VERSION_MIN-iOS=${TDL_IOS_DEPLOYMENT_TARGET} || exit 1
      cd ..
      rm -rf third_party/openssl/$platform || exit 1
      mkdir -p third_party/openssl/$platform/lib || exit 1
@@ -53,7 +53,7 @@ diff --git a/td/example/ios/build.sh b/td/example/ios/build.sh
  
        echo "iOS platform = ${ios_platform}"
 -      other_options="-DIOS_PLATFORM=${ios_platform} -DCMAKE_TOOLCHAIN_FILE=${td_path}/CMake/iOS.cmake"
-+      other_options="-DIOS_PLATFORM=${ios_platform} -DCMAKE_TOOLCHAIN_FILE=${td_path}/CMake/iOS.cmake -DCMAKE_OSX_ARCHITECTURES=arm64"
++      other_options="-DIOS_PLATFORM=${ios_platform} -DIOS_DEPLOYMENT_TARGET=${TDL_IOS_DEPLOYMENT_TARGET} -DCMAKE_TOOLCHAIN_FILE=${td_path}/CMake/iOS.cmake -DCMAKE_OSX_ARCHITECTURES=arm64"
      fi
  
      set_cmake_options $platform
