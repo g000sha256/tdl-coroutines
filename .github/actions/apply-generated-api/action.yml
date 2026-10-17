@@ -1,0 +1,23 @@
+name: Apply generated API
+description: Apply the generated API changes from the run-generator job
+
+runs:
+  using: composite
+  steps:
+    - name: Download generated API patch
+      uses: actions/download-artifact@v8
+      with:
+        name: generated-api
+        path: .generated-api
+
+    - name: Apply generated API patch
+      shell: bash
+      run: |
+        patch_file=.generated-api/generated-api.patch
+        if [ ! -s "$patch_file" ]; then
+          echo "No generated API changes to apply"
+          exit 0
+        fi
+
+        git apply --check "$patch_file"
+        git apply "$patch_file"
