@@ -333,14 +333,24 @@ jobs:
           git clean -ffdx
 
       - name: Set up dependencies
-        run: brew install gperf cmake openssl coreutils openjdk
+        run: brew install gperf cmake coreutils openjdk
+
+      - name: Apply patches
+        run: |
+          git apply .github/patches/macos-arm64.patch
+          git apply .github/patches/jvm-no-libjvm.patch
+
+      - name: Build OpenSSL
+        run: |
+          cd td/example/ios
+          ./build-openssl.sh
 
       - name: Build TDLib
         run: |
           cd td
           mkdir build
           cd build
-          cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_OSX_DEPLOYMENT_TARGET=${TDL_MACOS_DEPLOYMENT_TARGET} -DJAVA_HOME=/opt/homebrew/opt/openjdk/libexec/openjdk.jdk/Contents/Home/ -DOPENSSL_ROOT_DIR=/opt/homebrew/opt/openssl/ -DCMAKE_INSTALL_PREFIX:PATH=../example/java/td -DTD_ENABLE_JNI=ON ..
+          cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_OSX_DEPLOYMENT_TARGET=${TDL_MACOS_DEPLOYMENT_TARGET} -DJAVA_HOME=/opt/homebrew/opt/openjdk/libexec/openjdk.jdk/Contents/Home/ -DOPENSSL_ROOT_DIR:PATH="${GITHUB_WORKSPACE}/td/example/ios/third_party/openssl/macOS" -DOPENSSL_USE_STATIC_LIBS:BOOL=TRUE -DCMAKE_INSTALL_PREFIX:PATH=../example/java/td -DTD_ENABLE_JNI=ON ..
           cmake --build . --target install
           cd ../example/java
           mkdir build
@@ -388,14 +398,24 @@ jobs:
         uses: ./.github/actions/apply-generated-api
 
       - name: Set up dependencies
-        run: brew install gperf cmake openssl coreutils openjdk
+        run: brew install gperf cmake coreutils openjdk
+
+      - name: Apply patches
+        run: |
+          git apply .github/patches/macos-x64.patch
+          git apply .github/patches/jvm-no-libjvm.patch
+
+      - name: Build OpenSSL
+        run: |
+          cd td/example/ios
+          ./build-openssl.sh
 
       - name: Build TDLib
         run: |
           cd td
           mkdir build
           cd build
-          cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_OSX_DEPLOYMENT_TARGET=${TDL_MACOS_DEPLOYMENT_TARGET} -DJAVA_HOME=/usr/local/opt/openjdk/libexec/openjdk.jdk/Contents/Home/ -DOPENSSL_ROOT_DIR=/usr/local/opt/openssl/ -DCMAKE_INSTALL_PREFIX:PATH=../example/java/td -DTD_ENABLE_JNI=ON ..
+          cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_OSX_DEPLOYMENT_TARGET=${TDL_MACOS_DEPLOYMENT_TARGET} -DJAVA_HOME=/usr/local/opt/openjdk/libexec/openjdk.jdk/Contents/Home/ -DOPENSSL_ROOT_DIR:PATH="${GITHUB_WORKSPACE}/td/example/ios/third_party/openssl/macOS" -DOPENSSL_USE_STATIC_LIBS:BOOL=TRUE -DCMAKE_INSTALL_PREFIX:PATH=../example/java/td -DTD_ENABLE_JNI=ON ..
           cmake --build . --target install
           cd ../example/java
           mkdir build

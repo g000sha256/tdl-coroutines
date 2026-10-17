@@ -1,0 +1,18 @@
+diff --git a/td/CMakeLists.txt b/td/CMakeLists.txt
+--- a/td/CMakeLists.txt
++++ b/td/CMakeLists.txt
+@@ -1349,5 +1349,4 @@ if (TD_ENABLE_JNI AND NOT ANDROID) # jni is available by default on Android
+   endif()
+   message(STATUS "Found JNI: ${JNI_INCLUDE_DIRS} ${JNI_LIBRARIES}")
+   target_include_directories(tdapi SYSTEM PUBLIC ${JAVA_INCLUDE_PATH} ${JAVA_INCLUDE_PATH2})
+-  target_link_libraries(tdapi PUBLIC ${JAVA_JVM_LIBRARY})
+ endif()
+diff --git a/td/example/java/CMakeLists.txt b/td/example/java/CMakeLists.txt
+--- a/td/example/java/CMakeLists.txt
++++ b/td/example/java/CMakeLists.txt
+@@ -84,5 +84,4 @@ add_library(tdjni SHARED
+   td_jni.cpp
+ )
+ target_include_directories(tdjni SYSTEM PRIVATE ${JAVA_INCLUDE_PATH} ${JAVA_INCLUDE_PATH2})
+-target_link_libraries(tdjni PRIVATE ${JAVA_JVM_LIBRARY})
+ target_compile_definitions(tdjni PRIVATE PACKAGE_NAME="${TD_API_JAVA_PACKAGE}")
