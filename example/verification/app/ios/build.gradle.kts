@@ -27,3 +27,11 @@ kotlin {
         }
     }
 }
+
+tasks {
+    named<AbstractTestTask>(name = "iosSimulatorArm64Test") {
+        testLogging {
+            showStandardStreams = true
+        }
+    }
+}
