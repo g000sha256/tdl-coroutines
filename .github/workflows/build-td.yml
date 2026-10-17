@@ -9,6 +9,12 @@ on:
 
   workflow_dispatch:
     inputs:
+      commit:
+        description: 'Commit and push API and binaries (disable for verification only)'
+        required: false
+        type: boolean
+        default: true
+
       build-android:
         description: 'Build Android'
         required: false
@@ -40,6 +46,7 @@ on:
         default: false
 
 env:
+  TDL_CHECKOUT_REF: ${{ github.event_name == 'workflow_dispatch' && inputs.commit == false && github.sha || github.ref_name }}
   TDL_IOS_DEPLOYMENT_TARGET: '15.0'
   TDL_MACOS_DEPLOYMENT_TARGET: '12.0'
 
@@ -54,7 +61,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v7
         with:
-          ref: ${{ github.ref_name }}
+          ref: ${{ env.TDL_CHECKOUT_REF }}
           lfs: true
           submodules: true
 
@@ -75,7 +82,24 @@ jobs:
       - name: Dump API
         run: ./gradlew :tdl-coroutines:updateKotlinAbi
 
+      - name: Prepare generated API patch
+        if: github.event_name == 'workflow_dispatch' && inputs.commit == false
+        run: |
+          git add --all -- README.md tdl-coroutines/src/commonMainGenerated tdl-coroutines/api
+          git diff --cached --binary --full-index > generated-api.patch
+
+      - name: Upload generated API patch
+        if: github.event_name == 'workflow_dispatch' && inputs.commit == false
+        uses: actions/upload-artifact@v7
+        with:
+          name: generated-api
+          path: generated-api.patch
+          if-no-files-found: error
+          overwrite: true
+          retention-days: 1
+
       - name: Commit and push
+        if: github.event_name == 'push' || inputs.commit
         uses: ./.github/actions/commit-and-push
         with:
           message: Update API
@@ -95,9 +119,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v7
         with:
-          ref: ${{ github.ref_name }}
+          ref: ${{ env.TDL_CHECKOUT_REF }}
           lfs: true
           submodules: true
+
+      - name: Apply generated API
+        if: github.event_name == 'workflow_dispatch' && inputs.commit == false
+        uses: ./.github/actions/apply-generated-api
 
       - name: Clean submodule
         run: |
@@ -147,6 +175,7 @@ jobs:
           script: bash .github/scripts/verify-android.sh
 
       - name: Commit and push
+        if: github.event_name == 'push' || inputs.commit
         uses: ./.github/actions/commit-and-push
         with:
           message: TDLib for Android
@@ -164,9 +193,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v7
         with:
-          ref: ${{ github.ref_name }}
+          ref: ${{ env.TDL_CHECKOUT_REF }}
           lfs: true
           submodules: true
+
+      - name: Apply generated API
+        if: github.event_name == 'workflow_dispatch' && inputs.commit == false
+        uses: ./.github/actions/apply-generated-api
 
       - name: Set up Java
         uses: ./.github/actions/set-up-java
@@ -205,6 +238,7 @@ jobs:
         run: ./gradlew :example:verification:app:jvm:run
 
       - name: Commit and push
+        if: github.event_name == 'push' || inputs.commit
         uses: ./.github/actions/commit-and-push
         with:
           message: TDLib for JVM Linux ARM64
@@ -222,9 +256,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v7
         with:
-          ref: ${{ github.ref_name }}
+          ref: ${{ env.TDL_CHECKOUT_REF }}
           lfs: true
           submodules: true
+
+      - name: Apply generated API
+        if: github.event_name == 'workflow_dispatch' && inputs.commit == false
+        uses: ./.github/actions/apply-generated-api
 
       - name: Set up Java
         uses: ./.github/actions/set-up-java
@@ -263,6 +301,7 @@ jobs:
         run: ./gradlew :example:verification:app:jvm:run
 
       - name: Commit and push
+        if: github.event_name == 'push' || inputs.commit
         uses: ./.github/actions/commit-and-push
         with:
           message: TDLib for JVM Linux x64
@@ -280,9 +319,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v7
         with:
-          ref: ${{ github.ref_name }}
+          ref: ${{ env.TDL_CHECKOUT_REF }}
           lfs: true
           submodules: true
+
+      - name: Apply generated API
+        if: github.event_name == 'workflow_dispatch' && inputs.commit == false
+        uses: ./.github/actions/apply-generated-api
 
       - name: Clean submodule
         run: |
@@ -318,6 +361,7 @@ jobs:
         run: ./gradlew :example:verification:app:jvm:run
 
       - name: Commit and push
+        if: github.event_name == 'push' || inputs.commit
         uses: ./.github/actions/commit-and-push
         with:
           message: TDLib for JVM macOS ARM64
@@ -335,9 +379,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v7
         with:
-          ref: ${{ github.ref_name }}
+          ref: ${{ env.TDL_CHECKOUT_REF }}
           lfs: true
           submodules: true
+
+      - name: Apply generated API
+        if: github.event_name == 'workflow_dispatch' && inputs.commit == false
+        uses: ./.github/actions/apply-generated-api
 
       - name: Set up dependencies
         run: brew install gperf cmake openssl coreutils openjdk
@@ -368,6 +416,7 @@ jobs:
         run: ./gradlew :example:verification:app:jvm:run
 
       - name: Commit and push
+        if: github.event_name == 'push' || inputs.commit
         uses: ./.github/actions/commit-and-push
         with:
           message: TDLib for JVM macOS x64
@@ -389,9 +438,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v7
         with:
-          ref: ${{ github.ref_name }}
+          ref: ${{ env.TDL_CHECKOUT_REF }}
           lfs: true
           submodules: true
+
+      - name: Apply generated API
+        if: github.event_name == 'workflow_dispatch' && inputs.commit == false
+        uses: ./.github/actions/apply-generated-api
 
       - name: Set up dependencies
         run: |
@@ -431,6 +484,7 @@ jobs:
         run: ./gradlew.bat :example:verification:app:jvm:run
 
       - name: Commit and push
+        if: github.event_name == 'push' || inputs.commit
         uses: ./.github/actions/commit-and-push
         with:
           message: TDLib for JVM Windows ARM64
@@ -452,9 +506,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v7
         with:
-          ref: ${{ github.ref_name }}
+          ref: ${{ env.TDL_CHECKOUT_REF }}
           lfs: true
           submodules: true
+
+      - name: Apply generated API
+        if: github.event_name == 'workflow_dispatch' && inputs.commit == false
+        uses: ./.github/actions/apply-generated-api
 
       - name: Set up dependencies
         run: |
@@ -494,6 +552,7 @@ jobs:
         run: ./gradlew.bat :example:verification:app:jvm:run
 
       - name: Commit and push
+        if: github.event_name == 'push' || inputs.commit
         uses: ./.github/actions/commit-and-push
         with:
           message: TDLib for JVM Windows x64
@@ -511,9 +570,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v7
         with:
-          ref: ${{ github.ref_name }}
+          ref: ${{ env.TDL_CHECKOUT_REF }}
           lfs: true
           submodules: true
+
+      - name: Apply generated API
+        if: github.event_name == 'workflow_dispatch' && inputs.commit == false
+        uses: ./.github/actions/apply-generated-api
 
       - name: Set up MSYS2
         uses: msys2/setup-msys2@v2
@@ -564,6 +627,7 @@ jobs:
         run: ./gradlew.bat :example:verification:app:windows:runReleaseExecutableMingwX64
 
       - name: Commit and push
+        if: github.event_name == 'push' || inputs.commit
         uses: ./.github/actions/commit-and-push
         with:
           message: TDLib for Windows x64
@@ -581,9 +645,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v7
         with:
-          ref: ${{ github.ref_name }}
+          ref: ${{ env.TDL_CHECKOUT_REF }}
           lfs: true
           submodules: true
+
+      - name: Apply generated API
+        if: github.event_name == 'workflow_dispatch' && inputs.commit == false
+        uses: ./.github/actions/apply-generated-api
 
       - name: Clean submodule
         run: |
@@ -625,6 +693,7 @@ jobs:
         run: shasum -a 256 tdl-coroutines/generated/ios/arm64/libs/*.a
 
       - name: Commit and push
+        if: github.event_name == 'push' || inputs.commit
         uses: ./.github/actions/commit-and-push
         with:
           message: TDLib for iOS ARM64
@@ -642,9 +711,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v7
         with:
-          ref: ${{ github.ref_name }}
+          ref: ${{ env.TDL_CHECKOUT_REF }}
           lfs: true
           submodules: true
+
+      - name: Apply generated API
+        if: github.event_name == 'workflow_dispatch' && inputs.commit == false
+        uses: ./.github/actions/apply-generated-api
 
       - name: Clean submodule
         run: |
@@ -692,6 +765,7 @@ jobs:
         run: ./gradlew :example:verification:app:ios:iosSimulatorArm64Test
 
       - name: Commit and push
+        if: github.event_name == 'push' || inputs.commit
         uses: ./.github/actions/commit-and-push
         with:
           message: TDLib for iOS ARM64 Simulator
@@ -709,9 +783,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v7
         with:
-          ref: ${{ github.ref_name }}
+          ref: ${{ env.TDL_CHECKOUT_REF }}
           lfs: true
           submodules: true
+
+      - name: Apply generated API
+        if: github.event_name == 'workflow_dispatch' && inputs.commit == false
+        uses: ./.github/actions/apply-generated-api
 
       - name: Clean submodule
         run: |
@@ -753,6 +831,7 @@ jobs:
         run: shasum -a 256 tdl-coroutines/generated/ios/x64Simulator/libs/*.a
 
       - name: Commit and push
+        if: github.event_name == 'push' || inputs.commit
         uses: ./.github/actions/commit-and-push
         with:
           message: TDLib for iOS x64 Simulator
@@ -770,9 +849,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v7
         with:
-          ref: ${{ github.ref_name }}
+          ref: ${{ env.TDL_CHECKOUT_REF }}
           lfs: true
           submodules: true
+
+      - name: Apply generated API
+        if: github.event_name == 'workflow_dispatch' && inputs.commit == false
+        uses: ./.github/actions/apply-generated-api
 
       - name: Clean submodule
         run: |
@@ -820,6 +903,7 @@ jobs:
         run: bash ./gradlew :example:verification:app:macos:runReleaseExecutableMacosArm64
 
       - name: Commit and push
+        if: github.event_name == 'push' || inputs.commit
         uses: ./.github/actions/commit-and-push
         with:
           message: TDLib for macOS ARM64
@@ -837,9 +921,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v7
         with:
-          ref: ${{ github.ref_name }}
+          ref: ${{ env.TDL_CHECKOUT_REF }}
           lfs: true
           submodules: true
+
+      - name: Apply generated API
+        if: github.event_name == 'workflow_dispatch' && inputs.commit == false
+        uses: ./.github/actions/apply-generated-api
 
       - name: Set up dependencies
         run: brew install gperf cmake coreutils
@@ -882,6 +970,7 @@ jobs:
         run: bash ./gradlew :example:verification:app:macos:runReleaseExecutableMacosX64
 
       - name: Commit and push
+        if: github.event_name == 'push' || inputs.commit
         uses: ./.github/actions/commit-and-push
         with:
           message: TDLib for macOS x64
