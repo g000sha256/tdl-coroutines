@@ -598,6 +598,12 @@ jobs:
         if: github.event_name == 'workflow_dispatch' && inputs.commit == false
         uses: ./.github/actions/apply-generated-api
 
+      - name: Set up Java
+        uses: ./.github/actions/set-up-java
+
+      - name: Download Kotlin/Native toolchain
+        run: ./gradlew.bat :tdl-coroutines:cinteropMainMingwX64
+
       - name: Set up MSYS2
         uses: msys2/setup-msys2@v2
         with:
@@ -605,7 +611,6 @@ jobs:
           update: true
           install: >-
             mingw-w64-x86_64-cmake
-            mingw-w64-x86_64-gcc
             mingw-w64-x86_64-gperf
             mingw-w64-x86_64-openssl
             mingw-w64-x86_64-ninja
@@ -614,10 +619,48 @@ jobs:
       - name: Build TDLib Native
         shell: msys2 {0}
         run: |
+          KONAN_DIRECTORY="$(cygpath -u "$USERPROFILE")/.konan"
+          KONAN_PROPERTIES="$(find "$KONAN_DIRECTORY" -path "*/konan/konan.properties" -print -quit)"
+          KONAN_MINGW_NAME="$(sed -n 's/^toolchainDependency.mingw_x64 = //p' "$KONAN_PROPERTIES")"
+          KONAN_LLVM_NAME="$(sed -n 's/^llvm.mingw_x64.user=//p' "$KONAN_PROPERTIES")"
+          KONAN_MINGW="$KONAN_DIRECTORY/dependencies/$KONAN_MINGW_NAME"
+          KONAN_LLVM="$KONAN_DIRECTORY/dependencies/$KONAN_LLVM_NAME"
+          KONAN_CLANG="$KONAN_LLVM/bin/clang.exe"
+          KONAN_SSP="$(find "$KONAN_MINGW/lib/gcc" -name libssp.a -print -quit)"
+          if [ ! -x "$KONAN_CLANG" ]; then
+            KONAN_CLANG="$(find "$KONAN_LLVM/bin" -name "clang-[0-9]*.exe" -print -quit)"
+          fi
+
+          test -n "$KONAN_CLANG"
+          test -x "$KONAN_CLANG"
+          test -n "$KONAN_SSP"
+          KONAN_SSP="$(cygpath -m "$KONAN_SSP")"
+          KONAN_LINKER_FLAGS="-fuse-ld=bfd -Wl,--whole-archive,$KONAN_SSP,--no-whole-archive"
+          export PATH="$KONAN_LLVM/bin:$KONAN_MINGW/bin:$PATH"
+          "$KONAN_CLANG" --version
+
           cd td
           mkdir build
           cd build
-          cmake -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX:PATH=../tdlib -DOPENSSL_USE_STATIC_LIBS=TRUE -DCMAKE_C_FLAGS=-std=gnu17 ..
+          cmake \
+            -G Ninja \
+            -DCMAKE_BUILD_TYPE=Release \
+            -DBUILD_TESTING=OFF \
+            -DCMAKE_INSTALL_PREFIX:PATH=../tdlib \
+            -DOPENSSL_USE_STATIC_LIBS=TRUE \
+            -DCMAKE_C_FLAGS="-std=gnu17 -fno-stack-protector" \
+            -DCMAKE_CXX_FLAGS="--driver-mode=g++ -fno-stack-protector" \
+            -DCMAKE_EXE_LINKER_FLAGS="$KONAN_LINKER_FLAGS" \
+            -DCMAKE_SHARED_LINKER_FLAGS="$KONAN_LINKER_FLAGS" \
+            -DCMAKE_MODULE_LINKER_FLAGS="$KONAN_LINKER_FLAGS" \
+            -DCMAKE_C_COMPILER="$KONAN_CLANG" \
+            -DCMAKE_CXX_COMPILER="$KONAN_CLANG" \
+            -DCMAKE_C_COMPILER_TARGET=x86_64-pc-windows-gnu \
+            -DCMAKE_CXX_COMPILER_TARGET=x86_64-pc-windows-gnu \
+            -DCMAKE_SYSROOT="$KONAN_MINGW" \
+            -DCMAKE_AR="$KONAN_MINGW/bin/gcc-ar.exe" \
+            -DCMAKE_RANLIB="$KONAN_MINGW/bin/gcc-ranlib.exe" \
+            ..
           cmake --build . --target install
 
       - name: Copy files
@@ -640,8 +683,8 @@ jobs:
         run: |
           sha256sum tdl-coroutines/generated/windows/x64/libs/*.a
 
-      - name: Set up Java
-        uses: ./.github/actions/set-up-java
+      - name: Clean bootstrap outputs
+        run: ./gradlew.bat :tdl-coroutines:clean
 
       - name: Verify
         run: ./gradlew.bat :example:verification:app:windows:runReleaseExecutableMingwX64
