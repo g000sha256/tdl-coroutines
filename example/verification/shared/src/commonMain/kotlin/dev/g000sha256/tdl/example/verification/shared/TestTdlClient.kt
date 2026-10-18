@@ -29,7 +29,7 @@ public class TestTdlClient public constructor(
 
     @OptIn(FlowPreview::class)
     public suspend fun run(): Boolean {
-        println()
+        println(message = "[TDL]")
 
         val tdlClient = TdlClient.create()
 
@@ -57,10 +57,10 @@ public class TestTdlClient public constructor(
                     return@coroutineScope false
                 }
 
-                println()
+                println(message = "[TDL]")
                 startLogging.complete(value = Unit)
                 allUpdatesJob.join()
-                println()
+                println(message = "[TDL]")
 
                 val networkIsOk = tdlClient.checkNetwork()
                 if (!networkIsOk) {
@@ -89,8 +89,6 @@ public class TestTdlClient public constructor(
                 closeIsOk = tdlClient.closeAndWait()
             }
         }
-
-        println()
 
         return checksAreOk && closeIsOk
     }

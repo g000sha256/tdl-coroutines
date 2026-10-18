@@ -9,13 +9,17 @@ timeout_seconds=60
 elapsed_seconds=0
 result=""
 
+read_tdl_log() {
+  adb logcat -d -v raw 'System.out:I' '*:S' 2>/dev/null
+}
+
 while [ "$elapsed_seconds" -lt "$timeout_seconds" ]; do
-  if adb logcat -d 2>/dev/null | grep -q "\[TDL\] Success"; then
+  if read_tdl_log | grep -qF "[TDL] Success"; then
     result="SUCCESS"
     break
   fi
 
-  if adb logcat -d 2>/dev/null | grep -q "\[TDL\] Failure"; then
+  if read_tdl_log | grep -qF "[TDL] Failure"; then
     result="FAILURE"
     break
   fi
@@ -25,7 +29,7 @@ while [ "$elapsed_seconds" -lt "$timeout_seconds" ]; do
 done
 
 echo "--- TDL log output ---"
-adb logcat -d | grep "\[TDL\]" || echo "(no [TDL] entries)"
+read_tdl_log | grep -F "[TDL]" || echo "(no [TDL] entries)"
 
 if [ "$result" = "SUCCESS" ]; then
   exit 0
