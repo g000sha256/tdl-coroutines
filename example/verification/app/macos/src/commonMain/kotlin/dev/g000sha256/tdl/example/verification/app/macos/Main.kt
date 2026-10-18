@@ -25,11 +25,13 @@ public fun main() {
             deleteDirectory(fileManager = fileManager, path = directory)
         }
     } catch (throwable: Throwable) {
-        println()
-        println(message = "[TDL] $throwable")
+        println(message = "[TDL]")
+        println(message = "[TDL] Error: $throwable")
+
         false
     }
 
+    println(message = "[TDL]")
     if (result) {
         println(message = "[TDL] Success")
         exitProcess(status = 0)
