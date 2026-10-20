@@ -332,6 +332,9 @@ jobs:
           cd td
           git clean -ffdx
 
+      - name: Set up Java
+        uses: ./.github/actions/set-up-java
+
       - name: Set up dependencies
         run: brew install gperf cmake coreutils openjdk
 
