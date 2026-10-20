@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Georgii Ippolitov (g000sha256)
+ * Copyright 2025-2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,6 +29,7 @@ import kotlin.String
  * @property stickerHeight Expected height of the sticker, which can be used if the sticker is null.
  * @property fitzpatrickType Emoji modifier fitzpatrick type; 0-6; 0 if none.
  * @property sound File containing the sound to be played when the sticker is clicked; may be null. The sound is encoded with the Opus codec, and stored inside an OGG container.
+ * @property isRegularEmoji True, if the emoji is a regular emoji.
  */
 public class AnimatedEmoji public constructor(
     public val sticker: Sticker?,
@@ -36,6 +37,7 @@ public class AnimatedEmoji public constructor(
     public val stickerHeight: Int,
     public val fitzpatrickType: Int,
     public val sound: File?,
+    public val isRegularEmoji: Boolean,
 ) {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
@@ -60,7 +62,10 @@ public class AnimatedEmoji public constructor(
         if (other.fitzpatrickType != fitzpatrickType) {
             return false
         }
-        return other.sound == sound
+        if (other.sound != sound) {
+            return false
+        }
+        return other.isRegularEmoji == isRegularEmoji
     }
 
     override fun hashCode(): Int {
@@ -70,6 +75,7 @@ public class AnimatedEmoji public constructor(
         hashCode = 31 * hashCode + stickerHeight.hashCode()
         hashCode = 31 * hashCode + fitzpatrickType.hashCode()
         hashCode = 31 * hashCode + sound.hashCode()
+        hashCode = 31 * hashCode + isRegularEmoji.hashCode()
         return hashCode
     }
 
@@ -91,6 +97,9 @@ public class AnimatedEmoji public constructor(
             append(", ")
             append("sound=")
             append(sound)
+            append(", ")
+            append("isRegularEmoji=")
+            append(isRegularEmoji)
             append(")")
         }
     }

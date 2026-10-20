@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Georgii Ippolitov (g000sha256)
+ * Copyright 2025-2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,7 +29,8 @@ import kotlin.String
  * @property background The background to be used in chats; may be null.
  * @property outgoingMessageFill The fill to be used as a background for outgoing messages; may be null if the fill from the base theme must be used instead.
  * @property animateOutgoingMessageFill If true, the freeform gradient fill needs to be animated on every sent message.
- * @property outgoingMessageAccentColor Accent color of outgoing messages in ARGB format.
+ * @property hasOutgoingMessageAccentColor True, if there is chosen accent color for outgoing messages; otherwise, the color must be deduced from other theme settings.
+ * @property outgoingMessageAccentColor Accent color of outgoing messages in ARGB format; must be ignored if hasOutgoingMessageAccentColor is false.
  */
 public class ThemeSettings public constructor(
     public val baseTheme: BuiltInTheme,
@@ -37,6 +38,7 @@ public class ThemeSettings public constructor(
     public val background: Background?,
     public val outgoingMessageFill: BackgroundFill?,
     public val animateOutgoingMessageFill: Boolean,
+    public val hasOutgoingMessageAccentColor: Boolean,
     public val outgoingMessageAccentColor: Int,
 ) {
     override fun equals(other: Any?): Boolean {
@@ -65,6 +67,9 @@ public class ThemeSettings public constructor(
         if (other.animateOutgoingMessageFill != animateOutgoingMessageFill) {
             return false
         }
+        if (other.hasOutgoingMessageAccentColor != hasOutgoingMessageAccentColor) {
+            return false
+        }
         return other.outgoingMessageAccentColor == outgoingMessageAccentColor
     }
 
@@ -75,6 +80,7 @@ public class ThemeSettings public constructor(
         hashCode = 31 * hashCode + background.hashCode()
         hashCode = 31 * hashCode + outgoingMessageFill.hashCode()
         hashCode = 31 * hashCode + animateOutgoingMessageFill.hashCode()
+        hashCode = 31 * hashCode + hasOutgoingMessageAccentColor.hashCode()
         hashCode = 31 * hashCode + outgoingMessageAccentColor.hashCode()
         return hashCode
     }
@@ -97,6 +103,9 @@ public class ThemeSettings public constructor(
             append(", ")
             append("animateOutgoingMessageFill=")
             append(animateOutgoingMessageFill)
+            append(", ")
+            append("hasOutgoingMessageAccentColor=")
+            append(hasOutgoingMessageAccentColor)
             append(", ")
             append("outgoingMessageAccentColor=")
             append(outgoingMessageAccentColor)

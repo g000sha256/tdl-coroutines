@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Georgii Ippolitov (g000sha256)
+ * Copyright 2025-2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,7 +28,7 @@ import kotlin.String
  * @property revenueByHourGraph A graph containing amount of revenue in a given hour.
  * @property revenueGraph A graph containing amount of revenue.
  * @property revenueAmount Amount of earned revenue.
- * @property usdRate Current conversion rate of the cryptocurrency in which revenue is calculated to USD.
+ * @property usdRate Current exchange rate of the cryptocurrency in which revenue is calculated to USD.
  */
 public class ChatRevenueStatistics public constructor(
     public val revenueByHourGraph: StatisticalGraph,

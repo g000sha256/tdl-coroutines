@@ -442,6 +442,9 @@ import dev.g000sha256.tdl.dto.CraftGiftResultInvalidGift
 import dev.g000sha256.tdl.dto.CraftGiftResultSuccess
 import dev.g000sha256.tdl.dto.CraftGiftResultTooEarly
 import dev.g000sha256.tdl.dto.CreatedBasicGroupChat
+import dev.g000sha256.tdl.dto.Currencies
+import dev.g000sha256.tdl.dto.CurrencyExchangeRate
+import dev.g000sha256.tdl.dto.CurrencyExchangeRates
 import dev.g000sha256.tdl.dto.CurrentWeather
 import dev.g000sha256.tdl.dto.CustomRequestResult
 import dev.g000sha256.tdl.dto.Data
@@ -870,6 +873,8 @@ import dev.g000sha256.tdl.dto.InternalLinkTypeStory
 import dev.g000sha256.tdl.dto.InternalLinkTypeStoryAlbum
 import dev.g000sha256.tdl.dto.InternalLinkTypeTextCompositionStyle
 import dev.g000sha256.tdl.dto.InternalLinkTypeTheme
+import dev.g000sha256.tdl.dto.InternalLinkTypeTonConnect
+import dev.g000sha256.tdl.dto.InternalLinkTypeTonWalletTransfer
 import dev.g000sha256.tdl.dto.InternalLinkTypeUnknownDeepLink
 import dev.g000sha256.tdl.dto.InternalLinkTypeUpgradedGift
 import dev.g000sha256.tdl.dto.InternalLinkTypeUserPhoneNumber
@@ -1120,6 +1125,8 @@ import dev.g000sha256.tdl.dto.MessageSuggestedPostRefunded
 import dev.g000sha256.tdl.dto.MessageSupergroupChatCreate
 import dev.g000sha256.tdl.dto.MessageText
 import dev.g000sha256.tdl.dto.MessageThreadInfo
+import dev.g000sha256.tdl.dto.MessageTonConnectRequest
+import dev.g000sha256.tdl.dto.MessageTonWalletTransfer
 import dev.g000sha256.tdl.dto.MessageTopicDirectMessages
 import dev.g000sha256.tdl.dto.MessageTopicForum
 import dev.g000sha256.tdl.dto.MessageTopicSavedMessages
@@ -1169,6 +1176,13 @@ import dev.g000sha256.tdl.dto.NotificationTypeNewPushMessage
 import dev.g000sha256.tdl.dto.NotificationTypeNewSecretChat
 import dev.g000sha256.tdl.dto.OauthLinkInfo
 import dev.g000sha256.tdl.dto.Ok
+import dev.g000sha256.tdl.dto.OnRampPaymentAvailability
+import dev.g000sha256.tdl.dto.OnRampPaymentLimits
+import dev.g000sha256.tdl.dto.OnRampPaymentMethod
+import dev.g000sha256.tdl.dto.OnRampPaymentQuote
+import dev.g000sha256.tdl.dto.OnRampPaymentSession
+import dev.g000sha256.tdl.dto.OnRampProvider
+import dev.g000sha256.tdl.dto.OnRampProviders
 import dev.g000sha256.tdl.dto.OptionValueBoolean
 import dev.g000sha256.tdl.dto.OptionValueEmpty
 import dev.g000sha256.tdl.dto.OptionValueInteger
@@ -1458,6 +1472,8 @@ import dev.g000sha256.tdl.dto.PushMessageContentStory
 import dev.g000sha256.tdl.dto.PushMessageContentSuggestBirthdate
 import dev.g000sha256.tdl.dto.PushMessageContentSuggestProfilePhoto
 import dev.g000sha256.tdl.dto.PushMessageContentText
+import dev.g000sha256.tdl.dto.PushMessageContentTonConnectRequest
+import dev.g000sha256.tdl.dto.PushMessageContentTonWalletTransfer
 import dev.g000sha256.tdl.dto.PushMessageContentUpgradedGift
 import dev.g000sha256.tdl.dto.PushMessageContentVideo
 import dev.g000sha256.tdl.dto.PushMessageContentVideoChatEnded
@@ -1552,6 +1568,7 @@ import dev.g000sha256.tdl.dto.RichTextSpoiler
 import dev.g000sha256.tdl.dto.RichTextStrikethrough
 import dev.g000sha256.tdl.dto.RichTextSubscript
 import dev.g000sha256.tdl.dto.RichTextSuperscript
+import dev.g000sha256.tdl.dto.RichTextTonAddress
 import dev.g000sha256.tdl.dto.RichTextUnderline
 import dev.g000sha256.tdl.dto.RichTextUrl
 import dev.g000sha256.tdl.dto.RichTexts
@@ -1801,6 +1818,7 @@ import dev.g000sha256.tdl.dto.SuggestedActionSetProfilePhoto
 import dev.g000sha256.tdl.dto.SuggestedActionSubscribeToAnnualPremium
 import dev.g000sha256.tdl.dto.SuggestedActionUpgradePremium
 import dev.g000sha256.tdl.dto.SuggestedActionViewChecksHint
+import dev.g000sha256.tdl.dto.SuggestedActionViewFirstTonWalletTransferHint
 import dev.g000sha256.tdl.dto.SuggestedPostInfo
 import dev.g000sha256.tdl.dto.SuggestedPostPriceGram
 import dev.g000sha256.tdl.dto.SuggestedPostPriceStar
@@ -1871,6 +1889,7 @@ import dev.g000sha256.tdl.dto.TextEntityTypePreCode
 import dev.g000sha256.tdl.dto.TextEntityTypeSpoiler
 import dev.g000sha256.tdl.dto.TextEntityTypeStrikethrough
 import dev.g000sha256.tdl.dto.TextEntityTypeTextUrl
+import dev.g000sha256.tdl.dto.TextEntityTypeTonAddress
 import dev.g000sha256.tdl.dto.TextEntityTypeUnderline
 import dev.g000sha256.tdl.dto.TextEntityTypeUrl
 import dev.g000sha256.tdl.dto.TextParseModeHTML
@@ -1888,6 +1907,32 @@ import dev.g000sha256.tdl.dto.ThumbnailFormatWebm
 import dev.g000sha256.tdl.dto.ThumbnailFormatWebp
 import dev.g000sha256.tdl.dto.TimeZone
 import dev.g000sha256.tdl.dto.TimeZones
+import dev.g000sha256.tdl.dto.TonCenterApiRequestTypeGet
+import dev.g000sha256.tdl.dto.TonCenterApiRequestTypePost
+import dev.g000sha256.tdl.dto.TonCenterStreamingApiUrl
+import dev.g000sha256.tdl.dto.TonConnectChallenge
+import dev.g000sha256.tdl.dto.TonConnectConnectItemAddress
+import dev.g000sha256.tdl.dto.TonConnectConnectItemProof
+import dev.g000sha256.tdl.dto.TonConnectConnectRequest
+import dev.g000sha256.tdl.dto.TonConnectManifestFailed
+import dev.g000sha256.tdl.dto.TonConnectManifestInfo
+import dev.g000sha256.tdl.dto.TonConnectManifestInvalid
+import dev.g000sha256.tdl.dto.TonConnectManifestPending
+import dev.g000sha256.tdl.dto.TonConnectRequest
+import dev.g000sha256.tdl.dto.TonConnectRequestStateAccepted
+import dev.g000sha256.tdl.dto.TonConnectRequestStatePending
+import dev.g000sha256.tdl.dto.TonConnectRequestStateRejected
+import dev.g000sha256.tdl.dto.TonConnectRequests
+import dev.g000sha256.tdl.dto.TonConnectSession
+import dev.g000sha256.tdl.dto.TonConnectSessionEventId
+import dev.g000sha256.tdl.dto.TonConnectSessionStateClosed
+import dev.g000sha256.tdl.dto.TonConnectSessionStateClosing
+import dev.g000sha256.tdl.dto.TonConnectSessionStatePending
+import dev.g000sha256.tdl.dto.TonConnectSessionStateReady
+import dev.g000sha256.tdl.dto.TonConnectSessions
+import dev.g000sha256.tdl.dto.TonNft
+import dev.g000sha256.tdl.dto.TonNftAttribute
+import dev.g000sha256.tdl.dto.TonNfts
 import dev.g000sha256.tdl.dto.TonTransaction
 import dev.g000sha256.tdl.dto.TonTransactionTypeFragmentDeposit
 import dev.g000sha256.tdl.dto.TonTransactionTypeFragmentWithdrawal
@@ -1899,6 +1944,21 @@ import dev.g000sha256.tdl.dto.TonTransactionTypeUnsupported
 import dev.g000sha256.tdl.dto.TonTransactionTypeUpgradedGiftPurchase
 import dev.g000sha256.tdl.dto.TonTransactionTypeUpgradedGiftSale
 import dev.g000sha256.tdl.dto.TonTransactions
+import dev.g000sha256.tdl.dto.TonWalletGaslessTransfersInfo
+import dev.g000sha256.tdl.dto.TonWalletOwnershipProof
+import dev.g000sha256.tdl.dto.TonWalletOwnershipProofChallenge
+import dev.g000sha256.tdl.dto.TonWalletState
+import dev.g000sha256.tdl.dto.TonWalletTransaction
+import dev.g000sha256.tdl.dto.TonWalletTransactionStateFailed
+import dev.g000sha256.tdl.dto.TonWalletTransactionStateSucceeded
+import dev.g000sha256.tdl.dto.TonWalletTransactionTypeKeyChange
+import dev.g000sha256.tdl.dto.TonWalletTransactionTypeNftTransfer
+import dev.g000sha256.tdl.dto.TonWalletTransactionTypeOnRampDeposit
+import dev.g000sha256.tdl.dto.TonWalletTransactionTypeTransfer
+import dev.g000sha256.tdl.dto.TonWalletTransactions
+import dev.g000sha256.tdl.dto.TonWalletTransferReceiverAddress
+import dev.g000sha256.tdl.dto.TonWalletTransferReceiverUser
+import dev.g000sha256.tdl.dto.TonWalletTransferResult
 import dev.g000sha256.tdl.dto.TopChatCategoryBots
 import dev.g000sha256.tdl.dto.TopChatCategoryCalls
 import dev.g000sha256.tdl.dto.TopChatCategoryChannels
@@ -1919,6 +1979,7 @@ import dev.g000sha256.tdl.dto.UpdateActiveGiftAuctions
 import dev.g000sha256.tdl.dto.UpdateActiveLiveLocationMessages
 import dev.g000sha256.tdl.dto.UpdateActiveNotifications
 import dev.g000sha256.tdl.dto.UpdateAgeVerificationParameters
+import dev.g000sha256.tdl.dto.UpdateAllowedBotUsernamePremiumSuffixes
 import dev.g000sha256.tdl.dto.UpdateAnimatedEmojiMessageClicked
 import dev.g000sha256.tdl.dto.UpdateAnimationSearchParameters
 import dev.g000sha256.tdl.dto.UpdateApplicationRecaptchaVerificationRequired
@@ -2088,6 +2149,10 @@ import dev.g000sha256.tdl.dto.UpdateSupergroup
 import dev.g000sha256.tdl.dto.UpdateSupergroupFullInfo
 import dev.g000sha256.tdl.dto.UpdateTermsOfService
 import dev.g000sha256.tdl.dto.UpdateTextCompositionStyles
+import dev.g000sha256.tdl.dto.UpdateTonWalletGaslessTransfersInfo
+import dev.g000sha256.tdl.dto.UpdateTonWalletState
+import dev.g000sha256.tdl.dto.UpdateTonWalletTonConnectSession
+import dev.g000sha256.tdl.dto.UpdateTonWalletTonConnectSessionDisconnectRequired
 import dev.g000sha256.tdl.dto.UpdateTopicMessageCount
 import dev.g000sha256.tdl.dto.UpdateTrendingStickerSets
 import dev.g000sha256.tdl.dto.UpdateTrustedMiniAppBots
@@ -2168,6 +2233,8 @@ import dev.g000sha256.tdl.dto.UserStatusOffline
 import dev.g000sha256.tdl.dto.UserStatusOnline
 import dev.g000sha256.tdl.dto.UserStatusRecently
 import dev.g000sha256.tdl.dto.UserSupportInfo
+import dev.g000sha256.tdl.dto.UserTonWalletAddress
+import dev.g000sha256.tdl.dto.UserTonWalletAddresses
 import dev.g000sha256.tdl.dto.UserTypeBot
 import dev.g000sha256.tdl.dto.UserTypeDeleted
 import dev.g000sha256.tdl.dto.UserTypeRegular
@@ -2186,6 +2253,7 @@ import dev.g000sha256.tdl.dto.VideoMessageAdvertisements
 import dev.g000sha256.tdl.dto.VideoNote
 import dev.g000sha256.tdl.dto.VideoStoryboard
 import dev.g000sha256.tdl.dto.VoiceNote
+import dev.g000sha256.tdl.dto.WalletBotBalance
 import dev.g000sha256.tdl.dto.WebApp
 import dev.g000sha256.tdl.dto.WebAppInfo
 import dev.g000sha256.tdl.dto.WebAppOpenModeCompact
@@ -3130,6 +3198,7 @@ internal fun serialize(dto: AnimatedEmoji): JsonElement {
         put(key = "sticker_height", int = dto.stickerHeight)
         put(key = "fitzpatrick_type", int = dto.fitzpatrickType)
         put(key = "sound", value = dto.sound) { data -> serialize(dto = data) }
+        put(key = "is_regular_emoji", boolean = dto.isRegularEmoji)
     }
 }
 
@@ -5375,6 +5444,460 @@ internal fun serialize(dto: TonTransactions): JsonElement {
     }
 }
 
+internal fun serialize(dto: TonCenterApiRequestTypeGet): JsonElement {
+    return buildJsonObject {
+        put(key = "@type", string = "tonCenterApiRequestTypeGet")
+        put(key = "query", string = dto.query)
+    }
+}
+
+internal fun serialize(dto: TonCenterApiRequestTypePost): JsonElement {
+    return buildJsonObject {
+        put(key = "@type", string = "tonCenterApiRequestTypePost")
+        put(key = "payload", string = dto.payload)
+    }
+}
+
+internal fun serialize(dto: TonWalletTransferReceiverUser): JsonElement {
+    return buildJsonObject {
+        put(key = "@type", string = "tonWalletTransferReceiverUser")
+        put(key = "username", string = dto.username)
+    }
+}
+
+internal fun serialize(dto: TonWalletTransferReceiverAddress): JsonElement {
+    return buildJsonObject {
+        put(key = "@type", string = "tonWalletTransferReceiverAddress")
+        put(key = "address", string = dto.address)
+    }
+}
+
+internal fun serialize(dto: TonCenterStreamingApiUrl): JsonElement {
+    return buildJsonObject {
+        put(key = "@type", string = "tonCenterStreamingApiUrl")
+        put(key = "url", string = dto.url)
+        put(key = "expires_in", int = dto.expiresIn)
+    }
+}
+
+internal fun serialize(dto: WalletBotBalance): JsonElement {
+    return buildJsonObject {
+        put(key = "@type", string = "walletBotBalance")
+        put(key = "has_balance", boolean = dto.hasBalance)
+        put(key = "url", string = dto.url)
+    }
+}
+
+internal fun serialize(dto: UserTonWalletAddress): JsonElement {
+    return buildJsonObject {
+        put(key = "@type", string = "userTonWalletAddress")
+        put(key = "user_id", long = dto.userId)
+        put(key = "wallet_address", string = dto.walletAddress)
+        put(key = "public_key", bytes = dto.publicKey)
+    }
+}
+
+internal fun serialize(dto: UserTonWalletAddresses): JsonElement {
+    return buildJsonObject {
+        put(key = "@type", string = "userTonWalletAddresses")
+        put(key = "addresses", objects = dto.addresses) { data -> serialize(dto = data) }
+    }
+}
+
+internal fun serialize(dto: TonWalletOwnershipProofChallenge): JsonElement {
+    return buildJsonObject {
+        put(key = "@type", string = "tonWalletOwnershipProofChallenge")
+        put(key = "payload", string = dto.payload)
+        put(key = "domain", string = dto.domain)
+    }
+}
+
+internal fun serialize(dto: TonWalletOwnershipProof): JsonElement {
+    return buildJsonObject {
+        put(key = "@type", string = "tonWalletOwnershipProof")
+        put(key = "public_key", bytes = dto.publicKey)
+        put(key = "timestamp", int = dto.timestamp)
+        put(key = "signature", bytes = dto.signature)
+    }
+}
+
+internal fun serialize(dto: TonWalletGaslessTransfersInfo): JsonElement {
+    return buildJsonObject {
+        put(key = "@type", string = "tonWalletGaslessTransfersInfo")
+        put(key = "left_count", int = dto.leftCount)
+        put(key = "reset_date", int = dto.resetDate)
+        put(key = "relayer_address", string = dto.relayerAddress)
+    }
+}
+
+internal fun serialize(dto: CurrencyExchangeRate): JsonElement {
+    return buildJsonObject {
+        put(key = "@type", string = "currencyExchangeRate")
+        put(key = "currency", string = dto.currency)
+        put(key = "rate", double = dto.rate)
+    }
+}
+
+internal fun serialize(dto: CurrencyExchangeRates): JsonElement {
+    return buildJsonObject {
+        put(key = "@type", string = "currencyExchangeRates")
+        put(key = "rates", objects = dto.rates) { data -> serialize(dto = data) }
+    }
+}
+
+internal fun serialize(dto: OnRampProvider): JsonElement {
+    return buildJsonObject {
+        put(key = "@type", string = "onRampProvider")
+        put(key = "id", string = dto.id)
+        put(key = "name", string = dto.name)
+        put(key = "cryptocurrencies", strings = dto.cryptocurrencies)
+        put(key = "supports_base_currencies", boolean = dto.supportsBaseCurrencies)
+        put(key = "supports_limits", boolean = dto.supportsLimits)
+        put(key = "supports_quote", boolean = dto.supportsQuote)
+    }
+}
+
+internal fun serialize(dto: OnRampProviders): JsonElement {
+    return buildJsonObject {
+        put(key = "@type", string = "onRampProviders")
+        put(key = "providers", objects = dto.providers) { data -> serialize(dto = data) }
+    }
+}
+
+internal fun serialize(dto: Currencies): JsonElement {
+    return buildJsonObject {
+        put(key = "@type", string = "currencies")
+        put(key = "currencies", strings = dto.currencies)
+    }
+}
+
+internal fun serialize(dto: OnRampPaymentMethod): JsonElement {
+    return buildJsonObject {
+        put(key = "@type", string = "onRampPaymentMethod")
+        put(key = "name", string = dto.name)
+        put(key = "is_available", boolean = dto.isAvailable)
+    }
+}
+
+internal fun serialize(dto: OnRampPaymentAvailability): JsonElement {
+    return buildJsonObject {
+        put(key = "@type", string = "onRampPaymentAvailability")
+        put(key = "is_allowed", boolean = dto.isAllowed)
+        put(key = "is_purchase_allowed", boolean = dto.isPurchaseAllowed)
+        put(key = "methods", objects = dto.methods) { data -> serialize(dto = data) }
+        put(key = "country_code", string = dto.countryCode)
+        put(key = "state", string = dto.state)
+    }
+}
+
+internal fun serialize(dto: OnRampPaymentLimits): JsonElement {
+    return buildJsonObject {
+        put(key = "@type", string = "onRampPaymentLimits")
+        put(key = "payment_method", string = dto.paymentMethod)
+        put(key = "base_currency_min_amount", string = dto.baseCurrencyMinAmount)
+        put(key = "base_currency_max_amount", string = dto.baseCurrencyMaxAmount)
+        put(key = "cryptocurrency_min_amount", string = dto.cryptocurrencyMinAmount)
+        put(key = "cryptocurrency_max_amount", string = dto.cryptocurrencyMaxAmount)
+    }
+}
+
+internal fun serialize(dto: OnRampPaymentQuote): JsonElement {
+    return buildJsonObject {
+        put(key = "@type", string = "onRampPaymentQuote")
+        put(key = "payment_method", string = dto.paymentMethod)
+        put(key = "expiration_date", int = dto.expirationDate)
+        put(key = "base_currency_amount", string = dto.baseCurrencyAmount)
+        put(key = "cryptocurrency_amount", string = dto.cryptocurrencyAmount)
+        put(key = "cryptocurrency_price", string = dto.cryptocurrencyPrice)
+        put(key = "fee_amount", string = dto.feeAmount)
+        put(key = "extra_fee_amount", string = dto.extraFeeAmount)
+        put(key = "network_fee_amount", string = dto.networkFeeAmount)
+        put(key = "total_amount", string = dto.totalAmount)
+    }
+}
+
+internal fun serialize(dto: OnRampPaymentSession): JsonElement {
+    return buildJsonObject {
+        put(key = "@type", string = "onRampPaymentSession")
+        put(key = "session_id", string = dto.sessionId)
+        put(key = "expiration_date", int = dto.expirationDate)
+        put(key = "url", string = dto.url)
+    }
+}
+
+internal fun serialize(dto: TonWalletState): JsonElement {
+    return buildJsonObject {
+        put(key = "@type", string = "tonWalletState")
+        put(key = "address", string = dto.address)
+        put(key = "public_key", bytes = dto.publicKey)
+        put(key = "gram_amount", long = dto.gramAmount)
+        put(key = "is_being_created", boolean = dto.isBeingCreated)
+        put(key = "is_backup_enabled", boolean = dto.isBackupEnabled)
+        put(key = "can_enable_backup", boolean = dto.canEnableBackup)
+        put(key = "can_export_phrase", boolean = dto.canExportPhrase)
+    }
+}
+
+internal fun serialize(dto: TonNftAttribute): JsonElement {
+    return buildJsonObject {
+        put(key = "@type", string = "tonNftAttribute")
+        put(key = "trait_type", string = dto.traitType)
+        put(key = "value", string = dto.value)
+    }
+}
+
+internal fun serialize(dto: TonNft): JsonElement {
+    return buildJsonObject {
+        put(key = "@type", string = "tonNft")
+        put(key = "collection_address", string = dto.collectionAddress)
+        put(key = "address", string = dto.address)
+        put(key = "owner_address", string = dto.ownerAddress)
+        put(key = "index", string = dto.index)
+        put(key = "name", string = dto.name)
+        put(key = "description", string = dto.description)
+        put(key = "image", value = dto.image) { data -> serialize(dto = data) }
+        put(key = "thumbnail", value = dto.thumbnail) { data -> serialize(dto = data) }
+        put(key = "content", value = dto.content) { data -> serialize(dto = data) }
+        put(key = "sticker", value = dto.sticker) { data -> serialize(dto = data) }
+        put(key = "attributes", objects = dto.attributes) { data -> serialize(dto = data) }
+        put(key = "extra", value = dto.extra) { data -> serialize(dto = data) }
+    }
+}
+
+internal fun serialize(dto: TonNfts): JsonElement {
+    return buildJsonObject {
+        put(key = "@type", string = "tonNfts")
+        put(key = "nfts", objects = dto.nfts) { data -> serialize(dto = data) }
+        put(key = "next_offset", string = dto.nextOffset)
+    }
+}
+
+internal fun serialize(dto: TonWalletTransactionStateSucceeded): JsonElement {
+    return buildJsonObject {
+        put(key = "@type", string = "tonWalletTransactionStateSucceeded")
+        put(key = "tx_hash", string = dto.txHash)
+    }
+}
+
+internal fun serialize(dto: TonWalletTransactionStateFailed): JsonElement {
+    return buildJsonObject {
+        put(key = "@type", string = "tonWalletTransactionStateFailed")
+    }
+}
+
+internal fun serialize(dto: TonWalletTransactionTypeOnRampDeposit): JsonElement {
+    return buildJsonObject {
+        put(key = "@type", string = "tonWalletTransactionTypeOnRampDeposit")
+        put(key = "amount", long = dto.amount)
+        put(key = "provider_name", string = dto.providerName)
+    }
+}
+
+internal fun serialize(dto: TonWalletTransactionTypeTransfer): JsonElement {
+    return buildJsonObject {
+        put(key = "@type", string = "tonWalletTransactionTypeTransfer")
+        put(key = "amount", long = dto.amount)
+        put(key = "is_gasless", boolean = dto.isGasless)
+        put(key = "comment", string = dto.comment)
+        put(key = "is_comment_encrypted", boolean = dto.isCommentEncrypted)
+    }
+}
+
+internal fun serialize(dto: TonWalletTransactionTypeNftTransfer): JsonElement {
+    return buildJsonObject {
+        put(key = "@type", string = "tonWalletTransactionTypeNftTransfer")
+        put(key = "nft", value = dto.nft) { data -> serialize(dto = data) }
+        put(key = "is_outgoing", boolean = dto.isOutgoing)
+        put(key = "comment", string = dto.comment)
+        put(key = "is_comment_encrypted", boolean = dto.isCommentEncrypted)
+    }
+}
+
+internal fun serialize(dto: TonWalletTransactionTypeKeyChange): JsonElement {
+    return buildJsonObject {
+        put(key = "@type", string = "tonWalletTransactionTypeKeyChange")
+    }
+}
+
+internal fun serialize(dto: TonWalletTransaction): JsonElement {
+    return buildJsonObject {
+        put(key = "@type", string = "tonWalletTransaction")
+        put(key = "id", string = dto.id)
+        put(key = "peer_address", string = dto.peerAddress)
+        put(key = "peer_user_id", long = dto.peerUserId)
+        put(key = "peer_domain", string = dto.peerDomain)
+        put(key = "date", int = dto.date)
+        put(key = "fee_amount", long = dto.feeAmount)
+        put(key = "state", value = dto.state) { data -> serialize(dto = data) }
+        put(key = "type", value = dto.type) { data -> serialize(dto = data) }
+    }
+}
+
+internal fun serialize(dto: TonWalletTransactions): JsonElement {
+    return buildJsonObject {
+        put(key = "@type", string = "tonWalletTransactions")
+        put(key = "gram_amount", long = dto.gramAmount)
+        put(key = "transactions", objects = dto.transactions) { data -> serialize(dto = data) }
+        put(key = "next_offset", string = dto.nextOffset)
+    }
+}
+
+internal fun serialize(dto: TonConnectRequestStatePending): JsonElement {
+    return buildJsonObject {
+        put(key = "@type", string = "tonConnectRequestStatePending")
+        put(key = "expiration_date", int = dto.expirationDate)
+    }
+}
+
+internal fun serialize(dto: TonConnectRequestStateAccepted): JsonElement {
+    return buildJsonObject {
+        put(key = "@type", string = "tonConnectRequestStateAccepted")
+    }
+}
+
+internal fun serialize(dto: TonConnectRequestStateRejected): JsonElement {
+    return buildJsonObject {
+        put(key = "@type", string = "tonConnectRequestStateRejected")
+    }
+}
+
+internal fun serialize(dto: TonConnectManifestPending): JsonElement {
+    return buildJsonObject {
+        put(key = "@type", string = "tonConnectManifestPending")
+    }
+}
+
+internal fun serialize(dto: TonConnectManifestInfo): JsonElement {
+    return buildJsonObject {
+        put(key = "@type", string = "tonConnectManifestInfo")
+        put(key = "url", string = dto.url)
+        put(key = "name", string = dto.name)
+        put(key = "icon", value = dto.icon) { data -> serialize(dto = data) }
+    }
+}
+
+internal fun serialize(dto: TonConnectManifestFailed): JsonElement {
+    return buildJsonObject {
+        put(key = "@type", string = "tonConnectManifestFailed")
+    }
+}
+
+internal fun serialize(dto: TonConnectManifestInvalid): JsonElement {
+    return buildJsonObject {
+        put(key = "@type", string = "tonConnectManifestInvalid")
+    }
+}
+
+internal fun serialize(dto: TonConnectSessionStatePending): JsonElement {
+    return buildJsonObject {
+        put(key = "@type", string = "tonConnectSessionStatePending")
+    }
+}
+
+internal fun serialize(dto: TonConnectSessionStateReady): JsonElement {
+    return buildJsonObject {
+        put(key = "@type", string = "tonConnectSessionStateReady")
+    }
+}
+
+internal fun serialize(dto: TonConnectSessionStateClosing): JsonElement {
+    return buildJsonObject {
+        put(key = "@type", string = "tonConnectSessionStateClosing")
+    }
+}
+
+internal fun serialize(dto: TonConnectSessionStateClosed): JsonElement {
+    return buildJsonObject {
+        put(key = "@type", string = "tonConnectSessionStateClosed")
+    }
+}
+
+internal fun serialize(dto: TonConnectConnectItemAddress): JsonElement {
+    return buildJsonObject {
+        put(key = "@type", string = "tonConnectConnectItemAddress")
+        put(key = "network", string = dto.network)
+    }
+}
+
+internal fun serialize(dto: TonConnectConnectItemProof): JsonElement {
+    return buildJsonObject {
+        put(key = "@type", string = "tonConnectConnectItemProof")
+        put(key = "payload", string = dto.payload)
+    }
+}
+
+internal fun serialize(dto: TonConnectConnectRequest): JsonElement {
+    return buildJsonObject {
+        put(key = "@type", string = "tonConnectConnectRequest")
+        put(key = "manifest_url", string = dto.manifestUrl)
+        put(key = "items", objects = dto.items) { data -> serialize(dto = data) }
+    }
+}
+
+internal fun serialize(dto: TonConnectSession): JsonElement {
+    return buildJsonObject {
+        put(key = "@type", string = "tonConnectSession")
+        put(key = "id", long = dto.id)
+        put(key = "dapp_client_id", string = dto.dappClientId)
+        put(key = "wallet_client_id", string = dto.walletClientId)
+        put(key = "creation_date", int = dto.creationDate)
+        put(key = "manifest", value = dto.manifest) { data -> serialize(dto = data) }
+        put(key = "nonce", bytes = dto.nonce)
+        put(key = "state", value = dto.state) { data -> serialize(dto = data) }
+    }
+}
+
+internal fun serialize(dto: TonConnectSessions): JsonElement {
+    return buildJsonObject {
+        put(key = "@type", string = "tonConnectSessions")
+        put(key = "sessions", objects = dto.sessions) { data -> serialize(dto = data) }
+    }
+}
+
+internal fun serialize(dto: TonConnectRequest): JsonElement {
+    return buildJsonObject {
+        put(key = "@type", string = "tonConnectRequest")
+        put(key = "session_id", long = dto.sessionId)
+        put(key = "message_id", long = dto.messageId)
+        put(key = "body", bytes = dto.body)
+        put(key = "expiration_date", int = dto.expirationDate)
+        put(key = "topic", string = dto.topic)
+        put(key = "trace_id", string = dto.traceId)
+    }
+}
+
+internal fun serialize(dto: TonConnectRequests): JsonElement {
+    return buildJsonObject {
+        put(key = "@type", string = "tonConnectRequests")
+        put(key = "session", value = dto.session) { data -> serialize(dto = data) }
+        put(key = "requests", objects = dto.requests) { data -> serialize(dto = data) }
+    }
+}
+
+internal fun serialize(dto: TonConnectChallenge): JsonElement {
+    return buildJsonObject {
+        put(key = "@type", string = "tonConnectChallenge")
+        put(key = "challenge", bytes = dto.challenge)
+        put(key = "event_id", long = dto.eventId)
+    }
+}
+
+internal fun serialize(dto: TonConnectSessionEventId): JsonElement {
+    return buildJsonObject {
+        put(key = "@type", string = "tonConnectSessionEventId")
+        put(key = "event_id", long = dto.eventId)
+    }
+}
+
+internal fun serialize(dto: TonWalletTransferResult): JsonElement {
+    return buildJsonObject {
+        put(key = "@type", string = "tonWalletTransferResult")
+        put(key = "is_gasless", boolean = dto.isGasless)
+        put(key = "msg_hash", bytes = dto.msgHash)
+        put(key = "transaction", value = dto.transaction) { data -> serialize(dto = data) }
+    }
+}
+
 internal fun serialize(dto: ActiveStoryStateLive): JsonElement {
     return buildJsonObject {
         put(key = "@type", string = "activeStoryStateLive")
@@ -5663,6 +6186,7 @@ internal fun serialize(dto: Usernames): JsonElement {
         put(key = "disabled_usernames", strings = dto.disabledUsernames)
         put(key = "editable_username", string = dto.editableUsername)
         put(key = "collectible_usernames", strings = dto.collectibleUsernames)
+        put(key = "secondary_username", string = dto.secondaryUsername)
     }
 }
 
@@ -8040,6 +8564,7 @@ internal fun serialize(dto: ThemeSettings): JsonElement {
         put(key = "background", value = dto.background) { data -> serialize(dto = data) }
         put(key = "outgoing_message_fill", value = dto.outgoingMessageFill) { data -> serialize(dto = data) }
         put(key = "animate_outgoing_message_fill", boolean = dto.animateOutgoingMessageFill)
+        put(key = "has_outgoing_message_accent_color", boolean = dto.hasOutgoingMessageAccentColor)
         put(key = "outgoing_message_accent_color", int = dto.outgoingMessageAccentColor)
     }
 }
@@ -8154,6 +8679,14 @@ internal fun serialize(dto: RichTextBankCardNumber): JsonElement {
         put(key = "@type", string = "richTextBankCardNumber")
         put(key = "text", value = dto.text) { data -> serialize(dto = data) }
         put(key = "bank_card_number", string = dto.bankCardNumber)
+    }
+}
+
+internal fun serialize(dto: RichTextTonAddress): JsonElement {
+    return buildJsonObject {
+        put(key = "@type", string = "richTextTonAddress")
+        put(key = "text", value = dto.text) { data -> serialize(dto = data) }
+        put(key = "address", string = dto.address)
     }
 }
 
@@ -10700,6 +11233,29 @@ internal fun serialize(dto: MessageGiveawayPrizeStars): JsonElement {
     }
 }
 
+internal fun serialize(dto: MessageTonWalletTransfer): JsonElement {
+    return buildJsonObject {
+        put(key = "@type", string = "messageTonWalletTransfer")
+        put(key = "sender_user_id", long = dto.senderUserId)
+        put(key = "transaction_id", string = dto.transactionId)
+        put(key = "peer_address", string = dto.peerAddress)
+        put(key = "amount", long = dto.amount)
+        put(key = "comment", string = dto.comment)
+        put(key = "is_comment_encrypted", boolean = dto.isCommentEncrypted)
+    }
+}
+
+internal fun serialize(dto: MessageTonConnectRequest): JsonElement {
+    return buildJsonObject {
+        put(key = "@type", string = "messageTonConnectRequest")
+        put(key = "session_id", long = dto.sessionId)
+        put(key = "state", value = dto.state) { data -> serialize(dto = data) }
+        put(key = "dapp_name", string = dto.dappName)
+        put(key = "topic", string = dto.topic)
+        put(key = "trace_id", string = dto.traceId)
+    }
+}
+
 internal fun serialize(dto: MessageGift): JsonElement {
     return buildJsonObject {
         put(key = "@type", string = "messageGift")
@@ -11011,6 +11567,12 @@ internal fun serialize(dto: TextEntityTypePhoneNumber): JsonElement {
 internal fun serialize(dto: TextEntityTypeBankCardNumber): JsonElement {
     return buildJsonObject {
         put(key = "@type", string = "textEntityTypeBankCardNumber")
+    }
+}
+
+internal fun serialize(dto: TextEntityTypeTonAddress): JsonElement {
+    return buildJsonObject {
+        put(key = "@type", string = "textEntityTypeTonAddress")
     }
 }
 
@@ -11834,6 +12396,7 @@ internal fun serialize(dto: MessageProperties): JsonElement {
         put(key = "can_report_reactions", boolean = dto.canReportReactions)
         put(key = "can_report_supergroup_spam", boolean = dto.canReportSupergroupSpam)
         put(key = "can_set_fact_check", boolean = dto.canSetFactCheck)
+        put(key = "custom_emoji_ids", longs = dto.customEmojiIds)
         put(key = "has_protected_content_by_current_user", boolean = dto.hasProtectedContentByCurrentUser)
         put(key = "has_protected_content_by_other_user", boolean = dto.hasProtectedContentByOtherUser)
         put(key = "need_show_statistics", boolean = dto.needShowStatistics)
@@ -15801,6 +16364,22 @@ internal fun serialize(dto: PushMessageContentGiveaway): JsonElement {
     }
 }
 
+internal fun serialize(dto: PushMessageContentTonWalletTransfer): JsonElement {
+    return buildJsonObject {
+        put(key = "@type", string = "pushMessageContentTonWalletTransfer")
+        put(key = "sender_user_id", long = dto.senderUserId)
+        put(key = "amount", string = dto.amount)
+        put(key = "comment", string = dto.comment)
+    }
+}
+
+internal fun serialize(dto: PushMessageContentTonConnectRequest): JsonElement {
+    return buildJsonObject {
+        put(key = "@type", string = "pushMessageContentTonConnectRequest")
+        put(key = "dapp_name", string = dto.dappName)
+    }
+}
+
 internal fun serialize(dto: PushMessageContentGift): JsonElement {
     return buildJsonObject {
         put(key = "@type", string = "pushMessageContentGift")
@@ -17258,6 +17837,26 @@ internal fun serialize(dto: InternalLinkTypeTheme): JsonElement {
     }
 }
 
+internal fun serialize(dto: InternalLinkTypeTonConnect): JsonElement {
+    return buildJsonObject {
+        put(key = "@type", string = "internalLinkTypeTonConnect")
+        put(key = "version", int = dto.version)
+        put(key = "dapp_client_id", string = dto.dappClientId)
+        put(key = "connect_request", value = dto.connectRequest) { data -> serialize(dto = data) }
+        put(key = "return_strategy", string = dto.returnStrategy)
+        put(key = "rpc_request", string = dto.rpcRequest)
+        put(key = "trace_id", string = dto.traceId)
+    }
+}
+
+internal fun serialize(dto: InternalLinkTypeTonWalletTransfer): JsonElement {
+    return buildJsonObject {
+        put(key = "@type", string = "internalLinkTypeTonWalletTransfer")
+        put(key = "receiver", value = dto.receiver) { data -> serialize(dto = data) }
+        put(key = "gram_amount", long = dto.gramAmount)
+    }
+}
+
 internal fun serialize(dto: InternalLinkTypeUnknownDeepLink): JsonElement {
     return buildJsonObject {
         put(key = "@type", string = "internalLinkTypeUnknownDeepLink")
@@ -17891,6 +18490,12 @@ internal fun serialize(dto: SuggestedActionCheckPhoneNumber): JsonElement {
 internal fun serialize(dto: SuggestedActionViewChecksHint): JsonElement {
     return buildJsonObject {
         put(key = "@type", string = "suggestedActionViewChecksHint")
+    }
+}
+
+internal fun serialize(dto: SuggestedActionViewFirstTonWalletTransferHint): JsonElement {
+    return buildJsonObject {
+        put(key = "@type", string = "suggestedActionViewFirstTonWalletTransferHint")
     }
 }
 
@@ -19489,6 +20094,13 @@ internal fun serialize(dto: UpdateStoryStealthMode): JsonElement {
     }
 }
 
+internal fun serialize(dto: UpdateAllowedBotUsernamePremiumSuffixes): JsonElement {
+    return buildJsonObject {
+        put(key = "@type", string = "updateAllowedBotUsernamePremiumSuffixes")
+        put(key = "suffixes", strings = dto.suffixes)
+    }
+}
+
 internal fun serialize(dto: UpdateTrustedMiniAppBots): JsonElement {
     return buildJsonObject {
         put(key = "@type", string = "updateTrustedMiniAppBots")
@@ -19712,6 +20324,34 @@ internal fun serialize(dto: UpdateOwnedGramCount): JsonElement {
     return buildJsonObject {
         put(key = "@type", string = "updateOwnedGramCount")
         put(key = "gram_amount", long = dto.gramAmount)
+    }
+}
+
+internal fun serialize(dto: UpdateTonWalletState): JsonElement {
+    return buildJsonObject {
+        put(key = "@type", string = "updateTonWalletState")
+        put(key = "state", value = dto.state) { data -> serialize(dto = data) }
+    }
+}
+
+internal fun serialize(dto: UpdateTonWalletGaslessTransfersInfo): JsonElement {
+    return buildJsonObject {
+        put(key = "@type", string = "updateTonWalletGaslessTransfersInfo")
+        put(key = "info", value = dto.info) { data -> serialize(dto = data) }
+    }
+}
+
+internal fun serialize(dto: UpdateTonWalletTonConnectSession): JsonElement {
+    return buildJsonObject {
+        put(key = "@type", string = "updateTonWalletTonConnectSession")
+        put(key = "session", value = dto.session) { data -> serialize(dto = data) }
+    }
+}
+
+internal fun serialize(dto: UpdateTonWalletTonConnectSessionDisconnectRequired): JsonElement {
+    return buildJsonObject {
+        put(key = "@type", string = "updateTonWalletTonConnectSessionDisconnectRequired")
+        put(key = "session_ids", longs = dto.sessionIds)
     }
 }
 

@@ -125,7 +125,9 @@ import dev.g000sha256.tdl.dto.CheckChatUsernameResult
 import dev.g000sha256.tdl.dto.CheckStickerSetNameResult
 import dev.g000sha256.tdl.dto.CollectibleItemInfo
 import dev.g000sha256.tdl.dto.CollectibleItemType
+import dev.g000sha256.tdl.dto.CommunityFullInfo
 import dev.g000sha256.tdl.dto.CommunityId
+import dev.g000sha256.tdl.dto.CommunityPermissions
 import dev.g000sha256.tdl.dto.ConnectedAffiliateProgram
 import dev.g000sha256.tdl.dto.ConnectedAffiliatePrograms
 import dev.g000sha256.tdl.dto.ConnectedWebsites
@@ -134,6 +136,8 @@ import dev.g000sha256.tdl.dto.Countries
 import dev.g000sha256.tdl.dto.CountryInfo
 import dev.g000sha256.tdl.dto.CraftGiftResult
 import dev.g000sha256.tdl.dto.CreatedBasicGroupChat
+import dev.g000sha256.tdl.dto.Currencies
+import dev.g000sha256.tdl.dto.CurrencyExchangeRates
 import dev.g000sha256.tdl.dto.CurrentWeather
 import dev.g000sha256.tdl.dto.CustomRequestResult
 import dev.g000sha256.tdl.dto.Data
@@ -282,6 +286,11 @@ import dev.g000sha256.tdl.dto.NotificationSound
 import dev.g000sha256.tdl.dto.NotificationSounds
 import dev.g000sha256.tdl.dto.OauthLinkInfo
 import dev.g000sha256.tdl.dto.Ok
+import dev.g000sha256.tdl.dto.OnRampPaymentAvailability
+import dev.g000sha256.tdl.dto.OnRampPaymentLimits
+import dev.g000sha256.tdl.dto.OnRampPaymentQuote
+import dev.g000sha256.tdl.dto.OnRampPaymentSession
+import dev.g000sha256.tdl.dto.OnRampProviders
 import dev.g000sha256.tdl.dto.OptionValue
 import dev.g000sha256.tdl.dto.OrderInfo
 import dev.g000sha256.tdl.dto.Outline
@@ -402,7 +411,20 @@ import dev.g000sha256.tdl.dto.TextEntities
 import dev.g000sha256.tdl.dto.TextParseMode
 import dev.g000sha256.tdl.dto.ThemeParameters
 import dev.g000sha256.tdl.dto.TimeZones
+import dev.g000sha256.tdl.dto.TonCenterApiRequestType
+import dev.g000sha256.tdl.dto.TonCenterStreamingApiUrl
+import dev.g000sha256.tdl.dto.TonConnectChallenge
+import dev.g000sha256.tdl.dto.TonConnectRequests
+import dev.g000sha256.tdl.dto.TonConnectSession
+import dev.g000sha256.tdl.dto.TonConnectSessionEventId
+import dev.g000sha256.tdl.dto.TonConnectSessions
+import dev.g000sha256.tdl.dto.TonNfts
 import dev.g000sha256.tdl.dto.TonTransactions
+import dev.g000sha256.tdl.dto.TonWalletOwnershipProof
+import dev.g000sha256.tdl.dto.TonWalletOwnershipProofChallenge
+import dev.g000sha256.tdl.dto.TonWalletTransaction
+import dev.g000sha256.tdl.dto.TonWalletTransactions
+import dev.g000sha256.tdl.dto.TonWalletTransferResult
 import dev.g000sha256.tdl.dto.TopChatCategory
 import dev.g000sha256.tdl.dto.TransactionDirection
 import dev.g000sha256.tdl.dto.TrendingStickerSets
@@ -413,6 +435,7 @@ import dev.g000sha256.tdl.dto.UpdateActiveGiftAuctions
 import dev.g000sha256.tdl.dto.UpdateActiveLiveLocationMessages
 import dev.g000sha256.tdl.dto.UpdateActiveNotifications
 import dev.g000sha256.tdl.dto.UpdateAgeVerificationParameters
+import dev.g000sha256.tdl.dto.UpdateAllowedBotUsernamePremiumSuffixes
 import dev.g000sha256.tdl.dto.UpdateAnimatedEmojiMessageClicked
 import dev.g000sha256.tdl.dto.UpdateAnimationSearchParameters
 import dev.g000sha256.tdl.dto.UpdateApplicationRecaptchaVerificationRequired
@@ -582,6 +605,10 @@ import dev.g000sha256.tdl.dto.UpdateSupergroup
 import dev.g000sha256.tdl.dto.UpdateSupergroupFullInfo
 import dev.g000sha256.tdl.dto.UpdateTermsOfService
 import dev.g000sha256.tdl.dto.UpdateTextCompositionStyles
+import dev.g000sha256.tdl.dto.UpdateTonWalletGaslessTransfersInfo
+import dev.g000sha256.tdl.dto.UpdateTonWalletState
+import dev.g000sha256.tdl.dto.UpdateTonWalletTonConnectSession
+import dev.g000sha256.tdl.dto.UpdateTonWalletTonConnectSessionDisconnectRequired
 import dev.g000sha256.tdl.dto.UpdateTopicMessageCount
 import dev.g000sha256.tdl.dto.UpdateTrendingStickerSets
 import dev.g000sha256.tdl.dto.UpdateTrustedMiniAppBots
@@ -607,9 +634,12 @@ import dev.g000sha256.tdl.dto.UserLink
 import dev.g000sha256.tdl.dto.UserPrivacySetting
 import dev.g000sha256.tdl.dto.UserPrivacySettingRules
 import dev.g000sha256.tdl.dto.UserSupportInfo
+import dev.g000sha256.tdl.dto.UserTonWalletAddress
+import dev.g000sha256.tdl.dto.UserTonWalletAddresses
 import dev.g000sha256.tdl.dto.Users
 import dev.g000sha256.tdl.dto.ValidatedOrderInfo
 import dev.g000sha256.tdl.dto.VideoMessageAdvertisements
+import dev.g000sha256.tdl.dto.WalletBotBalance
 import dev.g000sha256.tdl.dto.WebAppInfo
 import dev.g000sha256.tdl.dto.WebAppOpenParameters
 import dev.g000sha256.tdl.dto.WebAppUrl
@@ -1248,6 +1278,12 @@ public abstract class TdlClient internal constructor() {
     public abstract val storyStealthModeUpdates: Flow<UpdateStoryStealthMode>
 
     /**
+     * Lists of suffixes allowed in secondary bot usernames, which can be added additionally to the main username if the bot's owner has a Telegram Premium subscription.
+     */
+    public abstract val allowedBotUsernamePremiumSuffixesUpdates:
+            Flow<UpdateAllowedBotUsernamePremiumSuffixes>
+
+    /**
      * Lists of bots which Mini Apps must be allowed to read text from clipboard and must be opened without a warning.
      */
     public abstract val trustedMiniAppBotsUpdates: Flow<UpdateTrustedMiniAppBots>
@@ -1396,6 +1432,28 @@ public abstract class TdlClient internal constructor() {
      * The number of TON Grams owned by the current user has changed.
      */
     public abstract val ownedGramCountUpdates: Flow<UpdateOwnedGramCount>
+
+    /**
+     * The state of the TON wallet of the current user has changed.
+     */
+    public abstract val tonWalletStateUpdates: Flow<UpdateTonWalletState>
+
+    /**
+     * The information about gasless transfers has changed.
+     */
+    public abstract val tonWalletGaslessTransfersInfoUpdates:
+            Flow<UpdateTonWalletGaslessTransfersInfo>
+
+    /**
+     * A session of a TON Connect has changed.
+     */
+    public abstract val tonWalletTonConnectSessionUpdates: Flow<UpdateTonWalletTonConnectSession>
+
+    /**
+     * TON Connect sessions must be disconnected in a regular way.
+     */
+    public abstract val tonWalletTonConnectSessionDisconnectRequiredUpdates:
+            Flow<UpdateTonWalletTonConnectSessionDisconnectRequired>
 
     /**
      * The revenue earned from sponsored messages in a chat has changed. If chat revenue screen is opened, then getChatRevenueTransactions may be called to fetch new transactions.
@@ -1634,6 +1692,14 @@ public abstract class TdlClient internal constructor() {
         languageCode: String,
         content: InputStoryContent,
     ): TdlResult<BotMediaPreview>
+
+    /**
+     * Adds a secondary username to a bot. Can be called only if userTypeBot.canBeEdited, the bot has no secondary username and the current user has Telegram Premium subscription. May return an error with a message &quot;OWNER_USERNAMES_LIMIT_EXCEEDED&quot; if the current user already owns at least getOption(&quot;secondary_bot_username_count_max&quot;) bots with a secondary username.
+     *
+     * @param botUserId Identifier of the target bot.
+     * @param username The new secondary username; must be non-empty. Use checkBotUsername to check username validness.
+     */
+    public abstract suspend fun addBotSecondaryUsername(botUserId: Long, username: String): TdlResult<Ok>
 
     /**
      * Adds a chat folder by an invite link.
@@ -2089,6 +2155,21 @@ public abstract class TdlClient internal constructor() {
     ): TdlResult<Ok>
 
     /**
+     * Sends an answer for a request received through TON Connect.
+     *
+     * @param sessionId Unique identifier of the TON Connect session.
+     * @param messageId Identifier of the message with the request.
+     * @param traceId Identifier to trace the request.
+     * @param body Body of the response.
+     */
+    public abstract suspend fun answerTonConnectRequest(
+        sessionId: Long,
+        messageId: Long,
+        traceId: String,
+        body: ByteArray,
+    ): TdlResult<Ok>
+
+    /**
      * Sets the result of interaction with a Web App and sends corresponding message on behalf of the user to the chat from which the query originated; for bots only.
      *
      * @param webAppQueryId Identifier of the Web App query.
@@ -2351,11 +2432,12 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun checkAuthenticationWebToken(token: String, dcId: Int): TdlResult<Ok>
 
     /**
-     * Checks whether a username can be set for a new bot. Use checkChatUsername to check username for other chat types.
+     * Checks whether a username can be set for a new bot or assigned as a secondary username to an existing bot. Use checkChatUsername to check username for other chat types.
      *
      * @param username Username to be checked.
+     * @param isSecondary Pass true to check whether the username is suitable as a secondary username for an existing bot; pass false to check whether the username is suitable for createBot.
      */
-    public abstract suspend fun checkBotUsername(username: String): TdlResult<CheckChatUsernameResult>
+    public abstract suspend fun checkBotUsername(username: String, isSecondary: Boolean): TdlResult<CheckChatUsernameResult>
 
     /**
      * Checks the validity of an invite link for a chat folder and returns information about the corresponding chat folder.
@@ -2451,6 +2533,11 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun checkStickerSetName(name: String): TdlResult<CheckStickerSetNameResult>
 
     /**
+     * Returns information about balance of the current user in the bot https://t.me/walt; can be used only if getOption(&quot;can_use_ton_wallet&quot;).
+     */
+    public abstract suspend fun checkWalletBotBalance(): TdlResult<WalletBotBalance>
+
+    /**
      * Checks whether a file can be downloaded and saved locally by Web App request.
      *
      * @param botUserId Identifier of the bot, providing the Web App.
@@ -2461,6 +2548,21 @@ public abstract class TdlClient internal constructor() {
         botUserId: Long,
         fileName: String,
         url: String,
+    ): TdlResult<Ok>
+
+    /**
+     * Claims a request received through TON Connect for processing on this device.
+     *
+     * @param sessionId Unique identifier of the TON Connect session.
+     * @param messageId Identifier of the message with the request.
+     * @param dappRequestId Identifier of the request assigned by the dApp.
+     * @param isRejected Pass true to reject the request.
+     */
+    public abstract suspend fun claimTonConnectRequest(
+        sessionId: Long,
+        messageId: Long,
+        dappRequestId: String,
+        isRejected: Boolean,
     ): TdlResult<Ok>
 
     /**
@@ -2688,7 +2790,7 @@ public abstract class TdlClient internal constructor() {
      *
      * @param managerBotUserId Identifier of the bot that will manage the created bot.
      * @param name Name of the bot; 1-64 characters.
-     * @param username Username of the bot. The username must end with &quot;bot&quot;. Use checkBotUsername to find whether the name is suitable.
+     * @param username Username of the bot. The username must end with &quot;bot&quot; or a string from updateAllowedBotUsernamePremiumSuffixes case-insensitive. Use checkBotUsername to find whether the name is suitable. If the username doesn't end with &quot;bot&quot;, then the current user must have Telegram Premium subscription, the chosen username will be assigned as secondary and an additional regular username ending with &quot;bot&quot; will be automatically assigned to the created bot.
      * @param viaLink Pass true if the bot is created from an internalLinkTypeRequestManagedBot link.
      */
     public abstract suspend fun createBot(
@@ -2887,6 +2989,35 @@ public abstract class TdlClient internal constructor() {
     ): TdlResult<Chat>
 
     /**
+     * Creates a session for an on-ramp payment.
+     *
+     * @param providerId Unique identifier of the on-ramp provider.
+     * @param cryptocurrency The cryptocurrency that will be bought.
+     * @param address Address to which the cryptocurrency will be sent.
+     * @param paymentMethodName Name of the chosen payment method; pass an empty string if none.
+     * @param baseCurrency ISO 4217 currency code of the currency that will be used for the purchase; pass an empty string if unknown.
+     * @param cryptocurrencyAmount The amount of the cryptocurrency to buy; pass an empty string if the user selected baseCurrencyAmount.
+     * @param baseCurrencyAmount The amount of the base currency to spend; pass an empty string if the user selected cryptocurrencyAmount.
+     * @param memo Memo for the query; pass an empty string if none.
+     * @param theme Preferred theme for the WebView; pass &quot;light&quot; for a light theme, &quot;dark&quot; for a dark theme, or leave empty for a default theme.
+     * @param successReturnUrl The URL opened on successful payment; pass an empty string if none.
+     * @param failReturnUrl The URL opened on failed payment; pass an empty string if none.
+     */
+    public abstract suspend fun createOnRampPaymentSession(
+        providerId: String,
+        cryptocurrency: String,
+        address: String,
+        paymentMethodName: String,
+        baseCurrency: String,
+        cryptocurrencyAmount: String,
+        baseCurrencyAmount: String,
+        memo: String,
+        theme: String,
+        successReturnUrl: String,
+        failReturnUrl: String,
+    ): TdlResult<OnRampPaymentSession>
+
+    /**
      * Returns an existing chat corresponding to a given user.
      *
      * @param userId User identifier.
@@ -2957,6 +3088,21 @@ public abstract class TdlClient internal constructor() {
         prompt: String,
         showCreator: Boolean,
     ): TdlResult<TextCompositionStyle>
+
+    /**
+     * Creates a TON Connect session; can be used only if getOption(&quot;can_use_ton_wallet&quot;).
+     *
+     * @param dappClientId Hex-encoded public X25519 key of the dApp.
+     * @param manifestUrl URL of the manifest of the dApp.
+     */
+    public abstract suspend fun createTonConnectSession(dappClientId: String, manifestUrl: String): TdlResult<TonConnectSession>
+
+    /**
+     * Creates a TON wallet for the specified regular user; can be used only if getOption(&quot;can_use_ton_wallet&quot;). The current user must have positive TON wallet balance.
+     *
+     * @param userId Identifier of the user.
+     */
+    public abstract suspend fun createUserTonWallet(userId: Long): TdlResult<UserTonWalletAddress>
 
     /**
      * Creates a video chat (a group call bound to a chat); for basic groups, supergroups and channels only; requires canManageVideoChats administrator right.
@@ -3066,6 +3212,13 @@ public abstract class TdlClient internal constructor() {
         languageCode: String,
         fileIds: IntArray,
     ): TdlResult<Ok>
+
+    /**
+     * Removes a secondary username from a bot. Can be called only if userTypeBot.canBeEdited == true and the bot has a secondary username.
+     *
+     * @param botUserId Identifier of the target bot.
+     */
+    public abstract suspend fun deleteBotSecondaryUsername(botUserId: Long): TdlResult<Ok>
 
     /**
      * Deletes a business chat link of the current account.
@@ -3187,6 +3340,13 @@ public abstract class TdlClient internal constructor() {
      * @param languageCode A two-letter ISO 639-1 language code or an empty string.
      */
     public abstract suspend fun deleteCommands(scope: BotCommandScope? = null, languageCode: String): TdlResult<Ok>
+
+    /**
+     * Deletes a community; requires owner privileges.
+     *
+     * @param communityId Identifier of the community.
+     */
+    public abstract suspend fun deleteCommunity(communityId: Long): TdlResult<Ok>
 
     /**
      * Deletes default background for chats.
@@ -3432,6 +3592,13 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun deleteTextCompositionStyle(name: String): TdlResult<Ok>
 
     /**
+     * Deletes the current TON wallet of the user and creates a new one; can be used only if getOption(&quot;can_use_ton_wallet&quot;).
+     *
+     * @param password Password of the current user; pass an empty string unless receive an error with a message &quot;PASSWORD_MISSING&quot; for a passwordless request.
+     */
+    public abstract suspend fun deleteTonWallet(password: String): TdlResult<Ok>
+
+    /**
      * Closes the TDLib instance, destroying all local data without a proper logout. The current user session will remain in the list of all active sessions. All local data will be destroyed. After the destruction completes updateAuthorizationState with authorizationStateClosed will be sent. Can be called before authorization.
      */
     public abstract suspend fun destroy(): TdlResult<Ok>
@@ -3447,6 +3614,20 @@ public abstract class TdlClient internal constructor() {
      * Disables the currently enabled proxy. Can be called before authorization.
      */
     public abstract suspend fun disableProxy(): TdlResult<Ok>
+
+    /**
+     * Disables backup of the TON wallet of the user. Works only if tonWalletState.isBackupEnabled is true.
+     *
+     * @param password Password of the current user; pass an empty string unless receive an error with a message &quot;PASSWORD_MISSING&quot; for a passwordless request.
+     */
+    public abstract suspend fun disableTonWalletBackup(password: String): TdlResult<Ok>
+
+    /**
+     * Disables backup of the TON wallet of the user using proof of wallet ownership instead of the password. Works only if tonWalletState.isBackupEnabled is true.
+     *
+     * @param proof Proof of the TON wallet ownership; use getTonWalletOwnershipProofChallenge to get a challenge for the proof.
+     */
+    public abstract suspend fun disableTonWalletBackupWithProof(proof: TonWalletOwnershipProof): TdlResult<Ok>
 
     /**
      * Discards a call.
@@ -3481,11 +3662,26 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun disconnectAllWebsites(): TdlResult<Ok>
 
     /**
+     * Closes a TON Connect session.
+     *
+     * @param sessionId Unique identifier of the TON Connect session to close.
+     * @param body Encrypted body of the disconnect event; may be empty if the session has already been closed. Use getTonConnectSessionNextEventId to get event identifier for the event.
+     */
+    public abstract suspend fun disconnectTonConnectSession(sessionId: Long, body: ByteArray): TdlResult<Ok>
+
+    /**
      * Disconnects website from the current user's Telegram account.
      *
      * @param websiteId Website identifier.
      */
     public abstract suspend fun disconnectWebsite(websiteId: Long): TdlResult<Ok>
+
+    /**
+     * Dismissess a received web token without consumption; for official Telegram apps only.
+     *
+     * @param token The token to dismiss.
+     */
+    public abstract suspend fun dismissWebToken(token: String): TdlResult<Ok>
 
     /**
      * Downloads a file from the cloud. Download progress and completion of the download will be notified through updateFile updates.
@@ -3655,21 +3851,6 @@ public abstract class TdlClient internal constructor() {
         caption: FormattedText,
         privacySettings: StoryPrivacySettings,
     ): TdlResult<Story>
-
-    /**
-     * Edits the message from which a callback query has originated with an ephemeral message; for bots only.
-     *
-     * @param callbackQueryId Identifier of the callback query.
-     * @param protectContent Pass true if the content of the message must be protected from forwarding and saving.
-     * @param replyMarkup The new message reply markup; pass null if none.
-     * @param inputMessageContent New content of the message. Must be one of the following types: inputMessageText, inputMessageAnimation, inputMessageAudio, inputMessageDocument, inputMessagePhoto, inputMessageRichMessage, inputMessageSticker, inputMessageVideo, inputMessageVideoNote, inputMessageVoiceNote.
-     */
-    public abstract suspend fun editCallbackQueryMessage(
-        callbackQueryId: Long,
-        protectContent: Boolean,
-        replyMarkup: ReplyMarkup? = null,
-        inputMessageContent: InputMessageContent,
-    ): TdlResult<Ok>
 
     /**
      * Edits existing chat folder. Returns information about the edited chat folder.
@@ -4068,6 +4249,14 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun enableProxy(proxyId: Int): TdlResult<Ok>
 
     /**
+     * Enables backup of the TON wallet of the user. Works only if tonWalletState.canEnableBackup is true.
+     *
+     * @param secretPhrase The secret phrase of the user's TON wallet as a space separated list of words.
+     * @param proof Proof of the TON wallet ownership; use getTonWalletOwnershipProofChallenge to get a challenge for the proof.
+     */
+    public abstract suspend fun enableTonWalletBackup(secretPhrase: String, proof: TonWalletOwnershipProof): TdlResult<Ok>
+
+    /**
      * Encrypts group call data before sending them over network using tgcalls.
      *
      * @param groupCallId Group call identifier. The call must not be a video chat.
@@ -4155,6 +4344,13 @@ public abstract class TdlClient internal constructor() {
      * Returns all active sessions of the current user. Additionally, getBusinessConnectedBot must be used to show the bot on top of active sessions.
      */
     public abstract suspend fun getActiveSessions(): TdlResult<Sessions>
+
+    /**
+     * Returns information about a TON wallet with the given address; can be used only if getOption(&quot;can_use_ton_wallet&quot;).
+     *
+     * @param address Address in the TON blockchain.
+     */
+    public abstract suspend fun getAddressTonWallet(address: String): TdlResult<UserTonWalletAddress>
 
     /**
      * Returns all available Telegram Passport elements.
@@ -4915,6 +5111,13 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun getCommands(scope: BotCommandScope? = null, languageCode: String): TdlResult<BotCommands>
 
     /**
+     * Returns full information about a community.
+     *
+     * @param communityId Community identifier.
+     */
+    public abstract suspend fun getCommunityFullInfo(communityId: Long): TdlResult<CommunityFullInfo>
+
+    /**
      * Returns an affiliate program that was connected to the given affiliate by identifier of the bot that created the program.
      *
      * @param affiliate The affiliate to which the affiliate program will be connected.
@@ -4975,6 +5178,11 @@ public abstract class TdlClient internal constructor() {
      * @param type Type of the public chats to return.
      */
     public abstract suspend fun getCreatedPublicChats(type: PublicChatType): TdlResult<Chats>
+
+    /**
+     * Returns exchange rates of currencies to USD.
+     */
+    public abstract suspend fun getCurrencyExchangeRates(): TdlResult<CurrencyExchangeRates>
 
     /**
      * Returns all updates needed to restore current TDLib state, i.e. all actual updateAuthorizationState/updateUser/updateNewChat and others. This is especially useful if TDLib is run in a separate process. Can be called before initialization.
@@ -5896,6 +6104,68 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun getOauthLinkInfo(url: String, inAppOrigin: String): TdlResult<OauthLinkInfo>
 
     /**
+     * Returns the available on-ramp payment methods based on the current user location.
+     *
+     * @param providerId Unique identifier of the on-ramp provider.
+     * @param cryptocurrency The cryptocurrency that will be bought.
+     * @param baseCurrency ISO 4217 currency code of the currency that will be used for the purchase; pass an empty string if unknown.
+     */
+    public abstract suspend fun getOnRampPaymentAvailability(
+        providerId: String,
+        cryptocurrency: String,
+        baseCurrency: String,
+    ): TdlResult<OnRampPaymentAvailability>
+
+    /**
+     * Returns the limits for an on-ramp payment; only for providers that supports limits retrieval.
+     *
+     * @param providerId Unique identifier of the on-ramp provider.
+     * @param cryptocurrency The cryptocurrency that will be bought.
+     * @param baseCurrency ISO 4217 currency code of the currency that will be used for the purchase.
+     * @param paymentMethodName Name of the chosen payment method; pass an empty string if none.
+     */
+    public abstract suspend fun getOnRampPaymentLimits(
+        providerId: String,
+        cryptocurrency: String,
+        baseCurrency: String,
+        paymentMethodName: String,
+    ): TdlResult<OnRampPaymentLimits>
+
+    /**
+     * Returns a quote for an on-ramp payment; only for providers that supports quote retrieval.
+     *
+     * @param providerId Unique identifier of the on-ramp provider.
+     * @param cryptocurrency The cryptocurrency that will be bought.
+     * @param baseCurrency ISO 4217 currency code of the currency that will be used for the purchase.
+     * @param cryptocurrencyAmount The amount of the cryptocurrency to buy; pass an empty string if the user selected baseCurrencyAmount.
+     * @param baseCurrencyAmount The amount of the base currency to spend; pass an empty string if the user selected cryptocurrencyAmount.
+     * @param paymentMethodName Name of the chosen payment method; pass an empty string if none.
+     */
+    public abstract suspend fun getOnRampPaymentQuote(
+        providerId: String,
+        cryptocurrency: String,
+        baseCurrency: String,
+        cryptocurrencyAmount: String,
+        baseCurrencyAmount: String,
+        paymentMethodName: String,
+    ): TdlResult<OnRampPaymentQuote>
+
+    /**
+     * Returns the list of fiat currencies supported by an on-ramp provider for the given cryptocurrency.
+     *
+     * @param providerId Unique identifier of the on-ramp provider; only for providers that supports base currencies.
+     * @param cryptocurrency The cryptocurrency that will be bought.
+     */
+    public abstract suspend fun getOnRampProviderBaseCurrencies(providerId: String, cryptocurrency: String): TdlResult<Currencies>
+
+    /**
+     * Returns available on-ramp providers.
+     *
+     * @param cryptocurrency Pass a cryptocurrency to receive only providers that support it; pass an empty string to receive all providers.
+     */
+    public abstract suspend fun getOnRampProviders(cryptocurrency: String): TdlResult<OnRampProviders>
+
+    /**
      * Returns the value of an option by its name. (Check the list of available options on https://core.telegram.org/tdlib/options.) Can be called before authorization. Can be called synchronously for options &quot;version&quot; and &quot;commit_hash&quot;.
      *
      * @param name The name of the option.
@@ -6658,7 +6928,7 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun getTextCompositionStyleExample(name: String, exampleNumber: Int): TdlResult<TextCompositionStyleExample>
 
     /**
-     * Returns all entities (mentions, hashtags, cashtags, bot commands, bank card numbers, URLs, and email addresses) found in the text. Can be called synchronously.
+     * Returns all entities (mentions, hashtags, cashtags, bot commands, bank card numbers, TON blockchain addresses, URLs, and email addresses) found in the text. Can be called synchronously.
      *
      * @param text The text in which to look for entities.
      */
@@ -6687,7 +6957,38 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun getTimeZones(): TdlResult<TimeZones>
 
     /**
-     * Returns the list of TON blockchain transactions of the current user.
+     * Returns a URL for TON Center Streaming API.
+     */
+    public abstract suspend fun getTonCenterStreamingApiUrl(): TdlResult<TonCenterStreamingApiUrl>
+
+    /**
+     * Returns pending requests with a dApp through TON Connect.
+     *
+     * @param dappClientId Hex-encoded public X25519 key of the dApp.
+     */
+    public abstract suspend fun getTonConnectDAppPendingRequests(dappClientId: String): TdlResult<TonConnectRequests>
+
+    /**
+     * Returns the next event identifier for the given TON Connect session.
+     *
+     * @param sessionId Unique identifier of the TON Connect session.
+     */
+    public abstract suspend fun getTonConnectSessionNextEventId(sessionId: Long): TdlResult<TonConnectSessionEventId>
+
+    /**
+     * Returns pending requests in a TON Connect session.
+     *
+     * @param sessionId Unique identifier of the session.
+     */
+    public abstract suspend fun getTonConnectSessionPendingRequests(sessionId: Long): TdlResult<TonConnectRequests>
+
+    /**
+     * Returns active TON Connect sessions; can be used only if getOption(&quot;can_use_ton_wallet&quot;).
+     */
+    public abstract suspend fun getTonConnectSessions(): TdlResult<TonConnectSessions>
+
+    /**
+     * Returns the list of TON Gram transactions of the current user.
      *
      * @param direction Direction of the transactions to receive; pass null to get all transactions.
      * @param offset Offset of the first transaction to return as received from the previous request; use empty string to get the first chunk of results.
@@ -6698,6 +6999,53 @@ public abstract class TdlClient internal constructor() {
         offset: String,
         limit: Int,
     ): TdlResult<TonTransactions>
+
+    /**
+     * Returns NFTs stored on the TON wallet of the user; can be used only if getOption(&quot;can_use_ton_wallet&quot;).
+     *
+     * @param offset Offset of the first entry to return as received from the previous request; use empty string to get the first chunk of results.
+     * @param limit The maximum number of NFTs to be returned; must be positive and can't be greater than 20.
+     */
+    public abstract suspend fun getTonWalletNfts(offset: String, limit: Int): TdlResult<TonNfts>
+
+    /**
+     * Returns a challenge which may be used to proof ownership of a TON wallet; can be used only if getOption(&quot;can_use_ton_wallet&quot;).
+     */
+    public abstract suspend fun getTonWalletOwnershipProofChallenge(): TdlResult<TonWalletOwnershipProofChallenge>
+
+    /**
+     * Returns the secret phrase of the user's TON wallet as a space separated list of words. Works only if tonWalletState.canExportPhrase is true.
+     *
+     * @param password Password of the current user; pass an empty string unless receive an error with a message &quot;PASSWORD_MISSING&quot; for a passwordless request.
+     */
+    public abstract suspend fun getTonWalletSecretPhrase(password: String): TdlResult<Text>
+
+    /**
+     * Returns a TON wallet transaction by their identifier.
+     *
+     * @param transactionId Identifier of the transaction.
+     */
+    public abstract suspend fun getTonWalletTransaction(transactionId: String): TdlResult<TonWalletTransaction>
+
+    /**
+     * Returns a TON wallet transaction by their msgHash; return an error if the transaction isn't finalized yet.
+     *
+     * @param msgHash Value of msgHash of the transaction.
+     */
+    public abstract suspend fun getTonWalletTransactionByMsgHash(msgHash: String): TdlResult<TonWalletTransaction>
+
+    /**
+     * Returns the list of TON wallet transactions of the current user; can be used only if getOption(&quot;can_use_ton_wallet&quot;).
+     *
+     * @param direction Direction of the transactions to receive; pass null to get all transactions.
+     * @param offset Offset of the first transaction to return as received from the previous request; use empty string to get the first chunk of results.
+     * @param limit The maximum number of transactions to return.
+     */
+    public abstract suspend fun getTonWalletTransactions(
+        direction: TransactionDirection? = null,
+        offset: String,
+        limit: Int,
+    ): TdlResult<TonWalletTransactions>
 
     /**
      * Returns a list of frequently used chats.
@@ -6831,6 +7179,13 @@ public abstract class TdlClient internal constructor() {
      * @param userId User identifier.
      */
     public abstract suspend fun getUserSupportInfo(userId: Long): TdlResult<UserSupportInfo>
+
+    /**
+     * Returns TON wallet addresses of the specified users; can be used only if getOption(&quot;can_use_ton_wallet&quot;).
+     *
+     * @param userIds Identifiers of the users whose wallet addresses have to be returned. If a user has no TON wallet, it will be skipped in the result.
+     */
+    public abstract suspend fun getUserTonWalletAddresses(userIds: LongArray): TdlResult<UserTonWalletAddresses>
 
     /**
      * Returns the list of participant identifiers, on whose behalf a video chat in the chat can be joined.
@@ -7102,13 +7457,6 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun loadChats(chatList: ChatList? = null, limit: Int): TdlResult<Ok>
 
     /**
-     * Returns full information about a community. The data will be sent through update.
-     *
-     * @param communityId Community identifier.
-     */
-    public abstract suspend fun loadCommunityFullInfo(communityId: Long): TdlResult<Ok>
-
-    /**
      * Loads more topics in a channel direct messages chat administered by the current user. The loaded topics will be sent through updateDirectMessagesChatTopic. Topics are sorted by their topic.order in descending order. Returns a 404 error if all topics have been loaded.
      *
      * @param chatId Chat identifier of the channel direct messages chat.
@@ -7142,6 +7490,16 @@ public abstract class TdlClient internal constructor() {
      * @param limit The maximum number of topics to be loaded. For optimal performance, the number of loaded topics is chosen by TDLib and can be smaller than the specified limit, even if the end of the list is not reached.
      */
     public abstract suspend fun loadSavedMessagesTopics(limit: Int): TdlResult<Ok>
+
+    /**
+     * Loads or reloads the current state of gasless transfers for the current user; can be used only if getOption(&quot;can_use_ton_wallet&quot;).
+     */
+    public abstract suspend fun loadTonWalletGaslessTransfersInfo(): TdlResult<Ok>
+
+    /**
+     * Loads state of the TON wallet of the current user; can be used only if getOption(&quot;can_use_ton_wallet&quot;).
+     */
+    public abstract suspend fun loadTonWalletState(): TdlResult<Ok>
 
     /**
      * Closes the TDLib instance after a proper logout. Requires an available network connection. All local data will be destroyed. After the logout completes, updateAuthorizationState with authorizationStateClosed will be sent.
@@ -7949,11 +8307,41 @@ public abstract class TdlClient internal constructor() {
     ): TdlResult<Ok>
 
     /**
+     * Replaces the current TON wallet with another existing v6r2 wallet or changes private key of the current TON wallet; can be used only if getOption(&quot;can_use_ton_wallet&quot;).
+     *
+     * @param password Password of the current user; pass an empty string unless receive an error with a message &quot;PASSWORD_MISSING&quot; for a passwordless request.
+     * @param anchorPublicKey Original public key of the new TON wallet.
+     * @param proof Proof of ownership of the new private key of the TON wallet; use getTonWalletOwnershipProofChallenge to get a challenge for the proof.
+     */
+    public abstract suspend fun replaceTonWallet(
+        password: String,
+        anchorPublicKey: ByteArray,
+        proof: TonWalletOwnershipProof,
+    ): TdlResult<Ok>
+
+    /**
      * Replaces the current RTMP URL for streaming to the video chat of a chat; requires owner privileges in the chat.
      *
      * @param chatId Chat identifier.
      */
     public abstract suspend fun replaceVideoChatRtmpUrl(chatId: Long): TdlResult<RtmpUrl>
+
+    /**
+     * Replies to a callback query with an ephemeral message; for bots only.
+     *
+     * @param callbackQueryId Identifier of the callback query.
+     * @param replaceCallbackQueryMessage Pass true if the ephemeral message must replace the message from which the callback query originated.
+     * @param protectContent Pass true if the content of the message must be protected from forwarding and saving.
+     * @param replyMarkup The new message reply markup; pass null if none.
+     * @param inputMessageContent New content of the message. Must be one of the following types: inputMessageText, inputMessageAnimation, inputMessageAudio, inputMessageDocument, inputMessagePhoto, inputMessageRichMessage, inputMessageSticker, inputMessageVideo, inputMessageVideoNote, inputMessageVoiceNote.
+     */
+    public abstract suspend fun replyToCallbackQueryWithEphemeralMessage(
+        callbackQueryId: Long,
+        replaceCallbackQueryMessage: Boolean,
+        protectContent: Boolean,
+        replyMarkup: ReplyMarkup? = null,
+        inputMessageContent: InputMessageContent,
+    ): TdlResult<Ok>
 
     /**
      * Reports that authentication code wasn't delivered via SMS; for official mobile applications only. Works only when the current authorization state is authorizationStateWaitCode.
@@ -7963,7 +8351,7 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun reportAuthenticationCodeMissing(mobileNetworkCode: String): TdlResult<Ok>
 
     /**
-     * Reports a chat to the Telegram moderators. A chat can be reported only from the chat action bar, or if chat.canBeReported.
+     * Reports a chat to the Telegram moderators. A chat can be reported only from the chat action bar, if chat.canBeReported, or if messageProperties.canReportChat.
      *
      * @param chatId Chat identifier.
      * @param optionId Option identifier chosen by the user; leave empty for the initial request.
@@ -9072,6 +9460,54 @@ public abstract class TdlClient internal constructor() {
     ): TdlResult<Ok>
 
     /**
+     * Sends a request to TON Center API and returns its response in JSON format.
+     *
+     * @param endpoint The path of the requested endpoint. See https://toncenter.com/api/v3/index.html for the list of supported endpoints.
+     * @param type Type of the request.
+     */
+    public abstract suspend fun sendTonCenterApiRequest(endpoint: String, type: TonCenterApiRequestType): TdlResult<Text>
+
+    /**
+     * Accepts or rejects a TON Connect session.
+     *
+     * @param sessionId Unique identifier of the session.
+     * @param challengeAnswer Answer to the challenge received from setTonConnectSessionWalletClientId.
+     * @param isError Pass true to reject the request; pass false to accept it.
+     * @param body Body of the result.
+     * @param traceId Identifier to trace the connection request.
+     */
+    public abstract suspend fun sendTonConnectSessionConnectResult(
+        sessionId: Long,
+        challengeAnswer: ByteArray,
+        isError: Boolean,
+        body: ByteArray,
+        traceId: String,
+    ): TdlResult<Ok>
+
+    /**
+     * Sends a cryptocurrency from the user's TON wallet; can be used only if getOption(&quot;can_use_ton_wallet&quot;).
+     *
+     * @param userId Identifier of the user who will receive the transfer; pass 0 if unknown.
+     * @param address Address in the TON blockchain of the transaction peer.
+     * @param amount The amount of the sent cryptocurrency, in the smallest units of the cryptocurrency.
+     * @param comment Comment added to the transaction.
+     * @param isCommentEncrypted Pass true if the comment is encrypted and must be decrypted using the receiver's or sender's private key.
+     * @param sendingId Non-persistent identifier, which will be returned back in messageSendingStatePending object and can be used to match sent messages and corresponding updateNewMessage updates.
+     * @param regularTransferData Serialized data for regular cryptocurrency transfer request. The minimum allowed transfer amount is getOption(&quot;ton_wallet_transfer_amount_min&quot;).
+     * @param gaslessTransferData Serialized data for gasless cryptocurrency transfer request; pass an empty string to force a regular request. The minimum allowed transfer amount for a gassless transfer is getOption(&quot;ton_wallet_gasless_transfer_amount_min&quot;).
+     */
+    public abstract suspend fun sendTonWalletTransfer(
+        userId: Long,
+        address: String,
+        amount: Long,
+        comment: String,
+        isCommentEncrypted: Boolean,
+        sendingId: Int,
+        regularTransferData: ByteArray,
+        gaslessTransferData: ByteArray,
+    ): TdlResult<TonWalletTransferResult>
+
+    /**
      * Sends a custom request from a Web App.
      *
      * @param botUserId Identifier of the bot.
@@ -9626,6 +10062,22 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun setCommunityName(communityId: Long, name: String): TdlResult<Ok>
 
     /**
+     * Changes permissions of regular members in the given community; requires canBanMembers administrator right in the community.
+     *
+     * @param communityId Identifier of the community.
+     * @param permissions New permissions of the community.
+     */
+    public abstract suspend fun setCommunityPermissions(communityId: Long, permissions: CommunityPermissions): TdlResult<Ok>
+
+    /**
+     * Changes the photo of a community; requires canChangeInfo administrator right in the community.
+     *
+     * @param communityId Identifier of the community.
+     * @param photo New chat photo; pass null to delete the chat photo.
+     */
+    public abstract suspend fun setCommunityPhoto(communityId: Long, photo: InputChatPhoto? = null): TdlResult<Ok>
+
+    /**
      * Sets a custom emoji sticker set thumbnail.
      *
      * @param name Sticker set name. The sticker set must be owned by the current user.
@@ -9949,12 +10401,12 @@ public abstract class TdlClient internal constructor() {
      *
      * @param botUserId Identifier of the owned bot, which will verify the user or the chat.
      * @param verifiedId Identifier of the user or the supergroup or channel chat, which will be verified by the bot.
-     * @param customDescription Custom description of verification reason; 0-getOption(&quot;bot_verification_custom_description_length_max&quot;). If empty, then &quot;was verified by organization &quot;organization_name&quot;&quot; will be used as description. Can be specified only if the bot is allowed to provide custom description.
+     * @param customDescription Custom description of verification reason; 0-getOption(&quot;bot_verification_custom_description_length_max&quot;) characters. Only TextUrl entities are supported. If empty, then &quot;was verified by organization &quot;organization_name&quot;&quot; will be used as description. Can be specified only if the bot is allowed to provide custom description.
      */
     public abstract suspend fun setMessageSenderBotVerification(
         botUserId: Long,
         verifiedId: MessageSender,
-        customDescription: String,
+        customDescription: FormattedText,
     ): TdlResult<Ok>
 
     /**
@@ -10319,6 +10771,14 @@ public abstract class TdlClient internal constructor() {
         systemVersion: String,
         applicationVersion: String,
     ): TdlResult<Ok>
+
+    /**
+     * Sets walletClientId for a pending TON Connect session. Then, sendTonConnectSessionConnectResult must be used to accept or reject the session.
+     *
+     * @param sessionId Unique identifier of the session.
+     * @param walletClientId Hex-encoded public X25519 key of the current user's application calculated from the TON wallet private key and session parameters.
+     */
+    public abstract suspend fun setTonConnectSessionWalletClientId(sessionId: Long, walletClientId: String): TdlResult<TonConnectChallenge>
 
     /**
      * Changes color scheme for the current user based on an owned or a hosted upgraded gift; for Telegram Premium users only.
@@ -11309,12 +11769,12 @@ public abstract class TdlClient internal constructor() {
         /**
          * The Git commit hash of the TDLib.
          */
-        public const val TDL_GIT_COMMIT_HASH: String = "bc9c263e2bfee06aaab41e82db51a103376030bc"
+        public const val TDL_GIT_COMMIT_HASH: String = "c15d3f5a5de6e3ba5839822c451152e5e18bb700"
 
         /**
          * The version of the TDLib.
          */
-        public const val TDL_VERSION: String = "1.8.67"
+        public const val TDL_VERSION: String = "1.8.68"
 
         /**
          * Creates a new instance of the [TdlClient].

@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Georgii Ippolitov (g000sha256)
+ * Copyright 2025-2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,12 +29,14 @@ import kotlin.String
  * @property disabledUsernames List of currently disabled usernames; the username can be activated with toggleUsernameIsActive, toggleBotUsernameIsActive, or toggleSupergroupUsernameIsActive.
  * @property editableUsername Active or disabled username, which may be changed with setUsername or setSupergroupUsername.
  * @property collectibleUsernames Collectible usernames that were purchased at https://fragment.com and can be passed to getCollectibleItemInfo for more details.
+ * @property secondaryUsername Secondary non-collectible username; for bots only. Can't be used in toggleBotUsernameIsActive; use addBotSecondaryUsername or deleteBotSecondaryUsername to edit it. If the username is disabled, then Telegram Premium subscription is required to re-enable it.
  */
 public class Usernames public constructor(
     public val activeUsernames: Array<String>,
     public val disabledUsernames: Array<String>,
     public val editableUsername: String,
     public val collectibleUsernames: Array<String>,
+    public val secondaryUsername: String,
 ) {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
@@ -58,7 +60,11 @@ public class Usernames public constructor(
         if (other.editableUsername != editableUsername) {
             return false
         }
-        return other.collectibleUsernames.contentDeepEquals(collectibleUsernames)
+        val collectibleUsernamesEquals = other.collectibleUsernames.contentDeepEquals(collectibleUsernames)
+        if (!collectibleUsernamesEquals) {
+            return false
+        }
+        return other.secondaryUsername == secondaryUsername
     }
 
     override fun hashCode(): Int {
@@ -67,6 +73,7 @@ public class Usernames public constructor(
         hashCode = 31 * hashCode + disabledUsernames.contentDeepHashCode()
         hashCode = 31 * hashCode + editableUsername.hashCode()
         hashCode = 31 * hashCode + collectibleUsernames.contentDeepHashCode()
+        hashCode = 31 * hashCode + secondaryUsername.hashCode()
         return hashCode
     }
 
@@ -91,6 +98,9 @@ public class Usernames public constructor(
             collectibleUsernames
                 .contentDeepToString()
                 .also { append(it) }
+            append(", ")
+            append("secondaryUsername=")
+            append(secondaryUsername)
             append(")")
         }
     }

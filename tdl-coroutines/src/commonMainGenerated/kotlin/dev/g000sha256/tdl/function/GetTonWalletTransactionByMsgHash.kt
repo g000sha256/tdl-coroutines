@@ -16,8 +16,8 @@
 
 package dev.g000sha256.tdl.function
 
-import kotlin.Long
+import kotlin.String
 
-internal class LoadCommunityFullInfo internal constructor(
-    internal val communityId: Long,
+internal class GetTonWalletTransactionByMsgHash internal constructor(
+    internal val msgHash: String,
 )
