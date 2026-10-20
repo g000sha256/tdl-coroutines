@@ -21,6 +21,8 @@ abstract class dev.g000sha256.tdl/TdlClient { // dev.g000sha256.tdl/TdlClient|nu
         abstract fun <get-ageVerificationParametersUpdates>(): kotlinx.coroutines.flow/Flow<dev.g000sha256.tdl.dto/UpdateAgeVerificationParameters> // dev.g000sha256.tdl/TdlClient.ageVerificationParametersUpdates.<get-ageVerificationParametersUpdates>|<get-ageVerificationParametersUpdates>(){}[0]
     abstract val allUpdates // dev.g000sha256.tdl/TdlClient.allUpdates|{}allUpdates[0]
         abstract fun <get-allUpdates>(): kotlinx.coroutines.flow/Flow<dev.g000sha256.tdl.dto/Update> // dev.g000sha256.tdl/TdlClient.allUpdates.<get-allUpdates>|<get-allUpdates>(){}[0]
+    abstract val allowedBotUsernamePremiumSuffixesUpdates // dev.g000sha256.tdl/TdlClient.allowedBotUsernamePremiumSuffixesUpdates|{}allowedBotUsernamePremiumSuffixesUpdates[0]
+        abstract fun <get-allowedBotUsernamePremiumSuffixesUpdates>(): kotlinx.coroutines.flow/Flow<dev.g000sha256.tdl.dto/UpdateAllowedBotUsernamePremiumSuffixes> // dev.g000sha256.tdl/TdlClient.allowedBotUsernamePremiumSuffixesUpdates.<get-allowedBotUsernamePremiumSuffixesUpdates>|<get-allowedBotUsernamePremiumSuffixesUpdates>(){}[0]
     abstract val animatedEmojiMessageClickedUpdates // dev.g000sha256.tdl/TdlClient.animatedEmojiMessageClickedUpdates|{}animatedEmojiMessageClickedUpdates[0]
         abstract fun <get-animatedEmojiMessageClickedUpdates>(): kotlinx.coroutines.flow/Flow<dev.g000sha256.tdl.dto/UpdateAnimatedEmojiMessageClicked> // dev.g000sha256.tdl/TdlClient.animatedEmojiMessageClickedUpdates.<get-animatedEmojiMessageClickedUpdates>|<get-animatedEmojiMessageClickedUpdates>(){}[0]
     abstract val animationSearchParametersUpdates // dev.g000sha256.tdl/TdlClient.animationSearchParametersUpdates|{}animationSearchParametersUpdates[0]
@@ -359,6 +361,14 @@ abstract class dev.g000sha256.tdl/TdlClient { // dev.g000sha256.tdl/TdlClient|nu
         abstract fun <get-termsOfServiceUpdates>(): kotlinx.coroutines.flow/Flow<dev.g000sha256.tdl.dto/UpdateTermsOfService> // dev.g000sha256.tdl/TdlClient.termsOfServiceUpdates.<get-termsOfServiceUpdates>|<get-termsOfServiceUpdates>(){}[0]
     abstract val textCompositionStylesUpdates // dev.g000sha256.tdl/TdlClient.textCompositionStylesUpdates|{}textCompositionStylesUpdates[0]
         abstract fun <get-textCompositionStylesUpdates>(): kotlinx.coroutines.flow/Flow<dev.g000sha256.tdl.dto/UpdateTextCompositionStyles> // dev.g000sha256.tdl/TdlClient.textCompositionStylesUpdates.<get-textCompositionStylesUpdates>|<get-textCompositionStylesUpdates>(){}[0]
+    abstract val tonWalletGaslessTransfersInfoUpdates // dev.g000sha256.tdl/TdlClient.tonWalletGaslessTransfersInfoUpdates|{}tonWalletGaslessTransfersInfoUpdates[0]
+        abstract fun <get-tonWalletGaslessTransfersInfoUpdates>(): kotlinx.coroutines.flow/Flow<dev.g000sha256.tdl.dto/UpdateTonWalletGaslessTransfersInfo> // dev.g000sha256.tdl/TdlClient.tonWalletGaslessTransfersInfoUpdates.<get-tonWalletGaslessTransfersInfoUpdates>|<get-tonWalletGaslessTransfersInfoUpdates>(){}[0]
+    abstract val tonWalletStateUpdates // dev.g000sha256.tdl/TdlClient.tonWalletStateUpdates|{}tonWalletStateUpdates[0]
+        abstract fun <get-tonWalletStateUpdates>(): kotlinx.coroutines.flow/Flow<dev.g000sha256.tdl.dto/UpdateTonWalletState> // dev.g000sha256.tdl/TdlClient.tonWalletStateUpdates.<get-tonWalletStateUpdates>|<get-tonWalletStateUpdates>(){}[0]
+    abstract val tonWalletTonConnectSessionDisconnectRequiredUpdates // dev.g000sha256.tdl/TdlClient.tonWalletTonConnectSessionDisconnectRequiredUpdates|{}tonWalletTonConnectSessionDisconnectRequiredUpdates[0]
+        abstract fun <get-tonWalletTonConnectSessionDisconnectRequiredUpdates>(): kotlinx.coroutines.flow/Flow<dev.g000sha256.tdl.dto/UpdateTonWalletTonConnectSessionDisconnectRequired> // dev.g000sha256.tdl/TdlClient.tonWalletTonConnectSessionDisconnectRequiredUpdates.<get-tonWalletTonConnectSessionDisconnectRequiredUpdates>|<get-tonWalletTonConnectSessionDisconnectRequiredUpdates>(){}[0]
+    abstract val tonWalletTonConnectSessionUpdates // dev.g000sha256.tdl/TdlClient.tonWalletTonConnectSessionUpdates|{}tonWalletTonConnectSessionUpdates[0]
+        abstract fun <get-tonWalletTonConnectSessionUpdates>(): kotlinx.coroutines.flow/Flow<dev.g000sha256.tdl.dto/UpdateTonWalletTonConnectSession> // dev.g000sha256.tdl/TdlClient.tonWalletTonConnectSessionUpdates.<get-tonWalletTonConnectSessionUpdates>|<get-tonWalletTonConnectSessionUpdates>(){}[0]
     abstract val topicMessageCountUpdates // dev.g000sha256.tdl/TdlClient.topicMessageCountUpdates|{}topicMessageCountUpdates[0]
         abstract fun <get-topicMessageCountUpdates>(): kotlinx.coroutines.flow/Flow<dev.g000sha256.tdl.dto/UpdateTopicMessageCount> // dev.g000sha256.tdl/TdlClient.topicMessageCountUpdates.<get-topicMessageCountUpdates>|<get-topicMessageCountUpdates>(){}[0]
     abstract val trendingStickerSetsUpdates // dev.g000sha256.tdl/TdlClient.trendingStickerSetsUpdates|{}trendingStickerSetsUpdates[0]
@@ -393,6 +403,7 @@ abstract class dev.g000sha256.tdl/TdlClient { // dev.g000sha256.tdl/TdlClient|nu
     abstract suspend fun acceptTermsOfService(kotlin/String): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.acceptTermsOfService|acceptTermsOfService(kotlin.String){}[0]
     abstract suspend fun activateStoryStealthMode(): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.activateStoryStealthMode|activateStoryStealthMode(){}[0]
     abstract suspend fun addBotMediaPreview(kotlin/Long, kotlin/String, dev.g000sha256.tdl.dto/InputStoryContent): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/BotMediaPreview> // dev.g000sha256.tdl/TdlClient.addBotMediaPreview|addBotMediaPreview(kotlin.Long;kotlin.String;dev.g000sha256.tdl.dto.InputStoryContent){}[0]
+    abstract suspend fun addBotSecondaryUsername(kotlin/Long, kotlin/String): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.addBotSecondaryUsername|addBotSecondaryUsername(kotlin.Long;kotlin.String){}[0]
     abstract suspend fun addChatFolderByInviteLink(kotlin/String, kotlin/LongArray): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.addChatFolderByInviteLink|addChatFolderByInviteLink(kotlin.String;kotlin.LongArray){}[0]
     abstract suspend fun addChatMember(kotlin/Long, kotlin/Long, kotlin/Int): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/FailedToAddMembers> // dev.g000sha256.tdl/TdlClient.addChatMember|addChatMember(kotlin.Long;kotlin.Long;kotlin.Int){}[0]
     abstract suspend fun addChatMembers(kotlin/Long, kotlin/LongArray): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/FailedToAddMembers> // dev.g000sha256.tdl/TdlClient.addChatMembers|addChatMembers(kotlin.Long;kotlin.LongArray){}[0]
@@ -435,6 +446,7 @@ abstract class dev.g000sha256.tdl/TdlClient { // dev.g000sha256.tdl/TdlClient|nu
     abstract suspend fun answerInlineQuery(kotlin/Long, kotlin/Boolean, dev.g000sha256.tdl.dto/InlineQueryResultsButton? = ..., kotlin/Array<dev.g000sha256.tdl.dto/InputInlineQueryResult>, kotlin/Int, kotlin/String): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.answerInlineQuery|answerInlineQuery(kotlin.Long;kotlin.Boolean;dev.g000sha256.tdl.dto.InlineQueryResultsButton?;kotlin.Array<dev.g000sha256.tdl.dto.InputInlineQueryResult>;kotlin.Int;kotlin.String){}[0]
     abstract suspend fun answerPreCheckoutQuery(kotlin/Long, kotlin/String): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.answerPreCheckoutQuery|answerPreCheckoutQuery(kotlin.Long;kotlin.String){}[0]
     abstract suspend fun answerShippingQuery(kotlin/Long, kotlin/Array<dev.g000sha256.tdl.dto/ShippingOption>, kotlin/String): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.answerShippingQuery|answerShippingQuery(kotlin.Long;kotlin.Array<dev.g000sha256.tdl.dto.ShippingOption>;kotlin.String){}[0]
+    abstract suspend fun answerTonConnectRequest(kotlin/Long, kotlin/Long, kotlin/String, kotlin/ByteArray): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.answerTonConnectRequest|answerTonConnectRequest(kotlin.Long;kotlin.Long;kotlin.String;kotlin.ByteArray){}[0]
     abstract suspend fun answerWebAppQuery(kotlin/String, dev.g000sha256.tdl.dto/InputInlineQueryResult): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/InlineMessageId> // dev.g000sha256.tdl/TdlClient.answerWebAppQuery|answerWebAppQuery(kotlin.String;dev.g000sha256.tdl.dto.InputInlineQueryResult){}[0]
     abstract suspend fun applyPremiumGiftCode(kotlin/String): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.applyPremiumGiftCode|applyPremiumGiftCode(kotlin.String){}[0]
     abstract suspend fun approveSuggestedPost(kotlin/Long, kotlin/Long, kotlin/Int): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.approveSuggestedPost|approveSuggestedPost(kotlin.Long;kotlin.Long;kotlin.Int){}[0]
@@ -465,7 +477,7 @@ abstract class dev.g000sha256.tdl/TdlClient { // dev.g000sha256.tdl/TdlClient|nu
     abstract suspend fun checkAuthenticationPasswordRecoveryCode(kotlin/String): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.checkAuthenticationPasswordRecoveryCode|checkAuthenticationPasswordRecoveryCode(kotlin.String){}[0]
     abstract suspend fun checkAuthenticationPremiumPurchase(kotlin/Int, kotlin/String, kotlin/Long): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.checkAuthenticationPremiumPurchase|checkAuthenticationPremiumPurchase(kotlin.Int;kotlin.String;kotlin.Long){}[0]
     abstract suspend fun checkAuthenticationWebToken(kotlin/String, kotlin/Int): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.checkAuthenticationWebToken|checkAuthenticationWebToken(kotlin.String;kotlin.Int){}[0]
-    abstract suspend fun checkBotUsername(kotlin/String): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/CheckChatUsernameResult> // dev.g000sha256.tdl/TdlClient.checkBotUsername|checkBotUsername(kotlin.String){}[0]
+    abstract suspend fun checkBotUsername(kotlin/String, kotlin/Boolean): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/CheckChatUsernameResult> // dev.g000sha256.tdl/TdlClient.checkBotUsername|checkBotUsername(kotlin.String;kotlin.Boolean){}[0]
     abstract suspend fun checkChatFolderInviteLink(kotlin/String): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/ChatFolderInviteLinkInfo> // dev.g000sha256.tdl/TdlClient.checkChatFolderInviteLink|checkChatFolderInviteLink(kotlin.String){}[0]
     abstract suspend fun checkChatInviteLink(kotlin/String): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/ChatInviteLinkInfo> // dev.g000sha256.tdl/TdlClient.checkChatInviteLink|checkChatInviteLink(kotlin.String){}[0]
     abstract suspend fun checkChatUsername(kotlin/Long, kotlin/String): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/CheckChatUsernameResult> // dev.g000sha256.tdl/TdlClient.checkChatUsername|checkChatUsername(kotlin.Long;kotlin.String){}[0]
@@ -479,7 +491,9 @@ abstract class dev.g000sha256.tdl/TdlClient { // dev.g000sha256.tdl/TdlClient|nu
     abstract suspend fun checkQuickReplyShortcutName(kotlin/String): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.checkQuickReplyShortcutName|checkQuickReplyShortcutName(kotlin.String){}[0]
     abstract suspend fun checkRecoveryEmailAddressCode(kotlin/String): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/PasswordState> // dev.g000sha256.tdl/TdlClient.checkRecoveryEmailAddressCode|checkRecoveryEmailAddressCode(kotlin.String){}[0]
     abstract suspend fun checkStickerSetName(kotlin/String): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/CheckStickerSetNameResult> // dev.g000sha256.tdl/TdlClient.checkStickerSetName|checkStickerSetName(kotlin.String){}[0]
+    abstract suspend fun checkWalletBotBalance(): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/WalletBotBalance> // dev.g000sha256.tdl/TdlClient.checkWalletBotBalance|checkWalletBotBalance(){}[0]
     abstract suspend fun checkWebAppFileDownload(kotlin/Long, kotlin/String, kotlin/String): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.checkWebAppFileDownload|checkWebAppFileDownload(kotlin.Long;kotlin.String;kotlin.String){}[0]
+    abstract suspend fun claimTonConnectRequest(kotlin/Long, kotlin/Long, kotlin/String, kotlin/Boolean): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.claimTonConnectRequest|claimTonConnectRequest(kotlin.Long;kotlin.Long;kotlin.String;kotlin.Boolean){}[0]
     abstract suspend fun cleanFileName(kotlin/String): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Text> // dev.g000sha256.tdl/TdlClient.cleanFileName|cleanFileName(kotlin.String){}[0]
     abstract suspend fun clearAllDraftMessages(kotlin/Boolean): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.clearAllDraftMessages|clearAllDraftMessages(kotlin.Boolean){}[0]
     abstract suspend fun clearAutosaveSettingsExceptions(): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.clearAutosaveSettingsExceptions|clearAutosaveSettingsExceptions(){}[0]
@@ -525,6 +539,7 @@ abstract class dev.g000sha256.tdl/TdlClient { // dev.g000sha256.tdl/TdlClient|nu
     abstract suspend fun createNewSecretChat(kotlin/Long): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Chat> // dev.g000sha256.tdl/TdlClient.createNewSecretChat|createNewSecretChat(kotlin.Long){}[0]
     abstract suspend fun createNewStickerSet(kotlin/Long, kotlin/String, kotlin/String, dev.g000sha256.tdl.dto/StickerType, kotlin/Boolean, kotlin/Array<dev.g000sha256.tdl.dto/NewSticker>, kotlin/String): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/StickerSet> // dev.g000sha256.tdl/TdlClient.createNewStickerSet|createNewStickerSet(kotlin.Long;kotlin.String;kotlin.String;dev.g000sha256.tdl.dto.StickerType;kotlin.Boolean;kotlin.Array<dev.g000sha256.tdl.dto.NewSticker>;kotlin.String){}[0]
     abstract suspend fun createNewSupergroupChat(kotlin/String, kotlin/Boolean, kotlin/Boolean, kotlin/String, dev.g000sha256.tdl.dto/ChatLocation? = ..., kotlin/Int, kotlin/Boolean): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Chat> // dev.g000sha256.tdl/TdlClient.createNewSupergroupChat|createNewSupergroupChat(kotlin.String;kotlin.Boolean;kotlin.Boolean;kotlin.String;dev.g000sha256.tdl.dto.ChatLocation?;kotlin.Int;kotlin.Boolean){}[0]
+    abstract suspend fun createOnRampPaymentSession(kotlin/String, kotlin/String, kotlin/String, kotlin/String, kotlin/String, kotlin/String, kotlin/String, kotlin/String, kotlin/String, kotlin/String, kotlin/String): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/OnRampPaymentSession> // dev.g000sha256.tdl/TdlClient.createOnRampPaymentSession|createOnRampPaymentSession(kotlin.String;kotlin.String;kotlin.String;kotlin.String;kotlin.String;kotlin.String;kotlin.String;kotlin.String;kotlin.String;kotlin.String;kotlin.String){}[0]
     abstract suspend fun createPrivateChat(kotlin/Long, kotlin/Boolean): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Chat> // dev.g000sha256.tdl/TdlClient.createPrivateChat|createPrivateChat(kotlin.Long;kotlin.Boolean){}[0]
     abstract suspend fun createRichMessageWithAi(kotlin/String, kotlin/String, kotlin/Boolean): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/RichMessage> // dev.g000sha256.tdl/TdlClient.createRichMessageWithAi|createRichMessageWithAi(kotlin.String;kotlin.String;kotlin.Boolean){}[0]
     abstract suspend fun createSecretChat(kotlin/Int): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Chat> // dev.g000sha256.tdl/TdlClient.createSecretChat|createSecretChat(kotlin.Int){}[0]
@@ -532,6 +547,8 @@ abstract class dev.g000sha256.tdl/TdlClient { // dev.g000sha256.tdl/TdlClient|nu
     abstract suspend fun createSupergroupChat(kotlin/Long, kotlin/Boolean): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Chat> // dev.g000sha256.tdl/TdlClient.createSupergroupChat|createSupergroupChat(kotlin.Long;kotlin.Boolean){}[0]
     abstract suspend fun createTemporaryPassword(kotlin/String, kotlin/Int): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/TemporaryPasswordState> // dev.g000sha256.tdl/TdlClient.createTemporaryPassword|createTemporaryPassword(kotlin.String;kotlin.Int){}[0]
     abstract suspend fun createTextCompositionStyle(kotlin/String, kotlin/Long, kotlin/String, kotlin/Boolean): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/TextCompositionStyle> // dev.g000sha256.tdl/TdlClient.createTextCompositionStyle|createTextCompositionStyle(kotlin.String;kotlin.Long;kotlin.String;kotlin.Boolean){}[0]
+    abstract suspend fun createTonConnectSession(kotlin/String, kotlin/String): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/TonConnectSession> // dev.g000sha256.tdl/TdlClient.createTonConnectSession|createTonConnectSession(kotlin.String;kotlin.String){}[0]
+    abstract suspend fun createUserTonWallet(kotlin/Long): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/UserTonWalletAddress> // dev.g000sha256.tdl/TdlClient.createUserTonWallet|createUserTonWallet(kotlin.Long){}[0]
     abstract suspend fun createVideoChat(kotlin/Long, kotlin/String, kotlin/Int, kotlin/Boolean): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/GroupCallId> // dev.g000sha256.tdl/TdlClient.createVideoChat|createVideoChat(kotlin.Long;kotlin.String;kotlin.Int;kotlin.Boolean){}[0]
     abstract suspend fun declineGroupCallInvitation(kotlin/Long, kotlin/Long): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.declineGroupCallInvitation|declineGroupCallInvitation(kotlin.Long;kotlin.Long){}[0]
     abstract suspend fun declineOauthRequest(kotlin/String): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.declineOauthRequest|declineOauthRequest(kotlin.String){}[0]
@@ -543,6 +560,7 @@ abstract class dev.g000sha256.tdl/TdlClient { // dev.g000sha256.tdl/TdlClient|nu
     abstract suspend fun deleteAllRecentMessageReactionsFromSender(kotlin/Long, dev.g000sha256.tdl.dto/MessageSender): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.deleteAllRecentMessageReactionsFromSender|deleteAllRecentMessageReactionsFromSender(kotlin.Long;dev.g000sha256.tdl.dto.MessageSender){}[0]
     abstract suspend fun deleteAllRevokedChatInviteLinks(kotlin/Long, kotlin/Long): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.deleteAllRevokedChatInviteLinks|deleteAllRevokedChatInviteLinks(kotlin.Long;kotlin.Long){}[0]
     abstract suspend fun deleteBotMediaPreviews(kotlin/Long, kotlin/String, kotlin/IntArray): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.deleteBotMediaPreviews|deleteBotMediaPreviews(kotlin.Long;kotlin.String;kotlin.IntArray){}[0]
+    abstract suspend fun deleteBotSecondaryUsername(kotlin/Long): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.deleteBotSecondaryUsername|deleteBotSecondaryUsername(kotlin.Long){}[0]
     abstract suspend fun deleteBusinessChatLink(kotlin/String): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.deleteBusinessChatLink|deleteBusinessChatLink(kotlin.String){}[0]
     abstract suspend fun deleteBusinessConnectedBot(kotlin/Long): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.deleteBusinessConnectedBot|deleteBusinessConnectedBot(kotlin.Long){}[0]
     abstract suspend fun deleteBusinessMessages(kotlin/String, kotlin/LongArray): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.deleteBusinessMessages|deleteBusinessMessages(kotlin.String;kotlin.LongArray){}[0]
@@ -557,6 +575,7 @@ abstract class dev.g000sha256.tdl/TdlClient { // dev.g000sha256.tdl/TdlClient|nu
     abstract suspend fun deleteChatReplyMarkup(kotlin/Long, kotlin/Long): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.deleteChatReplyMarkup|deleteChatReplyMarkup(kotlin.Long;kotlin.Long){}[0]
     abstract suspend fun deleteChatWelcomeMessage(kotlin/Long, kotlin/Int): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.deleteChatWelcomeMessage|deleteChatWelcomeMessage(kotlin.Long;kotlin.Int){}[0]
     abstract suspend fun deleteCommands(dev.g000sha256.tdl.dto/BotCommandScope? = ..., kotlin/String): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.deleteCommands|deleteCommands(dev.g000sha256.tdl.dto.BotCommandScope?;kotlin.String){}[0]
+    abstract suspend fun deleteCommunity(kotlin/Long): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.deleteCommunity|deleteCommunity(kotlin.Long){}[0]
     abstract suspend fun deleteDefaultBackground(kotlin/Boolean): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.deleteDefaultBackground|deleteDefaultBackground(kotlin.Boolean){}[0]
     abstract suspend fun deleteDirectMessagesChatTopicHistory(kotlin/Long, kotlin/Long): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.deleteDirectMessagesChatTopicHistory|deleteDirectMessagesChatTopicHistory(kotlin.Long;kotlin.Long){}[0]
     abstract suspend fun deleteDirectMessagesChatTopicMessagesByDate(kotlin/Long, kotlin/Long, kotlin/Int, kotlin/Int): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.deleteDirectMessagesChatTopicMessagesByDate|deleteDirectMessagesChatTopicMessagesByDate(kotlin.Long;kotlin.Long;kotlin.Int;kotlin.Int){}[0]
@@ -584,13 +603,18 @@ abstract class dev.g000sha256.tdl/TdlClient { // dev.g000sha256.tdl/TdlClient|nu
     abstract suspend fun deleteStory(kotlin/Long, kotlin/Int): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.deleteStory|deleteStory(kotlin.Long;kotlin.Int){}[0]
     abstract suspend fun deleteStoryAlbum(kotlin/Long, kotlin/Int): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.deleteStoryAlbum|deleteStoryAlbum(kotlin.Long;kotlin.Int){}[0]
     abstract suspend fun deleteTextCompositionStyle(kotlin/String): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.deleteTextCompositionStyle|deleteTextCompositionStyle(kotlin.String){}[0]
+    abstract suspend fun deleteTonWallet(kotlin/String): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.deleteTonWallet|deleteTonWallet(kotlin.String){}[0]
     abstract suspend fun destroy(): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.destroy|destroy(){}[0]
     abstract suspend fun disableAllSupergroupUsernames(kotlin/Long): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.disableAllSupergroupUsernames|disableAllSupergroupUsernames(kotlin.Long){}[0]
     abstract suspend fun disableProxy(): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.disableProxy|disableProxy(){}[0]
+    abstract suspend fun disableTonWalletBackup(kotlin/String): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.disableTonWalletBackup|disableTonWalletBackup(kotlin.String){}[0]
+    abstract suspend fun disableTonWalletBackupWithProof(dev.g000sha256.tdl.dto/TonWalletOwnershipProof): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.disableTonWalletBackupWithProof|disableTonWalletBackupWithProof(dev.g000sha256.tdl.dto.TonWalletOwnershipProof){}[0]
     abstract suspend fun discardCall(kotlin/Int, kotlin/Boolean, kotlin/String, kotlin/Int, kotlin/Boolean, kotlin/Long): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.discardCall|discardCall(kotlin.Int;kotlin.Boolean;kotlin.String;kotlin.Int;kotlin.Boolean;kotlin.Long){}[0]
     abstract suspend fun disconnectAffiliateProgram(dev.g000sha256.tdl.dto/AffiliateType, kotlin/String): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/ConnectedAffiliateProgram> // dev.g000sha256.tdl/TdlClient.disconnectAffiliateProgram|disconnectAffiliateProgram(dev.g000sha256.tdl.dto.AffiliateType;kotlin.String){}[0]
     abstract suspend fun disconnectAllWebsites(): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.disconnectAllWebsites|disconnectAllWebsites(){}[0]
+    abstract suspend fun disconnectTonConnectSession(kotlin/Long, kotlin/ByteArray): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.disconnectTonConnectSession|disconnectTonConnectSession(kotlin.Long;kotlin.ByteArray){}[0]
     abstract suspend fun disconnectWebsite(kotlin/Long): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.disconnectWebsite|disconnectWebsite(kotlin.Long){}[0]
+    abstract suspend fun dismissWebToken(kotlin/String): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.dismissWebToken|dismissWebToken(kotlin.String){}[0]
     abstract suspend fun downloadFile(kotlin/Int, kotlin/Int, kotlin/Long, kotlin/Long, kotlin/Boolean): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/File> // dev.g000sha256.tdl/TdlClient.downloadFile|downloadFile(kotlin.Int;kotlin.Int;kotlin.Long;kotlin.Long;kotlin.Boolean){}[0]
     abstract suspend fun dropGiftOriginalDetails(kotlin/String, kotlin/Long): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.dropGiftOriginalDetails|dropGiftOriginalDetails(kotlin.String;kotlin.Long){}[0]
     abstract suspend fun editBotMediaPreview(kotlin/Long, kotlin/String, kotlin/Int, dev.g000sha256.tdl.dto/InputStoryContent): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/BotMediaPreview> // dev.g000sha256.tdl/TdlClient.editBotMediaPreview|editBotMediaPreview(kotlin.Long;kotlin.String;kotlin.Int;dev.g000sha256.tdl.dto.InputStoryContent){}[0]
@@ -602,7 +626,6 @@ abstract class dev.g000sha256.tdl/TdlClient { // dev.g000sha256.tdl/TdlClient|nu
     abstract suspend fun editBusinessMessageReplyMarkup(kotlin/String, kotlin/Long, kotlin/Long, dev.g000sha256.tdl.dto/ReplyMarkup? = ...): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/BusinessMessage> // dev.g000sha256.tdl/TdlClient.editBusinessMessageReplyMarkup|editBusinessMessageReplyMarkup(kotlin.String;kotlin.Long;kotlin.Long;dev.g000sha256.tdl.dto.ReplyMarkup?){}[0]
     abstract suspend fun editBusinessMessageText(kotlin/String, kotlin/Long, kotlin/Long, dev.g000sha256.tdl.dto/ReplyMarkup? = ..., dev.g000sha256.tdl.dto/InputMessageContent): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/BusinessMessage> // dev.g000sha256.tdl/TdlClient.editBusinessMessageText|editBusinessMessageText(kotlin.String;kotlin.Long;kotlin.Long;dev.g000sha256.tdl.dto.ReplyMarkup?;dev.g000sha256.tdl.dto.InputMessageContent){}[0]
     abstract suspend fun editBusinessStory(kotlin/Long, kotlin/Int, dev.g000sha256.tdl.dto/InputStoryContent, dev.g000sha256.tdl.dto/InputStoryAreas, dev.g000sha256.tdl.dto/FormattedText, dev.g000sha256.tdl.dto/StoryPrivacySettings): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Story> // dev.g000sha256.tdl/TdlClient.editBusinessStory|editBusinessStory(kotlin.Long;kotlin.Int;dev.g000sha256.tdl.dto.InputStoryContent;dev.g000sha256.tdl.dto.InputStoryAreas;dev.g000sha256.tdl.dto.FormattedText;dev.g000sha256.tdl.dto.StoryPrivacySettings){}[0]
-    abstract suspend fun editCallbackQueryMessage(kotlin/Long, kotlin/Boolean, dev.g000sha256.tdl.dto/ReplyMarkup? = ..., dev.g000sha256.tdl.dto/InputMessageContent): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.editCallbackQueryMessage|editCallbackQueryMessage(kotlin.Long;kotlin.Boolean;dev.g000sha256.tdl.dto.ReplyMarkup?;dev.g000sha256.tdl.dto.InputMessageContent){}[0]
     abstract suspend fun editChatFolder(kotlin/Int, dev.g000sha256.tdl.dto/ChatFolder): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/ChatFolderInfo> // dev.g000sha256.tdl/TdlClient.editChatFolder|editChatFolder(kotlin.Int;dev.g000sha256.tdl.dto.ChatFolder){}[0]
     abstract suspend fun editChatFolderInviteLink(kotlin/Int, kotlin/String, kotlin/String, kotlin/LongArray): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/ChatFolderInviteLink> // dev.g000sha256.tdl/TdlClient.editChatFolderInviteLink|editChatFolderInviteLink(kotlin.Int;kotlin.String;kotlin.String;kotlin.LongArray){}[0]
     abstract suspend fun editChatInviteLink(kotlin/Long, kotlin/String, kotlin/String, kotlin/Int, kotlin/Int, kotlin/Boolean): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/ChatInviteLink> // dev.g000sha256.tdl/TdlClient.editChatInviteLink|editChatInviteLink(kotlin.Long;kotlin.String;kotlin.String;kotlin.Int;kotlin.Int;kotlin.Boolean){}[0]
@@ -632,6 +655,7 @@ abstract class dev.g000sha256.tdl/TdlClient { // dev.g000sha256.tdl/TdlClient|nu
     abstract suspend fun editTextCompositionStyle(kotlin/String, kotlin/String, kotlin/Long, kotlin/String, kotlin/Boolean): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/TextCompositionStyle> // dev.g000sha256.tdl/TdlClient.editTextCompositionStyle|editTextCompositionStyle(kotlin.String;kotlin.String;kotlin.Long;kotlin.String;kotlin.Boolean){}[0]
     abstract suspend fun editUserStarSubscription(kotlin/Long, kotlin/String, kotlin/Boolean): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.editUserStarSubscription|editUserStarSubscription(kotlin.Long;kotlin.String;kotlin.Boolean){}[0]
     abstract suspend fun enableProxy(kotlin/Int): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.enableProxy|enableProxy(kotlin.Int){}[0]
+    abstract suspend fun enableTonWalletBackup(kotlin/String, dev.g000sha256.tdl.dto/TonWalletOwnershipProof): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.enableTonWalletBackup|enableTonWalletBackup(kotlin.String;dev.g000sha256.tdl.dto.TonWalletOwnershipProof){}[0]
     abstract suspend fun encryptGroupCallData(kotlin/Int, dev.g000sha256.tdl.dto/GroupCallDataChannel, kotlin/ByteArray, kotlin/Int): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Data> // dev.g000sha256.tdl/TdlClient.encryptGroupCallData|encryptGroupCallData(kotlin.Int;dev.g000sha256.tdl.dto.GroupCallDataChannel;kotlin.ByteArray;kotlin.Int){}[0]
     abstract suspend fun endGroupCall(kotlin/Int): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.endGroupCall|endGroupCall(kotlin.Int){}[0]
     abstract suspend fun endGroupCallRecording(kotlin/Int): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.endGroupCallRecording|endGroupCallRecording(kotlin.Int){}[0]
@@ -642,6 +666,7 @@ abstract class dev.g000sha256.tdl/TdlClient { // dev.g000sha256.tdl/TdlClient|nu
     abstract suspend fun forwardMessages(kotlin/Long, dev.g000sha256.tdl.dto/MessageTopic? = ..., kotlin/Long, kotlin/LongArray, dev.g000sha256.tdl.dto/MessageSendOptions? = ..., kotlin/Boolean, kotlin/Boolean): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Messages> // dev.g000sha256.tdl/TdlClient.forwardMessages|forwardMessages(kotlin.Long;dev.g000sha256.tdl.dto.MessageTopic?;kotlin.Long;kotlin.LongArray;dev.g000sha256.tdl.dto.MessageSendOptions?;kotlin.Boolean;kotlin.Boolean){}[0]
     abstract suspend fun getAccountTtl(): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/AccountTtl> // dev.g000sha256.tdl/TdlClient.getAccountTtl|getAccountTtl(){}[0]
     abstract suspend fun getActiveSessions(): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Sessions> // dev.g000sha256.tdl/TdlClient.getActiveSessions|getActiveSessions(){}[0]
+    abstract suspend fun getAddressTonWallet(kotlin/String): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/UserTonWalletAddress> // dev.g000sha256.tdl/TdlClient.getAddressTonWallet|getAddressTonWallet(kotlin.String){}[0]
     abstract suspend fun getAllPassportElements(kotlin/String): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/PassportElements> // dev.g000sha256.tdl/TdlClient.getAllPassportElements|getAllPassportElements(kotlin.String){}[0]
     abstract suspend fun getAllStickerEmojis(dev.g000sha256.tdl.dto/StickerType, kotlin/String, kotlin/Long, kotlin/Boolean): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Emojis> // dev.g000sha256.tdl/TdlClient.getAllStickerEmojis|getAllStickerEmojis(dev.g000sha256.tdl.dto.StickerType;kotlin.String;kotlin.Long;kotlin.Boolean){}[0]
     abstract suspend fun getAnimatedEmoji(kotlin/String): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/AnimatedEmoji> // dev.g000sha256.tdl/TdlClient.getAnimatedEmoji|getAnimatedEmoji(kotlin.String){}[0]
@@ -729,6 +754,7 @@ abstract class dev.g000sha256.tdl/TdlClient { // dev.g000sha256.tdl/TdlClient|nu
     abstract suspend fun getCloseFriends(): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Users> // dev.g000sha256.tdl/TdlClient.getCloseFriends|getCloseFriends(){}[0]
     abstract suspend fun getCollectibleItemInfo(dev.g000sha256.tdl.dto/CollectibleItemType): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/CollectibleItemInfo> // dev.g000sha256.tdl/TdlClient.getCollectibleItemInfo|getCollectibleItemInfo(dev.g000sha256.tdl.dto.CollectibleItemType){}[0]
     abstract suspend fun getCommands(dev.g000sha256.tdl.dto/BotCommandScope? = ..., kotlin/String): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/BotCommands> // dev.g000sha256.tdl/TdlClient.getCommands|getCommands(dev.g000sha256.tdl.dto.BotCommandScope?;kotlin.String){}[0]
+    abstract suspend fun getCommunityFullInfo(kotlin/Long): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/CommunityFullInfo> // dev.g000sha256.tdl/TdlClient.getCommunityFullInfo|getCommunityFullInfo(kotlin.Long){}[0]
     abstract suspend fun getConnectedAffiliateProgram(dev.g000sha256.tdl.dto/AffiliateType, kotlin/Long): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/ConnectedAffiliateProgram> // dev.g000sha256.tdl/TdlClient.getConnectedAffiliateProgram|getConnectedAffiliateProgram(dev.g000sha256.tdl.dto.AffiliateType;kotlin.Long){}[0]
     abstract suspend fun getConnectedAffiliatePrograms(dev.g000sha256.tdl.dto/AffiliateType, kotlin/String, kotlin/Int): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/ConnectedAffiliatePrograms> // dev.g000sha256.tdl/TdlClient.getConnectedAffiliatePrograms|getConnectedAffiliatePrograms(dev.g000sha256.tdl.dto.AffiliateType;kotlin.String;kotlin.Int){}[0]
     abstract suspend fun getConnectedWebsites(): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/ConnectedWebsites> // dev.g000sha256.tdl/TdlClient.getConnectedWebsites|getConnectedWebsites(){}[0]
@@ -738,6 +764,7 @@ abstract class dev.g000sha256.tdl/TdlClient { // dev.g000sha256.tdl/TdlClient|nu
     abstract suspend fun getCountryCode(): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Text> // dev.g000sha256.tdl/TdlClient.getCountryCode|getCountryCode(){}[0]
     abstract suspend fun getCountryFlagEmoji(kotlin/String): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Text> // dev.g000sha256.tdl/TdlClient.getCountryFlagEmoji|getCountryFlagEmoji(kotlin.String){}[0]
     abstract suspend fun getCreatedPublicChats(dev.g000sha256.tdl.dto/PublicChatType): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Chats> // dev.g000sha256.tdl/TdlClient.getCreatedPublicChats|getCreatedPublicChats(dev.g000sha256.tdl.dto.PublicChatType){}[0]
+    abstract suspend fun getCurrencyExchangeRates(): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/CurrencyExchangeRates> // dev.g000sha256.tdl/TdlClient.getCurrencyExchangeRates|getCurrencyExchangeRates(){}[0]
     abstract suspend fun getCurrentState(): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Updates> // dev.g000sha256.tdl/TdlClient.getCurrentState|getCurrentState(){}[0]
     abstract suspend fun getCurrentWeather(dev.g000sha256.tdl.dto/Location): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/CurrentWeather> // dev.g000sha256.tdl/TdlClient.getCurrentWeather|getCurrentWeather(dev.g000sha256.tdl.dto.Location){}[0]
     abstract suspend fun getCustomEmojiReactionAnimations(): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Stickers> // dev.g000sha256.tdl/TdlClient.getCustomEmojiReactionAnimations|getCustomEmojiReactionAnimations(){}[0]
@@ -846,6 +873,11 @@ abstract class dev.g000sha256.tdl/TdlClient { // dev.g000sha256.tdl/TdlClient|nu
     abstract suspend fun getNetworkStatistics(kotlin/Boolean): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/NetworkStatistics> // dev.g000sha256.tdl/TdlClient.getNetworkStatistics|getNetworkStatistics(kotlin.Boolean){}[0]
     abstract suspend fun getNewChatPrivacySettings(): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/NewChatPrivacySettings> // dev.g000sha256.tdl/TdlClient.getNewChatPrivacySettings|getNewChatPrivacySettings(){}[0]
     abstract suspend fun getOauthLinkInfo(kotlin/String, kotlin/String): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/OauthLinkInfo> // dev.g000sha256.tdl/TdlClient.getOauthLinkInfo|getOauthLinkInfo(kotlin.String;kotlin.String){}[0]
+    abstract suspend fun getOnRampPaymentAvailability(kotlin/String, kotlin/String, kotlin/String): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/OnRampPaymentAvailability> // dev.g000sha256.tdl/TdlClient.getOnRampPaymentAvailability|getOnRampPaymentAvailability(kotlin.String;kotlin.String;kotlin.String){}[0]
+    abstract suspend fun getOnRampPaymentLimits(kotlin/String, kotlin/String, kotlin/String, kotlin/String): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/OnRampPaymentLimits> // dev.g000sha256.tdl/TdlClient.getOnRampPaymentLimits|getOnRampPaymentLimits(kotlin.String;kotlin.String;kotlin.String;kotlin.String){}[0]
+    abstract suspend fun getOnRampPaymentQuote(kotlin/String, kotlin/String, kotlin/String, kotlin/String, kotlin/String, kotlin/String): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/OnRampPaymentQuote> // dev.g000sha256.tdl/TdlClient.getOnRampPaymentQuote|getOnRampPaymentQuote(kotlin.String;kotlin.String;kotlin.String;kotlin.String;kotlin.String;kotlin.String){}[0]
+    abstract suspend fun getOnRampProviderBaseCurrencies(kotlin/String, kotlin/String): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Currencies> // dev.g000sha256.tdl/TdlClient.getOnRampProviderBaseCurrencies|getOnRampProviderBaseCurrencies(kotlin.String;kotlin.String){}[0]
+    abstract suspend fun getOnRampProviders(kotlin/String): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/OnRampProviders> // dev.g000sha256.tdl/TdlClient.getOnRampProviders|getOnRampProviders(kotlin.String){}[0]
     abstract suspend fun getOption(kotlin/String): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/OptionValue> // dev.g000sha256.tdl/TdlClient.getOption|getOption(kotlin.String){}[0]
     abstract suspend fun getOwnedBots(): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Users> // dev.g000sha256.tdl/TdlClient.getOwnedBots|getOwnedBots(){}[0]
     abstract suspend fun getOwnedStickerSets(kotlin/Long, kotlin/Int): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/StickerSets> // dev.g000sha256.tdl/TdlClient.getOwnedStickerSets|getOwnedStickerSets(kotlin.Long;kotlin.Int){}[0]
@@ -942,7 +974,18 @@ abstract class dev.g000sha256.tdl/TdlClient { // dev.g000sha256.tdl/TdlClient|nu
     abstract suspend fun getThemedChatEmojiStatuses(): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/EmojiStatusCustomEmojis> // dev.g000sha256.tdl/TdlClient.getThemedChatEmojiStatuses|getThemedChatEmojiStatuses(){}[0]
     abstract suspend fun getThemedEmojiStatuses(): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/EmojiStatusCustomEmojis> // dev.g000sha256.tdl/TdlClient.getThemedEmojiStatuses|getThemedEmojiStatuses(){}[0]
     abstract suspend fun getTimeZones(): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/TimeZones> // dev.g000sha256.tdl/TdlClient.getTimeZones|getTimeZones(){}[0]
+    abstract suspend fun getTonCenterStreamingApiUrl(): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/TonCenterStreamingApiUrl> // dev.g000sha256.tdl/TdlClient.getTonCenterStreamingApiUrl|getTonCenterStreamingApiUrl(){}[0]
+    abstract suspend fun getTonConnectDAppPendingRequests(kotlin/String): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/TonConnectRequests> // dev.g000sha256.tdl/TdlClient.getTonConnectDAppPendingRequests|getTonConnectDAppPendingRequests(kotlin.String){}[0]
+    abstract suspend fun getTonConnectSessionNextEventId(kotlin/Long): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/TonConnectSessionEventId> // dev.g000sha256.tdl/TdlClient.getTonConnectSessionNextEventId|getTonConnectSessionNextEventId(kotlin.Long){}[0]
+    abstract suspend fun getTonConnectSessionPendingRequests(kotlin/Long): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/TonConnectRequests> // dev.g000sha256.tdl/TdlClient.getTonConnectSessionPendingRequests|getTonConnectSessionPendingRequests(kotlin.Long){}[0]
+    abstract suspend fun getTonConnectSessions(): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/TonConnectSessions> // dev.g000sha256.tdl/TdlClient.getTonConnectSessions|getTonConnectSessions(){}[0]
     abstract suspend fun getTonTransactions(dev.g000sha256.tdl.dto/TransactionDirection? = ..., kotlin/String, kotlin/Int): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/TonTransactions> // dev.g000sha256.tdl/TdlClient.getTonTransactions|getTonTransactions(dev.g000sha256.tdl.dto.TransactionDirection?;kotlin.String;kotlin.Int){}[0]
+    abstract suspend fun getTonWalletNfts(kotlin/String, kotlin/Int): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/TonNfts> // dev.g000sha256.tdl/TdlClient.getTonWalletNfts|getTonWalletNfts(kotlin.String;kotlin.Int){}[0]
+    abstract suspend fun getTonWalletOwnershipProofChallenge(): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/TonWalletOwnershipProofChallenge> // dev.g000sha256.tdl/TdlClient.getTonWalletOwnershipProofChallenge|getTonWalletOwnershipProofChallenge(){}[0]
+    abstract suspend fun getTonWalletSecretPhrase(kotlin/String): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Text> // dev.g000sha256.tdl/TdlClient.getTonWalletSecretPhrase|getTonWalletSecretPhrase(kotlin.String){}[0]
+    abstract suspend fun getTonWalletTransaction(kotlin/String): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/TonWalletTransaction> // dev.g000sha256.tdl/TdlClient.getTonWalletTransaction|getTonWalletTransaction(kotlin.String){}[0]
+    abstract suspend fun getTonWalletTransactionByMsgHash(kotlin/String): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/TonWalletTransaction> // dev.g000sha256.tdl/TdlClient.getTonWalletTransactionByMsgHash|getTonWalletTransactionByMsgHash(kotlin.String){}[0]
+    abstract suspend fun getTonWalletTransactions(dev.g000sha256.tdl.dto/TransactionDirection? = ..., kotlin/String, kotlin/Int): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/TonWalletTransactions> // dev.g000sha256.tdl/TdlClient.getTonWalletTransactions|getTonWalletTransactions(dev.g000sha256.tdl.dto.TransactionDirection?;kotlin.String;kotlin.Int){}[0]
     abstract suspend fun getTopChats(dev.g000sha256.tdl.dto/TopChatCategory, kotlin/Int): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Chats> // dev.g000sha256.tdl/TdlClient.getTopChats|getTopChats(dev.g000sha256.tdl.dto.TopChatCategory;kotlin.Int){}[0]
     abstract suspend fun getTrendingStickerSets(dev.g000sha256.tdl.dto/StickerType, kotlin/Int, kotlin/Int): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/TrendingStickerSets> // dev.g000sha256.tdl/TdlClient.getTrendingStickerSets|getTrendingStickerSets(dev.g000sha256.tdl.dto.StickerType;kotlin.Int;kotlin.Int){}[0]
     abstract suspend fun getUpgradedGift(kotlin/String): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/UpgradedGift> // dev.g000sha256.tdl/TdlClient.getUpgradedGift|getUpgradedGift(kotlin.String){}[0]
@@ -959,6 +1002,7 @@ abstract class dev.g000sha256.tdl/TdlClient { // dev.g000sha256.tdl/TdlClient|nu
     abstract suspend fun getUserProfileAudios(kotlin/Long, kotlin/Int, kotlin/Int): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Audios> // dev.g000sha256.tdl/TdlClient.getUserProfileAudios|getUserProfileAudios(kotlin.Long;kotlin.Int;kotlin.Int){}[0]
     abstract suspend fun getUserProfilePhotos(kotlin/Long, kotlin/Int, kotlin/Int): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/ChatPhotos> // dev.g000sha256.tdl/TdlClient.getUserProfilePhotos|getUserProfilePhotos(kotlin.Long;kotlin.Int;kotlin.Int){}[0]
     abstract suspend fun getUserSupportInfo(kotlin/Long): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/UserSupportInfo> // dev.g000sha256.tdl/TdlClient.getUserSupportInfo|getUserSupportInfo(kotlin.Long){}[0]
+    abstract suspend fun getUserTonWalletAddresses(kotlin/LongArray): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/UserTonWalletAddresses> // dev.g000sha256.tdl/TdlClient.getUserTonWalletAddresses|getUserTonWalletAddresses(kotlin.LongArray){}[0]
     abstract suspend fun getVideoChatAvailableParticipants(kotlin/Long): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/MessageSenders> // dev.g000sha256.tdl/TdlClient.getVideoChatAvailableParticipants|getVideoChatAvailableParticipants(kotlin.Long){}[0]
     abstract suspend fun getVideoChatInviteLink(kotlin/Int, kotlin/Boolean): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/HttpUrl> // dev.g000sha256.tdl/TdlClient.getVideoChatInviteLink|getVideoChatInviteLink(kotlin.Int;kotlin.Boolean){}[0]
     abstract suspend fun getVideoChatRtmpUrl(kotlin/Long): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/RtmpUrl> // dev.g000sha256.tdl/TdlClient.getVideoChatRtmpUrl|getVideoChatRtmpUrl(kotlin.Long){}[0]
@@ -989,12 +1033,13 @@ abstract class dev.g000sha256.tdl/TdlClient { // dev.g000sha256.tdl/TdlClient|nu
     abstract suspend fun loadActiveStories(dev.g000sha256.tdl.dto/StoryList): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.loadActiveStories|loadActiveStories(dev.g000sha256.tdl.dto.StoryList){}[0]
     abstract suspend fun loadChatWelcomeMessages(kotlin/Long): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.loadChatWelcomeMessages|loadChatWelcomeMessages(kotlin.Long){}[0]
     abstract suspend fun loadChats(dev.g000sha256.tdl.dto/ChatList? = ..., kotlin/Int): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.loadChats|loadChats(dev.g000sha256.tdl.dto.ChatList?;kotlin.Int){}[0]
-    abstract suspend fun loadCommunityFullInfo(kotlin/Long): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.loadCommunityFullInfo|loadCommunityFullInfo(kotlin.Long){}[0]
     abstract suspend fun loadDirectMessagesChatTopics(kotlin/Long, kotlin/Int): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.loadDirectMessagesChatTopics|loadDirectMessagesChatTopics(kotlin.Long;kotlin.Int){}[0]
     abstract suspend fun loadGroupCallParticipants(kotlin/Int, kotlin/Int): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.loadGroupCallParticipants|loadGroupCallParticipants(kotlin.Int;kotlin.Int){}[0]
     abstract suspend fun loadQuickReplyShortcutMessages(kotlin/Int): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.loadQuickReplyShortcutMessages|loadQuickReplyShortcutMessages(kotlin.Int){}[0]
     abstract suspend fun loadQuickReplyShortcuts(): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.loadQuickReplyShortcuts|loadQuickReplyShortcuts(){}[0]
     abstract suspend fun loadSavedMessagesTopics(kotlin/Int): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.loadSavedMessagesTopics|loadSavedMessagesTopics(kotlin.Int){}[0]
+    abstract suspend fun loadTonWalletGaslessTransfersInfo(): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.loadTonWalletGaslessTransfersInfo|loadTonWalletGaslessTransfersInfo(){}[0]
+    abstract suspend fun loadTonWalletState(): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.loadTonWalletState|loadTonWalletState(){}[0]
     abstract suspend fun logOut(): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.logOut|logOut(){}[0]
     abstract suspend fun markChecklistTasksAsDone(kotlin/Long, kotlin/Long, kotlin/IntArray, kotlin/IntArray): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.markChecklistTasksAsDone|markChecklistTasksAsDone(kotlin.Long;kotlin.Long;kotlin.IntArray;kotlin.IntArray){}[0]
     abstract suspend fun openBotSimilarBot(kotlin/Long, kotlin/Long): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.openBotSimilarBot|openBotSimilarBot(kotlin.Long;kotlin.Long){}[0]
@@ -1080,7 +1125,9 @@ abstract class dev.g000sha256.tdl/TdlClient { // dev.g000sha256.tdl/TdlClient|nu
     abstract suspend fun replaceLiveStoryRtmpUrl(kotlin/Long): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/RtmpUrl> // dev.g000sha256.tdl/TdlClient.replaceLiveStoryRtmpUrl|replaceLiveStoryRtmpUrl(kotlin.Long){}[0]
     abstract suspend fun replacePrimaryChatInviteLink(kotlin/Long): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/ChatInviteLink> // dev.g000sha256.tdl/TdlClient.replacePrimaryChatInviteLink|replacePrimaryChatInviteLink(kotlin.Long){}[0]
     abstract suspend fun replaceStickerInSet(kotlin/Long, kotlin/String, dev.g000sha256.tdl.dto/InputFile, dev.g000sha256.tdl.dto/NewSticker): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.replaceStickerInSet|replaceStickerInSet(kotlin.Long;kotlin.String;dev.g000sha256.tdl.dto.InputFile;dev.g000sha256.tdl.dto.NewSticker){}[0]
+    abstract suspend fun replaceTonWallet(kotlin/String, kotlin/ByteArray, dev.g000sha256.tdl.dto/TonWalletOwnershipProof): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.replaceTonWallet|replaceTonWallet(kotlin.String;kotlin.ByteArray;dev.g000sha256.tdl.dto.TonWalletOwnershipProof){}[0]
     abstract suspend fun replaceVideoChatRtmpUrl(kotlin/Long): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/RtmpUrl> // dev.g000sha256.tdl/TdlClient.replaceVideoChatRtmpUrl|replaceVideoChatRtmpUrl(kotlin.Long){}[0]
+    abstract suspend fun replyToCallbackQueryWithEphemeralMessage(kotlin/Long, kotlin/Boolean, kotlin/Boolean, dev.g000sha256.tdl.dto/ReplyMarkup? = ..., dev.g000sha256.tdl.dto/InputMessageContent): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.replyToCallbackQueryWithEphemeralMessage|replyToCallbackQueryWithEphemeralMessage(kotlin.Long;kotlin.Boolean;kotlin.Boolean;dev.g000sha256.tdl.dto.ReplyMarkup?;dev.g000sha256.tdl.dto.InputMessageContent){}[0]
     abstract suspend fun reportAuthenticationCodeMissing(kotlin/String): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.reportAuthenticationCodeMissing|reportAuthenticationCodeMissing(kotlin.String){}[0]
     abstract suspend fun reportChat(kotlin/Long, kotlin/ByteArray, kotlin/LongArray, kotlin/String): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/ReportChatResult> // dev.g000sha256.tdl/TdlClient.reportChat|reportChat(kotlin.Long;kotlin.ByteArray;kotlin.LongArray;kotlin.String){}[0]
     abstract suspend fun reportChatPhoto(kotlin/Long, kotlin/Int, dev.g000sha256.tdl.dto/ReportReason, kotlin/String): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.reportChatPhoto|reportChatPhoto(kotlin.Long;kotlin.Int;dev.g000sha256.tdl.dto.ReportReason;kotlin.String){}[0]
@@ -1176,6 +1223,9 @@ abstract class dev.g000sha256.tdl/TdlClient { // dev.g000sha256.tdl/TdlClient|nu
     abstract suspend fun sendResoldGift(kotlin/String, dev.g000sha256.tdl.dto/MessageSender, dev.g000sha256.tdl.dto/GiftResalePrice, dev.g000sha256.tdl.dto/FormattedText, kotlin/Boolean): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/GiftResaleResult> // dev.g000sha256.tdl/TdlClient.sendResoldGift|sendResoldGift(kotlin.String;dev.g000sha256.tdl.dto.MessageSender;dev.g000sha256.tdl.dto.GiftResalePrice;dev.g000sha256.tdl.dto.FormattedText;kotlin.Boolean){}[0]
     abstract suspend fun sendRichMessageDraft(kotlin/Long, kotlin/Int, kotlin/Long, kotlin/Boolean, kotlin/Boolean, dev.g000sha256.tdl.dto/InputRichMessage): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.sendRichMessageDraft|sendRichMessageDraft(kotlin.Long;kotlin.Int;kotlin.Long;kotlin.Boolean;kotlin.Boolean;dev.g000sha256.tdl.dto.InputRichMessage){}[0]
     abstract suspend fun sendTextMessageDraft(kotlin/Long, kotlin/Int, kotlin/Long, kotlin/Boolean, kotlin/Boolean, dev.g000sha256.tdl.dto/FormattedText? = ...): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.sendTextMessageDraft|sendTextMessageDraft(kotlin.Long;kotlin.Int;kotlin.Long;kotlin.Boolean;kotlin.Boolean;dev.g000sha256.tdl.dto.FormattedText?){}[0]
+    abstract suspend fun sendTonCenterApiRequest(kotlin/String, dev.g000sha256.tdl.dto/TonCenterApiRequestType): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Text> // dev.g000sha256.tdl/TdlClient.sendTonCenterApiRequest|sendTonCenterApiRequest(kotlin.String;dev.g000sha256.tdl.dto.TonCenterApiRequestType){}[0]
+    abstract suspend fun sendTonConnectSessionConnectResult(kotlin/Long, kotlin/ByteArray, kotlin/Boolean, kotlin/ByteArray, kotlin/String): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.sendTonConnectSessionConnectResult|sendTonConnectSessionConnectResult(kotlin.Long;kotlin.ByteArray;kotlin.Boolean;kotlin.ByteArray;kotlin.String){}[0]
+    abstract suspend fun sendTonWalletTransfer(kotlin/Long, kotlin/String, kotlin/Long, kotlin/String, kotlin/Boolean, kotlin/Int, kotlin/ByteArray, kotlin/ByteArray): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/TonWalletTransferResult> // dev.g000sha256.tdl/TdlClient.sendTonWalletTransfer|sendTonWalletTransfer(kotlin.Long;kotlin.String;kotlin.Long;kotlin.String;kotlin.Boolean;kotlin.Int;kotlin.ByteArray;kotlin.ByteArray){}[0]
     abstract suspend fun sendWebAppCustomRequest(kotlin/Long, kotlin/String, kotlin/String): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/CustomRequestResult> // dev.g000sha256.tdl/TdlClient.sendWebAppCustomRequest|sendWebAppCustomRequest(kotlin.Long;kotlin.String;kotlin.String){}[0]
     abstract suspend fun sendWebAppData(kotlin/Long, kotlin/String, kotlin/String): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.sendWebAppData|sendWebAppData(kotlin.Long;kotlin.String;kotlin.String){}[0]
     abstract suspend fun setAccentColor(kotlin/Int, kotlin/Long): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.setAccentColor|setAccentColor(kotlin.Int;kotlin.Long){}[0]
@@ -1235,6 +1285,8 @@ abstract class dev.g000sha256.tdl/TdlClient { // dev.g000sha256.tdl/TdlClient|nu
     abstract suspend fun setCloseFriends(kotlin/LongArray): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.setCloseFriends|setCloseFriends(kotlin.LongArray){}[0]
     abstract suspend fun setCommands(dev.g000sha256.tdl.dto/BotCommandScope? = ..., kotlin/String, kotlin/Array<dev.g000sha256.tdl.dto/BotCommand>): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.setCommands|setCommands(dev.g000sha256.tdl.dto.BotCommandScope?;kotlin.String;kotlin.Array<dev.g000sha256.tdl.dto.BotCommand>){}[0]
     abstract suspend fun setCommunityName(kotlin/Long, kotlin/String): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.setCommunityName|setCommunityName(kotlin.Long;kotlin.String){}[0]
+    abstract suspend fun setCommunityPermissions(kotlin/Long, dev.g000sha256.tdl.dto/CommunityPermissions): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.setCommunityPermissions|setCommunityPermissions(kotlin.Long;dev.g000sha256.tdl.dto.CommunityPermissions){}[0]
+    abstract suspend fun setCommunityPhoto(kotlin/Long, dev.g000sha256.tdl.dto/InputChatPhoto? = ...): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.setCommunityPhoto|setCommunityPhoto(kotlin.Long;dev.g000sha256.tdl.dto.InputChatPhoto?){}[0]
     abstract suspend fun setCustomEmojiStickerSetThumbnail(kotlin/String, kotlin/Long): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.setCustomEmojiStickerSetThumbnail|setCustomEmojiStickerSetThumbnail(kotlin.String;kotlin.Long){}[0]
     abstract suspend fun setCustomLanguagePack(dev.g000sha256.tdl.dto/LanguagePackInfo, kotlin/Array<dev.g000sha256.tdl.dto/LanguagePackString>): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.setCustomLanguagePack|setCustomLanguagePack(dev.g000sha256.tdl.dto.LanguagePackInfo;kotlin.Array<dev.g000sha256.tdl.dto.LanguagePackString>){}[0]
     abstract suspend fun setCustomLanguagePackString(kotlin/String, dev.g000sha256.tdl.dto/LanguagePackString): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.setCustomLanguagePackString|setCustomLanguagePackString(kotlin.String;dev.g000sha256.tdl.dto.LanguagePackString){}[0]
@@ -1268,7 +1320,7 @@ abstract class dev.g000sha256.tdl/TdlClient { // dev.g000sha256.tdl/TdlClient|nu
     abstract suspend fun setMessageFactCheck(kotlin/Long, kotlin/Long, dev.g000sha256.tdl.dto/FormattedText? = ...): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.setMessageFactCheck|setMessageFactCheck(kotlin.Long;kotlin.Long;dev.g000sha256.tdl.dto.FormattedText?){}[0]
     abstract suspend fun setMessageReactions(kotlin/Long, kotlin/Long, kotlin/Array<dev.g000sha256.tdl.dto/ReactionType>, kotlin/Boolean): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.setMessageReactions|setMessageReactions(kotlin.Long;kotlin.Long;kotlin.Array<dev.g000sha256.tdl.dto.ReactionType>;kotlin.Boolean){}[0]
     abstract suspend fun setMessageSenderBlockList(dev.g000sha256.tdl.dto/MessageSender, dev.g000sha256.tdl.dto/BlockList? = ...): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.setMessageSenderBlockList|setMessageSenderBlockList(dev.g000sha256.tdl.dto.MessageSender;dev.g000sha256.tdl.dto.BlockList?){}[0]
-    abstract suspend fun setMessageSenderBotVerification(kotlin/Long, dev.g000sha256.tdl.dto/MessageSender, kotlin/String): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.setMessageSenderBotVerification|setMessageSenderBotVerification(kotlin.Long;dev.g000sha256.tdl.dto.MessageSender;kotlin.String){}[0]
+    abstract suspend fun setMessageSenderBotVerification(kotlin/Long, dev.g000sha256.tdl.dto/MessageSender, dev.g000sha256.tdl.dto/FormattedText): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.setMessageSenderBotVerification|setMessageSenderBotVerification(kotlin.Long;dev.g000sha256.tdl.dto.MessageSender;dev.g000sha256.tdl.dto.FormattedText){}[0]
     abstract suspend fun setName(kotlin/String, kotlin/String): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.setName|setName(kotlin.String;kotlin.String){}[0]
     abstract suspend fun setNetworkType(dev.g000sha256.tdl.dto/NetworkType? = ...): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.setNetworkType|setNetworkType(dev.g000sha256.tdl.dto.NetworkType?){}[0]
     abstract suspend fun setNewChatPrivacySettings(dev.g000sha256.tdl.dto/NewChatPrivacySettings): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.setNewChatPrivacySettings|setNewChatPrivacySettings(dev.g000sha256.tdl.dto.NewChatPrivacySettings){}[0]
@@ -1307,6 +1359,7 @@ abstract class dev.g000sha256.tdl/TdlClient { // dev.g000sha256.tdl/TdlClient|nu
     abstract suspend fun setSupergroupUnrestrictBoostCount(kotlin/Long, kotlin/Int): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.setSupergroupUnrestrictBoostCount|setSupergroupUnrestrictBoostCount(kotlin.Long;kotlin.Int){}[0]
     abstract suspend fun setSupergroupUsername(kotlin/Long, kotlin/String): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.setSupergroupUsername|setSupergroupUsername(kotlin.Long;kotlin.String){}[0]
     abstract suspend fun setTdlibParameters(kotlin/Boolean, kotlin/String, kotlin/String, kotlin/ByteArray, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Int, kotlin/String, kotlin/String, kotlin/String, kotlin/String, kotlin/String): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.setTdlibParameters|setTdlibParameters(kotlin.Boolean;kotlin.String;kotlin.String;kotlin.ByteArray;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Int;kotlin.String;kotlin.String;kotlin.String;kotlin.String;kotlin.String){}[0]
+    abstract suspend fun setTonConnectSessionWalletClientId(kotlin/Long, kotlin/String): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/TonConnectChallenge> // dev.g000sha256.tdl/TdlClient.setTonConnectSessionWalletClientId|setTonConnectSessionWalletClientId(kotlin.Long;kotlin.String){}[0]
     abstract suspend fun setUpgradedGiftColors(kotlin/Long): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.setUpgradedGiftColors|setUpgradedGiftColors(kotlin.Long){}[0]
     abstract suspend fun setUserEmojiStatus(kotlin/Long, dev.g000sha256.tdl.dto/EmojiStatus? = ...): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.setUserEmojiStatus|setUserEmojiStatus(kotlin.Long;dev.g000sha256.tdl.dto.EmojiStatus?){}[0]
     abstract suspend fun setUserNote(kotlin/Long, dev.g000sha256.tdl.dto/FormattedText): dev.g000sha256.tdl/TdlResult<dev.g000sha256.tdl.dto/Ok> // dev.g000sha256.tdl/TdlClient.setUserNote|setUserNote(kotlin.Long;dev.g000sha256.tdl.dto.FormattedText){}[0]
@@ -1763,10 +1816,12 @@ final class dev.g000sha256.tdl.dto/AnimatedChatPhoto { // dev.g000sha256.tdl.dto
 }
 
 final class dev.g000sha256.tdl.dto/AnimatedEmoji { // dev.g000sha256.tdl.dto/AnimatedEmoji|null[0]
-    constructor <init>(dev.g000sha256.tdl.dto/Sticker?, kotlin/Int, kotlin/Int, kotlin/Int, dev.g000sha256.tdl.dto/File?) // dev.g000sha256.tdl.dto/AnimatedEmoji.<init>|<init>(dev.g000sha256.tdl.dto.Sticker?;kotlin.Int;kotlin.Int;kotlin.Int;dev.g000sha256.tdl.dto.File?){}[0]
+    constructor <init>(dev.g000sha256.tdl.dto/Sticker?, kotlin/Int, kotlin/Int, kotlin/Int, dev.g000sha256.tdl.dto/File?, kotlin/Boolean) // dev.g000sha256.tdl.dto/AnimatedEmoji.<init>|<init>(dev.g000sha256.tdl.dto.Sticker?;kotlin.Int;kotlin.Int;kotlin.Int;dev.g000sha256.tdl.dto.File?;kotlin.Boolean){}[0]
 
     final val fitzpatrickType // dev.g000sha256.tdl.dto/AnimatedEmoji.fitzpatrickType|{}fitzpatrickType[0]
         final fun <get-fitzpatrickType>(): kotlin/Int // dev.g000sha256.tdl.dto/AnimatedEmoji.fitzpatrickType.<get-fitzpatrickType>|<get-fitzpatrickType>(){}[0]
+    final val isRegularEmoji // dev.g000sha256.tdl.dto/AnimatedEmoji.isRegularEmoji|{}isRegularEmoji[0]
+        final fun <get-isRegularEmoji>(): kotlin/Boolean // dev.g000sha256.tdl.dto/AnimatedEmoji.isRegularEmoji.<get-isRegularEmoji>|<get-isRegularEmoji>(){}[0]
     final val sound // dev.g000sha256.tdl.dto/AnimatedEmoji.sound|{}sound[0]
         final fun <get-sound>(): dev.g000sha256.tdl.dto/File? // dev.g000sha256.tdl.dto/AnimatedEmoji.sound.<get-sound>|<get-sound>(){}[0]
     final val sticker // dev.g000sha256.tdl.dto/AnimatedEmoji.sticker|{}sticker[0]
@@ -7174,6 +7229,41 @@ final class dev.g000sha256.tdl.dto/CreatedBasicGroupChat { // dev.g000sha256.tdl
     final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/CreatedBasicGroupChat.equals|equals(kotlin.Any?){}[0]
     final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/CreatedBasicGroupChat.hashCode|hashCode(){}[0]
     final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/CreatedBasicGroupChat.toString|toString(){}[0]
+}
+
+final class dev.g000sha256.tdl.dto/Currencies { // dev.g000sha256.tdl.dto/Currencies|null[0]
+    constructor <init>(kotlin/Array<kotlin/String>) // dev.g000sha256.tdl.dto/Currencies.<init>|<init>(kotlin.Array<kotlin.String>){}[0]
+
+    final val currencies // dev.g000sha256.tdl.dto/Currencies.currencies|{}currencies[0]
+        final fun <get-currencies>(): kotlin/Array<kotlin/String> // dev.g000sha256.tdl.dto/Currencies.currencies.<get-currencies>|<get-currencies>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/Currencies.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/Currencies.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/Currencies.toString|toString(){}[0]
+}
+
+final class dev.g000sha256.tdl.dto/CurrencyExchangeRate { // dev.g000sha256.tdl.dto/CurrencyExchangeRate|null[0]
+    constructor <init>(kotlin/String, kotlin/Double) // dev.g000sha256.tdl.dto/CurrencyExchangeRate.<init>|<init>(kotlin.String;kotlin.Double){}[0]
+
+    final val currency // dev.g000sha256.tdl.dto/CurrencyExchangeRate.currency|{}currency[0]
+        final fun <get-currency>(): kotlin/String // dev.g000sha256.tdl.dto/CurrencyExchangeRate.currency.<get-currency>|<get-currency>(){}[0]
+    final val rate // dev.g000sha256.tdl.dto/CurrencyExchangeRate.rate|{}rate[0]
+        final fun <get-rate>(): kotlin/Double // dev.g000sha256.tdl.dto/CurrencyExchangeRate.rate.<get-rate>|<get-rate>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/CurrencyExchangeRate.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/CurrencyExchangeRate.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/CurrencyExchangeRate.toString|toString(){}[0]
+}
+
+final class dev.g000sha256.tdl.dto/CurrencyExchangeRates { // dev.g000sha256.tdl.dto/CurrencyExchangeRates|null[0]
+    constructor <init>(kotlin/Array<dev.g000sha256.tdl.dto/CurrencyExchangeRate>) // dev.g000sha256.tdl.dto/CurrencyExchangeRates.<init>|<init>(kotlin.Array<dev.g000sha256.tdl.dto.CurrencyExchangeRate>){}[0]
+
+    final val rates // dev.g000sha256.tdl.dto/CurrencyExchangeRates.rates|{}rates[0]
+        final fun <get-rates>(): kotlin/Array<dev.g000sha256.tdl.dto/CurrencyExchangeRate> // dev.g000sha256.tdl.dto/CurrencyExchangeRates.rates.<get-rates>|<get-rates>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/CurrencyExchangeRates.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/CurrencyExchangeRates.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/CurrencyExchangeRates.toString|toString(){}[0]
 }
 
 final class dev.g000sha256.tdl.dto/CurrentWeather { // dev.g000sha256.tdl.dto/CurrentWeather|null[0]
@@ -12998,6 +13088,40 @@ final class dev.g000sha256.tdl.dto/InternalLinkTypeTheme : dev.g000sha256.tdl.dt
     final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/InternalLinkTypeTheme.toString|toString(){}[0]
 }
 
+final class dev.g000sha256.tdl.dto/InternalLinkTypeTonConnect : dev.g000sha256.tdl.dto/InternalLinkType { // dev.g000sha256.tdl.dto/InternalLinkTypeTonConnect|null[0]
+    constructor <init>(kotlin/Int, kotlin/String, dev.g000sha256.tdl.dto/TonConnectConnectRequest, kotlin/String, kotlin/String, kotlin/String) // dev.g000sha256.tdl.dto/InternalLinkTypeTonConnect.<init>|<init>(kotlin.Int;kotlin.String;dev.g000sha256.tdl.dto.TonConnectConnectRequest;kotlin.String;kotlin.String;kotlin.String){}[0]
+
+    final val connectRequest // dev.g000sha256.tdl.dto/InternalLinkTypeTonConnect.connectRequest|{}connectRequest[0]
+        final fun <get-connectRequest>(): dev.g000sha256.tdl.dto/TonConnectConnectRequest // dev.g000sha256.tdl.dto/InternalLinkTypeTonConnect.connectRequest.<get-connectRequest>|<get-connectRequest>(){}[0]
+    final val dappClientId // dev.g000sha256.tdl.dto/InternalLinkTypeTonConnect.dappClientId|{}dappClientId[0]
+        final fun <get-dappClientId>(): kotlin/String // dev.g000sha256.tdl.dto/InternalLinkTypeTonConnect.dappClientId.<get-dappClientId>|<get-dappClientId>(){}[0]
+    final val returnStrategy // dev.g000sha256.tdl.dto/InternalLinkTypeTonConnect.returnStrategy|{}returnStrategy[0]
+        final fun <get-returnStrategy>(): kotlin/String // dev.g000sha256.tdl.dto/InternalLinkTypeTonConnect.returnStrategy.<get-returnStrategy>|<get-returnStrategy>(){}[0]
+    final val rpcRequest // dev.g000sha256.tdl.dto/InternalLinkTypeTonConnect.rpcRequest|{}rpcRequest[0]
+        final fun <get-rpcRequest>(): kotlin/String // dev.g000sha256.tdl.dto/InternalLinkTypeTonConnect.rpcRequest.<get-rpcRequest>|<get-rpcRequest>(){}[0]
+    final val traceId // dev.g000sha256.tdl.dto/InternalLinkTypeTonConnect.traceId|{}traceId[0]
+        final fun <get-traceId>(): kotlin/String // dev.g000sha256.tdl.dto/InternalLinkTypeTonConnect.traceId.<get-traceId>|<get-traceId>(){}[0]
+    final val version // dev.g000sha256.tdl.dto/InternalLinkTypeTonConnect.version|{}version[0]
+        final fun <get-version>(): kotlin/Int // dev.g000sha256.tdl.dto/InternalLinkTypeTonConnect.version.<get-version>|<get-version>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/InternalLinkTypeTonConnect.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/InternalLinkTypeTonConnect.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/InternalLinkTypeTonConnect.toString|toString(){}[0]
+}
+
+final class dev.g000sha256.tdl.dto/InternalLinkTypeTonWalletTransfer : dev.g000sha256.tdl.dto/InternalLinkType { // dev.g000sha256.tdl.dto/InternalLinkTypeTonWalletTransfer|null[0]
+    constructor <init>(dev.g000sha256.tdl.dto/TonWalletTransferReceiver?, kotlin/Long) // dev.g000sha256.tdl.dto/InternalLinkTypeTonWalletTransfer.<init>|<init>(dev.g000sha256.tdl.dto.TonWalletTransferReceiver?;kotlin.Long){}[0]
+
+    final val gramAmount // dev.g000sha256.tdl.dto/InternalLinkTypeTonWalletTransfer.gramAmount|{}gramAmount[0]
+        final fun <get-gramAmount>(): kotlin/Long // dev.g000sha256.tdl.dto/InternalLinkTypeTonWalletTransfer.gramAmount.<get-gramAmount>|<get-gramAmount>(){}[0]
+    final val receiver // dev.g000sha256.tdl.dto/InternalLinkTypeTonWalletTransfer.receiver|{}receiver[0]
+        final fun <get-receiver>(): dev.g000sha256.tdl.dto/TonWalletTransferReceiver? // dev.g000sha256.tdl.dto/InternalLinkTypeTonWalletTransfer.receiver.<get-receiver>|<get-receiver>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/InternalLinkTypeTonWalletTransfer.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/InternalLinkTypeTonWalletTransfer.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/InternalLinkTypeTonWalletTransfer.toString|toString(){}[0]
+}
+
 final class dev.g000sha256.tdl.dto/InternalLinkTypeUnknownDeepLink : dev.g000sha256.tdl.dto/InternalLinkType { // dev.g000sha256.tdl.dto/InternalLinkTypeUnknownDeepLink|null[0]
     constructor <init>(kotlin/String) // dev.g000sha256.tdl.dto/InternalLinkTypeUnknownDeepLink.<init>|<init>(kotlin.String){}[0]
 
@@ -15844,7 +15968,7 @@ final class dev.g000sha256.tdl.dto/MessagePremiumGiftCode : dev.g000sha256.tdl.d
 }
 
 final class dev.g000sha256.tdl.dto/MessageProperties { // dev.g000sha256.tdl.dto/MessageProperties|null[0]
-    constructor <init>(kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean) // dev.g000sha256.tdl.dto/MessageProperties.<init>|<init>(kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean){}[0]
+    constructor <init>(kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/LongArray, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean) // dev.g000sha256.tdl.dto/MessageProperties.<init>|<init>(kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.LongArray;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean){}[0]
 
     final val canAddOffer // dev.g000sha256.tdl.dto/MessageProperties.canAddOffer|{}canAddOffer[0]
         final fun <get-canAddOffer>(): kotlin/Boolean // dev.g000sha256.tdl.dto/MessageProperties.canAddOffer.<get-canAddOffer>|<get-canAddOffer>(){}[0]
@@ -15918,6 +16042,8 @@ final class dev.g000sha256.tdl.dto/MessageProperties { // dev.g000sha256.tdl.dto
         final fun <get-canReportSupergroupSpam>(): kotlin/Boolean // dev.g000sha256.tdl.dto/MessageProperties.canReportSupergroupSpam.<get-canReportSupergroupSpam>|<get-canReportSupergroupSpam>(){}[0]
     final val canSetFactCheck // dev.g000sha256.tdl.dto/MessageProperties.canSetFactCheck|{}canSetFactCheck[0]
         final fun <get-canSetFactCheck>(): kotlin/Boolean // dev.g000sha256.tdl.dto/MessageProperties.canSetFactCheck.<get-canSetFactCheck>|<get-canSetFactCheck>(){}[0]
+    final val customEmojiIds // dev.g000sha256.tdl.dto/MessageProperties.customEmojiIds|{}customEmojiIds[0]
+        final fun <get-customEmojiIds>(): kotlin/LongArray // dev.g000sha256.tdl.dto/MessageProperties.customEmojiIds.<get-customEmojiIds>|<get-customEmojiIds>(){}[0]
     final val hasProtectedContentByCurrentUser // dev.g000sha256.tdl.dto/MessageProperties.hasProtectedContentByCurrentUser|{}hasProtectedContentByCurrentUser[0]
         final fun <get-hasProtectedContentByCurrentUser>(): kotlin/Boolean // dev.g000sha256.tdl.dto/MessageProperties.hasProtectedContentByCurrentUser.<get-hasProtectedContentByCurrentUser>|<get-hasProtectedContentByCurrentUser>(){}[0]
     final val hasProtectedContentByOtherUser // dev.g000sha256.tdl.dto/MessageProperties.hasProtectedContentByOtherUser|{}hasProtectedContentByOtherUser[0]
@@ -16552,6 +16678,46 @@ final class dev.g000sha256.tdl.dto/MessageThreadInfo { // dev.g000sha256.tdl.dto
     final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/MessageThreadInfo.equals|equals(kotlin.Any?){}[0]
     final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/MessageThreadInfo.hashCode|hashCode(){}[0]
     final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/MessageThreadInfo.toString|toString(){}[0]
+}
+
+final class dev.g000sha256.tdl.dto/MessageTonConnectRequest : dev.g000sha256.tdl.dto/MessageContent { // dev.g000sha256.tdl.dto/MessageTonConnectRequest|null[0]
+    constructor <init>(kotlin/Long, dev.g000sha256.tdl.dto/TonConnectRequestState, kotlin/String, kotlin/String, kotlin/String) // dev.g000sha256.tdl.dto/MessageTonConnectRequest.<init>|<init>(kotlin.Long;dev.g000sha256.tdl.dto.TonConnectRequestState;kotlin.String;kotlin.String;kotlin.String){}[0]
+
+    final val dappName // dev.g000sha256.tdl.dto/MessageTonConnectRequest.dappName|{}dappName[0]
+        final fun <get-dappName>(): kotlin/String // dev.g000sha256.tdl.dto/MessageTonConnectRequest.dappName.<get-dappName>|<get-dappName>(){}[0]
+    final val sessionId // dev.g000sha256.tdl.dto/MessageTonConnectRequest.sessionId|{}sessionId[0]
+        final fun <get-sessionId>(): kotlin/Long // dev.g000sha256.tdl.dto/MessageTonConnectRequest.sessionId.<get-sessionId>|<get-sessionId>(){}[0]
+    final val state // dev.g000sha256.tdl.dto/MessageTonConnectRequest.state|{}state[0]
+        final fun <get-state>(): dev.g000sha256.tdl.dto/TonConnectRequestState // dev.g000sha256.tdl.dto/MessageTonConnectRequest.state.<get-state>|<get-state>(){}[0]
+    final val topic // dev.g000sha256.tdl.dto/MessageTonConnectRequest.topic|{}topic[0]
+        final fun <get-topic>(): kotlin/String // dev.g000sha256.tdl.dto/MessageTonConnectRequest.topic.<get-topic>|<get-topic>(){}[0]
+    final val traceId // dev.g000sha256.tdl.dto/MessageTonConnectRequest.traceId|{}traceId[0]
+        final fun <get-traceId>(): kotlin/String // dev.g000sha256.tdl.dto/MessageTonConnectRequest.traceId.<get-traceId>|<get-traceId>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/MessageTonConnectRequest.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/MessageTonConnectRequest.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/MessageTonConnectRequest.toString|toString(){}[0]
+}
+
+final class dev.g000sha256.tdl.dto/MessageTonWalletTransfer : dev.g000sha256.tdl.dto/MessageContent { // dev.g000sha256.tdl.dto/MessageTonWalletTransfer|null[0]
+    constructor <init>(kotlin/Long, kotlin/String, kotlin/String, kotlin/Long, kotlin/String, kotlin/Boolean) // dev.g000sha256.tdl.dto/MessageTonWalletTransfer.<init>|<init>(kotlin.Long;kotlin.String;kotlin.String;kotlin.Long;kotlin.String;kotlin.Boolean){}[0]
+
+    final val amount // dev.g000sha256.tdl.dto/MessageTonWalletTransfer.amount|{}amount[0]
+        final fun <get-amount>(): kotlin/Long // dev.g000sha256.tdl.dto/MessageTonWalletTransfer.amount.<get-amount>|<get-amount>(){}[0]
+    final val comment // dev.g000sha256.tdl.dto/MessageTonWalletTransfer.comment|{}comment[0]
+        final fun <get-comment>(): kotlin/String // dev.g000sha256.tdl.dto/MessageTonWalletTransfer.comment.<get-comment>|<get-comment>(){}[0]
+    final val isCommentEncrypted // dev.g000sha256.tdl.dto/MessageTonWalletTransfer.isCommentEncrypted|{}isCommentEncrypted[0]
+        final fun <get-isCommentEncrypted>(): kotlin/Boolean // dev.g000sha256.tdl.dto/MessageTonWalletTransfer.isCommentEncrypted.<get-isCommentEncrypted>|<get-isCommentEncrypted>(){}[0]
+    final val peerAddress // dev.g000sha256.tdl.dto/MessageTonWalletTransfer.peerAddress|{}peerAddress[0]
+        final fun <get-peerAddress>(): kotlin/String // dev.g000sha256.tdl.dto/MessageTonWalletTransfer.peerAddress.<get-peerAddress>|<get-peerAddress>(){}[0]
+    final val senderUserId // dev.g000sha256.tdl.dto/MessageTonWalletTransfer.senderUserId|{}senderUserId[0]
+        final fun <get-senderUserId>(): kotlin/Long // dev.g000sha256.tdl.dto/MessageTonWalletTransfer.senderUserId.<get-senderUserId>|<get-senderUserId>(){}[0]
+    final val transactionId // dev.g000sha256.tdl.dto/MessageTonWalletTransfer.transactionId|{}transactionId[0]
+        final fun <get-transactionId>(): kotlin/String // dev.g000sha256.tdl.dto/MessageTonWalletTransfer.transactionId.<get-transactionId>|<get-transactionId>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/MessageTonWalletTransfer.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/MessageTonWalletTransfer.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/MessageTonWalletTransfer.toString|toString(){}[0]
 }
 
 final class dev.g000sha256.tdl.dto/MessageTopicDirectMessages : dev.g000sha256.tdl.dto/MessageTopic { // dev.g000sha256.tdl.dto/MessageTopicDirectMessages|null[0]
@@ -17210,6 +17376,131 @@ final class dev.g000sha256.tdl.dto/Ok { // dev.g000sha256.tdl.dto/Ok|null[0]
     final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/Ok.equals|equals(kotlin.Any?){}[0]
     final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/Ok.hashCode|hashCode(){}[0]
     final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/Ok.toString|toString(){}[0]
+}
+
+final class dev.g000sha256.tdl.dto/OnRampPaymentAvailability { // dev.g000sha256.tdl.dto/OnRampPaymentAvailability|null[0]
+    constructor <init>(kotlin/Boolean, kotlin/Boolean, kotlin/Array<dev.g000sha256.tdl.dto/OnRampPaymentMethod>, kotlin/String, kotlin/String) // dev.g000sha256.tdl.dto/OnRampPaymentAvailability.<init>|<init>(kotlin.Boolean;kotlin.Boolean;kotlin.Array<dev.g000sha256.tdl.dto.OnRampPaymentMethod>;kotlin.String;kotlin.String){}[0]
+
+    final val countryCode // dev.g000sha256.tdl.dto/OnRampPaymentAvailability.countryCode|{}countryCode[0]
+        final fun <get-countryCode>(): kotlin/String // dev.g000sha256.tdl.dto/OnRampPaymentAvailability.countryCode.<get-countryCode>|<get-countryCode>(){}[0]
+    final val isAllowed // dev.g000sha256.tdl.dto/OnRampPaymentAvailability.isAllowed|{}isAllowed[0]
+        final fun <get-isAllowed>(): kotlin/Boolean // dev.g000sha256.tdl.dto/OnRampPaymentAvailability.isAllowed.<get-isAllowed>|<get-isAllowed>(){}[0]
+    final val isPurchaseAllowed // dev.g000sha256.tdl.dto/OnRampPaymentAvailability.isPurchaseAllowed|{}isPurchaseAllowed[0]
+        final fun <get-isPurchaseAllowed>(): kotlin/Boolean // dev.g000sha256.tdl.dto/OnRampPaymentAvailability.isPurchaseAllowed.<get-isPurchaseAllowed>|<get-isPurchaseAllowed>(){}[0]
+    final val methods // dev.g000sha256.tdl.dto/OnRampPaymentAvailability.methods|{}methods[0]
+        final fun <get-methods>(): kotlin/Array<dev.g000sha256.tdl.dto/OnRampPaymentMethod> // dev.g000sha256.tdl.dto/OnRampPaymentAvailability.methods.<get-methods>|<get-methods>(){}[0]
+    final val state // dev.g000sha256.tdl.dto/OnRampPaymentAvailability.state|{}state[0]
+        final fun <get-state>(): kotlin/String // dev.g000sha256.tdl.dto/OnRampPaymentAvailability.state.<get-state>|<get-state>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/OnRampPaymentAvailability.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/OnRampPaymentAvailability.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/OnRampPaymentAvailability.toString|toString(){}[0]
+}
+
+final class dev.g000sha256.tdl.dto/OnRampPaymentLimits { // dev.g000sha256.tdl.dto/OnRampPaymentLimits|null[0]
+    constructor <init>(kotlin/String, kotlin/String, kotlin/String, kotlin/String, kotlin/String) // dev.g000sha256.tdl.dto/OnRampPaymentLimits.<init>|<init>(kotlin.String;kotlin.String;kotlin.String;kotlin.String;kotlin.String){}[0]
+
+    final val baseCurrencyMaxAmount // dev.g000sha256.tdl.dto/OnRampPaymentLimits.baseCurrencyMaxAmount|{}baseCurrencyMaxAmount[0]
+        final fun <get-baseCurrencyMaxAmount>(): kotlin/String // dev.g000sha256.tdl.dto/OnRampPaymentLimits.baseCurrencyMaxAmount.<get-baseCurrencyMaxAmount>|<get-baseCurrencyMaxAmount>(){}[0]
+    final val baseCurrencyMinAmount // dev.g000sha256.tdl.dto/OnRampPaymentLimits.baseCurrencyMinAmount|{}baseCurrencyMinAmount[0]
+        final fun <get-baseCurrencyMinAmount>(): kotlin/String // dev.g000sha256.tdl.dto/OnRampPaymentLimits.baseCurrencyMinAmount.<get-baseCurrencyMinAmount>|<get-baseCurrencyMinAmount>(){}[0]
+    final val cryptocurrencyMaxAmount // dev.g000sha256.tdl.dto/OnRampPaymentLimits.cryptocurrencyMaxAmount|{}cryptocurrencyMaxAmount[0]
+        final fun <get-cryptocurrencyMaxAmount>(): kotlin/String // dev.g000sha256.tdl.dto/OnRampPaymentLimits.cryptocurrencyMaxAmount.<get-cryptocurrencyMaxAmount>|<get-cryptocurrencyMaxAmount>(){}[0]
+    final val cryptocurrencyMinAmount // dev.g000sha256.tdl.dto/OnRampPaymentLimits.cryptocurrencyMinAmount|{}cryptocurrencyMinAmount[0]
+        final fun <get-cryptocurrencyMinAmount>(): kotlin/String // dev.g000sha256.tdl.dto/OnRampPaymentLimits.cryptocurrencyMinAmount.<get-cryptocurrencyMinAmount>|<get-cryptocurrencyMinAmount>(){}[0]
+    final val paymentMethod // dev.g000sha256.tdl.dto/OnRampPaymentLimits.paymentMethod|{}paymentMethod[0]
+        final fun <get-paymentMethod>(): kotlin/String // dev.g000sha256.tdl.dto/OnRampPaymentLimits.paymentMethod.<get-paymentMethod>|<get-paymentMethod>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/OnRampPaymentLimits.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/OnRampPaymentLimits.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/OnRampPaymentLimits.toString|toString(){}[0]
+}
+
+final class dev.g000sha256.tdl.dto/OnRampPaymentMethod { // dev.g000sha256.tdl.dto/OnRampPaymentMethod|null[0]
+    constructor <init>(kotlin/String, kotlin/Boolean) // dev.g000sha256.tdl.dto/OnRampPaymentMethod.<init>|<init>(kotlin.String;kotlin.Boolean){}[0]
+
+    final val isAvailable // dev.g000sha256.tdl.dto/OnRampPaymentMethod.isAvailable|{}isAvailable[0]
+        final fun <get-isAvailable>(): kotlin/Boolean // dev.g000sha256.tdl.dto/OnRampPaymentMethod.isAvailable.<get-isAvailable>|<get-isAvailable>(){}[0]
+    final val name // dev.g000sha256.tdl.dto/OnRampPaymentMethod.name|{}name[0]
+        final fun <get-name>(): kotlin/String // dev.g000sha256.tdl.dto/OnRampPaymentMethod.name.<get-name>|<get-name>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/OnRampPaymentMethod.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/OnRampPaymentMethod.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/OnRampPaymentMethod.toString|toString(){}[0]
+}
+
+final class dev.g000sha256.tdl.dto/OnRampPaymentQuote { // dev.g000sha256.tdl.dto/OnRampPaymentQuote|null[0]
+    constructor <init>(kotlin/String, kotlin/Int, kotlin/String, kotlin/String, kotlin/String, kotlin/String, kotlin/String, kotlin/String, kotlin/String) // dev.g000sha256.tdl.dto/OnRampPaymentQuote.<init>|<init>(kotlin.String;kotlin.Int;kotlin.String;kotlin.String;kotlin.String;kotlin.String;kotlin.String;kotlin.String;kotlin.String){}[0]
+
+    final val baseCurrencyAmount // dev.g000sha256.tdl.dto/OnRampPaymentQuote.baseCurrencyAmount|{}baseCurrencyAmount[0]
+        final fun <get-baseCurrencyAmount>(): kotlin/String // dev.g000sha256.tdl.dto/OnRampPaymentQuote.baseCurrencyAmount.<get-baseCurrencyAmount>|<get-baseCurrencyAmount>(){}[0]
+    final val cryptocurrencyAmount // dev.g000sha256.tdl.dto/OnRampPaymentQuote.cryptocurrencyAmount|{}cryptocurrencyAmount[0]
+        final fun <get-cryptocurrencyAmount>(): kotlin/String // dev.g000sha256.tdl.dto/OnRampPaymentQuote.cryptocurrencyAmount.<get-cryptocurrencyAmount>|<get-cryptocurrencyAmount>(){}[0]
+    final val cryptocurrencyPrice // dev.g000sha256.tdl.dto/OnRampPaymentQuote.cryptocurrencyPrice|{}cryptocurrencyPrice[0]
+        final fun <get-cryptocurrencyPrice>(): kotlin/String // dev.g000sha256.tdl.dto/OnRampPaymentQuote.cryptocurrencyPrice.<get-cryptocurrencyPrice>|<get-cryptocurrencyPrice>(){}[0]
+    final val expirationDate // dev.g000sha256.tdl.dto/OnRampPaymentQuote.expirationDate|{}expirationDate[0]
+        final fun <get-expirationDate>(): kotlin/Int // dev.g000sha256.tdl.dto/OnRampPaymentQuote.expirationDate.<get-expirationDate>|<get-expirationDate>(){}[0]
+    final val extraFeeAmount // dev.g000sha256.tdl.dto/OnRampPaymentQuote.extraFeeAmount|{}extraFeeAmount[0]
+        final fun <get-extraFeeAmount>(): kotlin/String // dev.g000sha256.tdl.dto/OnRampPaymentQuote.extraFeeAmount.<get-extraFeeAmount>|<get-extraFeeAmount>(){}[0]
+    final val feeAmount // dev.g000sha256.tdl.dto/OnRampPaymentQuote.feeAmount|{}feeAmount[0]
+        final fun <get-feeAmount>(): kotlin/String // dev.g000sha256.tdl.dto/OnRampPaymentQuote.feeAmount.<get-feeAmount>|<get-feeAmount>(){}[0]
+    final val networkFeeAmount // dev.g000sha256.tdl.dto/OnRampPaymentQuote.networkFeeAmount|{}networkFeeAmount[0]
+        final fun <get-networkFeeAmount>(): kotlin/String // dev.g000sha256.tdl.dto/OnRampPaymentQuote.networkFeeAmount.<get-networkFeeAmount>|<get-networkFeeAmount>(){}[0]
+    final val paymentMethod // dev.g000sha256.tdl.dto/OnRampPaymentQuote.paymentMethod|{}paymentMethod[0]
+        final fun <get-paymentMethod>(): kotlin/String // dev.g000sha256.tdl.dto/OnRampPaymentQuote.paymentMethod.<get-paymentMethod>|<get-paymentMethod>(){}[0]
+    final val totalAmount // dev.g000sha256.tdl.dto/OnRampPaymentQuote.totalAmount|{}totalAmount[0]
+        final fun <get-totalAmount>(): kotlin/String // dev.g000sha256.tdl.dto/OnRampPaymentQuote.totalAmount.<get-totalAmount>|<get-totalAmount>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/OnRampPaymentQuote.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/OnRampPaymentQuote.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/OnRampPaymentQuote.toString|toString(){}[0]
+}
+
+final class dev.g000sha256.tdl.dto/OnRampPaymentSession { // dev.g000sha256.tdl.dto/OnRampPaymentSession|null[0]
+    constructor <init>(kotlin/String, kotlin/Int, kotlin/String) // dev.g000sha256.tdl.dto/OnRampPaymentSession.<init>|<init>(kotlin.String;kotlin.Int;kotlin.String){}[0]
+
+    final val expirationDate // dev.g000sha256.tdl.dto/OnRampPaymentSession.expirationDate|{}expirationDate[0]
+        final fun <get-expirationDate>(): kotlin/Int // dev.g000sha256.tdl.dto/OnRampPaymentSession.expirationDate.<get-expirationDate>|<get-expirationDate>(){}[0]
+    final val sessionId // dev.g000sha256.tdl.dto/OnRampPaymentSession.sessionId|{}sessionId[0]
+        final fun <get-sessionId>(): kotlin/String // dev.g000sha256.tdl.dto/OnRampPaymentSession.sessionId.<get-sessionId>|<get-sessionId>(){}[0]
+    final val url // dev.g000sha256.tdl.dto/OnRampPaymentSession.url|{}url[0]
+        final fun <get-url>(): kotlin/String // dev.g000sha256.tdl.dto/OnRampPaymentSession.url.<get-url>|<get-url>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/OnRampPaymentSession.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/OnRampPaymentSession.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/OnRampPaymentSession.toString|toString(){}[0]
+}
+
+final class dev.g000sha256.tdl.dto/OnRampProvider { // dev.g000sha256.tdl.dto/OnRampProvider|null[0]
+    constructor <init>(kotlin/String, kotlin/String, kotlin/Array<kotlin/String>, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean) // dev.g000sha256.tdl.dto/OnRampProvider.<init>|<init>(kotlin.String;kotlin.String;kotlin.Array<kotlin.String>;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean){}[0]
+
+    final val cryptocurrencies // dev.g000sha256.tdl.dto/OnRampProvider.cryptocurrencies|{}cryptocurrencies[0]
+        final fun <get-cryptocurrencies>(): kotlin/Array<kotlin/String> // dev.g000sha256.tdl.dto/OnRampProvider.cryptocurrencies.<get-cryptocurrencies>|<get-cryptocurrencies>(){}[0]
+    final val id // dev.g000sha256.tdl.dto/OnRampProvider.id|{}id[0]
+        final fun <get-id>(): kotlin/String // dev.g000sha256.tdl.dto/OnRampProvider.id.<get-id>|<get-id>(){}[0]
+    final val name // dev.g000sha256.tdl.dto/OnRampProvider.name|{}name[0]
+        final fun <get-name>(): kotlin/String // dev.g000sha256.tdl.dto/OnRampProvider.name.<get-name>|<get-name>(){}[0]
+    final val supportsBaseCurrencies // dev.g000sha256.tdl.dto/OnRampProvider.supportsBaseCurrencies|{}supportsBaseCurrencies[0]
+        final fun <get-supportsBaseCurrencies>(): kotlin/Boolean // dev.g000sha256.tdl.dto/OnRampProvider.supportsBaseCurrencies.<get-supportsBaseCurrencies>|<get-supportsBaseCurrencies>(){}[0]
+    final val supportsLimits // dev.g000sha256.tdl.dto/OnRampProvider.supportsLimits|{}supportsLimits[0]
+        final fun <get-supportsLimits>(): kotlin/Boolean // dev.g000sha256.tdl.dto/OnRampProvider.supportsLimits.<get-supportsLimits>|<get-supportsLimits>(){}[0]
+    final val supportsQuote // dev.g000sha256.tdl.dto/OnRampProvider.supportsQuote|{}supportsQuote[0]
+        final fun <get-supportsQuote>(): kotlin/Boolean // dev.g000sha256.tdl.dto/OnRampProvider.supportsQuote.<get-supportsQuote>|<get-supportsQuote>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/OnRampProvider.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/OnRampProvider.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/OnRampProvider.toString|toString(){}[0]
+}
+
+final class dev.g000sha256.tdl.dto/OnRampProviders { // dev.g000sha256.tdl.dto/OnRampProviders|null[0]
+    constructor <init>(kotlin/Array<dev.g000sha256.tdl.dto/OnRampProvider>) // dev.g000sha256.tdl.dto/OnRampProviders.<init>|<init>(kotlin.Array<dev.g000sha256.tdl.dto.OnRampProvider>){}[0]
+
+    final val providers // dev.g000sha256.tdl.dto/OnRampProviders.providers|{}providers[0]
+        final fun <get-providers>(): kotlin/Array<dev.g000sha256.tdl.dto/OnRampProvider> // dev.g000sha256.tdl.dto/OnRampProviders.providers.<get-providers>|<get-providers>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/OnRampProviders.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/OnRampProviders.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/OnRampProviders.toString|toString(){}[0]
 }
 
 final class dev.g000sha256.tdl.dto/OptionValueBoolean : dev.g000sha256.tdl.dto/OptionValue { // dev.g000sha256.tdl.dto/OptionValueBoolean|null[0]
@@ -20613,6 +20904,32 @@ final class dev.g000sha256.tdl.dto/PushMessageContentText : dev.g000sha256.tdl.d
     final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/PushMessageContentText.toString|toString(){}[0]
 }
 
+final class dev.g000sha256.tdl.dto/PushMessageContentTonConnectRequest : dev.g000sha256.tdl.dto/PushMessageContent { // dev.g000sha256.tdl.dto/PushMessageContentTonConnectRequest|null[0]
+    constructor <init>(kotlin/String) // dev.g000sha256.tdl.dto/PushMessageContentTonConnectRequest.<init>|<init>(kotlin.String){}[0]
+
+    final val dappName // dev.g000sha256.tdl.dto/PushMessageContentTonConnectRequest.dappName|{}dappName[0]
+        final fun <get-dappName>(): kotlin/String // dev.g000sha256.tdl.dto/PushMessageContentTonConnectRequest.dappName.<get-dappName>|<get-dappName>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/PushMessageContentTonConnectRequest.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/PushMessageContentTonConnectRequest.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/PushMessageContentTonConnectRequest.toString|toString(){}[0]
+}
+
+final class dev.g000sha256.tdl.dto/PushMessageContentTonWalletTransfer : dev.g000sha256.tdl.dto/PushMessageContent { // dev.g000sha256.tdl.dto/PushMessageContentTonWalletTransfer|null[0]
+    constructor <init>(kotlin/Long, kotlin/String, kotlin/String) // dev.g000sha256.tdl.dto/PushMessageContentTonWalletTransfer.<init>|<init>(kotlin.Long;kotlin.String;kotlin.String){}[0]
+
+    final val amount // dev.g000sha256.tdl.dto/PushMessageContentTonWalletTransfer.amount|{}amount[0]
+        final fun <get-amount>(): kotlin/String // dev.g000sha256.tdl.dto/PushMessageContentTonWalletTransfer.amount.<get-amount>|<get-amount>(){}[0]
+    final val comment // dev.g000sha256.tdl.dto/PushMessageContentTonWalletTransfer.comment|{}comment[0]
+        final fun <get-comment>(): kotlin/String // dev.g000sha256.tdl.dto/PushMessageContentTonWalletTransfer.comment.<get-comment>|<get-comment>(){}[0]
+    final val senderUserId // dev.g000sha256.tdl.dto/PushMessageContentTonWalletTransfer.senderUserId|{}senderUserId[0]
+        final fun <get-senderUserId>(): kotlin/Long // dev.g000sha256.tdl.dto/PushMessageContentTonWalletTransfer.senderUserId.<get-senderUserId>|<get-senderUserId>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/PushMessageContentTonWalletTransfer.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/PushMessageContentTonWalletTransfer.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/PushMessageContentTonWalletTransfer.toString|toString(){}[0]
+}
+
 final class dev.g000sha256.tdl.dto/PushMessageContentUpgradedGift : dev.g000sha256.tdl.dto/PushMessageContent { // dev.g000sha256.tdl.dto/PushMessageContentUpgradedGift|null[0]
     constructor <init>(kotlin/Boolean, kotlin/Boolean) // dev.g000sha256.tdl.dto/PushMessageContentUpgradedGift.<init>|<init>(kotlin.Boolean;kotlin.Boolean){}[0]
 
@@ -21733,6 +22050,19 @@ final class dev.g000sha256.tdl.dto/RichTextSuperscript : dev.g000sha256.tdl.dto/
     final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/RichTextSuperscript.equals|equals(kotlin.Any?){}[0]
     final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/RichTextSuperscript.hashCode|hashCode(){}[0]
     final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/RichTextSuperscript.toString|toString(){}[0]
+}
+
+final class dev.g000sha256.tdl.dto/RichTextTonAddress : dev.g000sha256.tdl.dto/RichText { // dev.g000sha256.tdl.dto/RichTextTonAddress|null[0]
+    constructor <init>(dev.g000sha256.tdl.dto/RichText, kotlin/String) // dev.g000sha256.tdl.dto/RichTextTonAddress.<init>|<init>(dev.g000sha256.tdl.dto.RichText;kotlin.String){}[0]
+
+    final val address // dev.g000sha256.tdl.dto/RichTextTonAddress.address|{}address[0]
+        final fun <get-address>(): kotlin/String // dev.g000sha256.tdl.dto/RichTextTonAddress.address.<get-address>|<get-address>(){}[0]
+    final val text // dev.g000sha256.tdl.dto/RichTextTonAddress.text|{}text[0]
+        final fun <get-text>(): dev.g000sha256.tdl.dto/RichText // dev.g000sha256.tdl.dto/RichTextTonAddress.text.<get-text>|<get-text>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/RichTextTonAddress.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/RichTextTonAddress.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/RichTextTonAddress.toString|toString(){}[0]
 }
 
 final class dev.g000sha256.tdl.dto/RichTextUnderline : dev.g000sha256.tdl.dto/RichText { // dev.g000sha256.tdl.dto/RichTextUnderline|null[0]
@@ -24830,6 +25160,14 @@ final class dev.g000sha256.tdl.dto/SuggestedActionViewChecksHint : dev.g000sha25
     final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/SuggestedActionViewChecksHint.toString|toString(){}[0]
 }
 
+final class dev.g000sha256.tdl.dto/SuggestedActionViewFirstTonWalletTransferHint : dev.g000sha256.tdl.dto/SuggestedAction { // dev.g000sha256.tdl.dto/SuggestedActionViewFirstTonWalletTransferHint|null[0]
+    constructor <init>() // dev.g000sha256.tdl.dto/SuggestedActionViewFirstTonWalletTransferHint.<init>|<init>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/SuggestedActionViewFirstTonWalletTransferHint.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/SuggestedActionViewFirstTonWalletTransferHint.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/SuggestedActionViewFirstTonWalletTransferHint.toString|toString(){}[0]
+}
+
 final class dev.g000sha256.tdl.dto/SuggestedPostInfo { // dev.g000sha256.tdl.dto/SuggestedPostInfo|null[0]
     constructor <init>(dev.g000sha256.tdl.dto/SuggestedPostPrice?, kotlin/Int, dev.g000sha256.tdl.dto/SuggestedPostState, kotlin/Boolean, kotlin/Boolean) // dev.g000sha256.tdl.dto/SuggestedPostInfo.<init>|<init>(dev.g000sha256.tdl.dto.SuggestedPostPrice?;kotlin.Int;dev.g000sha256.tdl.dto.SuggestedPostState;kotlin.Boolean;kotlin.Boolean){}[0]
 
@@ -25752,6 +26090,14 @@ final class dev.g000sha256.tdl.dto/TextEntityTypeTextUrl : dev.g000sha256.tdl.dt
     final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/TextEntityTypeTextUrl.toString|toString(){}[0]
 }
 
+final class dev.g000sha256.tdl.dto/TextEntityTypeTonAddress : dev.g000sha256.tdl.dto/TextEntityType { // dev.g000sha256.tdl.dto/TextEntityTypeTonAddress|null[0]
+    constructor <init>() // dev.g000sha256.tdl.dto/TextEntityTypeTonAddress.<init>|<init>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/TextEntityTypeTonAddress.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/TextEntityTypeTonAddress.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/TextEntityTypeTonAddress.toString|toString(){}[0]
+}
+
 final class dev.g000sha256.tdl.dto/TextEntityTypeUnderline : dev.g000sha256.tdl.dto/TextEntityType { // dev.g000sha256.tdl.dto/TextEntityTypeUnderline|null[0]
     constructor <init>() // dev.g000sha256.tdl.dto/TextEntityTypeUnderline.<init>|<init>(){}[0]
 
@@ -25842,7 +26188,7 @@ final class dev.g000sha256.tdl.dto/ThemeParameters { // dev.g000sha256.tdl.dto/T
 }
 
 final class dev.g000sha256.tdl.dto/ThemeSettings { // dev.g000sha256.tdl.dto/ThemeSettings|null[0]
-    constructor <init>(dev.g000sha256.tdl.dto/BuiltInTheme, kotlin/Int, dev.g000sha256.tdl.dto/Background?, dev.g000sha256.tdl.dto/BackgroundFill?, kotlin/Boolean, kotlin/Int) // dev.g000sha256.tdl.dto/ThemeSettings.<init>|<init>(dev.g000sha256.tdl.dto.BuiltInTheme;kotlin.Int;dev.g000sha256.tdl.dto.Background?;dev.g000sha256.tdl.dto.BackgroundFill?;kotlin.Boolean;kotlin.Int){}[0]
+    constructor <init>(dev.g000sha256.tdl.dto/BuiltInTheme, kotlin/Int, dev.g000sha256.tdl.dto/Background?, dev.g000sha256.tdl.dto/BackgroundFill?, kotlin/Boolean, kotlin/Boolean, kotlin/Int) // dev.g000sha256.tdl.dto/ThemeSettings.<init>|<init>(dev.g000sha256.tdl.dto.BuiltInTheme;kotlin.Int;dev.g000sha256.tdl.dto.Background?;dev.g000sha256.tdl.dto.BackgroundFill?;kotlin.Boolean;kotlin.Boolean;kotlin.Int){}[0]
 
     final val accentColor // dev.g000sha256.tdl.dto/ThemeSettings.accentColor|{}accentColor[0]
         final fun <get-accentColor>(): kotlin/Int // dev.g000sha256.tdl.dto/ThemeSettings.accentColor.<get-accentColor>|<get-accentColor>(){}[0]
@@ -25852,6 +26198,8 @@ final class dev.g000sha256.tdl.dto/ThemeSettings { // dev.g000sha256.tdl.dto/The
         final fun <get-background>(): dev.g000sha256.tdl.dto/Background? // dev.g000sha256.tdl.dto/ThemeSettings.background.<get-background>|<get-background>(){}[0]
     final val baseTheme // dev.g000sha256.tdl.dto/ThemeSettings.baseTheme|{}baseTheme[0]
         final fun <get-baseTheme>(): dev.g000sha256.tdl.dto/BuiltInTheme // dev.g000sha256.tdl.dto/ThemeSettings.baseTheme.<get-baseTheme>|<get-baseTheme>(){}[0]
+    final val hasOutgoingMessageAccentColor // dev.g000sha256.tdl.dto/ThemeSettings.hasOutgoingMessageAccentColor|{}hasOutgoingMessageAccentColor[0]
+        final fun <get-hasOutgoingMessageAccentColor>(): kotlin/Boolean // dev.g000sha256.tdl.dto/ThemeSettings.hasOutgoingMessageAccentColor.<get-hasOutgoingMessageAccentColor>|<get-hasOutgoingMessageAccentColor>(){}[0]
     final val outgoingMessageAccentColor // dev.g000sha256.tdl.dto/ThemeSettings.outgoingMessageAccentColor|{}outgoingMessageAccentColor[0]
         final fun <get-outgoingMessageAccentColor>(): kotlin/Int // dev.g000sha256.tdl.dto/ThemeSettings.outgoingMessageAccentColor.<get-outgoingMessageAccentColor>|<get-outgoingMessageAccentColor>(){}[0]
     final val outgoingMessageFill // dev.g000sha256.tdl.dto/ThemeSettings.outgoingMessageFill|{}outgoingMessageFill[0]
@@ -25959,6 +26307,325 @@ final class dev.g000sha256.tdl.dto/TimeZones { // dev.g000sha256.tdl.dto/TimeZon
     final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/TimeZones.equals|equals(kotlin.Any?){}[0]
     final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/TimeZones.hashCode|hashCode(){}[0]
     final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/TimeZones.toString|toString(){}[0]
+}
+
+final class dev.g000sha256.tdl.dto/TonCenterApiRequestTypeGet : dev.g000sha256.tdl.dto/TonCenterApiRequestType { // dev.g000sha256.tdl.dto/TonCenterApiRequestTypeGet|null[0]
+    constructor <init>(kotlin/String) // dev.g000sha256.tdl.dto/TonCenterApiRequestTypeGet.<init>|<init>(kotlin.String){}[0]
+
+    final val query // dev.g000sha256.tdl.dto/TonCenterApiRequestTypeGet.query|{}query[0]
+        final fun <get-query>(): kotlin/String // dev.g000sha256.tdl.dto/TonCenterApiRequestTypeGet.query.<get-query>|<get-query>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/TonCenterApiRequestTypeGet.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/TonCenterApiRequestTypeGet.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/TonCenterApiRequestTypeGet.toString|toString(){}[0]
+}
+
+final class dev.g000sha256.tdl.dto/TonCenterApiRequestTypePost : dev.g000sha256.tdl.dto/TonCenterApiRequestType { // dev.g000sha256.tdl.dto/TonCenterApiRequestTypePost|null[0]
+    constructor <init>(kotlin/String) // dev.g000sha256.tdl.dto/TonCenterApiRequestTypePost.<init>|<init>(kotlin.String){}[0]
+
+    final val payload // dev.g000sha256.tdl.dto/TonCenterApiRequestTypePost.payload|{}payload[0]
+        final fun <get-payload>(): kotlin/String // dev.g000sha256.tdl.dto/TonCenterApiRequestTypePost.payload.<get-payload>|<get-payload>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/TonCenterApiRequestTypePost.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/TonCenterApiRequestTypePost.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/TonCenterApiRequestTypePost.toString|toString(){}[0]
+}
+
+final class dev.g000sha256.tdl.dto/TonCenterStreamingApiUrl { // dev.g000sha256.tdl.dto/TonCenterStreamingApiUrl|null[0]
+    constructor <init>(kotlin/String, kotlin/Int) // dev.g000sha256.tdl.dto/TonCenterStreamingApiUrl.<init>|<init>(kotlin.String;kotlin.Int){}[0]
+
+    final val expiresIn // dev.g000sha256.tdl.dto/TonCenterStreamingApiUrl.expiresIn|{}expiresIn[0]
+        final fun <get-expiresIn>(): kotlin/Int // dev.g000sha256.tdl.dto/TonCenterStreamingApiUrl.expiresIn.<get-expiresIn>|<get-expiresIn>(){}[0]
+    final val url // dev.g000sha256.tdl.dto/TonCenterStreamingApiUrl.url|{}url[0]
+        final fun <get-url>(): kotlin/String // dev.g000sha256.tdl.dto/TonCenterStreamingApiUrl.url.<get-url>|<get-url>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/TonCenterStreamingApiUrl.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/TonCenterStreamingApiUrl.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/TonCenterStreamingApiUrl.toString|toString(){}[0]
+}
+
+final class dev.g000sha256.tdl.dto/TonConnectChallenge { // dev.g000sha256.tdl.dto/TonConnectChallenge|null[0]
+    constructor <init>(kotlin/ByteArray, kotlin/Long) // dev.g000sha256.tdl.dto/TonConnectChallenge.<init>|<init>(kotlin.ByteArray;kotlin.Long){}[0]
+
+    final val challenge // dev.g000sha256.tdl.dto/TonConnectChallenge.challenge|{}challenge[0]
+        final fun <get-challenge>(): kotlin/ByteArray // dev.g000sha256.tdl.dto/TonConnectChallenge.challenge.<get-challenge>|<get-challenge>(){}[0]
+    final val eventId // dev.g000sha256.tdl.dto/TonConnectChallenge.eventId|{}eventId[0]
+        final fun <get-eventId>(): kotlin/Long // dev.g000sha256.tdl.dto/TonConnectChallenge.eventId.<get-eventId>|<get-eventId>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/TonConnectChallenge.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/TonConnectChallenge.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/TonConnectChallenge.toString|toString(){}[0]
+}
+
+final class dev.g000sha256.tdl.dto/TonConnectConnectItemAddress : dev.g000sha256.tdl.dto/TonConnectConnectItem { // dev.g000sha256.tdl.dto/TonConnectConnectItemAddress|null[0]
+    constructor <init>(kotlin/String) // dev.g000sha256.tdl.dto/TonConnectConnectItemAddress.<init>|<init>(kotlin.String){}[0]
+
+    final val network // dev.g000sha256.tdl.dto/TonConnectConnectItemAddress.network|{}network[0]
+        final fun <get-network>(): kotlin/String // dev.g000sha256.tdl.dto/TonConnectConnectItemAddress.network.<get-network>|<get-network>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/TonConnectConnectItemAddress.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/TonConnectConnectItemAddress.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/TonConnectConnectItemAddress.toString|toString(){}[0]
+}
+
+final class dev.g000sha256.tdl.dto/TonConnectConnectItemProof : dev.g000sha256.tdl.dto/TonConnectConnectItem { // dev.g000sha256.tdl.dto/TonConnectConnectItemProof|null[0]
+    constructor <init>(kotlin/String) // dev.g000sha256.tdl.dto/TonConnectConnectItemProof.<init>|<init>(kotlin.String){}[0]
+
+    final val payload // dev.g000sha256.tdl.dto/TonConnectConnectItemProof.payload|{}payload[0]
+        final fun <get-payload>(): kotlin/String // dev.g000sha256.tdl.dto/TonConnectConnectItemProof.payload.<get-payload>|<get-payload>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/TonConnectConnectItemProof.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/TonConnectConnectItemProof.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/TonConnectConnectItemProof.toString|toString(){}[0]
+}
+
+final class dev.g000sha256.tdl.dto/TonConnectConnectRequest { // dev.g000sha256.tdl.dto/TonConnectConnectRequest|null[0]
+    constructor <init>(kotlin/String, kotlin/Array<dev.g000sha256.tdl.dto/TonConnectConnectItem>) // dev.g000sha256.tdl.dto/TonConnectConnectRequest.<init>|<init>(kotlin.String;kotlin.Array<dev.g000sha256.tdl.dto.TonConnectConnectItem>){}[0]
+
+    final val items // dev.g000sha256.tdl.dto/TonConnectConnectRequest.items|{}items[0]
+        final fun <get-items>(): kotlin/Array<dev.g000sha256.tdl.dto/TonConnectConnectItem> // dev.g000sha256.tdl.dto/TonConnectConnectRequest.items.<get-items>|<get-items>(){}[0]
+    final val manifestUrl // dev.g000sha256.tdl.dto/TonConnectConnectRequest.manifestUrl|{}manifestUrl[0]
+        final fun <get-manifestUrl>(): kotlin/String // dev.g000sha256.tdl.dto/TonConnectConnectRequest.manifestUrl.<get-manifestUrl>|<get-manifestUrl>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/TonConnectConnectRequest.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/TonConnectConnectRequest.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/TonConnectConnectRequest.toString|toString(){}[0]
+}
+
+final class dev.g000sha256.tdl.dto/TonConnectManifestFailed : dev.g000sha256.tdl.dto/TonConnectManifest { // dev.g000sha256.tdl.dto/TonConnectManifestFailed|null[0]
+    constructor <init>() // dev.g000sha256.tdl.dto/TonConnectManifestFailed.<init>|<init>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/TonConnectManifestFailed.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/TonConnectManifestFailed.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/TonConnectManifestFailed.toString|toString(){}[0]
+}
+
+final class dev.g000sha256.tdl.dto/TonConnectManifestInfo : dev.g000sha256.tdl.dto/TonConnectManifest { // dev.g000sha256.tdl.dto/TonConnectManifestInfo|null[0]
+    constructor <init>(kotlin/String, kotlin/String, dev.g000sha256.tdl.dto/Document) // dev.g000sha256.tdl.dto/TonConnectManifestInfo.<init>|<init>(kotlin.String;kotlin.String;dev.g000sha256.tdl.dto.Document){}[0]
+
+    final val icon // dev.g000sha256.tdl.dto/TonConnectManifestInfo.icon|{}icon[0]
+        final fun <get-icon>(): dev.g000sha256.tdl.dto/Document // dev.g000sha256.tdl.dto/TonConnectManifestInfo.icon.<get-icon>|<get-icon>(){}[0]
+    final val name // dev.g000sha256.tdl.dto/TonConnectManifestInfo.name|{}name[0]
+        final fun <get-name>(): kotlin/String // dev.g000sha256.tdl.dto/TonConnectManifestInfo.name.<get-name>|<get-name>(){}[0]
+    final val url // dev.g000sha256.tdl.dto/TonConnectManifestInfo.url|{}url[0]
+        final fun <get-url>(): kotlin/String // dev.g000sha256.tdl.dto/TonConnectManifestInfo.url.<get-url>|<get-url>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/TonConnectManifestInfo.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/TonConnectManifestInfo.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/TonConnectManifestInfo.toString|toString(){}[0]
+}
+
+final class dev.g000sha256.tdl.dto/TonConnectManifestInvalid : dev.g000sha256.tdl.dto/TonConnectManifest { // dev.g000sha256.tdl.dto/TonConnectManifestInvalid|null[0]
+    constructor <init>() // dev.g000sha256.tdl.dto/TonConnectManifestInvalid.<init>|<init>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/TonConnectManifestInvalid.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/TonConnectManifestInvalid.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/TonConnectManifestInvalid.toString|toString(){}[0]
+}
+
+final class dev.g000sha256.tdl.dto/TonConnectManifestPending : dev.g000sha256.tdl.dto/TonConnectManifest { // dev.g000sha256.tdl.dto/TonConnectManifestPending|null[0]
+    constructor <init>() // dev.g000sha256.tdl.dto/TonConnectManifestPending.<init>|<init>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/TonConnectManifestPending.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/TonConnectManifestPending.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/TonConnectManifestPending.toString|toString(){}[0]
+}
+
+final class dev.g000sha256.tdl.dto/TonConnectRequest { // dev.g000sha256.tdl.dto/TonConnectRequest|null[0]
+    constructor <init>(kotlin/Long, kotlin/Long, kotlin/ByteArray, kotlin/Int, kotlin/String, kotlin/String) // dev.g000sha256.tdl.dto/TonConnectRequest.<init>|<init>(kotlin.Long;kotlin.Long;kotlin.ByteArray;kotlin.Int;kotlin.String;kotlin.String){}[0]
+
+    final val body // dev.g000sha256.tdl.dto/TonConnectRequest.body|{}body[0]
+        final fun <get-body>(): kotlin/ByteArray // dev.g000sha256.tdl.dto/TonConnectRequest.body.<get-body>|<get-body>(){}[0]
+    final val expirationDate // dev.g000sha256.tdl.dto/TonConnectRequest.expirationDate|{}expirationDate[0]
+        final fun <get-expirationDate>(): kotlin/Int // dev.g000sha256.tdl.dto/TonConnectRequest.expirationDate.<get-expirationDate>|<get-expirationDate>(){}[0]
+    final val messageId // dev.g000sha256.tdl.dto/TonConnectRequest.messageId|{}messageId[0]
+        final fun <get-messageId>(): kotlin/Long // dev.g000sha256.tdl.dto/TonConnectRequest.messageId.<get-messageId>|<get-messageId>(){}[0]
+    final val sessionId // dev.g000sha256.tdl.dto/TonConnectRequest.sessionId|{}sessionId[0]
+        final fun <get-sessionId>(): kotlin/Long // dev.g000sha256.tdl.dto/TonConnectRequest.sessionId.<get-sessionId>|<get-sessionId>(){}[0]
+    final val topic // dev.g000sha256.tdl.dto/TonConnectRequest.topic|{}topic[0]
+        final fun <get-topic>(): kotlin/String // dev.g000sha256.tdl.dto/TonConnectRequest.topic.<get-topic>|<get-topic>(){}[0]
+    final val traceId // dev.g000sha256.tdl.dto/TonConnectRequest.traceId|{}traceId[0]
+        final fun <get-traceId>(): kotlin/String // dev.g000sha256.tdl.dto/TonConnectRequest.traceId.<get-traceId>|<get-traceId>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/TonConnectRequest.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/TonConnectRequest.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/TonConnectRequest.toString|toString(){}[0]
+}
+
+final class dev.g000sha256.tdl.dto/TonConnectRequestStateAccepted : dev.g000sha256.tdl.dto/TonConnectRequestState { // dev.g000sha256.tdl.dto/TonConnectRequestStateAccepted|null[0]
+    constructor <init>() // dev.g000sha256.tdl.dto/TonConnectRequestStateAccepted.<init>|<init>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/TonConnectRequestStateAccepted.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/TonConnectRequestStateAccepted.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/TonConnectRequestStateAccepted.toString|toString(){}[0]
+}
+
+final class dev.g000sha256.tdl.dto/TonConnectRequestStatePending : dev.g000sha256.tdl.dto/TonConnectRequestState { // dev.g000sha256.tdl.dto/TonConnectRequestStatePending|null[0]
+    constructor <init>(kotlin/Int) // dev.g000sha256.tdl.dto/TonConnectRequestStatePending.<init>|<init>(kotlin.Int){}[0]
+
+    final val expirationDate // dev.g000sha256.tdl.dto/TonConnectRequestStatePending.expirationDate|{}expirationDate[0]
+        final fun <get-expirationDate>(): kotlin/Int // dev.g000sha256.tdl.dto/TonConnectRequestStatePending.expirationDate.<get-expirationDate>|<get-expirationDate>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/TonConnectRequestStatePending.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/TonConnectRequestStatePending.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/TonConnectRequestStatePending.toString|toString(){}[0]
+}
+
+final class dev.g000sha256.tdl.dto/TonConnectRequestStateRejected : dev.g000sha256.tdl.dto/TonConnectRequestState { // dev.g000sha256.tdl.dto/TonConnectRequestStateRejected|null[0]
+    constructor <init>() // dev.g000sha256.tdl.dto/TonConnectRequestStateRejected.<init>|<init>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/TonConnectRequestStateRejected.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/TonConnectRequestStateRejected.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/TonConnectRequestStateRejected.toString|toString(){}[0]
+}
+
+final class dev.g000sha256.tdl.dto/TonConnectRequests { // dev.g000sha256.tdl.dto/TonConnectRequests|null[0]
+    constructor <init>(dev.g000sha256.tdl.dto/TonConnectSession, kotlin/Array<dev.g000sha256.tdl.dto/TonConnectRequest>) // dev.g000sha256.tdl.dto/TonConnectRequests.<init>|<init>(dev.g000sha256.tdl.dto.TonConnectSession;kotlin.Array<dev.g000sha256.tdl.dto.TonConnectRequest>){}[0]
+
+    final val requests // dev.g000sha256.tdl.dto/TonConnectRequests.requests|{}requests[0]
+        final fun <get-requests>(): kotlin/Array<dev.g000sha256.tdl.dto/TonConnectRequest> // dev.g000sha256.tdl.dto/TonConnectRequests.requests.<get-requests>|<get-requests>(){}[0]
+    final val session // dev.g000sha256.tdl.dto/TonConnectRequests.session|{}session[0]
+        final fun <get-session>(): dev.g000sha256.tdl.dto/TonConnectSession // dev.g000sha256.tdl.dto/TonConnectRequests.session.<get-session>|<get-session>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/TonConnectRequests.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/TonConnectRequests.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/TonConnectRequests.toString|toString(){}[0]
+}
+
+final class dev.g000sha256.tdl.dto/TonConnectSession { // dev.g000sha256.tdl.dto/TonConnectSession|null[0]
+    constructor <init>(kotlin/Long, kotlin/String, kotlin/String, kotlin/Int, dev.g000sha256.tdl.dto/TonConnectManifest, kotlin/ByteArray, dev.g000sha256.tdl.dto/TonConnectSessionState) // dev.g000sha256.tdl.dto/TonConnectSession.<init>|<init>(kotlin.Long;kotlin.String;kotlin.String;kotlin.Int;dev.g000sha256.tdl.dto.TonConnectManifest;kotlin.ByteArray;dev.g000sha256.tdl.dto.TonConnectSessionState){}[0]
+
+    final val creationDate // dev.g000sha256.tdl.dto/TonConnectSession.creationDate|{}creationDate[0]
+        final fun <get-creationDate>(): kotlin/Int // dev.g000sha256.tdl.dto/TonConnectSession.creationDate.<get-creationDate>|<get-creationDate>(){}[0]
+    final val dappClientId // dev.g000sha256.tdl.dto/TonConnectSession.dappClientId|{}dappClientId[0]
+        final fun <get-dappClientId>(): kotlin/String // dev.g000sha256.tdl.dto/TonConnectSession.dappClientId.<get-dappClientId>|<get-dappClientId>(){}[0]
+    final val id // dev.g000sha256.tdl.dto/TonConnectSession.id|{}id[0]
+        final fun <get-id>(): kotlin/Long // dev.g000sha256.tdl.dto/TonConnectSession.id.<get-id>|<get-id>(){}[0]
+    final val manifest // dev.g000sha256.tdl.dto/TonConnectSession.manifest|{}manifest[0]
+        final fun <get-manifest>(): dev.g000sha256.tdl.dto/TonConnectManifest // dev.g000sha256.tdl.dto/TonConnectSession.manifest.<get-manifest>|<get-manifest>(){}[0]
+    final val nonce // dev.g000sha256.tdl.dto/TonConnectSession.nonce|{}nonce[0]
+        final fun <get-nonce>(): kotlin/ByteArray // dev.g000sha256.tdl.dto/TonConnectSession.nonce.<get-nonce>|<get-nonce>(){}[0]
+    final val state // dev.g000sha256.tdl.dto/TonConnectSession.state|{}state[0]
+        final fun <get-state>(): dev.g000sha256.tdl.dto/TonConnectSessionState // dev.g000sha256.tdl.dto/TonConnectSession.state.<get-state>|<get-state>(){}[0]
+    final val walletClientId // dev.g000sha256.tdl.dto/TonConnectSession.walletClientId|{}walletClientId[0]
+        final fun <get-walletClientId>(): kotlin/String // dev.g000sha256.tdl.dto/TonConnectSession.walletClientId.<get-walletClientId>|<get-walletClientId>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/TonConnectSession.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/TonConnectSession.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/TonConnectSession.toString|toString(){}[0]
+}
+
+final class dev.g000sha256.tdl.dto/TonConnectSessionEventId { // dev.g000sha256.tdl.dto/TonConnectSessionEventId|null[0]
+    constructor <init>(kotlin/Long) // dev.g000sha256.tdl.dto/TonConnectSessionEventId.<init>|<init>(kotlin.Long){}[0]
+
+    final val eventId // dev.g000sha256.tdl.dto/TonConnectSessionEventId.eventId|{}eventId[0]
+        final fun <get-eventId>(): kotlin/Long // dev.g000sha256.tdl.dto/TonConnectSessionEventId.eventId.<get-eventId>|<get-eventId>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/TonConnectSessionEventId.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/TonConnectSessionEventId.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/TonConnectSessionEventId.toString|toString(){}[0]
+}
+
+final class dev.g000sha256.tdl.dto/TonConnectSessionStateClosed : dev.g000sha256.tdl.dto/TonConnectSessionState { // dev.g000sha256.tdl.dto/TonConnectSessionStateClosed|null[0]
+    constructor <init>() // dev.g000sha256.tdl.dto/TonConnectSessionStateClosed.<init>|<init>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/TonConnectSessionStateClosed.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/TonConnectSessionStateClosed.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/TonConnectSessionStateClosed.toString|toString(){}[0]
+}
+
+final class dev.g000sha256.tdl.dto/TonConnectSessionStateClosing : dev.g000sha256.tdl.dto/TonConnectSessionState { // dev.g000sha256.tdl.dto/TonConnectSessionStateClosing|null[0]
+    constructor <init>() // dev.g000sha256.tdl.dto/TonConnectSessionStateClosing.<init>|<init>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/TonConnectSessionStateClosing.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/TonConnectSessionStateClosing.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/TonConnectSessionStateClosing.toString|toString(){}[0]
+}
+
+final class dev.g000sha256.tdl.dto/TonConnectSessionStatePending : dev.g000sha256.tdl.dto/TonConnectSessionState { // dev.g000sha256.tdl.dto/TonConnectSessionStatePending|null[0]
+    constructor <init>() // dev.g000sha256.tdl.dto/TonConnectSessionStatePending.<init>|<init>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/TonConnectSessionStatePending.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/TonConnectSessionStatePending.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/TonConnectSessionStatePending.toString|toString(){}[0]
+}
+
+final class dev.g000sha256.tdl.dto/TonConnectSessionStateReady : dev.g000sha256.tdl.dto/TonConnectSessionState { // dev.g000sha256.tdl.dto/TonConnectSessionStateReady|null[0]
+    constructor <init>() // dev.g000sha256.tdl.dto/TonConnectSessionStateReady.<init>|<init>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/TonConnectSessionStateReady.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/TonConnectSessionStateReady.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/TonConnectSessionStateReady.toString|toString(){}[0]
+}
+
+final class dev.g000sha256.tdl.dto/TonConnectSessions { // dev.g000sha256.tdl.dto/TonConnectSessions|null[0]
+    constructor <init>(kotlin/Array<dev.g000sha256.tdl.dto/TonConnectSession>) // dev.g000sha256.tdl.dto/TonConnectSessions.<init>|<init>(kotlin.Array<dev.g000sha256.tdl.dto.TonConnectSession>){}[0]
+
+    final val sessions // dev.g000sha256.tdl.dto/TonConnectSessions.sessions|{}sessions[0]
+        final fun <get-sessions>(): kotlin/Array<dev.g000sha256.tdl.dto/TonConnectSession> // dev.g000sha256.tdl.dto/TonConnectSessions.sessions.<get-sessions>|<get-sessions>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/TonConnectSessions.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/TonConnectSessions.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/TonConnectSessions.toString|toString(){}[0]
+}
+
+final class dev.g000sha256.tdl.dto/TonNft { // dev.g000sha256.tdl.dto/TonNft|null[0]
+    constructor <init>(kotlin/String, kotlin/String, kotlin/String, kotlin/String, kotlin/String, kotlin/String, dev.g000sha256.tdl.dto/PhotoSize?, dev.g000sha256.tdl.dto/PhotoSize?, dev.g000sha256.tdl.dto/Document?, dev.g000sha256.tdl.dto/Sticker?, kotlin/Array<dev.g000sha256.tdl.dto/TonNftAttribute>, dev.g000sha256.tdl.dto/JsonValue?) // dev.g000sha256.tdl.dto/TonNft.<init>|<init>(kotlin.String;kotlin.String;kotlin.String;kotlin.String;kotlin.String;kotlin.String;dev.g000sha256.tdl.dto.PhotoSize?;dev.g000sha256.tdl.dto.PhotoSize?;dev.g000sha256.tdl.dto.Document?;dev.g000sha256.tdl.dto.Sticker?;kotlin.Array<dev.g000sha256.tdl.dto.TonNftAttribute>;dev.g000sha256.tdl.dto.JsonValue?){}[0]
+
+    final val address // dev.g000sha256.tdl.dto/TonNft.address|{}address[0]
+        final fun <get-address>(): kotlin/String // dev.g000sha256.tdl.dto/TonNft.address.<get-address>|<get-address>(){}[0]
+    final val attributes // dev.g000sha256.tdl.dto/TonNft.attributes|{}attributes[0]
+        final fun <get-attributes>(): kotlin/Array<dev.g000sha256.tdl.dto/TonNftAttribute> // dev.g000sha256.tdl.dto/TonNft.attributes.<get-attributes>|<get-attributes>(){}[0]
+    final val collectionAddress // dev.g000sha256.tdl.dto/TonNft.collectionAddress|{}collectionAddress[0]
+        final fun <get-collectionAddress>(): kotlin/String // dev.g000sha256.tdl.dto/TonNft.collectionAddress.<get-collectionAddress>|<get-collectionAddress>(){}[0]
+    final val content // dev.g000sha256.tdl.dto/TonNft.content|{}content[0]
+        final fun <get-content>(): dev.g000sha256.tdl.dto/Document? // dev.g000sha256.tdl.dto/TonNft.content.<get-content>|<get-content>(){}[0]
+    final val description // dev.g000sha256.tdl.dto/TonNft.description|{}description[0]
+        final fun <get-description>(): kotlin/String // dev.g000sha256.tdl.dto/TonNft.description.<get-description>|<get-description>(){}[0]
+    final val extra // dev.g000sha256.tdl.dto/TonNft.extra|{}extra[0]
+        final fun <get-extra>(): dev.g000sha256.tdl.dto/JsonValue? // dev.g000sha256.tdl.dto/TonNft.extra.<get-extra>|<get-extra>(){}[0]
+    final val image // dev.g000sha256.tdl.dto/TonNft.image|{}image[0]
+        final fun <get-image>(): dev.g000sha256.tdl.dto/PhotoSize? // dev.g000sha256.tdl.dto/TonNft.image.<get-image>|<get-image>(){}[0]
+    final val index // dev.g000sha256.tdl.dto/TonNft.index|{}index[0]
+        final fun <get-index>(): kotlin/String // dev.g000sha256.tdl.dto/TonNft.index.<get-index>|<get-index>(){}[0]
+    final val name // dev.g000sha256.tdl.dto/TonNft.name|{}name[0]
+        final fun <get-name>(): kotlin/String // dev.g000sha256.tdl.dto/TonNft.name.<get-name>|<get-name>(){}[0]
+    final val ownerAddress // dev.g000sha256.tdl.dto/TonNft.ownerAddress|{}ownerAddress[0]
+        final fun <get-ownerAddress>(): kotlin/String // dev.g000sha256.tdl.dto/TonNft.ownerAddress.<get-ownerAddress>|<get-ownerAddress>(){}[0]
+    final val sticker // dev.g000sha256.tdl.dto/TonNft.sticker|{}sticker[0]
+        final fun <get-sticker>(): dev.g000sha256.tdl.dto/Sticker? // dev.g000sha256.tdl.dto/TonNft.sticker.<get-sticker>|<get-sticker>(){}[0]
+    final val thumbnail // dev.g000sha256.tdl.dto/TonNft.thumbnail|{}thumbnail[0]
+        final fun <get-thumbnail>(): dev.g000sha256.tdl.dto/PhotoSize? // dev.g000sha256.tdl.dto/TonNft.thumbnail.<get-thumbnail>|<get-thumbnail>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/TonNft.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/TonNft.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/TonNft.toString|toString(){}[0]
+}
+
+final class dev.g000sha256.tdl.dto/TonNftAttribute { // dev.g000sha256.tdl.dto/TonNftAttribute|null[0]
+    constructor <init>(kotlin/String, kotlin/String) // dev.g000sha256.tdl.dto/TonNftAttribute.<init>|<init>(kotlin.String;kotlin.String){}[0]
+
+    final val traitType // dev.g000sha256.tdl.dto/TonNftAttribute.traitType|{}traitType[0]
+        final fun <get-traitType>(): kotlin/String // dev.g000sha256.tdl.dto/TonNftAttribute.traitType.<get-traitType>|<get-traitType>(){}[0]
+    final val value // dev.g000sha256.tdl.dto/TonNftAttribute.value|{}value[0]
+        final fun <get-value>(): kotlin/String // dev.g000sha256.tdl.dto/TonNftAttribute.value.<get-value>|<get-value>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/TonNftAttribute.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/TonNftAttribute.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/TonNftAttribute.toString|toString(){}[0]
+}
+
+final class dev.g000sha256.tdl.dto/TonNfts { // dev.g000sha256.tdl.dto/TonNfts|null[0]
+    constructor <init>(kotlin/Array<dev.g000sha256.tdl.dto/TonNft>, kotlin/String) // dev.g000sha256.tdl.dto/TonNfts.<init>|<init>(kotlin.Array<dev.g000sha256.tdl.dto.TonNft>;kotlin.String){}[0]
+
+    final val nextOffset // dev.g000sha256.tdl.dto/TonNfts.nextOffset|{}nextOffset[0]
+        final fun <get-nextOffset>(): kotlin/String // dev.g000sha256.tdl.dto/TonNfts.nextOffset.<get-nextOffset>|<get-nextOffset>(){}[0]
+    final val nfts // dev.g000sha256.tdl.dto/TonNfts.nfts|{}nfts[0]
+        final fun <get-nfts>(): kotlin/Array<dev.g000sha256.tdl.dto/TonNft> // dev.g000sha256.tdl.dto/TonNfts.nfts.<get-nfts>|<get-nfts>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/TonNfts.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/TonNfts.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/TonNfts.toString|toString(){}[0]
 }
 
 final class dev.g000sha256.tdl.dto/TonTransaction { // dev.g000sha256.tdl.dto/TonTransaction|null[0]
@@ -26095,6 +26762,223 @@ final class dev.g000sha256.tdl.dto/TonTransactions { // dev.g000sha256.tdl.dto/T
     final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/TonTransactions.equals|equals(kotlin.Any?){}[0]
     final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/TonTransactions.hashCode|hashCode(){}[0]
     final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/TonTransactions.toString|toString(){}[0]
+}
+
+final class dev.g000sha256.tdl.dto/TonWalletGaslessTransfersInfo { // dev.g000sha256.tdl.dto/TonWalletGaslessTransfersInfo|null[0]
+    constructor <init>(kotlin/Int, kotlin/Int, kotlin/String) // dev.g000sha256.tdl.dto/TonWalletGaslessTransfersInfo.<init>|<init>(kotlin.Int;kotlin.Int;kotlin.String){}[0]
+
+    final val leftCount // dev.g000sha256.tdl.dto/TonWalletGaslessTransfersInfo.leftCount|{}leftCount[0]
+        final fun <get-leftCount>(): kotlin/Int // dev.g000sha256.tdl.dto/TonWalletGaslessTransfersInfo.leftCount.<get-leftCount>|<get-leftCount>(){}[0]
+    final val relayerAddress // dev.g000sha256.tdl.dto/TonWalletGaslessTransfersInfo.relayerAddress|{}relayerAddress[0]
+        final fun <get-relayerAddress>(): kotlin/String // dev.g000sha256.tdl.dto/TonWalletGaslessTransfersInfo.relayerAddress.<get-relayerAddress>|<get-relayerAddress>(){}[0]
+    final val resetDate // dev.g000sha256.tdl.dto/TonWalletGaslessTransfersInfo.resetDate|{}resetDate[0]
+        final fun <get-resetDate>(): kotlin/Int // dev.g000sha256.tdl.dto/TonWalletGaslessTransfersInfo.resetDate.<get-resetDate>|<get-resetDate>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/TonWalletGaslessTransfersInfo.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/TonWalletGaslessTransfersInfo.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/TonWalletGaslessTransfersInfo.toString|toString(){}[0]
+}
+
+final class dev.g000sha256.tdl.dto/TonWalletOwnershipProof { // dev.g000sha256.tdl.dto/TonWalletOwnershipProof|null[0]
+    constructor <init>(kotlin/ByteArray, kotlin/Int, kotlin/ByteArray) // dev.g000sha256.tdl.dto/TonWalletOwnershipProof.<init>|<init>(kotlin.ByteArray;kotlin.Int;kotlin.ByteArray){}[0]
+
+    final val publicKey // dev.g000sha256.tdl.dto/TonWalletOwnershipProof.publicKey|{}publicKey[0]
+        final fun <get-publicKey>(): kotlin/ByteArray // dev.g000sha256.tdl.dto/TonWalletOwnershipProof.publicKey.<get-publicKey>|<get-publicKey>(){}[0]
+    final val signature // dev.g000sha256.tdl.dto/TonWalletOwnershipProof.signature|{}signature[0]
+        final fun <get-signature>(): kotlin/ByteArray // dev.g000sha256.tdl.dto/TonWalletOwnershipProof.signature.<get-signature>|<get-signature>(){}[0]
+    final val timestamp // dev.g000sha256.tdl.dto/TonWalletOwnershipProof.timestamp|{}timestamp[0]
+        final fun <get-timestamp>(): kotlin/Int // dev.g000sha256.tdl.dto/TonWalletOwnershipProof.timestamp.<get-timestamp>|<get-timestamp>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/TonWalletOwnershipProof.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/TonWalletOwnershipProof.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/TonWalletOwnershipProof.toString|toString(){}[0]
+}
+
+final class dev.g000sha256.tdl.dto/TonWalletOwnershipProofChallenge { // dev.g000sha256.tdl.dto/TonWalletOwnershipProofChallenge|null[0]
+    constructor <init>(kotlin/String, kotlin/String) // dev.g000sha256.tdl.dto/TonWalletOwnershipProofChallenge.<init>|<init>(kotlin.String;kotlin.String){}[0]
+
+    final val domain // dev.g000sha256.tdl.dto/TonWalletOwnershipProofChallenge.domain|{}domain[0]
+        final fun <get-domain>(): kotlin/String // dev.g000sha256.tdl.dto/TonWalletOwnershipProofChallenge.domain.<get-domain>|<get-domain>(){}[0]
+    final val payload // dev.g000sha256.tdl.dto/TonWalletOwnershipProofChallenge.payload|{}payload[0]
+        final fun <get-payload>(): kotlin/String // dev.g000sha256.tdl.dto/TonWalletOwnershipProofChallenge.payload.<get-payload>|<get-payload>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/TonWalletOwnershipProofChallenge.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/TonWalletOwnershipProofChallenge.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/TonWalletOwnershipProofChallenge.toString|toString(){}[0]
+}
+
+final class dev.g000sha256.tdl.dto/TonWalletState { // dev.g000sha256.tdl.dto/TonWalletState|null[0]
+    constructor <init>(kotlin/String, kotlin/ByteArray, kotlin/Long, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean) // dev.g000sha256.tdl.dto/TonWalletState.<init>|<init>(kotlin.String;kotlin.ByteArray;kotlin.Long;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean){}[0]
+
+    final val address // dev.g000sha256.tdl.dto/TonWalletState.address|{}address[0]
+        final fun <get-address>(): kotlin/String // dev.g000sha256.tdl.dto/TonWalletState.address.<get-address>|<get-address>(){}[0]
+    final val canEnableBackup // dev.g000sha256.tdl.dto/TonWalletState.canEnableBackup|{}canEnableBackup[0]
+        final fun <get-canEnableBackup>(): kotlin/Boolean // dev.g000sha256.tdl.dto/TonWalletState.canEnableBackup.<get-canEnableBackup>|<get-canEnableBackup>(){}[0]
+    final val canExportPhrase // dev.g000sha256.tdl.dto/TonWalletState.canExportPhrase|{}canExportPhrase[0]
+        final fun <get-canExportPhrase>(): kotlin/Boolean // dev.g000sha256.tdl.dto/TonWalletState.canExportPhrase.<get-canExportPhrase>|<get-canExportPhrase>(){}[0]
+    final val gramAmount // dev.g000sha256.tdl.dto/TonWalletState.gramAmount|{}gramAmount[0]
+        final fun <get-gramAmount>(): kotlin/Long // dev.g000sha256.tdl.dto/TonWalletState.gramAmount.<get-gramAmount>|<get-gramAmount>(){}[0]
+    final val isBackupEnabled // dev.g000sha256.tdl.dto/TonWalletState.isBackupEnabled|{}isBackupEnabled[0]
+        final fun <get-isBackupEnabled>(): kotlin/Boolean // dev.g000sha256.tdl.dto/TonWalletState.isBackupEnabled.<get-isBackupEnabled>|<get-isBackupEnabled>(){}[0]
+    final val isBeingCreated // dev.g000sha256.tdl.dto/TonWalletState.isBeingCreated|{}isBeingCreated[0]
+        final fun <get-isBeingCreated>(): kotlin/Boolean // dev.g000sha256.tdl.dto/TonWalletState.isBeingCreated.<get-isBeingCreated>|<get-isBeingCreated>(){}[0]
+    final val publicKey // dev.g000sha256.tdl.dto/TonWalletState.publicKey|{}publicKey[0]
+        final fun <get-publicKey>(): kotlin/ByteArray // dev.g000sha256.tdl.dto/TonWalletState.publicKey.<get-publicKey>|<get-publicKey>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/TonWalletState.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/TonWalletState.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/TonWalletState.toString|toString(){}[0]
+}
+
+final class dev.g000sha256.tdl.dto/TonWalletTransaction { // dev.g000sha256.tdl.dto/TonWalletTransaction|null[0]
+    constructor <init>(kotlin/String, kotlin/String, kotlin/Long, kotlin/String, kotlin/Int, kotlin/Long, dev.g000sha256.tdl.dto/TonWalletTransactionState, dev.g000sha256.tdl.dto/TonWalletTransactionType) // dev.g000sha256.tdl.dto/TonWalletTransaction.<init>|<init>(kotlin.String;kotlin.String;kotlin.Long;kotlin.String;kotlin.Int;kotlin.Long;dev.g000sha256.tdl.dto.TonWalletTransactionState;dev.g000sha256.tdl.dto.TonWalletTransactionType){}[0]
+
+    final val date // dev.g000sha256.tdl.dto/TonWalletTransaction.date|{}date[0]
+        final fun <get-date>(): kotlin/Int // dev.g000sha256.tdl.dto/TonWalletTransaction.date.<get-date>|<get-date>(){}[0]
+    final val feeAmount // dev.g000sha256.tdl.dto/TonWalletTransaction.feeAmount|{}feeAmount[0]
+        final fun <get-feeAmount>(): kotlin/Long // dev.g000sha256.tdl.dto/TonWalletTransaction.feeAmount.<get-feeAmount>|<get-feeAmount>(){}[0]
+    final val id // dev.g000sha256.tdl.dto/TonWalletTransaction.id|{}id[0]
+        final fun <get-id>(): kotlin/String // dev.g000sha256.tdl.dto/TonWalletTransaction.id.<get-id>|<get-id>(){}[0]
+    final val peerAddress // dev.g000sha256.tdl.dto/TonWalletTransaction.peerAddress|{}peerAddress[0]
+        final fun <get-peerAddress>(): kotlin/String // dev.g000sha256.tdl.dto/TonWalletTransaction.peerAddress.<get-peerAddress>|<get-peerAddress>(){}[0]
+    final val peerDomain // dev.g000sha256.tdl.dto/TonWalletTransaction.peerDomain|{}peerDomain[0]
+        final fun <get-peerDomain>(): kotlin/String // dev.g000sha256.tdl.dto/TonWalletTransaction.peerDomain.<get-peerDomain>|<get-peerDomain>(){}[0]
+    final val peerUserId // dev.g000sha256.tdl.dto/TonWalletTransaction.peerUserId|{}peerUserId[0]
+        final fun <get-peerUserId>(): kotlin/Long // dev.g000sha256.tdl.dto/TonWalletTransaction.peerUserId.<get-peerUserId>|<get-peerUserId>(){}[0]
+    final val state // dev.g000sha256.tdl.dto/TonWalletTransaction.state|{}state[0]
+        final fun <get-state>(): dev.g000sha256.tdl.dto/TonWalletTransactionState // dev.g000sha256.tdl.dto/TonWalletTransaction.state.<get-state>|<get-state>(){}[0]
+    final val type // dev.g000sha256.tdl.dto/TonWalletTransaction.type|{}type[0]
+        final fun <get-type>(): dev.g000sha256.tdl.dto/TonWalletTransactionType // dev.g000sha256.tdl.dto/TonWalletTransaction.type.<get-type>|<get-type>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/TonWalletTransaction.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/TonWalletTransaction.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/TonWalletTransaction.toString|toString(){}[0]
+}
+
+final class dev.g000sha256.tdl.dto/TonWalletTransactionStateFailed : dev.g000sha256.tdl.dto/TonWalletTransactionState { // dev.g000sha256.tdl.dto/TonWalletTransactionStateFailed|null[0]
+    constructor <init>() // dev.g000sha256.tdl.dto/TonWalletTransactionStateFailed.<init>|<init>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/TonWalletTransactionStateFailed.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/TonWalletTransactionStateFailed.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/TonWalletTransactionStateFailed.toString|toString(){}[0]
+}
+
+final class dev.g000sha256.tdl.dto/TonWalletTransactionStateSucceeded : dev.g000sha256.tdl.dto/TonWalletTransactionState { // dev.g000sha256.tdl.dto/TonWalletTransactionStateSucceeded|null[0]
+    constructor <init>(kotlin/String) // dev.g000sha256.tdl.dto/TonWalletTransactionStateSucceeded.<init>|<init>(kotlin.String){}[0]
+
+    final val txHash // dev.g000sha256.tdl.dto/TonWalletTransactionStateSucceeded.txHash|{}txHash[0]
+        final fun <get-txHash>(): kotlin/String // dev.g000sha256.tdl.dto/TonWalletTransactionStateSucceeded.txHash.<get-txHash>|<get-txHash>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/TonWalletTransactionStateSucceeded.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/TonWalletTransactionStateSucceeded.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/TonWalletTransactionStateSucceeded.toString|toString(){}[0]
+}
+
+final class dev.g000sha256.tdl.dto/TonWalletTransactionTypeKeyChange : dev.g000sha256.tdl.dto/TonWalletTransactionType { // dev.g000sha256.tdl.dto/TonWalletTransactionTypeKeyChange|null[0]
+    constructor <init>() // dev.g000sha256.tdl.dto/TonWalletTransactionTypeKeyChange.<init>|<init>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/TonWalletTransactionTypeKeyChange.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/TonWalletTransactionTypeKeyChange.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/TonWalletTransactionTypeKeyChange.toString|toString(){}[0]
+}
+
+final class dev.g000sha256.tdl.dto/TonWalletTransactionTypeNftTransfer : dev.g000sha256.tdl.dto/TonWalletTransactionType { // dev.g000sha256.tdl.dto/TonWalletTransactionTypeNftTransfer|null[0]
+    constructor <init>(dev.g000sha256.tdl.dto/TonNft, kotlin/Boolean, kotlin/String, kotlin/Boolean) // dev.g000sha256.tdl.dto/TonWalletTransactionTypeNftTransfer.<init>|<init>(dev.g000sha256.tdl.dto.TonNft;kotlin.Boolean;kotlin.String;kotlin.Boolean){}[0]
+
+    final val comment // dev.g000sha256.tdl.dto/TonWalletTransactionTypeNftTransfer.comment|{}comment[0]
+        final fun <get-comment>(): kotlin/String // dev.g000sha256.tdl.dto/TonWalletTransactionTypeNftTransfer.comment.<get-comment>|<get-comment>(){}[0]
+    final val isCommentEncrypted // dev.g000sha256.tdl.dto/TonWalletTransactionTypeNftTransfer.isCommentEncrypted|{}isCommentEncrypted[0]
+        final fun <get-isCommentEncrypted>(): kotlin/Boolean // dev.g000sha256.tdl.dto/TonWalletTransactionTypeNftTransfer.isCommentEncrypted.<get-isCommentEncrypted>|<get-isCommentEncrypted>(){}[0]
+    final val isOutgoing // dev.g000sha256.tdl.dto/TonWalletTransactionTypeNftTransfer.isOutgoing|{}isOutgoing[0]
+        final fun <get-isOutgoing>(): kotlin/Boolean // dev.g000sha256.tdl.dto/TonWalletTransactionTypeNftTransfer.isOutgoing.<get-isOutgoing>|<get-isOutgoing>(){}[0]
+    final val nft // dev.g000sha256.tdl.dto/TonWalletTransactionTypeNftTransfer.nft|{}nft[0]
+        final fun <get-nft>(): dev.g000sha256.tdl.dto/TonNft // dev.g000sha256.tdl.dto/TonWalletTransactionTypeNftTransfer.nft.<get-nft>|<get-nft>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/TonWalletTransactionTypeNftTransfer.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/TonWalletTransactionTypeNftTransfer.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/TonWalletTransactionTypeNftTransfer.toString|toString(){}[0]
+}
+
+final class dev.g000sha256.tdl.dto/TonWalletTransactionTypeOnRampDeposit : dev.g000sha256.tdl.dto/TonWalletTransactionType { // dev.g000sha256.tdl.dto/TonWalletTransactionTypeOnRampDeposit|null[0]
+    constructor <init>(kotlin/Long, kotlin/String) // dev.g000sha256.tdl.dto/TonWalletTransactionTypeOnRampDeposit.<init>|<init>(kotlin.Long;kotlin.String){}[0]
+
+    final val amount // dev.g000sha256.tdl.dto/TonWalletTransactionTypeOnRampDeposit.amount|{}amount[0]
+        final fun <get-amount>(): kotlin/Long // dev.g000sha256.tdl.dto/TonWalletTransactionTypeOnRampDeposit.amount.<get-amount>|<get-amount>(){}[0]
+    final val providerName // dev.g000sha256.tdl.dto/TonWalletTransactionTypeOnRampDeposit.providerName|{}providerName[0]
+        final fun <get-providerName>(): kotlin/String // dev.g000sha256.tdl.dto/TonWalletTransactionTypeOnRampDeposit.providerName.<get-providerName>|<get-providerName>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/TonWalletTransactionTypeOnRampDeposit.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/TonWalletTransactionTypeOnRampDeposit.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/TonWalletTransactionTypeOnRampDeposit.toString|toString(){}[0]
+}
+
+final class dev.g000sha256.tdl.dto/TonWalletTransactionTypeTransfer : dev.g000sha256.tdl.dto/TonWalletTransactionType { // dev.g000sha256.tdl.dto/TonWalletTransactionTypeTransfer|null[0]
+    constructor <init>(kotlin/Long, kotlin/Boolean, kotlin/String, kotlin/Boolean) // dev.g000sha256.tdl.dto/TonWalletTransactionTypeTransfer.<init>|<init>(kotlin.Long;kotlin.Boolean;kotlin.String;kotlin.Boolean){}[0]
+
+    final val amount // dev.g000sha256.tdl.dto/TonWalletTransactionTypeTransfer.amount|{}amount[0]
+        final fun <get-amount>(): kotlin/Long // dev.g000sha256.tdl.dto/TonWalletTransactionTypeTransfer.amount.<get-amount>|<get-amount>(){}[0]
+    final val comment // dev.g000sha256.tdl.dto/TonWalletTransactionTypeTransfer.comment|{}comment[0]
+        final fun <get-comment>(): kotlin/String // dev.g000sha256.tdl.dto/TonWalletTransactionTypeTransfer.comment.<get-comment>|<get-comment>(){}[0]
+    final val isCommentEncrypted // dev.g000sha256.tdl.dto/TonWalletTransactionTypeTransfer.isCommentEncrypted|{}isCommentEncrypted[0]
+        final fun <get-isCommentEncrypted>(): kotlin/Boolean // dev.g000sha256.tdl.dto/TonWalletTransactionTypeTransfer.isCommentEncrypted.<get-isCommentEncrypted>|<get-isCommentEncrypted>(){}[0]
+    final val isGasless // dev.g000sha256.tdl.dto/TonWalletTransactionTypeTransfer.isGasless|{}isGasless[0]
+        final fun <get-isGasless>(): kotlin/Boolean // dev.g000sha256.tdl.dto/TonWalletTransactionTypeTransfer.isGasless.<get-isGasless>|<get-isGasless>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/TonWalletTransactionTypeTransfer.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/TonWalletTransactionTypeTransfer.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/TonWalletTransactionTypeTransfer.toString|toString(){}[0]
+}
+
+final class dev.g000sha256.tdl.dto/TonWalletTransactions { // dev.g000sha256.tdl.dto/TonWalletTransactions|null[0]
+    constructor <init>(kotlin/Long, kotlin/Array<dev.g000sha256.tdl.dto/TonWalletTransaction>, kotlin/String) // dev.g000sha256.tdl.dto/TonWalletTransactions.<init>|<init>(kotlin.Long;kotlin.Array<dev.g000sha256.tdl.dto.TonWalletTransaction>;kotlin.String){}[0]
+
+    final val gramAmount // dev.g000sha256.tdl.dto/TonWalletTransactions.gramAmount|{}gramAmount[0]
+        final fun <get-gramAmount>(): kotlin/Long // dev.g000sha256.tdl.dto/TonWalletTransactions.gramAmount.<get-gramAmount>|<get-gramAmount>(){}[0]
+    final val nextOffset // dev.g000sha256.tdl.dto/TonWalletTransactions.nextOffset|{}nextOffset[0]
+        final fun <get-nextOffset>(): kotlin/String // dev.g000sha256.tdl.dto/TonWalletTransactions.nextOffset.<get-nextOffset>|<get-nextOffset>(){}[0]
+    final val transactions // dev.g000sha256.tdl.dto/TonWalletTransactions.transactions|{}transactions[0]
+        final fun <get-transactions>(): kotlin/Array<dev.g000sha256.tdl.dto/TonWalletTransaction> // dev.g000sha256.tdl.dto/TonWalletTransactions.transactions.<get-transactions>|<get-transactions>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/TonWalletTransactions.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/TonWalletTransactions.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/TonWalletTransactions.toString|toString(){}[0]
+}
+
+final class dev.g000sha256.tdl.dto/TonWalletTransferReceiverAddress : dev.g000sha256.tdl.dto/TonWalletTransferReceiver { // dev.g000sha256.tdl.dto/TonWalletTransferReceiverAddress|null[0]
+    constructor <init>(kotlin/String) // dev.g000sha256.tdl.dto/TonWalletTransferReceiverAddress.<init>|<init>(kotlin.String){}[0]
+
+    final val address // dev.g000sha256.tdl.dto/TonWalletTransferReceiverAddress.address|{}address[0]
+        final fun <get-address>(): kotlin/String // dev.g000sha256.tdl.dto/TonWalletTransferReceiverAddress.address.<get-address>|<get-address>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/TonWalletTransferReceiverAddress.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/TonWalletTransferReceiverAddress.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/TonWalletTransferReceiverAddress.toString|toString(){}[0]
+}
+
+final class dev.g000sha256.tdl.dto/TonWalletTransferReceiverUser : dev.g000sha256.tdl.dto/TonWalletTransferReceiver { // dev.g000sha256.tdl.dto/TonWalletTransferReceiverUser|null[0]
+    constructor <init>(kotlin/String) // dev.g000sha256.tdl.dto/TonWalletTransferReceiverUser.<init>|<init>(kotlin.String){}[0]
+
+    final val username // dev.g000sha256.tdl.dto/TonWalletTransferReceiverUser.username|{}username[0]
+        final fun <get-username>(): kotlin/String // dev.g000sha256.tdl.dto/TonWalletTransferReceiverUser.username.<get-username>|<get-username>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/TonWalletTransferReceiverUser.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/TonWalletTransferReceiverUser.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/TonWalletTransferReceiverUser.toString|toString(){}[0]
+}
+
+final class dev.g000sha256.tdl.dto/TonWalletTransferResult { // dev.g000sha256.tdl.dto/TonWalletTransferResult|null[0]
+    constructor <init>(kotlin/Boolean, kotlin/ByteArray, dev.g000sha256.tdl.dto/TonWalletTransaction?) // dev.g000sha256.tdl.dto/TonWalletTransferResult.<init>|<init>(kotlin.Boolean;kotlin.ByteArray;dev.g000sha256.tdl.dto.TonWalletTransaction?){}[0]
+
+    final val isGasless // dev.g000sha256.tdl.dto/TonWalletTransferResult.isGasless|{}isGasless[0]
+        final fun <get-isGasless>(): kotlin/Boolean // dev.g000sha256.tdl.dto/TonWalletTransferResult.isGasless.<get-isGasless>|<get-isGasless>(){}[0]
+    final val msgHash // dev.g000sha256.tdl.dto/TonWalletTransferResult.msgHash|{}msgHash[0]
+        final fun <get-msgHash>(): kotlin/ByteArray // dev.g000sha256.tdl.dto/TonWalletTransferResult.msgHash.<get-msgHash>|<get-msgHash>(){}[0]
+    final val transaction // dev.g000sha256.tdl.dto/TonWalletTransferResult.transaction|{}transaction[0]
+        final fun <get-transaction>(): dev.g000sha256.tdl.dto/TonWalletTransaction? // dev.g000sha256.tdl.dto/TonWalletTransferResult.transaction.<get-transaction>|<get-transaction>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/TonWalletTransferResult.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/TonWalletTransferResult.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/TonWalletTransferResult.toString|toString(){}[0]
 }
 
 final class dev.g000sha256.tdl.dto/TopChatCategoryBots : dev.g000sha256.tdl.dto/TopChatCategory { // dev.g000sha256.tdl.dto/TopChatCategoryBots|null[0]
@@ -26298,6 +27182,17 @@ final class dev.g000sha256.tdl.dto/UpdateAgeVerificationParameters : dev.g000sha
     final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/UpdateAgeVerificationParameters.equals|equals(kotlin.Any?){}[0]
     final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/UpdateAgeVerificationParameters.hashCode|hashCode(){}[0]
     final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/UpdateAgeVerificationParameters.toString|toString(){}[0]
+}
+
+final class dev.g000sha256.tdl.dto/UpdateAllowedBotUsernamePremiumSuffixes : dev.g000sha256.tdl.dto/Update { // dev.g000sha256.tdl.dto/UpdateAllowedBotUsernamePremiumSuffixes|null[0]
+    constructor <init>(kotlin/Array<kotlin/String>) // dev.g000sha256.tdl.dto/UpdateAllowedBotUsernamePremiumSuffixes.<init>|<init>(kotlin.Array<kotlin.String>){}[0]
+
+    final val suffixes // dev.g000sha256.tdl.dto/UpdateAllowedBotUsernamePremiumSuffixes.suffixes|{}suffixes[0]
+        final fun <get-suffixes>(): kotlin/Array<kotlin/String> // dev.g000sha256.tdl.dto/UpdateAllowedBotUsernamePremiumSuffixes.suffixes.<get-suffixes>|<get-suffixes>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/UpdateAllowedBotUsernamePremiumSuffixes.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/UpdateAllowedBotUsernamePremiumSuffixes.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/UpdateAllowedBotUsernamePremiumSuffixes.toString|toString(){}[0]
 }
 
 final class dev.g000sha256.tdl.dto/UpdateAnimatedEmojiMessageClicked : dev.g000sha256.tdl.dto/Update { // dev.g000sha256.tdl.dto/UpdateAnimatedEmojiMessageClicked|null[0]
@@ -28629,6 +29524,50 @@ final class dev.g000sha256.tdl.dto/UpdateTextCompositionStyles : dev.g000sha256.
     final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/UpdateTextCompositionStyles.toString|toString(){}[0]
 }
 
+final class dev.g000sha256.tdl.dto/UpdateTonWalletGaslessTransfersInfo : dev.g000sha256.tdl.dto/Update { // dev.g000sha256.tdl.dto/UpdateTonWalletGaslessTransfersInfo|null[0]
+    constructor <init>(dev.g000sha256.tdl.dto/TonWalletGaslessTransfersInfo) // dev.g000sha256.tdl.dto/UpdateTonWalletGaslessTransfersInfo.<init>|<init>(dev.g000sha256.tdl.dto.TonWalletGaslessTransfersInfo){}[0]
+
+    final val info // dev.g000sha256.tdl.dto/UpdateTonWalletGaslessTransfersInfo.info|{}info[0]
+        final fun <get-info>(): dev.g000sha256.tdl.dto/TonWalletGaslessTransfersInfo // dev.g000sha256.tdl.dto/UpdateTonWalletGaslessTransfersInfo.info.<get-info>|<get-info>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/UpdateTonWalletGaslessTransfersInfo.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/UpdateTonWalletGaslessTransfersInfo.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/UpdateTonWalletGaslessTransfersInfo.toString|toString(){}[0]
+}
+
+final class dev.g000sha256.tdl.dto/UpdateTonWalletState : dev.g000sha256.tdl.dto/Update { // dev.g000sha256.tdl.dto/UpdateTonWalletState|null[0]
+    constructor <init>(dev.g000sha256.tdl.dto/TonWalletState) // dev.g000sha256.tdl.dto/UpdateTonWalletState.<init>|<init>(dev.g000sha256.tdl.dto.TonWalletState){}[0]
+
+    final val state // dev.g000sha256.tdl.dto/UpdateTonWalletState.state|{}state[0]
+        final fun <get-state>(): dev.g000sha256.tdl.dto/TonWalletState // dev.g000sha256.tdl.dto/UpdateTonWalletState.state.<get-state>|<get-state>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/UpdateTonWalletState.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/UpdateTonWalletState.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/UpdateTonWalletState.toString|toString(){}[0]
+}
+
+final class dev.g000sha256.tdl.dto/UpdateTonWalletTonConnectSession : dev.g000sha256.tdl.dto/Update { // dev.g000sha256.tdl.dto/UpdateTonWalletTonConnectSession|null[0]
+    constructor <init>(dev.g000sha256.tdl.dto/TonConnectSession) // dev.g000sha256.tdl.dto/UpdateTonWalletTonConnectSession.<init>|<init>(dev.g000sha256.tdl.dto.TonConnectSession){}[0]
+
+    final val session // dev.g000sha256.tdl.dto/UpdateTonWalletTonConnectSession.session|{}session[0]
+        final fun <get-session>(): dev.g000sha256.tdl.dto/TonConnectSession // dev.g000sha256.tdl.dto/UpdateTonWalletTonConnectSession.session.<get-session>|<get-session>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/UpdateTonWalletTonConnectSession.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/UpdateTonWalletTonConnectSession.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/UpdateTonWalletTonConnectSession.toString|toString(){}[0]
+}
+
+final class dev.g000sha256.tdl.dto/UpdateTonWalletTonConnectSessionDisconnectRequired : dev.g000sha256.tdl.dto/Update { // dev.g000sha256.tdl.dto/UpdateTonWalletTonConnectSessionDisconnectRequired|null[0]
+    constructor <init>(kotlin/LongArray) // dev.g000sha256.tdl.dto/UpdateTonWalletTonConnectSessionDisconnectRequired.<init>|<init>(kotlin.LongArray){}[0]
+
+    final val sessionIds // dev.g000sha256.tdl.dto/UpdateTonWalletTonConnectSessionDisconnectRequired.sessionIds|{}sessionIds[0]
+        final fun <get-sessionIds>(): kotlin/LongArray // dev.g000sha256.tdl.dto/UpdateTonWalletTonConnectSessionDisconnectRequired.sessionIds.<get-sessionIds>|<get-sessionIds>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/UpdateTonWalletTonConnectSessionDisconnectRequired.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/UpdateTonWalletTonConnectSessionDisconnectRequired.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/UpdateTonWalletTonConnectSessionDisconnectRequired.toString|toString(){}[0]
+}
+
 final class dev.g000sha256.tdl.dto/UpdateTopicMessageCount : dev.g000sha256.tdl.dto/Update { // dev.g000sha256.tdl.dto/UpdateTopicMessageCount|null[0]
     constructor <init>(kotlin/Long, dev.g000sha256.tdl.dto/MessageTopic, kotlin/Int) // dev.g000sha256.tdl.dto/UpdateTopicMessageCount.<init>|<init>(kotlin.Long;dev.g000sha256.tdl.dto.MessageTopic;kotlin.Int){}[0]
 
@@ -29737,6 +30676,32 @@ final class dev.g000sha256.tdl.dto/UserSupportInfo { // dev.g000sha256.tdl.dto/U
     final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/UserSupportInfo.toString|toString(){}[0]
 }
 
+final class dev.g000sha256.tdl.dto/UserTonWalletAddress { // dev.g000sha256.tdl.dto/UserTonWalletAddress|null[0]
+    constructor <init>(kotlin/Long, kotlin/String, kotlin/ByteArray) // dev.g000sha256.tdl.dto/UserTonWalletAddress.<init>|<init>(kotlin.Long;kotlin.String;kotlin.ByteArray){}[0]
+
+    final val publicKey // dev.g000sha256.tdl.dto/UserTonWalletAddress.publicKey|{}publicKey[0]
+        final fun <get-publicKey>(): kotlin/ByteArray // dev.g000sha256.tdl.dto/UserTonWalletAddress.publicKey.<get-publicKey>|<get-publicKey>(){}[0]
+    final val userId // dev.g000sha256.tdl.dto/UserTonWalletAddress.userId|{}userId[0]
+        final fun <get-userId>(): kotlin/Long // dev.g000sha256.tdl.dto/UserTonWalletAddress.userId.<get-userId>|<get-userId>(){}[0]
+    final val walletAddress // dev.g000sha256.tdl.dto/UserTonWalletAddress.walletAddress|{}walletAddress[0]
+        final fun <get-walletAddress>(): kotlin/String // dev.g000sha256.tdl.dto/UserTonWalletAddress.walletAddress.<get-walletAddress>|<get-walletAddress>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/UserTonWalletAddress.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/UserTonWalletAddress.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/UserTonWalletAddress.toString|toString(){}[0]
+}
+
+final class dev.g000sha256.tdl.dto/UserTonWalletAddresses { // dev.g000sha256.tdl.dto/UserTonWalletAddresses|null[0]
+    constructor <init>(kotlin/Array<dev.g000sha256.tdl.dto/UserTonWalletAddress>) // dev.g000sha256.tdl.dto/UserTonWalletAddresses.<init>|<init>(kotlin.Array<dev.g000sha256.tdl.dto.UserTonWalletAddress>){}[0]
+
+    final val addresses // dev.g000sha256.tdl.dto/UserTonWalletAddresses.addresses|{}addresses[0]
+        final fun <get-addresses>(): kotlin/Array<dev.g000sha256.tdl.dto/UserTonWalletAddress> // dev.g000sha256.tdl.dto/UserTonWalletAddresses.addresses.<get-addresses>|<get-addresses>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/UserTonWalletAddresses.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/UserTonWalletAddresses.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/UserTonWalletAddresses.toString|toString(){}[0]
+}
+
 final class dev.g000sha256.tdl.dto/UserTypeBot : dev.g000sha256.tdl.dto/UserType { // dev.g000sha256.tdl.dto/UserTypeBot|null[0]
     constructor <init>(kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/String, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Int) // dev.g000sha256.tdl.dto/UserTypeBot.<init>|<init>(kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.String;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Int){}[0]
 
@@ -29801,7 +30766,7 @@ final class dev.g000sha256.tdl.dto/UserTypeUnknown : dev.g000sha256.tdl.dto/User
 }
 
 final class dev.g000sha256.tdl.dto/Usernames { // dev.g000sha256.tdl.dto/Usernames|null[0]
-    constructor <init>(kotlin/Array<kotlin/String>, kotlin/Array<kotlin/String>, kotlin/String, kotlin/Array<kotlin/String>) // dev.g000sha256.tdl.dto/Usernames.<init>|<init>(kotlin.Array<kotlin.String>;kotlin.Array<kotlin.String>;kotlin.String;kotlin.Array<kotlin.String>){}[0]
+    constructor <init>(kotlin/Array<kotlin/String>, kotlin/Array<kotlin/String>, kotlin/String, kotlin/Array<kotlin/String>, kotlin/String) // dev.g000sha256.tdl.dto/Usernames.<init>|<init>(kotlin.Array<kotlin.String>;kotlin.Array<kotlin.String>;kotlin.String;kotlin.Array<kotlin.String>;kotlin.String){}[0]
 
     final val activeUsernames // dev.g000sha256.tdl.dto/Usernames.activeUsernames|{}activeUsernames[0]
         final fun <get-activeUsernames>(): kotlin/Array<kotlin/String> // dev.g000sha256.tdl.dto/Usernames.activeUsernames.<get-activeUsernames>|<get-activeUsernames>(){}[0]
@@ -29811,6 +30776,8 @@ final class dev.g000sha256.tdl.dto/Usernames { // dev.g000sha256.tdl.dto/Usernam
         final fun <get-disabledUsernames>(): kotlin/Array<kotlin/String> // dev.g000sha256.tdl.dto/Usernames.disabledUsernames.<get-disabledUsernames>|<get-disabledUsernames>(){}[0]
     final val editableUsername // dev.g000sha256.tdl.dto/Usernames.editableUsername|{}editableUsername[0]
         final fun <get-editableUsername>(): kotlin/String // dev.g000sha256.tdl.dto/Usernames.editableUsername.<get-editableUsername>|<get-editableUsername>(){}[0]
+    final val secondaryUsername // dev.g000sha256.tdl.dto/Usernames.secondaryUsername|{}secondaryUsername[0]
+        final fun <get-secondaryUsername>(): kotlin/String // dev.g000sha256.tdl.dto/Usernames.secondaryUsername.<get-secondaryUsername>|<get-secondaryUsername>(){}[0]
 
     final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/Usernames.equals|equals(kotlin.Any?){}[0]
     final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/Usernames.hashCode|hashCode(){}[0]
@@ -30048,6 +31015,19 @@ final class dev.g000sha256.tdl.dto/VoiceNote { // dev.g000sha256.tdl.dto/VoiceNo
     final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/VoiceNote.equals|equals(kotlin.Any?){}[0]
     final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/VoiceNote.hashCode|hashCode(){}[0]
     final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/VoiceNote.toString|toString(){}[0]
+}
+
+final class dev.g000sha256.tdl.dto/WalletBotBalance { // dev.g000sha256.tdl.dto/WalletBotBalance|null[0]
+    constructor <init>(kotlin/Boolean, kotlin/String) // dev.g000sha256.tdl.dto/WalletBotBalance.<init>|<init>(kotlin.Boolean;kotlin.String){}[0]
+
+    final val hasBalance // dev.g000sha256.tdl.dto/WalletBotBalance.hasBalance|{}hasBalance[0]
+        final fun <get-hasBalance>(): kotlin/Boolean // dev.g000sha256.tdl.dto/WalletBotBalance.hasBalance.<get-hasBalance>|<get-hasBalance>(){}[0]
+    final val url // dev.g000sha256.tdl.dto/WalletBotBalance.url|{}url[0]
+        final fun <get-url>(): kotlin/String // dev.g000sha256.tdl.dto/WalletBotBalance.url.<get-url>|<get-url>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // dev.g000sha256.tdl.dto/WalletBotBalance.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // dev.g000sha256.tdl.dto/WalletBotBalance.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // dev.g000sha256.tdl.dto/WalletBotBalance.toString|toString(){}[0]
 }
 
 final class dev.g000sha256.tdl.dto/WebApp { // dev.g000sha256.tdl.dto/WebApp|null[0]
@@ -30633,7 +31613,23 @@ sealed class dev.g000sha256.tdl.dto/TextParseMode // dev.g000sha256.tdl.dto/Text
 
 sealed class dev.g000sha256.tdl.dto/ThumbnailFormat // dev.g000sha256.tdl.dto/ThumbnailFormat|null[0]
 
+sealed class dev.g000sha256.tdl.dto/TonCenterApiRequestType // dev.g000sha256.tdl.dto/TonCenterApiRequestType|null[0]
+
+sealed class dev.g000sha256.tdl.dto/TonConnectConnectItem // dev.g000sha256.tdl.dto/TonConnectConnectItem|null[0]
+
+sealed class dev.g000sha256.tdl.dto/TonConnectManifest // dev.g000sha256.tdl.dto/TonConnectManifest|null[0]
+
+sealed class dev.g000sha256.tdl.dto/TonConnectRequestState // dev.g000sha256.tdl.dto/TonConnectRequestState|null[0]
+
+sealed class dev.g000sha256.tdl.dto/TonConnectSessionState // dev.g000sha256.tdl.dto/TonConnectSessionState|null[0]
+
 sealed class dev.g000sha256.tdl.dto/TonTransactionType // dev.g000sha256.tdl.dto/TonTransactionType|null[0]
+
+sealed class dev.g000sha256.tdl.dto/TonWalletTransactionState // dev.g000sha256.tdl.dto/TonWalletTransactionState|null[0]
+
+sealed class dev.g000sha256.tdl.dto/TonWalletTransactionType // dev.g000sha256.tdl.dto/TonWalletTransactionType|null[0]
+
+sealed class dev.g000sha256.tdl.dto/TonWalletTransferReceiver // dev.g000sha256.tdl.dto/TonWalletTransferReceiver|null[0]
 
 sealed class dev.g000sha256.tdl.dto/TopChatCategory // dev.g000sha256.tdl.dto/TopChatCategory|null[0]
 

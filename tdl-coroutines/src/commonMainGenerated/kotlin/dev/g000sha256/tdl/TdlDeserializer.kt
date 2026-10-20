@@ -490,6 +490,9 @@ import dev.g000sha256.tdl.dto.CraftGiftResultInvalidGift
 import dev.g000sha256.tdl.dto.CraftGiftResultSuccess
 import dev.g000sha256.tdl.dto.CraftGiftResultTooEarly
 import dev.g000sha256.tdl.dto.CreatedBasicGroupChat
+import dev.g000sha256.tdl.dto.Currencies
+import dev.g000sha256.tdl.dto.CurrencyExchangeRate
+import dev.g000sha256.tdl.dto.CurrencyExchangeRates
 import dev.g000sha256.tdl.dto.CurrentWeather
 import dev.g000sha256.tdl.dto.CustomRequestResult
 import dev.g000sha256.tdl.dto.Data
@@ -964,6 +967,8 @@ import dev.g000sha256.tdl.dto.InternalLinkTypeStory
 import dev.g000sha256.tdl.dto.InternalLinkTypeStoryAlbum
 import dev.g000sha256.tdl.dto.InternalLinkTypeTextCompositionStyle
 import dev.g000sha256.tdl.dto.InternalLinkTypeTheme
+import dev.g000sha256.tdl.dto.InternalLinkTypeTonConnect
+import dev.g000sha256.tdl.dto.InternalLinkTypeTonWalletTransfer
 import dev.g000sha256.tdl.dto.InternalLinkTypeUnknownDeepLink
 import dev.g000sha256.tdl.dto.InternalLinkTypeUpgradedGift
 import dev.g000sha256.tdl.dto.InternalLinkTypeUserPhoneNumber
@@ -1236,6 +1241,8 @@ import dev.g000sha256.tdl.dto.MessageSuggestedPostRefunded
 import dev.g000sha256.tdl.dto.MessageSupergroupChatCreate
 import dev.g000sha256.tdl.dto.MessageText
 import dev.g000sha256.tdl.dto.MessageThreadInfo
+import dev.g000sha256.tdl.dto.MessageTonConnectRequest
+import dev.g000sha256.tdl.dto.MessageTonWalletTransfer
 import dev.g000sha256.tdl.dto.MessageTopic
 import dev.g000sha256.tdl.dto.MessageTopicDirectMessages
 import dev.g000sha256.tdl.dto.MessageTopicForum
@@ -1291,6 +1298,13 @@ import dev.g000sha256.tdl.dto.NotificationTypeNewPushMessage
 import dev.g000sha256.tdl.dto.NotificationTypeNewSecretChat
 import dev.g000sha256.tdl.dto.OauthLinkInfo
 import dev.g000sha256.tdl.dto.Ok
+import dev.g000sha256.tdl.dto.OnRampPaymentAvailability
+import dev.g000sha256.tdl.dto.OnRampPaymentLimits
+import dev.g000sha256.tdl.dto.OnRampPaymentMethod
+import dev.g000sha256.tdl.dto.OnRampPaymentQuote
+import dev.g000sha256.tdl.dto.OnRampPaymentSession
+import dev.g000sha256.tdl.dto.OnRampProvider
+import dev.g000sha256.tdl.dto.OnRampProviders
 import dev.g000sha256.tdl.dto.OptionValue
 import dev.g000sha256.tdl.dto.OptionValueBoolean
 import dev.g000sha256.tdl.dto.OptionValueEmpty
@@ -1605,6 +1619,8 @@ import dev.g000sha256.tdl.dto.PushMessageContentStory
 import dev.g000sha256.tdl.dto.PushMessageContentSuggestBirthdate
 import dev.g000sha256.tdl.dto.PushMessageContentSuggestProfilePhoto
 import dev.g000sha256.tdl.dto.PushMessageContentText
+import dev.g000sha256.tdl.dto.PushMessageContentTonConnectRequest
+import dev.g000sha256.tdl.dto.PushMessageContentTonWalletTransfer
 import dev.g000sha256.tdl.dto.PushMessageContentUpgradedGift
 import dev.g000sha256.tdl.dto.PushMessageContentVideo
 import dev.g000sha256.tdl.dto.PushMessageContentVideoChatEnded
@@ -1712,6 +1728,7 @@ import dev.g000sha256.tdl.dto.RichTextSpoiler
 import dev.g000sha256.tdl.dto.RichTextStrikethrough
 import dev.g000sha256.tdl.dto.RichTextSubscript
 import dev.g000sha256.tdl.dto.RichTextSuperscript
+import dev.g000sha256.tdl.dto.RichTextTonAddress
 import dev.g000sha256.tdl.dto.RichTextUnderline
 import dev.g000sha256.tdl.dto.RichTextUrl
 import dev.g000sha256.tdl.dto.RichTexts
@@ -1988,6 +2005,7 @@ import dev.g000sha256.tdl.dto.SuggestedActionSetProfilePhoto
 import dev.g000sha256.tdl.dto.SuggestedActionSubscribeToAnnualPremium
 import dev.g000sha256.tdl.dto.SuggestedActionUpgradePremium
 import dev.g000sha256.tdl.dto.SuggestedActionViewChecksHint
+import dev.g000sha256.tdl.dto.SuggestedActionViewFirstTonWalletTransferHint
 import dev.g000sha256.tdl.dto.SuggestedPostInfo
 import dev.g000sha256.tdl.dto.SuggestedPostPrice
 import dev.g000sha256.tdl.dto.SuggestedPostPriceGram
@@ -2066,6 +2084,7 @@ import dev.g000sha256.tdl.dto.TextEntityTypePreCode
 import dev.g000sha256.tdl.dto.TextEntityTypeSpoiler
 import dev.g000sha256.tdl.dto.TextEntityTypeStrikethrough
 import dev.g000sha256.tdl.dto.TextEntityTypeTextUrl
+import dev.g000sha256.tdl.dto.TextEntityTypeTonAddress
 import dev.g000sha256.tdl.dto.TextEntityTypeUnderline
 import dev.g000sha256.tdl.dto.TextEntityTypeUrl
 import dev.g000sha256.tdl.dto.TextParseMode
@@ -2085,6 +2104,37 @@ import dev.g000sha256.tdl.dto.ThumbnailFormatWebm
 import dev.g000sha256.tdl.dto.ThumbnailFormatWebp
 import dev.g000sha256.tdl.dto.TimeZone
 import dev.g000sha256.tdl.dto.TimeZones
+import dev.g000sha256.tdl.dto.TonCenterApiRequestType
+import dev.g000sha256.tdl.dto.TonCenterApiRequestTypeGet
+import dev.g000sha256.tdl.dto.TonCenterApiRequestTypePost
+import dev.g000sha256.tdl.dto.TonCenterStreamingApiUrl
+import dev.g000sha256.tdl.dto.TonConnectChallenge
+import dev.g000sha256.tdl.dto.TonConnectConnectItem
+import dev.g000sha256.tdl.dto.TonConnectConnectItemAddress
+import dev.g000sha256.tdl.dto.TonConnectConnectItemProof
+import dev.g000sha256.tdl.dto.TonConnectConnectRequest
+import dev.g000sha256.tdl.dto.TonConnectManifest
+import dev.g000sha256.tdl.dto.TonConnectManifestFailed
+import dev.g000sha256.tdl.dto.TonConnectManifestInfo
+import dev.g000sha256.tdl.dto.TonConnectManifestInvalid
+import dev.g000sha256.tdl.dto.TonConnectManifestPending
+import dev.g000sha256.tdl.dto.TonConnectRequest
+import dev.g000sha256.tdl.dto.TonConnectRequestState
+import dev.g000sha256.tdl.dto.TonConnectRequestStateAccepted
+import dev.g000sha256.tdl.dto.TonConnectRequestStatePending
+import dev.g000sha256.tdl.dto.TonConnectRequestStateRejected
+import dev.g000sha256.tdl.dto.TonConnectRequests
+import dev.g000sha256.tdl.dto.TonConnectSession
+import dev.g000sha256.tdl.dto.TonConnectSessionEventId
+import dev.g000sha256.tdl.dto.TonConnectSessionState
+import dev.g000sha256.tdl.dto.TonConnectSessionStateClosed
+import dev.g000sha256.tdl.dto.TonConnectSessionStateClosing
+import dev.g000sha256.tdl.dto.TonConnectSessionStatePending
+import dev.g000sha256.tdl.dto.TonConnectSessionStateReady
+import dev.g000sha256.tdl.dto.TonConnectSessions
+import dev.g000sha256.tdl.dto.TonNft
+import dev.g000sha256.tdl.dto.TonNftAttribute
+import dev.g000sha256.tdl.dto.TonNfts
 import dev.g000sha256.tdl.dto.TonTransaction
 import dev.g000sha256.tdl.dto.TonTransactionType
 import dev.g000sha256.tdl.dto.TonTransactionTypeFragmentDeposit
@@ -2097,6 +2147,24 @@ import dev.g000sha256.tdl.dto.TonTransactionTypeUnsupported
 import dev.g000sha256.tdl.dto.TonTransactionTypeUpgradedGiftPurchase
 import dev.g000sha256.tdl.dto.TonTransactionTypeUpgradedGiftSale
 import dev.g000sha256.tdl.dto.TonTransactions
+import dev.g000sha256.tdl.dto.TonWalletGaslessTransfersInfo
+import dev.g000sha256.tdl.dto.TonWalletOwnershipProof
+import dev.g000sha256.tdl.dto.TonWalletOwnershipProofChallenge
+import dev.g000sha256.tdl.dto.TonWalletState
+import dev.g000sha256.tdl.dto.TonWalletTransaction
+import dev.g000sha256.tdl.dto.TonWalletTransactionState
+import dev.g000sha256.tdl.dto.TonWalletTransactionStateFailed
+import dev.g000sha256.tdl.dto.TonWalletTransactionStateSucceeded
+import dev.g000sha256.tdl.dto.TonWalletTransactionType
+import dev.g000sha256.tdl.dto.TonWalletTransactionTypeKeyChange
+import dev.g000sha256.tdl.dto.TonWalletTransactionTypeNftTransfer
+import dev.g000sha256.tdl.dto.TonWalletTransactionTypeOnRampDeposit
+import dev.g000sha256.tdl.dto.TonWalletTransactionTypeTransfer
+import dev.g000sha256.tdl.dto.TonWalletTransactions
+import dev.g000sha256.tdl.dto.TonWalletTransferReceiver
+import dev.g000sha256.tdl.dto.TonWalletTransferReceiverAddress
+import dev.g000sha256.tdl.dto.TonWalletTransferReceiverUser
+import dev.g000sha256.tdl.dto.TonWalletTransferResult
 import dev.g000sha256.tdl.dto.TopChatCategory
 import dev.g000sha256.tdl.dto.TopChatCategoryBots
 import dev.g000sha256.tdl.dto.TopChatCategoryCalls
@@ -2120,6 +2188,7 @@ import dev.g000sha256.tdl.dto.UpdateActiveGiftAuctions
 import dev.g000sha256.tdl.dto.UpdateActiveLiveLocationMessages
 import dev.g000sha256.tdl.dto.UpdateActiveNotifications
 import dev.g000sha256.tdl.dto.UpdateAgeVerificationParameters
+import dev.g000sha256.tdl.dto.UpdateAllowedBotUsernamePremiumSuffixes
 import dev.g000sha256.tdl.dto.UpdateAnimatedEmojiMessageClicked
 import dev.g000sha256.tdl.dto.UpdateAnimationSearchParameters
 import dev.g000sha256.tdl.dto.UpdateApplicationRecaptchaVerificationRequired
@@ -2289,6 +2358,10 @@ import dev.g000sha256.tdl.dto.UpdateSupergroup
 import dev.g000sha256.tdl.dto.UpdateSupergroupFullInfo
 import dev.g000sha256.tdl.dto.UpdateTermsOfService
 import dev.g000sha256.tdl.dto.UpdateTextCompositionStyles
+import dev.g000sha256.tdl.dto.UpdateTonWalletGaslessTransfersInfo
+import dev.g000sha256.tdl.dto.UpdateTonWalletState
+import dev.g000sha256.tdl.dto.UpdateTonWalletTonConnectSession
+import dev.g000sha256.tdl.dto.UpdateTonWalletTonConnectSessionDisconnectRequired
 import dev.g000sha256.tdl.dto.UpdateTopicMessageCount
 import dev.g000sha256.tdl.dto.UpdateTrendingStickerSets
 import dev.g000sha256.tdl.dto.UpdateTrustedMiniAppBots
@@ -2375,6 +2448,8 @@ import dev.g000sha256.tdl.dto.UserStatusOffline
 import dev.g000sha256.tdl.dto.UserStatusOnline
 import dev.g000sha256.tdl.dto.UserStatusRecently
 import dev.g000sha256.tdl.dto.UserSupportInfo
+import dev.g000sha256.tdl.dto.UserTonWalletAddress
+import dev.g000sha256.tdl.dto.UserTonWalletAddresses
 import dev.g000sha256.tdl.dto.UserType
 import dev.g000sha256.tdl.dto.UserTypeBot
 import dev.g000sha256.tdl.dto.UserTypeDeleted
@@ -2395,6 +2470,7 @@ import dev.g000sha256.tdl.dto.VideoMessageAdvertisements
 import dev.g000sha256.tdl.dto.VideoNote
 import dev.g000sha256.tdl.dto.VideoStoryboard
 import dev.g000sha256.tdl.dto.VoiceNote
+import dev.g000sha256.tdl.dto.WalletBotBalance
 import dev.g000sha256.tdl.dto.WebApp
 import dev.g000sha256.tdl.dto.WebAppInfo
 import dev.g000sha256.tdl.dto.WebAppOpenMode
@@ -2873,6 +2949,9 @@ internal class TdlDeserializer internal constructor() {
             "craftGiftResultSuccess" -> return deserializeCraftGiftResultSuccess(jsonObject = jsonObject)
             "craftGiftResultTooEarly" -> return deserializeCraftGiftResultTooEarly(jsonObject = jsonObject)
             "createdBasicGroupChat" -> return deserializeCreatedBasicGroupChat(jsonObject = jsonObject)
+            "currencies" -> return deserializeCurrencies(jsonObject = jsonObject)
+            "currencyExchangeRate" -> return deserializeCurrencyExchangeRate(jsonObject = jsonObject)
+            "currencyExchangeRates" -> return deserializeCurrencyExchangeRates(jsonObject = jsonObject)
             "currentWeather" -> return deserializeCurrentWeather(jsonObject = jsonObject)
             "customRequestResult" -> return deserializeCustomRequestResult(jsonObject = jsonObject)
             "data" -> return deserializeData(jsonObject = jsonObject)
@@ -3301,6 +3380,8 @@ internal class TdlDeserializer internal constructor() {
             "internalLinkTypeStoryAlbum" -> return deserializeInternalLinkTypeStoryAlbum(jsonObject = jsonObject)
             "internalLinkTypeTextCompositionStyle" -> return deserializeInternalLinkTypeTextCompositionStyle(jsonObject = jsonObject)
             "internalLinkTypeTheme" -> return deserializeInternalLinkTypeTheme(jsonObject = jsonObject)
+            "internalLinkTypeTonConnect" -> return deserializeInternalLinkTypeTonConnect(jsonObject = jsonObject)
+            "internalLinkTypeTonWalletTransfer" -> return deserializeInternalLinkTypeTonWalletTransfer(jsonObject = jsonObject)
             "internalLinkTypeUnknownDeepLink" -> return deserializeInternalLinkTypeUnknownDeepLink(jsonObject = jsonObject)
             "internalLinkTypeUpgradedGift" -> return deserializeInternalLinkTypeUpgradedGift(jsonObject = jsonObject)
             "internalLinkTypeUserPhoneNumber" -> return deserializeInternalLinkTypeUserPhoneNumber(jsonObject = jsonObject)
@@ -3551,6 +3632,8 @@ internal class TdlDeserializer internal constructor() {
             "messageSupergroupChatCreate" -> return deserializeMessageSupergroupChatCreate(jsonObject = jsonObject)
             "messageText" -> return deserializeMessageText(jsonObject = jsonObject)
             "messageThreadInfo" -> return deserializeMessageThreadInfo(jsonObject = jsonObject)
+            "messageTonConnectRequest" -> return deserializeMessageTonConnectRequest(jsonObject = jsonObject)
+            "messageTonWalletTransfer" -> return deserializeMessageTonWalletTransfer(jsonObject = jsonObject)
             "messageTopicDirectMessages" -> return deserializeMessageTopicDirectMessages(jsonObject = jsonObject)
             "messageTopicForum" -> return deserializeMessageTopicForum(jsonObject = jsonObject)
             "messageTopicSavedMessages" -> return deserializeMessageTopicSavedMessages(jsonObject = jsonObject)
@@ -3600,6 +3683,13 @@ internal class TdlDeserializer internal constructor() {
             "notificationTypeNewSecretChat" -> return deserializeNotificationTypeNewSecretChat(jsonObject = jsonObject)
             "oauthLinkInfo" -> return deserializeOauthLinkInfo(jsonObject = jsonObject)
             "ok" -> return deserializeOk(jsonObject = jsonObject)
+            "onRampPaymentAvailability" -> return deserializeOnRampPaymentAvailability(jsonObject = jsonObject)
+            "onRampPaymentLimits" -> return deserializeOnRampPaymentLimits(jsonObject = jsonObject)
+            "onRampPaymentMethod" -> return deserializeOnRampPaymentMethod(jsonObject = jsonObject)
+            "onRampPaymentQuote" -> return deserializeOnRampPaymentQuote(jsonObject = jsonObject)
+            "onRampPaymentSession" -> return deserializeOnRampPaymentSession(jsonObject = jsonObject)
+            "onRampProvider" -> return deserializeOnRampProvider(jsonObject = jsonObject)
+            "onRampProviders" -> return deserializeOnRampProviders(jsonObject = jsonObject)
             "optionValueBoolean" -> return deserializeOptionValueBoolean(jsonObject = jsonObject)
             "optionValueEmpty" -> return deserializeOptionValueEmpty(jsonObject = jsonObject)
             "optionValueInteger" -> return deserializeOptionValueInteger(jsonObject = jsonObject)
@@ -3889,6 +3979,8 @@ internal class TdlDeserializer internal constructor() {
             "pushMessageContentSuggestBirthdate" -> return deserializePushMessageContentSuggestBirthdate(jsonObject = jsonObject)
             "pushMessageContentSuggestProfilePhoto" -> return deserializePushMessageContentSuggestProfilePhoto(jsonObject = jsonObject)
             "pushMessageContentText" -> return deserializePushMessageContentText(jsonObject = jsonObject)
+            "pushMessageContentTonConnectRequest" -> return deserializePushMessageContentTonConnectRequest(jsonObject = jsonObject)
+            "pushMessageContentTonWalletTransfer" -> return deserializePushMessageContentTonWalletTransfer(jsonObject = jsonObject)
             "pushMessageContentUpgradedGift" -> return deserializePushMessageContentUpgradedGift(jsonObject = jsonObject)
             "pushMessageContentVideo" -> return deserializePushMessageContentVideo(jsonObject = jsonObject)
             "pushMessageContentVideoChatEnded" -> return deserializePushMessageContentVideoChatEnded(jsonObject = jsonObject)
@@ -3983,6 +4075,7 @@ internal class TdlDeserializer internal constructor() {
             "richTextStrikethrough" -> return deserializeRichTextStrikethrough(jsonObject = jsonObject)
             "richTextSubscript" -> return deserializeRichTextSubscript(jsonObject = jsonObject)
             "richTextSuperscript" -> return deserializeRichTextSuperscript(jsonObject = jsonObject)
+            "richTextTonAddress" -> return deserializeRichTextTonAddress(jsonObject = jsonObject)
             "richTextUnderline" -> return deserializeRichTextUnderline(jsonObject = jsonObject)
             "richTextUrl" -> return deserializeRichTextUrl(jsonObject = jsonObject)
             "richTexts" -> return deserializeRichTexts(jsonObject = jsonObject)
@@ -4232,6 +4325,7 @@ internal class TdlDeserializer internal constructor() {
             "suggestedActionSubscribeToAnnualPremium" -> return deserializeSuggestedActionSubscribeToAnnualPremium(jsonObject = jsonObject)
             "suggestedActionUpgradePremium" -> return deserializeSuggestedActionUpgradePremium(jsonObject = jsonObject)
             "suggestedActionViewChecksHint" -> return deserializeSuggestedActionViewChecksHint(jsonObject = jsonObject)
+            "suggestedActionViewFirstTonWalletTransferHint" -> return deserializeSuggestedActionViewFirstTonWalletTransferHint(jsonObject = jsonObject)
             "suggestedPostInfo" -> return deserializeSuggestedPostInfo(jsonObject = jsonObject)
             "suggestedPostPriceGram" -> return deserializeSuggestedPostPriceGram(jsonObject = jsonObject)
             "suggestedPostPriceStar" -> return deserializeSuggestedPostPriceStar(jsonObject = jsonObject)
@@ -4302,6 +4396,7 @@ internal class TdlDeserializer internal constructor() {
             "textEntityTypeSpoiler" -> return deserializeTextEntityTypeSpoiler(jsonObject = jsonObject)
             "textEntityTypeStrikethrough" -> return deserializeTextEntityTypeStrikethrough(jsonObject = jsonObject)
             "textEntityTypeTextUrl" -> return deserializeTextEntityTypeTextUrl(jsonObject = jsonObject)
+            "textEntityTypeTonAddress" -> return deserializeTextEntityTypeTonAddress(jsonObject = jsonObject)
             "textEntityTypeUnderline" -> return deserializeTextEntityTypeUnderline(jsonObject = jsonObject)
             "textEntityTypeUrl" -> return deserializeTextEntityTypeUrl(jsonObject = jsonObject)
             "textParseModeHTML" -> return deserializeTextParseModeHTML(jsonObject = jsonObject)
@@ -4319,6 +4414,32 @@ internal class TdlDeserializer internal constructor() {
             "thumbnailFormatWebp" -> return deserializeThumbnailFormatWebp(jsonObject = jsonObject)
             "timeZone" -> return deserializeTimeZone(jsonObject = jsonObject)
             "timeZones" -> return deserializeTimeZones(jsonObject = jsonObject)
+            "tonCenterApiRequestTypeGet" -> return deserializeTonCenterApiRequestTypeGet(jsonObject = jsonObject)
+            "tonCenterApiRequestTypePost" -> return deserializeTonCenterApiRequestTypePost(jsonObject = jsonObject)
+            "tonCenterStreamingApiUrl" -> return deserializeTonCenterStreamingApiUrl(jsonObject = jsonObject)
+            "tonConnectChallenge" -> return deserializeTonConnectChallenge(jsonObject = jsonObject)
+            "tonConnectConnectItemAddress" -> return deserializeTonConnectConnectItemAddress(jsonObject = jsonObject)
+            "tonConnectConnectItemProof" -> return deserializeTonConnectConnectItemProof(jsonObject = jsonObject)
+            "tonConnectConnectRequest" -> return deserializeTonConnectConnectRequest(jsonObject = jsonObject)
+            "tonConnectManifestFailed" -> return deserializeTonConnectManifestFailed(jsonObject = jsonObject)
+            "tonConnectManifestInfo" -> return deserializeTonConnectManifestInfo(jsonObject = jsonObject)
+            "tonConnectManifestInvalid" -> return deserializeTonConnectManifestInvalid(jsonObject = jsonObject)
+            "tonConnectManifestPending" -> return deserializeTonConnectManifestPending(jsonObject = jsonObject)
+            "tonConnectRequest" -> return deserializeTonConnectRequest(jsonObject = jsonObject)
+            "tonConnectRequestStateAccepted" -> return deserializeTonConnectRequestStateAccepted(jsonObject = jsonObject)
+            "tonConnectRequestStatePending" -> return deserializeTonConnectRequestStatePending(jsonObject = jsonObject)
+            "tonConnectRequestStateRejected" -> return deserializeTonConnectRequestStateRejected(jsonObject = jsonObject)
+            "tonConnectRequests" -> return deserializeTonConnectRequests(jsonObject = jsonObject)
+            "tonConnectSession" -> return deserializeTonConnectSession(jsonObject = jsonObject)
+            "tonConnectSessionEventId" -> return deserializeTonConnectSessionEventId(jsonObject = jsonObject)
+            "tonConnectSessionStateClosed" -> return deserializeTonConnectSessionStateClosed(jsonObject = jsonObject)
+            "tonConnectSessionStateClosing" -> return deserializeTonConnectSessionStateClosing(jsonObject = jsonObject)
+            "tonConnectSessionStatePending" -> return deserializeTonConnectSessionStatePending(jsonObject = jsonObject)
+            "tonConnectSessionStateReady" -> return deserializeTonConnectSessionStateReady(jsonObject = jsonObject)
+            "tonConnectSessions" -> return deserializeTonConnectSessions(jsonObject = jsonObject)
+            "tonNft" -> return deserializeTonNft(jsonObject = jsonObject)
+            "tonNftAttribute" -> return deserializeTonNftAttribute(jsonObject = jsonObject)
+            "tonNfts" -> return deserializeTonNfts(jsonObject = jsonObject)
             "tonTransaction" -> return deserializeTonTransaction(jsonObject = jsonObject)
             "tonTransactionTypeFragmentDeposit" -> return deserializeTonTransactionTypeFragmentDeposit(jsonObject = jsonObject)
             "tonTransactionTypeFragmentWithdrawal" -> return deserializeTonTransactionTypeFragmentWithdrawal(jsonObject = jsonObject)
@@ -4330,6 +4451,21 @@ internal class TdlDeserializer internal constructor() {
             "tonTransactionTypeUpgradedGiftPurchase" -> return deserializeTonTransactionTypeUpgradedGiftPurchase(jsonObject = jsonObject)
             "tonTransactionTypeUpgradedGiftSale" -> return deserializeTonTransactionTypeUpgradedGiftSale(jsonObject = jsonObject)
             "tonTransactions" -> return deserializeTonTransactions(jsonObject = jsonObject)
+            "tonWalletGaslessTransfersInfo" -> return deserializeTonWalletGaslessTransfersInfo(jsonObject = jsonObject)
+            "tonWalletOwnershipProof" -> return deserializeTonWalletOwnershipProof(jsonObject = jsonObject)
+            "tonWalletOwnershipProofChallenge" -> return deserializeTonWalletOwnershipProofChallenge(jsonObject = jsonObject)
+            "tonWalletState" -> return deserializeTonWalletState(jsonObject = jsonObject)
+            "tonWalletTransaction" -> return deserializeTonWalletTransaction(jsonObject = jsonObject)
+            "tonWalletTransactionStateFailed" -> return deserializeTonWalletTransactionStateFailed(jsonObject = jsonObject)
+            "tonWalletTransactionStateSucceeded" -> return deserializeTonWalletTransactionStateSucceeded(jsonObject = jsonObject)
+            "tonWalletTransactionTypeKeyChange" -> return deserializeTonWalletTransactionTypeKeyChange(jsonObject = jsonObject)
+            "tonWalletTransactionTypeNftTransfer" -> return deserializeTonWalletTransactionTypeNftTransfer(jsonObject = jsonObject)
+            "tonWalletTransactionTypeOnRampDeposit" -> return deserializeTonWalletTransactionTypeOnRampDeposit(jsonObject = jsonObject)
+            "tonWalletTransactionTypeTransfer" -> return deserializeTonWalletTransactionTypeTransfer(jsonObject = jsonObject)
+            "tonWalletTransactions" -> return deserializeTonWalletTransactions(jsonObject = jsonObject)
+            "tonWalletTransferReceiverAddress" -> return deserializeTonWalletTransferReceiverAddress(jsonObject = jsonObject)
+            "tonWalletTransferReceiverUser" -> return deserializeTonWalletTransferReceiverUser(jsonObject = jsonObject)
+            "tonWalletTransferResult" -> return deserializeTonWalletTransferResult(jsonObject = jsonObject)
             "topChatCategoryBots" -> return deserializeTopChatCategoryBots(jsonObject = jsonObject)
             "topChatCategoryCalls" -> return deserializeTopChatCategoryCalls(jsonObject = jsonObject)
             "topChatCategoryChannels" -> return deserializeTopChatCategoryChannels(jsonObject = jsonObject)
@@ -4350,6 +4486,7 @@ internal class TdlDeserializer internal constructor() {
             "updateActiveLiveLocationMessages" -> return deserializeUpdateActiveLiveLocationMessages(jsonObject = jsonObject)
             "updateActiveNotifications" -> return deserializeUpdateActiveNotifications(jsonObject = jsonObject)
             "updateAgeVerificationParameters" -> return deserializeUpdateAgeVerificationParameters(jsonObject = jsonObject)
+            "updateAllowedBotUsernamePremiumSuffixes" -> return deserializeUpdateAllowedBotUsernamePremiumSuffixes(jsonObject = jsonObject)
             "updateAnimatedEmojiMessageClicked" -> return deserializeUpdateAnimatedEmojiMessageClicked(jsonObject = jsonObject)
             "updateAnimationSearchParameters" -> return deserializeUpdateAnimationSearchParameters(jsonObject = jsonObject)
             "updateApplicationRecaptchaVerificationRequired" -> return deserializeUpdateApplicationRecaptchaVerificationRequired(jsonObject = jsonObject)
@@ -4519,6 +4656,10 @@ internal class TdlDeserializer internal constructor() {
             "updateSupergroupFullInfo" -> return deserializeUpdateSupergroupFullInfo(jsonObject = jsonObject)
             "updateTermsOfService" -> return deserializeUpdateTermsOfService(jsonObject = jsonObject)
             "updateTextCompositionStyles" -> return deserializeUpdateTextCompositionStyles(jsonObject = jsonObject)
+            "updateTonWalletGaslessTransfersInfo" -> return deserializeUpdateTonWalletGaslessTransfersInfo(jsonObject = jsonObject)
+            "updateTonWalletState" -> return deserializeUpdateTonWalletState(jsonObject = jsonObject)
+            "updateTonWalletTonConnectSession" -> return deserializeUpdateTonWalletTonConnectSession(jsonObject = jsonObject)
+            "updateTonWalletTonConnectSessionDisconnectRequired" -> return deserializeUpdateTonWalletTonConnectSessionDisconnectRequired(jsonObject = jsonObject)
             "updateTopicMessageCount" -> return deserializeUpdateTopicMessageCount(jsonObject = jsonObject)
             "updateTrendingStickerSets" -> return deserializeUpdateTrendingStickerSets(jsonObject = jsonObject)
             "updateTrustedMiniAppBots" -> return deserializeUpdateTrustedMiniAppBots(jsonObject = jsonObject)
@@ -4599,6 +4740,8 @@ internal class TdlDeserializer internal constructor() {
             "userStatusOnline" -> return deserializeUserStatusOnline(jsonObject = jsonObject)
             "userStatusRecently" -> return deserializeUserStatusRecently(jsonObject = jsonObject)
             "userSupportInfo" -> return deserializeUserSupportInfo(jsonObject = jsonObject)
+            "userTonWalletAddress" -> return deserializeUserTonWalletAddress(jsonObject = jsonObject)
+            "userTonWalletAddresses" -> return deserializeUserTonWalletAddresses(jsonObject = jsonObject)
             "userTypeBot" -> return deserializeUserTypeBot(jsonObject = jsonObject)
             "userTypeDeleted" -> return deserializeUserTypeDeleted(jsonObject = jsonObject)
             "userTypeRegular" -> return deserializeUserTypeRegular(jsonObject = jsonObject)
@@ -4617,6 +4760,7 @@ internal class TdlDeserializer internal constructor() {
             "videoNote" -> return deserializeVideoNote(jsonObject = jsonObject)
             "videoStoryboard" -> return deserializeVideoStoryboard(jsonObject = jsonObject)
             "voiceNote" -> return deserializeVoiceNote(jsonObject = jsonObject)
+            "walletBotBalance" -> return deserializeWalletBotBalance(jsonObject = jsonObject)
             "webApp" -> return deserializeWebApp(jsonObject = jsonObject)
             "webAppInfo" -> return deserializeWebAppInfo(jsonObject = jsonObject)
             "webAppOpenModeCompact" -> return deserializeWebAppOpenModeCompact(jsonObject = jsonObject)
@@ -5860,6 +6004,8 @@ internal class TdlDeserializer internal constructor() {
             "internalLinkTypeStoryAlbum" -> return deserializeInternalLinkTypeStoryAlbum(jsonObject = jsonObject)
             "internalLinkTypeTextCompositionStyle" -> return deserializeInternalLinkTypeTextCompositionStyle(jsonObject = jsonObject)
             "internalLinkTypeTheme" -> return deserializeInternalLinkTypeTheme(jsonObject = jsonObject)
+            "internalLinkTypeTonConnect" -> return deserializeInternalLinkTypeTonConnect(jsonObject = jsonObject)
+            "internalLinkTypeTonWalletTransfer" -> return deserializeInternalLinkTypeTonWalletTransfer(jsonObject = jsonObject)
             "internalLinkTypeUnknownDeepLink" -> return deserializeInternalLinkTypeUnknownDeepLink(jsonObject = jsonObject)
             "internalLinkTypeUpgradedGift" -> return deserializeInternalLinkTypeUpgradedGift(jsonObject = jsonObject)
             "internalLinkTypeUserPhoneNumber" -> return deserializeInternalLinkTypeUserPhoneNumber(jsonObject = jsonObject)
@@ -6118,6 +6264,8 @@ internal class TdlDeserializer internal constructor() {
             "messageSuggestedPostRefunded" -> return deserializeMessageSuggestedPostRefunded(jsonObject = jsonObject)
             "messageSupergroupChatCreate" -> return deserializeMessageSupergroupChatCreate(jsonObject = jsonObject)
             "messageText" -> return deserializeMessageText(jsonObject = jsonObject)
+            "messageTonConnectRequest" -> return deserializeMessageTonConnectRequest(jsonObject = jsonObject)
+            "messageTonWalletTransfer" -> return deserializeMessageTonWalletTransfer(jsonObject = jsonObject)
             "messageUnsupported" -> return deserializeMessageUnsupported(jsonObject = jsonObject)
             "messageUpgradedGift" -> return deserializeMessageUpgradedGift(jsonObject = jsonObject)
             "messageUpgradedGiftPurchaseOffer" -> return deserializeMessageUpgradedGiftPurchaseOffer(jsonObject = jsonObject)
@@ -6712,6 +6860,8 @@ internal class TdlDeserializer internal constructor() {
             "pushMessageContentSuggestBirthdate" -> return deserializePushMessageContentSuggestBirthdate(jsonObject = jsonObject)
             "pushMessageContentSuggestProfilePhoto" -> return deserializePushMessageContentSuggestProfilePhoto(jsonObject = jsonObject)
             "pushMessageContentText" -> return deserializePushMessageContentText(jsonObject = jsonObject)
+            "pushMessageContentTonConnectRequest" -> return deserializePushMessageContentTonConnectRequest(jsonObject = jsonObject)
+            "pushMessageContentTonWalletTransfer" -> return deserializePushMessageContentTonWalletTransfer(jsonObject = jsonObject)
             "pushMessageContentUpgradedGift" -> return deserializePushMessageContentUpgradedGift(jsonObject = jsonObject)
             "pushMessageContentVideo" -> return deserializePushMessageContentVideo(jsonObject = jsonObject)
             "pushMessageContentVideoChatEnded" -> return deserializePushMessageContentVideoChatEnded(jsonObject = jsonObject)
@@ -6882,6 +7032,7 @@ internal class TdlDeserializer internal constructor() {
             "richTextStrikethrough" -> return deserializeRichTextStrikethrough(jsonObject = jsonObject)
             "richTextSubscript" -> return deserializeRichTextSubscript(jsonObject = jsonObject)
             "richTextSuperscript" -> return deserializeRichTextSuperscript(jsonObject = jsonObject)
+            "richTextTonAddress" -> return deserializeRichTextTonAddress(jsonObject = jsonObject)
             "richTextUnderline" -> return deserializeRichTextUnderline(jsonObject = jsonObject)
             "richTextUrl" -> return deserializeRichTextUrl(jsonObject = jsonObject)
             "richTexts" -> return deserializeRichTexts(jsonObject = jsonObject)
@@ -7263,6 +7414,7 @@ internal class TdlDeserializer internal constructor() {
             "suggestedActionSubscribeToAnnualPremium" -> return deserializeSuggestedActionSubscribeToAnnualPremium(jsonObject = jsonObject)
             "suggestedActionUpgradePremium" -> return deserializeSuggestedActionUpgradePremium(jsonObject = jsonObject)
             "suggestedActionViewChecksHint" -> return deserializeSuggestedActionViewChecksHint(jsonObject = jsonObject)
+            "suggestedActionViewFirstTonWalletTransferHint" -> return deserializeSuggestedActionViewFirstTonWalletTransferHint(jsonObject = jsonObject)
             else -> error(message = "Unknown dto type: $type")
         }
     }
@@ -7369,6 +7521,7 @@ internal class TdlDeserializer internal constructor() {
             "textEntityTypeSpoiler" -> return deserializeTextEntityTypeSpoiler(jsonObject = jsonObject)
             "textEntityTypeStrikethrough" -> return deserializeTextEntityTypeStrikethrough(jsonObject = jsonObject)
             "textEntityTypeTextUrl" -> return deserializeTextEntityTypeTextUrl(jsonObject = jsonObject)
+            "textEntityTypeTonAddress" -> return deserializeTextEntityTypeTonAddress(jsonObject = jsonObject)
             "textEntityTypeUnderline" -> return deserializeTextEntityTypeUnderline(jsonObject = jsonObject)
             "textEntityTypeUrl" -> return deserializeTextEntityTypeUrl(jsonObject = jsonObject)
             else -> error(message = "Unknown dto type: $type")
@@ -7398,6 +7551,56 @@ internal class TdlDeserializer internal constructor() {
         }
     }
 
+    private fun deserializeTonCenterApiRequestType(jsonObject: JsonObject): TonCenterApiRequestType {
+        val type = jsonObject.getString(key = "@type")
+        when(type) {
+            "tonCenterApiRequestTypeGet" -> return deserializeTonCenterApiRequestTypeGet(jsonObject = jsonObject)
+            "tonCenterApiRequestTypePost" -> return deserializeTonCenterApiRequestTypePost(jsonObject = jsonObject)
+            else -> error(message = "Unknown dto type: $type")
+        }
+    }
+
+    private fun deserializeTonConnectConnectItem(jsonObject: JsonObject): TonConnectConnectItem {
+        val type = jsonObject.getString(key = "@type")
+        when(type) {
+            "tonConnectConnectItemAddress" -> return deserializeTonConnectConnectItemAddress(jsonObject = jsonObject)
+            "tonConnectConnectItemProof" -> return deserializeTonConnectConnectItemProof(jsonObject = jsonObject)
+            else -> error(message = "Unknown dto type: $type")
+        }
+    }
+
+    private fun deserializeTonConnectManifest(jsonObject: JsonObject): TonConnectManifest {
+        val type = jsonObject.getString(key = "@type")
+        when(type) {
+            "tonConnectManifestFailed" -> return deserializeTonConnectManifestFailed(jsonObject = jsonObject)
+            "tonConnectManifestInfo" -> return deserializeTonConnectManifestInfo(jsonObject = jsonObject)
+            "tonConnectManifestInvalid" -> return deserializeTonConnectManifestInvalid(jsonObject = jsonObject)
+            "tonConnectManifestPending" -> return deserializeTonConnectManifestPending(jsonObject = jsonObject)
+            else -> error(message = "Unknown dto type: $type")
+        }
+    }
+
+    private fun deserializeTonConnectRequestState(jsonObject: JsonObject): TonConnectRequestState {
+        val type = jsonObject.getString(key = "@type")
+        when(type) {
+            "tonConnectRequestStateAccepted" -> return deserializeTonConnectRequestStateAccepted(jsonObject = jsonObject)
+            "tonConnectRequestStatePending" -> return deserializeTonConnectRequestStatePending(jsonObject = jsonObject)
+            "tonConnectRequestStateRejected" -> return deserializeTonConnectRequestStateRejected(jsonObject = jsonObject)
+            else -> error(message = "Unknown dto type: $type")
+        }
+    }
+
+    private fun deserializeTonConnectSessionState(jsonObject: JsonObject): TonConnectSessionState {
+        val type = jsonObject.getString(key = "@type")
+        when(type) {
+            "tonConnectSessionStateClosed" -> return deserializeTonConnectSessionStateClosed(jsonObject = jsonObject)
+            "tonConnectSessionStateClosing" -> return deserializeTonConnectSessionStateClosing(jsonObject = jsonObject)
+            "tonConnectSessionStatePending" -> return deserializeTonConnectSessionStatePending(jsonObject = jsonObject)
+            "tonConnectSessionStateReady" -> return deserializeTonConnectSessionStateReady(jsonObject = jsonObject)
+            else -> error(message = "Unknown dto type: $type")
+        }
+    }
+
     private fun deserializeTonTransactionType(jsonObject: JsonObject): TonTransactionType {
         val type = jsonObject.getString(key = "@type")
         when(type) {
@@ -7410,6 +7613,35 @@ internal class TdlDeserializer internal constructor() {
             "tonTransactionTypeUnsupported" -> return deserializeTonTransactionTypeUnsupported(jsonObject = jsonObject)
             "tonTransactionTypeUpgradedGiftPurchase" -> return deserializeTonTransactionTypeUpgradedGiftPurchase(jsonObject = jsonObject)
             "tonTransactionTypeUpgradedGiftSale" -> return deserializeTonTransactionTypeUpgradedGiftSale(jsonObject = jsonObject)
+            else -> error(message = "Unknown dto type: $type")
+        }
+    }
+
+    private fun deserializeTonWalletTransactionState(jsonObject: JsonObject): TonWalletTransactionState {
+        val type = jsonObject.getString(key = "@type")
+        when(type) {
+            "tonWalletTransactionStateFailed" -> return deserializeTonWalletTransactionStateFailed(jsonObject = jsonObject)
+            "tonWalletTransactionStateSucceeded" -> return deserializeTonWalletTransactionStateSucceeded(jsonObject = jsonObject)
+            else -> error(message = "Unknown dto type: $type")
+        }
+    }
+
+    private fun deserializeTonWalletTransactionType(jsonObject: JsonObject): TonWalletTransactionType {
+        val type = jsonObject.getString(key = "@type")
+        when(type) {
+            "tonWalletTransactionTypeKeyChange" -> return deserializeTonWalletTransactionTypeKeyChange(jsonObject = jsonObject)
+            "tonWalletTransactionTypeNftTransfer" -> return deserializeTonWalletTransactionTypeNftTransfer(jsonObject = jsonObject)
+            "tonWalletTransactionTypeOnRampDeposit" -> return deserializeTonWalletTransactionTypeOnRampDeposit(jsonObject = jsonObject)
+            "tonWalletTransactionTypeTransfer" -> return deserializeTonWalletTransactionTypeTransfer(jsonObject = jsonObject)
+            else -> error(message = "Unknown dto type: $type")
+        }
+    }
+
+    private fun deserializeTonWalletTransferReceiver(jsonObject: JsonObject): TonWalletTransferReceiver {
+        val type = jsonObject.getString(key = "@type")
+        when(type) {
+            "tonWalletTransferReceiverAddress" -> return deserializeTonWalletTransferReceiverAddress(jsonObject = jsonObject)
+            "tonWalletTransferReceiverUser" -> return deserializeTonWalletTransferReceiverUser(jsonObject = jsonObject)
             else -> error(message = "Unknown dto type: $type")
         }
     }
@@ -7448,6 +7680,7 @@ internal class TdlDeserializer internal constructor() {
             "updateActiveLiveLocationMessages" -> return deserializeUpdateActiveLiveLocationMessages(jsonObject = jsonObject)
             "updateActiveNotifications" -> return deserializeUpdateActiveNotifications(jsonObject = jsonObject)
             "updateAgeVerificationParameters" -> return deserializeUpdateAgeVerificationParameters(jsonObject = jsonObject)
+            "updateAllowedBotUsernamePremiumSuffixes" -> return deserializeUpdateAllowedBotUsernamePremiumSuffixes(jsonObject = jsonObject)
             "updateAnimatedEmojiMessageClicked" -> return deserializeUpdateAnimatedEmojiMessageClicked(jsonObject = jsonObject)
             "updateAnimationSearchParameters" -> return deserializeUpdateAnimationSearchParameters(jsonObject = jsonObject)
             "updateApplicationRecaptchaVerificationRequired" -> return deserializeUpdateApplicationRecaptchaVerificationRequired(jsonObject = jsonObject)
@@ -7617,6 +7850,10 @@ internal class TdlDeserializer internal constructor() {
             "updateSupergroupFullInfo" -> return deserializeUpdateSupergroupFullInfo(jsonObject = jsonObject)
             "updateTermsOfService" -> return deserializeUpdateTermsOfService(jsonObject = jsonObject)
             "updateTextCompositionStyles" -> return deserializeUpdateTextCompositionStyles(jsonObject = jsonObject)
+            "updateTonWalletGaslessTransfersInfo" -> return deserializeUpdateTonWalletGaslessTransfersInfo(jsonObject = jsonObject)
+            "updateTonWalletState" -> return deserializeUpdateTonWalletState(jsonObject = jsonObject)
+            "updateTonWalletTonConnectSession" -> return deserializeUpdateTonWalletTonConnectSession(jsonObject = jsonObject)
+            "updateTonWalletTonConnectSessionDisconnectRequired" -> return deserializeUpdateTonWalletTonConnectSessionDisconnectRequired(jsonObject = jsonObject)
             "updateTopicMessageCount" -> return deserializeUpdateTopicMessageCount(jsonObject = jsonObject)
             "updateTrendingStickerSets" -> return deserializeUpdateTrendingStickerSets(jsonObject = jsonObject)
             "updateTrustedMiniAppBots" -> return deserializeUpdateTrustedMiniAppBots(jsonObject = jsonObject)
@@ -7949,6 +8186,7 @@ internal class TdlDeserializer internal constructor() {
             stickerHeight = jsonObject.getInt(key = "sticker_height"),
             fitzpatrickType = jsonObject.getInt(key = "fitzpatrick_type"),
             sound = jsonObject.getObjectNullable(key = "sound") { data -> deserializeFile(jsonObject = data) },
+            isRegularEmoji = jsonObject.getBoolean(key = "is_regular_emoji"),
         )
     }
 
@@ -10789,6 +11027,25 @@ internal class TdlDeserializer internal constructor() {
         return CreatedBasicGroupChat(
             chatId = jsonObject.getLong(key = "chat_id"),
             failedToAddMembers = jsonObject.getObject(key = "failed_to_add_members") { data -> deserializeFailedToAddMembers(jsonObject = data) },
+        )
+    }
+
+    private fun deserializeCurrencies(jsonObject: JsonObject): Currencies {
+        return Currencies(
+            currencies = jsonObject.getStrings(key = "currencies"),
+        )
+    }
+
+    private fun deserializeCurrencyExchangeRate(jsonObject: JsonObject): CurrencyExchangeRate {
+        return CurrencyExchangeRate(
+            currency = jsonObject.getString(key = "currency"),
+            rate = jsonObject.getDouble(key = "rate"),
+        )
+    }
+
+    private fun deserializeCurrencyExchangeRates(jsonObject: JsonObject): CurrencyExchangeRates {
+        return CurrencyExchangeRates(
+            rates = jsonObject.getObjects(key = "rates") { data -> deserializeCurrencyExchangeRate(jsonObject = data) },
         )
     }
 
@@ -13886,6 +14143,24 @@ internal class TdlDeserializer internal constructor() {
         )
     }
 
+    private fun deserializeInternalLinkTypeTonConnect(jsonObject: JsonObject): InternalLinkTypeTonConnect {
+        return InternalLinkTypeTonConnect(
+            version = jsonObject.getInt(key = "version"),
+            dappClientId = jsonObject.getString(key = "dapp_client_id"),
+            connectRequest = jsonObject.getObject(key = "connect_request") { data -> deserializeTonConnectConnectRequest(jsonObject = data) },
+            returnStrategy = jsonObject.getString(key = "return_strategy"),
+            rpcRequest = jsonObject.getString(key = "rpc_request"),
+            traceId = jsonObject.getString(key = "trace_id"),
+        )
+    }
+
+    private fun deserializeInternalLinkTypeTonWalletTransfer(jsonObject: JsonObject): InternalLinkTypeTonWalletTransfer {
+        return InternalLinkTypeTonWalletTransfer(
+            receiver = jsonObject.getObjectNullable(key = "receiver") { data -> deserializeTonWalletTransferReceiver(jsonObject = data) },
+            gramAmount = jsonObject.getLong(key = "gram_amount"),
+        )
+    }
+
     private fun deserializeInternalLinkTypeUnknownDeepLink(jsonObject: JsonObject): InternalLinkTypeUnknownDeepLink {
         return InternalLinkTypeUnknownDeepLink(
             link = jsonObject.getString(key = "link"),
@@ -15429,6 +15704,7 @@ internal class TdlDeserializer internal constructor() {
             canReportReactions = jsonObject.getBoolean(key = "can_report_reactions"),
             canReportSupergroupSpam = jsonObject.getBoolean(key = "can_report_supergroup_spam"),
             canSetFactCheck = jsonObject.getBoolean(key = "can_set_fact_check"),
+            customEmojiIds = jsonObject.getLongs(key = "custom_emoji_ids"),
             hasProtectedContentByCurrentUser = jsonObject.getBoolean(key = "has_protected_content_by_current_user"),
             hasProtectedContentByOtherUser = jsonObject.getBoolean(key = "has_protected_content_by_other_user"),
             needShowStatistics = jsonObject.getBoolean(key = "need_show_statistics"),
@@ -15760,6 +16036,27 @@ internal class TdlDeserializer internal constructor() {
             unreadMessageCount = jsonObject.getInt(key = "unread_message_count"),
             messages = jsonObject.getObjects(key = "messages") { data -> deserializeMessage(jsonObject = data) },
             draftMessage = jsonObject.getObjectNullable(key = "draft_message") { data -> deserializeDraftMessage(jsonObject = data) },
+        )
+    }
+
+    private fun deserializeMessageTonConnectRequest(jsonObject: JsonObject): MessageTonConnectRequest {
+        return MessageTonConnectRequest(
+            sessionId = jsonObject.getLong(key = "session_id"),
+            state = jsonObject.getObject(key = "state") { data -> deserializeTonConnectRequestState(jsonObject = data) },
+            dappName = jsonObject.getString(key = "dapp_name"),
+            topic = jsonObject.getString(key = "topic"),
+            traceId = jsonObject.getString(key = "trace_id"),
+        )
+    }
+
+    private fun deserializeMessageTonWalletTransfer(jsonObject: JsonObject): MessageTonWalletTransfer {
+        return MessageTonWalletTransfer(
+            senderUserId = jsonObject.getLong(key = "sender_user_id"),
+            transactionId = jsonObject.getString(key = "transaction_id"),
+            peerAddress = jsonObject.getString(key = "peer_address"),
+            amount = jsonObject.getLong(key = "amount"),
+            comment = jsonObject.getString(key = "comment"),
+            isCommentEncrypted = jsonObject.getBoolean(key = "is_comment_encrypted"),
         )
     }
 
@@ -16107,6 +16404,72 @@ internal class TdlDeserializer internal constructor() {
 
     private fun deserializeOk(jsonObject: JsonObject): Ok {
         return Ok()
+    }
+
+    private fun deserializeOnRampPaymentAvailability(jsonObject: JsonObject): OnRampPaymentAvailability {
+        return OnRampPaymentAvailability(
+            isAllowed = jsonObject.getBoolean(key = "is_allowed"),
+            isPurchaseAllowed = jsonObject.getBoolean(key = "is_purchase_allowed"),
+            methods = jsonObject.getObjects(key = "methods") { data -> deserializeOnRampPaymentMethod(jsonObject = data) },
+            countryCode = jsonObject.getString(key = "country_code"),
+            state = jsonObject.getString(key = "state"),
+        )
+    }
+
+    private fun deserializeOnRampPaymentLimits(jsonObject: JsonObject): OnRampPaymentLimits {
+        return OnRampPaymentLimits(
+            paymentMethod = jsonObject.getString(key = "payment_method"),
+            baseCurrencyMinAmount = jsonObject.getString(key = "base_currency_min_amount"),
+            baseCurrencyMaxAmount = jsonObject.getString(key = "base_currency_max_amount"),
+            cryptocurrencyMinAmount = jsonObject.getString(key = "cryptocurrency_min_amount"),
+            cryptocurrencyMaxAmount = jsonObject.getString(key = "cryptocurrency_max_amount"),
+        )
+    }
+
+    private fun deserializeOnRampPaymentMethod(jsonObject: JsonObject): OnRampPaymentMethod {
+        return OnRampPaymentMethod(
+            name = jsonObject.getString(key = "name"),
+            isAvailable = jsonObject.getBoolean(key = "is_available"),
+        )
+    }
+
+    private fun deserializeOnRampPaymentQuote(jsonObject: JsonObject): OnRampPaymentQuote {
+        return OnRampPaymentQuote(
+            paymentMethod = jsonObject.getString(key = "payment_method"),
+            expirationDate = jsonObject.getInt(key = "expiration_date"),
+            baseCurrencyAmount = jsonObject.getString(key = "base_currency_amount"),
+            cryptocurrencyAmount = jsonObject.getString(key = "cryptocurrency_amount"),
+            cryptocurrencyPrice = jsonObject.getString(key = "cryptocurrency_price"),
+            feeAmount = jsonObject.getString(key = "fee_amount"),
+            extraFeeAmount = jsonObject.getString(key = "extra_fee_amount"),
+            networkFeeAmount = jsonObject.getString(key = "network_fee_amount"),
+            totalAmount = jsonObject.getString(key = "total_amount"),
+        )
+    }
+
+    private fun deserializeOnRampPaymentSession(jsonObject: JsonObject): OnRampPaymentSession {
+        return OnRampPaymentSession(
+            sessionId = jsonObject.getString(key = "session_id"),
+            expirationDate = jsonObject.getInt(key = "expiration_date"),
+            url = jsonObject.getString(key = "url"),
+        )
+    }
+
+    private fun deserializeOnRampProvider(jsonObject: JsonObject): OnRampProvider {
+        return OnRampProvider(
+            id = jsonObject.getString(key = "id"),
+            name = jsonObject.getString(key = "name"),
+            cryptocurrencies = jsonObject.getStrings(key = "cryptocurrencies"),
+            supportsBaseCurrencies = jsonObject.getBoolean(key = "supports_base_currencies"),
+            supportsLimits = jsonObject.getBoolean(key = "supports_limits"),
+            supportsQuote = jsonObject.getBoolean(key = "supports_quote"),
+        )
+    }
+
+    private fun deserializeOnRampProviders(jsonObject: JsonObject): OnRampProviders {
+        return OnRampProviders(
+            providers = jsonObject.getObjects(key = "providers") { data -> deserializeOnRampProvider(jsonObject = data) },
+        )
     }
 
     private fun deserializeOptionValueBoolean(jsonObject: JsonObject): OptionValueBoolean {
@@ -17897,6 +18260,20 @@ internal class TdlDeserializer internal constructor() {
         )
     }
 
+    private fun deserializePushMessageContentTonConnectRequest(jsonObject: JsonObject): PushMessageContentTonConnectRequest {
+        return PushMessageContentTonConnectRequest(
+            dappName = jsonObject.getString(key = "dapp_name"),
+        )
+    }
+
+    private fun deserializePushMessageContentTonWalletTransfer(jsonObject: JsonObject): PushMessageContentTonWalletTransfer {
+        return PushMessageContentTonWalletTransfer(
+            senderUserId = jsonObject.getLong(key = "sender_user_id"),
+            amount = jsonObject.getString(key = "amount"),
+            comment = jsonObject.getString(key = "comment"),
+        )
+    }
+
     private fun deserializePushMessageContentUpgradedGift(jsonObject: JsonObject): PushMessageContentUpgradedGift {
         return PushMessageContentUpgradedGift(
             isUpgrade = jsonObject.getBoolean(key = "is_upgrade"),
@@ -18487,6 +18864,13 @@ internal class TdlDeserializer internal constructor() {
     private fun deserializeRichTextSuperscript(jsonObject: JsonObject): RichTextSuperscript {
         return RichTextSuperscript(
             text = jsonObject.getObject(key = "text") { data -> deserializeRichText(jsonObject = data) },
+        )
+    }
+
+    private fun deserializeRichTextTonAddress(jsonObject: JsonObject): RichTextTonAddress {
+        return RichTextTonAddress(
+            text = jsonObject.getObject(key = "text") { data -> deserializeRichText(jsonObject = data) },
+            address = jsonObject.getString(key = "address"),
         )
     }
 
@@ -20119,6 +20503,10 @@ internal class TdlDeserializer internal constructor() {
         return SuggestedActionViewChecksHint()
     }
 
+    private fun deserializeSuggestedActionViewFirstTonWalletTransferHint(jsonObject: JsonObject): SuggestedActionViewFirstTonWalletTransferHint {
+        return SuggestedActionViewFirstTonWalletTransferHint()
+    }
+
     private fun deserializeSuggestedPostInfo(jsonObject: JsonObject): SuggestedPostInfo {
         return SuggestedPostInfo(
             price = jsonObject.getObjectNullable(key = "price") { data -> deserializeSuggestedPostPrice(jsonObject = data) },
@@ -20603,6 +20991,10 @@ internal class TdlDeserializer internal constructor() {
         )
     }
 
+    private fun deserializeTextEntityTypeTonAddress(jsonObject: JsonObject): TextEntityTypeTonAddress {
+        return TextEntityTypeTonAddress()
+    }
+
     private fun deserializeTextEntityTypeUnderline(jsonObject: JsonObject): TextEntityTypeUnderline {
         return TextEntityTypeUnderline()
     }
@@ -20656,6 +21048,7 @@ internal class TdlDeserializer internal constructor() {
             background = jsonObject.getObjectNullable(key = "background") { data -> deserializeBackground(jsonObject = data) },
             outgoingMessageFill = jsonObject.getObjectNullable(key = "outgoing_message_fill") { data -> deserializeBackgroundFill(jsonObject = data) },
             animateOutgoingMessageFill = jsonObject.getBoolean(key = "animate_outgoing_message_fill"),
+            hasOutgoingMessageAccentColor = jsonObject.getBoolean(key = "has_outgoing_message_accent_color"),
             outgoingMessageAccentColor = jsonObject.getInt(key = "outgoing_message_accent_color"),
         )
     }
@@ -20708,6 +21101,174 @@ internal class TdlDeserializer internal constructor() {
     private fun deserializeTimeZones(jsonObject: JsonObject): TimeZones {
         return TimeZones(
             timeZones = jsonObject.getObjects(key = "time_zones") { data -> deserializeTimeZone(jsonObject = data) },
+        )
+    }
+
+    private fun deserializeTonCenterApiRequestTypeGet(jsonObject: JsonObject): TonCenterApiRequestTypeGet {
+        return TonCenterApiRequestTypeGet(
+            query = jsonObject.getString(key = "query"),
+        )
+    }
+
+    private fun deserializeTonCenterApiRequestTypePost(jsonObject: JsonObject): TonCenterApiRequestTypePost {
+        return TonCenterApiRequestTypePost(
+            payload = jsonObject.getString(key = "payload"),
+        )
+    }
+
+    private fun deserializeTonCenterStreamingApiUrl(jsonObject: JsonObject): TonCenterStreamingApiUrl {
+        return TonCenterStreamingApiUrl(
+            url = jsonObject.getString(key = "url"),
+            expiresIn = jsonObject.getInt(key = "expires_in"),
+        )
+    }
+
+    private fun deserializeTonConnectChallenge(jsonObject: JsonObject): TonConnectChallenge {
+        return TonConnectChallenge(
+            challenge = jsonObject.getBytes(key = "challenge"),
+            eventId = jsonObject.getLong(key = "event_id"),
+        )
+    }
+
+    private fun deserializeTonConnectConnectItemAddress(jsonObject: JsonObject): TonConnectConnectItemAddress {
+        return TonConnectConnectItemAddress(
+            network = jsonObject.getString(key = "network"),
+        )
+    }
+
+    private fun deserializeTonConnectConnectItemProof(jsonObject: JsonObject): TonConnectConnectItemProof {
+        return TonConnectConnectItemProof(
+            payload = jsonObject.getString(key = "payload"),
+        )
+    }
+
+    private fun deserializeTonConnectConnectRequest(jsonObject: JsonObject): TonConnectConnectRequest {
+        return TonConnectConnectRequest(
+            manifestUrl = jsonObject.getString(key = "manifest_url"),
+            items = jsonObject.getObjects(key = "items") { data -> deserializeTonConnectConnectItem(jsonObject = data) },
+        )
+    }
+
+    private fun deserializeTonConnectManifestFailed(jsonObject: JsonObject): TonConnectManifestFailed {
+        return TonConnectManifestFailed()
+    }
+
+    private fun deserializeTonConnectManifestInfo(jsonObject: JsonObject): TonConnectManifestInfo {
+        return TonConnectManifestInfo(
+            url = jsonObject.getString(key = "url"),
+            name = jsonObject.getString(key = "name"),
+            icon = jsonObject.getObject(key = "icon") { data -> deserializeDocument(jsonObject = data) },
+        )
+    }
+
+    private fun deserializeTonConnectManifestInvalid(jsonObject: JsonObject): TonConnectManifestInvalid {
+        return TonConnectManifestInvalid()
+    }
+
+    private fun deserializeTonConnectManifestPending(jsonObject: JsonObject): TonConnectManifestPending {
+        return TonConnectManifestPending()
+    }
+
+    private fun deserializeTonConnectRequest(jsonObject: JsonObject): TonConnectRequest {
+        return TonConnectRequest(
+            sessionId = jsonObject.getLong(key = "session_id"),
+            messageId = jsonObject.getLong(key = "message_id"),
+            body = jsonObject.getBytes(key = "body"),
+            expirationDate = jsonObject.getInt(key = "expiration_date"),
+            topic = jsonObject.getString(key = "topic"),
+            traceId = jsonObject.getString(key = "trace_id"),
+        )
+    }
+
+    private fun deserializeTonConnectRequestStateAccepted(jsonObject: JsonObject): TonConnectRequestStateAccepted {
+        return TonConnectRequestStateAccepted()
+    }
+
+    private fun deserializeTonConnectRequestStatePending(jsonObject: JsonObject): TonConnectRequestStatePending {
+        return TonConnectRequestStatePending(
+            expirationDate = jsonObject.getInt(key = "expiration_date"),
+        )
+    }
+
+    private fun deserializeTonConnectRequestStateRejected(jsonObject: JsonObject): TonConnectRequestStateRejected {
+        return TonConnectRequestStateRejected()
+    }
+
+    private fun deserializeTonConnectRequests(jsonObject: JsonObject): TonConnectRequests {
+        return TonConnectRequests(
+            session = jsonObject.getObject(key = "session") { data -> deserializeTonConnectSession(jsonObject = data) },
+            requests = jsonObject.getObjects(key = "requests") { data -> deserializeTonConnectRequest(jsonObject = data) },
+        )
+    }
+
+    private fun deserializeTonConnectSession(jsonObject: JsonObject): TonConnectSession {
+        return TonConnectSession(
+            id = jsonObject.getLong(key = "id"),
+            dappClientId = jsonObject.getString(key = "dapp_client_id"),
+            walletClientId = jsonObject.getString(key = "wallet_client_id"),
+            creationDate = jsonObject.getInt(key = "creation_date"),
+            manifest = jsonObject.getObject(key = "manifest") { data -> deserializeTonConnectManifest(jsonObject = data) },
+            nonce = jsonObject.getBytes(key = "nonce"),
+            state = jsonObject.getObject(key = "state") { data -> deserializeTonConnectSessionState(jsonObject = data) },
+        )
+    }
+
+    private fun deserializeTonConnectSessionEventId(jsonObject: JsonObject): TonConnectSessionEventId {
+        return TonConnectSessionEventId(
+            eventId = jsonObject.getLong(key = "event_id"),
+        )
+    }
+
+    private fun deserializeTonConnectSessionStateClosed(jsonObject: JsonObject): TonConnectSessionStateClosed {
+        return TonConnectSessionStateClosed()
+    }
+
+    private fun deserializeTonConnectSessionStateClosing(jsonObject: JsonObject): TonConnectSessionStateClosing {
+        return TonConnectSessionStateClosing()
+    }
+
+    private fun deserializeTonConnectSessionStatePending(jsonObject: JsonObject): TonConnectSessionStatePending {
+        return TonConnectSessionStatePending()
+    }
+
+    private fun deserializeTonConnectSessionStateReady(jsonObject: JsonObject): TonConnectSessionStateReady {
+        return TonConnectSessionStateReady()
+    }
+
+    private fun deserializeTonConnectSessions(jsonObject: JsonObject): TonConnectSessions {
+        return TonConnectSessions(
+            sessions = jsonObject.getObjects(key = "sessions") { data -> deserializeTonConnectSession(jsonObject = data) },
+        )
+    }
+
+    private fun deserializeTonNft(jsonObject: JsonObject): TonNft {
+        return TonNft(
+            collectionAddress = jsonObject.getString(key = "collection_address"),
+            address = jsonObject.getString(key = "address"),
+            ownerAddress = jsonObject.getString(key = "owner_address"),
+            index = jsonObject.getString(key = "index"),
+            name = jsonObject.getString(key = "name"),
+            description = jsonObject.getString(key = "description"),
+            image = jsonObject.getObjectNullable(key = "image") { data -> deserializePhotoSize(jsonObject = data) },
+            thumbnail = jsonObject.getObjectNullable(key = "thumbnail") { data -> deserializePhotoSize(jsonObject = data) },
+            content = jsonObject.getObjectNullable(key = "content") { data -> deserializeDocument(jsonObject = data) },
+            sticker = jsonObject.getObjectNullable(key = "sticker") { data -> deserializeSticker(jsonObject = data) },
+            attributes = jsonObject.getObjects(key = "attributes") { data -> deserializeTonNftAttribute(jsonObject = data) },
+            extra = jsonObject.getObjectNullable(key = "extra") { data -> deserializeJsonValue(jsonObject = data) },
+        )
+    }
+
+    private fun deserializeTonNftAttribute(jsonObject: JsonObject): TonNftAttribute {
+        return TonNftAttribute(
+            traitType = jsonObject.getString(key = "trait_type"),
+            value = jsonObject.getString(key = "value"),
+        )
+    }
+
+    private fun deserializeTonNfts(jsonObject: JsonObject): TonNfts {
+        return TonNfts(
+            nfts = jsonObject.getObjects(key = "nfts") { data -> deserializeTonNft(jsonObject = data) },
+            nextOffset = jsonObject.getString(key = "next_offset"),
         )
     }
 
@@ -20780,6 +21341,121 @@ internal class TdlDeserializer internal constructor() {
             gramAmount = jsonObject.getLong(key = "gram_amount"),
             transactions = jsonObject.getObjects(key = "transactions") { data -> deserializeTonTransaction(jsonObject = data) },
             nextOffset = jsonObject.getString(key = "next_offset"),
+        )
+    }
+
+    private fun deserializeTonWalletGaslessTransfersInfo(jsonObject: JsonObject): TonWalletGaslessTransfersInfo {
+        return TonWalletGaslessTransfersInfo(
+            leftCount = jsonObject.getInt(key = "left_count"),
+            resetDate = jsonObject.getInt(key = "reset_date"),
+            relayerAddress = jsonObject.getString(key = "relayer_address"),
+        )
+    }
+
+    private fun deserializeTonWalletOwnershipProof(jsonObject: JsonObject): TonWalletOwnershipProof {
+        return TonWalletOwnershipProof(
+            publicKey = jsonObject.getBytes(key = "public_key"),
+            timestamp = jsonObject.getInt(key = "timestamp"),
+            signature = jsonObject.getBytes(key = "signature"),
+        )
+    }
+
+    private fun deserializeTonWalletOwnershipProofChallenge(jsonObject: JsonObject): TonWalletOwnershipProofChallenge {
+        return TonWalletOwnershipProofChallenge(
+            payload = jsonObject.getString(key = "payload"),
+            domain = jsonObject.getString(key = "domain"),
+        )
+    }
+
+    private fun deserializeTonWalletState(jsonObject: JsonObject): TonWalletState {
+        return TonWalletState(
+            address = jsonObject.getString(key = "address"),
+            publicKey = jsonObject.getBytes(key = "public_key"),
+            gramAmount = jsonObject.getLong(key = "gram_amount"),
+            isBeingCreated = jsonObject.getBoolean(key = "is_being_created"),
+            isBackupEnabled = jsonObject.getBoolean(key = "is_backup_enabled"),
+            canEnableBackup = jsonObject.getBoolean(key = "can_enable_backup"),
+            canExportPhrase = jsonObject.getBoolean(key = "can_export_phrase"),
+        )
+    }
+
+    private fun deserializeTonWalletTransaction(jsonObject: JsonObject): TonWalletTransaction {
+        return TonWalletTransaction(
+            id = jsonObject.getString(key = "id"),
+            peerAddress = jsonObject.getString(key = "peer_address"),
+            peerUserId = jsonObject.getLong(key = "peer_user_id"),
+            peerDomain = jsonObject.getString(key = "peer_domain"),
+            date = jsonObject.getInt(key = "date"),
+            feeAmount = jsonObject.getLong(key = "fee_amount"),
+            state = jsonObject.getObject(key = "state") { data -> deserializeTonWalletTransactionState(jsonObject = data) },
+            type = jsonObject.getObject(key = "type") { data -> deserializeTonWalletTransactionType(jsonObject = data) },
+        )
+    }
+
+    private fun deserializeTonWalletTransactionStateFailed(jsonObject: JsonObject): TonWalletTransactionStateFailed {
+        return TonWalletTransactionStateFailed()
+    }
+
+    private fun deserializeTonWalletTransactionStateSucceeded(jsonObject: JsonObject): TonWalletTransactionStateSucceeded {
+        return TonWalletTransactionStateSucceeded(
+            txHash = jsonObject.getString(key = "tx_hash"),
+        )
+    }
+
+    private fun deserializeTonWalletTransactionTypeKeyChange(jsonObject: JsonObject): TonWalletTransactionTypeKeyChange {
+        return TonWalletTransactionTypeKeyChange()
+    }
+
+    private fun deserializeTonWalletTransactionTypeNftTransfer(jsonObject: JsonObject): TonWalletTransactionTypeNftTransfer {
+        return TonWalletTransactionTypeNftTransfer(
+            nft = jsonObject.getObject(key = "nft") { data -> deserializeTonNft(jsonObject = data) },
+            isOutgoing = jsonObject.getBoolean(key = "is_outgoing"),
+            comment = jsonObject.getString(key = "comment"),
+            isCommentEncrypted = jsonObject.getBoolean(key = "is_comment_encrypted"),
+        )
+    }
+
+    private fun deserializeTonWalletTransactionTypeOnRampDeposit(jsonObject: JsonObject): TonWalletTransactionTypeOnRampDeposit {
+        return TonWalletTransactionTypeOnRampDeposit(
+            amount = jsonObject.getLong(key = "amount"),
+            providerName = jsonObject.getString(key = "provider_name"),
+        )
+    }
+
+    private fun deserializeTonWalletTransactionTypeTransfer(jsonObject: JsonObject): TonWalletTransactionTypeTransfer {
+        return TonWalletTransactionTypeTransfer(
+            amount = jsonObject.getLong(key = "amount"),
+            isGasless = jsonObject.getBoolean(key = "is_gasless"),
+            comment = jsonObject.getString(key = "comment"),
+            isCommentEncrypted = jsonObject.getBoolean(key = "is_comment_encrypted"),
+        )
+    }
+
+    private fun deserializeTonWalletTransactions(jsonObject: JsonObject): TonWalletTransactions {
+        return TonWalletTransactions(
+            gramAmount = jsonObject.getLong(key = "gram_amount"),
+            transactions = jsonObject.getObjects(key = "transactions") { data -> deserializeTonWalletTransaction(jsonObject = data) },
+            nextOffset = jsonObject.getString(key = "next_offset"),
+        )
+    }
+
+    private fun deserializeTonWalletTransferReceiverAddress(jsonObject: JsonObject): TonWalletTransferReceiverAddress {
+        return TonWalletTransferReceiverAddress(
+            address = jsonObject.getString(key = "address"),
+        )
+    }
+
+    private fun deserializeTonWalletTransferReceiverUser(jsonObject: JsonObject): TonWalletTransferReceiverUser {
+        return TonWalletTransferReceiverUser(
+            username = jsonObject.getString(key = "username"),
+        )
+    }
+
+    private fun deserializeTonWalletTransferResult(jsonObject: JsonObject): TonWalletTransferResult {
+        return TonWalletTransferResult(
+            isGasless = jsonObject.getBoolean(key = "is_gasless"),
+            msgHash = jsonObject.getBytes(key = "msg_hash"),
+            transaction = jsonObject.getObjectNullable(key = "transaction") { data -> deserializeTonWalletTransaction(jsonObject = data) },
         )
     }
 
@@ -20886,6 +21562,12 @@ internal class TdlDeserializer internal constructor() {
     private fun deserializeUpdateAgeVerificationParameters(jsonObject: JsonObject): UpdateAgeVerificationParameters {
         return UpdateAgeVerificationParameters(
             parameters = jsonObject.getObjectNullable(key = "parameters") { data -> deserializeAgeVerificationParameters(jsonObject = data) },
+        )
+    }
+
+    private fun deserializeUpdateAllowedBotUsernamePremiumSuffixes(jsonObject: JsonObject): UpdateAllowedBotUsernamePremiumSuffixes {
+        return UpdateAllowedBotUsernamePremiumSuffixes(
+            suffixes = jsonObject.getStrings(key = "suffixes"),
         )
     }
 
@@ -22138,6 +22820,30 @@ internal class TdlDeserializer internal constructor() {
         )
     }
 
+    private fun deserializeUpdateTonWalletGaslessTransfersInfo(jsonObject: JsonObject): UpdateTonWalletGaslessTransfersInfo {
+        return UpdateTonWalletGaslessTransfersInfo(
+            info = jsonObject.getObject(key = "info") { data -> deserializeTonWalletGaslessTransfersInfo(jsonObject = data) },
+        )
+    }
+
+    private fun deserializeUpdateTonWalletState(jsonObject: JsonObject): UpdateTonWalletState {
+        return UpdateTonWalletState(
+            state = jsonObject.getObject(key = "state") { data -> deserializeTonWalletState(jsonObject = data) },
+        )
+    }
+
+    private fun deserializeUpdateTonWalletTonConnectSession(jsonObject: JsonObject): UpdateTonWalletTonConnectSession {
+        return UpdateTonWalletTonConnectSession(
+            session = jsonObject.getObject(key = "session") { data -> deserializeTonConnectSession(jsonObject = data) },
+        )
+    }
+
+    private fun deserializeUpdateTonWalletTonConnectSessionDisconnectRequired(jsonObject: JsonObject): UpdateTonWalletTonConnectSessionDisconnectRequired {
+        return UpdateTonWalletTonConnectSessionDisconnectRequired(
+            sessionIds = jsonObject.getLongs(key = "session_ids"),
+        )
+    }
+
     private fun deserializeUpdateTopicMessageCount(jsonObject: JsonObject): UpdateTopicMessageCount {
         return UpdateTopicMessageCount(
             chatId = jsonObject.getLong(key = "chat_id"),
@@ -22717,6 +23423,20 @@ internal class TdlDeserializer internal constructor() {
         )
     }
 
+    private fun deserializeUserTonWalletAddress(jsonObject: JsonObject): UserTonWalletAddress {
+        return UserTonWalletAddress(
+            userId = jsonObject.getLong(key = "user_id"),
+            walletAddress = jsonObject.getString(key = "wallet_address"),
+            publicKey = jsonObject.getBytes(key = "public_key"),
+        )
+    }
+
+    private fun deserializeUserTonWalletAddresses(jsonObject: JsonObject): UserTonWalletAddresses {
+        return UserTonWalletAddresses(
+            addresses = jsonObject.getObjects(key = "addresses") { data -> deserializeUserTonWalletAddress(jsonObject = data) },
+        )
+    }
+
     private fun deserializeUserTypeBot(jsonObject: JsonObject): UserTypeBot {
         return UserTypeBot(
             canBeEdited = jsonObject.getBoolean(key = "can_be_edited"),
@@ -22755,6 +23475,7 @@ internal class TdlDeserializer internal constructor() {
             disabledUsernames = jsonObject.getStrings(key = "disabled_usernames"),
             editableUsername = jsonObject.getString(key = "editable_username"),
             collectibleUsernames = jsonObject.getStrings(key = "collectible_usernames"),
+            secondaryUsername = jsonObject.getString(key = "secondary_username"),
         )
     }
 
@@ -22878,6 +23599,13 @@ internal class TdlDeserializer internal constructor() {
             mimeType = jsonObject.getString(key = "mime_type"),
             speechRecognitionResult = jsonObject.getObjectNullable(key = "speech_recognition_result") { data -> deserializeSpeechRecognitionResult(jsonObject = data) },
             voice = jsonObject.getObject(key = "voice") { data -> deserializeFile(jsonObject = data) },
+        )
+    }
+
+    private fun deserializeWalletBotBalance(jsonObject: JsonObject): WalletBotBalance {
+        return WalletBotBalance(
+            hasBalance = jsonObject.getBoolean(key = "has_balance"),
+            url = jsonObject.getString(key = "url"),
         )
     }
 

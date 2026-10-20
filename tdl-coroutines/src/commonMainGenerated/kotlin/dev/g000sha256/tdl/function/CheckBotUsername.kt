@@ -16,8 +16,10 @@
 
 package dev.g000sha256.tdl.function
 
+import kotlin.Boolean
 import kotlin.String
 
 internal class CheckBotUsername internal constructor(
     internal val username: String,
+    internal val isSecondary: Boolean,
 )

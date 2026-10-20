@@ -19,6 +19,7 @@ package dev.g000sha256.tdl.dto
 import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
+import kotlin.LongArray
 import kotlin.String
 
 /**
@@ -60,6 +61,7 @@ import kotlin.String
  * @property canReportReactions True, if reactions on the message can be reported through reportMessageReactions.
  * @property canReportSupergroupSpam True, if the message can be reported using reportSupergroupSpam.
  * @property canSetFactCheck True, if fact check for the message can be changed through setMessageFactCheck.
+ * @property customEmojiIds Identifiers of custom emoji used in the message.
  * @property hasProtectedContentByCurrentUser True, if content of the message can't be saved locally, because it is protected by the current user; if true, then canBeSaved is false.
  * @property hasProtectedContentByOtherUser True, if content of the message can't be saved locally, because it is protected by the other user; if true, then canBeSaved is false.
  * @property needShowStatistics True, if message statistics must be available from context menu of the message.
@@ -101,6 +103,7 @@ public class MessageProperties public constructor(
     public val canReportReactions: Boolean,
     public val canReportSupergroupSpam: Boolean,
     public val canSetFactCheck: Boolean,
+    public val customEmojiIds: LongArray,
     public val hasProtectedContentByCurrentUser: Boolean,
     public val hasProtectedContentByOtherUser: Boolean,
     public val needShowStatistics: Boolean,
@@ -224,6 +227,10 @@ public class MessageProperties public constructor(
         if (other.canSetFactCheck != canSetFactCheck) {
             return false
         }
+        val customEmojiIdsEquals = other.customEmojiIds.contentEquals(customEmojiIds)
+        if (!customEmojiIdsEquals) {
+            return false
+        }
         if (other.hasProtectedContentByCurrentUser != hasProtectedContentByCurrentUser) {
             return false
         }
@@ -271,6 +278,7 @@ public class MessageProperties public constructor(
         hashCode = 31 * hashCode + canReportReactions.hashCode()
         hashCode = 31 * hashCode + canReportSupergroupSpam.hashCode()
         hashCode = 31 * hashCode + canSetFactCheck.hashCode()
+        hashCode = 31 * hashCode + customEmojiIds.contentHashCode()
         hashCode = 31 * hashCode + hasProtectedContentByCurrentUser.hashCode()
         hashCode = 31 * hashCode + hasProtectedContentByOtherUser.hashCode()
         hashCode = 31 * hashCode + needShowStatistics.hashCode()
@@ -388,6 +396,11 @@ public class MessageProperties public constructor(
             append(", ")
             append("canSetFactCheck=")
             append(canSetFactCheck)
+            append(", ")
+            append("customEmojiIds=")
+            customEmojiIds
+                .contentToString()
+                .also { append(it) }
             append(", ")
             append("hasProtectedContentByCurrentUser=")
             append(hasProtectedContentByCurrentUser)

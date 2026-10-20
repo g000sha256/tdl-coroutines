@@ -25,7 +25,7 @@ import kotlin.String
  * The link is a link to a dialog for creating of a managed bot. Call searchPublicChat with the given manager bot username. If the chat is found, the chat is a chat with a bot and the bot has canManageBots == true, then show bot creation confirmation dialog with the given suggestedBotUsername and suggestedBotName. If user agrees, call createBot with viaLink == true to create the bot.
  *
  * @property managerBotUsername Username of the bot which will manage the new bot.
- * @property suggestedBotUsername Suggested username for the bot; always ends with &quot;bot&quot; case-insensitive.
+ * @property suggestedBotUsername Suggested username for the bot; always ends with &quot;bot&quot; or a string from updateAllowedBotUsernamePremiumSuffixes case-insensitive.
  * @property suggestedBotName Suggested name for the bot; may be empty if not specified.
  */
 public class InternalLinkTypeRequestManagedBot public constructor(

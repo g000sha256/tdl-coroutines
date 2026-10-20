@@ -682,6 +682,8 @@ import dev.g000sha256.tdl.dto.InternalLinkTypeStory
 import dev.g000sha256.tdl.dto.InternalLinkTypeStoryAlbum
 import dev.g000sha256.tdl.dto.InternalLinkTypeTextCompositionStyle
 import dev.g000sha256.tdl.dto.InternalLinkTypeTheme
+import dev.g000sha256.tdl.dto.InternalLinkTypeTonConnect
+import dev.g000sha256.tdl.dto.InternalLinkTypeTonWalletTransfer
 import dev.g000sha256.tdl.dto.InternalLinkTypeUnknownDeepLink
 import dev.g000sha256.tdl.dto.InternalLinkTypeUpgradedGift
 import dev.g000sha256.tdl.dto.InternalLinkTypeUserPhoneNumber
@@ -914,6 +916,8 @@ import dev.g000sha256.tdl.dto.MessageSuggestedPostPaid
 import dev.g000sha256.tdl.dto.MessageSuggestedPostRefunded
 import dev.g000sha256.tdl.dto.MessageSupergroupChatCreate
 import dev.g000sha256.tdl.dto.MessageText
+import dev.g000sha256.tdl.dto.MessageTonConnectRequest
+import dev.g000sha256.tdl.dto.MessageTonWalletTransfer
 import dev.g000sha256.tdl.dto.MessageTopic
 import dev.g000sha256.tdl.dto.MessageTopicDirectMessages
 import dev.g000sha256.tdl.dto.MessageTopicForum
@@ -1216,6 +1220,8 @@ import dev.g000sha256.tdl.dto.PushMessageContentStory
 import dev.g000sha256.tdl.dto.PushMessageContentSuggestBirthdate
 import dev.g000sha256.tdl.dto.PushMessageContentSuggestProfilePhoto
 import dev.g000sha256.tdl.dto.PushMessageContentText
+import dev.g000sha256.tdl.dto.PushMessageContentTonConnectRequest
+import dev.g000sha256.tdl.dto.PushMessageContentTonWalletTransfer
 import dev.g000sha256.tdl.dto.PushMessageContentUpgradedGift
 import dev.g000sha256.tdl.dto.PushMessageContentVideo
 import dev.g000sha256.tdl.dto.PushMessageContentVideoChatEnded
@@ -1308,6 +1314,7 @@ import dev.g000sha256.tdl.dto.RichTextSpoiler
 import dev.g000sha256.tdl.dto.RichTextStrikethrough
 import dev.g000sha256.tdl.dto.RichTextSubscript
 import dev.g000sha256.tdl.dto.RichTextSuperscript
+import dev.g000sha256.tdl.dto.RichTextTonAddress
 import dev.g000sha256.tdl.dto.RichTextUnderline
 import dev.g000sha256.tdl.dto.RichTextUrl
 import dev.g000sha256.tdl.dto.RichTexts
@@ -1527,6 +1534,7 @@ import dev.g000sha256.tdl.dto.SuggestedActionSetProfilePhoto
 import dev.g000sha256.tdl.dto.SuggestedActionSubscribeToAnnualPremium
 import dev.g000sha256.tdl.dto.SuggestedActionUpgradePremium
 import dev.g000sha256.tdl.dto.SuggestedActionViewChecksHint
+import dev.g000sha256.tdl.dto.SuggestedActionViewFirstTonWalletTransferHint
 import dev.g000sha256.tdl.dto.SuggestedPostPrice
 import dev.g000sha256.tdl.dto.SuggestedPostPriceGram
 import dev.g000sha256.tdl.dto.SuggestedPostPriceStar
@@ -1585,6 +1593,7 @@ import dev.g000sha256.tdl.dto.TextEntityTypePreCode
 import dev.g000sha256.tdl.dto.TextEntityTypeSpoiler
 import dev.g000sha256.tdl.dto.TextEntityTypeStrikethrough
 import dev.g000sha256.tdl.dto.TextEntityTypeTextUrl
+import dev.g000sha256.tdl.dto.TextEntityTypeTonAddress
 import dev.g000sha256.tdl.dto.TextEntityTypeUnderline
 import dev.g000sha256.tdl.dto.TextEntityTypeUrl
 import dev.g000sha256.tdl.dto.TextParseMode
@@ -1598,6 +1607,26 @@ import dev.g000sha256.tdl.dto.ThumbnailFormatPng
 import dev.g000sha256.tdl.dto.ThumbnailFormatTgs
 import dev.g000sha256.tdl.dto.ThumbnailFormatWebm
 import dev.g000sha256.tdl.dto.ThumbnailFormatWebp
+import dev.g000sha256.tdl.dto.TonCenterApiRequestType
+import dev.g000sha256.tdl.dto.TonCenterApiRequestTypeGet
+import dev.g000sha256.tdl.dto.TonCenterApiRequestTypePost
+import dev.g000sha256.tdl.dto.TonConnectConnectItem
+import dev.g000sha256.tdl.dto.TonConnectConnectItemAddress
+import dev.g000sha256.tdl.dto.TonConnectConnectItemProof
+import dev.g000sha256.tdl.dto.TonConnectManifest
+import dev.g000sha256.tdl.dto.TonConnectManifestFailed
+import dev.g000sha256.tdl.dto.TonConnectManifestInfo
+import dev.g000sha256.tdl.dto.TonConnectManifestInvalid
+import dev.g000sha256.tdl.dto.TonConnectManifestPending
+import dev.g000sha256.tdl.dto.TonConnectRequestState
+import dev.g000sha256.tdl.dto.TonConnectRequestStateAccepted
+import dev.g000sha256.tdl.dto.TonConnectRequestStatePending
+import dev.g000sha256.tdl.dto.TonConnectRequestStateRejected
+import dev.g000sha256.tdl.dto.TonConnectSessionState
+import dev.g000sha256.tdl.dto.TonConnectSessionStateClosed
+import dev.g000sha256.tdl.dto.TonConnectSessionStateClosing
+import dev.g000sha256.tdl.dto.TonConnectSessionStatePending
+import dev.g000sha256.tdl.dto.TonConnectSessionStateReady
 import dev.g000sha256.tdl.dto.TonTransactionType
 import dev.g000sha256.tdl.dto.TonTransactionTypeFragmentDeposit
 import dev.g000sha256.tdl.dto.TonTransactionTypeFragmentWithdrawal
@@ -1608,6 +1637,17 @@ import dev.g000sha256.tdl.dto.TonTransactionTypeSuggestedPostPayment
 import dev.g000sha256.tdl.dto.TonTransactionTypeUnsupported
 import dev.g000sha256.tdl.dto.TonTransactionTypeUpgradedGiftPurchase
 import dev.g000sha256.tdl.dto.TonTransactionTypeUpgradedGiftSale
+import dev.g000sha256.tdl.dto.TonWalletTransactionState
+import dev.g000sha256.tdl.dto.TonWalletTransactionStateFailed
+import dev.g000sha256.tdl.dto.TonWalletTransactionStateSucceeded
+import dev.g000sha256.tdl.dto.TonWalletTransactionType
+import dev.g000sha256.tdl.dto.TonWalletTransactionTypeKeyChange
+import dev.g000sha256.tdl.dto.TonWalletTransactionTypeNftTransfer
+import dev.g000sha256.tdl.dto.TonWalletTransactionTypeOnRampDeposit
+import dev.g000sha256.tdl.dto.TonWalletTransactionTypeTransfer
+import dev.g000sha256.tdl.dto.TonWalletTransferReceiver
+import dev.g000sha256.tdl.dto.TonWalletTransferReceiverAddress
+import dev.g000sha256.tdl.dto.TonWalletTransferReceiverUser
 import dev.g000sha256.tdl.dto.TopChatCategory
 import dev.g000sha256.tdl.dto.TopChatCategoryBots
 import dev.g000sha256.tdl.dto.TopChatCategoryCalls
@@ -1628,6 +1668,7 @@ import dev.g000sha256.tdl.dto.UpdateActiveGiftAuctions
 import dev.g000sha256.tdl.dto.UpdateActiveLiveLocationMessages
 import dev.g000sha256.tdl.dto.UpdateActiveNotifications
 import dev.g000sha256.tdl.dto.UpdateAgeVerificationParameters
+import dev.g000sha256.tdl.dto.UpdateAllowedBotUsernamePremiumSuffixes
 import dev.g000sha256.tdl.dto.UpdateAnimatedEmojiMessageClicked
 import dev.g000sha256.tdl.dto.UpdateAnimationSearchParameters
 import dev.g000sha256.tdl.dto.UpdateApplicationRecaptchaVerificationRequired
@@ -1797,6 +1838,10 @@ import dev.g000sha256.tdl.dto.UpdateSupergroup
 import dev.g000sha256.tdl.dto.UpdateSupergroupFullInfo
 import dev.g000sha256.tdl.dto.UpdateTermsOfService
 import dev.g000sha256.tdl.dto.UpdateTextCompositionStyles
+import dev.g000sha256.tdl.dto.UpdateTonWalletGaslessTransfersInfo
+import dev.g000sha256.tdl.dto.UpdateTonWalletState
+import dev.g000sha256.tdl.dto.UpdateTonWalletTonConnectSession
+import dev.g000sha256.tdl.dto.UpdateTonWalletTonConnectSessionDisconnectRequired
 import dev.g000sha256.tdl.dto.UpdateTopicMessageCount
 import dev.g000sha256.tdl.dto.UpdateTrendingStickerSets
 import dev.g000sha256.tdl.dto.UpdateTrustedMiniAppBots
@@ -2282,6 +2327,69 @@ internal fun serialize(dto: TonTransactionType): JsonElement {
     }
 }
 
+internal fun serialize(dto: TonCenterApiRequestType): JsonElement {
+    when(dto) {
+        is TonCenterApiRequestTypeGet -> return serialize(dto = dto)
+        is TonCenterApiRequestTypePost -> return serialize(dto = dto)
+    }
+}
+
+internal fun serialize(dto: TonWalletTransferReceiver): JsonElement {
+    when(dto) {
+        is TonWalletTransferReceiverUser -> return serialize(dto = dto)
+        is TonWalletTransferReceiverAddress -> return serialize(dto = dto)
+    }
+}
+
+internal fun serialize(dto: TonWalletTransactionState): JsonElement {
+    when(dto) {
+        is TonWalletTransactionStateSucceeded -> return serialize(dto = dto)
+        is TonWalletTransactionStateFailed -> return serialize(dto = dto)
+    }
+}
+
+internal fun serialize(dto: TonWalletTransactionType): JsonElement {
+    when(dto) {
+        is TonWalletTransactionTypeOnRampDeposit -> return serialize(dto = dto)
+        is TonWalletTransactionTypeTransfer -> return serialize(dto = dto)
+        is TonWalletTransactionTypeNftTransfer -> return serialize(dto = dto)
+        is TonWalletTransactionTypeKeyChange -> return serialize(dto = dto)
+    }
+}
+
+internal fun serialize(dto: TonConnectRequestState): JsonElement {
+    when(dto) {
+        is TonConnectRequestStatePending -> return serialize(dto = dto)
+        is TonConnectRequestStateAccepted -> return serialize(dto = dto)
+        is TonConnectRequestStateRejected -> return serialize(dto = dto)
+    }
+}
+
+internal fun serialize(dto: TonConnectManifest): JsonElement {
+    when(dto) {
+        is TonConnectManifestPending -> return serialize(dto = dto)
+        is TonConnectManifestInfo -> return serialize(dto = dto)
+        is TonConnectManifestFailed -> return serialize(dto = dto)
+        is TonConnectManifestInvalid -> return serialize(dto = dto)
+    }
+}
+
+internal fun serialize(dto: TonConnectSessionState): JsonElement {
+    when(dto) {
+        is TonConnectSessionStatePending -> return serialize(dto = dto)
+        is TonConnectSessionStateReady -> return serialize(dto = dto)
+        is TonConnectSessionStateClosing -> return serialize(dto = dto)
+        is TonConnectSessionStateClosed -> return serialize(dto = dto)
+    }
+}
+
+internal fun serialize(dto: TonConnectConnectItem): JsonElement {
+    when(dto) {
+        is TonConnectConnectItemAddress -> return serialize(dto = dto)
+        is TonConnectConnectItemProof -> return serialize(dto = dto)
+    }
+}
+
 internal fun serialize(dto: ActiveStoryState): JsonElement {
     when(dto) {
         is ActiveStoryStateLive -> return serialize(dto = dto)
@@ -2678,6 +2786,7 @@ internal fun serialize(dto: RichText): JsonElement {
         is RichTextHashtag -> return serialize(dto = dto)
         is RichTextCashtag -> return serialize(dto = dto)
         is RichTextBankCardNumber -> return serialize(dto = dto)
+        is RichTextTonAddress -> return serialize(dto = dto)
         is RichTextBotCommand -> return serialize(dto = dto)
         is RichTextFixed -> return serialize(dto = dto)
         is RichTextMentionName -> return serialize(dto = dto)
@@ -3040,6 +3149,8 @@ internal fun serialize(dto: MessageContent): JsonElement {
         is MessageGiftedStars -> return serialize(dto = dto)
         is MessageGiftedGrams -> return serialize(dto = dto)
         is MessageGiveawayPrizeStars -> return serialize(dto = dto)
+        is MessageTonWalletTransfer -> return serialize(dto = dto)
+        is MessageTonConnectRequest -> return serialize(dto = dto)
         is MessageGift -> return serialize(dto = dto)
         is MessageUpgradedGift -> return serialize(dto = dto)
         is MessageRefundedUpgradedGift -> return serialize(dto = dto)
@@ -3093,6 +3204,7 @@ internal fun serialize(dto: TextEntityType): JsonElement {
         is TextEntityTypeEmailAddress -> return serialize(dto = dto)
         is TextEntityTypePhoneNumber -> return serialize(dto = dto)
         is TextEntityTypeBankCardNumber -> return serialize(dto = dto)
+        is TextEntityTypeTonAddress -> return serialize(dto = dto)
         is TextEntityTypeBold -> return serialize(dto = dto)
         is TextEntityTypeItalic -> return serialize(dto = dto)
         is TextEntityTypeUnderline -> return serialize(dto = dto)
@@ -3903,6 +4015,8 @@ internal fun serialize(dto: PushMessageContent): JsonElement {
         is PushMessageContentPoll -> return serialize(dto = dto)
         is PushMessageContentPremiumGiftCode -> return serialize(dto = dto)
         is PushMessageContentGiveaway -> return serialize(dto = dto)
+        is PushMessageContentTonWalletTransfer -> return serialize(dto = dto)
+        is PushMessageContentTonConnectRequest -> return serialize(dto = dto)
         is PushMessageContentGift -> return serialize(dto = dto)
         is PushMessageContentUpgradedGift -> return serialize(dto = dto)
         is PushMessageContentScreenshotTaken -> return serialize(dto = dto)
@@ -4168,6 +4282,8 @@ internal fun serialize(dto: InternalLinkType): JsonElement {
         is InternalLinkTypeStoryAlbum -> return serialize(dto = dto)
         is InternalLinkTypeTextCompositionStyle -> return serialize(dto = dto)
         is InternalLinkTypeTheme -> return serialize(dto = dto)
+        is InternalLinkTypeTonConnect -> return serialize(dto = dto)
+        is InternalLinkTypeTonWalletTransfer -> return serialize(dto = dto)
         is InternalLinkTypeUnknownDeepLink -> return serialize(dto = dto)
         is InternalLinkTypeUpgradedGift -> return serialize(dto = dto)
         is InternalLinkTypeUserPhoneNumber -> return serialize(dto = dto)
@@ -4286,6 +4402,7 @@ internal fun serialize(dto: SuggestedAction): JsonElement {
         is SuggestedActionCheckPassword -> return serialize(dto = dto)
         is SuggestedActionCheckPhoneNumber -> return serialize(dto = dto)
         is SuggestedActionViewChecksHint -> return serialize(dto = dto)
+        is SuggestedActionViewFirstTonWalletTransferHint -> return serialize(dto = dto)
         is SuggestedActionConvertToBroadcastGroup -> return serialize(dto = dto)
         is SuggestedActionSetPassword -> return serialize(dto = dto)
         is SuggestedActionUpgradePremium -> return serialize(dto = dto)
@@ -4507,6 +4624,7 @@ internal fun serialize(dto: Update): JsonElement {
         is UpdateChatActiveStories -> return serialize(dto = dto)
         is UpdateStoryListChatCount -> return serialize(dto = dto)
         is UpdateStoryStealthMode -> return serialize(dto = dto)
+        is UpdateAllowedBotUsernamePremiumSuffixes -> return serialize(dto = dto)
         is UpdateTrustedMiniAppBots -> return serialize(dto = dto)
         is UpdateOption -> return serialize(dto = dto)
         is UpdateStickerSet -> return serialize(dto = dto)
@@ -4537,6 +4655,10 @@ internal fun serialize(dto: Update): JsonElement {
         is UpdateActiveLiveLocationMessages -> return serialize(dto = dto)
         is UpdateOwnedStarCount -> return serialize(dto = dto)
         is UpdateOwnedGramCount -> return serialize(dto = dto)
+        is UpdateTonWalletState -> return serialize(dto = dto)
+        is UpdateTonWalletGaslessTransfersInfo -> return serialize(dto = dto)
+        is UpdateTonWalletTonConnectSession -> return serialize(dto = dto)
+        is UpdateTonWalletTonConnectSessionDisconnectRequired -> return serialize(dto = dto)
         is UpdateChatRevenueAmount -> return serialize(dto = dto)
         is UpdateStarRevenueStatus -> return serialize(dto = dto)
         is UpdateGramRevenueStatus -> return serialize(dto = dto)

@@ -14,16 +14,10 @@
  * limitations under the License.
  */
 
-package dev.g000sha256.tdl.function
+package dev.g000sha256.tdl.dto
 
-import dev.g000sha256.tdl.dto.InputMessageContent
-import dev.g000sha256.tdl.dto.ReplyMarkup
-import kotlin.Boolean
-import kotlin.Long
-
-internal class EditCallbackQueryMessage internal constructor(
-    internal val callbackQueryId: Long,
-    internal val protectContent: Boolean,
-    internal val replyMarkup: ReplyMarkup?,
-    internal val inputMessageContent: InputMessageContent,
-)
+/**
+ * This class is an abstract base class.
+ * Represents expected receiver of a TON wallet transfer.
+ */
+public sealed class TonWalletTransferReceiver protected constructor()

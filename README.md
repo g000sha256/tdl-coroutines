@@ -1,7 +1,7 @@
 # TDL Coroutines
 
 [![Maven Central](https://img.shields.io/maven-central/v/dev.g000sha256/tdl-coroutines?label=Maven%20Central&labelColor=171C35&color=E38E33)](https://central.sonatype.com/artifact/dev.g000sha256/tdl-coroutines)
-[![TDLib](https://img.shields.io/badge/TDLib-v1.8.67-blue?labelColor=000000&color=24A1DE)](https://github.com/tdlib/td/tree/bc9c263e2bfee06aaab41e82db51a103376030bc)
+[![TDLib](https://img.shields.io/badge/TDLib-v1.8.68-blue?labelColor=000000&color=24A1DE)](https://github.com/tdlib/td/tree/c15d3f5a5de6e3ba5839822c451152e5e18bb700)
 [![KLibs](https://img.shields.io/static/v1?label=KLibs&labelColor=000000&message=tdl-coroutines&color=E627F8)](https://klibs.io/project/g000sha256/tdl-coroutines)
 
 TDL Coroutines is a Kotlin Multiplatform library that provides a coroutine-based client for the
@@ -62,7 +62,7 @@ val client = TdlClient.create()
 
 ### Subscribe to updates
 
-`TdlClient` provides 189 update flows and the `allUpdates` flow, which combines all update events.
+`TdlClient` provides 194 update flows and the `allUpdates` flow, which combines all update events.
 
 ```kotlin
 coroutineScope.launch {
@@ -94,7 +94,7 @@ coroutineScope.launch {
 
 ### Send a request
 
-`TdlClient` provides 1022 request methods.
+`TdlClient` provides 1065 request methods.
 
 ```kotlin
 coroutineScope.launch {

@@ -21,6 +21,7 @@ import dev.g000sha256.tdl.function.AcceptOauthRequest
 import dev.g000sha256.tdl.function.AcceptTermsOfService
 import dev.g000sha256.tdl.function.ActivateStoryStealthMode
 import dev.g000sha256.tdl.function.AddBotMediaPreview
+import dev.g000sha256.tdl.function.AddBotSecondaryUsername
 import dev.g000sha256.tdl.function.AddChatFolderByInviteLink
 import dev.g000sha256.tdl.function.AddChatMember
 import dev.g000sha256.tdl.function.AddChatMembers
@@ -63,6 +64,7 @@ import dev.g000sha256.tdl.function.AnswerGuestQuery
 import dev.g000sha256.tdl.function.AnswerInlineQuery
 import dev.g000sha256.tdl.function.AnswerPreCheckoutQuery
 import dev.g000sha256.tdl.function.AnswerShippingQuery
+import dev.g000sha256.tdl.function.AnswerTonConnectRequest
 import dev.g000sha256.tdl.function.AnswerWebAppQuery
 import dev.g000sha256.tdl.function.ApplyPremiumGiftCode
 import dev.g000sha256.tdl.function.ApproveSuggestedPost
@@ -107,7 +109,9 @@ import dev.g000sha256.tdl.function.CheckPremiumGiftCode
 import dev.g000sha256.tdl.function.CheckQuickReplyShortcutName
 import dev.g000sha256.tdl.function.CheckRecoveryEmailAddressCode
 import dev.g000sha256.tdl.function.CheckStickerSetName
+import dev.g000sha256.tdl.function.CheckWalletBotBalance
 import dev.g000sha256.tdl.function.CheckWebAppFileDownload
+import dev.g000sha256.tdl.function.ClaimTonConnectRequest
 import dev.g000sha256.tdl.function.CleanFileName
 import dev.g000sha256.tdl.function.ClearAllDraftMessages
 import dev.g000sha256.tdl.function.ClearAutosaveSettingsExceptions
@@ -153,6 +157,7 @@ import dev.g000sha256.tdl.function.CreateNewBasicGroupChat
 import dev.g000sha256.tdl.function.CreateNewSecretChat
 import dev.g000sha256.tdl.function.CreateNewStickerSet
 import dev.g000sha256.tdl.function.CreateNewSupergroupChat
+import dev.g000sha256.tdl.function.CreateOnRampPaymentSession
 import dev.g000sha256.tdl.function.CreatePrivateChat
 import dev.g000sha256.tdl.function.CreateRichMessageWithAi
 import dev.g000sha256.tdl.function.CreateSecretChat
@@ -160,6 +165,8 @@ import dev.g000sha256.tdl.function.CreateStoryAlbum
 import dev.g000sha256.tdl.function.CreateSupergroupChat
 import dev.g000sha256.tdl.function.CreateTemporaryPassword
 import dev.g000sha256.tdl.function.CreateTextCompositionStyle
+import dev.g000sha256.tdl.function.CreateTonConnectSession
+import dev.g000sha256.tdl.function.CreateUserTonWallet
 import dev.g000sha256.tdl.function.CreateVideoChat
 import dev.g000sha256.tdl.function.DeclineGroupCallInvitation
 import dev.g000sha256.tdl.function.DeclineOauthRequest
@@ -171,6 +178,7 @@ import dev.g000sha256.tdl.function.DeleteAllChatWelcomeMessages
 import dev.g000sha256.tdl.function.DeleteAllRecentMessageReactionsFromSender
 import dev.g000sha256.tdl.function.DeleteAllRevokedChatInviteLinks
 import dev.g000sha256.tdl.function.DeleteBotMediaPreviews
+import dev.g000sha256.tdl.function.DeleteBotSecondaryUsername
 import dev.g000sha256.tdl.function.DeleteBusinessChatLink
 import dev.g000sha256.tdl.function.DeleteBusinessConnectedBot
 import dev.g000sha256.tdl.function.DeleteBusinessMessages
@@ -185,6 +193,7 @@ import dev.g000sha256.tdl.function.DeleteChatMessagesBySender
 import dev.g000sha256.tdl.function.DeleteChatReplyMarkup
 import dev.g000sha256.tdl.function.DeleteChatWelcomeMessage
 import dev.g000sha256.tdl.function.DeleteCommands
+import dev.g000sha256.tdl.function.DeleteCommunity
 import dev.g000sha256.tdl.function.DeleteDefaultBackground
 import dev.g000sha256.tdl.function.DeleteDirectMessagesChatTopicHistory
 import dev.g000sha256.tdl.function.DeleteDirectMessagesChatTopicMessagesByDate
@@ -212,13 +221,18 @@ import dev.g000sha256.tdl.function.DeleteStickerSet
 import dev.g000sha256.tdl.function.DeleteStory
 import dev.g000sha256.tdl.function.DeleteStoryAlbum
 import dev.g000sha256.tdl.function.DeleteTextCompositionStyle
+import dev.g000sha256.tdl.function.DeleteTonWallet
 import dev.g000sha256.tdl.function.Destroy
 import dev.g000sha256.tdl.function.DisableAllSupergroupUsernames
 import dev.g000sha256.tdl.function.DisableProxy
+import dev.g000sha256.tdl.function.DisableTonWalletBackup
+import dev.g000sha256.tdl.function.DisableTonWalletBackupWithProof
 import dev.g000sha256.tdl.function.DiscardCall
 import dev.g000sha256.tdl.function.DisconnectAffiliateProgram
 import dev.g000sha256.tdl.function.DisconnectAllWebsites
+import dev.g000sha256.tdl.function.DisconnectTonConnectSession
 import dev.g000sha256.tdl.function.DisconnectWebsite
+import dev.g000sha256.tdl.function.DismissWebToken
 import dev.g000sha256.tdl.function.DownloadFile
 import dev.g000sha256.tdl.function.DropGiftOriginalDetails
 import dev.g000sha256.tdl.function.EditBotMediaPreview
@@ -230,7 +244,6 @@ import dev.g000sha256.tdl.function.EditBusinessMessageMedia
 import dev.g000sha256.tdl.function.EditBusinessMessageReplyMarkup
 import dev.g000sha256.tdl.function.EditBusinessMessageText
 import dev.g000sha256.tdl.function.EditBusinessStory
-import dev.g000sha256.tdl.function.EditCallbackQueryMessage
 import dev.g000sha256.tdl.function.EditChatFolder
 import dev.g000sha256.tdl.function.EditChatFolderInviteLink
 import dev.g000sha256.tdl.function.EditChatInviteLink
@@ -260,6 +273,7 @@ import dev.g000sha256.tdl.function.EditStoryCover
 import dev.g000sha256.tdl.function.EditTextCompositionStyle
 import dev.g000sha256.tdl.function.EditUserStarSubscription
 import dev.g000sha256.tdl.function.EnableProxy
+import dev.g000sha256.tdl.function.EnableTonWalletBackup
 import dev.g000sha256.tdl.function.EncryptGroupCallData
 import dev.g000sha256.tdl.function.EndGroupCall
 import dev.g000sha256.tdl.function.EndGroupCallRecording
@@ -270,6 +284,7 @@ import dev.g000sha256.tdl.function.FixTextWithAi
 import dev.g000sha256.tdl.function.ForwardMessages
 import dev.g000sha256.tdl.function.GetAccountTtl
 import dev.g000sha256.tdl.function.GetActiveSessions
+import dev.g000sha256.tdl.function.GetAddressTonWallet
 import dev.g000sha256.tdl.function.GetAllPassportElements
 import dev.g000sha256.tdl.function.GetAllStickerEmojis
 import dev.g000sha256.tdl.function.GetAnimatedEmoji
@@ -357,6 +372,7 @@ import dev.g000sha256.tdl.function.GetChatsToPostStories
 import dev.g000sha256.tdl.function.GetCloseFriends
 import dev.g000sha256.tdl.function.GetCollectibleItemInfo
 import dev.g000sha256.tdl.function.GetCommands
+import dev.g000sha256.tdl.function.GetCommunityFullInfo
 import dev.g000sha256.tdl.function.GetConnectedAffiliateProgram
 import dev.g000sha256.tdl.function.GetConnectedAffiliatePrograms
 import dev.g000sha256.tdl.function.GetConnectedWebsites
@@ -366,6 +382,7 @@ import dev.g000sha256.tdl.function.GetCountry
 import dev.g000sha256.tdl.function.GetCountryCode
 import dev.g000sha256.tdl.function.GetCountryFlagEmoji
 import dev.g000sha256.tdl.function.GetCreatedPublicChats
+import dev.g000sha256.tdl.function.GetCurrencyExchangeRates
 import dev.g000sha256.tdl.function.GetCurrentState
 import dev.g000sha256.tdl.function.GetCurrentWeather
 import dev.g000sha256.tdl.function.GetCustomEmojiReactionAnimations
@@ -474,6 +491,11 @@ import dev.g000sha256.tdl.function.GetMessages
 import dev.g000sha256.tdl.function.GetNetworkStatistics
 import dev.g000sha256.tdl.function.GetNewChatPrivacySettings
 import dev.g000sha256.tdl.function.GetOauthLinkInfo
+import dev.g000sha256.tdl.function.GetOnRampPaymentAvailability
+import dev.g000sha256.tdl.function.GetOnRampPaymentLimits
+import dev.g000sha256.tdl.function.GetOnRampPaymentQuote
+import dev.g000sha256.tdl.function.GetOnRampProviderBaseCurrencies
+import dev.g000sha256.tdl.function.GetOnRampProviders
 import dev.g000sha256.tdl.function.GetOption
 import dev.g000sha256.tdl.function.GetOwnedBots
 import dev.g000sha256.tdl.function.GetOwnedStickerSets
@@ -570,7 +592,18 @@ import dev.g000sha256.tdl.function.GetThemeParametersJsonString
 import dev.g000sha256.tdl.function.GetThemedChatEmojiStatuses
 import dev.g000sha256.tdl.function.GetThemedEmojiStatuses
 import dev.g000sha256.tdl.function.GetTimeZones
+import dev.g000sha256.tdl.function.GetTonCenterStreamingApiUrl
+import dev.g000sha256.tdl.function.GetTonConnectDAppPendingRequests
+import dev.g000sha256.tdl.function.GetTonConnectSessionNextEventId
+import dev.g000sha256.tdl.function.GetTonConnectSessionPendingRequests
+import dev.g000sha256.tdl.function.GetTonConnectSessions
 import dev.g000sha256.tdl.function.GetTonTransactions
+import dev.g000sha256.tdl.function.GetTonWalletNfts
+import dev.g000sha256.tdl.function.GetTonWalletOwnershipProofChallenge
+import dev.g000sha256.tdl.function.GetTonWalletSecretPhrase
+import dev.g000sha256.tdl.function.GetTonWalletTransaction
+import dev.g000sha256.tdl.function.GetTonWalletTransactionByMsgHash
+import dev.g000sha256.tdl.function.GetTonWalletTransactions
 import dev.g000sha256.tdl.function.GetTopChats
 import dev.g000sha256.tdl.function.GetTrendingStickerSets
 import dev.g000sha256.tdl.function.GetUpgradedGift
@@ -587,6 +620,7 @@ import dev.g000sha256.tdl.function.GetUserPrivacySettingRules
 import dev.g000sha256.tdl.function.GetUserProfileAudios
 import dev.g000sha256.tdl.function.GetUserProfilePhotos
 import dev.g000sha256.tdl.function.GetUserSupportInfo
+import dev.g000sha256.tdl.function.GetUserTonWalletAddresses
 import dev.g000sha256.tdl.function.GetVideoChatAvailableParticipants
 import dev.g000sha256.tdl.function.GetVideoChatInviteLink
 import dev.g000sha256.tdl.function.GetVideoChatRtmpUrl
@@ -617,12 +651,13 @@ import dev.g000sha256.tdl.function.ListenToAudio
 import dev.g000sha256.tdl.function.LoadActiveStories
 import dev.g000sha256.tdl.function.LoadChatWelcomeMessages
 import dev.g000sha256.tdl.function.LoadChats
-import dev.g000sha256.tdl.function.LoadCommunityFullInfo
 import dev.g000sha256.tdl.function.LoadDirectMessagesChatTopics
 import dev.g000sha256.tdl.function.LoadGroupCallParticipants
 import dev.g000sha256.tdl.function.LoadQuickReplyShortcutMessages
 import dev.g000sha256.tdl.function.LoadQuickReplyShortcuts
 import dev.g000sha256.tdl.function.LoadSavedMessagesTopics
+import dev.g000sha256.tdl.function.LoadTonWalletGaslessTransfersInfo
+import dev.g000sha256.tdl.function.LoadTonWalletState
 import dev.g000sha256.tdl.function.LogOut
 import dev.g000sha256.tdl.function.MarkChecklistTasksAsDone
 import dev.g000sha256.tdl.function.OpenBotSimilarBot
@@ -708,7 +743,9 @@ import dev.g000sha256.tdl.function.ReorderSupergroupActiveUsernames
 import dev.g000sha256.tdl.function.ReplaceLiveStoryRtmpUrl
 import dev.g000sha256.tdl.function.ReplacePrimaryChatInviteLink
 import dev.g000sha256.tdl.function.ReplaceStickerInSet
+import dev.g000sha256.tdl.function.ReplaceTonWallet
 import dev.g000sha256.tdl.function.ReplaceVideoChatRtmpUrl
+import dev.g000sha256.tdl.function.ReplyToCallbackQueryWithEphemeralMessage
 import dev.g000sha256.tdl.function.ReportAuthenticationCodeMissing
 import dev.g000sha256.tdl.function.ReportChat
 import dev.g000sha256.tdl.function.ReportChatPhoto
@@ -804,6 +841,9 @@ import dev.g000sha256.tdl.function.SendQuickReplyShortcutMessages
 import dev.g000sha256.tdl.function.SendResoldGift
 import dev.g000sha256.tdl.function.SendRichMessageDraft
 import dev.g000sha256.tdl.function.SendTextMessageDraft
+import dev.g000sha256.tdl.function.SendTonCenterApiRequest
+import dev.g000sha256.tdl.function.SendTonConnectSessionConnectResult
+import dev.g000sha256.tdl.function.SendTonWalletTransfer
 import dev.g000sha256.tdl.function.SendWebAppCustomRequest
 import dev.g000sha256.tdl.function.SendWebAppData
 import dev.g000sha256.tdl.function.SetAccentColor
@@ -863,6 +903,8 @@ import dev.g000sha256.tdl.function.SetChatTitle
 import dev.g000sha256.tdl.function.SetCloseFriends
 import dev.g000sha256.tdl.function.SetCommands
 import dev.g000sha256.tdl.function.SetCommunityName
+import dev.g000sha256.tdl.function.SetCommunityPermissions
+import dev.g000sha256.tdl.function.SetCommunityPhoto
 import dev.g000sha256.tdl.function.SetCustomEmojiStickerSetThumbnail
 import dev.g000sha256.tdl.function.SetCustomLanguagePack
 import dev.g000sha256.tdl.function.SetCustomLanguagePackString
@@ -935,6 +977,7 @@ import dev.g000sha256.tdl.function.SetSupergroupStickerSet
 import dev.g000sha256.tdl.function.SetSupergroupUnrestrictBoostCount
 import dev.g000sha256.tdl.function.SetSupergroupUsername
 import dev.g000sha256.tdl.function.SetTdlibParameters
+import dev.g000sha256.tdl.function.SetTonConnectSessionWalletClientId
 import dev.g000sha256.tdl.function.SetUpgradedGiftColors
 import dev.g000sha256.tdl.function.SetUserEmojiStatus
 import dev.g000sha256.tdl.function.SetUserNote
@@ -1051,6 +1094,7 @@ internal fun serialize(function: Any, requestId: Long): String {
         is AcceptTermsOfService -> return serialize(requestId = requestId, function = function)
         is ActivateStoryStealthMode -> return serialize(requestId = requestId, function = function)
         is AddBotMediaPreview -> return serialize(requestId = requestId, function = function)
+        is AddBotSecondaryUsername -> return serialize(requestId = requestId, function = function)
         is AddChatFolderByInviteLink -> return serialize(requestId = requestId, function = function)
         is AddChatMember -> return serialize(requestId = requestId, function = function)
         is AddChatMembers -> return serialize(requestId = requestId, function = function)
@@ -1093,6 +1137,7 @@ internal fun serialize(function: Any, requestId: Long): String {
         is AnswerInlineQuery -> return serialize(requestId = requestId, function = function)
         is AnswerPreCheckoutQuery -> return serialize(requestId = requestId, function = function)
         is AnswerShippingQuery -> return serialize(requestId = requestId, function = function)
+        is AnswerTonConnectRequest -> return serialize(requestId = requestId, function = function)
         is AnswerWebAppQuery -> return serialize(requestId = requestId, function = function)
         is ApplyPremiumGiftCode -> return serialize(requestId = requestId, function = function)
         is ApproveSuggestedPost -> return serialize(requestId = requestId, function = function)
@@ -1137,7 +1182,9 @@ internal fun serialize(function: Any, requestId: Long): String {
         is CheckQuickReplyShortcutName -> return serialize(requestId = requestId, function = function)
         is CheckRecoveryEmailAddressCode -> return serialize(requestId = requestId, function = function)
         is CheckStickerSetName -> return serialize(requestId = requestId, function = function)
+        is CheckWalletBotBalance -> return serialize(requestId = requestId, function = function)
         is CheckWebAppFileDownload -> return serialize(requestId = requestId, function = function)
+        is ClaimTonConnectRequest -> return serialize(requestId = requestId, function = function)
         is CleanFileName -> return serialize(requestId = requestId, function = function)
         is ClearAllDraftMessages -> return serialize(requestId = requestId, function = function)
         is ClearAutosaveSettingsExceptions -> return serialize(requestId = requestId, function = function)
@@ -1183,6 +1230,7 @@ internal fun serialize(function: Any, requestId: Long): String {
         is CreateNewSecretChat -> return serialize(requestId = requestId, function = function)
         is CreateNewStickerSet -> return serialize(requestId = requestId, function = function)
         is CreateNewSupergroupChat -> return serialize(requestId = requestId, function = function)
+        is CreateOnRampPaymentSession -> return serialize(requestId = requestId, function = function)
         is CreatePrivateChat -> return serialize(requestId = requestId, function = function)
         is CreateRichMessageWithAi -> return serialize(requestId = requestId, function = function)
         is CreateSecretChat -> return serialize(requestId = requestId, function = function)
@@ -1190,6 +1238,8 @@ internal fun serialize(function: Any, requestId: Long): String {
         is CreateSupergroupChat -> return serialize(requestId = requestId, function = function)
         is CreateTemporaryPassword -> return serialize(requestId = requestId, function = function)
         is CreateTextCompositionStyle -> return serialize(requestId = requestId, function = function)
+        is CreateTonConnectSession -> return serialize(requestId = requestId, function = function)
+        is CreateUserTonWallet -> return serialize(requestId = requestId, function = function)
         is CreateVideoChat -> return serialize(requestId = requestId, function = function)
         is DeclineGroupCallInvitation -> return serialize(requestId = requestId, function = function)
         is DeclineOauthRequest -> return serialize(requestId = requestId, function = function)
@@ -1201,6 +1251,7 @@ internal fun serialize(function: Any, requestId: Long): String {
         is DeleteAllRecentMessageReactionsFromSender -> return serialize(requestId = requestId, function = function)
         is DeleteAllRevokedChatInviteLinks -> return serialize(requestId = requestId, function = function)
         is DeleteBotMediaPreviews -> return serialize(requestId = requestId, function = function)
+        is DeleteBotSecondaryUsername -> return serialize(requestId = requestId, function = function)
         is DeleteBusinessChatLink -> return serialize(requestId = requestId, function = function)
         is DeleteBusinessConnectedBot -> return serialize(requestId = requestId, function = function)
         is DeleteBusinessMessages -> return serialize(requestId = requestId, function = function)
@@ -1215,6 +1266,7 @@ internal fun serialize(function: Any, requestId: Long): String {
         is DeleteChatReplyMarkup -> return serialize(requestId = requestId, function = function)
         is DeleteChatWelcomeMessage -> return serialize(requestId = requestId, function = function)
         is DeleteCommands -> return serialize(requestId = requestId, function = function)
+        is DeleteCommunity -> return serialize(requestId = requestId, function = function)
         is DeleteDefaultBackground -> return serialize(requestId = requestId, function = function)
         is DeleteDirectMessagesChatTopicHistory -> return serialize(requestId = requestId, function = function)
         is DeleteDirectMessagesChatTopicMessagesByDate -> return serialize(requestId = requestId, function = function)
@@ -1242,13 +1294,18 @@ internal fun serialize(function: Any, requestId: Long): String {
         is DeleteStory -> return serialize(requestId = requestId, function = function)
         is DeleteStoryAlbum -> return serialize(requestId = requestId, function = function)
         is DeleteTextCompositionStyle -> return serialize(requestId = requestId, function = function)
+        is DeleteTonWallet -> return serialize(requestId = requestId, function = function)
         is Destroy -> return serialize(requestId = requestId, function = function)
         is DisableAllSupergroupUsernames -> return serialize(requestId = requestId, function = function)
         is DisableProxy -> return serialize(requestId = requestId, function = function)
+        is DisableTonWalletBackup -> return serialize(requestId = requestId, function = function)
+        is DisableTonWalletBackupWithProof -> return serialize(requestId = requestId, function = function)
         is DiscardCall -> return serialize(requestId = requestId, function = function)
         is DisconnectAffiliateProgram -> return serialize(requestId = requestId, function = function)
         is DisconnectAllWebsites -> return serialize(requestId = requestId, function = function)
+        is DisconnectTonConnectSession -> return serialize(requestId = requestId, function = function)
         is DisconnectWebsite -> return serialize(requestId = requestId, function = function)
+        is DismissWebToken -> return serialize(requestId = requestId, function = function)
         is DownloadFile -> return serialize(requestId = requestId, function = function)
         is DropGiftOriginalDetails -> return serialize(requestId = requestId, function = function)
         is EditBotMediaPreview -> return serialize(requestId = requestId, function = function)
@@ -1260,7 +1317,6 @@ internal fun serialize(function: Any, requestId: Long): String {
         is EditBusinessMessageReplyMarkup -> return serialize(requestId = requestId, function = function)
         is EditBusinessMessageText -> return serialize(requestId = requestId, function = function)
         is EditBusinessStory -> return serialize(requestId = requestId, function = function)
-        is EditCallbackQueryMessage -> return serialize(requestId = requestId, function = function)
         is EditChatFolder -> return serialize(requestId = requestId, function = function)
         is EditChatFolderInviteLink -> return serialize(requestId = requestId, function = function)
         is EditChatInviteLink -> return serialize(requestId = requestId, function = function)
@@ -1290,6 +1346,7 @@ internal fun serialize(function: Any, requestId: Long): String {
         is EditTextCompositionStyle -> return serialize(requestId = requestId, function = function)
         is EditUserStarSubscription -> return serialize(requestId = requestId, function = function)
         is EnableProxy -> return serialize(requestId = requestId, function = function)
+        is EnableTonWalletBackup -> return serialize(requestId = requestId, function = function)
         is EncryptGroupCallData -> return serialize(requestId = requestId, function = function)
         is EndGroupCall -> return serialize(requestId = requestId, function = function)
         is EndGroupCallRecording -> return serialize(requestId = requestId, function = function)
@@ -1300,6 +1357,7 @@ internal fun serialize(function: Any, requestId: Long): String {
         is ForwardMessages -> return serialize(requestId = requestId, function = function)
         is GetAccountTtl -> return serialize(requestId = requestId, function = function)
         is GetActiveSessions -> return serialize(requestId = requestId, function = function)
+        is GetAddressTonWallet -> return serialize(requestId = requestId, function = function)
         is GetAllPassportElements -> return serialize(requestId = requestId, function = function)
         is GetAllStickerEmojis -> return serialize(requestId = requestId, function = function)
         is GetAnimatedEmoji -> return serialize(requestId = requestId, function = function)
@@ -1387,6 +1445,7 @@ internal fun serialize(function: Any, requestId: Long): String {
         is GetCloseFriends -> return serialize(requestId = requestId, function = function)
         is GetCollectibleItemInfo -> return serialize(requestId = requestId, function = function)
         is GetCommands -> return serialize(requestId = requestId, function = function)
+        is GetCommunityFullInfo -> return serialize(requestId = requestId, function = function)
         is GetConnectedAffiliateProgram -> return serialize(requestId = requestId, function = function)
         is GetConnectedAffiliatePrograms -> return serialize(requestId = requestId, function = function)
         is GetConnectedWebsites -> return serialize(requestId = requestId, function = function)
@@ -1396,6 +1455,7 @@ internal fun serialize(function: Any, requestId: Long): String {
         is GetCountryCode -> return serialize(requestId = requestId, function = function)
         is GetCountryFlagEmoji -> return serialize(requestId = requestId, function = function)
         is GetCreatedPublicChats -> return serialize(requestId = requestId, function = function)
+        is GetCurrencyExchangeRates -> return serialize(requestId = requestId, function = function)
         is GetCurrentState -> return serialize(requestId = requestId, function = function)
         is GetCurrentWeather -> return serialize(requestId = requestId, function = function)
         is GetCustomEmojiReactionAnimations -> return serialize(requestId = requestId, function = function)
@@ -1504,6 +1564,11 @@ internal fun serialize(function: Any, requestId: Long): String {
         is GetNetworkStatistics -> return serialize(requestId = requestId, function = function)
         is GetNewChatPrivacySettings -> return serialize(requestId = requestId, function = function)
         is GetOauthLinkInfo -> return serialize(requestId = requestId, function = function)
+        is GetOnRampPaymentAvailability -> return serialize(requestId = requestId, function = function)
+        is GetOnRampPaymentLimits -> return serialize(requestId = requestId, function = function)
+        is GetOnRampPaymentQuote -> return serialize(requestId = requestId, function = function)
+        is GetOnRampProviderBaseCurrencies -> return serialize(requestId = requestId, function = function)
+        is GetOnRampProviders -> return serialize(requestId = requestId, function = function)
         is GetOption -> return serialize(requestId = requestId, function = function)
         is GetOwnedBots -> return serialize(requestId = requestId, function = function)
         is GetOwnedStickerSets -> return serialize(requestId = requestId, function = function)
@@ -1600,7 +1665,18 @@ internal fun serialize(function: Any, requestId: Long): String {
         is GetThemedChatEmojiStatuses -> return serialize(requestId = requestId, function = function)
         is GetThemedEmojiStatuses -> return serialize(requestId = requestId, function = function)
         is GetTimeZones -> return serialize(requestId = requestId, function = function)
+        is GetTonCenterStreamingApiUrl -> return serialize(requestId = requestId, function = function)
+        is GetTonConnectDAppPendingRequests -> return serialize(requestId = requestId, function = function)
+        is GetTonConnectSessionNextEventId -> return serialize(requestId = requestId, function = function)
+        is GetTonConnectSessionPendingRequests -> return serialize(requestId = requestId, function = function)
+        is GetTonConnectSessions -> return serialize(requestId = requestId, function = function)
         is GetTonTransactions -> return serialize(requestId = requestId, function = function)
+        is GetTonWalletNfts -> return serialize(requestId = requestId, function = function)
+        is GetTonWalletOwnershipProofChallenge -> return serialize(requestId = requestId, function = function)
+        is GetTonWalletSecretPhrase -> return serialize(requestId = requestId, function = function)
+        is GetTonWalletTransaction -> return serialize(requestId = requestId, function = function)
+        is GetTonWalletTransactionByMsgHash -> return serialize(requestId = requestId, function = function)
+        is GetTonWalletTransactions -> return serialize(requestId = requestId, function = function)
         is GetTopChats -> return serialize(requestId = requestId, function = function)
         is GetTrendingStickerSets -> return serialize(requestId = requestId, function = function)
         is GetUpgradedGift -> return serialize(requestId = requestId, function = function)
@@ -1617,6 +1693,7 @@ internal fun serialize(function: Any, requestId: Long): String {
         is GetUserProfileAudios -> return serialize(requestId = requestId, function = function)
         is GetUserProfilePhotos -> return serialize(requestId = requestId, function = function)
         is GetUserSupportInfo -> return serialize(requestId = requestId, function = function)
+        is GetUserTonWalletAddresses -> return serialize(requestId = requestId, function = function)
         is GetVideoChatAvailableParticipants -> return serialize(requestId = requestId, function = function)
         is GetVideoChatInviteLink -> return serialize(requestId = requestId, function = function)
         is GetVideoChatRtmpUrl -> return serialize(requestId = requestId, function = function)
@@ -1647,12 +1724,13 @@ internal fun serialize(function: Any, requestId: Long): String {
         is LoadActiveStories -> return serialize(requestId = requestId, function = function)
         is LoadChatWelcomeMessages -> return serialize(requestId = requestId, function = function)
         is LoadChats -> return serialize(requestId = requestId, function = function)
-        is LoadCommunityFullInfo -> return serialize(requestId = requestId, function = function)
         is LoadDirectMessagesChatTopics -> return serialize(requestId = requestId, function = function)
         is LoadGroupCallParticipants -> return serialize(requestId = requestId, function = function)
         is LoadQuickReplyShortcutMessages -> return serialize(requestId = requestId, function = function)
         is LoadQuickReplyShortcuts -> return serialize(requestId = requestId, function = function)
         is LoadSavedMessagesTopics -> return serialize(requestId = requestId, function = function)
+        is LoadTonWalletGaslessTransfersInfo -> return serialize(requestId = requestId, function = function)
+        is LoadTonWalletState -> return serialize(requestId = requestId, function = function)
         is LogOut -> return serialize(requestId = requestId, function = function)
         is MarkChecklistTasksAsDone -> return serialize(requestId = requestId, function = function)
         is OpenBotSimilarBot -> return serialize(requestId = requestId, function = function)
@@ -1738,7 +1816,9 @@ internal fun serialize(function: Any, requestId: Long): String {
         is ReplaceLiveStoryRtmpUrl -> return serialize(requestId = requestId, function = function)
         is ReplacePrimaryChatInviteLink -> return serialize(requestId = requestId, function = function)
         is ReplaceStickerInSet -> return serialize(requestId = requestId, function = function)
+        is ReplaceTonWallet -> return serialize(requestId = requestId, function = function)
         is ReplaceVideoChatRtmpUrl -> return serialize(requestId = requestId, function = function)
+        is ReplyToCallbackQueryWithEphemeralMessage -> return serialize(requestId = requestId, function = function)
         is ReportAuthenticationCodeMissing -> return serialize(requestId = requestId, function = function)
         is ReportChat -> return serialize(requestId = requestId, function = function)
         is ReportChatPhoto -> return serialize(requestId = requestId, function = function)
@@ -1834,6 +1914,9 @@ internal fun serialize(function: Any, requestId: Long): String {
         is SendResoldGift -> return serialize(requestId = requestId, function = function)
         is SendRichMessageDraft -> return serialize(requestId = requestId, function = function)
         is SendTextMessageDraft -> return serialize(requestId = requestId, function = function)
+        is SendTonCenterApiRequest -> return serialize(requestId = requestId, function = function)
+        is SendTonConnectSessionConnectResult -> return serialize(requestId = requestId, function = function)
+        is SendTonWalletTransfer -> return serialize(requestId = requestId, function = function)
         is SendWebAppCustomRequest -> return serialize(requestId = requestId, function = function)
         is SendWebAppData -> return serialize(requestId = requestId, function = function)
         is SetAccentColor -> return serialize(requestId = requestId, function = function)
@@ -1893,6 +1976,8 @@ internal fun serialize(function: Any, requestId: Long): String {
         is SetCloseFriends -> return serialize(requestId = requestId, function = function)
         is SetCommands -> return serialize(requestId = requestId, function = function)
         is SetCommunityName -> return serialize(requestId = requestId, function = function)
+        is SetCommunityPermissions -> return serialize(requestId = requestId, function = function)
+        is SetCommunityPhoto -> return serialize(requestId = requestId, function = function)
         is SetCustomEmojiStickerSetThumbnail -> return serialize(requestId = requestId, function = function)
         is SetCustomLanguagePack -> return serialize(requestId = requestId, function = function)
         is SetCustomLanguagePackString -> return serialize(requestId = requestId, function = function)
@@ -1965,6 +2050,7 @@ internal fun serialize(function: Any, requestId: Long): String {
         is SetSupergroupUnrestrictBoostCount -> return serialize(requestId = requestId, function = function)
         is SetSupergroupUsername -> return serialize(requestId = requestId, function = function)
         is SetTdlibParameters -> return serialize(requestId = requestId, function = function)
+        is SetTonConnectSessionWalletClientId -> return serialize(requestId = requestId, function = function)
         is SetUpgradedGiftColors -> return serialize(requestId = requestId, function = function)
         is SetUserEmojiStatus -> return serialize(requestId = requestId, function = function)
         is SetUserNote -> return serialize(requestId = requestId, function = function)
@@ -2114,6 +2200,15 @@ private fun serialize(requestId: Long, function: AddBotMediaPreview): String {
         put(key = "bot_user_id", long = function.botUserId)
         put(key = "language_code", string = function.languageCode)
         put(key = "content", value = function.content) { data -> serialize(dto = data) }
+    }
+}
+
+private fun serialize(requestId: Long, function: AddBotSecondaryUsername): String {
+    return buildJsonObjectString {
+        put(key = "@type", string = "addBotSecondaryUsername")
+        put(key = "@extra", long = requestId)
+        put(key = "bot_user_id", long = function.botUserId)
+        put(key = "username", string = function.username)
     }
 }
 
@@ -2519,6 +2614,17 @@ private fun serialize(requestId: Long, function: AnswerShippingQuery): String {
     }
 }
 
+private fun serialize(requestId: Long, function: AnswerTonConnectRequest): String {
+    return buildJsonObjectString {
+        put(key = "@type", string = "answerTonConnectRequest")
+        put(key = "@extra", long = requestId)
+        put(key = "session_id", long = function.sessionId)
+        put(key = "message_id", long = function.messageId)
+        put(key = "trace_id", string = function.traceId)
+        put(key = "body", bytes = function.body)
+    }
+}
+
 private fun serialize(requestId: Long, function: AnswerWebAppQuery): String {
     return buildJsonObjectString {
         put(key = "@type", string = "answerWebAppQuery")
@@ -2787,6 +2893,7 @@ private fun serialize(requestId: Long, function: CheckBotUsername): String {
         put(key = "@type", string = "checkBotUsername")
         put(key = "@extra", long = requestId)
         put(key = "username", string = function.username)
+        put(key = "is_secondary", boolean = function.isSecondary)
     }
 }
 
@@ -2896,6 +3003,13 @@ private fun serialize(requestId: Long, function: CheckStickerSetName): String {
     }
 }
 
+private fun serialize(requestId: Long, function: CheckWalletBotBalance): String {
+    return buildJsonObjectString {
+        put(key = "@type", string = "checkWalletBotBalance")
+        put(key = "@extra", long = requestId)
+    }
+}
+
 private fun serialize(requestId: Long, function: CheckWebAppFileDownload): String {
     return buildJsonObjectString {
         put(key = "@type", string = "checkWebAppFileDownload")
@@ -2903,6 +3017,17 @@ private fun serialize(requestId: Long, function: CheckWebAppFileDownload): Strin
         put(key = "bot_user_id", long = function.botUserId)
         put(key = "file_name", string = function.fileName)
         put(key = "url", string = function.url)
+    }
+}
+
+private fun serialize(requestId: Long, function: ClaimTonConnectRequest): String {
+    return buildJsonObjectString {
+        put(key = "@type", string = "claimTonConnectRequest")
+        put(key = "@extra", long = requestId)
+        put(key = "session_id", long = function.sessionId)
+        put(key = "message_id", long = function.messageId)
+        put(key = "dapp_request_id", string = function.dappRequestId)
+        put(key = "is_rejected", boolean = function.isRejected)
     }
 }
 
@@ -3309,6 +3434,24 @@ private fun serialize(requestId: Long, function: CreateNewSupergroupChat): Strin
     }
 }
 
+private fun serialize(requestId: Long, function: CreateOnRampPaymentSession): String {
+    return buildJsonObjectString {
+        put(key = "@type", string = "createOnRampPaymentSession")
+        put(key = "@extra", long = requestId)
+        put(key = "provider_id", string = function.providerId)
+        put(key = "cryptocurrency", string = function.cryptocurrency)
+        put(key = "address", string = function.address)
+        put(key = "payment_method_name", string = function.paymentMethodName)
+        put(key = "base_currency", string = function.baseCurrency)
+        put(key = "cryptocurrency_amount", string = function.cryptocurrencyAmount)
+        put(key = "base_currency_amount", string = function.baseCurrencyAmount)
+        put(key = "memo", string = function.memo)
+        put(key = "theme", string = function.theme)
+        put(key = "success_return_url", string = function.successReturnUrl)
+        put(key = "fail_return_url", string = function.failReturnUrl)
+    }
+}
+
 private fun serialize(requestId: Long, function: CreatePrivateChat): String {
     return buildJsonObjectString {
         put(key = "@type", string = "createPrivateChat")
@@ -3372,6 +3515,23 @@ private fun serialize(requestId: Long, function: CreateTextCompositionStyle): St
         put(key = "custom_emoji_id", long = function.customEmojiId)
         put(key = "prompt", string = function.prompt)
         put(key = "show_creator", boolean = function.showCreator)
+    }
+}
+
+private fun serialize(requestId: Long, function: CreateTonConnectSession): String {
+    return buildJsonObjectString {
+        put(key = "@type", string = "createTonConnectSession")
+        put(key = "@extra", long = requestId)
+        put(key = "dapp_client_id", string = function.dappClientId)
+        put(key = "manifest_url", string = function.manifestUrl)
+    }
+}
+
+private fun serialize(requestId: Long, function: CreateUserTonWallet): String {
+    return buildJsonObjectString {
+        put(key = "@type", string = "createUserTonWallet")
+        put(key = "@extra", long = requestId)
+        put(key = "user_id", long = function.userId)
     }
 }
 
@@ -3474,6 +3634,14 @@ private fun serialize(requestId: Long, function: DeleteBotMediaPreviews): String
         put(key = "bot_user_id", long = function.botUserId)
         put(key = "language_code", string = function.languageCode)
         put(key = "file_ids", ints = function.fileIds)
+    }
+}
+
+private fun serialize(requestId: Long, function: DeleteBotSecondaryUsername): String {
+    return buildJsonObjectString {
+        put(key = "@type", string = "deleteBotSecondaryUsername")
+        put(key = "@extra", long = requestId)
+        put(key = "bot_user_id", long = function.botUserId)
     }
 }
 
@@ -3600,6 +3768,14 @@ private fun serialize(requestId: Long, function: DeleteCommands): String {
         put(key = "@extra", long = requestId)
         put(key = "scope", value = function.scope) { data -> serialize(dto = data) }
         put(key = "language_code", string = function.languageCode)
+    }
+}
+
+private fun serialize(requestId: Long, function: DeleteCommunity): String {
+    return buildJsonObjectString {
+        put(key = "@type", string = "deleteCommunity")
+        put(key = "@extra", long = requestId)
+        put(key = "community_id", long = function.communityId)
     }
 }
 
@@ -3842,6 +4018,14 @@ private fun serialize(requestId: Long, function: DeleteTextCompositionStyle): St
     }
 }
 
+private fun serialize(requestId: Long, function: DeleteTonWallet): String {
+    return buildJsonObjectString {
+        put(key = "@type", string = "deleteTonWallet")
+        put(key = "@extra", long = requestId)
+        put(key = "password", string = function.password)
+    }
+}
+
 private fun serialize(requestId: Long, function: Destroy): String {
     return buildJsonObjectString {
         put(key = "@type", string = "destroy")
@@ -3861,6 +4045,22 @@ private fun serialize(requestId: Long, function: DisableProxy): String {
     return buildJsonObjectString {
         put(key = "@type", string = "disableProxy")
         put(key = "@extra", long = requestId)
+    }
+}
+
+private fun serialize(requestId: Long, function: DisableTonWalletBackup): String {
+    return buildJsonObjectString {
+        put(key = "@type", string = "disableTonWalletBackup")
+        put(key = "@extra", long = requestId)
+        put(key = "password", string = function.password)
+    }
+}
+
+private fun serialize(requestId: Long, function: DisableTonWalletBackupWithProof): String {
+    return buildJsonObjectString {
+        put(key = "@type", string = "disableTonWalletBackupWithProof")
+        put(key = "@extra", long = requestId)
+        put(key = "proof", value = function.proof) { data -> serialize(dto = data) }
     }
 }
 
@@ -3893,11 +4093,28 @@ private fun serialize(requestId: Long, function: DisconnectAllWebsites): String 
     }
 }
 
+private fun serialize(requestId: Long, function: DisconnectTonConnectSession): String {
+    return buildJsonObjectString {
+        put(key = "@type", string = "disconnectTonConnectSession")
+        put(key = "@extra", long = requestId)
+        put(key = "session_id", long = function.sessionId)
+        put(key = "body", bytes = function.body)
+    }
+}
+
 private fun serialize(requestId: Long, function: DisconnectWebsite): String {
     return buildJsonObjectString {
         put(key = "@type", string = "disconnectWebsite")
         put(key = "@extra", long = requestId)
         put(key = "website_id", long = function.websiteId)
+    }
+}
+
+private fun serialize(requestId: Long, function: DismissWebToken): String {
+    return buildJsonObjectString {
+        put(key = "@type", string = "dismissWebToken")
+        put(key = "@extra", long = requestId)
+        put(key = "token", string = function.token)
     }
 }
 
@@ -4024,17 +4241,6 @@ private fun serialize(requestId: Long, function: EditBusinessStory): String {
         put(key = "areas", value = function.areas) { data -> serialize(dto = data) }
         put(key = "caption", value = function.caption) { data -> serialize(dto = data) }
         put(key = "privacy_settings", value = function.privacySettings) { data -> serialize(dto = data) }
-    }
-}
-
-private fun serialize(requestId: Long, function: EditCallbackQueryMessage): String {
-    return buildJsonObjectString {
-        put(key = "@type", string = "editCallbackQueryMessage")
-        put(key = "@extra", long = requestId)
-        put(key = "callback_query_id", long = function.callbackQueryId)
-        put(key = "protect_content", boolean = function.protectContent)
-        put(key = "reply_markup", value = function.replyMarkup) { data -> serialize(dto = data) }
-        put(key = "input_message_content", value = function.inputMessageContent) { data -> serialize(dto = data) }
     }
 }
 
@@ -4344,6 +4550,15 @@ private fun serialize(requestId: Long, function: EnableProxy): String {
     }
 }
 
+private fun serialize(requestId: Long, function: EnableTonWalletBackup): String {
+    return buildJsonObjectString {
+        put(key = "@type", string = "enableTonWalletBackup")
+        put(key = "@extra", long = requestId)
+        put(key = "secret_phrase", string = function.secretPhrase)
+        put(key = "proof", value = function.proof) { data -> serialize(dto = data) }
+    }
+}
+
 private fun serialize(requestId: Long, function: EncryptGroupCallData): String {
     return buildJsonObjectString {
         put(key = "@type", string = "encryptGroupCallData")
@@ -4429,6 +4644,14 @@ private fun serialize(requestId: Long, function: GetActiveSessions): String {
     return buildJsonObjectString {
         put(key = "@type", string = "getActiveSessions")
         put(key = "@extra", long = requestId)
+    }
+}
+
+private fun serialize(requestId: Long, function: GetAddressTonWallet): String {
+    return buildJsonObjectString {
+        put(key = "@type", string = "getAddressTonWallet")
+        put(key = "@extra", long = requestId)
+        put(key = "address", string = function.address)
     }
 }
 
@@ -5192,6 +5415,14 @@ private fun serialize(requestId: Long, function: GetCommands): String {
     }
 }
 
+private fun serialize(requestId: Long, function: GetCommunityFullInfo): String {
+    return buildJsonObjectString {
+        put(key = "@type", string = "getCommunityFullInfo")
+        put(key = "@extra", long = requestId)
+        put(key = "community_id", long = function.communityId)
+    }
+}
+
 private fun serialize(requestId: Long, function: GetConnectedAffiliateProgram): String {
     return buildJsonObjectString {
         put(key = "@type", string = "getConnectedAffiliateProgram")
@@ -5260,6 +5491,13 @@ private fun serialize(requestId: Long, function: GetCreatedPublicChats): String 
         put(key = "@type", string = "getCreatedPublicChats")
         put(key = "@extra", long = requestId)
         put(key = "type", value = function.type) { data -> serialize(dto = data) }
+    }
+}
+
+private fun serialize(requestId: Long, function: GetCurrencyExchangeRates): String {
+    return buildJsonObjectString {
+        put(key = "@type", string = "getCurrencyExchangeRates")
+        put(key = "@extra", long = requestId)
     }
 }
 
@@ -6201,6 +6439,57 @@ private fun serialize(requestId: Long, function: GetOauthLinkInfo): String {
     }
 }
 
+private fun serialize(requestId: Long, function: GetOnRampPaymentAvailability): String {
+    return buildJsonObjectString {
+        put(key = "@type", string = "getOnRampPaymentAvailability")
+        put(key = "@extra", long = requestId)
+        put(key = "provider_id", string = function.providerId)
+        put(key = "cryptocurrency", string = function.cryptocurrency)
+        put(key = "base_currency", string = function.baseCurrency)
+    }
+}
+
+private fun serialize(requestId: Long, function: GetOnRampPaymentLimits): String {
+    return buildJsonObjectString {
+        put(key = "@type", string = "getOnRampPaymentLimits")
+        put(key = "@extra", long = requestId)
+        put(key = "provider_id", string = function.providerId)
+        put(key = "cryptocurrency", string = function.cryptocurrency)
+        put(key = "base_currency", string = function.baseCurrency)
+        put(key = "payment_method_name", string = function.paymentMethodName)
+    }
+}
+
+private fun serialize(requestId: Long, function: GetOnRampPaymentQuote): String {
+    return buildJsonObjectString {
+        put(key = "@type", string = "getOnRampPaymentQuote")
+        put(key = "@extra", long = requestId)
+        put(key = "provider_id", string = function.providerId)
+        put(key = "cryptocurrency", string = function.cryptocurrency)
+        put(key = "base_currency", string = function.baseCurrency)
+        put(key = "cryptocurrency_amount", string = function.cryptocurrencyAmount)
+        put(key = "base_currency_amount", string = function.baseCurrencyAmount)
+        put(key = "payment_method_name", string = function.paymentMethodName)
+    }
+}
+
+private fun serialize(requestId: Long, function: GetOnRampProviderBaseCurrencies): String {
+    return buildJsonObjectString {
+        put(key = "@type", string = "getOnRampProviderBaseCurrencies")
+        put(key = "@extra", long = requestId)
+        put(key = "provider_id", string = function.providerId)
+        put(key = "cryptocurrency", string = function.cryptocurrency)
+    }
+}
+
+private fun serialize(requestId: Long, function: GetOnRampProviders): String {
+    return buildJsonObjectString {
+        put(key = "@type", string = "getOnRampProviders")
+        put(key = "@extra", long = requestId)
+        put(key = "cryptocurrency", string = function.cryptocurrency)
+    }
+}
+
 private fun serialize(requestId: Long, function: GetOption): String {
     return buildJsonObjectString {
         put(key = "@type", string = "getOption")
@@ -7019,9 +7308,97 @@ private fun serialize(requestId: Long, function: GetTimeZones): String {
     }
 }
 
+private fun serialize(requestId: Long, function: GetTonCenterStreamingApiUrl): String {
+    return buildJsonObjectString {
+        put(key = "@type", string = "getTonCenterStreamingApiUrl")
+        put(key = "@extra", long = requestId)
+    }
+}
+
+private fun serialize(requestId: Long, function: GetTonConnectDAppPendingRequests): String {
+    return buildJsonObjectString {
+        put(key = "@type", string = "getTonConnectDAppPendingRequests")
+        put(key = "@extra", long = requestId)
+        put(key = "dapp_client_id", string = function.dappClientId)
+    }
+}
+
+private fun serialize(requestId: Long, function: GetTonConnectSessionNextEventId): String {
+    return buildJsonObjectString {
+        put(key = "@type", string = "getTonConnectSessionNextEventId")
+        put(key = "@extra", long = requestId)
+        put(key = "session_id", long = function.sessionId)
+    }
+}
+
+private fun serialize(requestId: Long, function: GetTonConnectSessionPendingRequests): String {
+    return buildJsonObjectString {
+        put(key = "@type", string = "getTonConnectSessionPendingRequests")
+        put(key = "@extra", long = requestId)
+        put(key = "session_id", long = function.sessionId)
+    }
+}
+
+private fun serialize(requestId: Long, function: GetTonConnectSessions): String {
+    return buildJsonObjectString {
+        put(key = "@type", string = "getTonConnectSessions")
+        put(key = "@extra", long = requestId)
+    }
+}
+
 private fun serialize(requestId: Long, function: GetTonTransactions): String {
     return buildJsonObjectString {
         put(key = "@type", string = "getTonTransactions")
+        put(key = "@extra", long = requestId)
+        put(key = "direction", value = function.direction) { data -> serialize(dto = data) }
+        put(key = "offset", string = function.offset)
+        put(key = "limit", int = function.limit)
+    }
+}
+
+private fun serialize(requestId: Long, function: GetTonWalletNfts): String {
+    return buildJsonObjectString {
+        put(key = "@type", string = "getTonWalletNfts")
+        put(key = "@extra", long = requestId)
+        put(key = "offset", string = function.offset)
+        put(key = "limit", int = function.limit)
+    }
+}
+
+private fun serialize(requestId: Long, function: GetTonWalletOwnershipProofChallenge): String {
+    return buildJsonObjectString {
+        put(key = "@type", string = "getTonWalletOwnershipProofChallenge")
+        put(key = "@extra", long = requestId)
+    }
+}
+
+private fun serialize(requestId: Long, function: GetTonWalletSecretPhrase): String {
+    return buildJsonObjectString {
+        put(key = "@type", string = "getTonWalletSecretPhrase")
+        put(key = "@extra", long = requestId)
+        put(key = "password", string = function.password)
+    }
+}
+
+private fun serialize(requestId: Long, function: GetTonWalletTransaction): String {
+    return buildJsonObjectString {
+        put(key = "@type", string = "getTonWalletTransaction")
+        put(key = "@extra", long = requestId)
+        put(key = "transaction_id", string = function.transactionId)
+    }
+}
+
+private fun serialize(requestId: Long, function: GetTonWalletTransactionByMsgHash): String {
+    return buildJsonObjectString {
+        put(key = "@type", string = "getTonWalletTransactionByMsgHash")
+        put(key = "@extra", long = requestId)
+        put(key = "msg_hash", string = function.msgHash)
+    }
+}
+
+private fun serialize(requestId: Long, function: GetTonWalletTransactions): String {
+    return buildJsonObjectString {
+        put(key = "@type", string = "getTonWalletTransactions")
         put(key = "@extra", long = requestId)
         put(key = "direction", value = function.direction) { data -> serialize(dto = data) }
         put(key = "offset", string = function.offset)
@@ -7162,6 +7539,14 @@ private fun serialize(requestId: Long, function: GetUserSupportInfo): String {
         put(key = "@type", string = "getUserSupportInfo")
         put(key = "@extra", long = requestId)
         put(key = "user_id", long = function.userId)
+    }
+}
+
+private fun serialize(requestId: Long, function: GetUserTonWalletAddresses): String {
+    return buildJsonObjectString {
+        put(key = "@type", string = "getUserTonWalletAddresses")
+        put(key = "@extra", long = requestId)
+        put(key = "user_ids", longs = function.userIds)
     }
 }
 
@@ -7432,14 +7817,6 @@ private fun serialize(requestId: Long, function: LoadChats): String {
     }
 }
 
-private fun serialize(requestId: Long, function: LoadCommunityFullInfo): String {
-    return buildJsonObjectString {
-        put(key = "@type", string = "loadCommunityFullInfo")
-        put(key = "@extra", long = requestId)
-        put(key = "community_id", long = function.communityId)
-    }
-}
-
 private fun serialize(requestId: Long, function: LoadDirectMessagesChatTopics): String {
     return buildJsonObjectString {
         put(key = "@type", string = "loadDirectMessagesChatTopics")
@@ -7478,6 +7855,20 @@ private fun serialize(requestId: Long, function: LoadSavedMessagesTopics): Strin
         put(key = "@type", string = "loadSavedMessagesTopics")
         put(key = "@extra", long = requestId)
         put(key = "limit", int = function.limit)
+    }
+}
+
+private fun serialize(requestId: Long, function: LoadTonWalletGaslessTransfersInfo): String {
+    return buildJsonObjectString {
+        put(key = "@type", string = "loadTonWalletGaslessTransfersInfo")
+        put(key = "@extra", long = requestId)
+    }
+}
+
+private fun serialize(requestId: Long, function: LoadTonWalletState): String {
+    return buildJsonObjectString {
+        put(key = "@type", string = "loadTonWalletState")
+        put(key = "@extra", long = requestId)
     }
 }
 
@@ -8256,11 +8647,33 @@ private fun serialize(requestId: Long, function: ReplaceStickerInSet): String {
     }
 }
 
+private fun serialize(requestId: Long, function: ReplaceTonWallet): String {
+    return buildJsonObjectString {
+        put(key = "@type", string = "replaceTonWallet")
+        put(key = "@extra", long = requestId)
+        put(key = "password", string = function.password)
+        put(key = "anchor_public_key", bytes = function.anchorPublicKey)
+        put(key = "proof", value = function.proof) { data -> serialize(dto = data) }
+    }
+}
+
 private fun serialize(requestId: Long, function: ReplaceVideoChatRtmpUrl): String {
     return buildJsonObjectString {
         put(key = "@type", string = "replaceVideoChatRtmpUrl")
         put(key = "@extra", long = requestId)
         put(key = "chat_id", long = function.chatId)
+    }
+}
+
+private fun serialize(requestId: Long, function: ReplyToCallbackQueryWithEphemeralMessage): String {
+    return buildJsonObjectString {
+        put(key = "@type", string = "replyToCallbackQueryWithEphemeralMessage")
+        put(key = "@extra", long = requestId)
+        put(key = "callback_query_id", long = function.callbackQueryId)
+        put(key = "replace_callback_query_message", boolean = function.replaceCallbackQueryMessage)
+        put(key = "protect_content", boolean = function.protectContent)
+        put(key = "reply_markup", value = function.replyMarkup) { data -> serialize(dto = data) }
+        put(key = "input_message_content", value = function.inputMessageContent) { data -> serialize(dto = data) }
     }
 }
 
@@ -9213,6 +9626,42 @@ private fun serialize(requestId: Long, function: SendTextMessageDraft): String {
     }
 }
 
+private fun serialize(requestId: Long, function: SendTonCenterApiRequest): String {
+    return buildJsonObjectString {
+        put(key = "@type", string = "sendTonCenterApiRequest")
+        put(key = "@extra", long = requestId)
+        put(key = "endpoint", string = function.endpoint)
+        put(key = "type", value = function.type) { data -> serialize(dto = data) }
+    }
+}
+
+private fun serialize(requestId: Long, function: SendTonConnectSessionConnectResult): String {
+    return buildJsonObjectString {
+        put(key = "@type", string = "sendTonConnectSessionConnectResult")
+        put(key = "@extra", long = requestId)
+        put(key = "session_id", long = function.sessionId)
+        put(key = "challenge_answer", bytes = function.challengeAnswer)
+        put(key = "is_error", boolean = function.isError)
+        put(key = "body", bytes = function.body)
+        put(key = "trace_id", string = function.traceId)
+    }
+}
+
+private fun serialize(requestId: Long, function: SendTonWalletTransfer): String {
+    return buildJsonObjectString {
+        put(key = "@type", string = "sendTonWalletTransfer")
+        put(key = "@extra", long = requestId)
+        put(key = "user_id", long = function.userId)
+        put(key = "address", string = function.address)
+        put(key = "amount", long = function.amount)
+        put(key = "comment", string = function.comment)
+        put(key = "is_comment_encrypted", boolean = function.isCommentEncrypted)
+        put(key = "sending_id", int = function.sendingId)
+        put(key = "regular_transfer_data", bytes = function.regularTransferData)
+        put(key = "gasless_transfer_data", bytes = function.gaslessTransferData)
+    }
+}
+
 private fun serialize(requestId: Long, function: SendWebAppCustomRequest): String {
     return buildJsonObjectString {
         put(key = "@type", string = "sendWebAppCustomRequest")
@@ -9753,6 +10202,24 @@ private fun serialize(requestId: Long, function: SetCommunityName): String {
     }
 }
 
+private fun serialize(requestId: Long, function: SetCommunityPermissions): String {
+    return buildJsonObjectString {
+        put(key = "@type", string = "setCommunityPermissions")
+        put(key = "@extra", long = requestId)
+        put(key = "community_id", long = function.communityId)
+        put(key = "permissions", value = function.permissions) { data -> serialize(dto = data) }
+    }
+}
+
+private fun serialize(requestId: Long, function: SetCommunityPhoto): String {
+    return buildJsonObjectString {
+        put(key = "@type", string = "setCommunityPhoto")
+        put(key = "@extra", long = requestId)
+        put(key = "community_id", long = function.communityId)
+        put(key = "photo", value = function.photo) { data -> serialize(dto = data) }
+    }
+}
+
 private fun serialize(requestId: Long, function: SetCustomEmojiStickerSetThumbnail): String {
     return buildJsonObjectString {
         put(key = "@type", string = "setCustomEmojiStickerSetThumbnail")
@@ -10061,7 +10528,7 @@ private fun serialize(requestId: Long, function: SetMessageSenderBotVerification
         put(key = "@extra", long = requestId)
         put(key = "bot_user_id", long = function.botUserId)
         put(key = "verified_id", value = function.verifiedId) { data -> serialize(dto = data) }
-        put(key = "custom_description", string = function.customDescription)
+        put(key = "custom_description", value = function.customDescription) { data -> serialize(dto = data) }
     }
 }
 
@@ -10420,6 +10887,15 @@ private fun serialize(requestId: Long, function: SetTdlibParameters): String {
         put(key = "device_model", string = function.deviceModel)
         put(key = "system_version", string = function.systemVersion)
         put(key = "application_version", string = function.applicationVersion)
+    }
+}
+
+private fun serialize(requestId: Long, function: SetTonConnectSessionWalletClientId): String {
+    return buildJsonObjectString {
+        put(key = "@type", string = "setTonConnectSessionWalletClientId")
+        put(key = "@extra", long = requestId)
+        put(key = "session_id", long = function.sessionId)
+        put(key = "wallet_client_id", string = function.walletClientId)
     }
 }
 

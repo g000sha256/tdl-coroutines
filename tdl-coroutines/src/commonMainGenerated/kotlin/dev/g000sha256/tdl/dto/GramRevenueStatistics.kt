@@ -27,7 +27,7 @@ import kotlin.String
  *
  * @property revenueByDayGraph A graph containing amount of revenue in a given day.
  * @property status Amount of earned revenue.
- * @property usdRate Current conversion rate of nanogram to USD cents.
+ * @property usdRate Current exchange rate of nanogram to USD cents.
  */
 public class GramRevenueStatistics public constructor(
     public val revenueByDayGraph: StatisticalGraph,
