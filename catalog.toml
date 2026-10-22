@@ -9,7 +9,7 @@ kotlin = "2.4.21"
 kotlinPoet = "2.4.0"
 kotlinSerialization = "1.12.0"
 shadow = "9.6.1"
-sonatypeMavenCentral = "2.1.1"
+sonatypeMavenCentral = "2.1.2"
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "android" }
