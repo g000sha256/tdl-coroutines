@@ -13,6 +13,12 @@ on:
         description: 'Commit and push API and binaries (disable for verification only)'
         required: false
         type: boolean
+        default: false
+
+      run-generator:
+        description: 'Run generator'
+        required: false
+        type: boolean
         default: true
 
       build-android:
@@ -21,26 +27,74 @@ on:
         type: boolean
         default: false
 
-      build-jvm:
-        description: 'Build JVM'
+      build-jvm-linux-arm64:
+        description: 'Build JVM Linux ARM64'
         required: false
         type: boolean
         default: false
 
-      build-ios:
-        description: 'Build iOS'
+      build-jvm-linux-x64:
+        description: 'Build JVM Linux x64'
         required: false
         type: boolean
         default: false
 
-      build-macos:
-        description: 'Build macOS'
+      build-jvm-macos-arm64:
+        description: 'Build JVM macOS ARM64'
         required: false
         type: boolean
         default: false
 
-      build-windows:
-        description: 'Build Windows'
+      build-jvm-macos-x64:
+        description: 'Build JVM macOS x64'
+        required: false
+        type: boolean
+        default: false
+
+      build-jvm-windows-arm64:
+        description: 'Build JVM Windows ARM64'
+        required: false
+        type: boolean
+        default: false
+
+      build-jvm-windows-x64:
+        description: 'Build JVM Windows x64'
+        required: false
+        type: boolean
+        default: false
+
+      build-ios-arm64:
+        description: 'Build iOS ARM64'
+        required: false
+        type: boolean
+        default: false
+
+      build-ios-arm64-simulator:
+        description: 'Build iOS ARM64 Simulator'
+        required: false
+        type: boolean
+        default: false
+
+      build-ios-x64-simulator:
+        description: 'Build iOS x64 Simulator'
+        required: false
+        type: boolean
+        default: false
+
+      build-macos-arm64:
+        description: 'Build macOS ARM64'
+        required: false
+        type: boolean
+        default: false
+
+      build-macos-x64:
+        description: 'Build macOS x64'
+        required: false
+        type: boolean
+        default: false
+
+      build-windows-x64:
+        description: 'Build Windows x64'
         required: false
         type: boolean
         default: false
@@ -51,8 +105,38 @@ env:
   TDL_MACOS_DEPLOYMENT_TARGET: '12.0'
 
 jobs:
+  validate-inputs:
+    name: Reject empty selection
+    if: >-
+      github.event_name == 'workflow_dispatch' &&
+      !(
+        inputs.run-generator ||
+        inputs.build-android ||
+        inputs.build-jvm-linux-arm64 ||
+        inputs.build-jvm-linux-x64 ||
+        inputs.build-jvm-macos-arm64 ||
+        inputs.build-jvm-macos-x64 ||
+        inputs.build-jvm-windows-arm64 ||
+        inputs.build-jvm-windows-x64 ||
+        inputs.build-ios-arm64 ||
+        inputs.build-ios-arm64-simulator ||
+        inputs.build-ios-x64-simulator ||
+        inputs.build-macos-arm64 ||
+        inputs.build-macos-x64 ||
+        inputs.build-windows-x64
+      )
+    runs-on: ubuntu-22.04
+    permissions: {}
+
+    steps:
+      - name: Report empty selection
+        run: |
+          echo "::error::Select 'run-generator' or at least one 'build-*' platform."
+          exit 1
+
   run-generator:
     name: Run generator
+    if: github.event_name == 'push' || inputs.run-generator
     runs-on: self-hosted
     permissions:
       contents: write
@@ -109,7 +193,10 @@ jobs:
 
   build-android:
     name: Build Android
-    if: github.event_name == 'push' || inputs.build-android
+    if: >-
+      !cancelled() &&
+      (needs.run-generator.result == 'success' || needs.run-generator.result == 'skipped') &&
+      (github.event_name == 'push' || inputs.build-android)
     needs: run-generator
     runs-on: self-hosted
     permissions:
@@ -124,7 +211,7 @@ jobs:
           submodules: true
 
       - name: Apply generated API
-        if: github.event_name == 'workflow_dispatch' && inputs.commit == false
+        if: github.event_name == 'workflow_dispatch' && inputs.commit == false && inputs.run-generator
         uses: ./.github/actions/apply-generated-api
 
       - name: Clean submodule
@@ -183,7 +270,10 @@ jobs:
 
   build-jvm-linux-arm64:
     name: Build JVM Linux ARM64
-    if: github.event_name == 'push' || inputs.build-jvm
+    if: >-
+      !cancelled() &&
+      (needs.run-generator.result == 'success' || needs.run-generator.result == 'skipped') &&
+      (github.event_name == 'push' || inputs.build-jvm-linux-arm64)
     needs: run-generator
     runs-on: ubuntu-22.04-arm
     permissions:
@@ -198,7 +288,7 @@ jobs:
           submodules: true
 
       - name: Apply generated API
-        if: github.event_name == 'workflow_dispatch' && inputs.commit == false
+        if: github.event_name == 'workflow_dispatch' && inputs.commit == false && inputs.run-generator
         uses: ./.github/actions/apply-generated-api
 
       - name: Set up Java
@@ -246,7 +336,10 @@ jobs:
 
   build-jvm-linux-x64:
     name: Build JVM Linux x64
-    if: github.event_name == 'push' || inputs.build-jvm
+    if: >-
+      !cancelled() &&
+      (needs.run-generator.result == 'success' || needs.run-generator.result == 'skipped') &&
+      (github.event_name == 'push' || inputs.build-jvm-linux-x64)
     needs: run-generator
     runs-on: ubuntu-22.04
     permissions:
@@ -261,7 +354,7 @@ jobs:
           submodules: true
 
       - name: Apply generated API
-        if: github.event_name == 'workflow_dispatch' && inputs.commit == false
+        if: github.event_name == 'workflow_dispatch' && inputs.commit == false && inputs.run-generator
         uses: ./.github/actions/apply-generated-api
 
       - name: Set up Java
@@ -309,7 +402,10 @@ jobs:
 
   build-jvm-macos-arm64:
     name: Build JVM macOS ARM64
-    if: github.event_name == 'push' || inputs.build-jvm
+    if: >-
+      !cancelled() &&
+      (needs.run-generator.result == 'success' || needs.run-generator.result == 'skipped') &&
+      (github.event_name == 'push' || inputs.build-jvm-macos-arm64)
     needs: run-generator
     runs-on: self-hosted
     permissions:
@@ -324,7 +420,7 @@ jobs:
           submodules: true
 
       - name: Apply generated API
-        if: github.event_name == 'workflow_dispatch' && inputs.commit == false
+        if: github.event_name == 'workflow_dispatch' && inputs.commit == false && inputs.run-generator
         uses: ./.github/actions/apply-generated-api
 
       - name: Clean submodule
@@ -382,7 +478,10 @@ jobs:
 
   build-jvm-macos-x64:
     name: Build JVM macOS x64
-    if: github.event_name == 'push' || inputs.build-jvm
+    if: >-
+      !cancelled() &&
+      (needs.run-generator.result == 'success' || needs.run-generator.result == 'skipped') &&
+      (github.event_name == 'push' || inputs.build-jvm-macos-x64)
     needs: run-generator
     runs-on: macos-26-intel
     permissions:
@@ -397,7 +496,7 @@ jobs:
           submodules: true
 
       - name: Apply generated API
-        if: github.event_name == 'workflow_dispatch' && inputs.commit == false
+        if: github.event_name == 'workflow_dispatch' && inputs.commit == false && inputs.run-generator
         uses: ./.github/actions/apply-generated-api
 
       - name: Set up dependencies
@@ -447,7 +546,10 @@ jobs:
 
   build-jvm-windows-arm64:
     name: Build JVM Windows ARM64
-    if: github.event_name == 'push' || inputs.build-jvm
+    if: >-
+      !cancelled() &&
+      (needs.run-generator.result == 'success' || needs.run-generator.result == 'skipped') &&
+      (github.event_name == 'push' || inputs.build-jvm-windows-arm64)
     needs: run-generator
     runs-on: windows-11-arm
     permissions:
@@ -466,7 +568,7 @@ jobs:
           submodules: true
 
       - name: Apply generated API
-        if: github.event_name == 'workflow_dispatch' && inputs.commit == false
+        if: github.event_name == 'workflow_dispatch' && inputs.commit == false && inputs.run-generator
         uses: ./.github/actions/apply-generated-api
 
       - name: Set up dependencies
@@ -515,7 +617,10 @@ jobs:
 
   build-jvm-windows-x64:
     name: Build JVM Windows x64
-    if: github.event_name == 'push' || inputs.build-jvm
+    if: >-
+      !cancelled() &&
+      (needs.run-generator.result == 'success' || needs.run-generator.result == 'skipped') &&
+      (github.event_name == 'push' || inputs.build-jvm-windows-x64)
     needs: run-generator
     runs-on: windows-2025
     permissions:
@@ -534,7 +639,7 @@ jobs:
           submodules: true
 
       - name: Apply generated API
-        if: github.event_name == 'workflow_dispatch' && inputs.commit == false
+        if: github.event_name == 'workflow_dispatch' && inputs.commit == false && inputs.run-generator
         uses: ./.github/actions/apply-generated-api
 
       - name: Set up dependencies
@@ -583,7 +688,10 @@ jobs:
 
   build-windows-x64:
     name: Build Windows x64
-    if: github.event_name == 'push' || inputs.build-windows
+    if: >-
+      !cancelled() &&
+      (needs.run-generator.result == 'success' || needs.run-generator.result == 'skipped') &&
+      (github.event_name == 'push' || inputs.build-windows-x64)
     needs: run-generator
     runs-on: windows-2025
     permissions:
@@ -598,7 +706,7 @@ jobs:
           submodules: true
 
       - name: Apply generated API
-        if: github.event_name == 'workflow_dispatch' && inputs.commit == false
+        if: github.event_name == 'workflow_dispatch' && inputs.commit == false && inputs.run-generator
         uses: ./.github/actions/apply-generated-api
 
       - name: Set up Java
@@ -701,7 +809,10 @@ jobs:
 
   build-ios-arm64:
     name: Build iOS ARM64
-    if: github.event_name == 'push' || inputs.build-ios
+    if: >-
+      !cancelled() &&
+      (needs.run-generator.result == 'success' || needs.run-generator.result == 'skipped') &&
+      (github.event_name == 'push' || inputs.build-ios-arm64)
     needs: run-generator
     runs-on: self-hosted
     permissions:
@@ -716,7 +827,7 @@ jobs:
           submodules: true
 
       - name: Apply generated API
-        if: github.event_name == 'workflow_dispatch' && inputs.commit == false
+        if: github.event_name == 'workflow_dispatch' && inputs.commit == false && inputs.run-generator
         uses: ./.github/actions/apply-generated-api
 
       - name: Clean submodule
@@ -767,7 +878,10 @@ jobs:
 
   build-ios-arm64-simulator:
     name: Build iOS ARM64 Simulator
-    if: github.event_name == 'push' || inputs.build-ios
+    if: >-
+      !cancelled() &&
+      (needs.run-generator.result == 'success' || needs.run-generator.result == 'skipped') &&
+      (github.event_name == 'push' || inputs.build-ios-arm64-simulator)
     needs: run-generator
     runs-on: self-hosted
     permissions:
@@ -782,7 +896,7 @@ jobs:
           submodules: true
 
       - name: Apply generated API
-        if: github.event_name == 'workflow_dispatch' && inputs.commit == false
+        if: github.event_name == 'workflow_dispatch' && inputs.commit == false && inputs.run-generator
         uses: ./.github/actions/apply-generated-api
 
       - name: Clean submodule
@@ -839,7 +953,10 @@ jobs:
 
   build-ios-x64-simulator:
     name: Build iOS x64 Simulator
-    if: github.event_name == 'push' || inputs.build-ios
+    if: >-
+      !cancelled() &&
+      (needs.run-generator.result == 'success' || needs.run-generator.result == 'skipped') &&
+      (github.event_name == 'push' || inputs.build-ios-x64-simulator)
     needs: run-generator
     runs-on: self-hosted
     permissions:
@@ -854,7 +971,7 @@ jobs:
           submodules: true
 
       - name: Apply generated API
-        if: github.event_name == 'workflow_dispatch' && inputs.commit == false
+        if: github.event_name == 'workflow_dispatch' && inputs.commit == false && inputs.run-generator
         uses: ./.github/actions/apply-generated-api
 
       - name: Clean submodule
@@ -905,7 +1022,10 @@ jobs:
 
   build-macos-arm64:
     name: Build macOS ARM64
-    if: github.event_name == 'push' || inputs.build-macos
+    if: >-
+      !cancelled() &&
+      (needs.run-generator.result == 'success' || needs.run-generator.result == 'skipped') &&
+      (github.event_name == 'push' || inputs.build-macos-arm64)
     needs: run-generator
     runs-on: self-hosted
     permissions:
@@ -920,7 +1040,7 @@ jobs:
           submodules: true
 
       - name: Apply generated API
-        if: github.event_name == 'workflow_dispatch' && inputs.commit == false
+        if: github.event_name == 'workflow_dispatch' && inputs.commit == false && inputs.run-generator
         uses: ./.github/actions/apply-generated-api
 
       - name: Clean submodule
@@ -977,7 +1097,10 @@ jobs:
 
   build-macos-x64:
     name: Build macOS x64
-    if: github.event_name == 'push' || inputs.build-macos
+    if: >-
+      !cancelled() &&
+      (needs.run-generator.result == 'success' || needs.run-generator.result == 'skipped') &&
+      (github.event_name == 'push' || inputs.build-macos-x64)
     needs: run-generator
     runs-on: macos-26-intel
     permissions:
@@ -992,7 +1115,7 @@ jobs:
           submodules: true
 
       - name: Apply generated API
-        if: github.event_name == 'workflow_dispatch' && inputs.commit == false
+        if: github.event_name == 'workflow_dispatch' && inputs.commit == false && inputs.run-generator
         uses: ./.github/actions/apply-generated-api
 
       - name: Set up dependencies
