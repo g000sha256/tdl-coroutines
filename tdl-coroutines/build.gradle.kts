@@ -76,6 +76,10 @@ kotlin {
         configureCompilations(platform = "ios/x64Simulator")
     }
 
+    linuxX64 {
+        configureCompilations(platform = "linux/x64")
+    }
+
     macosArm64 {
         configureBinaries()
         configureCompilations(platform = "macos/arm64")
@@ -116,6 +120,10 @@ kotlin {
 
         @Suppress("unused")
         val iosX64SimulatorMain by getting {
+            configureNativeKotlin()
+        }
+
+        linuxX64Main {
             configureNativeKotlin()
         }
 
@@ -247,6 +255,7 @@ private fun KotlinOnlyTarget<KotlinNativeCompilation>.configureCompilations(plat
 private fun String.extractConfigName(): String {
     return when {
         startsWith(prefix = "ios") || startsWith(prefix = "mac") -> "config-apple.def"
+        startsWith(prefix = "linux") -> "config-linux.def"
         startsWith(prefix = "windows") -> "config-windows.def"
         else -> error(message = "Unknown platform")
     }

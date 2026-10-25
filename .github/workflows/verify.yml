@@ -84,6 +84,22 @@ jobs:
       - name: Verify
         run: ${{ matrix.gradle }} :example:verification:app:jvm:run
 
+  verify-linux:
+    name: Verify Linux x64
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+        with:
+          lfs: true
+
+      - name: Set up Java
+        uses: ./.github/actions/set-up-java
+
+      - name: Verify
+        run: ./gradlew :example:verification:app:linux:runReleaseExecutableLinuxX64
+
   verify-macos:
     name: Verify macOS ${{ matrix.arch }}
     runs-on: ${{ matrix.runner }}

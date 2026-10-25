@@ -86,6 +86,22 @@ jobs:
       - name: Verify
         run: ${{ matrix.gradle }} :example:verification:app:jvm:run
 
+  verify-linux:
+    name: Verify Linux x64
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+        with:
+          lfs: true
+
+      - name: Set up Java
+        uses: ./.github/actions/set-up-java
+
+      - name: Verify
+        run: ./gradlew :example:verification:app:linux:runReleaseExecutableLinuxX64
+
   verify-macos:
     name: Verify macOS ${{ matrix.arch }}
     runs-on: ${{ matrix.runner }}
@@ -138,6 +154,7 @@ jobs:
       - verify-android
       - verify-ios
       - verify-jvm
+      - verify-linux
       - verify-macos
       - verify-windows
 
@@ -161,6 +178,8 @@ jobs:
             :tdl-coroutines:iosX64SimulatorCinterop-mainKlib \
             :tdl-coroutines:iosX64SimulatorKlib \
             :tdl-coroutines:jvmJar \
+            :tdl-coroutines:linuxX64Cinterop-mainKlib \
+            :tdl-coroutines:linuxX64Klib \
             :tdl-coroutines:macosArm64Cinterop-mainKlib \
             :tdl-coroutines:macosArm64Klib \
             :tdl-coroutines:macosX64Cinterop-mainKlib \
