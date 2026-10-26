@@ -1,0 +1,60 @@
+TDL Coroutines third-party notices
+=================================
+
+The original TDL Coroutines code is licensed under the Apache License,
+Version 2.0. A copy is provided in LICENSE.txt alongside this file.
+
+The components and documentation listed below remain covered by their own
+licenses. This bundle covers the different platform variants; a particular
+artifact does not necessarily contain every component or version listed.
+
+TDLib
+-----
+Source: https://github.com/tdlib/td
+Copyright Aliaksei Levin (levlam@telegram.org), Arseny Smirnov (arseny30@gmail.com) 2014-2026
+
+Distributed under the Boost Software License, Version 1.0. (See accompanying
+file licenses/tdlib.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
+
+TDL Coroutines includes TDLib native libraries and API documentation derived
+from TDLib's td_api.tl schema. The generated Kotlin implementation is part
+of TDL Coroutines; the documentation derived from TDLib is distributed under
+the Boost Software License, Version 1.0.
+
+The complete Boost Software License is provided in licenses/tdlib.txt.
+
+OpenSSL
+-------
+Source: https://github.com/openssl/openssl
+
+The Android native libraries include OpenSSL 1.1.1w. Both the OpenSSL License
+and the Original SSLeay License apply to that version. Their complete texts,
+copyright notices and disclaimers are provided in licenses/openssl.txt.
+
+This product includes software developed by the OpenSSL Project
+for use in the OpenSSL Toolkit (http://www.openssl.org/).
+This product includes cryptographic software written by
+Eric Young (eay@cryptsoft.com).
+This product includes software written by Tim Hudson (tjh@cryptsoft.com).
+
+Other platform variants use OpenSSL 3.x, either included in the native
+binaries or linked as a system dependency. OpenSSL 3.x is licensed under
+the Apache License, Version 2.0, provided in LICENSE.txt alongside this file.
+
+SQLCipher
+---------
+Source: https://github.com/sqlcipher/sqlcipher
+Copyright (c) 2008, ZETETIC LLC
+Copyright (c) 2008 - 2013, ZETETIC LLC
+All rights reserved.
+
+TDLib's bundled SQLite implementation includes SQLCipher encryption code.
+The applicable BSD license, including the copyright notices, conditions
+and disclaimer, is provided in licenses/sqlcipher.txt.
+
+Redistribution
+--------------
+When redistributing TDL Coroutines or its included third-party components,
+preserve the applicable license texts and notices. In published archives
+this bundle is located at META-INF/tdl-coroutines/. Framework distributions
+include the same bundle in their Resources/META-INF/tdl-coroutines/ directory.

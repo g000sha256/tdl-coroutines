@@ -115,3 +115,16 @@ coroutineScope.launch {
 
 > [!TIP]
 > You can use the `.toResult()` extension to convert `TdlResult<T>` to the standard Kotlin `Result<T>` type.
+
+## License
+
+The original TDL Coroutines code is licensed under the [Apache License 2.0](LICENSE.txt).
+TDLib, its API documentation and the included native dependencies retain their
+respective licenses. See [THIRD_PARTY_NOTICES.txt](THIRD_PARTY_NOTICES.txt) and
+[licenses](licenses) for the complete notices and license texts.
+
+Published JAR, AAR and KLIB archives include this material under
+`META-INF/tdl-coroutines/`. JVM and Android Java resources also carry the bundle
+so applications can retain it when packaging the library. Frameworks include it
+under `Resources/META-INF/tdl-coroutines/`. Preserve the applicable licenses and
+notices when redistributing the library or its included dependencies.

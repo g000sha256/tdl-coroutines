@@ -17,6 +17,26 @@ plugins {
 
 private val packageName = "dev.g000sha256.tdl"
 
+val prepareLicenseResources = tasks.register<Sync>(name = "prepareLicenseResources") {
+    into(layout.buildDirectory.dir("generated/licenseResources"))
+
+    into("META-INF/tdl-coroutines") {
+        from(rootProject.file("LICENSE.txt"), rootProject.file("THIRD_PARTY_NOTICES.txt"))
+
+        from(rootProject.file("licenses")) {
+            into("licenses")
+        }
+    }
+}
+
+tasks
+    .withType<Zip>()
+    .configureEach {
+        from(prepareLicenseResources) {
+            duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+        }
+    }
+
 kotlin {
     explicitApi()
     jvmToolchain(jdkVersion = 11)
@@ -97,6 +117,7 @@ kotlin {
     sourceSets {
         commonMain {
             kotlin.srcDirs("src/commonMainGenerated/kotlin")
+            resources.srcDir(prepareLicenseResources)
 
             dependencies {
                 implementation(dependencyNotation = catalog.libraries.jetBrains.coroutines.core)
@@ -159,6 +180,8 @@ dokka {
     dokkaSourceSets.configureEach {
         if (name != "commonMain") {
             suppress.set(true)
+        } else {
+            includes.from("Module.md")
         }
     }
 }
@@ -267,6 +290,16 @@ private fun KotlinTargetWithBinaries<*, AbstractKotlinNativeBinaryContainer>.con
             baseName = "TDLCoroutines"
             isStatic = true
             binaryOption(name = "bundleId", value = packageName)
+
+            val frameworkOutput = linkTaskProvider.flatMap { it.outputFile }
+            val copyLicenses = tasks.register<Copy>(name = "${linkTaskName}Licenses") {
+                from(prepareLicenseResources)
+                into(frameworkOutput.map { it.resolve("Resources") })
+            }
+
+            linkTaskProvider.configure {
+                finalizedBy(copyLicenses)
+            }
         }
     }
 }
