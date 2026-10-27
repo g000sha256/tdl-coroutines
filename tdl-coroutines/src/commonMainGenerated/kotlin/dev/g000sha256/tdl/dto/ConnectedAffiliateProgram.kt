@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Georgii Ippolitov (g000sha256)
+ * Copyright 2025-2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,7 +26,7 @@ import kotlin.String
  * Describes an affiliate program that was connected to an affiliate.
  *
  * @property url The link that can be used to refer users if the program is still active.
- * @property botUserId User identifier of the bot created the program.
+ * @property botUserId User identifier of the bot that created the program.
  * @property parameters The parameters of the affiliate program.
  * @property connectionDate Point in time (Unix timestamp) when the affiliate program was connected.
  * @property isDisconnected True, if the program was canceled by the bot, or disconnected by the chat owner and isn't available anymore.

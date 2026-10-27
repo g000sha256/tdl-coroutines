@@ -29,7 +29,7 @@ import kotlin.String
  * @property voiceNoteUrl The URL of the voice note file.
  * @property voiceNoteDuration Duration of the voice note, in seconds.
  * @property replyMarkup The message reply markup; pass null if none. Must be of type replyMarkupInlineKeyboard or null.
- * @property inputMessageContent The content of the message to be sent. Must be one of the following types: inputMessageText, inputMessageRichMessage, inputMessageVoiceNote, inputMessageInvoice, inputMessageLiveLocation, inputMessageLocation, inputMessageVenue or inputMessageContact.
+ * @property inputMessageContent The content of the message to be sent. Must be one of the following types: inputMessageText, inputMessageRichMessage, inputMessageVoiceNote, inputMessageInvoice, inputMessageLiveLocation, inputMessageLocation, inputMessageVenue, or inputMessageContact.
  */
 public class InputInlineQueryResultVoiceNote public constructor(
     public val id: String,

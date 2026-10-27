@@ -230,10 +230,12 @@ import dev.g000sha256.tdl.dto.InputMessageReplyTo
 import dev.g000sha256.tdl.dto.InputPassportElement
 import dev.g000sha256.tdl.dto.InputPassportElementError
 import dev.g000sha256.tdl.dto.InputPollOption
+import dev.g000sha256.tdl.dto.InputProfileShareTheme
 import dev.g000sha256.tdl.dto.InputRichMessage
 import dev.g000sha256.tdl.dto.InputStoryAreas
 import dev.g000sha256.tdl.dto.InputStoryContent
 import dev.g000sha256.tdl.dto.InputTextQuote
+import dev.g000sha256.tdl.dto.InputTonWalletCardSticker
 import dev.g000sha256.tdl.dto.InternalLinkType
 import dev.g000sha256.tdl.dto.InviteGroupCallParticipantResult
 import dev.g000sha256.tdl.dto.JsonValue
@@ -323,6 +325,7 @@ import dev.g000sha256.tdl.dto.PremiumSource
 import dev.g000sha256.tdl.dto.PremiumState
 import dev.g000sha256.tdl.dto.PreparedInlineMessage
 import dev.g000sha256.tdl.dto.PreparedInlineMessageId
+import dev.g000sha256.tdl.dto.ProfileShareThemeBackdrops
 import dev.g000sha256.tdl.dto.ProfileTab
 import dev.g000sha256.tdl.dto.Proxy
 import dev.g000sha256.tdl.dto.PublicChatType
@@ -414,14 +417,17 @@ import dev.g000sha256.tdl.dto.TimeZones
 import dev.g000sha256.tdl.dto.TonCenterApiRequestType
 import dev.g000sha256.tdl.dto.TonCenterStreamingApiUrl
 import dev.g000sha256.tdl.dto.TonConnectChallenge
+import dev.g000sha256.tdl.dto.TonConnectConnectData
 import dev.g000sha256.tdl.dto.TonConnectRequests
 import dev.g000sha256.tdl.dto.TonConnectSession
 import dev.g000sha256.tdl.dto.TonConnectSessionEventId
 import dev.g000sha256.tdl.dto.TonConnectSessions
 import dev.g000sha256.tdl.dto.TonNfts
 import dev.g000sha256.tdl.dto.TonTransactions
+import dev.g000sha256.tdl.dto.TonWalletCard
 import dev.g000sha256.tdl.dto.TonWalletOwnershipProof
 import dev.g000sha256.tdl.dto.TonWalletOwnershipProofChallenge
+import dev.g000sha256.tdl.dto.TonWalletSecretPhrase
 import dev.g000sha256.tdl.dto.TonWalletTransaction
 import dev.g000sha256.tdl.dto.TonWalletTransactions
 import dev.g000sha256.tdl.dto.TonWalletTransferResult
@@ -623,10 +629,15 @@ import dev.g000sha256.tdl.dto.UpdateUserSubscription
 import dev.g000sha256.tdl.dto.UpdateVideoPublished
 import dev.g000sha256.tdl.dto.UpdateWebAppMessageSent
 import dev.g000sha256.tdl.dto.UpdateWebBrowserSettings
+import dev.g000sha256.tdl.dto.UpdateWebProxyCarrierClosed
+import dev.g000sha256.tdl.dto.UpdateWebProxyCarrierData
+import dev.g000sha256.tdl.dto.UpdateWebProxyCarrierOpened
 import dev.g000sha256.tdl.dto.Updates
 import dev.g000sha256.tdl.dto.UpgradeGiftResult
 import dev.g000sha256.tdl.dto.UpgradedGift
 import dev.g000sha256.tdl.dto.UpgradedGiftAttributeId
+import dev.g000sha256.tdl.dto.UpgradedGiftCollectionNames
+import dev.g000sha256.tdl.dto.UpgradedGiftDepositInfo
 import dev.g000sha256.tdl.dto.UpgradedGiftValueInfo
 import dev.g000sha256.tdl.dto.User
 import dev.g000sha256.tdl.dto.UserFullInfo
@@ -645,6 +656,8 @@ import dev.g000sha256.tdl.dto.WebAppOpenParameters
 import dev.g000sha256.tdl.dto.WebAppUrl
 import dev.g000sha256.tdl.dto.WebBrowserType
 import dev.g000sha256.tdl.dto.WebPageInstantView
+import dev.g000sha256.tdl.dto.WebProxyCarrierError
+import dev.g000sha256.tdl.dto.WebProxyCarrierMessage
 import kotlin.Array
 import kotlin.Boolean
 import kotlin.ByteArray
@@ -1364,6 +1377,21 @@ public abstract class TdlClient internal constructor() {
     public abstract val connectionStateUpdates: Flow<UpdateConnectionState>
 
     /**
+     * A web proxy carrier must be opened as described in webProxyCarrier. Messages passed by the page to the bridge object must be passed to processWebProxyCarrierMessage. Failures of the carrier must be reported with reportWebProxyCarrierError.
+     */
+    public abstract val webProxyCarrierOpenedUpdates: Flow<UpdateWebProxyCarrierOpened>
+
+    /**
+     * Data must be delivered as an ArrayBuffer to the page of a web proxy carrier through the onmessage function of the bridge object, in the order of the updates.
+     */
+    public abstract val webProxyCarrierDataUpdates: Flow<UpdateWebProxyCarrierData>
+
+    /**
+     * A web proxy carrier must be closed. If the page has passed any message to the bridge object, then the application must deliver the string {&quot;t&quot;:&quot;close&quot;} to the page, so that it can end its relay session, and destroy the web view shortly after, for example, in 200 milliseconds; otherwise, the web view must be destroyed immediately. Messages from the carrier received after this update must be ignored.
+     */
+    public abstract val webProxyCarrierClosedUpdates: Flow<UpdateWebProxyCarrierClosed>
+
+    /**
      * The freeze state of the current user's account has changed.
      */
     public abstract val freezeStateUpdates: Flow<UpdateFreezeState>
@@ -1660,12 +1688,14 @@ public abstract class TdlClient internal constructor() {
      * @param matchCode The matching code chosen by the user.
      * @param allowWriteAccess Pass true if the current user allowed the bot that was returned in getOauthLinkInfo, to send them messages.
      * @param allowPhoneNumberAccess Pass true if the current user allowed the bot that was returned in getOauthLinkInfo, to access their phone number.
+     * @param tonConnectConnectData Pass data required to access the user's TON wallet via TON Connect if the current user allowed this; pass null if the access wasn't requested or the user declined access.
      */
     public abstract suspend fun acceptOauthRequest(
         url: String,
         matchCode: String,
         allowWriteAccess: Boolean,
         allowPhoneNumberAccess: Boolean,
+        tonConnectConnectData: TonConnectConnectData? = null,
     ): TdlResult<HttpUrl>
 
     /**
@@ -1806,7 +1836,7 @@ public abstract class TdlClient internal constructor() {
      *
      * @param ownerId Identifier of the user or the channel chat that owns the collection.
      * @param collectionId Identifier of the gift collection.
-     * @param receivedGiftIds Identifier of the gifts to add to the collection; 1-getOption(&quot;gift_collection_size_max&quot;) identifiers. If after addition the collection has more than getOption(&quot;gift_collection_size_max&quot;) gifts, then the last one are removed from the collection.
+     * @param receivedGiftIds Identifier of the gifts to add to the collection; 1-getOption(&quot;gift_collection_size_max&quot;) identifiers. If after addition the collection has more than getOption(&quot;gift_collection_size_max&quot;) gifts, then the last ones are removed from the collection.
      */
     public abstract suspend fun addGiftCollectionGifts(
         ownerId: MessageSender,
@@ -1962,7 +1992,7 @@ public abstract class TdlClient internal constructor() {
      *
      * @param shortcutName Name of the target shortcut.
      * @param replyToMessageId Identifier of a quick reply message in the same shortcut to be replied; pass 0 if none.
-     * @param inputMessageContent The content of the message to be added; inputMessagePaidMedia, inputMessageForwarded and inputMessageLiveLocation.
+     * @param inputMessageContent The content of the message to be added; inputMessagePaidMedia, inputMessageForwarded and inputMessageLiveLocation aren't supported.
      */
     public abstract suspend fun addQuickReplyShortcutMessage(
         shortcutName: String,
@@ -2030,7 +2060,7 @@ public abstract class TdlClient internal constructor() {
      *
      * @param chatId Identifier of the chat that owns the stories.
      * @param storyAlbumId Identifier of the story album.
-     * @param storyIds Identifier of the stories to add to the album; 1-getOption(&quot;story_album_size_max&quot;) identifiers. If after addition the album has more than getOption(&quot;story_album_size_max&quot;) stories, then the last one are removed from the album.
+     * @param storyIds Identifier of the stories to add to the album; 1-getOption(&quot;story_album_size_max&quot;) identifiers. If after addition the album has more than getOption(&quot;story_album_size_max&quot;) stories, then the last ones are removed from the album.
      */
     public abstract suspend fun addStoryAlbumStories(
         chatId: Long,
@@ -2089,12 +2119,12 @@ public abstract class TdlClient internal constructor() {
      * Sets the result of a chat join query; for bots only.
      *
      * @param queryId Identifier of the query.
-     * @param result The result.
-     * @param url URL of the Web App to open.
+     * @param result The result; must be null if a URL is passed.
+     * @param url URL of the Web App to open; must be empty if a result is passed.
      */
     public abstract suspend fun answerChatJoinRequestQuery(
         queryId: Long,
-        result: ChatJoinRequestResult,
+        result: ChatJoinRequestResult? = null,
         url: String,
     ): TdlResult<Ok>
 
@@ -2183,6 +2213,14 @@ public abstract class TdlClient internal constructor() {
      * @param code The code to apply.
      */
     public abstract suspend fun applyPremiumGiftCode(code: String): TdlResult<Ok>
+
+    /**
+     * Allows the current user to send unpaid messages to the given user, which requires payment for incoming messages, using a token from an internal link of the type internalLinkTypePublicChat, internalLinkTypeUserPhoneNumber, or internalLinkTypeUserToken. The first message sent to the user will be preceded by a messageUnpaidMessagesAllowedByLink message. Repeated calls and calls for the current user have no effect.
+     *
+     * @param userId Identifier of the user.
+     * @param token Token from the link.
+     */
+    public abstract suspend fun applyUnpaidMessagesToken(userId: Long, token: String): TdlResult<Ok>
 
     /**
      * Approves a suggested post in a channel direct messages chat.
@@ -2714,7 +2752,7 @@ public abstract class TdlClient internal constructor() {
      *
      * @param message The original message.
      * @param translateToLanguageCode Pass a language code to which the text will be translated; pass an empty string if translation isn't needed. See translateText.toLanguageCode for the list of supported values.
-     * @param styleName Name of the style of the resulted text; handle updateTextCompositionStyles to get the list of supported styles; pass an empty string to keep the current style of the text or if a custom prompt is used.
+     * @param styleName Name of the style of the resulting text; handle updateTextCompositionStyles to get the list of supported styles; pass an empty string to keep the current style of the text or if a custom prompt is used.
      * @param customPrompt Custom prompt that will be used instead of styleName; 0-getOption(&quot;text_composition_style_prompt_length_max&quot;) characters.
      * @param addEmojis Pass true to add emoji to the text.
      */
@@ -2731,7 +2769,7 @@ public abstract class TdlClient internal constructor() {
      *
      * @param text The original text.
      * @param translateToLanguageCode Pass a language code to which the text will be translated; pass an empty string if translation isn't needed. See translateText.toLanguageCode for the list of supported values.
-     * @param styleName Name of the style of the resulted text; handle updateTextCompositionStyles to get the list of supported styles; pass an empty string to keep the current style of the text.
+     * @param styleName Name of the style of the resulting text; handle updateTextCompositionStyles to get the list of supported styles; pass an empty string to keep the current style of the text.
      * @param addEmojis Pass true to add emoji to the text.
      */
     public abstract suspend fun composeTextWithAi(
@@ -3067,7 +3105,7 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun createSupergroupChat(supergroupId: Long, force: Boolean): TdlResult<Chat>
 
     /**
-     * Creates a new temporary password for processing payments.
+     * Creates a new temporary password for processing payments and withdrawal of upgraded gifts.
      *
      * @param password The 2-step verification password of the current user.
      * @param validFor Time during which the temporary password will be valid, in seconds; must be between 60 and 86400.
@@ -3407,6 +3445,14 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun deleteForumTopic(chatId: Long, forumTopicId: Int): TdlResult<Ok>
 
     /**
+     * Deletes a gift without receiving Telegram Stars for it. Use receivedGift.canBeDeleted or messageGift.canBeDeleted to check whether the gift can be deleted.
+     *
+     * @param businessConnectionId Unique identifier of business connection on behalf of which to send the request; for bots only.
+     * @param receivedGiftId Identifier of the gift.
+     */
+    public abstract suspend fun deleteGift(businessConnectionId: String, receivedGiftId: String): TdlResult<Ok>
+
+    /**
      * Deletes a gift collection. If the collection is owned by a channel chat, then requires canPostMessages administrator right in the channel chat.
      *
      * @param ownerId Identifier of the user or the channel chat that owns the collection.
@@ -3524,10 +3570,10 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun deleteQuickReplyShortcutMessages(shortcutId: Int, messageIds: LongArray): TdlResult<Ok>
 
     /**
-     * Deletes revoked chat invite links. Requires administrator privileges and canInviteUsers right in the chat for own links and owner privileges for other links.
+     * Deletes a revoked chat invite link. Requires administrator privileges and canInviteUsers right in the chat for own links and owner privileges for other links.
      *
      * @param chatId Chat identifier.
-     * @param inviteLink Invite link to revoke.
+     * @param inviteLink Invite link to delete.
      */
     public abstract suspend fun deleteRevokedChatInviteLink(chatId: Long, inviteLink: String): TdlResult<Ok>
 
@@ -3677,11 +3723,19 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun disconnectWebsite(websiteId: Long): TdlResult<Ok>
 
     /**
-     * Dismissess a received web token without consumption; for official Telegram apps only.
+     * Dismisses a received web token without consumption; for official Telegram apps only.
      *
      * @param token The token to dismiss.
      */
     public abstract suspend fun dismissWebToken(token: String): TdlResult<Ok>
+
+    /**
+     * Shows an upgraded gift from the TON wallet of the current user on a profile page or hides it from all profile pages; the gift remains in the wallet.
+     *
+     * @param ownerId Identifier of the current user or a channel chat owned by the current user on whose profile page the gift will be shown; pass null to hide the gift from all profile pages.
+     * @param name Unique name of the upgraded gift.
+     */
+    public abstract suspend fun displayUpgradedGift(ownerId: MessageSender? = null, name: String): TdlResult<Ok>
 
     /**
      * Downloads a file from the cloud. Download progress and completion of the download will be notified through updateFile updates.
@@ -3791,7 +3845,7 @@ public abstract class TdlClient internal constructor() {
      * @param chatId The chat the message belongs to.
      * @param messageId Identifier of the message.
      * @param replyMarkup The new message reply markup; pass null if none; for bots only.
-     * @param inputMessageContent New content of the message. Must be one of the following types: inputMessageAnimation, inputMessageAudio, inputMessageDocument, inputMessagePhoto or inputMessageVideo.
+     * @param inputMessageContent New content of the message. Must be one of the following types: inputMessageAnimation, inputMessageAudio, inputMessageDocument, inputMessagePhoto, or inputMessageVideo.
      */
     public abstract suspend fun editBusinessMessageMedia(
         businessConnectionId: String,
@@ -4013,7 +4067,7 @@ public abstract class TdlClient internal constructor() {
      *
      * @param inlineMessageId Inline message identifier.
      * @param replyMarkup The new message reply markup; pass null if none; for bots only.
-     * @param inputMessageContent New content of the message. Must be one of the following types: inputMessageAnimation, inputMessageAudio, inputMessageDocument, inputMessagePhoto or inputMessageVideo.
+     * @param inputMessageContent New content of the message. Must be one of the following types: inputMessageAnimation, inputMessageAudio, inputMessageDocument, inputMessagePhoto, or inputMessageVideo.
      */
     public abstract suspend fun editInlineMessageMedia(
         inlineMessageId: String,
@@ -4095,7 +4149,7 @@ public abstract class TdlClient internal constructor() {
      * @param chatId The chat the message belongs to.
      * @param messageId Identifier of the message. Use messageProperties.canEditMedia to check whether the message can be edited.
      * @param replyMarkup The new message reply markup; pass null if none; for bots only.
-     * @param inputMessageContent New content of the message. Must be one of the following types: inputMessageAnimation, inputMessageAudio, inputMessageDocument, inputMessagePhoto or inputMessageVideo.
+     * @param inputMessageContent New content of the message. Must be one of the following types: inputMessageAnimation, inputMessageAudio, inputMessageDocument, inputMessagePhoto, or inputMessageVideo.
      */
     public abstract suspend fun editMessageMedia(
         chatId: Long,
@@ -4161,7 +4215,7 @@ public abstract class TdlClient internal constructor() {
     ): TdlResult<AddedProxy>
 
     /**
-     * Asynchronously edits the text, media or caption of a quick reply message. Use quickReplyMessage.canBeEdited to check whether a message can be edited. Media message can be edited only to a media message. Checklist messages can be edited only to a checklist message. The type of message content in an album can't be changed with exception of replacing a photo with a video or vice versa.
+     * Asynchronously edits the text, media, or caption of a quick reply message. Use quickReplyMessage.canBeEdited to check whether a message can be edited. Media message can be edited only to a media message. Checklist messages can be edited only to a checklist message. The type of message content in an album can't be changed with exception of replacing a photo with a video or vice versa.
      *
      * @param shortcutId Unique identifier of the quick reply shortcut with the message.
      * @param messageId Identifier of the message.
@@ -4942,14 +4996,14 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun getChatOwnerAfterLeaving(chatId: Long): TdlResult<User>
 
     /**
-     * Returns information about a newest pinned message in the chat. Returns a 404 error if the message doesn't exist.
+     * Returns information about the newest pinned message in the chat. Returns a 404 error if the message doesn't exist.
      *
      * @param chatId Identifier of the chat the message belongs to.
      */
     public abstract suspend fun getChatPinnedMessage(chatId: Long): TdlResult<Message>
 
     /**
-     * Returns the list of stories that posted by the given chat to its chat page. If fromStoryId == 0, then pinned stories are returned first. Then, stories are returned in reverse chronological order (i.e., in order of decreasing storyId). For optimal performance, the number of returned stories is chosen by TDLib.
+     * Returns the list of stories that were posted by the given chat to its chat page. If fromStoryId == 0, then pinned stories are returned first. Then, stories are returned in reverse chronological order (i.e., in order of decreasing storyId). For optimal performance, the number of returned stories is chosen by TDLib.
      *
      * @param chatId Chat identifier.
      * @param fromStoryId Identifier of the story starting from which stories must be returned; use 0 to get results from pinned and the newest story.
@@ -5120,7 +5174,7 @@ public abstract class TdlClient internal constructor() {
     /**
      * Returns an affiliate program that was connected to the given affiliate by identifier of the bot that created the program.
      *
-     * @param affiliate The affiliate to which the affiliate program will be connected.
+     * @param affiliate The affiliate to which the affiliate program is connected.
      * @param botUserId Identifier of the bot that created the program.
      */
     public abstract suspend fun getConnectedAffiliateProgram(affiliate: AffiliateType, botUserId: Long): TdlResult<ConnectedAffiliateProgram>
@@ -5139,7 +5193,7 @@ public abstract class TdlClient internal constructor() {
     ): TdlResult<ConnectedAffiliatePrograms>
 
     /**
-     * Returns all website where the current user used Telegram to log in.
+     * Returns all websites where the current user used Telegram to log in.
      */
     public abstract suspend fun getConnectedWebsites(): TdlResult<ConnectedWebsites>
 
@@ -5431,7 +5485,7 @@ public abstract class TdlClient internal constructor() {
     /**
      * Returns the full version of a rich message.
      *
-     * @param chatId Identifier of the chat the messages belong to.
+     * @param chatId Identifier of the chat the message belongs to.
      * @param messageId Identifier of the message.
      */
     public abstract suspend fun getFullRichMessage(chatId: Long, messageId: Long): TdlResult<RichMessage>
@@ -5486,7 +5540,7 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun getGiftUpgradePreview(regularGiftId: Long): TdlResult<GiftUpgradePreview>
 
     /**
-     * Returns upgraded gifts of the current user who can be used to craft another gifts.
+     * Returns upgraded gifts of the current user, which can be used to craft other gifts.
      *
      * @param regularGiftId Identifier of the regular gift that will be used for crafting.
      * @param offset Offset of the first entry to return as received from the previous request; use empty string to get the first chunk of results.
@@ -5920,7 +5974,7 @@ public abstract class TdlClient internal constructor() {
      *
      * @param chatId Identifier of the chat to which the message belongs.
      * @param messageId Identifier of the message.
-     * @param rowSize Number of reaction per row, 5-25.
+     * @param rowSize Number of reactions per row, 5-25.
      */
     public abstract suspend fun getMessageAvailableReactions(
         chatId: Long,
@@ -6096,7 +6150,7 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun getNewChatPrivacySettings(): TdlResult<NewChatPrivacySettings>
 
     /**
-     * Returns information about an OAuth deep link. Use checkOauthRequestMatchCode, acceptOauthRequest or declineOauthRequest to process the link.
+     * Returns information about an OAuth deep link. Use checkOauthRequestMatchCode, acceptOauthRequest, or declineOauthRequest to process the link.
      *
      * @param url URL of the link.
      * @param inAppOrigin Origin of the OAuth request if the request was received from the in-app browser; pass an empty string otherwise.
@@ -6117,7 +6171,7 @@ public abstract class TdlClient internal constructor() {
     ): TdlResult<OnRampPaymentAvailability>
 
     /**
-     * Returns the limits for an on-ramp payment; only for providers that supports limits retrieval.
+     * Returns the limits for an on-ramp payment; only for providers that support limits retrieval.
      *
      * @param providerId Unique identifier of the on-ramp provider.
      * @param cryptocurrency The cryptocurrency that will be bought.
@@ -6132,7 +6186,7 @@ public abstract class TdlClient internal constructor() {
     ): TdlResult<OnRampPaymentLimits>
 
     /**
-     * Returns a quote for an on-ramp payment; only for providers that supports quote retrieval.
+     * Returns a quote for an on-ramp payment; only for providers that support quote retrieval.
      *
      * @param providerId Unique identifier of the on-ramp provider.
      * @param cryptocurrency The cryptocurrency that will be bought.
@@ -6153,7 +6207,7 @@ public abstract class TdlClient internal constructor() {
     /**
      * Returns the list of fiat currencies supported by an on-ramp provider for the given cryptocurrency.
      *
-     * @param providerId Unique identifier of the on-ramp provider; only for providers that supports base currencies.
+     * @param providerId Unique identifier of the on-ramp provider; only for providers that support base currencies.
      * @param cryptocurrency The cryptocurrency that will be bought.
      */
     public abstract suspend fun getOnRampProviderBaseCurrencies(providerId: String, cryptocurrency: String): TdlResult<Currencies>
@@ -6373,7 +6427,7 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun getPremiumStickers(limit: Int): TdlResult<Stickers>
 
     /**
-     * Saves an inline message to be sent by the given user.
+     * Returns an inline message prepared by a bot to be sent by the current user.
      *
      * @param botUserId Identifier of the bot that created the message.
      * @param preparedMessageId Identifier of the prepared message.
@@ -6387,6 +6441,11 @@ public abstract class TdlClient internal constructor() {
      * @param preparedButtonId Identifier of the prepared button.
      */
     public abstract suspend fun getPreparedKeyboardButton(botUserId: Long, preparedButtonId: String): TdlResult<KeyboardButton>
+
+    /**
+     * Returns the list of backdrops, which can be used as a background of a theme of the screen for sharing a link to a user or a chat.
+     */
+    public abstract suspend fun getProfileShareThemeBackdrops(): TdlResult<ProfileShareThemeBackdrops>
 
     /**
      * Returns the list of proxies that are currently set up. Can be called before authorization.
@@ -6792,7 +6851,7 @@ public abstract class TdlClient internal constructor() {
     /**
      * Returns reactions, which can be chosen for a story.
      *
-     * @param rowSize Number of reaction per row, 5-25.
+     * @param rowSize Number of reactions per row, 5-25.
      */
     public abstract suspend fun getStoryAvailableReactions(rowSize: Int): TdlResult<AvailableReactions>
 
@@ -7001,6 +7060,11 @@ public abstract class TdlClient internal constructor() {
     ): TdlResult<TonTransactions>
 
     /**
+     * Returns names of upgraded gift collections whose NFTs can be used as backgroundNftAddress in setTonWalletCardStickers; can be used only if getOption(&quot;can_use_ton_wallet&quot;).
+     */
+    public abstract suspend fun getTonWalletCardBackgroundGiftCollectionNames(): TdlResult<UpgradedGiftCollectionNames>
+
+    /**
      * Returns NFTs stored on the TON wallet of the user; can be used only if getOption(&quot;can_use_ton_wallet&quot;).
      *
      * @param offset Offset of the first entry to return as received from the previous request; use empty string to get the first chunk of results.
@@ -7009,26 +7073,26 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun getTonWalletNfts(offset: String, limit: Int): TdlResult<TonNfts>
 
     /**
-     * Returns a challenge which may be used to proof ownership of a TON wallet; can be used only if getOption(&quot;can_use_ton_wallet&quot;).
+     * Returns a challenge which may be used to prove ownership of a TON wallet; can be used only if getOption(&quot;can_use_ton_wallet&quot;).
      */
     public abstract suspend fun getTonWalletOwnershipProofChallenge(): TdlResult<TonWalletOwnershipProofChallenge>
 
     /**
-     * Returns the secret phrase of the user's TON wallet as a space separated list of words. Works only if tonWalletState.canExportPhrase is true.
+     * Returns the secret phrase of the user's TON wallet. Works only if tonWalletState.canExportPhrase is true.
      *
      * @param password Password of the current user; pass an empty string unless receive an error with a message &quot;PASSWORD_MISSING&quot; for a passwordless request.
      */
-    public abstract suspend fun getTonWalletSecretPhrase(password: String): TdlResult<Text>
+    public abstract suspend fun getTonWalletSecretPhrase(password: String): TdlResult<TonWalletSecretPhrase>
 
     /**
-     * Returns a TON wallet transaction by their identifier.
+     * Returns a TON wallet transaction by its identifier.
      *
      * @param transactionId Identifier of the transaction.
      */
     public abstract suspend fun getTonWalletTransaction(transactionId: String): TdlResult<TonWalletTransaction>
 
     /**
-     * Returns a TON wallet transaction by their msgHash; return an error if the transaction isn't finalized yet.
+     * Returns a TON wallet transaction by its msgHash; returns an error if the transaction isn't finalized yet.
      *
      * @param msgHash Value of msgHash of the transaction.
      */
@@ -7076,6 +7140,19 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun getUpgradedGift(name: String): TdlResult<UpgradedGift>
 
     /**
+     * Returns information needed to deposit an upgraded gift from the TON wallet of the current user to a Telegram account. Use sendTonWalletTransfer to complete transfer of the gift. The gift will be received by the new owner with a message about the gift after the transfer is confirmed in the blockchain.
+     *
+     * @param ownerId Identifier of the user or the channel chat that will receive the gift.
+     * @param name Unique name of the upgraded gift.
+     * @param hideSender Pass true to hide the sender of the gift in the message received by the new owner.
+     */
+    public abstract suspend fun getUpgradedGiftDepositInfo(
+        ownerId: MessageSender,
+        name: String,
+        hideSender: Boolean,
+    ): TdlResult<UpgradedGiftDepositInfo>
+
+    /**
      * Returns available upgraded gift emoji statuses for self status.
      */
     public abstract suspend fun getUpgradedGiftEmojiStatuses(): TdlResult<EmojiStatuses>
@@ -7101,12 +7178,11 @@ public abstract class TdlClient internal constructor() {
     ): TdlResult<GiftUpgradeVariants>
 
     /**
-     * Returns a URL for upgraded gift withdrawal in the TON blockchain as an NFT; requires owner privileges for gifts owned by a chat.
+     * Returns a URL for upgraded gift withdrawal in the TON blockchain as an NFT; requires owner privileges for gifts owned by a chat. The user must have a valid temporary password; see createTemporaryPassword.
      *
      * @param receivedGiftId Identifier of the gift.
-     * @param password The 2-step verification password of the current user.
      */
-    public abstract suspend fun getUpgradedGiftWithdrawalUrl(receivedGiftId: String, password: String): TdlResult<HttpUrl>
+    public abstract suspend fun getUpgradedGiftWithdrawalUrl(receivedGiftId: String): TdlResult<HttpUrl>
 
     /**
      * Returns promotional animation for upgraded gifts.
@@ -7137,8 +7213,16 @@ public abstract class TdlClient internal constructor() {
 
     /**
      * Returns an HTTPS link, which can be used to get information about the current user.
+     *
+     * @param removeMessagesFee Pass true to get a link, which allows other users to send unpaid messages to the current user. By default, a temporary link is returned in this case.
+     * @param returnPermanentLink Pass true to get a permanent link; ignored if removeMessagesFee is false. Can be used only if canGetPermanentLink is true in a previously received userLink.
+     * @param revokePreviousLinks Pass true to revoke previously created links, which allow other users to send unpaid messages to the current user; ignored if removeMessagesFee is false. If returnPermanentLink is true, then the permanent link is revoked too; otherwise, only temporary links are revoked.
      */
-    public abstract suspend fun getUserLink(): TdlResult<UserLink>
+    public abstract suspend fun getUserLink(
+        removeMessagesFee: Boolean,
+        returnPermanentLink: Boolean,
+        revokePreviousLinks: Boolean,
+    ): TdlResult<UserLink>
 
     /**
      * Returns the current privacy settings.
@@ -7449,7 +7533,7 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun loadChatWelcomeMessages(chatId: Long): TdlResult<Ok>
 
     /**
-     * Loads more chats from a chat list. The loaded chats and their positions in the chat list will be sent through updates. Chats are sorted by the pair (chat.position.order, chat.id) in descending order. Returns a 404 error if all chats have been loaded.
+     * Loads more chats from a chat list. The loaded chats and their positions in the chat list will be sent through updates. Chats are sorted by the pair (chatPosition.order, chat.id) in descending order. Returns a 404 error if all chats have been loaded.
      *
      * @param chatList The chat list in which to load chats; pass null to load chats from the main chat list.
      * @param limit The maximum number of chats to be loaded. For optimal performance, the number of loaded chats is chosen by TDLib and can be smaller than the specified limit, even if the end of the list is not reached.
@@ -7507,7 +7591,7 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun logOut(): TdlResult<Ok>
 
     /**
-     * Adds tasks of a checklist in a message as done or not done.
+     * Marks tasks of a checklist in a message as done or not done.
      *
      * @param chatId Identifier of the chat with the message.
      * @param messageId Identifier of the message containing the checklist. Use messageProperties.canMarkTasksAsDone to check whether the tasks can be marked as done or not done.
@@ -7552,7 +7636,7 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun openGiftAuction(giftId: Long): TdlResult<Ok>
 
     /**
-     * Informs TDLib that the message content has been opened (e.g., the user has opened a photo, video, document, location or venue, or has listened to an audio file or voice note message). An updateMessageContentOpened update will be generated if something has changed.
+     * Informs TDLib that the message content has been opened (e.g., the user has opened a photo, video, document, location, or venue, or has listened to an audio file or voice note message). An updateMessageContentOpened update will be generated if something has changed.
      *
      * @param chatId Chat identifier of the message.
      * @param messageId Identifier of the message with the opened content.
@@ -7713,7 +7797,7 @@ public abstract class TdlClient internal constructor() {
     ): TdlResult<File>
 
     /**
-     * Process new chats added to a shareable chat folder by its owner.
+     * Processes new chats added to a shareable chat folder by its owner.
      *
      * @param chatFolderId Chat folder identifier.
      * @param addedChatIds Identifiers of the new chats, which are added to the chat folder. The chats are automatically joined if they aren't joined yet.
@@ -7724,7 +7808,7 @@ public abstract class TdlClient internal constructor() {
      * Processes request to disable hasProtectedContent in a chat.
      *
      * @param chatId Chat identifier.
-     * @param requestMessageId Identifier of the message with the request. The message must be incoming and has content of the type messageChatHasProtectedContentDisableRequested.
+     * @param requestMessageId Identifier of the message with the request. The message must be incoming and have content of the type messageChatHasProtectedContentDisableRequested.
      * @param approve Pass true to approve the request; pass false to reject the request.
      */
     public abstract suspend fun processChatHasProtectedContentDisableRequest(
@@ -7773,6 +7857,14 @@ public abstract class TdlClient internal constructor() {
      * @param payload JSON-encoded push notification payload with all fields sent by the server, and &quot;google.sentTime&quot; and &quot;google.notification.sound&quot; fields added.
      */
     public abstract suspend fun processPushNotification(payload: String): TdlResult<Ok>
+
+    /**
+     * Passes a message, which the page of a web proxy carrier passed to postMessage of the bridge object, to TDLib. Must be called in the order in which the messages were passed. Can be called before authorization.
+     *
+     * @param carrierId Identifier of the carrier.
+     * @param message The received message.
+     */
+    public abstract suspend fun processWebProxyCarrierMessage(carrierId: Int, message: WebProxyCarrierMessage): TdlResult<Ok>
 
     /**
      * Rates recognized speech in a video note or a voice note message.
@@ -8461,6 +8553,14 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun reportVideoMessageAdvertisement(advertisementUniqueId: Long, optionId: ByteArray): TdlResult<ReportSponsoredResult>
 
     /**
+     * Reports that a web proxy carrier failed. TDLib closes the carrier and decides whether and when to request a new one. Can be called before authorization.
+     *
+     * @param carrierId Identifier of the carrier.
+     * @param error The error.
+     */
+    public abstract suspend fun reportWebProxyCarrierError(carrierId: Int, error: WebProxyCarrierError): TdlResult<Ok>
+
+    /**
      * Requests to send a 2-step verification password recovery code to an email address that was previously set up. Works only when the current authorization state is authorizationStateWaitPassword.
      */
     public abstract suspend fun requestAuthenticationPasswordRecovery(): TdlResult<Ok>
@@ -8478,7 +8578,7 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun requestQrCodeAuthentication(otherUserIds: LongArray): TdlResult<Ok>
 
     /**
-     * Resends an authentication code to the user. Works only when the current authorization state is authorizationStateWaitCode, the nextCodeType of the result is not null and the server-specified timeout has passed, or when the current authorization state is authorizationStateWaitEmailCode.
+     * Resends an authentication code to the user. Works only when the current authorization state is authorizationStateWaitCode, authorizationState.codeInfo.nextType is not null and the server-specified timeout has passed, or when the current authorization state is authorizationStateWaitEmailCode.
      *
      * @param reason Reason of code resending; pass null if unknown.
      */
@@ -8510,7 +8610,7 @@ public abstract class TdlClient internal constructor() {
     ): TdlResult<Messages>
 
     /**
-     * Resends the authentication code sent to a phone number. Works only if the previously received authenticationCodeInfo nextCodeType was not null and the server-specified timeout has passed.
+     * Resends the authentication code sent to a phone number. Works only if the previously received authenticationCodeInfo.nextType was not null and the server-specified timeout has passed.
      *
      * @param reason Reason of code resending; pass null if unknown.
      */
@@ -8527,7 +8627,7 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun resetAllNotificationSettings(): TdlResult<Ok>
 
     /**
-     * Resets the login email address. May return an error with a message &quot;TASK_ALREADY_EXISTS&quot; if reset is still pending. Works only when the current authorization state is authorizationStateWaitEmailCode and authorizationState.canResetEmailAddress == true.
+     * Resets the login email address. May return an error with a message &quot;TASK_ALREADY_EXISTS&quot; if reset is still pending. Works only when the current authorization state is authorizationStateWaitEmailCode and authorizationState.emailAddressResetState != null.
      */
     public abstract suspend fun resetAuthenticationEmailAddress(): TdlResult<Ok>
 
@@ -9203,7 +9303,7 @@ public abstract class TdlClient internal constructor() {
      * @param replyTo Information about the message to be replied; pass null if none. The message can be an incoming ephemeral message.
      * @param protectContent Pass true if the content of the message must be protected from forwarding and saving; for bots only.
      * @param sendingId Non-persistent identifier, which will be returned back in messageSendingStatePending object and can be used to match sent messages and corresponding updateNewMessage updates.
-     * @param onlyPreview Pass true to get a fake message instead of actually sending them.
+     * @param onlyPreview Pass true to get a fake message instead of actually sending it.
      * @param replyMarkup Markup for replying to the message; pass null if none; for bots only.
      * @param inputMessageContent The content of the message to be sent. Must be one of the following types: inputMessageText, inputMessageAnimation, inputMessageAudio, inputMessageDocument, inputMessagePhoto, inputMessageRichMessage, inputMessageSticker, inputMessageVideo, inputMessageVideoNote, inputMessageVoiceNote, inputMessageLocation, inputMessageVenue, inputMessageContact.
      */
@@ -9494,7 +9594,7 @@ public abstract class TdlClient internal constructor() {
      * @param isCommentEncrypted Pass true if the comment is encrypted and must be decrypted using the receiver's or sender's private key.
      * @param sendingId Non-persistent identifier, which will be returned back in messageSendingStatePending object and can be used to match sent messages and corresponding updateNewMessage updates.
      * @param regularTransferData Serialized data for regular cryptocurrency transfer request. The minimum allowed transfer amount is getOption(&quot;ton_wallet_transfer_amount_min&quot;).
-     * @param gaslessTransferData Serialized data for gasless cryptocurrency transfer request; pass an empty string to force a regular request. The minimum allowed transfer amount for a gassless transfer is getOption(&quot;ton_wallet_gasless_transfer_amount_min&quot;).
+     * @param gaslessTransferData Serialized data for gasless cryptocurrency transfer request; pass an empty string to force a regular request. The minimum allowed transfer amount for a gasless transfer is getOption(&quot;ton_wallet_gasless_transfer_amount_min&quot;).
      */
     public abstract suspend fun sendTonWalletTransfer(
         userId: Long,
@@ -9941,7 +10041,7 @@ public abstract class TdlClient internal constructor() {
     ): TdlResult<Ok>
 
     /**
-     * Changes the message auto-delete or self-destruct (for secret chats) time in a chat. Requires changeInfo administrator right in basic groups, supergroups and channels. Message auto-delete time can't be changed in a chat with the current user (Saved Messages) and the chat 777000 (Telegram).
+     * Changes the message auto-delete or self-destruct (for secret chats) time in a chat. Requires canChangeInfo administrator right in basic groups, supergroups and channels. Message auto-delete time can't be changed in a chat with the current user (Saved Messages) and the chat 777000 (Telegram).
      *
      * @param chatId Chat identifier.
      * @param messageAutoDeleteTime New time value, in seconds; unless the chat is secret, it must be from 0 up to 365 * 86400 and be divisible by 86400. If 0, then messages aren't deleted automatically.
@@ -10073,7 +10173,7 @@ public abstract class TdlClient internal constructor() {
      * Changes the photo of a community; requires canChangeInfo administrator right in the community.
      *
      * @param communityId Identifier of the community.
-     * @param photo New chat photo; pass null to delete the chat photo.
+     * @param photo New community photo; pass null to delete the community photo.
      */
     public abstract suspend fun setCommunityPhoto(communityId: Long, photo: InputChatPhoto? = null): TdlResult<Ok>
 
@@ -10094,7 +10194,7 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun setCustomLanguagePack(info: LanguagePackInfo, strings: Array<LanguagePackString>): TdlResult<Ok>
 
     /**
-     * Adds, edits or deletes a string in a custom local language pack. Can be called before authorization.
+     * Adds, edits, or deletes a string in a custom local language pack. Can be called before authorization.
      *
      * @param languagePackId Identifier of a previously added custom local language pack in the current localization target.
      * @param newString New language pack string.
@@ -10528,7 +10628,7 @@ public abstract class TdlClient internal constructor() {
      *
      * @param chatId Identifier of the chat to which the poll belongs.
      * @param messageId Identifier of the message containing the poll.
-     * @param optionIds 0-based identifiers of answer options, chosen by the user. User can choose more than 1 answer option only is the poll allows multiple answers.
+     * @param optionIds 0-based identifiers of answer options, chosen by the user. User can choose more than 1 answer option only if the poll allows multiple answers.
      */
     public abstract suspend fun setPollAnswer(
         chatId: Long,
@@ -10559,6 +10659,14 @@ public abstract class TdlClient internal constructor() {
      * @param isPublic Pass true to set the public photo, which will be visible even if the main photo is hidden by privacy settings.
      */
     public abstract suspend fun setProfilePhoto(photo: InputChatPhoto, isPublic: Boolean): TdlResult<Ok>
+
+    /**
+     * Changes the theme of the screen for sharing a link to the current user or a chat. The chat must have a username. Requires canChangeInfo administrator right in supergroups and channels.
+     *
+     * @param chatId Identifier of the chat with the current user, or identifier of a supergroup or a channel chat.
+     * @param theme The new theme; pass null to use the default theme.
+     */
+    public abstract suspend fun setProfileShareTheme(chatId: Long, theme: InputProfileShareTheme? = null): TdlResult<Ok>
 
     /**
      * Changes name of a quick reply shortcut.
@@ -10698,7 +10806,7 @@ public abstract class TdlClient internal constructor() {
     ): TdlResult<Ok>
 
     /**
-     * Changes the custom emoji sticker set of a supergroup; requires canChangeInfo administrator right. The chat must have at least chatBoostFeatures.minCustomEmojiStickerSetBoostLevel boost level to pass the corresponding color.
+     * Changes the custom emoji sticker set of a supergroup; requires canChangeInfo administrator right. The chat must have at least chatBoostFeatures.minCustomEmojiStickerSetBoostLevel boost level to set a custom emoji sticker set.
      *
      * @param supergroupId Identifier of the supergroup.
      * @param customEmojiStickerSetId New value of the custom emoji sticker set identifier for the supergroup. Use 0 to remove the custom emoji sticker set in the supergroup.
@@ -10773,12 +10881,20 @@ public abstract class TdlClient internal constructor() {
     ): TdlResult<Ok>
 
     /**
-     * Sets walletClientId for a pending TON Connect session. Then, sendTonConnectSessionConnectResult must be used to accept or reject the session.
+     * Sets walletClientId for a pending TON Connect session. Then, sendTonConnectSessionConnectResult must be used to accept or reject the session. If the session was created for an OAuth request, then acceptOauthRequest must be used instead.
      *
      * @param sessionId Unique identifier of the session.
      * @param walletClientId Hex-encoded public X25519 key of the current user's application calculated from the TON wallet private key and session parameters.
      */
     public abstract suspend fun setTonConnectSessionWalletClientId(sessionId: Long, walletClientId: String): TdlResult<TonConnectChallenge>
+
+    /**
+     * Changes the list of stickers on the TON wallet card of the current user; can be used only if getOption(&quot;can_use_ton_wallet&quot;). The whole list of stickers is replaced. The request can take up to 20 seconds to complete, so it must be called only on explicit user action. Stickers are removed automatically if the corresponding NFT leaves the wallet or the wallet is replaced. Returns the updated card.
+     *
+     * @param stickers The new list of stickers; pass an empty list to remove all stickers. Up to 10 stickers can be added. Each NFT can be used only once.
+     * @param backgroundNftAddress Address of the NFT from the new list of stickers, whose colors will be used for the card background; pass an empty string to use the default background. The NFT must correspond to an upgraded gift with canBeTonWalletCardBackground == true.
+     */
+    public abstract suspend fun setTonWalletCardStickers(stickers: Array<InputTonWalletCardSticker>, backgroundNftAddress: String): TdlResult<TonWalletCard>
 
     /**
      * Changes color scheme for the current user based on an owned or a hosted upgraded gift; for Telegram Premium users only.
@@ -10873,7 +10989,7 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun sharePhoneNumber(userId: Long): TdlResult<Ok>
 
     /**
-     * Shares users after pressing a keyboardButtonTypeRequestUsers button with the bot.
+     * Shares users after pressing a keyboardButtonTypeRequestUsers or keyboardButtonTypeRequestManagedBot button with the bot.
      *
      * @param source Source of the button.
      * @param buttonId Identifier of the button.
@@ -11328,7 +11444,7 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun toggleGroupCallIsMyVideoPaused(groupCallId: Int, isMyVideoPaused: Boolean): TdlResult<Ok>
 
     /**
-     * Toggles whether a group call participant hand is rased; for video chats only.
+     * Toggles whether a group call participant hand is raised; for video chats only.
      *
      * @param groupCallId Group call identifier.
      * @param participantId Participant identifier.
@@ -11753,6 +11869,14 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun viewVideoMessageAdvertisement(advertisementUniqueId: Long): TdlResult<Ok>
 
     /**
+     * Withdraws an upgraded gift to the TON blockchain as an NFT directly to the TON wallet of the current user, which is created automatically if the user has no wallet yet; requires owner privileges for gifts owned by a chat. The user must have a valid temporary password; see createTemporaryPassword. The gift will be received by the wallet in a few seconds after the request succeeds.
+     *
+     * @param receivedGiftId Identifier of the gift.
+     * @param keepOnProfile Pass true to keep the gift displayed on the user's or the chat's profile page after withdrawal.
+     */
+    public abstract suspend fun withdrawUpgradedGift(receivedGiftId: String, keepOnProfile: Boolean): TdlResult<Ok>
+
+    /**
      * Writes a part of a generated file. This method is intended to be used only if the application has no direct access to TDLib's file system, because it is usually slower than a direct write to the destination file.
      *
      * @param generationId The identifier of the generation process.
@@ -11769,12 +11893,12 @@ public abstract class TdlClient internal constructor() {
         /**
          * The Git commit hash of the TDLib.
          */
-        public const val TDL_GIT_COMMIT_HASH: String = "c15d3f5a5de6e3ba5839822c451152e5e18bb700"
+        public const val TDL_GIT_COMMIT_HASH: String = "0e88653dcbf4e44c73cb655a05b58cd749a91169"
 
         /**
          * The version of the TDLib.
          */
-        public const val TDL_VERSION: String = "1.8.68"
+        public const val TDL_VERSION: String = "1.8.69"
 
         /**
          * Creates a new instance of the [TdlClient].

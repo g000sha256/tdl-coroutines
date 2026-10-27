@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Georgii Ippolitov (g000sha256)
+ * Copyright 2025-2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,7 +25,7 @@ import kotlin.String
  * Describes a recently speaking participant in a group call.
  *
  * @property participantId Group call participant identifier.
- * @property isSpeaking True, is the user has spoken recently.
+ * @property isSpeaking True, if the user has spoken recently.
  */
 public class GroupCallRecentSpeaker public constructor(
     public val participantId: MessageSender,

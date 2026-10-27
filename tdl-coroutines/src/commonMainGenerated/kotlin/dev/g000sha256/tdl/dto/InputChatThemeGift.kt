@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Georgii Ippolitov (g000sha256)
+ * Copyright 2025-2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,7 +24,7 @@ import kotlin.String
 /**
  * A theme based on an upgraded gift.
  *
- * @property name Name of the upgraded gift. A gift can be used only in one chat in a time. When the same gift is used in another chat, theme in the previous chat is reset to default.
+ * @property name Name of the upgraded gift. A gift can be used only in one chat at a time. When the same gift is used in another chat, theme in the previous chat is reset to default.
  */
 public class InputChatThemeGift public constructor(
     public val name: String,

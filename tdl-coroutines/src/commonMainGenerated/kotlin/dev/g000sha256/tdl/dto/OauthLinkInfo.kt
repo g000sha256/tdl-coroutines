@@ -34,6 +34,10 @@ import kotlin.String
  * @property botUserId User identifier of a bot linked with the website.
  * @property requestWriteAccess True, if the user must be asked for the permission to the bot to send them messages.
  * @property requestPhoneNumberAccess True, if the user must be asked for the permission to share their phone number.
+ * @property requestTonWalletAccess True, if access to the user's TON wallet is requested by the app. If true and the user agrees to give access, then use createTonConnectSession with dappClientId and tonConnectManifestUrl to create the TON Connect session, then setTonConnectSessionWalletClientId, then create a tonWalletOwnershipProof for the given domain with the payload tonProofPayload, and then pass all data to acceptOauthRequest in the parameter tonConnectConnectData.
+ * @property dappClientId Hex-encoded public X25519 key of the dApp; may be empty if TON wallet access wasn't requested.
+ * @property tonConnectManifestUrl URL of the TON Connect manifest of the dApp; may be empty if TON wallet access wasn't requested.
+ * @property tonProofPayload Payload for TON wallet ownership proof; may be empty if TON wallet access wasn't requested.
  * @property browser The version of a browser used for the authorization.
  * @property platform Operating system the browser is running on.
  * @property ipAddress IP address from which the authorization is performed, in human-readable format.
@@ -50,6 +54,10 @@ public class OauthLinkInfo public constructor(
     public val botUserId: Long,
     public val requestWriteAccess: Boolean,
     public val requestPhoneNumberAccess: Boolean,
+    public val requestTonWalletAccess: Boolean,
+    public val dappClientId: String,
+    public val tonConnectManifestUrl: String,
+    public val tonProofPayload: String,
     public val browser: String,
     public val platform: String,
     public val ipAddress: String,
@@ -92,6 +100,18 @@ public class OauthLinkInfo public constructor(
         if (other.requestPhoneNumberAccess != requestPhoneNumberAccess) {
             return false
         }
+        if (other.requestTonWalletAccess != requestTonWalletAccess) {
+            return false
+        }
+        if (other.dappClientId != dappClientId) {
+            return false
+        }
+        if (other.tonConnectManifestUrl != tonConnectManifestUrl) {
+            return false
+        }
+        if (other.tonProofPayload != tonProofPayload) {
+            return false
+        }
         if (other.browser != browser) {
             return false
         }
@@ -120,6 +140,10 @@ public class OauthLinkInfo public constructor(
         hashCode = 31 * hashCode + botUserId.hashCode()
         hashCode = 31 * hashCode + requestWriteAccess.hashCode()
         hashCode = 31 * hashCode + requestPhoneNumberAccess.hashCode()
+        hashCode = 31 * hashCode + requestTonWalletAccess.hashCode()
+        hashCode = 31 * hashCode + dappClientId.hashCode()
+        hashCode = 31 * hashCode + tonConnectManifestUrl.hashCode()
+        hashCode = 31 * hashCode + tonProofPayload.hashCode()
         hashCode = 31 * hashCode + browser.hashCode()
         hashCode = 31 * hashCode + platform.hashCode()
         hashCode = 31 * hashCode + ipAddress.hashCode()
@@ -156,6 +180,18 @@ public class OauthLinkInfo public constructor(
             append(", ")
             append("requestPhoneNumberAccess=")
             append(requestPhoneNumberAccess)
+            append(", ")
+            append("requestTonWalletAccess=")
+            append(requestTonWalletAccess)
+            append(", ")
+            append("dappClientId=")
+            append(dappClientId)
+            append(", ")
+            append("tonConnectManifestUrl=")
+            append(tonConnectManifestUrl)
+            append(", ")
+            append("tonProofPayload=")
+            append(tonProofPayload)
             append(", ")
             append("browser=")
             append(browser)

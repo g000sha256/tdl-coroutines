@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Georgii Ippolitov (g000sha256)
+ * Copyright 2025-2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -39,6 +39,7 @@ import kotlin.String
  * @property isSaved True, if the gift is displayed on the user's or the channel's profile page; only for the receiver of the gift.
  * @property isPrepaidUpgrade True, if the message is about prepaid upgrade of the gift by another user.
  * @property canBeUpgraded True, if the gift can be upgraded to a unique gift; only for the receiver of the gift.
+ * @property canBeDeleted True, if the gift can be deleted using deleteGift; only for the receiver of the gift.
  * @property wasConverted True, if the gift was converted to Telegram Stars; only for the receiver of the gift.
  * @property wasUpgraded True, if the gift was upgraded to a unique gift.
  * @property wasRefunded True, if the gift was refunded and isn't available anymore.
@@ -60,6 +61,7 @@ public class MessageGift public constructor(
     public val isSaved: Boolean,
     public val isPrepaidUpgrade: Boolean,
     public val canBeUpgraded: Boolean,
+    public val canBeDeleted: Boolean,
     public val wasConverted: Boolean,
     public val wasUpgraded: Boolean,
     public val wasRefunded: Boolean,
@@ -119,6 +121,9 @@ public class MessageGift public constructor(
         if (other.canBeUpgraded != canBeUpgraded) {
             return false
         }
+        if (other.canBeDeleted != canBeDeleted) {
+            return false
+        }
         if (other.wasConverted != wasConverted) {
             return false
         }
@@ -150,6 +155,7 @@ public class MessageGift public constructor(
         hashCode = 31 * hashCode + isSaved.hashCode()
         hashCode = 31 * hashCode + isPrepaidUpgrade.hashCode()
         hashCode = 31 * hashCode + canBeUpgraded.hashCode()
+        hashCode = 31 * hashCode + canBeDeleted.hashCode()
         hashCode = 31 * hashCode + wasConverted.hashCode()
         hashCode = 31 * hashCode + wasUpgraded.hashCode()
         hashCode = 31 * hashCode + wasRefunded.hashCode()
@@ -203,6 +209,9 @@ public class MessageGift public constructor(
             append(", ")
             append("canBeUpgraded=")
             append(canBeUpgraded)
+            append(", ")
+            append("canBeDeleted=")
+            append(canBeDeleted)
             append(", ")
             append("wasConverted=")
             append(wasConverted)

@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Georgii Ippolitov (g000sha256)
+ * Copyright 2025-2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,7 +29,7 @@ import kotlin.String
  * @property id Unique photo identifier.
  * @property addedDate Point in time (Unix timestamp) when the photo has been added.
  * @property minithumbnail Photo minithumbnail; may be null.
- * @property sizes Available variants of the photo in JPEG format, in different size.
+ * @property sizes Available variants of the photo in JPEG format, in different sizes.
  * @property animation A big (up to 1280x1280) animated variant of the photo in MPEG4 format; may be null.
  * @property smallAnimation A small (160x160) animated variant of the photo in MPEG4 format; may be null even if the big animation is available.
  * @property sticker Sticker-based version of the chat photo; may be null.

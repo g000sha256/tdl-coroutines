@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Georgii Ippolitov (g000sha256)
+ * Copyright 2025-2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,11 +27,13 @@ import kotlin.String
  * @property phoneNumber Phone number of the user.
  * @property draftText Draft text for message to send in the chat.
  * @property openProfile True, if user's profile information screen must be opened; otherwise, the chat itself must be opened.
+ * @property unpaidMessagesToken Token, which allows the current user to send unpaid messages to the user; may be empty if none. If the token isn't empty and the user is found, then call applyUnpaidMessagesToken with the user and the token.
  */
 public class InternalLinkTypeUserPhoneNumber public constructor(
     public val phoneNumber: String,
     public val draftText: String,
     public val openProfile: Boolean,
+    public val unpaidMessagesToken: String,
 ) : InternalLinkType() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
@@ -50,7 +52,10 @@ public class InternalLinkTypeUserPhoneNumber public constructor(
         if (other.draftText != draftText) {
             return false
         }
-        return other.openProfile == openProfile
+        if (other.openProfile != openProfile) {
+            return false
+        }
+        return other.unpaidMessagesToken == unpaidMessagesToken
     }
 
     override fun hashCode(): Int {
@@ -58,6 +63,7 @@ public class InternalLinkTypeUserPhoneNumber public constructor(
         hashCode = 31 * hashCode + phoneNumber.hashCode()
         hashCode = 31 * hashCode + draftText.hashCode()
         hashCode = 31 * hashCode + openProfile.hashCode()
+        hashCode = 31 * hashCode + unpaidMessagesToken.hashCode()
         return hashCode
     }
 
@@ -73,6 +79,9 @@ public class InternalLinkTypeUserPhoneNumber public constructor(
             append(", ")
             append("openProfile=")
             append(openProfile)
+            append(", ")
+            append("unpaidMessagesToken=")
+            append(unpaidMessagesToken)
             append(")")
         }
     }

@@ -27,7 +27,7 @@ import kotlin.String
  *
  * @property totalCount The total number of received gifts.
  * @property gifts The list of gifts.
- * @property attributePersistenceProbabilities The 4 objects that describe probabilities of the crafted gift to have the backdrop or symbol of one of the original gifts for the cases when 1, 2, 3 or 4 gifts are used in the craft correspondingly.
+ * @property attributePersistenceProbabilities The 4 objects that describe probabilities of the crafted gift to have the backdrop or symbol of one of the original gifts for the cases when 1-4 gifts are used in the craft correspondingly.
  * @property nextOffset The offset for the next request. If empty, then there are no more results.
  */
 public class GiftsForCrafting public constructor(

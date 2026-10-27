@@ -33,7 +33,7 @@ import kotlin.String
  * @property canBeDeclined True, if the message is a suggested post that can be declined by the user using declineSuggestedPost.
  * @property canBeDeletedOnlyForSelf True, if the message can be deleted only for the current user while other users will continue to see it using the method deleteMessages with revoke == false.
  * @property canBeDeletedForAllUsers True, if the message can be deleted for all users using the method deleteMessages with revoke == true.
- * @property canBeEdited True, if the message can be edited using the methods editMessageText, editMessageCaption, or editMessageReplyMarkup. For live location, poll, and checklist messages this fields shows whether editMessageLiveLocation, stopPoll, or editMessageChecklist respectively can be used with this message.
+ * @property canBeEdited True, if the message can be edited using the methods editMessageText, editMessageCaption, or editMessageReplyMarkup. For live location, poll, and checklist messages this field shows whether editMessageLiveLocation, stopPoll, or editMessageChecklist respectively can be used with this message.
  * @property canBeForwarded True, if the message can be forwarded using inputMessageForwarded or forwardMessages without copy options.
  * @property canBePaid True, if the message can be paid using inputInvoiceMessage.
  * @property canBePinned True, if the message can be pinned or unpinned in the chat using pinChatMessage or unpinChatMessage.
@@ -48,7 +48,7 @@ import kotlin.String
  * @property canGetAuthor True, if author of the message sent on behalf of a chat can be received through getMessageAuthor.
  * @property canGetEmbeddingCode True, if code for message embedding can be received using getMessageEmbeddingCode.
  * @property canGetLink True, if a link can be generated for the message using getMessageLink.
- * @property canGetMediaTimestampLinks True, if media timestamp links can be generated for media timestamp entities in the message text, caption or link preview description using getMessageLink.
+ * @property canGetMediaTimestampLinks True, if media timestamp links can be generated for media timestamp entities in the message text, caption, or link preview description using getMessageLink.
  * @property canGetMessageThread True, if information about the message thread is available through getMessageThread and getMessageThreadHistory.
  * @property canGetPollVoteStatistics True, if the message is a poll and vote statistics are available through getPollVoteStatistics.
  * @property canGetReadDate True, if read date of the message can be received through getMessageReadDate.

@@ -60,7 +60,7 @@ import kotlin.String
  * @property guestBotCallerId The identifier of the user or chat which used a guest bot to send the message; may be null if none.
  * @property senderBusinessBotUserId If non-zero, the user identifier of the business bot that sent this message.
  * @property senderBoostCount Number of times the sender of the message boosted the supergroup at the time the message was sent; 0 if none or unknown. For messages sent by the current user, supergroupFullInfo.myBoostCount must be used instead.
- * @property senderTag Tag of the sender of the message in the supergroup at the time the message was sent; may be empty if none or unknown. For messages sent in basic groups or supergroup administrators, the current custom title or tag must be used instead.
+ * @property senderTag Tag of the sender of the message in the supergroup at the time the message was sent; may be empty if none or unknown. For messages sent in basic groups or by supergroup administrators, the current custom title or tag must be used instead.
  * @property paidMessageStarCount The number of Telegram Stars the sender paid to send the message.
  * @property authorSignature For channel posts and anonymous group messages, optional author signature.
  * @property mediaAlbumId Unique identifier of an album this message belongs to; 0 if none. Only audios, documents, photos and videos can be grouped together in albums.

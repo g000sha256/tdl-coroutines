@@ -34,7 +34,7 @@ import kotlin.String
  * @property videoWidth Width of the video.
  * @property videoHeight Height of the video.
  * @property replyMarkup The message reply markup; pass null if none. Must be of type replyMarkupInlineKeyboard or null.
- * @property inputMessageContent The content of the message to be sent. Must be one of the following types: inputMessageText, inputMessageRichMessage, inputMessageAnimation, inputMessageInvoice, inputMessageLiveLocation, inputMessageLocation, inputMessageVenue or inputMessageContact.
+ * @property inputMessageContent The content of the message to be sent. Must be one of the following types: inputMessageText, inputMessageRichMessage, inputMessageAnimation, inputMessageInvoice, inputMessageLiveLocation, inputMessageLocation, inputMessageVenue, or inputMessageContact.
  */
 public class InputInlineQueryResultAnimation public constructor(
     public val id: String,

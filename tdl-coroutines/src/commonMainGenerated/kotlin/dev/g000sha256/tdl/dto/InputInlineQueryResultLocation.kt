@@ -32,7 +32,7 @@ import kotlin.String
  * @property thumbnailWidth Thumbnail width, if known.
  * @property thumbnailHeight Thumbnail height, if known.
  * @property replyMarkup The message reply markup; pass null if none. Must be of type replyMarkupInlineKeyboard or null.
- * @property inputMessageContent The content of the message to be sent. Must be one of the following types: inputMessageText, inputMessageRichMessage, inputMessageInvoice, inputMessageLiveLocation, inputMessageLocation, inputMessageVenue or inputMessageContact.
+ * @property inputMessageContent The content of the message to be sent. Must be one of the following types: inputMessageText, inputMessageRichMessage, inputMessageInvoice, inputMessageLiveLocation, inputMessageLocation, inputMessageVenue, or inputMessageContact.
  */
 public class InputInlineQueryResultLocation public constructor(
     public val id: String,

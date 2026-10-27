@@ -26,7 +26,7 @@ import kotlin.String
  * Represents a transfer with the TON wallet of the current user.
  *
  * @property senderUserId Sender of the transfer; 0 if unknown.
- * @property transactionId Unique identifier of the transaction; may be empty if the transfer isn't send yet. Use getTonWalletTransaction to get additional information about the transaction.
+ * @property transactionId Unique identifier of the transaction; may be empty if the transfer isn't sent yet. Use getTonWalletTransaction to get additional information about the transaction.
  * @property peerAddress Address in the TON blockchain of the transaction peer.
  * @property amount The amount of received cryptocurrency, in the smallest units of the cryptocurrency; negative for outgoing transactions.
  * @property comment Comment added to the transaction.

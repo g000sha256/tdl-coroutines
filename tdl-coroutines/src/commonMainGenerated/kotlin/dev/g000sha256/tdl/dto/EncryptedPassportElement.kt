@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Georgii Ippolitov (g000sha256)
+ * Copyright 2025-2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,7 +28,7 @@ import kotlin.String
  *
  * @property type Type of Telegram Passport element.
  * @property data Encrypted JSON-encoded data about the user.
- * @property frontSide The front side of an identity document.
+ * @property frontSide The front side of an identity document; may be null if the element isn't an identity document.
  * @property reverseSide The reverse side of an identity document; may be null.
  * @property selfie Selfie with the document; may be null.
  * @property translation List of files containing a certified English translation of the document.
@@ -39,7 +39,7 @@ import kotlin.String
 public class EncryptedPassportElement public constructor(
     public val type: PassportElementType,
     public val data: ByteArray,
-    public val frontSide: DatedFile,
+    public val frontSide: DatedFile?,
     public val reverseSide: DatedFile?,
     public val selfie: DatedFile?,
     public val translation: Array<DatedFile>,

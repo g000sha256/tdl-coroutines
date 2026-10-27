@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Georgii Ippolitov (g000sha256)
+ * Copyright 2025-2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,7 +29,7 @@ import kotlin.String
  * @property totalAmount Total amount of the cryptocurrency earned, in the smallest units of the cryptocurrency.
  * @property balanceAmount Amount of the cryptocurrency that isn't withdrawn yet, in the smallest units of the cryptocurrency.
  * @property availableAmount Amount of the cryptocurrency available for withdrawal, in the smallest units of the cryptocurrency.
- * @property withdrawalEnabled True, if Telegram Stars can be withdrawn now or later.
+ * @property withdrawalEnabled True, if the cryptocurrency can be withdrawn now or later.
  */
 public class ChatRevenueAmount public constructor(
     public val cryptocurrency: String,

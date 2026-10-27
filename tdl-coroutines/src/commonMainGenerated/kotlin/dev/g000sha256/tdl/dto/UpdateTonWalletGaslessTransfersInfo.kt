@@ -24,7 +24,7 @@ import kotlin.String
 /**
  * The information about gasless transfers has changed.
  *
- * @property info The new state of the wallet.
+ * @property info The new information about gasless transfers.
  */
 public class UpdateTonWalletGaslessTransfersInfo public constructor(
     public val info: TonWalletGaslessTransfersInfo,

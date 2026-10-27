@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Georgii Ippolitov (g000sha256)
+ * Copyright 2025-2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,4 +16,10 @@
 
 package dev.g000sha256.tdl.function
 
-internal class GetUserLink internal constructor()
+import kotlin.Boolean
+
+internal class GetUserLink internal constructor(
+    internal val removeMessagesFee: Boolean,
+    internal val returnPermanentLink: Boolean,
+    internal val revokePreviousLinks: Boolean,
+)

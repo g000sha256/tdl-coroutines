@@ -28,14 +28,14 @@ import kotlin.String
  *
  * @property userId Identifier of the user who bought the subscription.
  * @property subscriptionPeriod The number of seconds between consecutive Telegram Star debitings.
- * @property productInfo Information about the bought subscription.
+ * @property productInfo Information about the bought subscription; may be null if no information about the subscription is available.
  * @property invoicePayload Invoice payload.
  * @property affiliate Information about the affiliate which received commission from the transaction; may be null if none.
  */
 public class StarTransactionTypeBotSubscriptionSale public constructor(
     public val userId: Long,
     public val subscriptionPeriod: Int,
-    public val productInfo: ProductInfo,
+    public val productInfo: ProductInfo?,
     public val invoicePayload: ByteArray,
     public val affiliate: AffiliateInfo?,
 ) : StarTransactionType() {

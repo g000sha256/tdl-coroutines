@@ -30,11 +30,12 @@ import kotlin.String
  * @property senderId Identifier of a user or a chat that sent the gift; may be null if unknown.
  * @property text Message added to the gift.
  * @property uniqueGiftNumber Unique number of the gift among gifts upgraded from the same gift after upgrade; 0 if yet unassigned.
- * @property isPrivate True, if the sender and gift text are shown only to the gift receiver; otherwise, everyone are able to see them.
+ * @property isPrivate True, if the sender and gift text are shown only to the gift receiver; otherwise, everyone is able to see them.
  * @property isSaved True, if the gift is displayed on the chat's profile page; only for the receiver of the gift.
  * @property isPinned True, if the gift is pinned to the top of the chat's profile page.
  * @property canBeUpgraded True, if the gift is a regular gift that can be upgraded to a unique gift; only for the receiver of the gift.
  * @property canBeTransferred True, if the gift is an upgraded gift that can be transferred to another owner; only for the receiver of the gift.
+ * @property canBeDeleted True, if the gift is a regular gift that can be deleted using deleteGift; only for the receiver of the gift.
  * @property wasRefunded True, if the gift was refunded and isn't available anymore.
  * @property date Point in time (Unix timestamp) when the gift was sent.
  * @property gift The gift.
@@ -60,6 +61,7 @@ public class ReceivedGift public constructor(
     public val isPinned: Boolean,
     public val canBeUpgraded: Boolean,
     public val canBeTransferred: Boolean,
+    public val canBeDeleted: Boolean,
     public val wasRefunded: Boolean,
     public val date: Int,
     public val gift: SentGift,
@@ -111,6 +113,9 @@ public class ReceivedGift public constructor(
             return false
         }
         if (other.canBeTransferred != canBeTransferred) {
+            return false
+        }
+        if (other.canBeDeleted != canBeDeleted) {
             return false
         }
         if (other.wasRefunded != wasRefunded) {
@@ -167,6 +172,7 @@ public class ReceivedGift public constructor(
         hashCode = 31 * hashCode + isPinned.hashCode()
         hashCode = 31 * hashCode + canBeUpgraded.hashCode()
         hashCode = 31 * hashCode + canBeTransferred.hashCode()
+        hashCode = 31 * hashCode + canBeDeleted.hashCode()
         hashCode = 31 * hashCode + wasRefunded.hashCode()
         hashCode = 31 * hashCode + date.hashCode()
         hashCode = 31 * hashCode + gift.hashCode()
@@ -214,6 +220,9 @@ public class ReceivedGift public constructor(
             append(", ")
             append("canBeTransferred=")
             append(canBeTransferred)
+            append(", ")
+            append("canBeDeleted=")
+            append(canBeDeleted)
             append(", ")
             append("wasRefunded=")
             append(wasRefunded)

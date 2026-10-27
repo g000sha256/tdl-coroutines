@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Georgii Ippolitov (g000sha256)
+ * Copyright 2025-2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,7 +23,7 @@ import kotlin.LongArray
 import kotlin.String
 
 /**
- * A rule to allow all members of certain specified basic groups and supergroups to doing something.
+ * A rule to allow all members of certain specified basic groups and supergroups to do something.
  *
  * @property chatIds The chat identifiers, total number of chats in all rules must not exceed 20.
  */

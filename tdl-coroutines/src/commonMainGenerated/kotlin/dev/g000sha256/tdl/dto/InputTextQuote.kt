@@ -17,6 +17,7 @@
 package dev.g000sha256.tdl.dto
 
 import kotlin.Any
+import kotlin.Array
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
@@ -24,11 +25,13 @@ import kotlin.String
 /**
  * Describes manually chosen quote from another message.
  *
- * @property text Text of the quote; 0-getOption(&quot;message_reply_quote_length_max&quot;) characters. Only Bold, Italic, Underline, Strikethrough, Spoiler, CustomEmoji, and DateTime entities are allowed to be kept and must be kept in the quote.
- * @property position Quote position in the original message in UTF-16 code units.
+ * @property text Text of the quote; 0-getOption(&quot;message_reply_quote_length_max&quot;) characters. Only Bold, Italic, Underline, Strikethrough, Spoiler, CustomEmoji, and DateTime entities are allowed to be kept and must be kept in the quote. Ignored if richTexts are non-empty.
+ * @property richTexts Quote from a rich message; pass an empty array if the quote isn't chosen from a rich message. Must contain one element for each quoted text of the message in the order of their appearance. The first and the last elements can contain only a part of the corresponding text; all other elements must contain the whole text. Formatting of the quoted parts must be kept. Mathematical expressions must be quoted entirely. Buttons in pageBlockButtonRow, anchors and dividers can't be quoted. There can be up to 32 quoted texts with total length up to getOption(&quot;message_reply_quote_length_max&quot;) characters.
+ * @property position Quote position in the original message in UTF-16 code units. For quotes from rich messages, it is the position in the text formed by joining plain texts of all quotable texts of the message, separated by line feeds.
  */
 public class InputTextQuote public constructor(
     public val text: FormattedText,
+    public val richTexts: Array<RichText>,
     public val position: Int,
 ) {
     override fun equals(other: Any?): Boolean {
@@ -45,12 +48,17 @@ public class InputTextQuote public constructor(
         if (other.text != text) {
             return false
         }
+        val richTextsEquals = other.richTexts.contentDeepEquals(richTexts)
+        if (!richTextsEquals) {
+            return false
+        }
         return other.position == position
     }
 
     override fun hashCode(): Int {
         var hashCode = this::class.hashCode()
         hashCode = 31 * hashCode + text.hashCode()
+        hashCode = 31 * hashCode + richTexts.contentDeepHashCode()
         hashCode = 31 * hashCode + position.hashCode()
         return hashCode
     }
@@ -61,6 +69,11 @@ public class InputTextQuote public constructor(
             append("(")
             append("text=")
             append(text)
+            append(", ")
+            append("richTexts=")
+            richTexts
+                .contentDeepToString()
+                .also { append(it) }
             append(", ")
             append("position=")
             append(position)
