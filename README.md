@@ -21,6 +21,7 @@ TDLib integration more straightforward and idiomatic for Kotlin Multiplatform pr
         <td>Desktop</td>
         <td>
             <a href="https://klibs.io/package/dev.g000sha256/tdl-coroutines"><img alt="Platform JVM" src="https://img.shields.io/static/v1?label=Platform&labelColor=007396&message=JVM%20(Linux,%20macOS,%20Windows)&color=ED8B00"></a>
+            <a href="https://klibs.io/package/dev.g000sha256/tdl-coroutines"><img alt="Platform Linux" src="https://img.shields.io/static/v1?label=Platform&labelColor=000000&message=Linux%20(x64)&color=FCC624"></a>
             <a href="https://klibs.io/package/dev.g000sha256/tdl-coroutines"><img alt="Platform macOS" src="https://img.shields.io/static/v1?label=Platform&labelColor=000000&message=macOS&color=FFFFFF"></a>
             <a href="https://klibs.io/package/dev.g000sha256/tdl-coroutines"><img alt="Platform Windows" src="https://img.shields.io/static/v1?label=Platform&labelColor=000000&message=Windows%20(x64)&color=0078D4"></a>
         </td>
