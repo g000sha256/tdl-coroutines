@@ -50,7 +50,7 @@ import kotlin.String
  * @property canGetStarRevenueStatistics True, if the supergroup or channel Telegram Star revenue statistics are available.
  * @property canSendGift True, if the user can send a gift to the supergroup or channel using sendGift or transferGift.
  * @property canToggleAggressiveAntiSpam True, if aggressive anti-spam checks can be enabled or disabled in the supergroup.
- * @property isAllHistoryAvailable True, if new chat members will have access to old messages. In public, discussion, of forum groups and all channels, old messages are always available, so this option affects only private non-forum supergroups without a linked chat. The value of this field is only available to chat administrators.
+ * @property isAllHistoryAvailable True, if new chat members will have access to old messages. In public, discussion, or forum groups and all channels, old messages are always available, so this option affects only private non-forum supergroups without a linked chat. The value of this field is only available to chat administrators.
  * @property canHaveSponsoredMessages True, if the chat can have sponsored messages. The value of this field is only available to the owner of the chat.
  * @property hasAggressiveAntiSpamEnabled True, if aggressive anti-spam checks are enabled in the supergroup. The value of this field is only available to chat administrators.
  * @property hasPaidMediaAllowed True, if paid media can be sent and forwarded to the channel chat; for channels only.
@@ -67,6 +67,7 @@ import kotlin.String
  * @property botCommands List of commands of bots in the group.
  * @property botVerification Information about verification status of the supergroup or the channel provided by a bot; may be null if none or unknown.
  * @property mainProfileTab The main tab chosen by the administrators of the channel; may be null if not chosen manually.
+ * @property shareTheme Theme of the screen for sharing a link to the supergroup or the channel; may be null if the default theme is used.
  * @property upgradedFromBasicGroupId Identifier of the basic group from which supergroup was upgraded; 0 if none.
  * @property upgradedFromMaxMessageId Identifier of the last message in the basic group from which supergroup was upgraded; 0 if none.
  */
@@ -111,6 +112,7 @@ public class SupergroupFullInfo public constructor(
     public val botCommands: Array<BotCommands>,
     public val botVerification: BotVerification?,
     public val mainProfileTab: ProfileTab?,
+    public val shareTheme: ProfileShareTheme?,
     public val upgradedFromBasicGroupId: Long,
     public val upgradedFromMaxMessageId: Long,
 ) {
@@ -246,6 +248,9 @@ public class SupergroupFullInfo public constructor(
         if (other.mainProfileTab != mainProfileTab) {
             return false
         }
+        if (other.shareTheme != shareTheme) {
+            return false
+        }
         if (other.upgradedFromBasicGroupId != upgradedFromBasicGroupId) {
             return false
         }
@@ -294,6 +299,7 @@ public class SupergroupFullInfo public constructor(
         hashCode = 31 * hashCode + botCommands.contentDeepHashCode()
         hashCode = 31 * hashCode + botVerification.hashCode()
         hashCode = 31 * hashCode + mainProfileTab.hashCode()
+        hashCode = 31 * hashCode + shareTheme.hashCode()
         hashCode = 31 * hashCode + upgradedFromBasicGroupId.hashCode()
         hashCode = 31 * hashCode + upgradedFromMaxMessageId.hashCode()
         return hashCode
@@ -424,6 +430,9 @@ public class SupergroupFullInfo public constructor(
             append(", ")
             append("mainProfileTab=")
             append(mainProfileTab)
+            append(", ")
+            append("shareTheme=")
+            append(shareTheme)
             append(", ")
             append("upgradedFromBasicGroupId=")
             append(upgradedFromBasicGroupId)

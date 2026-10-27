@@ -37,6 +37,7 @@ import kotlin.String
  * @property sticker Sticker of the NFT; may be null if none.
  * @property attributes Attributes of the NFT.
  * @property extra Additional data about the NFT; may be null if none.
+ * @property gift The upgraded gift corresponding to the NFT; may be null if none. Information about the owner of the gift isn't available. Original details of the gift are available only to the sender and the receiver of the original gift.
  */
 public class TonNft public constructor(
     public val collectionAddress: String,
@@ -51,6 +52,7 @@ public class TonNft public constructor(
     public val sticker: Sticker?,
     public val attributes: Array<TonNftAttribute>,
     public val extra: JsonValue?,
+    public val gift: UpgradedGift?,
 ) {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
@@ -97,7 +99,10 @@ public class TonNft public constructor(
         if (!attributesEquals) {
             return false
         }
-        return other.extra == extra
+        if (other.extra != extra) {
+            return false
+        }
+        return other.gift == gift
     }
 
     override fun hashCode(): Int {
@@ -114,6 +119,7 @@ public class TonNft public constructor(
         hashCode = 31 * hashCode + sticker.hashCode()
         hashCode = 31 * hashCode + attributes.contentDeepHashCode()
         hashCode = 31 * hashCode + extra.hashCode()
+        hashCode = 31 * hashCode + gift.hashCode()
         return hashCode
     }
 
@@ -158,6 +164,9 @@ public class TonNft public constructor(
             append(", ")
             append("extra=")
             append(extra)
+            append(", ")
+            append("gift=")
+            append(gift)
             append(")")
         }
     }

@@ -27,7 +27,7 @@ import kotlin.String
  *
  * @property publicKey Public key of the wallet.
  * @property timestamp The current UNIX timestamp which was used to create the proof.
- * @property signature The signature prooving the ownership.
+ * @property signature The signature proving the ownership.
  */
 public class TonWalletOwnershipProof public constructor(
     public val publicKey: ByteArray,

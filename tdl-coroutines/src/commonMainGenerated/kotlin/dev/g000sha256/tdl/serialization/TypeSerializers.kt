@@ -386,6 +386,9 @@ import dev.g000sha256.tdl.dto.EmojiCategoryTypeRegularStickers
 import dev.g000sha256.tdl.dto.EmojiStatusType
 import dev.g000sha256.tdl.dto.EmojiStatusTypeCustomEmoji
 import dev.g000sha256.tdl.dto.EmojiStatusTypeUpgradedGift
+import dev.g000sha256.tdl.dto.EmojiType
+import dev.g000sha256.tdl.dto.EmojiTypeCustomEmoji
+import dev.g000sha256.tdl.dto.EmojiTypeRegular
 import dev.g000sha256.tdl.dto.FileType
 import dev.g000sha256.tdl.dto.FileTypeAnimation
 import dev.g000sha256.tdl.dto.FileTypeAudio
@@ -618,6 +621,9 @@ import dev.g000sha256.tdl.dto.InputPollMediaVideo
 import dev.g000sha256.tdl.dto.InputPollType
 import dev.g000sha256.tdl.dto.InputPollTypeQuiz
 import dev.g000sha256.tdl.dto.InputPollTypeRegular
+import dev.g000sha256.tdl.dto.InputProfileShareTheme
+import dev.g000sha256.tdl.dto.InputProfileShareThemeEmoji
+import dev.g000sha256.tdl.dto.InputProfileShareThemeUpgradedGift
 import dev.g000sha256.tdl.dto.InputStoryAreaType
 import dev.g000sha256.tdl.dto.InputStoryAreaTypeFoundVenue
 import dev.g000sha256.tdl.dto.InputStoryAreaTypeLink
@@ -923,6 +929,7 @@ import dev.g000sha256.tdl.dto.MessageTopicDirectMessages
 import dev.g000sha256.tdl.dto.MessageTopicForum
 import dev.g000sha256.tdl.dto.MessageTopicSavedMessages
 import dev.g000sha256.tdl.dto.MessageTopicThread
+import dev.g000sha256.tdl.dto.MessageUnpaidMessagesAllowedByLink
 import dev.g000sha256.tdl.dto.MessageUnsupported
 import dev.g000sha256.tdl.dto.MessageUpgradedGift
 import dev.g000sha256.tdl.dto.MessageUpgradedGiftPurchaseOffer
@@ -1160,6 +1167,9 @@ import dev.g000sha256.tdl.dto.PremiumStoryFeaturePriorityOrder
 import dev.g000sha256.tdl.dto.PremiumStoryFeatureSaveStories
 import dev.g000sha256.tdl.dto.PremiumStoryFeatureStealthMode
 import dev.g000sha256.tdl.dto.PremiumStoryFeatureVideoQuality
+import dev.g000sha256.tdl.dto.ProfileShareTheme
+import dev.g000sha256.tdl.dto.ProfileShareThemeEmoji
+import dev.g000sha256.tdl.dto.ProfileShareThemeUpgradedGift
 import dev.g000sha256.tdl.dto.ProfileTab
 import dev.g000sha256.tdl.dto.ProfileTabFiles
 import dev.g000sha256.tdl.dto.ProfileTabGifs
@@ -1173,6 +1183,7 @@ import dev.g000sha256.tdl.dto.ProxyType
 import dev.g000sha256.tdl.dto.ProxyTypeHttp
 import dev.g000sha256.tdl.dto.ProxyTypeMtproto
 import dev.g000sha256.tdl.dto.ProxyTypeSocks5
+import dev.g000sha256.tdl.dto.ProxyTypeWeb
 import dev.g000sha256.tdl.dto.PublicChatType
 import dev.g000sha256.tdl.dto.PublicChatTypeHasUsername
 import dev.g000sha256.tdl.dto.PublicChatTypeIsLocationBased
@@ -1644,6 +1655,7 @@ import dev.g000sha256.tdl.dto.TonWalletTransactionType
 import dev.g000sha256.tdl.dto.TonWalletTransactionTypeKeyChange
 import dev.g000sha256.tdl.dto.TonWalletTransactionTypeNftTransfer
 import dev.g000sha256.tdl.dto.TonWalletTransactionTypeOnRampDeposit
+import dev.g000sha256.tdl.dto.TonWalletTransactionTypeTelegramGiftTransfer
 import dev.g000sha256.tdl.dto.TonWalletTransactionTypeTransfer
 import dev.g000sha256.tdl.dto.TonWalletTransferReceiver
 import dev.g000sha256.tdl.dto.TonWalletTransferReceiverAddress
@@ -1856,6 +1868,9 @@ import dev.g000sha256.tdl.dto.UpdateUserSubscription
 import dev.g000sha256.tdl.dto.UpdateVideoPublished
 import dev.g000sha256.tdl.dto.UpdateWebAppMessageSent
 import dev.g000sha256.tdl.dto.UpdateWebBrowserSettings
+import dev.g000sha256.tdl.dto.UpdateWebProxyCarrierClosed
+import dev.g000sha256.tdl.dto.UpdateWebProxyCarrierData
+import dev.g000sha256.tdl.dto.UpdateWebProxyCarrierOpened
 import dev.g000sha256.tdl.dto.UpgradedGiftAttributeId
 import dev.g000sha256.tdl.dto.UpgradedGiftAttributeIdBackdrop
 import dev.g000sha256.tdl.dto.UpgradedGiftAttributeIdModel
@@ -1923,6 +1938,15 @@ import dev.g000sha256.tdl.dto.WebAppOpenModeFullSize
 import dev.g000sha256.tdl.dto.WebBrowserType
 import dev.g000sha256.tdl.dto.WebBrowserTypeExternal
 import dev.g000sha256.tdl.dto.WebBrowserTypeInApp
+import dev.g000sha256.tdl.dto.WebProxyCarrierError
+import dev.g000sha256.tdl.dto.WebProxyCarrierErrorLoadFailed
+import dev.g000sha256.tdl.dto.WebProxyCarrierErrorPaused
+import dev.g000sha256.tdl.dto.WebProxyCarrierErrorRefused
+import dev.g000sha256.tdl.dto.WebProxyCarrierErrorTerminated
+import dev.g000sha256.tdl.dto.WebProxyCarrierErrorUnsupported
+import dev.g000sha256.tdl.dto.WebProxyCarrierMessage
+import dev.g000sha256.tdl.dto.WebProxyCarrierMessageBinary
+import dev.g000sha256.tdl.dto.WebProxyCarrierMessageText
 import kotlinx.serialization.json.JsonElement
 
 internal fun serialize(dto: AuthenticationCodeType): JsonElement {
@@ -2353,6 +2377,7 @@ internal fun serialize(dto: TonWalletTransactionType): JsonElement {
         is TonWalletTransactionTypeOnRampDeposit -> return serialize(dto = dto)
         is TonWalletTransactionTypeTransfer -> return serialize(dto = dto)
         is TonWalletTransactionTypeNftTransfer -> return serialize(dto = dto)
+        is TonWalletTransactionTypeTelegramGiftTransfer -> return serialize(dto = dto)
         is TonWalletTransactionTypeKeyChange -> return serialize(dto = dto)
     }
 }
@@ -2770,6 +2795,27 @@ internal fun serialize(dto: BuiltInTheme): JsonElement {
     }
 }
 
+internal fun serialize(dto: EmojiType): JsonElement {
+    when(dto) {
+        is EmojiTypeRegular -> return serialize(dto = dto)
+        is EmojiTypeCustomEmoji -> return serialize(dto = dto)
+    }
+}
+
+internal fun serialize(dto: ProfileShareTheme): JsonElement {
+    when(dto) {
+        is ProfileShareThemeEmoji -> return serialize(dto = dto)
+        is ProfileShareThemeUpgradedGift -> return serialize(dto = dto)
+    }
+}
+
+internal fun serialize(dto: InputProfileShareTheme): JsonElement {
+    when(dto) {
+        is InputProfileShareThemeEmoji -> return serialize(dto = dto)
+        is InputProfileShareThemeUpgradedGift -> return serialize(dto = dto)
+    }
+}
+
 internal fun serialize(dto: RichText): JsonElement {
     when(dto) {
         is RichTextPlain -> return serialize(dto = dto)
@@ -3159,6 +3205,7 @@ internal fun serialize(dto: MessageContent): JsonElement {
         is MessagePaidMessagesRefunded -> return serialize(dto = dto)
         is MessagePaidMessagePriceChanged -> return serialize(dto = dto)
         is MessageDirectMessagePriceChanged -> return serialize(dto = dto)
+        is MessageUnpaidMessagesAllowedByLink -> return serialize(dto = dto)
         is MessageChecklistTasksDone -> return serialize(dto = dto)
         is MessageChecklistTasksAdded -> return serialize(dto = dto)
         is MessageSuggestedPostApprovalFailed -> return serialize(dto = dto)
@@ -4431,6 +4478,24 @@ internal fun serialize(dto: ProxyType): JsonElement {
         is ProxyTypeSocks5 -> return serialize(dto = dto)
         is ProxyTypeHttp -> return serialize(dto = dto)
         is ProxyTypeMtproto -> return serialize(dto = dto)
+        is ProxyTypeWeb -> return serialize(dto = dto)
+    }
+}
+
+internal fun serialize(dto: WebProxyCarrierMessage): JsonElement {
+    when(dto) {
+        is WebProxyCarrierMessageText -> return serialize(dto = dto)
+        is WebProxyCarrierMessageBinary -> return serialize(dto = dto)
+    }
+}
+
+internal fun serialize(dto: WebProxyCarrierError): JsonElement {
+    when(dto) {
+        is WebProxyCarrierErrorUnsupported -> return serialize(dto = dto)
+        is WebProxyCarrierErrorPaused -> return serialize(dto = dto)
+        is WebProxyCarrierErrorLoadFailed -> return serialize(dto = dto)
+        is WebProxyCarrierErrorTerminated -> return serialize(dto = dto)
+        is WebProxyCarrierErrorRefused -> return serialize(dto = dto)
     }
 }
 
@@ -4641,6 +4706,9 @@ internal fun serialize(dto: Update): JsonElement {
         is UpdateWebBrowserSettings -> return serialize(dto = dto)
         is UpdateLanguagePackStrings -> return serialize(dto = dto)
         is UpdateConnectionState -> return serialize(dto = dto)
+        is UpdateWebProxyCarrierOpened -> return serialize(dto = dto)
+        is UpdateWebProxyCarrierData -> return serialize(dto = dto)
+        is UpdateWebProxyCarrierClosed -> return serialize(dto = dto)
         is UpdateFreezeState -> return serialize(dto = dto)
         is UpdateAgeVerificationParameters -> return serialize(dto = dto)
         is UpdateTermsOfService -> return serialize(dto = dto)

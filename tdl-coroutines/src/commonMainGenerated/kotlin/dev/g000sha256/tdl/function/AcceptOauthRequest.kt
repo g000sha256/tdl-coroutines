@@ -16,6 +16,7 @@
 
 package dev.g000sha256.tdl.function
 
+import dev.g000sha256.tdl.dto.TonConnectConnectData
 import kotlin.Boolean
 import kotlin.String
 
@@ -24,4 +25,5 @@ internal class AcceptOauthRequest internal constructor(
     internal val matchCode: String,
     internal val allowWriteAccess: Boolean,
     internal val allowPhoneNumberAccess: Boolean,
+    internal val tonConnectConnectData: TonConnectConnectData?,
 )

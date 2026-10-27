@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Georgii Ippolitov (g000sha256)
+ * Copyright 2025-2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,7 +31,7 @@ import kotlin.String
  * @property maxCustomEmojiCount The maximum allowed number of custom emoji in the message text.
  * @property firstColor The first color used to show the message text in the RGB format.
  * @property secondColor The second color used to show the message text in the RGB format.
- * @property backgroundColor Background color for the message the RGB format.
+ * @property backgroundColor Background color for the message in the RGB format.
  */
 public class GroupCallMessageLevel public constructor(
     public val minStarCount: Long,

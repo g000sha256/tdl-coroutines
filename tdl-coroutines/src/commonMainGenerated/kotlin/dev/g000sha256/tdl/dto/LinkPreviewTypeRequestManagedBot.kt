@@ -22,7 +22,7 @@ import kotlin.Int
 import kotlin.String
 
 /**
- * The link is a link to a dialog for creating of a managed bot.
+ * The link is a link to a dialog for creating a managed bot.
  */
 public class LinkPreviewTypeRequestManagedBot public constructor() : LinkPreviewType() {
     override fun equals(other: Any?): Boolean {

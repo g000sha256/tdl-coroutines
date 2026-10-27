@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Georgii Ippolitov (g000sha256)
+ * Copyright 2025-2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,7 +23,7 @@ import kotlin.Int
 import kotlin.String
 
 /**
- * Contains information about a Telegram Passport elements and corresponding errors.
+ * Contains information about Telegram Passport elements and corresponding errors.
  *
  * @property elements Telegram Passport elements.
  * @property errors Errors in the elements that are already available.

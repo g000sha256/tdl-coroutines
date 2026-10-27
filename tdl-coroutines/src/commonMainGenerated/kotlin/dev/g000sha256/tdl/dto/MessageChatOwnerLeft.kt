@@ -25,7 +25,7 @@ import kotlin.String
 /**
  * The owner of the chat has left.
  *
- * @property newOwnerUserId Identifier of the user who will become the new owner of the chat if the previous owner isn't return; 0 if none.
+ * @property newOwnerUserId Identifier of the user who will become the new owner of the chat if the previous owner doesn't return; 0 if none.
  */
 public class MessageChatOwnerLeft public constructor(
     public val newOwnerUserId: Long,

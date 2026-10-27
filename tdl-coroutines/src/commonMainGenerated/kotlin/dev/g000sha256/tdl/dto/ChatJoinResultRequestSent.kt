@@ -22,7 +22,7 @@ import kotlin.Int
 import kotlin.String
 
 /**
- * The join request was sent and have to be approved by administrators of the chat.
+ * The join request was sent and has to be approved by administrators of the chat.
  */
 public class ChatJoinResultRequestSent public constructor() : ChatJoinResult() {
     override fun equals(other: Any?): Boolean {

@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Georgii Ippolitov (g000sha256)
+ * Copyright 2025-2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,7 +23,7 @@ import kotlin.Long
 import kotlin.String
 
 /**
- * The transaction is a sending of a paid group reaction; relevant for regular users only.
+ * The transaction is a sending of a paid group call reaction; relevant for regular users only.
  *
  * @property chatId Identifier of the chat that received the payment.
  */

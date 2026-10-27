@@ -39,7 +39,7 @@ import kotlin.String
  * @property allowsRevoting True, if the poll can be answered multiple times.
  * @property membersOnly True, if only the users that are members of the chat for more than a day will be able to vote.
  * @property countryCodes The list of two-letter ISO 3166-1 alpha-2 codes of countries, users from which will be able to vote. If empty, then all users can participate in the poll.
- * @property optionOrder The list of 0-based poll identifiers in which the options of the poll must be shown; empty if the order of options must not be changed.
+ * @property optionOrder The list of 0-based poll option identifiers in which the options of the poll must be shown; empty if the order of options must not be changed.
  * @property type Type of the poll.
  * @property openPeriod Amount of time the poll will be active after creation, in seconds.
  * @property closeDate Point in time (Unix timestamp) when the poll will automatically be closed.

@@ -230,10 +230,12 @@ import dev.g000sha256.tdl.dto.InputMessageReplyTo
 import dev.g000sha256.tdl.dto.InputPassportElement
 import dev.g000sha256.tdl.dto.InputPassportElementError
 import dev.g000sha256.tdl.dto.InputPollOption
+import dev.g000sha256.tdl.dto.InputProfileShareTheme
 import dev.g000sha256.tdl.dto.InputRichMessage
 import dev.g000sha256.tdl.dto.InputStoryAreas
 import dev.g000sha256.tdl.dto.InputStoryContent
 import dev.g000sha256.tdl.dto.InputTextQuote
+import dev.g000sha256.tdl.dto.InputTonWalletCardSticker
 import dev.g000sha256.tdl.dto.InternalLinkType
 import dev.g000sha256.tdl.dto.InviteGroupCallParticipantResult
 import dev.g000sha256.tdl.dto.JsonValue
@@ -323,6 +325,7 @@ import dev.g000sha256.tdl.dto.PremiumSource
 import dev.g000sha256.tdl.dto.PremiumState
 import dev.g000sha256.tdl.dto.PreparedInlineMessage
 import dev.g000sha256.tdl.dto.PreparedInlineMessageId
+import dev.g000sha256.tdl.dto.ProfileShareThemeBackdrops
 import dev.g000sha256.tdl.dto.ProfileTab
 import dev.g000sha256.tdl.dto.Proxy
 import dev.g000sha256.tdl.dto.PublicChatType
@@ -414,14 +417,17 @@ import dev.g000sha256.tdl.dto.TimeZones
 import dev.g000sha256.tdl.dto.TonCenterApiRequestType
 import dev.g000sha256.tdl.dto.TonCenterStreamingApiUrl
 import dev.g000sha256.tdl.dto.TonConnectChallenge
+import dev.g000sha256.tdl.dto.TonConnectConnectData
 import dev.g000sha256.tdl.dto.TonConnectRequests
 import dev.g000sha256.tdl.dto.TonConnectSession
 import dev.g000sha256.tdl.dto.TonConnectSessionEventId
 import dev.g000sha256.tdl.dto.TonConnectSessions
 import dev.g000sha256.tdl.dto.TonNfts
 import dev.g000sha256.tdl.dto.TonTransactions
+import dev.g000sha256.tdl.dto.TonWalletCard
 import dev.g000sha256.tdl.dto.TonWalletOwnershipProof
 import dev.g000sha256.tdl.dto.TonWalletOwnershipProofChallenge
+import dev.g000sha256.tdl.dto.TonWalletSecretPhrase
 import dev.g000sha256.tdl.dto.TonWalletTransaction
 import dev.g000sha256.tdl.dto.TonWalletTransactions
 import dev.g000sha256.tdl.dto.TonWalletTransferResult
@@ -623,10 +629,15 @@ import dev.g000sha256.tdl.dto.UpdateUserSubscription
 import dev.g000sha256.tdl.dto.UpdateVideoPublished
 import dev.g000sha256.tdl.dto.UpdateWebAppMessageSent
 import dev.g000sha256.tdl.dto.UpdateWebBrowserSettings
+import dev.g000sha256.tdl.dto.UpdateWebProxyCarrierClosed
+import dev.g000sha256.tdl.dto.UpdateWebProxyCarrierData
+import dev.g000sha256.tdl.dto.UpdateWebProxyCarrierOpened
 import dev.g000sha256.tdl.dto.Updates
 import dev.g000sha256.tdl.dto.UpgradeGiftResult
 import dev.g000sha256.tdl.dto.UpgradedGift
 import dev.g000sha256.tdl.dto.UpgradedGiftAttributeId
+import dev.g000sha256.tdl.dto.UpgradedGiftCollectionNames
+import dev.g000sha256.tdl.dto.UpgradedGiftDepositInfo
 import dev.g000sha256.tdl.dto.UpgradedGiftValueInfo
 import dev.g000sha256.tdl.dto.User
 import dev.g000sha256.tdl.dto.UserFullInfo
@@ -645,6 +656,8 @@ import dev.g000sha256.tdl.dto.WebAppOpenParameters
 import dev.g000sha256.tdl.dto.WebAppUrl
 import dev.g000sha256.tdl.dto.WebBrowserType
 import dev.g000sha256.tdl.dto.WebPageInstantView
+import dev.g000sha256.tdl.dto.WebProxyCarrierError
+import dev.g000sha256.tdl.dto.WebProxyCarrierMessage
 import dev.g000sha256.tdl.function.AcceptCall
 import dev.g000sha256.tdl.function.AcceptOauthRequest
 import dev.g000sha256.tdl.function.AcceptTermsOfService
@@ -696,6 +709,7 @@ import dev.g000sha256.tdl.function.AnswerShippingQuery
 import dev.g000sha256.tdl.function.AnswerTonConnectRequest
 import dev.g000sha256.tdl.function.AnswerWebAppQuery
 import dev.g000sha256.tdl.function.ApplyPremiumGiftCode
+import dev.g000sha256.tdl.function.ApplyUnpaidMessagesToken
 import dev.g000sha256.tdl.function.ApproveSuggestedPost
 import dev.g000sha256.tdl.function.AssignStoreTransaction
 import dev.g000sha256.tdl.function.BanChatMember
@@ -829,6 +843,7 @@ import dev.g000sha256.tdl.function.DeleteDirectMessagesChatTopicMessagesByDate
 import dev.g000sha256.tdl.function.DeleteEphemeralMessage
 import dev.g000sha256.tdl.function.DeleteFile
 import dev.g000sha256.tdl.function.DeleteForumTopic
+import dev.g000sha256.tdl.function.DeleteGift
 import dev.g000sha256.tdl.function.DeleteGiftCollection
 import dev.g000sha256.tdl.function.DeleteGroupCallMessages
 import dev.g000sha256.tdl.function.DeleteGroupCallMessagesBySender
@@ -862,6 +877,7 @@ import dev.g000sha256.tdl.function.DisconnectAllWebsites
 import dev.g000sha256.tdl.function.DisconnectTonConnectSession
 import dev.g000sha256.tdl.function.DisconnectWebsite
 import dev.g000sha256.tdl.function.DismissWebToken
+import dev.g000sha256.tdl.function.DisplayUpgradedGift
 import dev.g000sha256.tdl.function.DownloadFile
 import dev.g000sha256.tdl.function.DropGiftOriginalDetails
 import dev.g000sha256.tdl.function.EditBotMediaPreview
@@ -1153,6 +1169,7 @@ import dev.g000sha256.tdl.function.GetPremiumStickerExamples
 import dev.g000sha256.tdl.function.GetPremiumStickers
 import dev.g000sha256.tdl.function.GetPreparedInlineMessage
 import dev.g000sha256.tdl.function.GetPreparedKeyboardButton
+import dev.g000sha256.tdl.function.GetProfileShareThemeBackdrops
 import dev.g000sha256.tdl.function.GetProxies
 import dev.g000sha256.tdl.function.GetPublicPostSearchLimits
 import dev.g000sha256.tdl.function.GetPushReceiverId
@@ -1227,6 +1244,7 @@ import dev.g000sha256.tdl.function.GetTonConnectSessionNextEventId
 import dev.g000sha256.tdl.function.GetTonConnectSessionPendingRequests
 import dev.g000sha256.tdl.function.GetTonConnectSessions
 import dev.g000sha256.tdl.function.GetTonTransactions
+import dev.g000sha256.tdl.function.GetTonWalletCardBackgroundGiftCollectionNames
 import dev.g000sha256.tdl.function.GetTonWalletNfts
 import dev.g000sha256.tdl.function.GetTonWalletOwnershipProofChallenge
 import dev.g000sha256.tdl.function.GetTonWalletSecretPhrase
@@ -1236,6 +1254,7 @@ import dev.g000sha256.tdl.function.GetTonWalletTransactions
 import dev.g000sha256.tdl.function.GetTopChats
 import dev.g000sha256.tdl.function.GetTrendingStickerSets
 import dev.g000sha256.tdl.function.GetUpgradedGift
+import dev.g000sha256.tdl.function.GetUpgradedGiftDepositInfo
 import dev.g000sha256.tdl.function.GetUpgradedGiftEmojiStatuses
 import dev.g000sha256.tdl.function.GetUpgradedGiftValueInfo
 import dev.g000sha256.tdl.function.GetUpgradedGiftVariants
@@ -1311,6 +1330,7 @@ import dev.g000sha256.tdl.function.ProcessChatJoinRequest
 import dev.g000sha256.tdl.function.ProcessChatJoinRequests
 import dev.g000sha256.tdl.function.ProcessGiftPurchaseOffer
 import dev.g000sha256.tdl.function.ProcessPushNotification
+import dev.g000sha256.tdl.function.ProcessWebProxyCarrierMessage
 import dev.g000sha256.tdl.function.RateSpeechRecognition
 import dev.g000sha256.tdl.function.ReadAllChatMentions
 import dev.g000sha256.tdl.function.ReadAllChatPollVotes
@@ -1386,6 +1406,7 @@ import dev.g000sha256.tdl.function.ReportStory
 import dev.g000sha256.tdl.function.ReportSupergroupAntiSpamFalsePositive
 import dev.g000sha256.tdl.function.ReportSupergroupSpam
 import dev.g000sha256.tdl.function.ReportVideoMessageAdvertisement
+import dev.g000sha256.tdl.function.ReportWebProxyCarrierError
 import dev.g000sha256.tdl.function.RequestAuthenticationPasswordRecovery
 import dev.g000sha256.tdl.function.RequestPasswordRecovery
 import dev.g000sha256.tdl.function.RequestQrCodeAuthentication
@@ -1585,6 +1606,7 @@ import dev.g000sha256.tdl.function.SetPollAnswer
 import dev.g000sha256.tdl.function.SetProfileAccentColor
 import dev.g000sha256.tdl.function.SetProfileAudioPosition
 import dev.g000sha256.tdl.function.SetProfilePhoto
+import dev.g000sha256.tdl.function.SetProfileShareTheme
 import dev.g000sha256.tdl.function.SetQuickReplyShortcutName
 import dev.g000sha256.tdl.function.SetReactionNotificationSettings
 import dev.g000sha256.tdl.function.SetReadDatePrivacySettings
@@ -1607,6 +1629,7 @@ import dev.g000sha256.tdl.function.SetSupergroupUnrestrictBoostCount
 import dev.g000sha256.tdl.function.SetSupergroupUsername
 import dev.g000sha256.tdl.function.SetTdlibParameters
 import dev.g000sha256.tdl.function.SetTonConnectSessionWalletClientId
+import dev.g000sha256.tdl.function.SetTonWalletCardStickers
 import dev.g000sha256.tdl.function.SetUpgradedGiftColors
 import dev.g000sha256.tdl.function.SetUserEmojiStatus
 import dev.g000sha256.tdl.function.SetUserNote
@@ -1709,6 +1732,7 @@ import dev.g000sha256.tdl.function.ViewPremiumFeature
 import dev.g000sha256.tdl.function.ViewSponsoredChat
 import dev.g000sha256.tdl.function.ViewTrendingStickerSets
 import dev.g000sha256.tdl.function.ViewVideoMessageAdvertisement
+import dev.g000sha256.tdl.function.WithdrawUpgradedGift
 import dev.g000sha256.tdl.function.WriteGeneratedFilePart
 import kotlin.Array
 import kotlin.Boolean
@@ -2144,6 +2168,15 @@ internal class TdlClientImpl internal constructor(
     override val connectionStateUpdates: Flow<UpdateConnectionState>
         get() = repository.updates.filterIsInstance()
 
+    override val webProxyCarrierOpenedUpdates: Flow<UpdateWebProxyCarrierOpened>
+        get() = repository.updates.filterIsInstance()
+
+    override val webProxyCarrierDataUpdates: Flow<UpdateWebProxyCarrierData>
+        get() = repository.updates.filterIsInstance()
+
+    override val webProxyCarrierClosedUpdates: Flow<UpdateWebProxyCarrierClosed>
+        get() = repository.updates.filterIsInstance()
+
     override val freezeStateUpdates: Flow<UpdateFreezeState>
         get() = repository.updates.filterIsInstance()
 
@@ -2326,12 +2359,14 @@ internal class TdlClientImpl internal constructor(
         matchCode: String,
         allowWriteAccess: Boolean,
         allowPhoneNumberAccess: Boolean,
+        tonConnectConnectData: TonConnectConnectData?,
     ): TdlResult<HttpUrl> {
         val function = AcceptOauthRequest(
             url = url,
             matchCode = matchCode,
             allowWriteAccess = allowWriteAccess,
             allowPhoneNumberAccess = allowPhoneNumberAccess,
+            tonConnectConnectData = tonConnectConnectData,
         )
         return repository.send(function = function)
     }
@@ -2755,7 +2790,7 @@ internal class TdlClientImpl internal constructor(
 
     override suspend fun answerChatJoinRequestQuery(
         queryId: Long,
-        result: ChatJoinRequestResult,
+        result: ChatJoinRequestResult?,
         url: String,
     ): TdlResult<Ok> {
         val function = AnswerChatJoinRequestQuery(
@@ -2848,6 +2883,14 @@ internal class TdlClientImpl internal constructor(
     override suspend fun applyPremiumGiftCode(code: String): TdlResult<Ok> {
         val function = ApplyPremiumGiftCode(
             code = code,
+        )
+        return repository.send(function = function)
+    }
+
+    override suspend fun applyUnpaidMessagesToken(userId: Long, token: String): TdlResult<Ok> {
+        val function = ApplyUnpaidMessagesToken(
+            userId = userId,
+            token = token,
         )
         return repository.send(function = function)
     }
@@ -4074,6 +4117,14 @@ internal class TdlClientImpl internal constructor(
         return repository.send(function = function)
     }
 
+    override suspend fun deleteGift(businessConnectionId: String, receivedGiftId: String): TdlResult<Ok> {
+        val function = DeleteGift(
+            businessConnectionId = businessConnectionId,
+            receivedGiftId = receivedGiftId,
+        )
+        return repository.send(function = function)
+    }
+
     override suspend fun deleteGiftCollection(ownerId: MessageSender, collectionId: Int): TdlResult<Ok> {
         val function = DeleteGiftCollection(
             ownerId = ownerId,
@@ -4347,6 +4398,14 @@ internal class TdlClientImpl internal constructor(
     override suspend fun dismissWebToken(token: String): TdlResult<Ok> {
         val function = DismissWebToken(
             token = token,
+        )
+        return repository.send(function = function)
+    }
+
+    override suspend fun displayUpgradedGift(ownerId: MessageSender?, name: String): TdlResult<Ok> {
+        val function = DisplayUpgradedGift(
+            ownerId = ownerId,
+            name = name,
         )
         return repository.send(function = function)
     }
@@ -7056,6 +7115,11 @@ internal class TdlClientImpl internal constructor(
         return repository.send(function = function)
     }
 
+    override suspend fun getProfileShareThemeBackdrops(): TdlResult<ProfileShareThemeBackdrops> {
+        val function = GetProfileShareThemeBackdrops()
+        return repository.send(function = function)
+    }
+
     override suspend fun getProxies(): TdlResult<AddedProxies> {
         val function = GetProxies()
         return repository.send(function = function)
@@ -7668,6 +7732,11 @@ internal class TdlClientImpl internal constructor(
         return repository.send(function = function)
     }
 
+    override suspend fun getTonWalletCardBackgroundGiftCollectionNames(): TdlResult<UpgradedGiftCollectionNames> {
+        val function = GetTonWalletCardBackgroundGiftCollectionNames()
+        return repository.send(function = function)
+    }
+
     override suspend fun getTonWalletNfts(offset: String, limit: Int): TdlResult<TonNfts> {
         val function = GetTonWalletNfts(
             offset = offset,
@@ -7681,7 +7750,7 @@ internal class TdlClientImpl internal constructor(
         return repository.send(function = function)
     }
 
-    override suspend fun getTonWalletSecretPhrase(password: String): TdlResult<Text> {
+    override suspend fun getTonWalletSecretPhrase(password: String): TdlResult<TonWalletSecretPhrase> {
         val function = GetTonWalletSecretPhrase(
             password = password,
         )
@@ -7743,6 +7812,19 @@ internal class TdlClientImpl internal constructor(
         return repository.send(function = function)
     }
 
+    override suspend fun getUpgradedGiftDepositInfo(
+        ownerId: MessageSender,
+        name: String,
+        hideSender: Boolean,
+    ): TdlResult<UpgradedGiftDepositInfo> {
+        val function = GetUpgradedGiftDepositInfo(
+            ownerId = ownerId,
+            name = name,
+            hideSender = hideSender,
+        )
+        return repository.send(function = function)
+    }
+
     override suspend fun getUpgradedGiftEmojiStatuses(): TdlResult<EmojiStatuses> {
         val function = GetUpgradedGiftEmojiStatuses()
         return repository.send(function = function)
@@ -7768,10 +7850,9 @@ internal class TdlClientImpl internal constructor(
         return repository.send(function = function)
     }
 
-    override suspend fun getUpgradedGiftWithdrawalUrl(receivedGiftId: String, password: String): TdlResult<HttpUrl> {
+    override suspend fun getUpgradedGiftWithdrawalUrl(receivedGiftId: String): TdlResult<HttpUrl> {
         val function = GetUpgradedGiftWithdrawalUrl(
             receivedGiftId = receivedGiftId,
-            password = password,
         )
         return repository.send(function = function)
     }
@@ -7803,8 +7884,16 @@ internal class TdlClientImpl internal constructor(
         return repository.send(function = function)
     }
 
-    override suspend fun getUserLink(): TdlResult<UserLink> {
-        val function = GetUserLink()
+    override suspend fun getUserLink(
+        removeMessagesFee: Boolean,
+        returnPermanentLink: Boolean,
+        revokePreviousLinks: Boolean,
+    ): TdlResult<UserLink> {
+        val function = GetUserLink(
+            removeMessagesFee = removeMessagesFee,
+            returnPermanentLink = returnPermanentLink,
+            revokePreviousLinks = revokePreviousLinks,
+        )
         return repository.send(function = function)
     }
 
@@ -8438,6 +8527,14 @@ internal class TdlClientImpl internal constructor(
     override suspend fun processPushNotification(payload: String): TdlResult<Ok> {
         val function = ProcessPushNotification(
             payload = payload,
+        )
+        return repository.send(function = function)
+    }
+
+    override suspend fun processWebProxyCarrierMessage(carrierId: Int, message: WebProxyCarrierMessage): TdlResult<Ok> {
+        val function = ProcessWebProxyCarrierMessage(
+            carrierId = carrierId,
+            message = message,
         )
         return repository.send(function = function)
     }
@@ -9124,6 +9221,14 @@ internal class TdlClientImpl internal constructor(
         val function = ReportVideoMessageAdvertisement(
             advertisementUniqueId = advertisementUniqueId,
             optionId = optionId,
+        )
+        return repository.send(function = function)
+    }
+
+    override suspend fun reportWebProxyCarrierError(carrierId: Int, error: WebProxyCarrierError): TdlResult<Ok> {
+        val function = ReportWebProxyCarrierError(
+            carrierId = carrierId,
+            error = error,
         )
         return repository.send(function = function)
     }
@@ -11228,6 +11333,14 @@ internal class TdlClientImpl internal constructor(
         return repository.send(function = function)
     }
 
+    override suspend fun setProfileShareTheme(chatId: Long, theme: InputProfileShareTheme?): TdlResult<Ok> {
+        val function = SetProfileShareTheme(
+            chatId = chatId,
+            theme = theme,
+        )
+        return repository.send(function = function)
+    }
+
     override suspend fun setQuickReplyShortcutName(shortcutId: Int, name: String): TdlResult<Ok> {
         val function = SetQuickReplyShortcutName(
             shortcutId = shortcutId,
@@ -11444,6 +11557,14 @@ internal class TdlClientImpl internal constructor(
         val function = SetTonConnectSessionWalletClientId(
             sessionId = sessionId,
             walletClientId = walletClientId,
+        )
+        return repository.send(function = function)
+    }
+
+    override suspend fun setTonWalletCardStickers(stickers: Array<InputTonWalletCardSticker>, backgroundNftAddress: String): TdlResult<TonWalletCard> {
+        val function = SetTonWalletCardStickers(
+            stickers = stickers,
+            backgroundNftAddress = backgroundNftAddress,
         )
         return repository.send(function = function)
     }
@@ -12416,6 +12537,14 @@ internal class TdlClientImpl internal constructor(
     override suspend fun viewVideoMessageAdvertisement(advertisementUniqueId: Long): TdlResult<Ok> {
         val function = ViewVideoMessageAdvertisement(
             advertisementUniqueId = advertisementUniqueId,
+        )
+        return repository.send(function = function)
+    }
+
+    override suspend fun withdrawUpgradedGift(receivedGiftId: String, keepOnProfile: Boolean): TdlResult<Ok> {
+        val function = WithdrawUpgradedGift(
+            receivedGiftId = receivedGiftId,
+            keepOnProfile = keepOnProfile,
         )
         return repository.send(function = function)
     }

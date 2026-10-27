@@ -22,6 +22,6 @@ import kotlin.String
 
 internal class AnswerChatJoinRequestQuery internal constructor(
     internal val queryId: Long,
-    internal val result: ChatJoinRequestResult,
+    internal val result: ChatJoinRequestResult?,
     internal val url: String,
 )

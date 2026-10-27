@@ -43,6 +43,7 @@ import kotlin.String
  * @property ownerAddress Address of the gift NFT owner in TON blockchain; may be empty if none. Append the address to getOption(&quot;ton_blockchain_explorer_url&quot;) to get a link with information about the address.
  * @property ownerName Name of the owner for the case when owner identifier and address aren't known.
  * @property giftAddress Address of the gift NFT in TON blockchain; may be empty if none. Append the address to getOption(&quot;ton_blockchain_explorer_url&quot;) to get a link with information about the address.
+ * @property canBeTonWalletCardBackground True, if the gift NFT can be used as backgroundNftAddress in setTonWalletCardStickers.
  * @property model Model of the upgraded gift.
  * @property symbol Symbol of the upgraded gift.
  * @property backdrop Backdrop of the upgraded gift.
@@ -74,6 +75,7 @@ public class UpgradedGift public constructor(
     public val ownerAddress: String,
     public val ownerName: String,
     public val giftAddress: String,
+    public val canBeTonWalletCardBackground: Boolean,
     public val model: UpgradedGiftModel,
     public val symbol: UpgradedGiftSymbol,
     public val backdrop: UpgradedGiftBackdrop,
@@ -151,6 +153,9 @@ public class UpgradedGift public constructor(
         if (other.giftAddress != giftAddress) {
             return false
         }
+        if (other.canBeTonWalletCardBackground != canBeTonWalletCardBackground) {
+            return false
+        }
         if (other.model != model) {
             return false
         }
@@ -204,6 +209,7 @@ public class UpgradedGift public constructor(
         hashCode = 31 * hashCode + ownerAddress.hashCode()
         hashCode = 31 * hashCode + ownerName.hashCode()
         hashCode = 31 * hashCode + giftAddress.hashCode()
+        hashCode = 31 * hashCode + canBeTonWalletCardBackground.hashCode()
         hashCode = 31 * hashCode + model.hashCode()
         hashCode = 31 * hashCode + symbol.hashCode()
         hashCode = 31 * hashCode + backdrop.hashCode()
@@ -275,6 +281,9 @@ public class UpgradedGift public constructor(
             append(", ")
             append("giftAddress=")
             append(giftAddress)
+            append(", ")
+            append("canBeTonWalletCardBackground=")
+            append(canBeTonWalletCardBackground)
             append(", ")
             append("model=")
             append(model)

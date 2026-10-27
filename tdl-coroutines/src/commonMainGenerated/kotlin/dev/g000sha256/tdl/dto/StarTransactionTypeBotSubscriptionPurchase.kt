@@ -27,12 +27,12 @@ import kotlin.String
  *
  * @property userId Identifier of the bot or the business account user who created the subscription link.
  * @property subscriptionPeriod The number of seconds between consecutive Telegram Star debitings.
- * @property productInfo Information about the bought subscription.
+ * @property productInfo Information about the bought subscription; may be null if no information about the subscription is available.
  */
 public class StarTransactionTypeBotSubscriptionPurchase public constructor(
     public val userId: Long,
     public val subscriptionPeriod: Int,
-    public val productInfo: ProductInfo,
+    public val productInfo: ProductInfo?,
 ) : StarTransactionType() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {

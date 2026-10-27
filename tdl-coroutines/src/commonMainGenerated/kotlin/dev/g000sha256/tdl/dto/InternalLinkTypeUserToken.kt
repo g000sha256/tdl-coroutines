@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Georgii Ippolitov (g000sha256)
+ * Copyright 2025-2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,9 +25,11 @@ import kotlin.String
  * The link is a link to a user by a temporary token. Call searchUserByToken with the given token to process the link. If the user is found, then call createPrivateChat and open the chat.
  *
  * @property token The token.
+ * @property unpaidMessagesToken Token, which allows the current user to send unpaid messages to the user; may be empty if none. If the token isn't empty and the user is found, then call applyUnpaidMessagesToken with the user and the token.
  */
 public class InternalLinkTypeUserToken public constructor(
     public val token: String,
+    public val unpaidMessagesToken: String,
 ) : InternalLinkType() {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
@@ -40,12 +42,16 @@ public class InternalLinkTypeUserToken public constructor(
             return false
         }
         other as InternalLinkTypeUserToken
-        return other.token == token
+        if (other.token != token) {
+            return false
+        }
+        return other.unpaidMessagesToken == unpaidMessagesToken
     }
 
     override fun hashCode(): Int {
         var hashCode = this::class.hashCode()
         hashCode = 31 * hashCode + token.hashCode()
+        hashCode = 31 * hashCode + unpaidMessagesToken.hashCode()
         return hashCode
     }
 
@@ -55,6 +61,9 @@ public class InternalLinkTypeUserToken public constructor(
             append("(")
             append("token=")
             append(token)
+            append(", ")
+            append("unpaidMessagesToken=")
+            append(unpaidMessagesToken)
             append(")")
         }
     }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Georgii Ippolitov (g000sha256)
+ * Copyright 2025-2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,7 +25,7 @@ import kotlin.String
 /**
  * Tags used in Saved Messages or a Saved Messages topic have changed.
  *
- * @property savedMessagesTopicId Identifier of Saved Messages topic which tags were changed; 0 if tags for the whole chat has changed.
+ * @property savedMessagesTopicId Identifier of Saved Messages topic which tags were changed; 0 if tags for the whole chat have changed.
  * @property tags The new tags.
  */
 public class UpdateSavedMessagesTags public constructor(

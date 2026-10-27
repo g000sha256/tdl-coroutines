@@ -33,7 +33,7 @@ import kotlin.String
  * @property canEditProfilePhoto True, if the bot can edit profile photo of the business account.
  * @property canEditUsername True, if the bot can edit username of the business account.
  * @property canViewGiftsAndStars True, if the bot can view gifts and Telegram Star amount owned by the business account.
- * @property canSellGifts True, if the bot can sell regular gifts received by the business account.
+ * @property canSellGifts True, if the bot can sell or delete regular gifts received by the business account.
  * @property canChangeGiftSettings True, if the bot can change gift receiving settings of the business account.
  * @property canTransferAndUpgradeGifts True, if the bot can transfer and upgrade gifts received by the business account.
  * @property canTransferStars True, if the bot can transfer Telegram Stars received by the business account to account of the bot, or use them to upgrade and transfer gifts.

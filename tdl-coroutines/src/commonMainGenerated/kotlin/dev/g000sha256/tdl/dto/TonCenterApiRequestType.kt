@@ -18,6 +18,6 @@ package dev.g000sha256.tdl.dto
 
 /**
  * This class is an abstract base class.
- * Describes state of active stories posted by a chat.
+ * Describes a type of request to the TON Center API.
  */
 public sealed class TonCenterApiRequestType protected constructor()

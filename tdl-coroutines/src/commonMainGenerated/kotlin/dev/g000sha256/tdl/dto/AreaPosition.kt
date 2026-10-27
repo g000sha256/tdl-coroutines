@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Georgii Ippolitov (g000sha256)
+ * Copyright 2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,16 +23,16 @@ import kotlin.Int
 import kotlin.String
 
 /**
- * Describes position of a clickable rectangle area on a story media.
+ * Describes position of a rectangle area on a story media or a TON wallet card.
  *
- * @property xPercentage The abscissa of the rectangle's center, as a percentage of the media width.
- * @property yPercentage The ordinate of the rectangle's center, as a percentage of the media height.
- * @property widthPercentage The width of the rectangle, as a percentage of the media width.
- * @property heightPercentage The height of the rectangle, as a percentage of the media height.
+ * @property xPercentage The abscissa of the rectangle's center, as a percentage of the media or the card width.
+ * @property yPercentage The ordinate of the rectangle's center, as a percentage of the media or the card height.
+ * @property widthPercentage The width of the rectangle, as a percentage of the media or the card width.
+ * @property heightPercentage The height of the rectangle, as a percentage of the media or the card height.
  * @property rotationAngle Clockwise rotation angle of the rectangle, in degrees; 0-360.
- * @property cornerRadiusPercentage The radius of the rectangle corner rounding, as a percentage of the media width.
+ * @property cornerRadiusPercentage The radius of the rectangle corner rounding, as a percentage of the media or the card width.
  */
-public class StoryAreaPosition public constructor(
+public class AreaPosition public constructor(
     public val xPercentage: Double,
     public val yPercentage: Double,
     public val widthPercentage: Double,
@@ -50,7 +50,7 @@ public class StoryAreaPosition public constructor(
         if (other::class != this::class) {
             return false
         }
-        other as StoryAreaPosition
+        other as AreaPosition
         if (other.xPercentage != xPercentage) {
             return false
         }
@@ -82,7 +82,7 @@ public class StoryAreaPosition public constructor(
 
     override fun toString(): String {
         return buildString {
-            append("StoryAreaPosition")
+            append("AreaPosition")
             append("(")
             append("xPercentage=")
             append(xPercentage)

@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Georgii Ippolitov (g000sha256)
+ * Copyright 2025-2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,7 +26,7 @@ import kotlin.String
 /**
  * Contains a list of users and chats that spend most money on paid messages and reactions in a live story.
  *
- * @property totalStarCount Total amount of spend Telegram Stars.
+ * @property totalStarCount Total amount of spent Telegram Stars.
  * @property topDonors List of top donors in the live story.
  */
 public class LiveStoryDonors public constructor(

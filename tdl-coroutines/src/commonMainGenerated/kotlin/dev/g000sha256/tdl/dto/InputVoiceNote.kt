@@ -23,7 +23,7 @@ import kotlin.Int
 import kotlin.String
 
 /**
- * A video note to be sent.
+ * A voice note to be sent.
  *
  * @property voiceNote Voice note file to be sent. The voice note must be encoded with the Opus codec and stored inside an OGG container with a single audio channel, or be in MP3 or M4A format as regular audio.
  * @property duration Duration of the voice note, in seconds.
