@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Georgii Ippolitov (g000sha256)
+ * Copyright 2025-2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,8 +24,8 @@ import kotlin.String
 /**
  * Describes an interval of time when the business is open.
  *
- * @property startMinute The minute's sequence number in a week, starting on Monday, marking the start of the time interval during which the business is open; 0-7*24*60.
- * @property endMinute The minute's sequence number in a week, starting on Monday, marking the end of the time interval during which the business is open; 1-8*24*60.
+ * @property startMinute The minute's sequence number in a week, starting on Monday, marking the start of the time interval during which the business is open; 0-7&#42;24&#42;60.
+ * @property endMinute The minute's sequence number in a week, starting on Monday, marking the end of the time interval during which the business is open; 1-8&#42;24&#42;60.
  */
 public class BusinessOpeningHoursInterval public constructor(
     public val startMinute: Int,

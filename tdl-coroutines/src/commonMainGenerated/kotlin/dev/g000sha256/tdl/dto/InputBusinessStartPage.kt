@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Georgii Ippolitov (g000sha256)
+ * Copyright 2025-2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,8 +24,8 @@ import kotlin.String
 /**
  * Describes settings for a business account start page to set.
  *
- * @property title Title text of the start page; 0-getOption(&quot;business_start_page_title_length_max&quot;) characters.
- * @property message Message text of the start page; 0-getOption(&quot;business_start_page_message_length_max&quot;) characters.
+ * @property title Title text of the start page; 0-getOption(&quot;business&#95;start&#95;page&#95;title&#95;length&#95;max&quot;) characters.
+ * @property message Message text of the start page; 0-getOption(&quot;business&#95;start&#95;page&#95;message&#95;length&#95;max&quot;) characters.
  * @property sticker Greeting sticker of the start page; pass null if none. The sticker must belong to a sticker set and must not be a custom emoji.
  */
 public class InputBusinessStartPage public constructor(

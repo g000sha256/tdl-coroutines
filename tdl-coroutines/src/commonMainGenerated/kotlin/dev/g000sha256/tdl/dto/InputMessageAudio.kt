@@ -25,7 +25,7 @@ import kotlin.String
  * An audio message.
  *
  * @property audio Audio to be sent.
- * @property caption Audio caption; pass null to use an empty caption; 0-getOption(&quot;message_caption_length_max&quot;) characters.
+ * @property caption Audio caption; pass null to use an empty caption; 0-getOption(&quot;message&#95;caption&#95;length&#95;max&quot;) characters.
  */
 public class InputMessageAudio public constructor(
     public val audio: InputAudio,

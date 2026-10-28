@@ -25,7 +25,7 @@ import kotlin.String
  * A document message (general file).
  *
  * @property document Document to be sent.
- * @property caption Document caption; pass null to use an empty caption; 0-getOption(&quot;message_caption_length_max&quot;) characters.
+ * @property caption Document caption; pass null to use an empty caption; 0-getOption(&quot;message&#95;caption&#95;length&#95;max&quot;) characters.
  */
 public class InputMessageDocument public constructor(
     public val document: InputDocument,

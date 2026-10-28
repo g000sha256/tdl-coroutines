@@ -40,9 +40,9 @@ import kotlin.String
  * @property usedThemeChatId Identifier of the chat for which the gift is used to set a theme; 0 if none or the gift isn't owned by the current user.
  * @property hostId Identifier of the user or the chat to which the upgraded gift was assigned from blockchain; may be null if none or unknown.
  * @property ownerId Identifier of the user or the chat that owns the upgraded gift; may be null if none or unknown.
- * @property ownerAddress Address of the gift NFT owner in TON blockchain; may be empty if none. Append the address to getOption(&quot;ton_blockchain_explorer_url&quot;) to get a link with information about the address.
+ * @property ownerAddress Address of the gift NFT owner in TON blockchain; may be empty if none. Append the address to getOption(&quot;ton&#95;blockchain&#95;explorer&#95;url&quot;) to get a link with information about the address.
  * @property ownerName Name of the owner for the case when owner identifier and address aren't known.
- * @property giftAddress Address of the gift NFT in TON blockchain; may be empty if none. Append the address to getOption(&quot;ton_blockchain_explorer_url&quot;) to get a link with information about the address.
+ * @property giftAddress Address of the gift NFT in TON blockchain; may be empty if none. Append the address to getOption(&quot;ton&#95;blockchain&#95;explorer&#95;url&quot;) to get a link with information about the address.
  * @property canBeTonWalletCardBackground True, if the gift NFT can be used as backgroundNftAddress in setTonWalletCardStickers.
  * @property model Model of the upgraded gift.
  * @property symbol Symbol of the upgraded gift.

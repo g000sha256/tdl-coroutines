@@ -29,7 +29,7 @@ import kotlin.String
  * @property amount Paid amount, in the smallest units of the currency.
  * @property userId Identifier of the user who will receive Telegram Premium.
  * @property monthCount Number of months the Telegram Premium subscription will be active for the user.
- * @property text Text to show to the user receiving Telegram Premium; 0-getOption(&quot;gift_text_length_max&quot;) characters. Only Bold, Italic, Underline, Strikethrough, Spoiler, CustomEmoji, and DateTime entities are allowed.
+ * @property text Text to show to the user receiving Telegram Premium; 0-getOption(&quot;gift&#95;text&#95;length&#95;max&quot;) characters. Only Bold, Italic, Underline, Strikethrough, Spoiler, CustomEmoji, and DateTime entities are allowed.
  */
 public class TelegramPaymentPurposePremiumGift public constructor(
     public val currency: String,

@@ -25,7 +25,7 @@ import kotlin.String
 /**
  * Describes price of a suggested post in Telegram Stars.
  *
- * @property starCount The Telegram Star amount expected to be paid for the post; getOption(&quot;suggested_post_star_count_min&quot;)-getOption(&quot;suggested_post_star_count_max&quot;).
+ * @property starCount The Telegram Star amount expected to be paid for the post; getOption(&quot;suggested&#95;post&#95;star&#95;count&#95;min&quot;)-getOption(&quot;suggested&#95;post&#95;star&#95;count&#95;max&quot;).
  */
 public class SuggestedPostPriceStar public constructor(
     public val starCount: Long,

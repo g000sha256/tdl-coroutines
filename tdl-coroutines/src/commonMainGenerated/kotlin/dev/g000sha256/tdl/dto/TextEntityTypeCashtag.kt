@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Georgii Ippolitov (g000sha256)
+ * Copyright 2025-2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,7 +22,7 @@ import kotlin.Int
 import kotlin.String
 
 /**
- * A cashtag text, beginning with &quot;$&quot;, consisting of capital English letters (e.g., &quot;$USD&quot;), and optionally containing a chat username at the end.
+ * A cashtag text, beginning with &quot;&#36;&quot;, consisting of capital English letters (e.g., &quot;&#36;USD&quot;), and optionally containing a chat username at the end.
  */
 public class TextEntityTypeCashtag public constructor() : TextEntityType() {
     override fun equals(other: Any?): Boolean {

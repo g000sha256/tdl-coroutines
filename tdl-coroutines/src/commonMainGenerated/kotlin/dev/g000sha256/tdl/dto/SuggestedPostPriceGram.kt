@@ -25,7 +25,7 @@ import kotlin.String
 /**
  * Describes price of a suggested post in TON Grams.
  *
- * @property gramCentCount The amount of 1/100 of Gram expected to be paid for the post; getOption(&quot;suggested_post_gram_cent_count_min&quot;)-getOption(&quot;suggested_post_gram_cent_count_max&quot;).
+ * @property gramCentCount The amount of 1/100 of Gram expected to be paid for the post; getOption(&quot;suggested&#95;post&#95;gram&#95;cent&#95;count&#95;min&quot;)-getOption(&quot;suggested&#95;post&#95;gram&#95;cent&#95;count&#95;max&quot;).
  */
 public class SuggestedPostPriceGram public constructor(
     public val gramCentCount: Long,

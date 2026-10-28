@@ -24,7 +24,7 @@ import kotlin.String
 /**
  * A text message draft.
  *
- * @property text Formatted text to be saved as a draft; 0-getOption(&quot;message_text_length_max&quot;) characters.
+ * @property text Formatted text to be saved as a draft; 0-getOption(&quot;message&#95;text&#95;length&#95;max&quot;) characters.
  * @property linkPreviewOptions Options to be used for generation of a link preview; may be null if none; pass null to use default link preview options.
  */
 public class DraftMessageContentText public constructor(

@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Georgii Ippolitov (g000sha256)
+ * Copyright 2025-2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,7 +23,7 @@ import kotlin.Int
 import kotlin.String
 
 /**
- * Contains information about found messages, split by days according to the option &quot;utc_time_offset&quot;.
+ * Contains information about found messages, split by days according to the option &quot;utc&#95;time&#95;offset&quot;.
  *
  * @property totalCount Total number of found messages.
  * @property days Information about messages sent.

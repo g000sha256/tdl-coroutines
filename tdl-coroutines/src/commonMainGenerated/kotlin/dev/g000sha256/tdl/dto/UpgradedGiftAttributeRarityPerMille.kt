@@ -24,7 +24,7 @@ import kotlin.String
 /**
  * The rarity is represented as the numeric frequency of the model.
  *
- * @property perMille The number of upgraded gifts that receive this attribute for each 1000 gifts upgraded; if 0, then it can be shown as &quot;&lt;0.1%&quot;.
+ * @property perMille The number of upgraded gifts that receive this attribute for each 1000 gifts upgraded; if 0, then it can be shown as &quot;<0.1%&quot;.
  */
 public class UpgradedGiftAttributeRarityPerMille public constructor(
     public val perMille: Int,

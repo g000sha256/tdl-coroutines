@@ -25,7 +25,7 @@ import kotlin.String
  * A photo message.
  *
  * @property photo Photo to be sent.
- * @property caption Photo caption; pass null to use an empty caption; 0-getOption(&quot;message_caption_length_max&quot;) characters.
+ * @property caption Photo caption; pass null to use an empty caption; 0-getOption(&quot;message&#95;caption&#95;length&#95;max&quot;) characters.
  * @property showCaptionAboveMedia True, if the caption must be shown above the photo; otherwise, the caption must be shown below the photo; not supported in secret chats.
  * @property selfDestructType Photo self-destruct type; pass null if none; private chats only.
  * @property hasSpoiler True, if the photo preview must be covered by a spoiler animation; not supported in secret chats.

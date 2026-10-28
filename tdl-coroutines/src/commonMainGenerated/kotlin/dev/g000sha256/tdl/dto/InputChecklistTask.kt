@@ -25,7 +25,7 @@ import kotlin.String
  * Describes a task in a checklist to be sent.
  *
  * @property id Unique identifier of the task; must be positive.
- * @property text Text of the task; 1-getOption(&quot;checklist_task_text_length_max&quot;) characters without line feeds. May contain only Bold, Italic, Underline, Strikethrough, Spoiler, CustomEmoji, and DateTime entities.
+ * @property text Text of the task; 1-getOption(&quot;checklist&#95;task&#95;text&#95;length&#95;max&quot;) characters without line feeds. May contain only Bold, Italic, Underline, Strikethrough, Spoiler, CustomEmoji, and DateTime entities.
  */
 public class InputChecklistTask public constructor(
     public val id: Int,

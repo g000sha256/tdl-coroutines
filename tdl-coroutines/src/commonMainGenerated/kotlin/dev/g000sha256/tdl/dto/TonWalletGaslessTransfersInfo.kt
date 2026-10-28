@@ -24,7 +24,7 @@ import kotlin.String
 /**
  * Represents state of gasless transfers for the current user.
  *
- * @property leftCount Number of left gasless transfers. The daily available number of gasless transfers is available as getOption(&quot;ton_wallet_gasless_transfer_daily_count_max&quot;).
+ * @property leftCount Number of left gasless transfers. The daily available number of gasless transfers is available as getOption(&quot;ton&#95;wallet&#95;gasless&#95;transfer&#95;daily&#95;count&#95;max&quot;).
  * @property resetDate Point in time (Unix timestamp) when the number of left transfers will be reset; 0 if never.
  * @property relayerAddress Address of the relayer for gasless transfers; may be empty if unavailable.
  */

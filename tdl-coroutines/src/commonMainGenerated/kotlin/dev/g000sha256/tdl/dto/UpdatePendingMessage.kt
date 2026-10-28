@@ -23,7 +23,7 @@ import kotlin.Long
 import kotlin.String
 
 /**
- * A new pending text or rich message was received in a chat with a bot. The message must be shown in the chat for at most getOption(&quot;pending_text_message_period&quot;) seconds, replace any other pending message with the same draftId with animation, and be deleted whenever any incoming message or a pending message with another draftId is received in the message thread.
+ * A new pending text or rich message was received in a chat with a bot. The message must be shown in the chat for at most getOption(&quot;pending&#95;text&#95;message&#95;period&quot;) seconds, replace any other pending message with the same draftId with animation, and be deleted whenever any incoming message or a pending message with another draftId is received in the message thread.
  *
  * @property chatId Chat identifier.
  * @property forumTopicId The forum topic identifier in which the message will be sent; 0 if none.

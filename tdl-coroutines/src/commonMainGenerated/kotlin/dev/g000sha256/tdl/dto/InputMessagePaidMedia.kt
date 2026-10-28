@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Georgii Ippolitov (g000sha256)
+ * Copyright 2025-2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,9 +26,9 @@ import kotlin.String
 /**
  * A message with paid media; can be used only in channel chats with supergroupFullInfo.hasPaidMediaAllowed.
  *
- * @property starCount The number of Telegram Stars that must be paid to see the media; 1-getOption(&quot;paid_media_message_star_count_max&quot;).
+ * @property starCount The number of Telegram Stars that must be paid to see the media; 1-getOption(&quot;paid&#95;media&#95;message&#95;star&#95;count&#95;max&quot;).
  * @property paidMedia The content of the paid media.
- * @property caption Message caption; pass null to use an empty caption; 0-getOption(&quot;message_caption_length_max&quot;) characters.
+ * @property caption Message caption; pass null to use an empty caption; 0-getOption(&quot;message&#95;caption&#95;length&#95;max&quot;) characters.
  * @property showCaptionAboveMedia True, if the caption must be shown above the media; otherwise, the caption must be shown below the media; not supported in secret chats.
  * @property payload Bot-provided data for the paid media; bots only.
  */

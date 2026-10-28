@@ -28,7 +28,7 @@ import kotlin.String
  * @property currency ISO 4217 currency code of the payment currency.
  * @property amount Paid amount, in the smallest units of the currency.
  * @property starCount Number of bought Telegram Stars.
- * @property chatId Identifier of the chat that is supposed to receive the Telegram Stars; pass 0 if none. If non-zero and getOption(&quot;star_top_up_disabled&quot;), then the payment isn't allowed and the user can't buy Telegram Stars in this place.
+ * @property chatId Identifier of the chat that is supposed to receive the Telegram Stars; pass 0 if none. If non-zero and getOption(&quot;star&#95;top&#95;up&#95;disabled&quot;), then the payment isn't allowed and the user can't buy Telegram Stars in this place.
  */
 public class TelegramPaymentPurposeStars public constructor(
     public val currency: String,

@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Georgii Ippolitov (g000sha256)
+ * Copyright 2025-2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,9 +29,9 @@ import kotlin.String
  * @property icon The chosen icon for the chat folder; may be null. If null, use getChatFolderDefaultIconName to get default icon name for the folder.
  * @property colorId The identifier of the chosen color for the chat folder icon; from -1 to 6. If -1, then color is disabled. Can't be changed if folder tags are disabled or the current user doesn't have Telegram Premium subscription.
  * @property isShareable True, if at least one link has been created for the folder.
- * @property pinnedChatIds The chat identifiers of pinned chats in the folder. There can be up to getOption(&quot;chat_folder_chosen_chat_count_max&quot;) pinned and always included non-secret chats and the same number of secret chats, but the limit can be increased with Telegram Premium.
- * @property includedChatIds The chat identifiers of always included chats in the folder. There can be up to getOption(&quot;chat_folder_chosen_chat_count_max&quot;) pinned and always included non-secret chats and the same number of secret chats, but the limit can be increased with Telegram Premium.
- * @property excludedChatIds The chat identifiers of always excluded chats in the folder. There can be up to getOption(&quot;chat_folder_chosen_chat_count_max&quot;) always excluded non-secret chats and the same number of secret chats, but the limit can be increased with Telegram Premium.
+ * @property pinnedChatIds The chat identifiers of pinned chats in the folder. There can be up to getOption(&quot;chat&#95;folder&#95;chosen&#95;chat&#95;count&#95;max&quot;) pinned and always included non-secret chats and the same number of secret chats, but the limit can be increased with Telegram Premium.
+ * @property includedChatIds The chat identifiers of always included chats in the folder. There can be up to getOption(&quot;chat&#95;folder&#95;chosen&#95;chat&#95;count&#95;max&quot;) pinned and always included non-secret chats and the same number of secret chats, but the limit can be increased with Telegram Premium.
+ * @property excludedChatIds The chat identifiers of always excluded chats in the folder. There can be up to getOption(&quot;chat&#95;folder&#95;chosen&#95;chat&#95;count&#95;max&quot;) always excluded non-secret chats and the same number of secret chats, but the limit can be increased with Telegram Premium.
  * @property excludeMuted True, if muted chats need to be excluded.
  * @property excludeRead True, if read chats need to be excluded.
  * @property excludeArchived True, if archived chats need to be excluded.

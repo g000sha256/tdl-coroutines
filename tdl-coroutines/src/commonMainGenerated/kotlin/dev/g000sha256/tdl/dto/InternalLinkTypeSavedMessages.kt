@@ -22,7 +22,7 @@ import kotlin.Int
 import kotlin.String
 
 /**
- * The link is a link to the Saved Messages chat. Call createPrivateChat with getOption(&quot;my_id&quot;) and open the chat.
+ * The link is a link to the Saved Messages chat. Call createPrivateChat with getOption(&quot;my&#95;id&quot;) and open the chat.
  */
 public class InternalLinkTypeSavedMessages public constructor() : InternalLinkType() {
     override fun equals(other: Any?): Boolean {

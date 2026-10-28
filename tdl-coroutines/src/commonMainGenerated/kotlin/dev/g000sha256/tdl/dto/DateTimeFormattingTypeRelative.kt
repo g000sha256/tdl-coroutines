@@ -22,7 +22,7 @@ import kotlin.Int
 import kotlin.String
 
 /**
- * The time must be shown relative to the current time ([in ] X seconds, minutes, hours, days, months, years [ago]).
+ * The time must be shown relative to the current time (&#91;in &#93; X seconds, minutes, hours, days, months, years &#91;ago&#93;).
  */
 public class DateTimeFormattingTypeRelative public constructor() : DateTimeFormattingType() {
     override fun equals(other: Any?): Boolean {

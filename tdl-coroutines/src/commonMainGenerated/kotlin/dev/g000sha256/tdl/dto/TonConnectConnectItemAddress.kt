@@ -24,7 +24,7 @@ import kotlin.String
 /**
  * Address of the wallet.
  *
- * @property network Stringified TON network globalId (e.g. &quot;-239&quot; for mainnet); may be empty.
+ * @property network Stringified TON network global&#95;id (e.g. &quot;-239&quot; for mainnet); may be empty.
  */
 public class TonConnectConnectItemAddress public constructor(
     public val network: String,

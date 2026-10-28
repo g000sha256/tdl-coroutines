@@ -23,7 +23,7 @@ import kotlin.Int
 import kotlin.String
 
 /**
- * The parameters of animation search through getOption(&quot;animation_search_bot_username&quot;) bot have changed.
+ * The parameters of animation search through getOption(&quot;animation&#95;search&#95;bot&#95;username&quot;) bot have changed.
  *
  * @property provider Name of the animation search provider.
  * @property emojis The new list of emojis suggested for searching.

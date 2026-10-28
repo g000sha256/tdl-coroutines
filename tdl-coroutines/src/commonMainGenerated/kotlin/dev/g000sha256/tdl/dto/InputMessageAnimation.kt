@@ -25,7 +25,7 @@ import kotlin.String
  * An animation message (GIF-style).
  *
  * @property animation The animation to be sent.
- * @property caption Animation caption; pass null to use an empty caption; 0-getOption(&quot;message_caption_length_max&quot;) characters.
+ * @property caption Animation caption; pass null to use an empty caption; 0-getOption(&quot;message&#95;caption&#95;length&#95;max&quot;) characters.
  * @property showCaptionAboveMedia True, if the caption must be shown above the animation; otherwise, the caption must be shown below the animation; not supported in secret chats.
  * @property hasSpoiler True, if the animation preview must be covered by a spoiler animation; not supported in secret chats.
  */

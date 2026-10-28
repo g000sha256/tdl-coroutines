@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Georgii Ippolitov (g000sha256)
+ * Copyright 2025-2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,7 +24,7 @@ import kotlin.String
 /**
  * Describes parameters of an affiliate program.
  *
- * @property commissionPerMille The number of Telegram Stars received by the affiliate for each 1000 Telegram Stars received by the program owner; getOption(&quot;affiliate_program_commission_per_mille_min&quot;)-getOption(&quot;affiliate_program_commission_per_mille_max&quot;).
+ * @property commissionPerMille The number of Telegram Stars received by the affiliate for each 1000 Telegram Stars received by the program owner; getOption(&quot;affiliate&#95;program&#95;commission&#95;per&#95;mille&#95;min&quot;)-getOption(&quot;affiliate&#95;program&#95;commission&#95;per&#95;mille&#95;max&quot;).
  * @property monthCount Number of months the program will be active; 0-36. If 0, then the program is eternal.
  */
 public class AffiliateProgramParameters public constructor(

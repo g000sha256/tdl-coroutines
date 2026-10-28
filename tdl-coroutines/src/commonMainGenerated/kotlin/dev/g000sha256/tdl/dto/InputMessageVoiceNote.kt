@@ -25,7 +25,7 @@ import kotlin.String
  * A voice note message.
  *
  * @property voiceNote Voice note to be sent.
- * @property caption Voice note caption; pass null to use an empty caption; 0-getOption(&quot;message_caption_length_max&quot;) characters.
+ * @property caption Voice note caption; pass null to use an empty caption; 0-getOption(&quot;message&#95;caption&#95;length&#95;max&quot;) characters.
  * @property selfDestructType Voice note self-destruct type; may be null if none; pass null if none; private chats only.
  */
 public class InputMessageVoiceNote public constructor(

@@ -25,7 +25,7 @@ import kotlin.String
  * Contains a caption of another block.
  *
  * @property text Content of the caption.
- * @property credit Block credit (like HTML tag &lt;cite&gt;); may be null if none.
+ * @property credit Block credit (like HTML tag `<cite>`); may be null if none.
  */
 public class PageBlockCaption public constructor(
     public val text: RichText,
