@@ -324,14 +324,19 @@ public fun main() {
 
     val updateDtoCommonElements = dtoCommonElements.filter { it.returns == "Update" }
 
+    val propertyNames = (dtoCommonElements + functionCommonElements)
+        .flatMap { it.properties }
+        .map { it.name }
+        .toSet()
+
     File(currentPath, "tdl-coroutines/src/commonMainGenerated")
         .deleteRecursively()
 
-    writeClassElements(classElements)
-    writeDtoCommonElements(dtoCommonElements)
+    writeClassElements(classElements, propertyNames)
+    writeDtoCommonElements(dtoCommonElements, propertyNames)
     writeFunctionCommonElements(functionCommonElements)
 
-    writeClientInterface(functionCommonElements, updateDtoCommonElements)
+    writeClientInterface(functionCommonElements, updateDtoCommonElements, propertyNames)
     writeTdlClientImplementation(functionCommonElements, updateDtoCommonElements)
 
     writeDeserializer(dtoCommonElements)
@@ -354,11 +359,11 @@ public fun main() {
 private fun readAndFixText(): String {
     return getFile(path = "td/td/generate/scheme/td_api.tl")
         .readText(charset = Charsets.UTF_8)
+        .replace(oldValue = "\r\n", newValue = "\n")
+        .replace(oldValue = "\r", newValue = "\n")
         .substringAfter(delimiter = "//@")
         .replace(oldValue = "\n//-", newValue = " ")
         .replace(oldValue = " @", newValue = "\n//@")
-        .replace(oldValue = "\n\n\n", newValue = "\n\n")
-        .replace(oldValue = ";\n//@", newValue = ";\n\n//@")
         .let { text -> "//@$text" }
 }
 
@@ -490,7 +495,7 @@ private fun getTdLibVersion(): String {
 //////  //////  //////
 //////  //////  //////
 
-private fun writeClassElements(classElements: List<ClassElement>) {
+private fun writeClassElements(classElements: List<ClassElement>, propertyNames: Set<String>) {
     classElements.forEach { classElement ->
         val className = classElement.name.capitalized
 
@@ -500,7 +505,10 @@ private fun writeClassElements(classElements: List<ClassElement>) {
                 typeSpec = TypeSpec
                     .classBuilder(name = className)
                     .addKdoc(format = "This class is an abstract base class.\n")
-                    .addKdoc(format = classElement.description.withDotIfNeeded)
+                    .addKdoc(
+                        format = "%L",
+                        classElement.description.asKdoc(propertyNames = propertyNames),
+                    )
                     .addModifier(modifier = KModifier.PUBLIC)
                     .addModifier(modifier = KModifier.SEALED)
                     .primaryConstructor(
@@ -517,7 +525,7 @@ private fun writeClassElements(classElements: List<ClassElement>) {
     }
 }
 
-private fun writeDtoCommonElements(dtoCommonElements: List<CommonElement>) {
+private fun writeDtoCommonElements(dtoCommonElements: List<CommonElement>, propertyNames: Set<String>) {
     dtoCommonElements.forEach { commonElement ->
         val className = commonElement.name.capitalized
 
@@ -528,7 +536,10 @@ private fun writeDtoCommonElements(dtoCommonElements: List<CommonElement>) {
             .addType(
                 typeSpec = TypeSpec
                     .classBuilder(name = className)
-                    .addKdoc(format = commonElement.description.text.withDotIfNeeded.withReplacedSnakeCases2.withReplacedSymbols)
+                    .addKdoc(
+                        format = "%L",
+                        commonElement.description.text.asKdoc(propertyNames = propertyNames),
+                    )
                     .apply {
                         val fields = commonElement.description.fields
                         if (fields.size > 0) {
@@ -537,9 +548,12 @@ private fun writeDtoCommonElements(dtoCommonElements: List<CommonElement>) {
                             fields.forEach { field ->
                                 addKdoc(format = "\n")
                                 addKdoc(format = "@property ")
-                                addKdoc(format = field.name.withReplacedSnakeCases1)
+                                addKdoc(format = "%L", field.name.withReplacedSnakeCases1)
                                 addKdoc(format = " ")
-                                addKdoc(format = field.description.withDotIfNeeded.withReplacedSnakeCases2.withReplacedSymbols)
+                                addKdoc(
+                                    format = "%L",
+                                    field.description.asKdoc(propertyNames = propertyNames),
+                                )
                             }
                         }
                     }
@@ -590,7 +604,11 @@ private fun writeDtoCommonElements(dtoCommonElements: List<CommonElement>) {
     }
 }
 
-private fun writeClientInterface(functionCommonElements: List<CommonElement>, updateDtoCommonElements: List<CommonElement>) {
+private fun writeClientInterface(
+    functionCommonElements: List<CommonElement>,
+    updateDtoCommonElements: List<CommonElement>,
+    propertyNames: Set<String>,
+) {
     FileSpec
         .builder(packageName = PACKAGE, fileName = "TdlClient")
         .addType(
@@ -639,7 +657,10 @@ private fun writeClientInterface(functionCommonElements: List<CommonElement>, up
                                     generic = dtoTypeName(simpleName = capitalizedName)
                                 )
                             )
-                            .addKdoc(format = commonElement.description.text.withDotIfNeeded.withReplacedSnakeCases2.withReplacedSymbols)
+                            .addKdoc(
+                                format = "%L",
+                                commonElement.description.text.asKdoc(propertyNames = propertyNames),
+                            )
                             .addModifier(modifier = KModifier.PUBLIC)
                             .addModifier(modifier = KModifier.ABSTRACT)
                             .build()
@@ -656,7 +677,10 @@ private fun writeClientInterface(functionCommonElements: List<CommonElement>, up
 
                         return@map FunSpec
                             .builder(name = functionName)
-                            .addKdoc(format = commonElement.description.text.withDotIfNeeded.withReplacedSnakeCases2.withReplacedSymbols)
+                            .addKdoc(
+                                format = "%L",
+                                commonElement.description.text.asKdoc(propertyNames = propertyNames),
+                            )
                             .apply {
                                 val fields = commonElement.description.fields
                                 if (fields.size > 0) {
@@ -665,9 +689,12 @@ private fun writeClientInterface(functionCommonElements: List<CommonElement>, up
                                     fields.forEach { field ->
                                         addKdoc(format = "\n")
                                         addKdoc(format = "@param ")
-                                        addKdoc(format = field.name.withReplacedSnakeCases1)
+                                        addKdoc(format = "%L", field.name.withReplacedSnakeCases1)
                                         addKdoc(format = " ")
-                                        addKdoc(format = field.description.withDotIfNeeded.withReplacedSnakeCases2.withReplacedSymbols)
+                                        addKdoc(
+                                            format = "%L",
+                                            field.description.asKdoc(propertyNames = propertyNames),
+                                        )
                                     }
                                 }
                             }
@@ -944,12 +971,30 @@ private val String.withDotIfNeeded: String
 
 private val String.withReplacedSymbols: String
     get() {
-        return replace(oldValue = "%", newValue = "%%")
-            .replace(oldValue = "&", newValue = "&amp;")
-            .replace(oldValue = "<", newValue = "&lt;")
-            .replace(oldValue = ">", newValue = "&gt;")
-            .replace(oldValue = "\"", newValue = "&quot;")
+        return """<[^<>\r\n`*]+>|[$&*\[\]"_`~]"""
+            .toRegex()
+            .replace(input = this) { matchResult ->
+                val symbol = matchResult.value
+                when (symbol) {
+                    "$" -> return@replace "&#36;"
+                    "&" -> return@replace "&amp;"
+                    "*" -> return@replace "&#42;"
+                    "[" -> return@replace "&#91;"
+                    "]" -> return@replace "&#93;"
+                    "\"" -> return@replace "&quot;"
+                    "_" -> return@replace "&#95;"
+                    "`" -> return@replace "&#96;"
+                    "~" -> return@replace "&#126;"
+                    else -> return@replace "`$symbol`"
+                }
+            }
     }
+
+private fun String.asKdoc(propertyNames: Set<String>): String {
+    return withDotIfNeeded
+        .withReplacedSnakeCases2(propertyNames = propertyNames)
+        .withReplacedSymbols
+}
 
 private val String.withReplacedSnakeCases1: String
     get() {
@@ -965,12 +1010,17 @@ private val String.withReplacedSnakeCases1: String
             .joinToString(separator = "")
     }
 
-private val String.withReplacedSnakeCases2: String
-    get() {
-        return """(?<=\s|\(|:|\.|\{|;|<)([0-9a-z]+(?:_[0-9a-z]+)+)(?=\s|\)|,|\.|;|=|}|]|&|>|")"""
-            .toRegex()
-            .replace(input = this) { matchResult -> matchResult.value.withReplacedSnakeCases1 }
-    }
+private fun String.withReplacedSnakeCases2(propertyNames: Set<String>): String {
+    return """"(?:\\.|[^"\\])*"|`+[^`]*`+|\b[A-Za-z][\w{}+.-]*:\S+|<[^<>]+>|(?<=\s|\(|:|\.|\{|;|<)([0-9a-z]+(?:_[0-9a-z]+)+)(?=\s|\)|,|\.|;|==|}|]|&|>|")"""
+        .toRegex()
+        .replace(input = this) { matchResult ->
+            if (matchResult.groups[1] == null || matchResult.value !in propertyNames) {
+                return@replace matchResult.value
+            } else {
+                return@replace matchResult.value.withReplacedSnakeCases1
+            }
+        }
+}
 
 private fun FileSpec.Builder.setIndent(): FileSpec.Builder {
     return indent(indent = "    ")

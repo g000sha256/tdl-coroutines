@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Georgii Ippolitov (g000sha256)
+ * Copyright 2025-2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,7 +25,7 @@ import kotlin.String
  * The message will be sent at the specified date.
  *
  * @property sendDate Point in time (Unix timestamp) when the message will be sent. The date must be within 367 days in the future.
- * @property repeatPeriod Period after which the message will be sent again; in seconds; 0 if never; for Telegram Premium users only; may be non-zero only in sendMessage and forwardMessages with one message requests; must be one of 0, 86400, 7 * 86400, 14 * 86400, 30 * 86400, 91 * 86400, 182 * 86400, 365 * 86400, or additionally 60, or 300 in the Test DC.
+ * @property repeatPeriod Period after which the message will be sent again; in seconds; 0 if never; for Telegram Premium users only; may be non-zero only in sendMessage and forwardMessages with one message requests; must be one of 0, 86400, 7 &#42; 86400, 14 &#42; 86400, 30 &#42; 86400, 91 &#42; 86400, 182 &#42; 86400, 365 &#42; 86400, or additionally 60, or 300 in the Test DC.
  */
 public class MessageSchedulingStateSendAtDate public constructor(
     public val sendDate: Int,

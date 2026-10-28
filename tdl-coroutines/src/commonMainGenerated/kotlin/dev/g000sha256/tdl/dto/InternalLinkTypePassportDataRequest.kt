@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Georgii Ippolitov (g000sha256)
+ * Copyright 2025-2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,7 +29,7 @@ import kotlin.String
  * @property scope Telegram Passport element types requested by the service.
  * @property publicKey Service's public key.
  * @property nonce Unique request identifier provided by the service.
- * @property callbackUrl An HTTP URL to open once the request is finished, canceled, or failed with the parameters tgPassport=success, tgPassport=cancel, or tgPassport=error&amp;error=... respectively. If empty, then onActivityResult method must be used to return response on Android, or the link tgbot{botUserId}://passport/success or tgbot{botUserId}://passport/cancel must be opened otherwise.
+ * @property callbackUrl An HTTP URL to open once the request is finished, canceled, or failed with the parameters tg&#95;passport=success, tg&#95;passport=cancel, or tg&#95;passport=error&amp;error=... respectively. If empty, then onActivityResult method must be used to return response on Android, or the link tgbot{bot&#95;user&#95;id}://passport/success or tgbot{bot&#95;user&#95;id}://passport/cancel must be opened otherwise.
  */
 public class InternalLinkTypePassportDataRequest public constructor(
     public val botUserId: Long,

@@ -25,7 +25,7 @@ import kotlin.String
 /**
  * Describes price of a resold gift in TON Grams.
  *
- * @property gramCentCount The amount of 1/100 of Gram expected to be paid for the gift. Must be in the range getOption(&quot;gift_resale_gram_cent_count_min&quot;)-getOption(&quot;gift_resale_gram_cent_count_max&quot;).
+ * @property gramCentCount The amount of 1/100 of Gram expected to be paid for the gift. Must be in the range getOption(&quot;gift&#95;resale&#95;gram&#95;cent&#95;count&#95;min&quot;)-getOption(&quot;gift&#95;resale&#95;gram&#95;cent&#95;count&#95;max&quot;).
  */
 public class GiftResalePriceGram public constructor(
     public val gramCentCount: Long,

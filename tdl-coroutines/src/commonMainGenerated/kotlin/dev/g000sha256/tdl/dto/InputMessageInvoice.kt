@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Georgii Ippolitov (g000sha256)
+ * Copyright 2025-2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -37,7 +37,7 @@ import kotlin.String
  * @property providerData JSON-encoded data about the invoice, which will be shared with the payment provider.
  * @property startParameter Unique invoice bot deep link parameter for the generation of this invoice. If empty, it would be possible to pay directly from forwards of the invoice message.
  * @property paidMedia The content of paid media attached to the invoice; pass null if none.
- * @property paidMediaCaption Paid media caption; pass null to use an empty caption; 0-getOption(&quot;message_caption_length_max&quot;) characters.
+ * @property paidMediaCaption Paid media caption; pass null to use an empty caption; 0-getOption(&quot;message&#95;caption&#95;length&#95;max&quot;) characters.
  */
 public class InputMessageInvoice public constructor(
     public val invoice: Invoice,

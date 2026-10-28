@@ -25,8 +25,8 @@ import kotlin.String
 /**
  * Describes a checklist to be sent.
  *
- * @property title Title of the checklist; 1-getOption(&quot;checklist_title_length_max&quot;) characters. May contain only Bold, Italic, Underline, Strikethrough, Spoiler, CustomEmoji, and DateTime entities.
- * @property tasks List of tasks in the checklist; 1-getOption(&quot;checklist_task_count_max&quot;) tasks.
+ * @property title Title of the checklist; 1-getOption(&quot;checklist&#95;title&#95;length&#95;max&quot;) characters. May contain only Bold, Italic, Underline, Strikethrough, Spoiler, CustomEmoji, and DateTime entities.
+ * @property tasks List of tasks in the checklist; 1-getOption(&quot;checklist&#95;task&#95;count&#95;max&quot;) tasks.
  * @property othersCanAddTasks True, if other users can add tasks to the list.
  * @property othersCanMarkTasksAsDone True, if other users can mark tasks as done or not done.
  */

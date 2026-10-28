@@ -691,7 +691,7 @@ public abstract class TdlClient internal constructor() {
     public abstract val newMessageUpdates: Flow<UpdateNewMessage>
 
     /**
-     * A request to send a message has reached the Telegram server. This doesn't mean that the message will be sent successfully. This update is sent only if the option &quot;use_quick_ack&quot; is set to true. This update may be sent multiple times for the same message.
+     * A request to send a message has reached the Telegram server. This doesn't mean that the message will be sent successfully. This update is sent only if the option &quot;use&#95;quick&#95;ack&quot; is set to true. This update may be sent multiple times for the same message.
      */
     public abstract val messageSendAcknowledgedUpdates: Flow<UpdateMessageSendAcknowledged>
 
@@ -1054,7 +1054,7 @@ public abstract class TdlClient internal constructor() {
     public abstract val chatActionUpdates: Flow<UpdateChatAction>
 
     /**
-     * A new pending text or rich message was received in a chat with a bot. The message must be shown in the chat for at most getOption(&quot;pending_text_message_period&quot;) seconds, replace any other pending message with the same draftId with animation, and be deleted whenever any incoming message or a pending message with another draftId is received in the message thread.
+     * A new pending text or rich message was received in a chat with a bot. The message must be shown in the chat for at most getOption(&quot;pending&#95;text&#95;message&#95;period&quot;) seconds, replace any other pending message with the same draftId with animation, and be deleted whenever any incoming message or a pending message with another draftId is received in the message thread.
      */
     public abstract val pendingMessageUpdates: Flow<UpdatePendingMessage>
 
@@ -1524,7 +1524,7 @@ public abstract class TdlClient internal constructor() {
     public abstract val animatedEmojiMessageClickedUpdates: Flow<UpdateAnimatedEmojiMessageClicked>
 
     /**
-     * The parameters of animation search through getOption(&quot;animation_search_bot_username&quot;) bot have changed.
+     * The parameters of animation search through getOption(&quot;animation&#95;search&#95;bot&#95;username&quot;) bot have changed.
      */
     public abstract val animationSearchParametersUpdates: Flow<UpdateAnimationSearchParameters>
 
@@ -1539,7 +1539,7 @@ public abstract class TdlClient internal constructor() {
     public abstract val suggestedActionsUpdates: Flow<UpdateSuggestedActions>
 
     /**
-     * Download or upload file speed for the user was limited, but it can be restored by subscription to Telegram Premium. The notification can be postponed until a file being downloaded or uploaded is visible to the user. Use getOption(&quot;premium_download_speedup&quot;) or getOption(&quot;premium_upload_speedup&quot;) to get expected speedup after subscription to Telegram Premium.
+     * Download or upload file speed for the user was limited, but it can be restored by subscription to Telegram Premium. The notification can be postponed until a file being downloaded or uploaded is visible to the user. Use getOption(&quot;premium&#95;download&#95;speedup&quot;) or getOption(&quot;premium&#95;upload&#95;speedup&quot;) to get expected speedup after subscription to Telegram Premium.
      */
     public abstract val speedLimitNotificationUpdates: Flow<UpdateSpeedLimitNotification>
 
@@ -1706,12 +1706,12 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun acceptTermsOfService(termsOfServiceId: String): TdlResult<Ok>
 
     /**
-     * Activates stealth mode for stories, which hides all views of stories from the current user in the last &quot;story_stealth_mode_past_period&quot; seconds and for the next &quot;story_stealth_mode_future_period&quot; seconds; for Telegram Premium users only.
+     * Activates stealth mode for stories, which hides all views of stories from the current user in the last &quot;story&#95;stealth&#95;mode&#95;past&#95;period&quot; seconds and for the next &quot;story&#95;stealth&#95;mode&#95;future&#95;period&quot; seconds; for Telegram Premium users only.
      */
     public abstract suspend fun activateStoryStealthMode(): TdlResult<Ok>
 
     /**
-     * Adds a new media preview to the beginning of the list of media previews of a bot. Returns the added preview after addition is completed server-side. The total number of previews must not exceed getOption(&quot;bot_media_preview_count_max&quot;) for the given language.
+     * Adds a new media preview to the beginning of the list of media previews of a bot. Returns the added preview after addition is completed server-side. The total number of previews must not exceed getOption(&quot;bot&#95;media&#95;preview&#95;count&#95;max&quot;) for the given language.
      *
      * @param botUserId Identifier of the target bot. The bot must be owned and must have the main Web App.
      * @param languageCode A two-letter ISO 639-1 language code for which preview is added. If empty, then the preview will be shown to all users for whose languages there are no dedicated previews. If non-empty, then there must be an official language pack of the same name, which is returned by getLocalizationTargetInfo.
@@ -1724,7 +1724,7 @@ public abstract class TdlClient internal constructor() {
     ): TdlResult<BotMediaPreview>
 
     /**
-     * Adds a secondary username to a bot. Can be called only if userTypeBot.canBeEdited, the bot has no secondary username and the current user has Telegram Premium subscription. May return an error with a message &quot;OWNER_USERNAMES_LIMIT_EXCEEDED&quot; if the current user already owns at least getOption(&quot;secondary_bot_username_count_max&quot;) bots with a secondary username.
+     * Adds a secondary username to a bot. Can be called only if userTypeBot.canBeEdited, the bot has no secondary username and the current user has Telegram Premium subscription. May return an error with a message &quot;OWNER&#95;USERNAMES&#95;LIMIT&#95;EXCEEDED&quot; if the current user already owns at least getOption(&quot;secondary&#95;bot&#95;username&#95;count&#95;max&quot;) bots with a secondary username.
      *
      * @param botUserId Identifier of the target bot.
      * @param username The new secondary username; must be non-empty. Use checkBotUsername to check username validness.
@@ -1769,7 +1769,7 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun addChatToList(chatId: Long, chatList: ChatList): TdlResult<Ok>
 
     /**
-     * Adds a message to the list of welcome messages of a chat; requires canSendWelcomeMessages administrator right in the chat. There can be up to getOption(&quot;welcome_message_count_max&quot;) welcome messages in a chat.
+     * Adds a message to the list of welcome messages of a chat; requires canSendWelcomeMessages administrator right in the chat. There can be up to getOption(&quot;welcome&#95;message&#95;count&#95;max&quot;) welcome messages in a chat.
      *
      * @param chatId The identifier of the chat.
      * @param inputMessageContent The content of the message to be sent. Must be one of the following types: inputMessageText, inputMessageAnimation, inputMessageAudio, inputMessageDocument, inputMessagePhoto, inputMessageRichMessage, inputMessageSticker, inputMessageVideo, inputMessageVideoNote, inputMessageVoiceNote, inputMessageLocation, inputMessageVenue, inputMessageContact.
@@ -1836,7 +1836,7 @@ public abstract class TdlClient internal constructor() {
      *
      * @param ownerId Identifier of the user or the channel chat that owns the collection.
      * @param collectionId Identifier of the gift collection.
-     * @param receivedGiftIds Identifier of the gifts to add to the collection; 1-getOption(&quot;gift_collection_size_max&quot;) identifiers. If after addition the collection has more than getOption(&quot;gift_collection_size_max&quot;) gifts, then the last ones are removed from the collection.
+     * @param receivedGiftIds Identifier of the gifts to add to the collection; 1-getOption(&quot;gift&#95;collection&#95;size&#95;max&quot;) identifiers. If after addition the collection has more than getOption(&quot;gift&#95;collection&#95;size&#95;max&quot;) gifts, then the last ones are removed from the collection.
      */
     public abstract suspend fun addGiftCollectionGifts(
         ownerId: MessageSender,
@@ -1918,7 +1918,7 @@ public abstract class TdlClient internal constructor() {
      * Adds pending paid reaction in a live story group call. Can't be used in live stories posted by the current user. Call commitPendingLiveStoryReactions or removePendingLiveStoryReactions to actually send all pending reactions when the undo timer is over or abort the sending.
      *
      * @param groupCallId Group call identifier.
-     * @param starCount Number of Telegram Stars to be used for the reaction. The total number of pending paid reactions must not exceed getOption(&quot;paid_group_call_message_star_count_max&quot;).
+     * @param starCount Number of Telegram Stars to be used for the reaction. The total number of pending paid reactions must not exceed getOption(&quot;paid&#95;group&#95;call&#95;message&#95;star&#95;count&#95;max&quot;).
      */
     public abstract suspend fun addPendingLiveStoryReaction(groupCallId: Int, starCount: Long): TdlResult<Ok>
 
@@ -1927,7 +1927,7 @@ public abstract class TdlClient internal constructor() {
      *
      * @param chatId Identifier of the chat to which the message belongs.
      * @param messageId Identifier of the message.
-     * @param starCount Number of Telegram Stars to be used for the reaction. The total number of pending paid reactions must not exceed getOption(&quot;paid_reaction_star_count_max&quot;).
+     * @param starCount Number of Telegram Stars to be used for the reaction. The total number of pending paid reactions must not exceed getOption(&quot;paid&#95;reaction&#95;star&#95;count&#95;max&quot;).
      * @param type Type of the paid reaction; pass null if the user didn't choose reaction type explicitly, for example, the reaction is set from the message bubble.
      */
     public abstract suspend fun addPendingPaidMessageReaction(
@@ -1971,13 +1971,13 @@ public abstract class TdlClient internal constructor() {
     ): TdlResult<AddedProxy>
 
     /**
-     * Adds a message to a quick reply shortcut via inline bot. If shortcut doesn't exist and there are less than getOption(&quot;quick_reply_shortcut_count_max&quot;) shortcuts, then a new shortcut is created. The shortcut must not contain more than getOption(&quot;quick_reply_shortcut_message_count_max&quot;) messages after adding the new message. Returns the added message.
+     * Adds a message to a quick reply shortcut via inline bot. If shortcut doesn't exist and there are less than getOption(&quot;quick&#95;reply&#95;shortcut&#95;count&#95;max&quot;) shortcuts, then a new shortcut is created. The shortcut must not contain more than getOption(&quot;quick&#95;reply&#95;shortcut&#95;message&#95;count&#95;max&quot;) messages after adding the new message. Returns the added message.
      *
      * @param shortcutName Name of the target shortcut.
      * @param replyToMessageId Identifier of a quick reply message in the same shortcut to be replied; pass 0 if none.
      * @param queryId Identifier of the inline query.
      * @param resultId Identifier of the inline query result.
-     * @param hideViaBot Pass true to hide the bot, via which the message is sent. Can be used only for bots getOption(&quot;animation_search_bot_username&quot;), getOption(&quot;photo_search_bot_username&quot;), and getOption(&quot;venue_search_bot_username&quot;).
+     * @param hideViaBot Pass true to hide the bot, via which the message is sent. Can be used only for bots getOption(&quot;animation&#95;search&#95;bot&#95;username&quot;), getOption(&quot;photo&#95;search&#95;bot&#95;username&quot;), and getOption(&quot;venue&#95;search&#95;bot&#95;username&quot;).
      */
     public abstract suspend fun addQuickReplyShortcutInlineQueryResultMessage(
         shortcutName: String,
@@ -1988,7 +1988,7 @@ public abstract class TdlClient internal constructor() {
     ): TdlResult<QuickReplyMessage>
 
     /**
-     * Adds a message to a quick reply shortcut. If shortcut doesn't exist and there are less than getOption(&quot;quick_reply_shortcut_count_max&quot;) shortcuts, then a new shortcut is created. The shortcut must not contain more than getOption(&quot;quick_reply_shortcut_message_count_max&quot;) messages after adding the new message. Returns the added message.
+     * Adds a message to a quick reply shortcut. If shortcut doesn't exist and there are less than getOption(&quot;quick&#95;reply&#95;shortcut&#95;count&#95;max&quot;) shortcuts, then a new shortcut is created. The shortcut must not contain more than getOption(&quot;quick&#95;reply&#95;shortcut&#95;message&#95;count&#95;max&quot;) messages after adding the new message. Returns the added message.
      *
      * @param shortcutName Name of the target shortcut.
      * @param replyToMessageId Identifier of a quick reply message in the same shortcut to be replied; pass 0 if none.
@@ -2060,7 +2060,7 @@ public abstract class TdlClient internal constructor() {
      *
      * @param chatId Identifier of the chat that owns the stories.
      * @param storyAlbumId Identifier of the story album.
-     * @param storyIds Identifier of the stories to add to the album; 1-getOption(&quot;story_album_size_max&quot;) identifiers. If after addition the album has more than getOption(&quot;story_album_size_max&quot;) stories, then the last ones are removed from the album.
+     * @param storyIds Identifier of the stories to add to the album; 1-getOption(&quot;story&#95;album&#95;size&#95;max&quot;) identifiers. If after addition the album has more than getOption(&quot;story&#95;album&#95;size&#95;max&quot;) stories, then the last ones are removed from the album.
      */
     public abstract suspend fun addStoryAlbumStories(
         chatId: Long,
@@ -2069,7 +2069,7 @@ public abstract class TdlClient internal constructor() {
     ): TdlResult<StoryAlbum>
 
     /**
-     * Adds a custom text composition style to the list of used by the user styles. May return an error with a message &quot;TONES_SAVED_TOO_MANY&quot; if the maximum number of added custom styles getOption(&quot;added_text_composition_style_count_max&quot;) has been reached.
+     * Adds a custom text composition style to the list of used by the user styles. May return an error with a message &quot;TONES&#95;SAVED&#95;TOO&#95;MANY&quot; if the maximum number of added custom styles getOption(&quot;added&#95;text&#95;composition&#95;style&#95;count&#95;max&quot;) has been reached.
      *
      * @param name Name of the style.
      */
@@ -2227,7 +2227,7 @@ public abstract class TdlClient internal constructor() {
      *
      * @param chatId Chat identifier of the channel direct messages chat.
      * @param messageId Identifier of the message with the suggested post. Use messageProperties.canBeApproved to check whether the suggested post can be approved.
-     * @param sendDate Point in time (Unix timestamp) when the post is expected to be published; pass 0 if the date has already been chosen. If specified, then the date must be in the future, but at most getOption(&quot;suggested_post_send_delay_max&quot;) seconds in the future.
+     * @param sendDate Point in time (Unix timestamp) when the post is expected to be published; pass 0 if the date has already been chosen. If specified, then the date must be in the future, but at most getOption(&quot;suggested&#95;post&#95;send&#95;delay&#95;max&quot;) seconds in the future.
      */
     public abstract suspend fun approveSuggestedPost(
         chatId: Long,
@@ -2352,7 +2352,7 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun cancelDownloadFile(fileId: Int, onlyIfPending: Boolean): TdlResult<Ok>
 
     /**
-     * Cancels reset of 2-step verification password. The method can be called if passwordState.pendingResetDate &gt; 0.
+     * Cancels reset of 2-step verification password. The method can be called if passwordState.pendingResetDate > 0.
      */
     public abstract suspend fun cancelPasswordReset(): TdlResult<Ok>
 
@@ -2571,7 +2571,7 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun checkStickerSetName(name: String): TdlResult<CheckStickerSetNameResult>
 
     /**
-     * Returns information about balance of the current user in the bot https://t.me/walt; can be used only if getOption(&quot;can_use_ton_wallet&quot;).
+     * Returns information about balance of the current user in the bot https://t.me/walt; can be used only if getOption(&quot;can&#95;use&#95;ton&#95;wallet&quot;).
      */
     public abstract suspend fun checkWalletBotBalance(): TdlResult<WalletBotBalance>
 
@@ -2748,12 +2748,12 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun commitPendingPaidMessageReactions(chatId: Long, messageId: Long): TdlResult<Ok>
 
     /**
-     * Changes a rich message using an AI model. May return an error with a message &quot;AICOMPOSE_FLOOD_PREMIUM&quot; if Telegram Premium is required to send further requests.
+     * Changes a rich message using an AI model. May return an error with a message &quot;AICOMPOSE&#95;FLOOD&#95;PREMIUM&quot; if Telegram Premium is required to send further requests.
      *
      * @param message The original message.
      * @param translateToLanguageCode Pass a language code to which the text will be translated; pass an empty string if translation isn't needed. See translateText.toLanguageCode for the list of supported values.
      * @param styleName Name of the style of the resulting text; handle updateTextCompositionStyles to get the list of supported styles; pass an empty string to keep the current style of the text or if a custom prompt is used.
-     * @param customPrompt Custom prompt that will be used instead of styleName; 0-getOption(&quot;text_composition_style_prompt_length_max&quot;) characters.
+     * @param customPrompt Custom prompt that will be used instead of styleName; 0-getOption(&quot;text&#95;composition&#95;style&#95;prompt&#95;length&#95;max&quot;) characters.
      * @param addEmojis Pass true to add emoji to the text.
      */
     public abstract suspend fun composeRichMessageWithAi(
@@ -2765,7 +2765,7 @@ public abstract class TdlClient internal constructor() {
     ): TdlResult<RichMessage>
 
     /**
-     * Changes text using an AI model; must not be used in secret chats. May return an error with a message &quot;AICOMPOSE_FLOOD_PREMIUM&quot; if Telegram Premium is required to send further requests.
+     * Changes text using an AI model; must not be used in secret chats. May return an error with a message &quot;AICOMPOSE&#95;FLOOD&#95;PREMIUM&quot; if Telegram Premium is required to send further requests.
      *
      * @param text The original text.
      * @param translateToLanguageCode Pass a language code to which the text will be translated; pass an empty string if translation isn't needed. See translateText.toLanguageCode for the list of supported values.
@@ -2824,7 +2824,7 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun createBasicGroupChat(basicGroupId: Long, force: Boolean): TdlResult<Chat>
 
     /**
-     * Creates a bot which will be managed by another bot. Returns the created bot. May return an error with a message &quot;BOT_CREATE_LIMIT_EXCEEDED&quot; if the user already owns the maximum allowed number of bots as per getOption(&quot;owned_bot_count_max&quot;). An internal link &quot;https://t.me/BotFather?start=deletebot&quot; can be processed to handle the error.
+     * Creates a bot which will be managed by another bot. Returns the created bot. May return an error with a message &quot;BOT&#95;CREATE&#95;LIMIT&#95;EXCEEDED&quot; if the user already owns the maximum allowed number of bots as per getOption(&quot;owned&#95;bot&#95;count&#95;max&quot;). An internal link &quot;https://t.me/BotFather?start=deletebot&quot; can be processed to handle the error.
      *
      * @param managerBotUserId Identifier of the bot that will manage the created bot.
      * @param name Name of the bot; 1-64 characters.
@@ -2839,7 +2839,7 @@ public abstract class TdlClient internal constructor() {
     ): TdlResult<User>
 
     /**
-     * Creates a business chat link for the current account. Requires Telegram Business subscription. There can be up to getOption(&quot;business_chat_link_count_max&quot;) links created. Returns the created link.
+     * Creates a business chat link for the current account. Requires Telegram Business subscription. There can be up to getOption(&quot;business&#95;chat&#95;link&#95;count&#95;max&quot;) links created. Returns the created link.
      *
      * @param linkInfo Information about the link to create.
      */
@@ -2859,7 +2859,7 @@ public abstract class TdlClient internal constructor() {
     ): TdlResult<CallId>
 
     /**
-     * Creates new chat folder. Returns information about the created chat folder. There can be up to getOption(&quot;chat_folder_count_max&quot;) chat folders, but the limit can be increased with Telegram Premium.
+     * Creates new chat folder. Returns information about the created chat folder. There can be up to getOption(&quot;chat&#95;folder&#95;count&#95;max&quot;) chat folders, but the limit can be increased with Telegram Premium.
      *
      * @param folder The new chat folder.
      */
@@ -2937,11 +2937,11 @@ public abstract class TdlClient internal constructor() {
     ): TdlResult<ForumTopicInfo>
 
     /**
-     * Creates a collection from gifts on the current user's or a channel's profile page; requires canPostMessages administrator right in the channel chat. An owner can have up to getOption(&quot;gift_collection_count_max&quot;) gift collections. The new collection will be added to the end of the gift collection list of the owner. Returns the created collection.
+     * Creates a collection from gifts on the current user's or a channel's profile page; requires canPostMessages administrator right in the channel chat. An owner can have up to getOption(&quot;gift&#95;collection&#95;count&#95;max&quot;) gift collections. The new collection will be added to the end of the gift collection list of the owner. Returns the created collection.
      *
      * @param ownerId Identifier of the user or the channel chat that received the gifts.
      * @param name Name of the collection; 1-12 characters.
-     * @param receivedGiftIds Identifier of the gifts to add to the collection; 0-getOption(&quot;gift_collection_size_max&quot;) identifiers.
+     * @param receivedGiftIds Identifier of the gifts to add to the collection; 0-getOption(&quot;gift&#95;collection&#95;size&#95;max&quot;) identifiers.
      */
     public abstract suspend fun createGiftCollection(
         ownerId: MessageSender,
@@ -2969,7 +2969,7 @@ public abstract class TdlClient internal constructor() {
      *
      * @param userIds Identifiers of users to be added to the basic group; may be empty to create a basic group without other members.
      * @param title Title of the new basic group; 1-128 characters.
-     * @param messageAutoDeleteTime Message auto-delete time value, in seconds; must be from 0 up to 365 * 86400 and be divisible by 86400. If 0, then messages aren't deleted automatically.
+     * @param messageAutoDeleteTime Message auto-delete time value, in seconds; must be from 0 up to 365 &#42; 86400 and be divisible by 86400. If 0, then messages aren't deleted automatically.
      */
     public abstract suspend fun createNewBasicGroupChat(
         userIds: LongArray,
@@ -2989,7 +2989,7 @@ public abstract class TdlClient internal constructor() {
      *
      * @param userId Sticker set owner; ignored for regular users.
      * @param title Sticker set title; 1-64 characters.
-     * @param name Sticker set name. Can contain only English letters, digits and underscores. Must end with *&quot;_by_&lt;bot username&gt;&quot;* (*&lt;botUsername&gt;* is case insensitive) for bots; 0-64 characters. If empty, then the name returned by getSuggestedStickerSetName will be used automatically.
+     * @param name Sticker set name. Can contain only English letters, digits and underscores. Must end with &#42;&quot;&#95;by&#95;`<bot username>`&quot;&#42; (&#42;`<bot_username>`&#42; is case insensitive) for bots; 0-64 characters. If empty, then the name returned by getSuggestedStickerSetName will be used automatically.
      * @param stickerType Type of the stickers in the set.
      * @param needsRepainting Pass true if stickers in the sticker set must be repainted; for custom emoji sticker sets only.
      * @param stickers List of stickers to be added to the set; 1-200 stickers for custom emoji sticker sets, and 1-120 stickers otherwise. For TGS stickers, uploadStickerFile must be used before the sticker is shown.
@@ -3013,7 +3013,7 @@ public abstract class TdlClient internal constructor() {
      * @param isChannel Pass true to create a channel chat; ignored if a forum is created.
      * @param description Chat description; 0-255 characters.
      * @param location Chat location if a location-based supergroup is being created; pass null to create an ordinary supergroup chat.
-     * @param messageAutoDeleteTime Message auto-delete time value, in seconds; must be from 0 up to 365 * 86400 and be divisible by 86400. If 0, then messages aren't deleted automatically.
+     * @param messageAutoDeleteTime Message auto-delete time value, in seconds; must be from 0 up to 365 &#42; 86400 and be divisible by 86400. If 0, then messages aren't deleted automatically.
      * @param forImport Pass true to create a supergroup for importing messages using importMessages.
      */
     public abstract suspend fun createNewSupergroupChat(
@@ -3064,9 +3064,9 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun createPrivateChat(userId: Long, force: Boolean): TdlResult<Chat>
 
     /**
-     * Creates a new rich message using an AI model. May return an error with a message &quot;AICOMPOSE_FLOOD_PREMIUM&quot; if Telegram Premium is required to send further requests.
+     * Creates a new rich message using an AI model. May return an error with a message &quot;AICOMPOSE&#95;FLOOD&#95;PREMIUM&quot; if Telegram Premium is required to send further requests.
      *
-     * @param prompt Prompt that will be used to create the message; 0-getOption(&quot;text_composition_style_prompt_length_max&quot;) characters.
+     * @param prompt Prompt that will be used to create the message; 0-getOption(&quot;text&#95;composition&#95;style&#95;prompt&#95;length&#95;max&quot;) characters.
      * @param languageCode Pass a language code in which the text will be created.
      * @param addEmojis Pass true to add emoji to the text.
      */
@@ -3088,7 +3088,7 @@ public abstract class TdlClient internal constructor() {
      *
      * @param storyPosterChatId Identifier of the chat that posted the stories.
      * @param name Name of the album; 1-12 characters.
-     * @param storyIds Identifiers of stories to add to the album; 0-getOption(&quot;story_album_size_max&quot;) identifiers.
+     * @param storyIds Identifiers of stories to add to the album; 0-getOption(&quot;story&#95;album&#95;size&#95;max&quot;) identifiers.
      */
     public abstract suspend fun createStoryAlbum(
         storyPosterChatId: Long,
@@ -3113,11 +3113,11 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun createTemporaryPassword(password: String, validFor: Int): TdlResult<TemporaryPasswordState>
 
     /**
-     * Creates a custom text composition style. May return an error with a message &quot;TONES_SAVED_TOO_MANY&quot; if the maximum number of added custom styles has been reached.
+     * Creates a custom text composition style. May return an error with a message &quot;TONES&#95;SAVED&#95;TOO&#95;MANY&quot; if the maximum number of added custom styles has been reached.
      *
-     * @param title Title of the style; 1-getOption(&quot;text_composition_style_title_length_max&quot;) characters.
+     * @param title Title of the style; 1-getOption(&quot;text&#95;composition&#95;style&#95;title&#95;length&#95;max&quot;) characters.
      * @param customEmojiId Identifier of the custom emoji corresponding to the style.
-     * @param prompt Prompt that will be used for text composition; 1-getOption(&quot;text_composition_style_prompt_length_max&quot;) characters.
+     * @param prompt Prompt that will be used for text composition; 1-getOption(&quot;text&#95;composition&#95;style&#95;prompt&#95;length&#95;max&quot;) characters.
      * @param showCreator Pass true if the current user must be shown as the creator of the style.
      */
     public abstract suspend fun createTextCompositionStyle(
@@ -3128,7 +3128,7 @@ public abstract class TdlClient internal constructor() {
     ): TdlResult<TextCompositionStyle>
 
     /**
-     * Creates a TON Connect session; can be used only if getOption(&quot;can_use_ton_wallet&quot;).
+     * Creates a TON Connect session; can be used only if getOption(&quot;can&#95;use&#95;ton&#95;wallet&quot;).
      *
      * @param dappClientId Hex-encoded public X25519 key of the dApp.
      * @param manifestUrl URL of the manifest of the dApp.
@@ -3136,7 +3136,7 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun createTonConnectSession(dappClientId: String, manifestUrl: String): TdlResult<TonConnectSession>
 
     /**
-     * Creates a TON wallet for the specified regular user; can be used only if getOption(&quot;can_use_ton_wallet&quot;). The current user must have positive TON wallet balance.
+     * Creates a TON wallet for the specified regular user; can be used only if getOption(&quot;can&#95;use&#95;ton&#95;wallet&quot;). The current user must have positive TON wallet balance.
      *
      * @param userId Identifier of the user.
      */
@@ -3638,9 +3638,9 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun deleteTextCompositionStyle(name: String): TdlResult<Ok>
 
     /**
-     * Deletes the current TON wallet of the user and creates a new one; can be used only if getOption(&quot;can_use_ton_wallet&quot;).
+     * Deletes the current TON wallet of the user and creates a new one; can be used only if getOption(&quot;can&#95;use&#95;ton&#95;wallet&quot;).
      *
-     * @param password Password of the current user; pass an empty string unless receive an error with a message &quot;PASSWORD_MISSING&quot; for a passwordless request.
+     * @param password Password of the current user; pass an empty string unless receive an error with a message &quot;PASSWORD&#95;MISSING&quot; for a passwordless request.
      */
     public abstract suspend fun deleteTonWallet(password: String): TdlResult<Ok>
 
@@ -3664,7 +3664,7 @@ public abstract class TdlClient internal constructor() {
     /**
      * Disables backup of the TON wallet of the user. Works only if tonWalletState.isBackupEnabled is true.
      *
-     * @param password Password of the current user; pass an empty string unless receive an error with a message &quot;PASSWORD_MISSING&quot; for a passwordless request.
+     * @param password Password of the current user; pass an empty string unless receive an error with a message &quot;PASSWORD&#95;MISSING&quot; for a passwordless request.
      */
     public abstract suspend fun disableTonWalletBackup(password: String): TdlResult<Ok>
 
@@ -3792,7 +3792,7 @@ public abstract class TdlClient internal constructor() {
      * @param chatId The chat the message belongs to.
      * @param messageId Identifier of the message.
      * @param replyMarkup The new message reply markup; pass null if none.
-     * @param caption New message content caption; pass null to remove caption; 0-getOption(&quot;message_caption_length_max&quot;) characters.
+     * @param caption New message content caption; pass null to remove caption; 0-getOption(&quot;message&#95;caption&#95;length&#95;max&quot;) characters.
      * @param showCaptionAboveMedia Pass true to show the caption above the media; otherwise, the caption will be shown below the media. May be true only for animation, photo, and video messages.
      */
     public abstract suspend fun editBusinessMessageCaption(
@@ -4005,7 +4005,7 @@ public abstract class TdlClient internal constructor() {
      * @param receiverUserId Identifier of the user who received the message.
      * @param ephemeralMessageId Identifier of the ephemeral message.
      * @param replyMarkup The new message reply markup; pass null if none.
-     * @param caption New message content caption; pass null to remove caption; 0-getOption(&quot;message_caption_length_max&quot;) characters.
+     * @param caption New message content caption; pass null to remove caption; 0-getOption(&quot;message&#95;caption&#95;length&#95;max&quot;) characters.
      * @param showCaptionAboveMedia Pass true to show the caption above the media; otherwise, the caption will be shown below the media. May be true only for animation, photo, and video messages.
      */
     public abstract suspend fun editEphemeralMessageCaption(
@@ -4039,7 +4039,7 @@ public abstract class TdlClient internal constructor() {
      *
      * @param inlineMessageId Inline message identifier.
      * @param replyMarkup The new message reply markup; pass null if none.
-     * @param caption New message content caption; pass null to remove caption; 0-getOption(&quot;message_caption_length_max&quot;) characters.
+     * @param caption New message content caption; pass null to remove caption; 0-getOption(&quot;message&#95;caption&#95;length&#95;max&quot;) characters.
      * @param showCaptionAboveMedia Pass true to show the caption above the media; otherwise, the caption will be shown below the media. May be true only for animation, photo, and video messages.
      */
     public abstract suspend fun editInlineMessageCaption(
@@ -4102,7 +4102,7 @@ public abstract class TdlClient internal constructor() {
      * @param chatId The chat the message belongs to.
      * @param messageId Identifier of the message. Use messageProperties.canBeEdited to check whether the message can be edited.
      * @param replyMarkup The new message reply markup; pass null if none; for bots only.
-     * @param caption New message content caption; 0-getOption(&quot;message_caption_length_max&quot;) characters; pass null to remove caption.
+     * @param caption New message content caption; 0-getOption(&quot;message&#95;caption&#95;length&#95;max&quot;) characters; pass null to remove caption.
      * @param showCaptionAboveMedia Pass true to show the caption above the media; otherwise, the caption will be shown below the media. May be true only for animation, photo, and video messages.
      */
     public abstract suspend fun editMessageCaption(
@@ -4269,9 +4269,9 @@ public abstract class TdlClient internal constructor() {
      * Edits a custom text composition style that was created by the current user.
      *
      * @param name Name of the style.
-     * @param title Title of the style; 1-getOption(&quot;text_composition_style_title_length_max&quot;) characters.
+     * @param title Title of the style; 1-getOption(&quot;text&#95;composition&#95;style&#95;title&#95;length&#95;max&quot;) characters.
      * @param customEmojiId Identifier of the custom emoji corresponding to the style.
-     * @param prompt Prompt that will be used for text composition; 1-getOption(&quot;text_composition_style_prompt_length_max&quot;) characters.
+     * @param prompt Prompt that will be used for text composition; 1-getOption(&quot;text&#95;composition&#95;style&#95;prompt&#95;length&#95;max&quot;) characters.
      * @param showCreator Pass true if the current user must be shown as the creator of the style.
      */
     public abstract suspend fun editTextCompositionStyle(
@@ -4355,14 +4355,14 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun finishFileGeneration(generationId: Long, error: Error? = null): TdlResult<Ok>
 
     /**
-     * Fixes a rich message using an AI model. May return an error with a message &quot;AICOMPOSE_FLOOD_PREMIUM&quot; if Telegram Premium is required to send further requests.
+     * Fixes a rich message using an AI model. May return an error with a message &quot;AICOMPOSE&#95;FLOOD&#95;PREMIUM&quot; if Telegram Premium is required to send further requests.
      *
      * @param message The original message.
      */
     public abstract suspend fun fixRichMessageWithAi(message: InputRichMessage): TdlResult<RichMessage>
 
     /**
-     * Fixes text using an AI model; must not be used in secret chats. May return an error with a message &quot;AICOMPOSE_FLOOD_PREMIUM&quot; if Telegram Premium is required to send further requests.
+     * Fixes text using an AI model; must not be used in secret chats. May return an error with a message &quot;AICOMPOSE&#95;FLOOD&#95;PREMIUM&quot; if Telegram Premium is required to send further requests.
      *
      * @param text The original text.
      */
@@ -4400,7 +4400,7 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun getActiveSessions(): TdlResult<Sessions>
 
     /**
-     * Returns information about a TON wallet with the given address; can be used only if getOption(&quot;can_use_ton_wallet&quot;).
+     * Returns information about a TON wallet with the given address; can be used only if getOption(&quot;can&#95;use&#95;ton&#95;wallet&quot;).
      *
      * @param address Address in the TON blockchain.
      */
@@ -4821,7 +4821,7 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun getChatFolderInviteLinks(chatFolderId: Int): TdlResult<ChatFolderInviteLinks>
 
     /**
-     * Returns new chats added to a shareable chat folder by its owner. The method must be called at most once in getOption(&quot;chat_folder_new_chats_update_period&quot;) for the given chat folder.
+     * Returns new chats added to a shareable chat folder by its owner. The method must be called at most once in getOption(&quot;chat&#95;folder&#95;new&#95;chats&#95;update&#95;period&quot;) for the given chat folder.
      *
      * @param chatFolderId Chat folder identifier.
      */
@@ -4936,7 +4936,7 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun getChatMessageByDate(chatId: Long, date: Int): TdlResult<Message>
 
     /**
-     * Returns information about the next messages of the specified type in the chat split by days. Returns the results in reverse chronological order. Can return partial result for the last returned day. Behavior of this method depends on the value of the option &quot;utc_time_offset&quot;.
+     * Returns information about the next messages of the specified type in the chat split by days. Returns the results in reverse chronological order. Can return partial result for the last returned day. Behavior of this method depends on the value of the option &quot;utc&#95;time&#95;offset&quot;.
      *
      * @param chatId Identifier of the chat in which to return information about messages.
      * @param topicId Pass topic identifier to get the result only in specific topic; pass null to get the result in all topics; forum topics and message threads aren't supported.
@@ -5037,7 +5037,7 @@ public abstract class TdlClient internal constructor() {
     ): TdlResult<ChatRevenueTransactions>
 
     /**
-     * Returns a URL for chat revenue withdrawal; requires owner privileges in the channel chat or the bot. Currently, this method can be used only if getOption(&quot;can_withdraw_chat_revenue&quot;) for channels with supergroupFullInfo.canGetRevenueStatistics == true or bots with userFullInfo.botInfo.canGetRevenueStatistics == true.
+     * Returns a URL for chat revenue withdrawal; requires owner privileges in the channel chat or the bot. Currently, this method can be used only if getOption(&quot;can&#95;withdraw&#95;chat&#95;revenue&quot;) for channels with supergroupFullInfo.canGetRevenueStatistics == true or bots with userFullInfo.botInfo.canGetRevenueStatistics == true.
      *
      * @param chatId Chat identifier.
      * @param password The 2-step verification password of the current user.
@@ -5268,7 +5268,7 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun getDatabaseStatistics(): TdlResult<DatabaseStatistics>
 
     /**
-     * Returns information about a tg:// deep link. Use &quot;tg://need_update_for_some_feature&quot; or &quot;tg:someUnsupportedFeature&quot; for testing. Returns a 404 error for unknown links. Can be called before authorization.
+     * Returns information about a tg:// deep link. Use &quot;tg://need&#95;update&#95;for&#95;some&#95;feature&quot; or &quot;tg:some&#95;unsupported&#95;feature&quot; for testing. Returns a 404 error for unknown links. Can be called before authorization.
      *
      * @param link The link.
      */
@@ -5607,7 +5607,7 @@ public abstract class TdlClient internal constructor() {
      *
      * @param groupCallId Group call identifier.
      * @param timeOffset Point in time when the stream segment begins; Unix timestamp in milliseconds.
-     * @param scale Segment duration scale; 0-1. Segment's duration is 1000/(2**scale) milliseconds.
+     * @param scale Segment duration scale; 0-1. Segment's duration is 1000/(2&#42;&#42;scale) milliseconds.
      * @param channelId Identifier of an audio/video channel to get as received from tgcalls.
      * @param videoQuality Video quality as received from tgcalls; pass null to get the worst available quality.
      */
@@ -5653,7 +5653,7 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun getImportedContactCount(): TdlResult<Count>
 
     /**
-     * Returns a list of recently inactive supergroups and channels. Can be used when user reaches limit on the number of joined supergroups and channels and receives the error &quot;CHANNELS_TOO_MUCH&quot;. Also, the limit can be increased with Telegram Premium.
+     * Returns a list of recently inactive supergroups and channels. Can be used when user reaches limit on the number of joined supergroups and channels and receives the error &quot;CHANNELS&#95;TOO&#95;MUCH&quot;. Also, the limit can be increased with Telegram Premium.
      */
     public abstract suspend fun getInactiveSupergroupChats(): TdlResult<Chats>
 
@@ -5826,7 +5826,7 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun getLogTagVerbosityLevel(tag: String): TdlResult<LogVerbosityLevel>
 
     /**
-     * Returns the list of available TDLib internal log tags, for example, [&quot;actor&quot;, &quot;binlog&quot;, &quot;connections&quot;, &quot;notifications&quot;, &quot;proxy&quot;]. Can be called synchronously.
+     * Returns the list of available TDLib internal log tags, for example, &#91;&quot;actor&quot;, &quot;binlog&quot;, &quot;connections&quot;, &quot;notifications&quot;, &quot;proxy&quot;&#93;. Can be called synchronously.
      */
     public abstract suspend fun getLogTags(): TdlResult<LogTags>
 
@@ -6220,7 +6220,7 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun getOnRampProviders(cryptocurrency: String): TdlResult<OnRampProviders>
 
     /**
-     * Returns the value of an option by its name. (Check the list of available options on https://core.telegram.org/tdlib/options.) Can be called before authorization. Can be called synchronously for options &quot;version&quot; and &quot;commit_hash&quot;.
+     * Returns the value of an option by its name. (Check the list of available options on https://core.telegram.org/tdlib/options.) Can be called before authorization. Can be called synchronously for options &quot;version&quot; and &quot;commit&#95;hash&quot;.
      *
      * @param name The name of the option.
      */
@@ -6724,7 +6724,7 @@ public abstract class TdlClient internal constructor() {
      * Returns a URL for Telegram Star withdrawal.
      *
      * @param ownerId Identifier of the owner of the Telegram Stars; can be identifier of the current user, an owned bot, or an owned supergroup or channel chat.
-     * @param starCount The number of Telegram Stars to withdraw; must be between getOption(&quot;star_withdrawal_count_min&quot;) and getOption(&quot;star_withdrawal_count_max&quot;).
+     * @param starCount The number of Telegram Stars to withdraw; must be between getOption(&quot;star&#95;withdrawal&#95;count&#95;min&quot;) and getOption(&quot;star&#95;withdrawal&#95;count&#95;max&quot;).
      * @param password The 2-step verification password of the current user.
      */
     public abstract suspend fun getStarWithdrawalUrl(
@@ -6982,7 +6982,7 @@ public abstract class TdlClient internal constructor() {
      * Returns an example of usage of a custom text composition style.
      *
      * @param name Name of the style.
-     * @param exampleNumber 0-based unique number of the requested example; must be non-negative and less than getOption(&quot;text_composition_style_example_count&quot;).
+     * @param exampleNumber 0-based unique number of the requested example; must be non-negative and less than getOption(&quot;text&#95;composition&#95;style&#95;example&#95;count&quot;).
      */
     public abstract suspend fun getTextCompositionStyleExample(name: String, exampleNumber: Int): TdlResult<TextCompositionStyleExample>
 
@@ -7042,7 +7042,7 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun getTonConnectSessionPendingRequests(sessionId: Long): TdlResult<TonConnectRequests>
 
     /**
-     * Returns active TON Connect sessions; can be used only if getOption(&quot;can_use_ton_wallet&quot;).
+     * Returns active TON Connect sessions; can be used only if getOption(&quot;can&#95;use&#95;ton&#95;wallet&quot;).
      */
     public abstract suspend fun getTonConnectSessions(): TdlResult<TonConnectSessions>
 
@@ -7060,12 +7060,12 @@ public abstract class TdlClient internal constructor() {
     ): TdlResult<TonTransactions>
 
     /**
-     * Returns names of upgraded gift collections whose NFTs can be used as backgroundNftAddress in setTonWalletCardStickers; can be used only if getOption(&quot;can_use_ton_wallet&quot;).
+     * Returns names of upgraded gift collections whose NFTs can be used as backgroundNftAddress in setTonWalletCardStickers; can be used only if getOption(&quot;can&#95;use&#95;ton&#95;wallet&quot;).
      */
     public abstract suspend fun getTonWalletCardBackgroundGiftCollectionNames(): TdlResult<UpgradedGiftCollectionNames>
 
     /**
-     * Returns NFTs stored on the TON wallet of the user; can be used only if getOption(&quot;can_use_ton_wallet&quot;).
+     * Returns NFTs stored on the TON wallet of the user; can be used only if getOption(&quot;can&#95;use&#95;ton&#95;wallet&quot;).
      *
      * @param offset Offset of the first entry to return as received from the previous request; use empty string to get the first chunk of results.
      * @param limit The maximum number of NFTs to be returned; must be positive and can't be greater than 20.
@@ -7073,14 +7073,14 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun getTonWalletNfts(offset: String, limit: Int): TdlResult<TonNfts>
 
     /**
-     * Returns a challenge which may be used to prove ownership of a TON wallet; can be used only if getOption(&quot;can_use_ton_wallet&quot;).
+     * Returns a challenge which may be used to prove ownership of a TON wallet; can be used only if getOption(&quot;can&#95;use&#95;ton&#95;wallet&quot;).
      */
     public abstract suspend fun getTonWalletOwnershipProofChallenge(): TdlResult<TonWalletOwnershipProofChallenge>
 
     /**
      * Returns the secret phrase of the user's TON wallet. Works only if tonWalletState.canExportPhrase is true.
      *
-     * @param password Password of the current user; pass an empty string unless receive an error with a message &quot;PASSWORD_MISSING&quot; for a passwordless request.
+     * @param password Password of the current user; pass an empty string unless receive an error with a message &quot;PASSWORD&#95;MISSING&quot; for a passwordless request.
      */
     public abstract suspend fun getTonWalletSecretPhrase(password: String): TdlResult<TonWalletSecretPhrase>
 
@@ -7099,7 +7099,7 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun getTonWalletTransactionByMsgHash(msgHash: String): TdlResult<TonWalletTransaction>
 
     /**
-     * Returns the list of TON wallet transactions of the current user; can be used only if getOption(&quot;can_use_ton_wallet&quot;).
+     * Returns the list of TON wallet transactions of the current user; can be used only if getOption(&quot;can&#95;use&#95;ton&#95;wallet&quot;).
      *
      * @param direction Direction of the transactions to receive; pass null to get all transactions.
      * @param offset Offset of the first transaction to return as received from the previous request; use empty string to get the first chunk of results.
@@ -7265,7 +7265,7 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun getUserSupportInfo(userId: Long): TdlResult<UserSupportInfo>
 
     /**
-     * Returns TON wallet addresses of the specified users; can be used only if getOption(&quot;can_use_ton_wallet&quot;).
+     * Returns TON wallet addresses of the specified users; can be used only if getOption(&quot;can&#95;use&#95;ton&#95;wallet&quot;).
      *
      * @param userIds Identifiers of the users whose wallet addresses have to be returned. If a user has no TON wallet, it will be skipped in the result.
      */
@@ -7354,7 +7354,7 @@ public abstract class TdlClient internal constructor() {
      * @param userId Identifier of the user who will receive Telegram Premium.
      * @param starCount The number of Telegram Stars to pay for subscription.
      * @param monthCount Number of months the Telegram Premium subscription will be active for the user.
-     * @param text Text to show to the user receiving Telegram Premium; 0-getOption(&quot;gift_text_length_max&quot;) characters. Only Bold, Italic, Underline, Strikethrough, Spoiler, CustomEmoji, and DateTime entities are allowed.
+     * @param text Text to show to the user receiving Telegram Premium; 0-getOption(&quot;gift&#95;text&#95;length&#95;max&quot;) characters. Only Bold, Italic, Underline, Strikethrough, Spoiler, CustomEmoji, and DateTime entities are allowed.
      */
     public abstract suspend fun giftPremiumWithStars(
         userId: Long,
@@ -7404,7 +7404,7 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun increaseGiftAuctionBid(giftId: Long, starCount: Long): TdlResult<Ok>
 
     /**
-     * Invites a user to an active group call; for group calls not bound to a chat only. Sends a service message of the type messageGroupCall. The group call can have at most getOption(&quot;group_call_participant_count_max&quot;) participants.
+     * Invites a user to an active group call; for group calls not bound to a chat only. Sends a service message of the type messageGroupCall. The group call can have at most getOption(&quot;group&#95;call&#95;participant&#95;count&#95;max&quot;) participants.
      *
      * @param groupCallId Group call identifier.
      * @param userId User identifier.
@@ -7576,12 +7576,12 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun loadSavedMessagesTopics(limit: Int): TdlResult<Ok>
 
     /**
-     * Loads or reloads the current state of gasless transfers for the current user; can be used only if getOption(&quot;can_use_ton_wallet&quot;).
+     * Loads or reloads the current state of gasless transfers for the current user; can be used only if getOption(&quot;can&#95;use&#95;ton&#95;wallet&quot;).
      */
     public abstract suspend fun loadTonWalletGaslessTransfersInfo(): TdlResult<Ok>
 
     /**
-     * Loads state of the TON wallet of the current user; can be used only if getOption(&quot;can_use_ton_wallet&quot;).
+     * Loads state of the TON wallet of the current user; can be used only if getOption(&quot;can&#95;use&#95;ton&#95;wallet&quot;).
      */
     public abstract suspend fun loadTonWalletState(): TdlResult<Ok>
 
@@ -7705,7 +7705,7 @@ public abstract class TdlClient internal constructor() {
     /**
      * Parses Markdown entities in a human-friendly format, ignoring markup errors. Can be called synchronously.
      *
-     * @param text The text to parse. For example, &quot;__italic__ ~~strikethrough~~ ||spoiler|| **bold** `code` ```pre``` __[italic__ textUrl](telegram.org) __italic**bold italic__bold**&quot;.
+     * @param text The text to parse. For example, &quot;&#95;&#95;italic&#95;&#95; &#126;&#126;strikethrough&#126;&#126; ||spoiler|| &#42;&#42;bold&#42;&#42; &#96;code&#96; &#96;&#96;&#96;pre&#96;&#96;&#96; &#95;&#95;&#91;italic&#95;&#95; text&#95;url&#93;(telegram.org) &#95;&#95;italic&#42;&#42;bold italic&#95;&#95;bold&#42;&#42;&quot;.
      */
     public abstract suspend fun parseMarkdown(text: FormattedText): TdlResult<FormattedText>
 
@@ -7745,7 +7745,7 @@ public abstract class TdlClient internal constructor() {
      * @param giftId Identifier of the gift to place the bid on.
      * @param starCount The number of Telegram Stars to place in the bid.
      * @param userId Identifier of the user who will receive the gift.
-     * @param text Text to show along with the gift; 0-getOption(&quot;gift_text_length_max&quot;) characters. Only Bold, Italic, Underline, Strikethrough, Spoiler, CustomEmoji, and DateTime entities are allowed. Must be empty if the receiver enabled paid messages.
+     * @param text Text to show along with the gift; 0-getOption(&quot;gift&#95;text&#95;length&#95;max&quot;) characters. Only Bold, Italic, Underline, Strikethrough, Spoiler, CustomEmoji, and DateTime entities are allowed. Must be empty if the receiver enabled paid messages.
      * @param isPrivate Pass true to show gift text and sender only to the gift receiver; otherwise, everyone will be able to see them.
      */
     public abstract suspend fun placeGiftAuctionBid(
@@ -7762,10 +7762,10 @@ public abstract class TdlClient internal constructor() {
      * @param chatId Identifier of the chat that will post the story. Pass Saved Messages chat identifier when posting a story on behalf of the current user.
      * @param content Content of the story.
      * @param areas Clickable rectangle areas to be shown on the story media; pass null if none.
-     * @param caption Story caption; pass null to use an empty caption; 0-getOption(&quot;story_caption_length_max&quot;) characters; can have entities only if getOption(&quot;can_use_text_entities_in_story_caption&quot;).
+     * @param caption Story caption; pass null to use an empty caption; 0-getOption(&quot;story&#95;caption&#95;length&#95;max&quot;) characters; can have entities only if getOption(&quot;can&#95;use&#95;text&#95;entities&#95;in&#95;story&#95;caption&quot;).
      * @param privacySettings The privacy settings for the story; ignored for stories posted on behalf of supergroup and channel chats.
-     * @param albumIds Identifiers of story albums to which the story will be added upon posting. An album can have up to getOption(&quot;story_album_size_max&quot;) stories.
-     * @param activePeriod Period after which the story is moved to archive, in seconds; must be one of 6 * 3600, 12 * 3600, 86400, or 2 * 86400 for Telegram Premium users, and 86400 otherwise.
+     * @param albumIds Identifiers of story albums to which the story will be added upon posting. An album can have up to getOption(&quot;story&#95;album&#95;size&#95;max&quot;) stories.
+     * @param activePeriod Period after which the story is moved to archive, in seconds; must be one of 6 &#42; 3600, 12 &#42; 3600, 86400, or 2 &#42; 86400 for Telegram Premium users, and 86400 otherwise.
      * @param fromStoryFullId Full identifier of the original story, which content was used to create the story; pass null if the story isn't repost of another story.
      * @param isPostedToChatPage Pass true to keep the story accessible after expiration.
      * @param protectContent Pass true if the content of the story must be protected from forwarding and screenshotting.
@@ -7854,7 +7854,7 @@ public abstract class TdlClient internal constructor() {
     /**
      * Handles a push notification. Returns error with code 406 if the push notification is not supported and connection to the server is required to fetch new data. Can be called before authorization.
      *
-     * @param payload JSON-encoded push notification payload with all fields sent by the server, and &quot;google.sentTime&quot; and &quot;google.notification.sound&quot; fields added.
+     * @param payload JSON-encoded push notification payload with all fields sent by the server, and &quot;google.sent&#95;time&quot; and &quot;google.notification.sound&quot; fields added.
      */
     public abstract suspend fun processPushNotification(payload: String): TdlResult<Ok>
 
@@ -8399,9 +8399,9 @@ public abstract class TdlClient internal constructor() {
     ): TdlResult<Ok>
 
     /**
-     * Replaces the current TON wallet with another existing v6r2 wallet or changes private key of the current TON wallet; can be used only if getOption(&quot;can_use_ton_wallet&quot;).
+     * Replaces the current TON wallet with another existing v6r2 wallet or changes private key of the current TON wallet; can be used only if getOption(&quot;can&#95;use&#95;ton&#95;wallet&quot;).
      *
-     * @param password Password of the current user; pass an empty string unless receive an error with a message &quot;PASSWORD_MISSING&quot; for a passwordless request.
+     * @param password Password of the current user; pass an empty string unless receive an error with a message &quot;PASSWORD&#95;MISSING&quot; for a passwordless request.
      * @param anchorPublicKey Original public key of the new TON wallet.
      * @param proof Proof of ownership of the new private key of the TON wallet; use getTonWalletOwnershipProofChallenge to get a challenge for the proof.
      */
@@ -8627,7 +8627,7 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun resetAllNotificationSettings(): TdlResult<Ok>
 
     /**
-     * Resets the login email address. May return an error with a message &quot;TASK_ALREADY_EXISTS&quot; if reset is still pending. Works only when the current authorization state is authorizationStateWaitEmailCode and authorizationState.emailAddressResetState != null.
+     * Resets the login email address. May return an error with a message &quot;TASK&#95;ALREADY&#95;EXISTS&quot; if reset is still pending. Works only when the current authorization state is authorizationStateWaitEmailCode and authorizationState.emailAddressResetState != null.
      */
     public abstract suspend fun resetAuthenticationEmailAddress(): TdlResult<Ok>
 
@@ -9322,11 +9322,11 @@ public abstract class TdlClient internal constructor() {
     ): TdlResult<Message>
 
     /**
-     * Sends a gift to another user or channel chat. May return an error with a message &quot;STARGIFT_USAGE_LIMITED&quot; if the gift was sold out.
+     * Sends a gift to another user or channel chat. May return an error with a message &quot;STARGIFT&#95;USAGE&#95;LIMITED&quot; if the gift was sold out.
      *
      * @param giftId Identifier of the gift to send.
      * @param ownerId Identifier of the user or the channel chat that will receive the gift; limited gifts can't be sent to channel chats.
-     * @param text Text to show along with the gift; 0-getOption(&quot;gift_text_length_max&quot;) characters. Only Bold, Italic, Underline, Strikethrough, Spoiler, CustomEmoji, and DateTime entities are allowed. Must be empty if the receiver enabled paid messages.
+     * @param text Text to show along with the gift; 0-getOption(&quot;gift&#95;text&#95;length&#95;max&quot;) characters. Only Bold, Italic, Underline, Strikethrough, Spoiler, CustomEmoji, and DateTime entities are allowed. Must be empty if the receiver enabled paid messages.
      * @param isPrivate Pass true to show gift text and sender only to the gift receiver; otherwise, everyone will be able to see them.
      * @param payForUpgrade Pass true to additionally pay for the gift upgrade and allow the receiver to upgrade it for free.
      */
@@ -9359,8 +9359,8 @@ public abstract class TdlClient internal constructor() {
      * Sends a message to other participants of a group call. Requires groupCall.canSendMessages right.
      *
      * @param groupCallId Group call identifier.
-     * @param text Text of the message to send; 1-getOption(&quot;group_call_message_text_length_max&quot;) characters for non-live-stories; see updateGroupCallMessageLevels for live story restrictions, which depends on paidMessageStarCount. Can't contain line feeds for live stories. Can contain only Bold, Italic, Underline, Strikethrough, Spoiler, CustomEmoji, and DateTime entities for live stories.
-     * @param paidMessageStarCount The number of Telegram Stars the user agreed to pay to send the message; for live stories only; 0-getOption(&quot;paid_group_call_message_star_count_max&quot;). Must be 0 for messages sent to live stories posted by the current user.
+     * @param text Text of the message to send; 1-getOption(&quot;group&#95;call&#95;message&#95;text&#95;length&#95;max&quot;) characters for non-live-stories; see updateGroupCallMessageLevels for live story restrictions, which depends on paidMessageStarCount. Can't contain line feeds for live stories. Can contain only Bold, Italic, Underline, Strikethrough, Spoiler, CustomEmoji, and DateTime entities for live stories.
+     * @param paidMessageStarCount The number of Telegram Stars the user agreed to pay to send the message; for live stories only; 0-getOption(&quot;paid&#95;group&#95;call&#95;message&#95;star&#95;count&#95;max&quot;). Must be 0 for messages sent to live stories posted by the current user.
      */
     public abstract suspend fun sendGroupCallMessage(
         groupCallId: Int,
@@ -9377,7 +9377,7 @@ public abstract class TdlClient internal constructor() {
      * @param options Options to be used to send the message; pass null to use default options.
      * @param queryId Identifier of the inline query.
      * @param resultId Identifier of the inline query result.
-     * @param hideViaBot Pass true to hide the bot, via which the message is sent. Can be used only for bots getOption(&quot;animation_search_bot_username&quot;), getOption(&quot;photo_search_bot_username&quot;), and getOption(&quot;venue_search_bot_username&quot;).
+     * @param hideViaBot Pass true to hide the bot, via which the message is sent. Can be used only for bots getOption(&quot;animation&#95;search&#95;bot&#95;username&quot;), getOption(&quot;photo&#95;search&#95;bot&#95;username&quot;), and getOption(&quot;venue&#95;search&#95;bot&#95;username&quot;).
      */
     public abstract suspend fun sendInlineQueryResultMessage(
         chatId: Long,
@@ -9510,7 +9510,7 @@ public abstract class TdlClient internal constructor() {
      * @param giftName Name of the upgraded gift to send.
      * @param ownerId Identifier of the user or the channel chat that will receive the gift.
      * @param price The price that the user agreed to pay for the gift.
-     * @param text Text to show along with the gift; 0-getOption(&quot;gift_text_length_max&quot;) characters. Only Bold, Italic, Underline, Strikethrough, Spoiler, CustomEmoji, and DateTime entities are allowed. Must be empty if the receiver enabled paid messages and the price of the gift is less than the price of a paid message to the user.
+     * @param text Text to show along with the gift; 0-getOption(&quot;gift&#95;text&#95;length&#95;max&quot;) characters. Only Bold, Italic, Underline, Strikethrough, Spoiler, CustomEmoji, and DateTime entities are allowed. Must be empty if the receiver enabled paid messages and the price of the gift is less than the price of a paid message to the user.
      * @param isPrivate Pass true to show gift text and sender only to the gift receiver; otherwise, everyone will be able to see them.
      */
     public abstract suspend fun sendResoldGift(
@@ -9585,7 +9585,7 @@ public abstract class TdlClient internal constructor() {
     ): TdlResult<Ok>
 
     /**
-     * Sends a cryptocurrency from the user's TON wallet; can be used only if getOption(&quot;can_use_ton_wallet&quot;).
+     * Sends a cryptocurrency from the user's TON wallet; can be used only if getOption(&quot;can&#95;use&#95;ton&#95;wallet&quot;).
      *
      * @param userId Identifier of the user who will receive the transfer; pass 0 if unknown.
      * @param address Address in the TON blockchain of the transaction peer.
@@ -9593,8 +9593,8 @@ public abstract class TdlClient internal constructor() {
      * @param comment Comment added to the transaction.
      * @param isCommentEncrypted Pass true if the comment is encrypted and must be decrypted using the receiver's or sender's private key.
      * @param sendingId Non-persistent identifier, which will be returned back in messageSendingStatePending object and can be used to match sent messages and corresponding updateNewMessage updates.
-     * @param regularTransferData Serialized data for regular cryptocurrency transfer request. The minimum allowed transfer amount is getOption(&quot;ton_wallet_transfer_amount_min&quot;).
-     * @param gaslessTransferData Serialized data for gasless cryptocurrency transfer request; pass an empty string to force a regular request. The minimum allowed transfer amount for a gasless transfer is getOption(&quot;ton_wallet_gasless_transfer_amount_min&quot;).
+     * @param regularTransferData Serialized data for regular cryptocurrency transfer request. The minimum allowed transfer amount is getOption(&quot;ton&#95;wallet&#95;transfer&#95;amount&#95;min&quot;).
+     * @param gaslessTransferData Serialized data for gasless cryptocurrency transfer request; pass an empty string to force a regular request. The minimum allowed transfer amount for a gasless transfer is getOption(&quot;ton&#95;wallet&#95;gasless&#95;transfer&#95;amount&#95;min&quot;).
      */
     public abstract suspend fun sendTonWalletTransfer(
         userId: Long,
@@ -9659,7 +9659,7 @@ public abstract class TdlClient internal constructor() {
      * Informs TDLib that application or reCAPTCHA verification has been completed. Can be called before authorization.
      *
      * @param verificationId Unique identifier for the verification process as received from updateApplicationVerificationRequired or updateApplicationRecaptchaVerificationRequired.
-     * @param token Play Integrity API token for the Android application, or secret from push notification for the iOS application for application verification, or reCAPTCHA token for reCAPTCHA verifications; pass an empty string to abort verification and receive the error &quot;VERIFICATION_FAILED&quot; for the request.
+     * @param token Play Integrity API token for the Android application, or secret from push notification for the iOS application for application verification, or reCAPTCHA token for reCAPTCHA verifications; pass an empty string to abort verification and receive the error &quot;VERIFICATION&#95;FAILED&quot; for the request.
      */
     public abstract suspend fun setApplicationVerificationToken(verificationId: Long, token: String): TdlResult<Ok>
 
@@ -9721,7 +9721,7 @@ public abstract class TdlClient internal constructor() {
     /**
      * Changes the bio of the current user.
      *
-     * @param bio The new value of the user bio; 0-getOption(&quot;bio_length_max&quot;) characters without line feeds.
+     * @param bio The new value of the user bio; 0-getOption(&quot;bio&#95;length&#95;max&quot;) characters without line feeds.
      */
     public abstract suspend fun setBio(bio: String): TdlResult<Ok>
 
@@ -9791,7 +9791,7 @@ public abstract class TdlClient internal constructor() {
      * Changes the bio of a business account; for bots only.
      *
      * @param businessConnectionId Unique identifier of business connection.
-     * @param bio The new value of the bio; 0-getOption(&quot;bio_length_max&quot;) characters without line feeds.
+     * @param bio The new value of the bio; 0-getOption(&quot;bio&#95;length&#95;max&quot;) characters without line feeds.
      */
     public abstract suspend fun setBusinessAccountBio(businessConnectionId: String, bio: String): TdlResult<Ok>
 
@@ -9969,7 +9969,7 @@ public abstract class TdlClient internal constructor() {
      *
      * @param chatId Identifier of the channel chat.
      * @param isEnabled Pass true if the direct messages group is enabled for the channel chat; pass false otherwise.
-     * @param paidMessageStarCount The new number of Telegram Stars that must be paid for each message that is sent to the direct messages chat unless the sender is an administrator of the channel chat; 0-getOption(&quot;paid_message_star_count_max&quot;). The channel will receive getOption(&quot;paid_message_earnings_per_mille&quot;) Telegram Stars for each 1000 Telegram Stars paid for message sending. Requires supergroupFullInfo.canEnablePaidMessages for positive amounts.
+     * @param paidMessageStarCount The new number of Telegram Stars that must be paid for each message that is sent to the direct messages chat unless the sender is an administrator of the channel chat; 0-getOption(&quot;paid&#95;message&#95;star&#95;count&#95;max&quot;). The channel will receive getOption(&quot;paid&#95;message&#95;earnings&#95;per&#95;mille&quot;) Telegram Stars for each 1000 Telegram Stars paid for message sending. Requires supergroupFullInfo.canEnablePaidMessages for positive amounts.
      */
     public abstract suspend fun setChatDirectMessagesGroup(
         chatId: Long,
@@ -10044,7 +10044,7 @@ public abstract class TdlClient internal constructor() {
      * Changes the message auto-delete or self-destruct (for secret chats) time in a chat. Requires canChangeInfo administrator right in basic groups, supergroups and channels. Message auto-delete time can't be changed in a chat with the current user (Saved Messages) and the chat 777000 (Telegram).
      *
      * @param chatId Chat identifier.
-     * @param messageAutoDeleteTime New time value, in seconds; unless the chat is secret, it must be from 0 up to 365 * 86400 and be divisible by 86400. If 0, then messages aren't deleted automatically.
+     * @param messageAutoDeleteTime New time value, in seconds; unless the chat is secret, it must be from 0 up to 365 &#42; 86400 and be divisible by 86400. If 0, then messages aren't deleted automatically.
      */
     public abstract suspend fun setChatMessageAutoDeleteTime(chatId: Long, messageAutoDeleteTime: Int): TdlResult<Ok>
 
@@ -10068,7 +10068,7 @@ public abstract class TdlClient internal constructor() {
      * Changes the Telegram Star amount that must be paid to send a message to a supergroup chat; requires canRestrictMembers administrator right and supergroupFullInfo.canEnablePaidMessages.
      *
      * @param chatId Identifier of the supergroup chat.
-     * @param paidMessageStarCount The new number of Telegram Stars that must be paid for each message that is sent to the supergroup chat unless the sender is an administrator of the chat; 0-getOption(&quot;paid_message_star_count_max&quot;). The supergroup will receive getOption(&quot;paid_message_earnings_per_mille&quot;) Telegram Stars for each 1000 Telegram Stars paid for message sending.
+     * @param paidMessageStarCount The new number of Telegram Stars that must be paid for each message that is sent to the supergroup chat unless the sender is an administrator of the chat; 0-getOption(&quot;paid&#95;message&#95;star&#95;count&#95;max&quot;). The supergroup will receive getOption(&quot;paid&#95;message&#95;earnings&#95;per&#95;mille&quot;) Telegram Stars for each 1000 Telegram Stars paid for message sending.
      */
     public abstract suspend fun setChatPaidMessageStarCount(chatId: Long, paidMessageStarCount: Long): TdlResult<Ok>
 
@@ -10092,7 +10092,7 @@ public abstract class TdlClient internal constructor() {
      * Changes the list of pinned stories on a chat page; requires canEditStories administrator right in the chat.
      *
      * @param chatId Identifier of the chat that posted the stories.
-     * @param storyIds New list of pinned stories. All stories must be posted to the chat page first. There can be up to getOption(&quot;pinned_story_count_max&quot;) pinned stories on a chat page.
+     * @param storyIds New list of pinned stories. All stories must be posted to the chat page first. There can be up to getOption(&quot;pinned&#95;story&#95;count&#95;max&quot;) pinned stories on a chat page.
      */
     public abstract suspend fun setChatPinnedStories(chatId: Long, storyIds: IntArray): TdlResult<Ok>
 
@@ -10238,7 +10238,7 @@ public abstract class TdlClient internal constructor() {
     /**
      * Changes the default message auto-delete time for new chats.
      *
-     * @param messageAutoDeleteTime New default message auto-delete time; must be from 0 up to 365 * 86400 and be divisible by 86400. If 0, then messages aren't deleted automatically.
+     * @param messageAutoDeleteTime New default message auto-delete time; must be from 0 up to 365 &#42; 86400 and be divisible by 86400. If 0, then messages aren't deleted automatically.
      */
     public abstract suspend fun setDefaultMessageAutoDeleteTime(messageAutoDeleteTime: MessageAutoDeleteTime): TdlResult<Ok>
 
@@ -10331,7 +10331,7 @@ public abstract class TdlClient internal constructor() {
      * Changes resale price of a unique gift owned by the current user.
      *
      * @param receivedGiftId Identifier of the unique gift.
-     * @param price The new price for the unique gift; pass null to disallow gift resale. The current user will receive getOption(&quot;gift_resale_star_earnings_per_mille&quot;) Telegram Stars for each 1000 Telegram Stars paid for the gift if the gift price is in Telegram Stars or getOption(&quot;gift_resale_gram_earnings_per_mille&quot;) TON Grams for each 1000 Grams paid for the gift if the gift price is in Grams.
+     * @param price The new price for the unique gift; pass null to disallow gift resale. The current user will receive getOption(&quot;gift&#95;resale&#95;star&#95;earnings&#95;per&#95;mille&quot;) Telegram Stars for each 1000 Telegram Stars paid for the gift if the gift price is in Telegram Stars or getOption(&quot;gift&#95;resale&#95;gram&#95;earnings&#95;per&#95;mille&quot;) TON Grams for each 1000 Grams paid for the gift if the gift price is in Grams.
      */
     public abstract suspend fun setGiftResalePrice(receivedGiftId: String, price: GiftResalePrice? = null): TdlResult<Ok>
 
@@ -10346,7 +10346,7 @@ public abstract class TdlClient internal constructor() {
      * Changes the minimum number of Telegram Stars that must be paid by general participant for each sent message to a live story call. Requires groupCall.canBeManaged right.
      *
      * @param groupCallId Group call identifier; must be an identifier of a live story call.
-     * @param paidMessageStarCount The new minimum number of Telegram Stars; 0-getOption(&quot;paid_group_call_message_star_count_max&quot;).
+     * @param paidMessageStarCount The new minimum number of Telegram Stars; 0-getOption(&quot;paid&#95;group&#95;call&#95;message&#95;star&#95;count&#95;max&quot;).
      */
     public abstract suspend fun setGroupCallPaidMessageStarCount(groupCallId: Int, paidMessageStarCount: Long): TdlResult<Ok>
 
@@ -10465,7 +10465,7 @@ public abstract class TdlClient internal constructor() {
      *
      * @param chatId The channel chat the message belongs to.
      * @param messageId Identifier of the message.
-     * @param text New text of the fact-check; 0-getOption(&quot;fact_check_length_max&quot;) characters; pass null to remove it. Only Bold, Italic, and TextUrl entities with https://t.me/ links are supported.
+     * @param text New text of the fact-check; 0-getOption(&quot;fact&#95;check&#95;length&#95;max&quot;) characters; pass null to remove it. Only Bold, Italic, and TextUrl entities with https://t.me/ links are supported.
      */
     public abstract suspend fun setMessageFactCheck(
         chatId: Long,
@@ -10501,7 +10501,7 @@ public abstract class TdlClient internal constructor() {
      *
      * @param botUserId Identifier of the owned bot, which will verify the user or the chat.
      * @param verifiedId Identifier of the user or the supergroup or channel chat, which will be verified by the bot.
-     * @param customDescription Custom description of verification reason; 0-getOption(&quot;bot_verification_custom_description_length_max&quot;) characters. Only TextUrl entities are supported. If empty, then &quot;was verified by organization &quot;organization_name&quot;&quot; will be used as description. Can be specified only if the bot is allowed to provide custom description.
+     * @param customDescription Custom description of verification reason; 0-getOption(&quot;bot&#95;verification&#95;custom&#95;description&#95;length&#95;max&quot;) characters. Only TextUrl entities are supported. If empty, then &quot;was verified by organization &quot;organization&#95;name&quot;&quot; will be used as description. Can be specified only if the bot is allowed to provide custom description.
      */
     public abstract suspend fun setMessageSenderBotVerification(
         botUserId: Long,
@@ -10525,7 +10525,7 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun setNetworkType(type: NetworkType? = null): TdlResult<Ok>
 
     /**
-     * Changes privacy settings for new chat creation; can be used only if getOption(&quot;can_set_new_chat_privacy_settings&quot;).
+     * Changes privacy settings for new chat creation; can be used only if getOption(&quot;can&#95;set&#95;new&#95;chat&#95;privacy&#95;settings&quot;).
      *
      * @param settings New settings.
      */
@@ -10553,7 +10553,7 @@ public abstract class TdlClient internal constructor() {
     ): TdlResult<Ok>
 
     /**
-     * Adds an element to the user's Telegram Passport. May return an error with a message &quot;PHONE_VERIFICATION_NEEDED&quot; or &quot;EMAIL_VERIFICATION_NEEDED&quot; if the chosen phone number or the chosen email address must be verified first.
+     * Adds an element to the user's Telegram Passport. May return an error with a message &quot;PHONE&#95;VERIFICATION&#95;NEEDED&quot; or &quot;EMAIL&#95;VERIFICATION&#95;NEEDED&quot; if the chosen phone number or the chosen email address must be verified first.
      *
      * @param element Input Telegram Passport element.
      * @param password The 2-step verification password of the current user.
@@ -10612,7 +10612,7 @@ public abstract class TdlClient internal constructor() {
      * Changes the list of pinned gifts on the current user's or the channel's profile page; requires canPostMessages administrator right in the channel chat.
      *
      * @param ownerId Identifier of the user or the channel chat that received the gifts.
-     * @param receivedGiftIds New list of pinned gifts. All gifts must be upgraded and saved on the profile page first. There can be up to getOption(&quot;pinned_gift_count_max&quot;) pinned gifts.
+     * @param receivedGiftIds New list of pinned gifts. All gifts must be upgraded and saved on the profile page first. There can be up to getOption(&quot;pinned&#95;gift&#95;count&#95;max&quot;) pinned gifts.
      */
     public abstract suspend fun setPinnedGifts(ownerId: MessageSender, receivedGiftIds: Array<String>): TdlResult<Ok>
 
@@ -10889,7 +10889,7 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun setTonConnectSessionWalletClientId(sessionId: Long, walletClientId: String): TdlResult<TonConnectChallenge>
 
     /**
-     * Changes the list of stickers on the TON wallet card of the current user; can be used only if getOption(&quot;can_use_ton_wallet&quot;). The whole list of stickers is replaced. The request can take up to 20 seconds to complete, so it must be called only on explicit user action. Stickers are removed automatically if the corresponding NFT leaves the wallet or the wallet is replaced. Returns the updated card.
+     * Changes the list of stickers on the TON wallet card of the current user; can be used only if getOption(&quot;can&#95;use&#95;ton&#95;wallet&quot;). The whole list of stickers is replaced. The request can take up to 20 seconds to complete, so it must be called only on explicit user action. Stickers are removed automatically if the corresponding NFT leaves the wallet or the wallet is replaced. Returns the updated card.
      *
      * @param stickers The new list of stickers; pass an empty list to remove all stickers. Up to 10 stickers can be added. Each NFT can be used only once.
      * @param backgroundNftAddress Address of the NFT from the new list of stickers, whose colors will be used for the card background; pass an empty string to use the default background. The NFT must correspond to an upgraded gift with canBeTonWalletCardBackground == true.
@@ -10915,7 +10915,7 @@ public abstract class TdlClient internal constructor() {
      * Changes a note of a contact user.
      *
      * @param userId User identifier.
-     * @param note Note to set for the user; 0-getOption(&quot;user_note_text_length_max&quot;) characters. Only Bold, Italic, Underline, Strikethrough, Spoiler, CustomEmoji, and DateTime entities are allowed.
+     * @param note Note to set for the user; 0-getOption(&quot;user&#95;note&#95;text&#95;length&#95;max&quot;) characters. Only Bold, Italic, Underline, Strikethrough, Spoiler, CustomEmoji, and DateTime entities are allowed.
      */
     public abstract suspend fun setUserNote(userId: Long, note: FormattedText): TdlResult<Ok>
 
@@ -11039,7 +11039,7 @@ public abstract class TdlClient internal constructor() {
      * @param protectContent Pass true if the content of the story must be protected from screenshotting.
      * @param isRtmpStream Pass true to create an RTMP stream instead of an ordinary group call.
      * @param enableMessages Pass true to allow viewers of the story to send messages.
-     * @param paidMessageStarCount The minimum number of Telegram Stars that must be paid by viewers for each sent message to the call; 0-getOption(&quot;paid_group_call_message_star_count_max&quot;).
+     * @param paidMessageStarCount The minimum number of Telegram Stars that must be paid by viewers for each sent message to the call; 0-getOption(&quot;paid&#95;group&#95;call&#95;message&#95;star&#95;count&#95;max&quot;).
      */
     public abstract suspend fun startLiveStory(
         chatId: Long,
@@ -11266,7 +11266,7 @@ public abstract class TdlClient internal constructor() {
     ): TdlResult<Ok>
 
     /**
-     * Changes active state for a username of a bot. The editable username can be disabled only if there are other active usernames. May return an error with a message &quot;USERNAMES_ACTIVE_TOO_MUCH&quot; if the maximum number of active usernames has been reached. Can be called only if userTypeBot.canBeEdited == true.
+     * Changes active state for a username of a bot. The editable username can be disabled only if there are other active usernames. May return an error with a message &quot;USERNAMES&#95;ACTIVE&#95;TOO&#95;MUCH&quot; if the maximum number of active usernames has been reached. Can be called only if userTypeBot.canBeEdited == true.
      *
      * @param botUserId Identifier of the target bot.
      * @param username The username to change.
@@ -11326,7 +11326,7 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun toggleChatIsMarkedAsUnread(chatId: Long, isMarkedAsUnread: Boolean): TdlResult<Ok>
 
     /**
-     * Changes the pinned state of a chat. There can be up to getOption(&quot;pinned_chat_count_max&quot;)/getOption(&quot;pinned_archived_chat_count_max&quot;) pinned non-secret chats and the same number of secret chats in the main/archive chat list. The limit can be increased with Telegram Premium.
+     * Changes the pinned state of a chat. There can be up to getOption(&quot;pinned&#95;chat&#95;count&#95;max&quot;)/getOption(&quot;pinned&#95;archived&#95;chat&#95;count&#95;max&quot;) pinned non-secret chats and the same number of secret chats in the main/archive chat list. The limit can be increased with Telegram Premium.
      *
      * @param chatList Chat list in which to change the pinned state of the chat.
      * @param chatId Chat identifier.
@@ -11391,7 +11391,7 @@ public abstract class TdlClient internal constructor() {
     ): TdlResult<Ok>
 
     /**
-     * Changes the pinned state of a topic in a forum supergroup chat or a chat with a bot with topics; requires canManageTopics administrator right in the supergroup. There can be up to getOption(&quot;pinned_forum_topic_count_max&quot;) pinned forum topics.
+     * Changes the pinned state of a topic in a forum supergroup chat or a chat with a bot with topics; requires canManageTopics administrator right in the supergroup. There can be up to getOption(&quot;pinned&#95;forum&#95;topic&#95;count&#95;max&quot;) pinned forum topics.
      *
      * @param chatId Chat identifier.
      * @param forumTopicId Forum topic identifier.
@@ -11485,7 +11485,7 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun toggleHasSponsoredMessagesEnabled(hasSponsoredMessagesEnabled: Boolean): TdlResult<Ok>
 
     /**
-     * Changes the pinned state of a Saved Messages topic. There can be up to getOption(&quot;pinned_saved_messages_topic_count_max&quot;) pinned topics. The limit can be increased with Telegram Premium.
+     * Changes the pinned state of a Saved Messages topic. There can be up to getOption(&quot;pinned&#95;saved&#95;messages&#95;topic&#95;count&#95;max&quot;) pinned topics. The limit can be increased with Telegram Premium.
      *
      * @param savedMessagesTopicId Identifier of Saved Messages topic to pin or unpin.
      * @param isPinned Pass true to pin the topic; pass false to unpin it.
@@ -11618,7 +11618,7 @@ public abstract class TdlClient internal constructor() {
     ): TdlResult<Ok>
 
     /**
-     * Changes active state for a username of a supergroup or channel, requires owner privileges in the supergroup or channel. The editable username can't be disabled. May return an error with a message &quot;USERNAMES_ACTIVE_TOO_MUCH&quot; if the maximum number of active usernames has been reached.
+     * Changes active state for a username of a supergroup or channel, requires owner privileges in the supergroup or channel. The editable username can't be disabled. May return an error with a message &quot;USERNAMES&#95;ACTIVE&#95;TOO&#95;MUCH&quot; if the maximum number of active usernames has been reached.
      *
      * @param supergroupId Identifier of the supergroup or channel.
      * @param username The username to change.
@@ -11631,7 +11631,7 @@ public abstract class TdlClient internal constructor() {
     ): TdlResult<Ok>
 
     /**
-     * Changes active state for a username of the current user. The editable username can't be disabled. May return an error with a message &quot;USERNAMES_ACTIVE_TOO_MUCH&quot; if the maximum number of active usernames has been reached.
+     * Changes active state for a username of the current user. The editable username can't be disabled. May return an error with a message &quot;USERNAMES&#95;ACTIVE&#95;TOO&#95;MUCH&quot; if the maximum number of active usernames has been reached.
      *
      * @param username The username to change.
      * @param isActive Pass true to activate the username; pass false to disable it.
@@ -11790,7 +11790,7 @@ public abstract class TdlClient internal constructor() {
      * @param businessConnectionId Unique identifier of business connection on behalf of which to send the request; for bots only.
      * @param receivedGiftId Identifier of the gift.
      * @param keepOriginalDetails Pass true to keep the original gift text, sender and receiver in the upgraded gift.
-     * @param starCount The Telegram Star amount required to pay for the upgrade. If the gift has prepaidUpgradeStarCount &gt; 0, then pass 0, otherwise, pass gift.upgradeStarCount.
+     * @param starCount The Telegram Star amount required to pay for the upgrade. If the gift has prepaidUpgradeStarCount > 0, then pass 0, otherwise, pass gift.upgradeStarCount.
      */
     public abstract suspend fun upgradeGift(
         businessConnectionId: String,
@@ -11804,7 +11804,7 @@ public abstract class TdlClient internal constructor() {
      *
      * @param userId Sticker file owner; ignored for regular users.
      * @param stickerFormat Sticker format.
-     * @param sticker File to upload; must fit in a 512x512 square. For WEBP stickers the file must be in WEBP or PNG format, which will be converted to WEBP server-side. See https://core.telegram.org/animated_stickers#technical-requirements for technical requirements.
+     * @param sticker File to upload; must fit in a 512x512 square. For WEBP stickers the file must be in WEBP or PNG format, which will be converted to WEBP server-side. See https://core.telegram.org/animated&#95;stickers#technical-requirements for technical requirements.
      */
     public abstract suspend fun uploadStickerFile(
         userId: Long,

@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Georgii Ippolitov (g000sha256)
+ * Copyright 2025-2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,7 +22,7 @@ import kotlin.Int
 import kotlin.String
 
 /**
- * The link can be used to login the current user on another device, but it must be scanned from QR-code using in-app camera. An alert similar to &quot;This code can be used to allow someone to log in to your Telegram account. To confirm Telegram login, please go to Settings &gt; Devices &gt; Scan QR and scan the code&quot; needs to be shown.
+ * The link can be used to login the current user on another device, but it must be scanned from QR-code using in-app camera. An alert similar to &quot;This code can be used to allow someone to log in to your Telegram account. To confirm Telegram login, please go to Settings > Devices > Scan QR and scan the code&quot; needs to be shown.
  */
 public class InternalLinkTypeQrCodeAuthentication public constructor() : InternalLinkType() {
     override fun equals(other: Any?): Boolean {

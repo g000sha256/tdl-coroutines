@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Georgii Ippolitov (g000sha256)
+ * Copyright 2025-2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,9 +29,9 @@ import kotlin.String
  * @property allowMissedCall Pass true if the authentication code may be sent via a missed call to the specified phone number.
  * @property isCurrentPhoneNumber Pass true if the authenticated phone number is used on the current device.
  * @property hasUnknownPhoneNumber Pass true if there is a SIM card in the current device, but it is not possible to check whether phone number matches.
- * @property allowSmsRetrieverApi For official applications only. True, if the application can use Android SMS Retriever API (requires Google Play Services &gt;= 10.2) to automatically receive the authentication code from the SMS. See https://developers.google.com/identity/sms-retriever/ for more details.
+ * @property allowSmsRetrieverApi For official applications only. True, if the application can use Android SMS Retriever API (requires Google Play Services >= 10.2) to automatically receive the authentication code from the SMS. See https://developers.google.com/identity/sms-retriever/ for more details.
  * @property firebaseAuthenticationSettings For official Android and iOS applications only; pass null otherwise. Settings for Firebase Authentication.
- * @property authenticationTokens List of up to 20 authentication tokens, recently received in updateOption(&quot;authentication_token&quot;) in previously logged out sessions; for setAuthenticationPhoneNumber only.
+ * @property authenticationTokens List of up to 20 authentication tokens, recently received in updateOption(&quot;authentication&#95;token&quot;) in previously logged out sessions; for setAuthenticationPhoneNumber only.
  */
 public class PhoneNumberAuthenticationSettings public constructor(
     public val allowFlashCall: Boolean,

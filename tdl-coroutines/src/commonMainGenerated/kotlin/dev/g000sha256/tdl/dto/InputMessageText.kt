@@ -24,7 +24,7 @@ import kotlin.String
 /**
  * A text message.
  *
- * @property text Formatted text to be sent; 0-getOption(&quot;message_text_length_max&quot;) characters. Only Bold, Italic, Underline, Strikethrough, Spoiler, CustomEmoji, BlockQuote, ExpandableBlockQuote, Code, Pre, PreCode, TextUrl, MentionName, and DateTime entities are allowed to be specified manually.
+ * @property text Formatted text to be sent; 0-getOption(&quot;message&#95;text&#95;length&#95;max&quot;) characters. Only Bold, Italic, Underline, Strikethrough, Spoiler, CustomEmoji, BlockQuote, ExpandableBlockQuote, Code, Pre, PreCode, TextUrl, MentionName, and DateTime entities are allowed to be specified manually.
  * @property linkPreviewOptions Options to be used for generation of a link preview; may be null if none; pass null to use default link preview options.
  * @property clearDraft Pass true to delete message draft in the chat.
  */

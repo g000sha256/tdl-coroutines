@@ -25,7 +25,7 @@ import kotlin.String
 /**
  * A sticker to be added to a sticker set.
  *
- * @property sticker File with the sticker; must fit in a 512x512 square. For WEBP stickers the file must be in WEBP or PNG format, which will be converted to WEBP server-side. See https://core.telegram.org/animated_stickers#technical-requirements for technical requirements.
+ * @property sticker File with the sticker; must fit in a 512x512 square. For WEBP stickers the file must be in WEBP or PNG format, which will be converted to WEBP server-side. See https://core.telegram.org/animated&#95;stickers#technical-requirements for technical requirements.
  * @property format Format of the sticker.
  * @property emojis String with 1-20 emoji corresponding to the sticker.
  * @property maskPosition Position where the mask is placed; pass null if not specified.

@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Georgii Ippolitov (g000sha256)
+ * Copyright 2025-2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,7 +24,7 @@ import kotlin.String
 /**
  * Contains settings for automatic moving of chats to and from the Archive chat lists.
  *
- * @property archiveAndMuteNewChatsFromUnknownUsers True, if new chats from non-contacts will be automatically archived and muted. Can be set to true only if the option &quot;can_archive_and_mute_new_chats_from_unknown_users&quot; is true.
+ * @property archiveAndMuteNewChatsFromUnknownUsers True, if new chats from non-contacts will be automatically archived and muted. Can be set to true only if the option &quot;can&#95;archive&#95;and&#95;mute&#95;new&#95;chats&#95;from&#95;unknown&#95;users&quot; is true.
  * @property keepUnmutedChatsArchived True, if unmuted chats will be kept in the Archive chat list when they get a new message.
  * @property keepChatsFromFoldersArchived True, if unmuted chats, that are always included or pinned in a folder, will be kept in the Archive chat list when they get a new message. Ignored if keepUnmutedChatsArchived == true.
  */

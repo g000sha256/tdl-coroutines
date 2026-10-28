@@ -26,7 +26,7 @@ import kotlin.String
  * A stake dice message.
  *
  * @property stateHash Hash of the stake dice state. The state hash can be used only if it was received recently enough. Otherwise, a new state must be requested using getStakeDiceState.
- * @property stakeGramAmount The TON Gram amount that will be staked; in the smallest units of the currency. Must be in the range getOption(&quot;stake_dice_stake_amount_min&quot;)-getOption(&quot;stake_dice_stake_amount_max&quot;).
+ * @property stakeGramAmount The TON Gram amount that will be staked; in the smallest units of the currency. Must be in the range getOption(&quot;stake&#95;dice&#95;stake&#95;amount&#95;min&quot;)-getOption(&quot;stake&#95;dice&#95;stake&#95;amount&#95;max&quot;).
  * @property clearDraft Pass true to delete message draft in the chat.
  */
 public class InputMessageStakeDice public constructor(

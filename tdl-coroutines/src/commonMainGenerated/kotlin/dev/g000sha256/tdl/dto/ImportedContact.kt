@@ -27,7 +27,7 @@ import kotlin.String
  * @property phoneNumber Phone number of the user.
  * @property firstName First name of the user; 1-64 characters.
  * @property lastName Last name of the user; 0-64 characters.
- * @property note Note to add about the user; 0-getOption(&quot;user_note_text_length_max&quot;) characters. Only Bold, Italic, Underline, Strikethrough, Spoiler, CustomEmoji, and DateTime entities are allowed; pass null to keep the current user's note.
+ * @property note Note to add about the user; 0-getOption(&quot;user&#95;note&#95;text&#95;length&#95;max&quot;) characters. Only Bold, Italic, Underline, Strikethrough, Spoiler, CustomEmoji, and DateTime entities are allowed; pass null to keep the current user's note.
  */
 public class ImportedContact public constructor(
     public val phoneNumber: String,

@@ -26,19 +26,19 @@ import kotlin.String
  * A message with a poll. Polls can't be sent to secret chats and channel direct messages chats. Polls can be sent to a private chat only if the chat is a chat with a bot or the Saved Messages chat.
  *
  * @property question Poll question; 1-255 characters (up to 300 characters for bots). Only custom emoji entities are allowed to be added and only by Premium users.
- * @property options List of poll answer options; 1-getOption(&quot;poll_answer_count_max&quot;) options.
- * @property description Poll description; pass null to use an empty description; 0-getOption(&quot;message_caption_length_max&quot;) characters.
+ * @property options List of poll answer options; 1-getOption(&quot;poll&#95;answer&#95;count&#95;max&quot;) options.
+ * @property description Poll description; pass null to use an empty description; 0-getOption(&quot;message&#95;caption&#95;length&#95;max&quot;) characters.
  * @property media Media attached to the poll; pass null if none. Must be one of the following types: inputPollMediaAnimation, inputPollMediaAudio, inputPollMediaDocument, inputPollMediaLocation, inputPollMediaPhoto, inputPollMediaVenue, or inputPollMediaVideo without caption.
  * @property isAnonymous True, if the poll voters are anonymous. Non-anonymous polls can't be sent or forwarded to channels.
  * @property allowsMultipleAnswers True, if multiple answer options can be chosen simultaneously.
  * @property allowsRevoting True, if the poll can be answered multiple times.
  * @property membersOnly True, if only the users that are members of the chat for more than a day will be able to vote; for channel chats only.
- * @property countryCodes The list of two-letter ISO 3166-1 alpha-2 codes of countries, users from which will be able to vote; for channel chats only. If empty, then all users can participate in the poll. There can be up to getOption(&quot;poll_country_count_max&quot;) chosen countries.
+ * @property countryCodes The list of two-letter ISO 3166-1 alpha-2 codes of countries, users from which will be able to vote; for channel chats only. If empty, then all users can participate in the poll. There can be up to getOption(&quot;poll&#95;country&#95;count&#95;max&quot;) chosen countries.
  * @property shuffleOptions True, if poll options must be shown in a fixed random order.
  * @property hideResultsUntilCloses True, if the poll results will appear only after the poll closes.
  * @property type Type of the poll.
- * @property openPeriod Amount of time the poll will be active after creation, in seconds; 0-getOption(&quot;poll_open_period_max&quot;); pass 0 if not specified.
- * @property closeDate Point in time (Unix timestamp) when the poll will automatically be closed; must be 0-getOption(&quot;poll_open_period_max&quot;) seconds in the future; pass 0 if not specified.
+ * @property openPeriod Amount of time the poll will be active after creation, in seconds; 0-getOption(&quot;poll&#95;open&#95;period&#95;max&quot;); pass 0 if not specified.
+ * @property closeDate Point in time (Unix timestamp) when the poll will automatically be closed; must be 0-getOption(&quot;poll&#95;open&#95;period&#95;max&quot;) seconds in the future; pass 0 if not specified.
  * @property isClosed True, if the poll needs to be sent already closed; for bots only.
  */
 public class InputMessagePoll public constructor(

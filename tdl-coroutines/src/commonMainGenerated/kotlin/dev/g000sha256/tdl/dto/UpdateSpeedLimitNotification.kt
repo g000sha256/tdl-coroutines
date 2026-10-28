@@ -22,7 +22,7 @@ import kotlin.Int
 import kotlin.String
 
 /**
- * Download or upload file speed for the user was limited, but it can be restored by subscription to Telegram Premium. The notification can be postponed until a file being downloaded or uploaded is visible to the user. Use getOption(&quot;premium_download_speedup&quot;) or getOption(&quot;premium_upload_speedup&quot;) to get expected speedup after subscription to Telegram Premium.
+ * Download or upload file speed for the user was limited, but it can be restored by subscription to Telegram Premium. The notification can be postponed until a file being downloaded or uploaded is visible to the user. Use getOption(&quot;premium&#95;download&#95;speedup&quot;) or getOption(&quot;premium&#95;upload&#95;speedup&quot;) to get expected speedup after subscription to Telegram Premium.
  *
  * @property isUpload True, if upload speed was limited; false, if download speed was limited.
  */

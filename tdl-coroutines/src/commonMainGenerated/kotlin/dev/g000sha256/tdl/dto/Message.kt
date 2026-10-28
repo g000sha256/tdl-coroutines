@@ -39,12 +39,12 @@ import kotlin.String
  * @property canBeSaved True, if content of the message can be saved locally.
  * @property hasTimestampedMedia True, if media timestamp entities refers to a media in this message as opposed to a media in the replied message.
  * @property isChannelPost True, if the message is a channel post. All messages to channels are channel posts, all other messages are not channel posts.
- * @property isPaidStarSuggestedPost True, if the message is a suggested channel post which was paid in Telegram Stars; a warning must be shown if the message is deleted in less than getOption(&quot;suggested_post_lifetime_min&quot;) seconds after sending.
- * @property isPaidGramSuggestedPost True, if the message is a suggested channel post which was paid in TON Grams; a warning must be shown if the message is deleted in less than getOption(&quot;suggested_post_lifetime_min&quot;) seconds after sending.
+ * @property isPaidStarSuggestedPost True, if the message is a suggested channel post which was paid in Telegram Stars; a warning must be shown if the message is deleted in less than getOption(&quot;suggested&#95;post&#95;lifetime&#95;min&quot;) seconds after sending.
+ * @property isPaidGramSuggestedPost True, if the message is a suggested channel post which was paid in TON Grams; a warning must be shown if the message is deleted in less than getOption(&quot;suggested&#95;post&#95;lifetime&#95;min&quot;) seconds after sending.
  * @property containsUnreadMention True, if the message contains an unread mention for the current user.
  * @property containsUnreadPollVotes True, if the message is a poll message with unread votes.
  * @property date Point in time (Unix timestamp) when the message was sent; 0 for scheduled messages.
- * @property editDate Point in time (Unix timestamp) when the message was last edited; 0 for scheduled messages. If getOption(&quot;show_message_edit_date_by_default&quot;) is true, then the date must be shown along with the message instead of the date when the message was sent.
+ * @property editDate Point in time (Unix timestamp) when the message was last edited; 0 for scheduled messages. If getOption(&quot;show&#95;message&#95;edit&#95;date&#95;by&#95;default&quot;) is true, then the date must be shown along with the message instead of the date when the message was sent.
  * @property forwardInfo Information about the initial message sender; may be null if none or unknown.
  * @property importInfo Information about the initial message for messages created with importMessages; may be null if the message isn't imported.
  * @property interactionInfo Information about interactions with the message; may be null if none.

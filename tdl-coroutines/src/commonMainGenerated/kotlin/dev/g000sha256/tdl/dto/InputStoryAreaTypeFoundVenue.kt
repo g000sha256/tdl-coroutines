@@ -23,7 +23,7 @@ import kotlin.Long
 import kotlin.String
 
 /**
- * An area pointing to a venue found by the bot getOption(&quot;venue_search_bot_username&quot;).
+ * An area pointing to a venue found by the bot getOption(&quot;venue&#95;search&#95;bot&#95;username&quot;).
  *
  * @property queryId Identifier of the inline query, used to find the venue.
  * @property resultId Identifier of the inline query result.

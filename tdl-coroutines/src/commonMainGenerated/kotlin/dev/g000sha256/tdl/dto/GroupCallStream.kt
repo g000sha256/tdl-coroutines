@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Georgii Ippolitov (g000sha256)
+ * Copyright 2025-2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,7 +26,7 @@ import kotlin.String
  * Describes an available stream in a video chat or a live story.
  *
  * @property channelId Identifier of an audio/video channel.
- * @property scale Scale of segment durations in the stream. The duration is 1000/(2**scale) milliseconds.
+ * @property scale Scale of segment durations in the stream. The duration is 1000/(2&#42;&#42;scale) milliseconds.
  * @property timeOffset Point in time when the stream currently ends; Unix timestamp in milliseconds.
  */
 public class GroupCallStream public constructor(

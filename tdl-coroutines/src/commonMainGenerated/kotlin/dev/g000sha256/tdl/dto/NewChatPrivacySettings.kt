@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Georgii Ippolitov (g000sha256)
+ * Copyright 2025-2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,7 +26,7 @@ import kotlin.String
  * Contains privacy settings for chats with non-contacts.
  *
  * @property allowNewChatsFromUnknownUsers True, if non-contacts users are able to write first to the current user. Telegram Premium subscribers are able to write first regardless of this setting.
- * @property incomingPaidMessageStarCount Number of Telegram Stars that must be paid for every incoming private message by non-contacts; 0-getOption(&quot;paid_message_star_count_max&quot;). If positive, then allowNewChatsFromUnknownUsers must be true. The current user will receive getOption(&quot;paid_message_earnings_per_mille&quot;) Telegram Stars for each 1000 Telegram Stars paid for message sending. Can be positive, only if getOption(&quot;can_enable_paid_messages&quot;) is true.
+ * @property incomingPaidMessageStarCount Number of Telegram Stars that must be paid for every incoming private message by non-contacts; 0-getOption(&quot;paid&#95;message&#95;star&#95;count&#95;max&quot;). If positive, then allowNewChatsFromUnknownUsers must be true. The current user will receive getOption(&quot;paid&#95;message&#95;earnings&#95;per&#95;mille&quot;) Telegram Stars for each 1000 Telegram Stars paid for message sending. Can be positive, only if getOption(&quot;can&#95;enable&#95;paid&#95;messages&quot;) is true.
  */
 public class NewChatPrivacySettings public constructor(
     public val allowNewChatsFromUnknownUsers: Boolean,

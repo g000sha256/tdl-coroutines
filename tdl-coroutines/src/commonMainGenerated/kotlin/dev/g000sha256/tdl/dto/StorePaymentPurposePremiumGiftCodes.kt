@@ -30,7 +30,7 @@ import kotlin.String
  * @property currency ISO 4217 currency code of the payment currency.
  * @property amount Paid amount, in the smallest units of the currency.
  * @property userIds Identifiers of the users who can activate the gift codes.
- * @property text Text to show along with the gift codes; 0-getOption(&quot;gift_text_length_max&quot;) characters. Only Bold, Italic, Underline, Strikethrough, Spoiler, CustomEmoji, and DateTime entities are allowed.
+ * @property text Text to show along with the gift codes; 0-getOption(&quot;gift&#95;text&#95;length&#95;max&quot;) characters. Only Bold, Italic, Underline, Strikethrough, Spoiler, CustomEmoji, and DateTime entities are allowed.
  */
 public class StorePaymentPurposePremiumGiftCodes public constructor(
     public val boostedChatId: Long,
