@@ -29,7 +29,7 @@ import kotlinx.serialization.json.long
 
 internal fun JsonObject.getBoolean(key: String): Boolean {
     val value = get(key = key)
-    if (value == null) {
+    if (value == null || value == JsonNull) {
         return false
     }
 
@@ -38,29 +38,31 @@ internal fun JsonObject.getBoolean(key: String): Boolean {
 
 internal fun JsonObject.getBytes(key: String): ByteArray {
     val value = get(key = key)
-    if (value == null) {
+    if (value == null || value == JsonNull) {
         return byteArrayOf()
     }
 
-    return value.jsonPrimitive.content.fromBase64()
+    return Base64.decode(source = value.jsonPrimitive.content)
 }
 
 internal fun JsonObject.getBytesArray(key: String): Array<ByteArray> {
     val value = get(key = key)
-    if (value == null) {
+    if (value == null || value == JsonNull) {
         return emptyArray()
     }
 
     val jsonArray = value.jsonArray
     return Array(size = jsonArray.size) { index ->
         val jsonElement = jsonArray.get(index = index)
-        return@Array jsonElement.jsonPrimitive.content.fromBase64()
+        require(value = jsonElement != JsonNull) { "Required value '$key[$index]' is null" }
+
+        return@Array Base64.decode(source = jsonElement.jsonPrimitive.content)
     }
 }
 
 internal fun JsonObject.getDouble(key: String): Double {
     val value = get(key = key)
-    if (value == null) {
+    if (value == null || value == JsonNull) {
         return 0.0
     }
 
@@ -69,7 +71,7 @@ internal fun JsonObject.getDouble(key: String): Double {
 
 internal fun JsonObject.getInt(key: String): Int {
     val value = get(key = key)
-    if (value == null) {
+    if (value == null || value == JsonNull) {
         return 0
     }
 
@@ -78,20 +80,22 @@ internal fun JsonObject.getInt(key: String): Int {
 
 internal fun JsonObject.getInts(key: String): IntArray {
     val value = get(key = key)
-    if (value == null) {
+    if (value == null || value == JsonNull) {
         return intArrayOf()
     }
 
     val jsonArray = value.jsonArray
     return IntArray(size = jsonArray.size) { index ->
         val jsonElement = jsonArray.get(index = index)
+        require(value = jsonElement != JsonNull) { "Required value '$key[$index]' is null" }
+
         return@IntArray jsonElement.jsonPrimitive.int
     }
 }
 
 internal fun JsonObject.getLong(key: String): Long {
     val value = get(key = key)
-    if (value == null) {
+    if (value == null || value == JsonNull) {
         return 0L
     }
 
@@ -100,25 +104,30 @@ internal fun JsonObject.getLong(key: String): Long {
 
 internal fun JsonObject.getLongs(key: String): LongArray {
     val value = get(key = key)
-    if (value == null) {
+    if (value == null || value == JsonNull) {
         return longArrayOf()
     }
 
     val jsonArray = value.jsonArray
     return LongArray(size = jsonArray.size) { index ->
         val jsonElement = jsonArray.get(index = index)
+        require(value = jsonElement != JsonNull) { "Required value '$key[$index]' is null" }
+
         return@LongArray jsonElement.jsonPrimitive.long
     }
 }
 
 internal fun <T> JsonObject.getObject(key: String, transformer: Transformer<JsonObject, T>): T {
-    val value = getValue(key = key)
+    val value = get(key = key)
+    requireNotNull(value = value) { "Required value '$key' is missing" }
+    require(value = value != JsonNull) { "Required value '$key' is null" }
+
     return transformer.transform(data = value.jsonObject)
 }
 
 internal fun <T> JsonObject.getObjectNullable(key: String, transformer: Transformer<JsonObject, T>): T? {
     val value = get(key = key)
-    if (value == null) {
+    if (value == null || value == JsonNull) {
         return null
     }
 
@@ -127,20 +136,22 @@ internal fun <T> JsonObject.getObjectNullable(key: String, transformer: Transfor
 
 internal inline fun <reified T> JsonObject.getObjects(key: String, transformer: Transformer<JsonObject, T>): Array<T> {
     val value = get(key = key)
-    if (value == null) {
+    if (value == null || value == JsonNull) {
         return emptyArray()
     }
 
     val jsonArray = value.jsonArray
     return Array(size = jsonArray.size) { index ->
         val jsonElement = jsonArray.get(index = index)
+        require(value = jsonElement != JsonNull) { "Required value '$key[$index]' is null" }
+
         return@Array transformer.transform(data = jsonElement.jsonObject)
     }
 }
 
 internal inline fun <reified T> JsonObject.getObjectsNullable(key: String, transformer: Transformer<JsonObject, T>): Array<T?> {
     val value = get(key = key)
-    if (value == null) {
+    if (value == null || value == JsonNull) {
         return emptyArray()
     }
 
@@ -150,6 +161,7 @@ internal inline fun <reified T> JsonObject.getObjectsNullable(key: String, trans
         if (jsonElement == null || jsonElement == JsonNull) {
             return@Array null
         }
+
         return@Array transformer.transform(data = jsonElement.jsonObject)
     }
 }
@@ -159,16 +171,20 @@ internal inline fun <reified T> JsonObject.getObjectsArray(
     transformer: Transformer<JsonObject, T>,
 ): Array<Array<T>> {
     val value = get(key = key)
-    if (value == null) {
+    if (value == null || value == JsonNull) {
         return emptyArray()
     }
 
     val outerJsonArray = value.jsonArray
     return Array(size = outerJsonArray.size) outerArray@{ outerIndex ->
         val jsonElement = outerJsonArray.get(index = outerIndex)
+        require(value = jsonElement != JsonNull) { "Required value '$key[$outerIndex]' is null" }
+
         val innerJsonArray = jsonElement.jsonArray
         return@outerArray Array(size = innerJsonArray.size) innerArray@{ innerIndex ->
             val innerJsonElement = innerJsonArray.get(index = innerIndex)
+            require(value = innerJsonElement != JsonNull) { "Required value '$key[$outerIndex][$innerIndex]' is null" }
+
             return@innerArray transformer.transform(data = innerJsonElement.jsonObject)
         }
     }
@@ -176,7 +192,7 @@ internal inline fun <reified T> JsonObject.getObjectsArray(
 
 internal fun JsonObject.getString(key: String): String {
     val value = get(key = key)
-    if (value == null) {
+    if (value == null || value == JsonNull) {
         return ""
     }
 
@@ -185,17 +201,15 @@ internal fun JsonObject.getString(key: String): String {
 
 internal fun JsonObject.getStrings(key: String): Array<String> {
     val value = get(key = key)
-    if (value == null) {
+    if (value == null || value == JsonNull) {
         return emptyArray()
     }
 
     val jsonArray = value.jsonArray
     return Array(size = jsonArray.size) { index ->
         val jsonElement = jsonArray.get(index = index)
+        require(value = jsonElement != JsonNull) { "Required value '$key[$index]' is null" }
+
         return@Array jsonElement.jsonPrimitive.content
     }
-}
-
-private fun String.fromBase64(): ByteArray {
-    return Base64.decode(source = this)
 }
