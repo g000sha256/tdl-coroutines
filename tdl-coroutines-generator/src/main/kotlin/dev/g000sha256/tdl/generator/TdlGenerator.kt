@@ -122,6 +122,10 @@ private fun buildEqualsFunSpec(className: String, properties: List<Property>): F
                                     addStatement(format = "val %LEquals = other.%L.contentEquals(%L)", name, name, name)
                                     beginControlFlow(controlFlow = "if (!%LEquals)", name)
                                 }
+                                type == DOUBLE -> {
+                                    addStatement(format = "val %LEquals = other.%L.compareTo(other = %L) == 0", name, name, name)
+                                    beginControlFlow(controlFlow = "if (!%LEquals)", name)
+                                }
                                 else -> {
                                     beginControlFlow(controlFlow = "if (other.%L != %L)", name, name)
                                 }
@@ -135,6 +139,9 @@ private fun buildEqualsFunSpec(className: String, properties: List<Property>): F
                                 }
                                 type.isPrimitiveArray -> {
                                     addStatement(format = "return other.%L.contentEquals(%L)", name, name)
+                                }
+                                type == DOUBLE -> {
+                                    addStatement(format = "return other.%L.compareTo(other = %L) == 0", name, name)
                                 }
                                 else -> {
                                     addStatement(format = "return other.%L == %L", name, name)

@@ -56,7 +56,7 @@ public class ChatRevenueStatistics public constructor(
         if (other.revenueAmount != revenueAmount) {
             return false
         }
-        return other.usdRate == usdRate
+        return other.usdRate.compareTo(other = usdRate) == 0
     }
 
     override fun hashCode(): Int {

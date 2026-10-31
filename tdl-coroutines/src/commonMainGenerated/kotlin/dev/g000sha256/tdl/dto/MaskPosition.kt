@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Georgii Ippolitov (g000sha256)
+ * Copyright 2025-2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -50,13 +50,15 @@ public class MaskPosition public constructor(
         if (other.point != point) {
             return false
         }
-        if (other.xShift != xShift) {
+        val xShiftEquals = other.xShift.compareTo(other = xShift) == 0
+        if (!xShiftEquals) {
             return false
         }
-        if (other.yShift != yShift) {
+        val yShiftEquals = other.yShift.compareTo(other = yShift) == 0
+        if (!yShiftEquals) {
             return false
         }
-        return other.scale == scale
+        return other.scale.compareTo(other = scale) == 0
     }
 
     override fun hashCode(): Int {

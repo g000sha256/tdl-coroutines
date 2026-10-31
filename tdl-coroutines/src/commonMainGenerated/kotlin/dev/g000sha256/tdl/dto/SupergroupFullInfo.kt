@@ -157,7 +157,8 @@ public class SupergroupFullInfo public constructor(
         if (other.slowModeDelay != slowModeDelay) {
             return false
         }
-        if (other.slowModeDelayExpiresIn != slowModeDelayExpiresIn) {
+        val slowModeDelayExpiresInEquals = other.slowModeDelayExpiresIn.compareTo(other = slowModeDelayExpiresIn) == 0
+        if (!slowModeDelayExpiresInEquals) {
             return false
         }
         if (other.canEnablePaidMessages != canEnablePaidMessages) {

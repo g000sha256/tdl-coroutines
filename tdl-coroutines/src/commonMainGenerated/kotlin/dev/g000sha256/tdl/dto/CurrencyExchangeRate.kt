@@ -46,7 +46,7 @@ public class CurrencyExchangeRate public constructor(
         if (other.currency != currency) {
             return false
         }
-        return other.rate == rate
+        return other.rate.compareTo(other = rate) == 0
     }
 
     override fun hashCode(): Int {

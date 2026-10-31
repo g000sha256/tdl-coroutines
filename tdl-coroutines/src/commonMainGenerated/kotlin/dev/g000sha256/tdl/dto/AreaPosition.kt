@@ -51,22 +51,27 @@ public class AreaPosition public constructor(
             return false
         }
         other as AreaPosition
-        if (other.xPercentage != xPercentage) {
+        val xPercentageEquals = other.xPercentage.compareTo(other = xPercentage) == 0
+        if (!xPercentageEquals) {
             return false
         }
-        if (other.yPercentage != yPercentage) {
+        val yPercentageEquals = other.yPercentage.compareTo(other = yPercentage) == 0
+        if (!yPercentageEquals) {
             return false
         }
-        if (other.widthPercentage != widthPercentage) {
+        val widthPercentageEquals = other.widthPercentage.compareTo(other = widthPercentage) == 0
+        if (!widthPercentageEquals) {
             return false
         }
-        if (other.heightPercentage != heightPercentage) {
+        val heightPercentageEquals = other.heightPercentage.compareTo(other = heightPercentage) == 0
+        if (!heightPercentageEquals) {
             return false
         }
-        if (other.rotationAngle != rotationAngle) {
+        val rotationAngleEquals = other.rotationAngle.compareTo(other = rotationAngle) == 0
+        if (!rotationAngleEquals) {
             return false
         }
-        return other.cornerRadiusPercentage == cornerRadiusPercentage
+        return other.cornerRadiusPercentage.compareTo(other = cornerRadiusPercentage) == 0
     }
 
     override fun hashCode(): Int {

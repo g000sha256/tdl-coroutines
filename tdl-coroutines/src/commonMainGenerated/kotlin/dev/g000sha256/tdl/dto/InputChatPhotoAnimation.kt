@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Georgii Ippolitov (g000sha256)
+ * Copyright 2025-2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -46,7 +46,7 @@ public class InputChatPhotoAnimation public constructor(
         if (other.animation != animation) {
             return false
         }
-        return other.mainFrameTimestamp == mainFrameTimestamp
+        return other.mainFrameTimestamp.compareTo(other = mainFrameTimestamp) == 0
     }
 
     override fun hashCode(): Int {

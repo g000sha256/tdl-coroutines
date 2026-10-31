@@ -213,10 +213,12 @@ public class Message public constructor(
         if (other.selfDestructType != selfDestructType) {
             return false
         }
-        if (other.selfDestructIn != selfDestructIn) {
+        val selfDestructInEquals = other.selfDestructIn.compareTo(other = selfDestructIn) == 0
+        if (!selfDestructInEquals) {
             return false
         }
-        if (other.autoDeleteIn != autoDeleteIn) {
+        val autoDeleteInEquals = other.autoDeleteIn.compareTo(other = autoDeleteIn) == 0
+        if (!autoDeleteInEquals) {
             return false
         }
         if (other.viaBotUserId != viaBotUserId) {
