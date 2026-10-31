@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Georgii Ippolitov (g000sha256)
+ * Copyright 2025-2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -45,13 +45,15 @@ public class Location public constructor(
             return false
         }
         other as Location
-        if (other.latitude != latitude) {
+        val latitudeEquals = other.latitude.compareTo(other = latitude) == 0
+        if (!latitudeEquals) {
             return false
         }
-        if (other.longitude != longitude) {
+        val longitudeEquals = other.longitude.compareTo(other = longitude) == 0
+        if (!longitudeEquals) {
             return false
         }
-        return other.horizontalAccuracy == horizontalAccuracy
+        return other.horizontalAccuracy.compareTo(other = horizontalAccuracy) == 0
     }
 
     override fun hashCode(): Int {

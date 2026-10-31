@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Georgii Ippolitov (g000sha256)
+ * Copyright 2025-2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -57,10 +57,12 @@ public class InputStoryContentVideo public constructor(
         if (!addedStickerFileIdsEquals) {
             return false
         }
-        if (other.duration != duration) {
+        val durationEquals = other.duration.compareTo(other = duration) == 0
+        if (!durationEquals) {
             return false
         }
-        if (other.coverFrameTimestamp != coverFrameTimestamp) {
+        val coverFrameTimestampEquals = other.coverFrameTimestamp.compareTo(other = coverFrameTimestamp) == 0
+        if (!coverFrameTimestampEquals) {
             return false
         }
         return other.isAnimation == isAnimation

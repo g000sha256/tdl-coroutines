@@ -51,7 +51,7 @@ public class GramRevenueStatistics public constructor(
         if (other.status != status) {
             return false
         }
-        return other.usdRate == usdRate
+        return other.usdRate.compareTo(other = usdRate) == 0
     }
 
     override fun hashCode(): Int {
