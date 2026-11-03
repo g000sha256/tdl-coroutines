@@ -76,6 +76,10 @@ kotlin {
         configureCompilations(platform = "ios/x64Simulator")
     }
 
+    linuxArm64 {
+        configureCompilations(platform = "linux/arm64")
+    }
+
     linuxX64 {
         configureCompilations(platform = "linux/x64")
     }
@@ -120,6 +124,10 @@ kotlin {
 
         @Suppress("unused")
         val iosX64SimulatorMain by getting {
+            configureNativeKotlin()
+        }
+
+        linuxArm64Main {
             configureNativeKotlin()
         }
 
