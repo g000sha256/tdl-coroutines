@@ -35,6 +35,8 @@ jobs:
             :tdl-coroutines:iosX64SimulatorCinterop-mainKlib \
             :tdl-coroutines:iosX64SimulatorKlib \
             :tdl-coroutines:jvmJar \
+            :tdl-coroutines:linuxArm64Cinterop-mainKlib \
+            :tdl-coroutines:linuxArm64Klib \
             :tdl-coroutines:linuxX64Cinterop-mainKlib \
             :tdl-coroutines:linuxX64Klib \
             :tdl-coroutines:macosArm64Cinterop-mainKlib \

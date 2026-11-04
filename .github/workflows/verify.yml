@@ -85,8 +85,24 @@ jobs:
         run: ${{ matrix.gradle }} :example:verification:app:jvm:run
 
   verify-linux:
-    name: Verify Linux x64
+    name: ${{ matrix.name }}
     runs-on: ubuntu-22.04
+
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - arch: ARM64
+            name: Build Linux ARM64 verification executable
+            target: linuxArm64
+            task: linkReleaseExecutableLinuxArm64
+            cross-compile: true
+
+          - arch: x64
+            name: Verify Linux x64
+            target: linuxX64
+            task: linkReleaseExecutableLinuxX64
+            cross-compile: false
 
     steps:
       - name: Checkout
@@ -97,8 +113,39 @@ jobs:
       - name: Set up Java
         uses: ./.github/actions/set-up-java
 
+      - name: Build verification executable
+        run: ./gradlew ":example:verification:app:linux:${{ matrix.task }}"
+
+      - name: Verify on build host
+        if: ${{ !matrix.cross-compile }}
+        run: ./example/verification/app/linux/build/bin/"${{ matrix.target }}"/releaseExecutable/*.kexe
+
+      - name: Upload verification executable
+        if: matrix.cross-compile
+        uses: actions/upload-artifact@v7
+        with:
+          name: linux-arm64-verification
+          path: example/verification/app/linux/build/bin/${{ matrix.target }}/releaseExecutable/*.kexe
+          if-no-files-found: error
+          retention-days: 1
+
+  verify-linux-arm64:
+    name: Verify Linux ARM64
+    if: ${{ !cancelled() && needs.verify-linux.result != 'skipped' }}
+    needs: verify-linux
+    runs-on: ubuntu-22.04-arm
+
+    steps:
+      - name: Download verification executable
+        uses: actions/download-artifact@v8
+        with:
+          name: linux-arm64-verification
+          path: verification
+
       - name: Verify
-        run: ./gradlew :example:verification:app:linux:runReleaseExecutableLinuxX64
+        run: |
+          chmod +x verification/*.kexe
+          verification/*.kexe
 
   verify-macos:
     name: Verify macOS ${{ matrix.arch }}
