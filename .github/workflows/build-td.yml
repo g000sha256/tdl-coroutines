@@ -177,13 +177,22 @@ jobs:
       - name: Run generator
         run: ./gradlew :tdl-coroutines-generator:run
 
+      - name: Copy JSON client header
+        run: |
+          mkdir -p tdl-coroutines/cinterop/include
+          cp td/td/telegram/td_json_client.h tdl-coroutines/cinterop/include/
+
       - name: Dump API
         run: ./gradlew :tdl-coroutines:updateKotlinAbi
 
       - name: Prepare generated API patch
         if: github.event_name == 'workflow_dispatch' && inputs.commit == false
         run: |
-          git add --all -- README.md tdl-coroutines/src/commonMainGenerated tdl-coroutines/api
+          git add --all -- \
+            README.md \
+            tdl-coroutines/api \
+            tdl-coroutines/cinterop/include \
+            tdl-coroutines/src/commonMainGenerated
           git diff --cached --binary --full-index > generated-api.patch
 
       - name: Upload generated API patch
@@ -908,7 +917,6 @@ jobs:
           rm -rf "$DEST"
           mkdir -p "$DEST/include/td/telegram" "$DEST/libs"
 
-          cp "$RUNNER_TEMP/tdlib-linux-$TDL_LINUX_ARCH/include/td/telegram/td_json_client.h" "$DEST/include/td/telegram/"
           cp "$RUNNER_TEMP/tdlib-linux-$TDL_LINUX_ARCH/include/td/telegram/tdjson_export.h" "$DEST/include/td/telegram/"
 
           cp "$RUNNER_TEMP/tdlib-linux-$TDL_LINUX_ARCH/lib/"*.a "$DEST/libs/"
@@ -1081,7 +1089,6 @@ jobs:
           mkdir -p "$DEST/include/td/telegram"
           mkdir -p "$DEST/libs"
           
-          cp td/tdlib/include/td/telegram/td_json_client.h "$DEST/include/td/telegram/"
           cp td/tdlib/include/td/telegram/tdjson_export.h "$DEST/include/td/telegram/"
           find td/tdlib/lib/ -name "*.a" ! -name "libtdjson.dll.a" -exec cp {} "$DEST/libs/" \;
           cp /mingw64/lib/libssl.a "$DEST/libs/"
@@ -1160,7 +1167,6 @@ jobs:
           rm -rf tdl-coroutines/generated/ios/arm64
           mkdir -p tdl-coroutines/generated/ios/arm64/include/td/telegram
           mkdir -p tdl-coroutines/generated/ios/arm64/libs
-          cp td/example/ios/build/install-iOS/include/td/telegram/td_json_client.h tdl-coroutines/generated/ios/arm64/include/td/telegram
           cp td/example/ios/build/install-iOS/include/td/telegram/tdjson_export.h tdl-coroutines/generated/ios/arm64/include/td/telegram
           cp td/example/ios/build/install-iOS/lib/*.a tdl-coroutines/generated/ios/arm64/libs
           cp td/example/ios/third_party/openssl/iOS/lib/*.a tdl-coroutines/generated/ios/arm64/libs
@@ -1229,7 +1235,6 @@ jobs:
           rm -rf tdl-coroutines/generated/ios/arm64Simulator
           mkdir -p tdl-coroutines/generated/ios/arm64Simulator/include/td/telegram
           mkdir -p tdl-coroutines/generated/ios/arm64Simulator/libs
-          cp td/example/ios/build/install-iOS-simulator/include/td/telegram/td_json_client.h tdl-coroutines/generated/ios/arm64Simulator/include/td/telegram
           cp td/example/ios/build/install-iOS-simulator/include/td/telegram/tdjson_export.h tdl-coroutines/generated/ios/arm64Simulator/include/td/telegram
           cp td/example/ios/build/install-iOS-simulator/lib/*.a tdl-coroutines/generated/ios/arm64Simulator/libs
           cp td/example/ios/third_party/openssl/iOS-simulator/lib/*.a tdl-coroutines/generated/ios/arm64Simulator/libs
@@ -1304,7 +1309,6 @@ jobs:
           rm -rf tdl-coroutines/generated/ios/x64Simulator
           mkdir -p tdl-coroutines/generated/ios/x64Simulator/include/td/telegram
           mkdir -p tdl-coroutines/generated/ios/x64Simulator/libs
-          cp td/example/ios/build/install-iOS-simulator/include/td/telegram/td_json_client.h tdl-coroutines/generated/ios/x64Simulator/include/td/telegram
           cp td/example/ios/build/install-iOS-simulator/include/td/telegram/tdjson_export.h tdl-coroutines/generated/ios/x64Simulator/include/td/telegram
           cp td/example/ios/build/install-iOS-simulator/lib/*.a tdl-coroutines/generated/ios/x64Simulator/libs
           cp td/example/ios/third_party/openssl/iOS-simulator/lib/*.a tdl-coroutines/generated/ios/x64Simulator/libs
@@ -1373,7 +1377,6 @@ jobs:
           rm -rf tdl-coroutines/generated/macos/arm64
           mkdir -p tdl-coroutines/generated/macos/arm64/include/td/telegram
           mkdir -p tdl-coroutines/generated/macos/arm64/libs
-          cp td/example/ios/build/install-macOS/include/td/telegram/td_json_client.h tdl-coroutines/generated/macos/arm64/include/td/telegram
           cp td/example/ios/build/install-macOS/include/td/telegram/tdjson_export.h tdl-coroutines/generated/macos/arm64/include/td/telegram
           cp td/example/ios/build/install-macOS/lib/*.a tdl-coroutines/generated/macos/arm64/libs
           cp td/example/ios/third_party/openssl/macOS/lib/*.a tdl-coroutines/generated/macos/arm64/libs
@@ -1443,7 +1446,6 @@ jobs:
           rm -rf tdl-coroutines/generated/macos/x64
           mkdir -p tdl-coroutines/generated/macos/x64/include/td/telegram
           mkdir -p tdl-coroutines/generated/macos/x64/libs
-          cp td/example/ios/build/install-macOS/include/td/telegram/td_json_client.h tdl-coroutines/generated/macos/x64/include/td/telegram
           cp td/example/ios/build/install-macOS/include/td/telegram/tdjson_export.h tdl-coroutines/generated/macos/x64/include/td/telegram
           cp td/example/ios/build/install-macOS/lib/*.a tdl-coroutines/generated/macos/x64/libs
           cp td/example/ios/third_party/openssl/macOS/lib/*.a tdl-coroutines/generated/macos/x64/libs

@@ -251,7 +251,7 @@ private fun KotlinOnlyTarget<KotlinNativeCompilation>.configureCompilations(plat
                 val configName = platform.extractConfigName()
                 definitionFile = file("cinterop/$configName")
 
-                includeDirs("generated/$platform/include")
+                includeDirs("cinterop/include", "generated/$platform/include")
 
                 val libsFile = file("generated/$platform/libs")
                 extraOpts("-libraryPath", libsFile.absolutePath)
