@@ -115,6 +115,7 @@ env:
   TDL_CHECKOUT_REF: ${{ github.event_name == 'workflow_dispatch' && inputs.commit == false && github.sha || github.ref_name }}
   TDL_IOS_DEPLOYMENT_TARGET: '15.0'
   TDL_MACOS_DEPLOYMENT_TARGET: '12.0'
+  TDL_ZLIB_VERSION: 'v1.3.1'
 
 jobs:
   validate-inputs:
@@ -140,7 +141,7 @@ jobs:
         inputs.build-windows-x64
       )
     runs-on: ubuntu-22.04
-    permissions: {}
+    permissions: { }
 
     steps:
       - name: Report empty selection
@@ -811,7 +812,7 @@ jobs:
         uses: actions/checkout@v7
         with:
           repository: madler/zlib
-          ref: v1.3.1
+          ref: ${{ env.TDL_ZLIB_VERSION }}
           path: native-dependencies/zlib
 
       - name: Clean submodule
@@ -1136,6 +1137,13 @@ jobs:
         if: github.event_name == 'workflow_dispatch' && inputs.commit == false && inputs.run-generator
         uses: ./.github/actions/apply-generated-api
 
+      - name: Checkout zlib
+        uses: actions/checkout@v7
+        with:
+          repository: madler/zlib
+          ref: ${{ env.TDL_ZLIB_VERSION }}
+          path: native-dependencies/zlib
+
       - name: Clean submodule
         run: |
           cd td
@@ -1152,6 +1160,12 @@ jobs:
           cd td/example/ios
           ./build-openssl.sh
 
+      - name: Build zlib
+        run: |
+          bash .github/scripts/build-zlib-apple.sh \
+            native-dependencies/zlib "$RUNNER_TEMP/zlib-ios-arm64" \
+            iphoneos arm64 "$TDL_IOS_DEPLOYMENT_TARGET"
+
       - name: Build TDLib
         run: |
           cd td
@@ -1160,7 +1174,9 @@ jobs:
           cmake -DTD_GENERATE_SOURCE_FILES=ON ..
           cmake --build .
           cd ../example/ios
-          ./build.sh
+          ./build.sh \
+            "-DZLIB_INCLUDE_DIR=$RUNNER_TEMP/zlib-ios-arm64/install/include" \
+            "-DZLIB_LIBRARY=$RUNNER_TEMP/zlib-ios-arm64/install/lib/libz.a"
 
       - name: Copy files
         run: |
@@ -1170,6 +1186,7 @@ jobs:
           cp td/example/ios/build/install-iOS/include/td/telegram/tdjson_export.h tdl-coroutines/generated/ios/arm64/include/td/telegram
           cp td/example/ios/build/install-iOS/lib/*.a tdl-coroutines/generated/ios/arm64/libs
           cp td/example/ios/third_party/openssl/iOS/lib/*.a tdl-coroutines/generated/ios/arm64/libs
+          cp "$RUNNER_TEMP/zlib-ios-arm64/install/lib/libz.a" tdl-coroutines/generated/ios/arm64/libs
 
       - name: SHA256 checksums
         run: shasum -a 256 tdl-coroutines/generated/ios/arm64/libs/*.a
@@ -1204,6 +1221,13 @@ jobs:
         if: github.event_name == 'workflow_dispatch' && inputs.commit == false && inputs.run-generator
         uses: ./.github/actions/apply-generated-api
 
+      - name: Checkout zlib
+        uses: actions/checkout@v7
+        with:
+          repository: madler/zlib
+          ref: ${{ env.TDL_ZLIB_VERSION }}
+          path: native-dependencies/zlib
+
       - name: Clean submodule
         run: |
           cd td
@@ -1220,6 +1244,12 @@ jobs:
           cd td/example/ios
           ./build-openssl.sh
 
+      - name: Build zlib
+        run: |
+          bash .github/scripts/build-zlib-apple.sh \
+            native-dependencies/zlib "$RUNNER_TEMP/zlib-ios-arm64Simulator" \
+            iphonesimulator arm64 "$TDL_IOS_DEPLOYMENT_TARGET"
+
       - name: Build TDLib
         run: |
           cd td
@@ -1228,7 +1258,9 @@ jobs:
           cmake -DTD_GENERATE_SOURCE_FILES=ON ..
           cmake --build .
           cd ../example/ios
-          ./build.sh
+          ./build.sh \
+            "-DZLIB_INCLUDE_DIR=$RUNNER_TEMP/zlib-ios-arm64Simulator/install/include" \
+            "-DZLIB_LIBRARY=$RUNNER_TEMP/zlib-ios-arm64Simulator/install/lib/libz.a"
 
       - name: Copy files
         run: |
@@ -1238,6 +1270,7 @@ jobs:
           cp td/example/ios/build/install-iOS-simulator/include/td/telegram/tdjson_export.h tdl-coroutines/generated/ios/arm64Simulator/include/td/telegram
           cp td/example/ios/build/install-iOS-simulator/lib/*.a tdl-coroutines/generated/ios/arm64Simulator/libs
           cp td/example/ios/third_party/openssl/iOS-simulator/lib/*.a tdl-coroutines/generated/ios/arm64Simulator/libs
+          cp "$RUNNER_TEMP/zlib-ios-arm64Simulator/install/lib/libz.a" tdl-coroutines/generated/ios/arm64Simulator/libs
 
       - name: SHA256 checksums
         run: shasum -a 256 tdl-coroutines/generated/ios/arm64Simulator/libs/*.a
@@ -1278,6 +1311,13 @@ jobs:
         if: github.event_name == 'workflow_dispatch' && inputs.commit == false && inputs.run-generator
         uses: ./.github/actions/apply-generated-api
 
+      - name: Checkout zlib
+        uses: actions/checkout@v7
+        with:
+          repository: madler/zlib
+          ref: ${{ env.TDL_ZLIB_VERSION }}
+          path: native-dependencies/zlib
+
       - name: Clean submodule
         run: |
           cd td
@@ -1294,6 +1334,12 @@ jobs:
           cd td/example/ios
           ./build-openssl.sh
 
+      - name: Build zlib
+        run: |
+          bash .github/scripts/build-zlib-apple.sh \
+            native-dependencies/zlib "$RUNNER_TEMP/zlib-ios-x64Simulator" \
+            iphonesimulator x86_64 "$TDL_IOS_DEPLOYMENT_TARGET"
+
       - name: Build TDLib
         run: |
           cd td
@@ -1302,7 +1348,9 @@ jobs:
           cmake -DTD_GENERATE_SOURCE_FILES=ON ..
           cmake --build .
           cd ../example/ios
-          ./build.sh
+          ./build.sh \
+            "-DZLIB_INCLUDE_DIR=$RUNNER_TEMP/zlib-ios-x64Simulator/install/include" \
+            "-DZLIB_LIBRARY=$RUNNER_TEMP/zlib-ios-x64Simulator/install/lib/libz.a"
 
       - name: Copy files
         run: |
@@ -1312,6 +1360,7 @@ jobs:
           cp td/example/ios/build/install-iOS-simulator/include/td/telegram/tdjson_export.h tdl-coroutines/generated/ios/x64Simulator/include/td/telegram
           cp td/example/ios/build/install-iOS-simulator/lib/*.a tdl-coroutines/generated/ios/x64Simulator/libs
           cp td/example/ios/third_party/openssl/iOS-simulator/lib/*.a tdl-coroutines/generated/ios/x64Simulator/libs
+          cp "$RUNNER_TEMP/zlib-ios-x64Simulator/install/lib/libz.a" tdl-coroutines/generated/ios/x64Simulator/libs
 
       - name: SHA256 checksums
         run: shasum -a 256 tdl-coroutines/generated/ios/x64Simulator/libs/*.a
@@ -1346,6 +1395,13 @@ jobs:
         if: github.event_name == 'workflow_dispatch' && inputs.commit == false && inputs.run-generator
         uses: ./.github/actions/apply-generated-api
 
+      - name: Checkout zlib
+        uses: actions/checkout@v7
+        with:
+          repository: madler/zlib
+          ref: ${{ env.TDL_ZLIB_VERSION }}
+          path: native-dependencies/zlib
+
       - name: Clean submodule
         run: |
           cd td
@@ -1362,6 +1418,12 @@ jobs:
           cd td/example/ios
           ./build-openssl.sh
 
+      - name: Build zlib
+        run: |
+          bash .github/scripts/build-zlib-apple.sh \
+            native-dependencies/zlib "$RUNNER_TEMP/zlib-macos-arm64" \
+            macosx arm64 "$TDL_MACOS_DEPLOYMENT_TARGET"
+
       - name: Build TDLib
         run: |
           cd td
@@ -1370,7 +1432,9 @@ jobs:
           cmake -DTD_GENERATE_SOURCE_FILES=ON ..
           cmake --build .
           cd ../example/ios
-          ./build.sh
+          ./build.sh \
+            "-DZLIB_INCLUDE_DIR=$RUNNER_TEMP/zlib-macos-arm64/install/include" \
+            "-DZLIB_LIBRARY=$RUNNER_TEMP/zlib-macos-arm64/install/lib/libz.a"
 
       - name: Copy files
         run: |
@@ -1380,6 +1444,7 @@ jobs:
           cp td/example/ios/build/install-macOS/include/td/telegram/tdjson_export.h tdl-coroutines/generated/macos/arm64/include/td/telegram
           cp td/example/ios/build/install-macOS/lib/*.a tdl-coroutines/generated/macos/arm64/libs
           cp td/example/ios/third_party/openssl/macOS/lib/*.a tdl-coroutines/generated/macos/arm64/libs
+          cp "$RUNNER_TEMP/zlib-macos-arm64/install/lib/libz.a" tdl-coroutines/generated/macos/arm64/libs
 
       - name: SHA256 checksums
         run: shasum -a 256 tdl-coroutines/generated/macos/arm64/libs/*.a
@@ -1420,6 +1485,13 @@ jobs:
         if: github.event_name == 'workflow_dispatch' && inputs.commit == false && inputs.run-generator
         uses: ./.github/actions/apply-generated-api
 
+      - name: Checkout zlib
+        uses: actions/checkout@v7
+        with:
+          repository: madler/zlib
+          ref: ${{ env.TDL_ZLIB_VERSION }}
+          path: native-dependencies/zlib
+
       - name: Set up dependencies
         run: brew install gperf cmake coreutils
 
@@ -1431,6 +1503,12 @@ jobs:
           cd td/example/ios
           ./build-openssl.sh
 
+      - name: Build zlib
+        run: |
+          bash .github/scripts/build-zlib-apple.sh \
+            native-dependencies/zlib "$RUNNER_TEMP/zlib-macos-x64" \
+            macosx x86_64 "$TDL_MACOS_DEPLOYMENT_TARGET"
+
       - name: Build TDLib
         run: |
           cd td
@@ -1439,7 +1517,9 @@ jobs:
           cmake -DTD_GENERATE_SOURCE_FILES=ON ..
           cmake --build .
           cd ../example/ios
-          ./build.sh
+          ./build.sh \
+            "-DZLIB_INCLUDE_DIR=$RUNNER_TEMP/zlib-macos-x64/install/include" \
+            "-DZLIB_LIBRARY=$RUNNER_TEMP/zlib-macos-x64/install/lib/libz.a"
 
       - name: Copy files
         run: |
@@ -1449,6 +1529,7 @@ jobs:
           cp td/example/ios/build/install-macOS/include/td/telegram/tdjson_export.h tdl-coroutines/generated/macos/x64/include/td/telegram
           cp td/example/ios/build/install-macOS/lib/*.a tdl-coroutines/generated/macos/x64/libs
           cp td/example/ios/third_party/openssl/macOS/lib/*.a tdl-coroutines/generated/macos/x64/libs
+          cp "$RUNNER_TEMP/zlib-macos-x64/install/lib/libz.a" tdl-coroutines/generated/macos/x64/libs
 
       - name: SHA256 checksums
         run: shasum -a 256 tdl-coroutines/generated/macos/x64/libs/*.a
