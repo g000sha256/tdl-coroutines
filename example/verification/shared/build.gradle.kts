@@ -42,6 +42,11 @@ kotlin {
 
     mingwX64()
 
+    watchosArm64()
+    watchosDeviceArm64()
+    watchosSimulatorArm64()
+    watchosX64()
+
     sourceSets {
         commonMain {
             dependencies {
