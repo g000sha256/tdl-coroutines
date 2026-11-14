@@ -177,6 +177,22 @@ jobs:
       - name: Verify
         run: bash ./gradlew ":example:verification:app:macos:${{ matrix.task }}"
 
+  verify-watchos:
+    name: Verify watchOS Simulator ARM64
+    runs-on: self-hosted
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+        with:
+          lfs: true
+
+      - name: Set up Java
+        uses: ./.github/actions/set-up-java
+
+      - name: Verify
+        run: ./gradlew :example:verification:app:watchos:watchosSimulatorArm64Test
+
   verify-windows:
     name: Verify Windows x64
     runs-on: windows-2025
@@ -204,6 +220,7 @@ jobs:
       - verify-linux
       - verify-linux-arm64
       - verify-macos
+      - verify-watchos
       - verify-windows
 
     steps:
@@ -235,7 +252,15 @@ jobs:
             :tdl-coroutines:macosX64Cinterop-mainKlib \
             :tdl-coroutines:macosX64Klib \
             :tdl-coroutines:mingwX64Cinterop-mainKlib \
-            :tdl-coroutines:mingwX64Klib
+            :tdl-coroutines:mingwX64Klib \
+            :tdl-coroutines:watchosArm64Cinterop-mainKlib \
+            :tdl-coroutines:watchosArm64Klib \
+            :tdl-coroutines:watchosDeviceArm64Cinterop-mainKlib \
+            :tdl-coroutines:watchosDeviceArm64Klib \
+            :tdl-coroutines:watchosSimulatorArm64Cinterop-mainKlib \
+            :tdl-coroutines:watchosSimulatorArm64Klib \
+            :tdl-coroutines:watchosX64Cinterop-mainKlib \
+            :tdl-coroutines:watchosX64Klib
 
       - name: Assemble examples
         run: |

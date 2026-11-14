@@ -105,6 +105,30 @@ on:
         type: boolean
         default: false
 
+      build-watchos-arm64:
+        description: 'Build watchOS ARM64'
+        required: false
+        type: boolean
+        default: false
+
+      build-watchos-arm64-32:
+        description: 'Build watchOS ARM64_32'
+        required: false
+        type: boolean
+        default: false
+
+      build-watchos-arm64-simulator:
+        description: 'Build watchOS ARM64 Simulator'
+        required: false
+        type: boolean
+        default: false
+
+      build-watchos-x64-simulator:
+        description: 'Build watchOS x64 Simulator'
+        required: false
+        type: boolean
+        default: false
+
       build-windows-x64:
         description: 'Build Windows x64'
         required: false
@@ -115,6 +139,8 @@ env:
   TDL_CHECKOUT_REF: ${{ github.event_name == 'workflow_dispatch' && inputs.commit == false && github.sha || github.ref_name }}
   TDL_IOS_DEPLOYMENT_TARGET: '15.0'
   TDL_MACOS_DEPLOYMENT_TARGET: '12.0'
+  TDL_WATCHOS_DEPLOYMENT_TARGET: '8.0'
+  TDL_WATCHOS_DEPLOYMENT_TARGET_ARM: '26.0'
   TDL_ZLIB_VERSION: 'v1.3.1'
 
 jobs:
@@ -138,6 +164,10 @@ jobs:
         inputs.build-linux-x64 ||
         inputs.build-macos-arm64 ||
         inputs.build-macos-x64 ||
+        inputs.build-watchos-arm64 ||
+        inputs.build-watchos-arm64-32 ||
+        inputs.build-watchos-arm64-simulator ||
+        inputs.build-watchos-x64-simulator ||
         inputs.build-windows-x64
       )
     runs-on: ubuntu-22.04
@@ -1545,4 +1575,346 @@ jobs:
         uses: ./.github/actions/commit-and-push
         with:
           message: TDLib for macOS x64
+          add: tdl-coroutines
+
+  build-watchos-arm64:
+    name: Build watchOS ARM64
+    if: >-
+      !cancelled() &&
+      (needs.run-generator.result == 'success' || needs.run-generator.result == 'skipped') &&
+      (github.event_name == 'push' || inputs.build-watchos-arm64)
+    needs: run-generator
+    runs-on: self-hosted
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+        with:
+          ref: ${{ env.TDL_CHECKOUT_REF }}
+          lfs: true
+          submodules: true
+
+      - name: Apply generated API
+        if: github.event_name == 'workflow_dispatch' && inputs.commit == false && inputs.run-generator
+        uses: ./.github/actions/apply-generated-api
+
+      - name: Checkout zlib
+        uses: actions/checkout@v7
+        with:
+          repository: madler/zlib
+          ref: ${{ env.TDL_ZLIB_VERSION }}
+          path: native-dependencies/zlib
+
+      - name: Clean submodule
+        run: |
+          cd td
+          git clean -ffdx
+
+      - name: Set up dependencies
+        run: brew install gperf cmake coreutils
+
+      - name: Apply patch
+        run: git apply .github/patches/watchos-arm64.patch
+
+      - name: Build OpenSSL
+        run: |
+          cd td/example/ios
+          ./build-openssl.sh
+
+      - name: Build zlib
+        run: |
+          bash .github/scripts/build-zlib-apple.sh \
+            native-dependencies/zlib "$RUNNER_TEMP/zlib-watchos-arm64" \
+            watchos arm64 "$TDL_WATCHOS_DEPLOYMENT_TARGET_ARM"
+
+      - name: Build TDLib
+        run: |
+          cd td
+          mkdir build
+          cd build
+          cmake -DTD_GENERATE_SOURCE_FILES=ON ..
+          cmake --build .
+          cd ../example/ios
+          ./build.sh \
+            "-DZLIB_INCLUDE_DIR=$RUNNER_TEMP/zlib-watchos-arm64/install/include" \
+            "-DZLIB_LIBRARY=$RUNNER_TEMP/zlib-watchos-arm64/install/lib/libz.a"
+
+      - name: Copy files
+        run: |
+          rm -rf tdl-coroutines/generated/watchos/arm64
+          mkdir -p tdl-coroutines/generated/watchos/arm64/include/td/telegram
+          mkdir -p tdl-coroutines/generated/watchos/arm64/libs
+          cp td/example/ios/build/install-watchOS/include/td/telegram/tdjson_export.h tdl-coroutines/generated/watchos/arm64/include/td/telegram
+          cp td/example/ios/build/install-watchOS/lib/*.a tdl-coroutines/generated/watchos/arm64/libs
+          cp td/example/ios/third_party/openssl/watchOS/lib/*.a tdl-coroutines/generated/watchos/arm64/libs
+          cp "$RUNNER_TEMP/zlib-watchos-arm64/install/lib/libz.a" tdl-coroutines/generated/watchos/arm64/libs
+
+      - name: SHA256 checksums
+        run: shasum -a 256 tdl-coroutines/generated/watchos/arm64/libs/*.a
+
+      - name: Commit and push
+        if: github.event_name == 'push' || inputs.commit
+        uses: ./.github/actions/commit-and-push
+        with:
+          message: TDLib for watchOS ARM64
+          add: tdl-coroutines
+
+  build-watchos-arm64-32:
+    name: Build watchOS ARM64_32
+    if: >-
+      !cancelled() &&
+      (needs.run-generator.result == 'success' || needs.run-generator.result == 'skipped') &&
+      (github.event_name == 'push' || inputs.build-watchos-arm64-32)
+    needs: run-generator
+    runs-on: self-hosted
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+        with:
+          ref: ${{ env.TDL_CHECKOUT_REF }}
+          lfs: true
+          submodules: true
+
+      - name: Apply generated API
+        if: github.event_name == 'workflow_dispatch' && inputs.commit == false && inputs.run-generator
+        uses: ./.github/actions/apply-generated-api
+
+      - name: Checkout zlib
+        uses: actions/checkout@v7
+        with:
+          repository: madler/zlib
+          ref: ${{ env.TDL_ZLIB_VERSION }}
+          path: native-dependencies/zlib
+
+      - name: Clean submodule
+        run: |
+          cd td
+          git clean -ffdx
+
+      - name: Set up dependencies
+        run: brew install gperf cmake coreutils
+
+      - name: Apply patch
+        run: git apply .github/patches/watchos-arm64-32.patch
+
+      - name: Build OpenSSL
+        run: |
+          cd td/example/ios
+          ./build-openssl.sh
+
+      - name: Build zlib
+        run: |
+          bash .github/scripts/build-zlib-apple.sh \
+            native-dependencies/zlib "$RUNNER_TEMP/zlib-watchos-arm64-32" \
+            watchos arm64_32 "$TDL_WATCHOS_DEPLOYMENT_TARGET"
+
+      - name: Build TDLib
+        run: |
+          cd td
+          mkdir build
+          cd build
+          cmake -DTD_GENERATE_SOURCE_FILES=ON ..
+          cmake --build .
+          cd ../example/ios
+          ./build.sh \
+            "-DZLIB_INCLUDE_DIR=$RUNNER_TEMP/zlib-watchos-arm64-32/install/include" \
+            "-DZLIB_LIBRARY=$RUNNER_TEMP/zlib-watchos-arm64-32/install/lib/libz.a"
+
+      - name: Copy files
+        run: |
+          rm -rf tdl-coroutines/generated/watchos/arm64_32
+          mkdir -p tdl-coroutines/generated/watchos/arm64_32/include/td/telegram
+          mkdir -p tdl-coroutines/generated/watchos/arm64_32/libs
+          cp td/example/ios/build/install-watchOS/include/td/telegram/tdjson_export.h tdl-coroutines/generated/watchos/arm64_32/include/td/telegram
+          cp td/example/ios/build/install-watchOS/lib/*.a tdl-coroutines/generated/watchos/arm64_32/libs
+          cp td/example/ios/third_party/openssl/watchOS/lib/*.a tdl-coroutines/generated/watchos/arm64_32/libs
+          cp "$RUNNER_TEMP/zlib-watchos-arm64-32/install/lib/libz.a" tdl-coroutines/generated/watchos/arm64_32/libs
+
+      - name: SHA256 checksums
+        run: shasum -a 256 tdl-coroutines/generated/watchos/arm64_32/libs/*.a
+
+      - name: Commit and push
+        if: github.event_name == 'push' || inputs.commit
+        uses: ./.github/actions/commit-and-push
+        with:
+          message: TDLib for watchOS ARM64_32
+          add: tdl-coroutines
+
+  build-watchos-arm64-simulator:
+    name: Build watchOS ARM64 Simulator
+    if: >-
+      !cancelled() &&
+      (needs.run-generator.result == 'success' || needs.run-generator.result == 'skipped') &&
+      (github.event_name == 'push' || inputs.build-watchos-arm64-simulator)
+    needs: run-generator
+    runs-on: self-hosted
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+        with:
+          ref: ${{ env.TDL_CHECKOUT_REF }}
+          lfs: true
+          submodules: true
+
+      - name: Apply generated API
+        if: github.event_name == 'workflow_dispatch' && inputs.commit == false && inputs.run-generator
+        uses: ./.github/actions/apply-generated-api
+
+      - name: Checkout zlib
+        uses: actions/checkout@v7
+        with:
+          repository: madler/zlib
+          ref: ${{ env.TDL_ZLIB_VERSION }}
+          path: native-dependencies/zlib
+
+      - name: Clean submodule
+        run: |
+          cd td
+          git clean -ffdx
+
+      - name: Set up dependencies
+        run: brew install gperf cmake coreutils
+
+      - name: Apply patch
+        run: git apply .github/patches/watchos-arm64-simulator.patch
+
+      - name: Build OpenSSL
+        run: |
+          cd td/example/ios
+          ./build-openssl.sh
+
+      - name: Build zlib
+        run: |
+          bash .github/scripts/build-zlib-apple.sh \
+            native-dependencies/zlib "$RUNNER_TEMP/zlib-watchos-arm64Simulator" \
+            watchsimulator arm64 "$TDL_WATCHOS_DEPLOYMENT_TARGET"
+
+      - name: Build TDLib
+        run: |
+          cd td
+          mkdir build
+          cd build
+          cmake -DTD_GENERATE_SOURCE_FILES=ON ..
+          cmake --build .
+          cd ../example/ios
+          ./build.sh \
+            "-DZLIB_INCLUDE_DIR=$RUNNER_TEMP/zlib-watchos-arm64Simulator/install/include" \
+            "-DZLIB_LIBRARY=$RUNNER_TEMP/zlib-watchos-arm64Simulator/install/lib/libz.a"
+
+      - name: Copy files
+        run: |
+          rm -rf tdl-coroutines/generated/watchos/arm64Simulator
+          mkdir -p tdl-coroutines/generated/watchos/arm64Simulator/include/td/telegram
+          mkdir -p tdl-coroutines/generated/watchos/arm64Simulator/libs
+          cp td/example/ios/build/install-watchOS-simulator/include/td/telegram/tdjson_export.h tdl-coroutines/generated/watchos/arm64Simulator/include/td/telegram
+          cp td/example/ios/build/install-watchOS-simulator/lib/*.a tdl-coroutines/generated/watchos/arm64Simulator/libs
+          cp td/example/ios/third_party/openssl/watchOS-simulator/lib/*.a tdl-coroutines/generated/watchos/arm64Simulator/libs
+          cp "$RUNNER_TEMP/zlib-watchos-arm64Simulator/install/lib/libz.a" tdl-coroutines/generated/watchos/arm64Simulator/libs
+
+      - name: SHA256 checksums
+        run: shasum -a 256 tdl-coroutines/generated/watchos/arm64Simulator/libs/*.a
+
+      - name: Set up Java
+        uses: ./.github/actions/set-up-java
+
+      - name: Verify
+        run: ./gradlew :example:verification:app:watchos:watchosSimulatorArm64Test
+
+      - name: Commit and push
+        if: github.event_name == 'push' || inputs.commit
+        uses: ./.github/actions/commit-and-push
+        with:
+          message: TDLib for watchOS ARM64 Simulator
+          add: tdl-coroutines
+
+  build-watchos-x64-simulator:
+    name: Build watchOS x64 Simulator
+    if: >-
+      !cancelled() &&
+      (needs.run-generator.result == 'success' || needs.run-generator.result == 'skipped') &&
+      (github.event_name == 'push' || inputs.build-watchos-x64-simulator)
+    needs: run-generator
+    runs-on: self-hosted
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+        with:
+          ref: ${{ env.TDL_CHECKOUT_REF }}
+          lfs: true
+          submodules: true
+
+      - name: Apply generated API
+        if: github.event_name == 'workflow_dispatch' && inputs.commit == false && inputs.run-generator
+        uses: ./.github/actions/apply-generated-api
+
+      - name: Checkout zlib
+        uses: actions/checkout@v7
+        with:
+          repository: madler/zlib
+          ref: ${{ env.TDL_ZLIB_VERSION }}
+          path: native-dependencies/zlib
+
+      - name: Clean submodule
+        run: |
+          cd td
+          git clean -ffdx
+
+      - name: Set up dependencies
+        run: brew install gperf cmake coreutils
+
+      - name: Apply patch
+        run: git apply .github/patches/watchos-x64-simulator.patch
+
+      - name: Build OpenSSL
+        run: |
+          cd td/example/ios
+          ./build-openssl.sh
+
+      - name: Build zlib
+        run: |
+          bash .github/scripts/build-zlib-apple.sh \
+            native-dependencies/zlib "$RUNNER_TEMP/zlib-watchos-x64Simulator" \
+            watchsimulator x86_64 "$TDL_WATCHOS_DEPLOYMENT_TARGET"
+
+      - name: Build TDLib
+        run: |
+          cd td
+          mkdir build
+          cd build
+          cmake -DTD_GENERATE_SOURCE_FILES=ON ..
+          cmake --build .
+          cd ../example/ios
+          ./build.sh \
+            "-DZLIB_INCLUDE_DIR=$RUNNER_TEMP/zlib-watchos-x64Simulator/install/include" \
+            "-DZLIB_LIBRARY=$RUNNER_TEMP/zlib-watchos-x64Simulator/install/lib/libz.a"
+
+      - name: Copy files
+        run: |
+          rm -rf tdl-coroutines/generated/watchos/x64Simulator
+          mkdir -p tdl-coroutines/generated/watchos/x64Simulator/include/td/telegram
+          mkdir -p tdl-coroutines/generated/watchos/x64Simulator/libs
+          cp td/example/ios/build/install-watchOS-simulator/include/td/telegram/tdjson_export.h tdl-coroutines/generated/watchos/x64Simulator/include/td/telegram
+          cp td/example/ios/build/install-watchOS-simulator/lib/*.a tdl-coroutines/generated/watchos/x64Simulator/libs
+          cp td/example/ios/third_party/openssl/watchOS-simulator/lib/*.a tdl-coroutines/generated/watchos/x64Simulator/libs
+          cp "$RUNNER_TEMP/zlib-watchos-x64Simulator/install/lib/libz.a" tdl-coroutines/generated/watchos/x64Simulator/libs
+
+      - name: SHA256 checksums
+        run: shasum -a 256 tdl-coroutines/generated/watchos/x64Simulator/libs/*.a
+
+      - name: Commit and push
+        if: github.event_name == 'push' || inputs.commit
+        uses: ./.github/actions/commit-and-push
+        with:
+          message: TDLib for watchOS x64 Simulator
           add: tdl-coroutines

@@ -24,6 +24,11 @@ case "$sdk" in
       -DCMAKE_SYSTEM_NAME=iOS
     )
     ;;
+  watchos|watchsimulator)
+    cmake_args+=(
+      -DCMAKE_SYSTEM_NAME=watchOS
+    )
+    ;;
   *)
     echo "::error::Unsupported Apple SDK: $sdk"
     exit 1

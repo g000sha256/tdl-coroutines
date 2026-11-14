@@ -98,6 +98,26 @@ kotlin {
         configureCompilations(platform = "windows/x64")
     }
 
+    watchosArm64 {
+        configureBinaries()
+        configureCompilations(platform = "watchos/arm64_32")
+    }
+
+    watchosDeviceArm64 {
+        configureBinaries()
+        configureCompilations(platform = "watchos/arm64")
+    }
+
+    watchosSimulatorArm64 {
+        configureBinaries()
+        configureCompilations(platform = "watchos/arm64Simulator")
+    }
+
+    watchosX64 {
+        configureBinaries()
+        configureCompilations(platform = "watchos/x64Simulator")
+    }
+
     sourceSets {
         commonMain {
             kotlin.srcDirs("src/commonMainGenerated/kotlin")
@@ -144,6 +164,22 @@ kotlin {
         }
 
         mingwX64Main {
+            configureNativeKotlin()
+        }
+
+        watchosArm64Main {
+            configureNativeKotlin()
+        }
+
+        watchosDeviceArm64Main {
+            configureNativeKotlin()
+        }
+
+        watchosSimulatorArm64Main {
+            configureNativeKotlin()
+        }
+
+        watchosX64Main {
             configureNativeKotlin()
         }
     }
@@ -262,7 +298,7 @@ private fun KotlinOnlyTarget<KotlinNativeCompilation>.configureCompilations(plat
 
 private fun String.extractConfigName(): String {
     return when {
-        startsWith(prefix = "ios") || startsWith(prefix = "mac") -> "config-apple.def"
+        startsWith(prefix = "ios") || startsWith(prefix = "mac") || startsWith(prefix = "watchos") -> "config-apple.def"
         startsWith(prefix = "linux") -> "config-linux.def"
         startsWith(prefix = "windows") -> "config-windows.def"
         else -> error(message = "Unknown platform")

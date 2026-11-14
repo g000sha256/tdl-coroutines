@@ -44,7 +44,15 @@ jobs:
             :tdl-coroutines:macosX64Cinterop-mainKlib \
             :tdl-coroutines:macosX64Klib \
             :tdl-coroutines:mingwX64Cinterop-mainKlib \
-            :tdl-coroutines:mingwX64Klib
+            :tdl-coroutines:mingwX64Klib \
+            :tdl-coroutines:watchosArm64Cinterop-mainKlib \
+            :tdl-coroutines:watchosArm64Klib \
+            :tdl-coroutines:watchosDeviceArm64Cinterop-mainKlib \
+            :tdl-coroutines:watchosDeviceArm64Klib \
+            :tdl-coroutines:watchosSimulatorArm64Cinterop-mainKlib \
+            :tdl-coroutines:watchosSimulatorArm64Klib \
+            :tdl-coroutines:watchosX64Cinterop-mainKlib \
+            :tdl-coroutines:watchosX64Klib
 
       - name: Assemble examples
         run: |

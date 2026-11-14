@@ -40,6 +40,22 @@ jobs:
       - name: Verify
         run: ./gradlew :example:verification:app:ios:iosSimulatorArm64Test
 
+  verify-watchos:
+    name: Verify watchOS Simulator ARM64
+    runs-on: self-hosted
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+        with:
+          lfs: true
+
+      - name: Set up Java
+        uses: ./.github/actions/set-up-java
+
+      - name: Verify
+        run: ./gradlew :example:verification:app:watchos:watchosSimulatorArm64Test
+
   verify-jvm:
     name: Verify JVM ${{ matrix.platform }}
     runs-on: ${{ matrix.runner }}
