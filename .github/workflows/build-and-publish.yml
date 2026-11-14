@@ -177,6 +177,22 @@ jobs:
       - name: Verify
         run: bash ./gradlew ":example:verification:app:macos:${{ matrix.task }}"
 
+  verify-tvos:
+    name: Verify tvOS Simulator ARM64
+    runs-on: self-hosted
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+        with:
+          lfs: true
+
+      - name: Set up Java
+        uses: ./.github/actions/set-up-java
+
+      - name: Verify
+        run: ./gradlew :example:verification:app:tvos:tvosSimulatorArm64Test
+
   verify-watchos:
     name: Verify watchOS Simulator ARM64
     runs-on: self-hosted
@@ -220,6 +236,7 @@ jobs:
       - verify-linux
       - verify-linux-arm64
       - verify-macos
+      - verify-tvos
       - verify-watchos
       - verify-windows
 
@@ -253,6 +270,12 @@ jobs:
             :tdl-coroutines:macosX64Klib \
             :tdl-coroutines:mingwX64Cinterop-mainKlib \
             :tdl-coroutines:mingwX64Klib \
+            :tdl-coroutines:tvosArm64Cinterop-mainKlib \
+            :tdl-coroutines:tvosArm64Klib \
+            :tdl-coroutines:tvosSimulatorArm64Cinterop-mainKlib \
+            :tdl-coroutines:tvosSimulatorArm64Klib \
+            :tdl-coroutines:tvosX64Cinterop-mainKlib \
+            :tdl-coroutines:tvosX64Klib \
             :tdl-coroutines:watchosArm64Cinterop-mainKlib \
             :tdl-coroutines:watchosArm64Klib \
             :tdl-coroutines:watchosDeviceArm64Cinterop-mainKlib \

@@ -98,6 +98,21 @@ kotlin {
         configureCompilations(platform = "windows/x64")
     }
 
+    tvosArm64 {
+        configureBinaries()
+        configureCompilations(platform = "tvos/arm64")
+    }
+
+    tvosSimulatorArm64 {
+        configureBinaries()
+        configureCompilations(platform = "tvos/arm64Simulator")
+    }
+
+    tvosX64 {
+        configureBinaries()
+        configureCompilations(platform = "tvos/x64Simulator")
+    }
+
     watchosArm64 {
         configureBinaries()
         configureCompilations(platform = "watchos/arm64_32")
@@ -164,6 +179,18 @@ kotlin {
         }
 
         mingwX64Main {
+            configureNativeKotlin()
+        }
+
+        tvosArm64Main {
+            configureNativeKotlin()
+        }
+
+        tvosSimulatorArm64Main {
+            configureNativeKotlin()
+        }
+
+        tvosX64Main {
             configureNativeKotlin()
         }
 
@@ -298,7 +325,7 @@ private fun KotlinOnlyTarget<KotlinNativeCompilation>.configureCompilations(plat
 
 private fun String.extractConfigName(): String {
     return when {
-        startsWith(prefix = "ios") || startsWith(prefix = "mac") || startsWith(prefix = "watchos") -> "config-apple.def"
+        startsWith(prefix = "ios") || startsWith(prefix = "mac") || startsWith(prefix = "tvos") || startsWith(prefix = "watchos") -> "config-apple.def"
         startsWith(prefix = "linux") -> "config-linux.def"
         startsWith(prefix = "windows") -> "config-windows.def"
         else -> error(message = "Unknown platform")

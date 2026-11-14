@@ -24,6 +24,11 @@ case "$sdk" in
       -DCMAKE_SYSTEM_NAME=iOS
     )
     ;;
+  appletvos|appletvsimulator)
+    cmake_args+=(
+      -DCMAKE_SYSTEM_NAME=tvOS
+    )
+    ;;
   watchos|watchsimulator)
     cmake_args+=(
       -DCMAKE_SYSTEM_NAME=watchOS
