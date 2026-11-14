@@ -39,6 +39,7 @@ include {
                 module(name = "jvm")
                 module(name = "linux")
                 module(name = "macos")
+                module(name = "tvos")
                 module(name = "watchos")
                 module(name = "windows")
             }

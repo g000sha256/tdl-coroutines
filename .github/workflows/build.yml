@@ -45,6 +45,12 @@ jobs:
             :tdl-coroutines:macosX64Klib \
             :tdl-coroutines:mingwX64Cinterop-mainKlib \
             :tdl-coroutines:mingwX64Klib \
+            :tdl-coroutines:tvosArm64Cinterop-mainKlib \
+            :tdl-coroutines:tvosArm64Klib \
+            :tdl-coroutines:tvosSimulatorArm64Cinterop-mainKlib \
+            :tdl-coroutines:tvosSimulatorArm64Klib \
+            :tdl-coroutines:tvosX64Cinterop-mainKlib \
+            :tdl-coroutines:tvosX64Klib \
             :tdl-coroutines:watchosArm64Cinterop-mainKlib \
             :tdl-coroutines:watchosArm64Klib \
             :tdl-coroutines:watchosDeviceArm64Cinterop-mainKlib \

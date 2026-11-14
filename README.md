@@ -15,6 +15,8 @@ TDLib integration more straightforward and idiomatic for Kotlin Multiplatform pr
             <a href="https://klibs.io/package/dev.g000sha256/tdl-coroutines"><img alt="Platform Android" src="https://img.shields.io/static/v1?label=Platform&labelColor=000000&message=Android&color=3DDC84"></a>
             <a href="https://klibs.io/package/dev.g000sha256/tdl-coroutines"><img alt="Platform iOS" src="https://img.shields.io/static/v1?label=Platform&labelColor=000000&message=iOS&color=FFFFFF"></a>
             <a href="https://klibs.io/package/dev.g000sha256/tdl-coroutines"><img alt="Platform iOS Simulator" src="https://img.shields.io/static/v1?label=Platform&labelColor=000000&message=iOS%20Simulator&color=FFFFFF"></a>
+            <a href="https://klibs.io/package/dev.g000sha256/tdl-coroutines"><img alt="Platform tvOS" src="https://img.shields.io/static/v1?label=Platform&labelColor=000000&message=tvOS&color=FFFFFF"></a>
+            <a href="https://klibs.io/package/dev.g000sha256/tdl-coroutines"><img alt="Platform tvOS Simulator" src="https://img.shields.io/static/v1?label=Platform&labelColor=000000&message=tvOS%20Simulator&color=FFFFFF"></a>
             <a href="https://klibs.io/package/dev.g000sha256/tdl-coroutines"><img alt="Platform watchOS" src="https://img.shields.io/static/v1?label=Platform&labelColor=000000&message=watchOS&color=FFFFFF"></a>
             <a href="https://klibs.io/package/dev.g000sha256/tdl-coroutines"><img alt="Platform watchOS Simulator" src="https://img.shields.io/static/v1?label=Platform&labelColor=000000&message=watchOS%20Simulator&color=FFFFFF"></a>
         </td>
