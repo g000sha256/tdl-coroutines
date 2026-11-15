@@ -29,6 +29,7 @@ import kotlin.String
  * @property canReadAllGroupMessages True, if the bot can read all messages in basic group or supergroup chats and not just those addressed to the bot. In private and channel chats a bot can always read all messages.
  * @property hasMainWebApp True, if the bot has the main Web App.
  * @property hasTopics True, if the bot has topics.
+ * @property hasTopicSidebar True, if the bot has topics, which are shown in a sidebar.
  * @property allowsUsersToCreateTopics True, if users can create and delete topics in the chat with the bot.
  * @property canManageBots True, if the bot can manage other bots.
  * @property isInline True, if the bot supports inline queries.
@@ -46,6 +47,7 @@ public class UserTypeBot public constructor(
     public val canReadAllGroupMessages: Boolean,
     public val hasMainWebApp: Boolean,
     public val hasTopics: Boolean,
+    public val hasTopicSidebar: Boolean,
     public val allowsUsersToCreateTopics: Boolean,
     public val canManageBots: Boolean,
     public val isInline: Boolean,
@@ -81,6 +83,9 @@ public class UserTypeBot public constructor(
             return false
         }
         if (other.hasTopics != hasTopics) {
+            return false
+        }
+        if (other.hasTopicSidebar != hasTopicSidebar) {
             return false
         }
         if (other.allowsUsersToCreateTopics != allowsUsersToCreateTopics) {
@@ -120,6 +125,7 @@ public class UserTypeBot public constructor(
         hashCode = 31 * hashCode + canReadAllGroupMessages.hashCode()
         hashCode = 31 * hashCode + hasMainWebApp.hashCode()
         hashCode = 31 * hashCode + hasTopics.hashCode()
+        hashCode = 31 * hashCode + hasTopicSidebar.hashCode()
         hashCode = 31 * hashCode + allowsUsersToCreateTopics.hashCode()
         hashCode = 31 * hashCode + canManageBots.hashCode()
         hashCode = 31 * hashCode + isInline.hashCode()
@@ -151,6 +157,9 @@ public class UserTypeBot public constructor(
             append(", ")
             append("hasTopics=")
             append(hasTopics)
+            append(", ")
+            append("hasTopicSidebar=")
+            append(hasTopicSidebar)
             append(", ")
             append("allowsUsersToCreateTopics=")
             append(allowsUsersToCreateTopics)

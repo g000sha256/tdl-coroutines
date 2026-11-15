@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Georgii Ippolitov (g000sha256)
+ * Copyright 2025-2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,4 +23,5 @@ internal class ToggleSupergroupIsForum internal constructor(
     internal val supergroupId: Long,
     internal val isForum: Boolean,
     internal val hasForumTabs: Boolean,
+    internal val hasForumSidebar: Boolean,
 )

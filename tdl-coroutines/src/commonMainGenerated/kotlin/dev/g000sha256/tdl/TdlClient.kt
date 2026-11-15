@@ -125,8 +125,11 @@ import dev.g000sha256.tdl.dto.CheckChatUsernameResult
 import dev.g000sha256.tdl.dto.CheckStickerSetNameResult
 import dev.g000sha256.tdl.dto.CollectibleItemInfo
 import dev.g000sha256.tdl.dto.CollectibleItemType
+import dev.g000sha256.tdl.dto.Communities
+import dev.g000sha256.tdl.dto.CommunityAddChatRequests
 import dev.g000sha256.tdl.dto.CommunityFullInfo
 import dev.g000sha256.tdl.dto.CommunityId
+import dev.g000sha256.tdl.dto.CommunityMemberChats
 import dev.g000sha256.tdl.dto.CommunityPermissions
 import dev.g000sha256.tdl.dto.ConnectedAffiliateProgram
 import dev.g000sha256.tdl.dto.ConnectedAffiliatePrograms
@@ -361,6 +364,7 @@ import dev.g000sha256.tdl.dto.SecretChat
 import dev.g000sha256.tdl.dto.Session
 import dev.g000sha256.tdl.dto.Sessions
 import dev.g000sha256.tdl.dto.ShippingOption
+import dev.g000sha256.tdl.dto.SpeechRecognitionLanguages
 import dev.g000sha256.tdl.dto.SponsoredChats
 import dev.g000sha256.tdl.dto.SponsoredMessages
 import dev.g000sha256.tdl.dto.StakeDiceState
@@ -412,6 +416,7 @@ import dev.g000sha256.tdl.dto.TextCompositionStyle
 import dev.g000sha256.tdl.dto.TextCompositionStyleExample
 import dev.g000sha256.tdl.dto.TextEntities
 import dev.g000sha256.tdl.dto.TextParseMode
+import dev.g000sha256.tdl.dto.TextRanges
 import dev.g000sha256.tdl.dto.ThemeParameters
 import dev.g000sha256.tdl.dto.TimeZones
 import dev.g000sha256.tdl.dto.TonCenterApiRequestType
@@ -566,10 +571,13 @@ import dev.g000sha256.tdl.dto.UpdateNewGroupCallPaidReaction
 import dev.g000sha256.tdl.dto.UpdateNewGuestQuery
 import dev.g000sha256.tdl.dto.UpdateNewInlineCallbackQuery
 import dev.g000sha256.tdl.dto.UpdateNewInlineQuery
+import dev.g000sha256.tdl.dto.UpdateNewInlineWidgetQuery
 import dev.g000sha256.tdl.dto.UpdateNewMessage
 import dev.g000sha256.tdl.dto.UpdateNewOauthRequest
 import dev.g000sha256.tdl.dto.UpdateNewPreCheckoutQuery
 import dev.g000sha256.tdl.dto.UpdateNewShippingQuery
+import dev.g000sha256.tdl.dto.UpdateNewWidgetCopyQuery
+import dev.g000sha256.tdl.dto.UpdateNewWidgetQuery
 import dev.g000sha256.tdl.dto.UpdateNotification
 import dev.g000sha256.tdl.dto.UpdateNotificationGroup
 import dev.g000sha256.tdl.dto.UpdateOption
@@ -594,6 +602,7 @@ import dev.g000sha256.tdl.dto.UpdateSavedNotificationSounds
 import dev.g000sha256.tdl.dto.UpdateScopeNotificationSettings
 import dev.g000sha256.tdl.dto.UpdateSecretChat
 import dev.g000sha256.tdl.dto.UpdateServiceNotification
+import dev.g000sha256.tdl.dto.UpdateSpeechRecognitionInFile
 import dev.g000sha256.tdl.dto.UpdateSpeechRecognitionTrial
 import dev.g000sha256.tdl.dto.UpdateSpeedLimitNotification
 import dev.g000sha256.tdl.dto.UpdateStakeDiceState
@@ -658,6 +667,9 @@ import dev.g000sha256.tdl.dto.WebBrowserType
 import dev.g000sha256.tdl.dto.WebPageInstantView
 import dev.g000sha256.tdl.dto.WebProxyCarrierError
 import dev.g000sha256.tdl.dto.WebProxyCarrierMessage
+import dev.g000sha256.tdl.dto.WidgetPublicData
+import dev.g000sha256.tdl.dto.WidgetQueryAnswer
+import dev.g000sha256.tdl.dto.WidgetQueryType
 import kotlin.Array
 import kotlin.Boolean
 import kotlin.ByteArray
@@ -1504,6 +1516,11 @@ public abstract class TdlClient internal constructor() {
     public abstract val speechRecognitionTrialUpdates: Flow<UpdateSpeechRecognitionTrial>
 
     /**
+     * Speech in an audio file was partially recognized. The final result will be returned by the corresponding recognizeSpeechInFile request.
+     */
+    public abstract val speechRecognitionInFileUpdates: Flow<UpdateSpeechRecognitionInFile>
+
+    /**
      * The levels of live story group call messages have changed.
      */
     public abstract val groupCallMessageLevelsUpdates: Flow<UpdateGroupCallMessageLevels>
@@ -1602,6 +1619,21 @@ public abstract class TdlClient internal constructor() {
      * A new incoming callback query from a business message; for bots only.
      */
     public abstract val newBusinessCallbackQueryUpdates: Flow<UpdateNewBusinessCallbackQuery>
+
+    /**
+     * A new incoming widget query; for bots only.
+     */
+    public abstract val newWidgetQueryUpdates: Flow<UpdateNewWidgetQuery>
+
+    /**
+     * A new incoming widget query from a message sent via a bot; for bots only.
+     */
+    public abstract val newInlineWidgetQueryUpdates: Flow<UpdateNewInlineWidgetQuery>
+
+    /**
+     * A new incoming widget query from a copy of a shared widget; for bots only.
+     */
+    public abstract val newWidgetCopyQueryUpdates: Flow<UpdateNewWidgetCopyQuery>
 
     /**
      * A new incoming shipping query; for bots only. Only for invoices with flexible price.
@@ -1787,6 +1819,19 @@ public abstract class TdlClient internal constructor() {
         chatId: Long,
         messageId: Long,
         tasks: Array<InputChecklistTask>,
+    ): TdlResult<Ok>
+
+    /**
+     * Adds a chat to a community. If the current user isn't allowed to change the list of chats in the community, then a request to add the chat is sent to administrators of the community instead and the method fails with the error &quot;COMMUNITY&#95;REQUEST&#95;CREATED&quot;.
+     *
+     * @param communityId Identifier of the community.
+     * @param chatId Identifier of the chat to add; only chats with owned bots and owned basic group, supergroup and channel chats are allowed; basic group chats will be automatically upgraded to supergroup chats. A community can have up to getOption(&quot;community&#95;chat&#95;count&#95;max&quot;) supergroup and channel chats and up to getOption(&quot;community&#95;bot&#95;count&#95;max&quot;) chats with bots; otherwise, the method fails with the error &quot;COMMUNITY&#95;PEERS&#95;TOO&#95;MUCH&quot;.
+     * @param isHidden Pass true if the chat will be visible only to administrators of the community.
+     */
+    public abstract suspend fun addCommunityChat(
+        communityId: Long,
+        chatId: Long,
+        isHidden: Boolean,
     ): TdlResult<Ok>
 
     /**
@@ -1977,7 +2022,7 @@ public abstract class TdlClient internal constructor() {
      * @param replyToMessageId Identifier of a quick reply message in the same shortcut to be replied; pass 0 if none.
      * @param queryId Identifier of the inline query.
      * @param resultId Identifier of the inline query result.
-     * @param hideViaBot Pass true to hide the bot, via which the message is sent. Can be used only for bots getOption(&quot;animation&#95;search&#95;bot&#95;username&quot;), getOption(&quot;photo&#95;search&#95;bot&#95;username&quot;), and getOption(&quot;venue&#95;search&#95;bot&#95;username&quot;).
+     * @param hideViaBot Pass true to hide the bot, via which the message is sent. Can be used only for bots getOption(&quot;animation&#95;search&#95;bot&#95;username&quot;) and getOption(&quot;photo&#95;search&#95;bot&#95;username&quot;).
      */
     public abstract suspend fun addQuickReplyShortcutInlineQueryResultMessage(
         shortcutName: String,
@@ -2206,6 +2251,14 @@ public abstract class TdlClient internal constructor() {
      * @param result The result of the query.
      */
     public abstract suspend fun answerWebAppQuery(webAppQueryId: String, result: InputInlineQueryResult): TdlResult<InlineMessageId>
+
+    /**
+     * Sets the result of a widget query; for bots only.
+     *
+     * @param widgetQueryId Identifier of the widget query.
+     * @param data Data to be returned to the widget.
+     */
+    public abstract suspend fun answerWidgetQuery(widgetQueryId: Long, data: String): TdlResult<Ok>
 
     /**
      * Applies a Telegram Premium gift code.
@@ -2811,7 +2864,7 @@ public abstract class TdlClient internal constructor() {
     /**
      * Crafts a new gift from other gifts that will be permanently lost.
      *
-     * @param receivedGiftIds Identifier of the gifts to use for crafting. In the case of a successful craft, the resulting gift will have the number of the first gift. Consequently, the first gift must not have been withdrawn to the TON blockchain as an NFT and must have an empty giftAddress.
+     * @param receivedGiftIds Identifier of the gifts to use for crafting. In the case of a successful craft, the resulting gift will have the number of the first gift. Consequently, unless getOption(&quot;can&#95;craft&#95;from&#95;withdrawn&#95;first&#95;gift&quot;) is true, the first gift must not have been withdrawn to the TON blockchain as an NFT and must have an empty giftAddress.
      */
     public abstract suspend fun craftGift(receivedGiftIds: Array<String>): TdlResult<CraftGiftResult>
 
@@ -4097,6 +4150,23 @@ public abstract class TdlClient internal constructor() {
     ): TdlResult<Ok>
 
     /**
+     * Edits data of a widget in an inline message sent via the bot; for bots only.
+     *
+     * @param inlineMessageId Inline message identifier.
+     * @param editPublicData Pass true to edit public data of the widget.
+     * @param publicData New public data of the widget; ignored if editPublicData is false.
+     * @param editChatData Pass true to edit data of the widget, which is specific to the chat.
+     * @param chatData New data of the widget, which is specific to the chat; ignored if editChatData is false.
+     */
+    public abstract suspend fun editInlineMessageWidgetData(
+        inlineMessageId: String,
+        editPublicData: Boolean,
+        publicData: String,
+        editChatData: Boolean,
+        chatData: String,
+    ): TdlResult<Ok>
+
+    /**
      * Edits the message content caption. Returns the edited message after the edit is completed on the server side.
      *
      * @param chatId The chat the message belongs to.
@@ -4200,6 +4270,25 @@ public abstract class TdlClient internal constructor() {
     ): TdlResult<Message>
 
     /**
+     * Edits data of a widget sent by the bot; for bots only.
+     *
+     * @param chatId The chat the message belongs to.
+     * @param messageId Identifier of the widget message.
+     * @param editPublicData Pass true to edit public data of the widget.
+     * @param publicData New public data of the widget; ignored if editPublicData is false.
+     * @param editChatData Pass true to edit data of the widget, which is specific to the chat.
+     * @param chatData New data of the widget, which is specific to the chat; ignored if editChatData is false.
+     */
+    public abstract suspend fun editMessageWidgetData(
+        chatId: Long,
+        messageId: Long,
+        editPublicData: Boolean,
+        publicData: String,
+        editChatData: Boolean,
+        chatData: String,
+    ): TdlResult<Ok>
+
+    /**
      * Edits an existing proxy server for network requests. Can be called before authorization.
      *
      * @param proxyId Proxy identifier.
@@ -4266,6 +4355,19 @@ public abstract class TdlClient internal constructor() {
     ): TdlResult<Ok>
 
     /**
+     * Changes music attached to a story. Can be called only if story.canBeEdited == true and the story isn't being edited now.
+     *
+     * @param storyPosterChatId Identifier of the chat that posted the story.
+     * @param storyId Identifier of the story to edit.
+     * @param music The new music; pass null to remove music from the story. The music can be up to 60 seconds long.
+     */
+    public abstract suspend fun editStoryMusic(
+        storyPosterChatId: Long,
+        storyId: Int,
+        music: InputAudio? = null,
+    ): TdlResult<Ok>
+
+    /**
      * Edits a custom text composition style that was created by the current user.
      *
      * @param name Name of the style.
@@ -4293,6 +4395,19 @@ public abstract class TdlClient internal constructor() {
         userId: Long,
         telegramPaymentChargeId: String,
         isCanceled: Boolean,
+    ): TdlResult<Ok>
+
+    /**
+     * Edits public data of a shared widget created by the bot; for bots only.
+     *
+     * @param widgetId Identifier of the shared widget.
+     * @param publicData New public data of the widget.
+     * @param cacheTime Time during which the public data can be cached, in seconds; 5-3600. Pass 0 to keep the current value, which is 30 by default.
+     */
+    public abstract suspend fun editWidgetData(
+        widgetId: Long,
+        publicData: String,
+        cacheTime: Int,
     ): TdlResult<Ok>
 
     /**
@@ -4353,6 +4468,20 @@ public abstract class TdlClient internal constructor() {
      * @param error If passed, the file generation has failed and must be terminated; pass null if the file generation succeeded.
      */
     public abstract suspend fun finishFileGeneration(generationId: Long, error: Error? = null): TdlResult<Ok>
+
+    /**
+     * Fixes a rich message with text received as a result of speech recognition using an AI model by correcting recognition errors and adding punctuation. May return an error with a message &quot;AICOMPOSE&#95;FLOOD&#95;PREMIUM&quot; if Telegram Premium is required to send further requests.
+     *
+     * @param message The message with the recognized text.
+     */
+    public abstract suspend fun fixRecognizedRichMessageWithAi(message: InputRichMessage): TdlResult<RichMessage>
+
+    /**
+     * Fixes text received as a result of speech recognition using an AI model by correcting recognition errors and adding punctuation; must not be used in secret chats. May return an error with a message &quot;AICOMPOSE&#95;FLOOD&#95;PREMIUM&quot; if Telegram Premium is required to send further requests.
+     *
+     * @param text The recognized text.
+     */
+    public abstract suspend fun fixRecognizedTextWithAi(text: FormattedText): TdlResult<FormattedText>
 
     /**
      * Fixes a rich message using an AI model. May return an error with a message &quot;AICOMPOSE&#95;FLOOD&#95;PREMIUM&quot; if Telegram Premium is required to send further requests.
@@ -4689,7 +4818,7 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun getChatAdministrators(chatId: Long): TdlResult<ChatAdministrators>
 
     /**
-     * Returns the list of all stories posted by the given chat; requires canEditStories administrator right in the chat. The stories are returned in reverse chronological order (i.e., in order of decreasing storyId). For optimal performance, the number of returned stories is chosen by TDLib.
+     * Returns the list of all stories posted by the given chat; requires canEditStories administrator right in the chat. The stories are returned in reverse chronological order (i.e., in order of decreasing story.id). For optimal performance, the number of returned stories is chosen by TDLib.
      *
      * @param chatId Chat identifier.
      * @param fromStoryId Identifier of the story starting from which stories must be returned; use 0 to get results from the last story.
@@ -4767,7 +4896,7 @@ public abstract class TdlClient internal constructor() {
     ): TdlResult<FoundChatBoosts>
 
     /**
-     * Returns a list of service actions taken by chat members and administrators in the last 48 hours. Available only in supergroups and channels. Requires administrator rights. Returns results in reverse chronological order (i.e., in order of decreasing eventId).
+     * Returns a list of service actions taken by chat members and administrators in the last 48 hours. Available only in supergroups and channels. Requires administrator rights. Returns results in reverse chronological order (i.e., in order of decreasing chatEvent.id).
      *
      * @param chatId Chat identifier.
      * @param query Search query by which to filter events.
@@ -4828,7 +4957,7 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun getChatFolderNewChats(chatFolderId: Int): TdlResult<Chats>
 
     /**
-     * Returns messages in a chat. The messages are returned in reverse chronological order (i.e., in order of decreasing messageId). For optimal performance, the number of returned messages is chosen by TDLib. This is an offline method if onlyLocal is true.
+     * Returns messages in a chat. The messages are returned in reverse chronological order (i.e., in order of decreasing message.id). For optimal performance, the number of returned messages is chosen by TDLib. This is an offline method if onlyLocal is true.
      *
      * @param chatId Chat identifier.
      * @param fromMessageId Identifier of the message starting from which history must be fetched; use 0 to get results from the last message.
@@ -5003,7 +5132,7 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun getChatPinnedMessage(chatId: Long): TdlResult<Message>
 
     /**
-     * Returns the list of stories that were posted by the given chat to its chat page. If fromStoryId == 0, then pinned stories are returned first. Then, stories are returned in reverse chronological order (i.e., in order of decreasing storyId). For optimal performance, the number of returned stories is chosen by TDLib.
+     * Returns the list of stories that were posted by the given chat to its chat page. If fromStoryId == 0, then pinned stories are returned first. Then, stories are returned in reverse chronological order (i.e., in order of decreasing story.id). For optimal performance, the number of returned stories is chosen by TDLib.
      *
      * @param chatId Chat identifier.
      * @param fromStoryId Identifier of the story starting from which stories must be returned; use 0 to get results from pinned and the newest story.
@@ -5045,7 +5174,7 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun getChatRevenueWithdrawalUrl(chatId: Long, password: String): TdlResult<HttpUrl>
 
     /**
-     * Returns all scheduled messages in a chat. The messages are returned in reverse chronological order (i.e., in order of decreasing messageId).
+     * Returns all scheduled messages in a chat. The messages are returned in reverse chronological order (i.e., in order of decreasing message.id).
      *
      * @param chatId Chat identifier.
      */
@@ -5165,11 +5294,32 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun getCommands(scope: BotCommandScope? = null, languageCode: String): TdlResult<BotCommands>
 
     /**
+     * Returns pending requests to add chats to a community. Administrators of the community with canEditChatList right receive all requests; other users receive only requests sent by them.
+     *
+     * @param communityId Identifier of the community.
+     * @param offset Offset of the first entry to return as received from the previous request; use empty string to get the first chunk of results.
+     * @param limit The maximum number of requests to return.
+     */
+    public abstract suspend fun getCommunityAddChatRequests(
+        communityId: Long,
+        offset: String,
+        limit: Int,
+    ): TdlResult<CommunityAddChatRequests>
+
+    /**
      * Returns full information about a community.
      *
      * @param communityId Community identifier.
      */
     public abstract suspend fun getCommunityFullInfo(communityId: Long): TdlResult<CommunityFullInfo>
+
+    /**
+     * Returns chats in a community, which were joined by a member of the community; requires canBanMembers administrator right in the community. Can be used to show chats that will be affected by the member ban.
+     *
+     * @param communityId Identifier of the community.
+     * @param memberId Identifier of the member.
+     */
+    public abstract suspend fun getCommunityMemberChats(communityId: Long, memberId: MessageSender): TdlResult<CommunityMemberChats>
 
     /**
      * Returns an affiliate program that was connected to the given affiliate by identifier of the bot that created the program.
@@ -5313,7 +5463,7 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun getDirectMessagesChatTopic(chatId: Long, topicId: Long): TdlResult<DirectMessagesChatTopic>
 
     /**
-     * Returns messages in the topic in a channel direct messages chat administered by the current user. The messages are returned in reverse chronological order (i.e., in order of decreasing messageId).
+     * Returns messages in the topic in a channel direct messages chat administered by the current user. The messages are returned in reverse chronological order (i.e., in order of decreasing message.id).
      *
      * @param chatId Chat identifier of the channel direct messages chat.
      * @param topicId Identifier of the topic which messages will be fetched.
@@ -5439,7 +5589,7 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun getForumTopicDefaultIcons(): TdlResult<Stickers>
 
     /**
-     * Returns messages in a topic in a forum supergroup chat or a chat with a bot with topics. The messages are returned in reverse chronological order (i.e., in order of decreasing messageId). For optimal performance, the number of returned messages is chosen by TDLib.
+     * Returns messages in a topic in a forum supergroup chat or a chat with a bot with topics. The messages are returned in reverse chronological order (i.e., in order of decreasing message.id). For optimal performance, the number of returned messages is chosen by TDLib.
      *
      * @param chatId Chat identifier.
      * @param forumTopicId Forum topic identifier.
@@ -5456,7 +5606,7 @@ public abstract class TdlClient internal constructor() {
     ): TdlResult<Messages>
 
     /**
-     * Returns an HTTPS link to a topic in a forum supergroup chat. This is an offline method.
+     * Returns an HTTPS link to a topic in a forum supergroup chat or a chat with a bot. This is an offline method.
      *
      * @param chatId Identifier of the chat.
      * @param forumTopicId Forum topic identifier.
@@ -5710,6 +5860,11 @@ public abstract class TdlClient internal constructor() {
      * @param link The link.
      */
     public abstract suspend fun getInternalLinkType(link: String): TdlResult<InternalLinkType>
+
+    /**
+     * Returns the list of communities joined by the current user.
+     */
+    public abstract suspend fun getJoinedCommunities(): TdlResult<Communities>
 
     /**
      * Converts a JsonValue object to corresponding JSON-serialized string. Can be called synchronously.
@@ -6105,7 +6260,7 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun getMessageThread(chatId: Long, messageId: Long): TdlResult<MessageThreadInfo>
 
     /**
-     * Returns messages in a message thread of a message. Can be used only if messageProperties.canGetMessageThread == true. Message thread of a channel message is in the channel's linked supergroup. The messages are returned in reverse chronological order (i.e., in order of decreasing messageId). For optimal performance, the number of returned messages is chosen by TDLib.
+     * Returns messages in a message thread of a message. Can be used only if messageProperties.canGetMessageThread == true. Message thread of a channel message is in the channel's linked supergroup. The messages are returned in reverse chronological order (i.e., in order of decreasing message.id). For optimal performance, the number of returned messages is chosen by TDLib.
      *
      * @param chatId Chat identifier.
      * @param messageId Message identifier, which thread history needs to be returned.
@@ -6590,7 +6745,7 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun getSavedMessagesTags(savedMessagesTopicId: Long): TdlResult<SavedMessagesTags>
 
     /**
-     * Returns messages in a Saved Messages topic. The messages are returned in reverse chronological order (i.e., in order of decreasing messageId).
+     * Returns messages in a Saved Messages topic. The messages are returned in reverse chronological order (i.e., in order of decreasing message.id).
      *
      * @param savedMessagesTopicId Identifier of Saved Messages topic which messages will be fetched.
      * @param fromMessageId Identifier of the message starting from which messages must be fetched; use 0 to get results from the last message.
@@ -6657,6 +6812,13 @@ public abstract class TdlClient internal constructor() {
      * @param secretChatId Secret chat identifier.
      */
     public abstract suspend fun getSecretChat(secretChatId: Int): TdlResult<SecretChat>
+
+    /**
+     * Returns 1-3 most probable languages of speech in voice notes.
+     *
+     * @param chatId Identifier of the chat; pass 0 if none.
+     */
+    public abstract suspend fun getSpeechRecognitionLanguages(chatId: Long): TdlResult<SpeechRecognitionLanguages>
 
     /**
      * Returns the current state of stake dice.
@@ -6925,6 +7087,11 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun getSuggestedStickerSetName(title: String): TdlResult<Text>
 
     /**
+     * Returns a list of supergroup and channel chats owned by the current user, which can be added to a community.
+     */
+    public abstract suspend fun getSuitableCommunityChats(): TdlResult<Chats>
+
+    /**
      * Returns a list of basic group and supergroup chats, which can be used as a discussion group for a channel. Returned basic group chats must be first upgraded to supergroups before they can be set as a discussion group. To set a returned supergroup as a discussion group, access to its old messages must be enabled using toggleSupergroupIsAllHistoryAvailable first.
      */
     public abstract suspend fun getSuitableDiscussionChats(): TdlResult<Chats>
@@ -6985,6 +7152,13 @@ public abstract class TdlClient internal constructor() {
      * @param exampleNumber 0-based unique number of the requested example; must be non-negative and less than getOption(&quot;text&#95;composition&#95;style&#95;example&#95;count&quot;).
      */
     public abstract suspend fun getTextCompositionStyleExample(name: String, exampleNumber: Int): TdlResult<TextCompositionStyleExample>
+
+    /**
+     * Returns positions of all emoji found in the text in order of their appearance. Can be called synchronously.
+     *
+     * @param text The text in which to look for emoji.
+     */
+    public abstract suspend fun getTextEmojiRanges(text: String): TdlResult<TextRanges>
 
     /**
      * Returns all entities (mentions, hashtags, cashtags, bot commands, bank card numbers, TON blockchain addresses, URLs, and email addresses) found in the text. Can be called synchronously.
@@ -7349,6 +7523,29 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun getWebPageInstantView(url: String, onlyLocal: Boolean): TdlResult<WebPageInstantView>
 
     /**
+     * Returns the current public data of a widget. Must be called only if the widget is visible on the screen and asked to poll its public data.
+     *
+     * @param chatId Identifier of the chat with the message.
+     * @param messageId Identifier of the widget message. The message must not be scheduled.
+     */
+    public abstract suspend fun getWidgetPublicData(chatId: Long, messageId: Long): TdlResult<WidgetPublicData>
+
+    /**
+     * Sends a widget query to a bot and returns an answer. Returns an error with code 502 if the bot fails to answer the query before the query timeout expires.
+     *
+     * @param chatId Identifier of the chat with the message.
+     * @param messageId Identifier of the widget message from which the query originated. The message must not be scheduled.
+     * @param queryType Type of the query.
+     * @param data Data of the query.
+     */
+    public abstract suspend fun getWidgetQueryAnswer(
+        chatId: Long,
+        messageId: Long,
+        queryType: WidgetQueryType,
+        data: ByteArray,
+    ): TdlResult<WidgetQueryAnswer>
+
+    /**
      * Allows to buy a Telegram Premium subscription for another user with payment in Telegram Stars; for bots only.
      *
      * @param userId Identifier of the user who will receive Telegram Premium.
@@ -7519,7 +7716,7 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun listenToAudio(audioFileId: Int, duration: Int): TdlResult<Ok>
 
     /**
-     * Loads more active stories from a story list. The loaded stories will be sent through updates. Active stories are sorted by the pair (activeStories.order, activeStories.storyPosterChatId) in descending order. Returns a 404 error if all active stories have been loaded.
+     * Loads more active stories from a story list. The loaded stories will be sent through updates. Active stories are sorted by the pair (activeStories.order, activeStories.chatId) in descending order. Returns a 404 error if all active stories have been loaded.
      *
      * @param storyList The story list in which to load active stories.
      */
@@ -7763,6 +7960,7 @@ public abstract class TdlClient internal constructor() {
      * @param content Content of the story.
      * @param areas Clickable rectangle areas to be shown on the story media; pass null if none.
      * @param caption Story caption; pass null to use an empty caption; 0-getOption(&quot;story&#95;caption&#95;length&#95;max&quot;) characters; can have entities only if getOption(&quot;can&#95;use&#95;text&#95;entities&#95;in&#95;story&#95;caption&quot;).
+     * @param music Music to be attached to the story; pass null if none. The music can be up to 60 seconds long.
      * @param privacySettings The privacy settings for the story; ignored for stories posted on behalf of supergroup and channel chats.
      * @param albumIds Identifiers of story albums to which the story will be added upon posting. An album can have up to getOption(&quot;story&#95;album&#95;size&#95;max&quot;) stories.
      * @param activePeriod Period after which the story is moved to archive, in seconds; must be one of 6 &#42; 3600, 12 &#42; 3600, 86400, or 2 &#42; 86400 for Telegram Premium users, and 86400 otherwise.
@@ -7775,6 +7973,7 @@ public abstract class TdlClient internal constructor() {
         content: InputStoryContent,
         areas: InputStoryAreas? = null,
         caption: FormattedText? = null,
+        music: InputAudio? = null,
         privacySettings: StoryPrivacySettings,
         albumIds: IntArray,
         activePeriod: Int,
@@ -7842,6 +8041,27 @@ public abstract class TdlClient internal constructor() {
         inviteLink: String,
         approve: Boolean,
     ): TdlResult<Ok>
+
+    /**
+     * Handles a pending request to add a chat to a community; requires canEditChatList administrator right in the community.
+     *
+     * @param communityId Identifier of the community.
+     * @param chatId Identifier of the chat from the request.
+     * @param approve Pass true to approve the request and add the chat to the community; pass false to decline it. If the community already has the maximum number of chats, then approval fails with the error &quot;COMMUNITY&#95;PEERS&#95;TOO&#95;MUCH&quot;.
+     */
+    public abstract suspend fun processCommunityAddChatRequest(
+        communityId: Long,
+        chatId: Long,
+        approve: Boolean,
+    ): TdlResult<Ok>
+
+    /**
+     * Handles all pending requests to add chats to a community; requires canEditChatList administrator right in the community.
+     *
+     * @param communityId Identifier of the community.
+     * @param approve Pass true to approve all requests and add the chats to the community; pass false to decline them.
+     */
+    public abstract suspend fun processCommunityAddChatRequests(communityId: Long, approve: Boolean): TdlResult<Ok>
 
     /**
      * Handles a pending gift purchase offer.
@@ -7982,6 +8202,14 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun recognizeSpeech(chatId: Long, messageId: Long): TdlResult<Ok>
 
     /**
+     * Recognizes speech in an audio file and returns the recognized text. The file must be in OGG format with Opus codec and must have size up to 1 MB. The same rules as for recognizeSpeech apply to the Telegram Premium requirement and speech recognition trial; must not be used in secret chats.
+     *
+     * @param audioFile The audio file.
+     * @param recognitionId Unique identifier of the speech recognition, which will be used in updateSpeechRecognitionInFile to send partially recognized text; pass 0 if partial results aren't needed.
+     */
+    public abstract suspend fun recognizeSpeechInFile(audioFile: InputFile, recognitionId: Long): TdlResult<Text>
+
+    /**
      * Recovers the 2-step verification password with a password recovery code sent to an email address that was previously set up. Works only when the current authorization state is authorizationStateWaitPassword.
      *
      * @param recoveryCode Recovery code to check.
@@ -8067,6 +8295,14 @@ public abstract class TdlClient internal constructor() {
      * @param chatId Chat identifier.
      */
     public abstract suspend fun removeChatActionBar(chatId: Long): TdlResult<Ok>
+
+    /**
+     * Removes a chat from a community. Members of the chat, which aren't members of other chats in the community, will be removed from the community. Requires owner privileges in the supergroup or channel chat, or ownership of the bot for chats with bots, or canEditChatList administrator right in the community.
+     *
+     * @param communityId Identifier of the community.
+     * @param chatId Identifier of the chat to remove.
+     */
+    public abstract suspend fun removeCommunityChat(communityId: Long, chatId: Long): TdlResult<Ok>
 
     /**
      * Removes users from the contact list.
@@ -8425,7 +8661,7 @@ public abstract class TdlClient internal constructor() {
      * @param replaceCallbackQueryMessage Pass true if the ephemeral message must replace the message from which the callback query originated.
      * @param protectContent Pass true if the content of the message must be protected from forwarding and saving.
      * @param replyMarkup The new message reply markup; pass null if none.
-     * @param inputMessageContent New content of the message. Must be one of the following types: inputMessageText, inputMessageAnimation, inputMessageAudio, inputMessageDocument, inputMessagePhoto, inputMessageRichMessage, inputMessageSticker, inputMessageVideo, inputMessageVideoNote, inputMessageVoiceNote.
+     * @param inputMessageContent New content of the message. Must be one of the following types: inputMessageText, inputMessageAnimation, inputMessageAudio, inputMessageDocument, inputMessagePhoto, inputMessageRichMessage, inputMessageSticker, inputMessageVideo, inputMessageVideoNote, inputMessageVoiceNote, inputMessageLocation, inputMessageVenue, inputMessageContact.
      */
     public abstract suspend fun replyToCallbackQueryWithEphemeralMessage(
         callbackQueryId: Long,
@@ -8447,7 +8683,7 @@ public abstract class TdlClient internal constructor() {
      *
      * @param chatId Chat identifier.
      * @param optionId Option identifier chosen by the user; leave empty for the initial request.
-     * @param messageIds Identifiers of reported messages. Use messageProperties.canReportChat to check whether the message can be reported.
+     * @param messageIds Identifiers of reported messages. Use messageProperties.canReportChat to check whether the message can be reported. Ephemeral messages must be reported separately.
      * @param text Additional report details if asked by the server; 0-1024 characters; leave empty for the initial request.
      */
     public abstract suspend fun reportChat(
@@ -8725,7 +8961,7 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun searchBackground(name: String): TdlResult<Background>
 
     /**
-     * Searches for call and group call messages. Returns the results in reverse chronological order (i.e., in order of decreasing messageId). For optimal performance, the number of returned messages is chosen by TDLib.
+     * Searches for call and group call messages. Returns the results in reverse chronological order (i.e., in order of decreasing message.id). For optimal performance, the number of returned messages is chosen by TDLib.
      *
      * @param offset Offset of the first entry to return as received from the previous request; use empty string to get the first chunk of results.
      * @param limit The maximum number of messages to be returned; up to 100. For optimal performance, the number of returned messages is chosen by TDLib and can be smaller than the specified limit.
@@ -8761,7 +8997,7 @@ public abstract class TdlClient internal constructor() {
     ): TdlResult<ChatMembers>
 
     /**
-     * Searches for messages with given words in the chat. Returns the results in reverse chronological order, i.e. in order of decreasing messageId. Cannot be used in secret chats with a non-empty query (searchSecretMessages must be used instead), or without an enabled message database. For optimal performance, the number of returned messages is chosen by TDLib and can be smaller than the specified limit. A combination of query, senderId, filter and topicId search criteria is expected to be supported, only if it is required for Telegram official application implementation.
+     * Searches for messages with given words in the chat. Returns the results in reverse chronological order, i.e. in order of decreasing message.id. Cannot be used in secret chats with a non-empty query (searchSecretMessages must be used instead), or without an enabled message database. For optimal performance, the number of returned messages is chosen by TDLib and can be smaller than the specified limit. A combination of query, senderId, filter and topicId search criteria is expected to be supported, only if it is required for Telegram official application implementation.
      *
      * @param chatId Identifier of the chat in which to search messages.
      * @param topicId Pass topic identifier to search messages only in specific topic; pass null to search for messages in all topics.
@@ -8893,7 +9129,7 @@ public abstract class TdlClient internal constructor() {
     ): TdlResult<StickerSets>
 
     /**
-     * Searches for messages in all chats except secret chats. Returns the results in reverse chronological order (i.e., in order of decreasing (date, chatId, messageId)). For optimal performance, the number of returned messages is chosen by TDLib and can be smaller than the specified limit.
+     * Searches for messages in all chats except secret chats. Returns the results in reverse chronological order (i.e., in order of decreasing (message.date, message.chatId, message.id)). For optimal performance, the number of returned messages is chosen by TDLib and can be smaller than the specified limit.
      *
      * @param chatList Chat list in which to search messages; pass null to search in all chats regardless of their chat list. Only Main and Archive chat lists are supported.
      * @param query Query to search for.
@@ -9036,7 +9272,7 @@ public abstract class TdlClient internal constructor() {
     ): TdlResult<Chats>
 
     /**
-     * Searches for messages tagged by the given reaction and with the given words in the Saved Messages chat; for Telegram Premium users only. Returns the results in reverse chronological order, i.e. in order of decreasing messageId. For optimal performance, the number of returned messages is chosen by TDLib and can be smaller than the specified limit.
+     * Searches for messages tagged by the given reaction and with the given words in the Saved Messages chat; for Telegram Premium users only. Returns the results in reverse chronological order, i.e. in order of decreasing message.id. For optimal performance, the number of returned messages is chosen by TDLib and can be smaller than the specified limit.
      *
      * @param savedMessagesTopicId If not 0, only messages in the specified Saved Messages topic will be considered; pass 0 to consider all messages.
      * @param tag Tag to search for; pass null to return all suitable messages.
@@ -9377,7 +9613,7 @@ public abstract class TdlClient internal constructor() {
      * @param options Options to be used to send the message; pass null to use default options.
      * @param queryId Identifier of the inline query.
      * @param resultId Identifier of the inline query result.
-     * @param hideViaBot Pass true to hide the bot, via which the message is sent. Can be used only for bots getOption(&quot;animation&#95;search&#95;bot&#95;username&quot;), getOption(&quot;photo&#95;search&#95;bot&#95;username&quot;), and getOption(&quot;venue&#95;search&#95;bot&#95;username&quot;).
+     * @param hideViaBot Pass true to hide the bot, via which the message is sent. Can be used only for bots getOption(&quot;animation&#95;search&#95;bot&#95;username&quot;) and getOption(&quot;photo&#95;search&#95;bot&#95;username&quot;).
      */
     public abstract suspend fun sendInlineQueryResultMessage(
         chatId: Long,
@@ -10160,6 +10396,14 @@ public abstract class TdlClient internal constructor() {
      * @param name New name of the community.
      */
     public abstract suspend fun setCommunityName(communityId: Long, name: String): TdlResult<Ok>
+
+    /**
+     * Changes notification settings of a community.
+     *
+     * @param communityId Identifier of the community.
+     * @param notificationSettings New notification settings for the community.
+     */
+    public abstract suspend fun setCommunityNotificationSettings(communityId: Long, notificationSettings: ChatNotificationSettings): TdlResult<Ok>
 
     /**
      * Changes permissions of regular members in the given community; requires canBanMembers administrator right in the community.
@@ -11355,6 +11599,27 @@ public abstract class TdlClient internal constructor() {
     public abstract suspend fun toggleChatViewAsTopics(chatId: Long, viewAsTopics: Boolean): TdlResult<Ok>
 
     /**
+     * Changes whether all chats of a community are collapsed into one entry in the chat list. If the chats are expanded, then the community is removed from all chat folders.
+     *
+     * @param communityId Identifier of the community.
+     * @param areChatsCollapsed Pass true to collapse all chats of the community into one entry in the chat list.
+     */
+    public abstract suspend fun toggleCommunityAreChatsCollapsed(communityId: Long, areChatsCollapsed: Boolean): TdlResult<Ok>
+
+    /**
+     * Bans or unbans a member of a community; requires canBanMembers administrator right in the community. A banned member is banned in all chats of the community. Administrators of the community can be banned only by the owner of the community and administrators, which can edit administrator rights of the member. If an owner of a chat in the community is banned, then the chat is removed from the community; in this case, canEditChatList administrator right is also required.
+     *
+     * @param communityId Identifier of the community.
+     * @param memberId Identifier of the member to ban or unban.
+     * @param isBanned Pass true to ban the member; pass false to unban the member.
+     */
+    public abstract suspend fun toggleCommunityMemberIsBanned(
+        communityId: Long,
+        memberId: MessageSender,
+        isBanned: Boolean,
+    ): TdlResult<Ok>
+
+    /**
      * Allows to send unpaid messages to the given topic of the channel direct messages chat administered by the current user.
      *
      * @param chatId Chat identifier.
@@ -11574,11 +11839,13 @@ public abstract class TdlClient internal constructor() {
      * @param supergroupId Identifier of the supergroup.
      * @param isForum New value of isForum.
      * @param hasForumTabs New value of hasForumTabs; ignored if isForum is false.
+     * @param hasForumSidebar New value of hasForumSidebar; ignored if isForum is false. Must be false if hasForumTabs is true.
      */
     public abstract suspend fun toggleSupergroupIsForum(
         supergroupId: Long,
         isForum: Boolean,
         hasForumTabs: Boolean,
+        hasForumSidebar: Boolean,
     ): TdlResult<Ok>
 
     /**
@@ -11893,12 +12160,12 @@ public abstract class TdlClient internal constructor() {
         /**
          * The Git commit hash of the TDLib.
          */
-        public const val TDL_GIT_COMMIT_HASH: String = "0e88653dcbf4e44c73cb655a05b58cd749a91169"
+        public const val TDL_GIT_COMMIT_HASH: String = "23383aef218a3123f02b744bfa91bde21056a814"
 
         /**
          * The version of the TDLib.
          */
-        public const val TDL_VERSION: String = "1.8.69"
+        public const val TDL_VERSION: String = "1.8.70"
 
         /**
          * Creates a new instance of the [TdlClient].

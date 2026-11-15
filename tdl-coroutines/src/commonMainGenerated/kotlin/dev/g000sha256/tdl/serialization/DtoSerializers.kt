@@ -414,11 +414,15 @@ import dev.g000sha256.tdl.dto.ClosedVectorPath
 import dev.g000sha256.tdl.dto.CollectibleItemInfo
 import dev.g000sha256.tdl.dto.CollectibleItemTypePhoneNumber
 import dev.g000sha256.tdl.dto.CollectibleItemTypeUsername
+import dev.g000sha256.tdl.dto.Communities
 import dev.g000sha256.tdl.dto.Community
+import dev.g000sha256.tdl.dto.CommunityAddChatRequest
+import dev.g000sha256.tdl.dto.CommunityAddChatRequests
 import dev.g000sha256.tdl.dto.CommunityAdministratorRights
 import dev.g000sha256.tdl.dto.CommunityChat
 import dev.g000sha256.tdl.dto.CommunityFullInfo
 import dev.g000sha256.tdl.dto.CommunityId
+import dev.g000sha256.tdl.dto.CommunityMemberChats
 import dev.g000sha256.tdl.dto.CommunityMemberStatusAdministrator
 import dev.g000sha256.tdl.dto.CommunityMemberStatusBanned
 import dev.g000sha256.tdl.dto.CommunityMemberStatusCreator
@@ -731,6 +735,7 @@ import dev.g000sha256.tdl.dto.InputMessageReplyToExternalMessage
 import dev.g000sha256.tdl.dto.InputMessageReplyToMessage
 import dev.g000sha256.tdl.dto.InputMessageReplyToStory
 import dev.g000sha256.tdl.dto.InputMessageRichMessage
+import dev.g000sha256.tdl.dto.InputMessageSharedWidget
 import dev.g000sha256.tdl.dto.InputMessageStakeDice
 import dev.g000sha256.tdl.dto.InputMessageSticker
 import dev.g000sha256.tdl.dto.InputMessageStory
@@ -739,6 +744,7 @@ import dev.g000sha256.tdl.dto.InputMessageVenue
 import dev.g000sha256.tdl.dto.InputMessageVideo
 import dev.g000sha256.tdl.dto.InputMessageVideoNote
 import dev.g000sha256.tdl.dto.InputMessageVoiceNote
+import dev.g000sha256.tdl.dto.InputMessageWidget
 import dev.g000sha256.tdl.dto.InputPageBlockAnchor
 import dev.g000sha256.tdl.dto.InputPageBlockAnimation
 import dev.g000sha256.tdl.dto.InputPageBlockAudio
@@ -810,7 +816,6 @@ import dev.g000sha256.tdl.dto.InputRichMessage
 import dev.g000sha256.tdl.dto.InputRichMessageMedia
 import dev.g000sha256.tdl.dto.InputSticker
 import dev.g000sha256.tdl.dto.InputStoryArea
-import dev.g000sha256.tdl.dto.InputStoryAreaTypeFoundVenue
 import dev.g000sha256.tdl.dto.InputStoryAreaTypeLink
 import dev.g000sha256.tdl.dto.InputStoryAreaTypeLocation
 import dev.g000sha256.tdl.dto.InputStoryAreaTypeMessage
@@ -1154,6 +1159,7 @@ import dev.g000sha256.tdl.dto.MessageViewers
 import dev.g000sha256.tdl.dto.MessageVoiceNote
 import dev.g000sha256.tdl.dto.MessageWebAppDataReceived
 import dev.g000sha256.tdl.dto.MessageWebAppDataSent
+import dev.g000sha256.tdl.dto.MessageWidget
 import dev.g000sha256.tdl.dto.Messages
 import dev.g000sha256.tdl.dto.Minithumbnail
 import dev.g000sha256.tdl.dto.NetworkStatistics
@@ -1671,6 +1677,7 @@ import dev.g000sha256.tdl.dto.SettingsSectionSendGift
 import dev.g000sha256.tdl.dto.SharedChat
 import dev.g000sha256.tdl.dto.SharedUser
 import dev.g000sha256.tdl.dto.ShippingOption
+import dev.g000sha256.tdl.dto.SpeechRecognitionLanguages
 import dev.g000sha256.tdl.dto.SpeechRecognitionResultError
 import dev.g000sha256.tdl.dto.SpeechRecognitionResultPending
 import dev.g000sha256.tdl.dto.SpeechRecognitionResultText
@@ -1906,6 +1913,8 @@ import dev.g000sha256.tdl.dto.TextEntityTypeUrl
 import dev.g000sha256.tdl.dto.TextParseModeHTML
 import dev.g000sha256.tdl.dto.TextParseModeMarkdown
 import dev.g000sha256.tdl.dto.TextQuote
+import dev.g000sha256.tdl.dto.TextRange
+import dev.g000sha256.tdl.dto.TextRanges
 import dev.g000sha256.tdl.dto.ThemeParameters
 import dev.g000sha256.tdl.dto.ThemeSettings
 import dev.g000sha256.tdl.dto.Thumbnail
@@ -2120,10 +2129,13 @@ import dev.g000sha256.tdl.dto.UpdateNewGroupCallPaidReaction
 import dev.g000sha256.tdl.dto.UpdateNewGuestQuery
 import dev.g000sha256.tdl.dto.UpdateNewInlineCallbackQuery
 import dev.g000sha256.tdl.dto.UpdateNewInlineQuery
+import dev.g000sha256.tdl.dto.UpdateNewInlineWidgetQuery
 import dev.g000sha256.tdl.dto.UpdateNewMessage
 import dev.g000sha256.tdl.dto.UpdateNewOauthRequest
 import dev.g000sha256.tdl.dto.UpdateNewPreCheckoutQuery
 import dev.g000sha256.tdl.dto.UpdateNewShippingQuery
+import dev.g000sha256.tdl.dto.UpdateNewWidgetCopyQuery
+import dev.g000sha256.tdl.dto.UpdateNewWidgetQuery
 import dev.g000sha256.tdl.dto.UpdateNotification
 import dev.g000sha256.tdl.dto.UpdateNotificationGroup
 import dev.g000sha256.tdl.dto.UpdateOption
@@ -2148,6 +2160,7 @@ import dev.g000sha256.tdl.dto.UpdateSavedNotificationSounds
 import dev.g000sha256.tdl.dto.UpdateScopeNotificationSettings
 import dev.g000sha256.tdl.dto.UpdateSecretChat
 import dev.g000sha256.tdl.dto.UpdateServiceNotification
+import dev.g000sha256.tdl.dto.UpdateSpeechRecognitionInFile
 import dev.g000sha256.tdl.dto.UpdateSpeechRecognitionTrial
 import dev.g000sha256.tdl.dto.UpdateSpeedLimitNotification
 import dev.g000sha256.tdl.dto.UpdateStakeDiceState
@@ -2296,6 +2309,12 @@ import dev.g000sha256.tdl.dto.WebProxyCarrierErrorUnsupported
 import dev.g000sha256.tdl.dto.WebProxyCarrierMessageBinary
 import dev.g000sha256.tdl.dto.WebProxyCarrierMessageText
 import dev.g000sha256.tdl.dto.WelcomeMessage
+import dev.g000sha256.tdl.dto.WidgetPublicData
+import dev.g000sha256.tdl.dto.WidgetQueryAnswer
+import dev.g000sha256.tdl.dto.WidgetQueryTypeData
+import dev.g000sha256.tdl.dto.WidgetQueryTypeSentTransaction
+import dev.g000sha256.tdl.dto.WidgetQueryTypeSignData
+import dev.g000sha256.tdl.dto.WidgetQueryWallet
 import dev.g000sha256.tdl.util.put
 import dev.g000sha256.tdl.util.putNullable
 import kotlinx.serialization.json.JsonElement
@@ -2456,6 +2475,21 @@ internal fun serialize(dto: TextEntities): JsonElement {
     return buildJsonObject {
         put(key = "@type", string = "textEntities")
         put(key = "entities", objects = dto.entities) { data -> serialize(dto = data) }
+    }
+}
+
+internal fun serialize(dto: TextRange): JsonElement {
+    return buildJsonObject {
+        put(key = "@type", string = "textRange")
+        put(key = "offset", int = dto.offset)
+        put(key = "length", int = dto.length)
+    }
+}
+
+internal fun serialize(dto: TextRanges): JsonElement {
+    return buildJsonObject {
+        put(key = "@type", string = "textRanges")
+        put(key = "ranges", objects = dto.ranges) { data -> serialize(dto = data) }
     }
 }
 
@@ -3473,6 +3507,7 @@ internal fun serialize(dto: UserTypeBot): JsonElement {
         put(key = "can_read_all_group_messages", boolean = dto.canReadAllGroupMessages)
         put(key = "has_main_web_app", boolean = dto.hasMainWebApp)
         put(key = "has_topics", boolean = dto.hasTopics)
+        put(key = "has_topic_sidebar", boolean = dto.hasTopicSidebar)
         put(key = "allows_users_to_create_topics", boolean = dto.allowsUsersToCreateTopics)
         put(key = "can_manage_bots", boolean = dto.canManageBots)
         put(key = "is_inline", boolean = dto.isInline)
@@ -6141,6 +6176,90 @@ internal fun serialize(dto: ProfileAccentColor): JsonElement {
     }
 }
 
+internal fun serialize(dto: NotificationSettingsScopePrivateChats): JsonElement {
+    return buildJsonObject {
+        put(key = "@type", string = "notificationSettingsScopePrivateChats")
+    }
+}
+
+internal fun serialize(dto: NotificationSettingsScopeGroupChats): JsonElement {
+    return buildJsonObject {
+        put(key = "@type", string = "notificationSettingsScopeGroupChats")
+    }
+}
+
+internal fun serialize(dto: NotificationSettingsScopeChannelChats): JsonElement {
+    return buildJsonObject {
+        put(key = "@type", string = "notificationSettingsScopeChannelChats")
+    }
+}
+
+internal fun serialize(dto: ChatNotificationSettings): JsonElement {
+    return buildJsonObject {
+        put(key = "@type", string = "chatNotificationSettings")
+        put(key = "use_default_mute_for", boolean = dto.useDefaultMuteFor)
+        put(key = "mute_for", int = dto.muteFor)
+        put(key = "use_default_sound", boolean = dto.useDefaultSound)
+        put(key = "sound_id", long = dto.soundId)
+        put(key = "use_default_show_preview", boolean = dto.useDefaultShowPreview)
+        put(key = "show_preview", boolean = dto.showPreview)
+        put(key = "use_default_mute_stories", boolean = dto.useDefaultMuteStories)
+        put(key = "mute_stories", boolean = dto.muteStories)
+        put(key = "use_default_story_sound", boolean = dto.useDefaultStorySound)
+        put(key = "story_sound_id", long = dto.storySoundId)
+        put(key = "use_default_show_story_poster", boolean = dto.useDefaultShowStoryPoster)
+        put(key = "show_story_poster", boolean = dto.showStoryPoster)
+        put(key = "use_default_disable_pinned_message_notifications", boolean = dto.useDefaultDisablePinnedMessageNotifications)
+        put(key = "disable_pinned_message_notifications", boolean = dto.disablePinnedMessageNotifications)
+        put(key = "use_default_disable_mention_notifications", boolean = dto.useDefaultDisableMentionNotifications)
+        put(key = "disable_mention_notifications", boolean = dto.disableMentionNotifications)
+    }
+}
+
+internal fun serialize(dto: ScopeNotificationSettings): JsonElement {
+    return buildJsonObject {
+        put(key = "@type", string = "scopeNotificationSettings")
+        put(key = "mute_for", int = dto.muteFor)
+        put(key = "sound_id", long = dto.soundId)
+        put(key = "show_preview", boolean = dto.showPreview)
+        put(key = "use_default_mute_stories", boolean = dto.useDefaultMuteStories)
+        put(key = "mute_stories", boolean = dto.muteStories)
+        put(key = "story_sound_id", long = dto.storySoundId)
+        put(key = "show_story_poster", boolean = dto.showStoryPoster)
+        put(key = "disable_pinned_message_notifications", boolean = dto.disablePinnedMessageNotifications)
+        put(key = "disable_mention_notifications", boolean = dto.disableMentionNotifications)
+    }
+}
+
+internal fun serialize(dto: ReactionNotificationSourceNone): JsonElement {
+    return buildJsonObject {
+        put(key = "@type", string = "reactionNotificationSourceNone")
+    }
+}
+
+internal fun serialize(dto: ReactionNotificationSourceContacts): JsonElement {
+    return buildJsonObject {
+        put(key = "@type", string = "reactionNotificationSourceContacts")
+    }
+}
+
+internal fun serialize(dto: ReactionNotificationSourceAll): JsonElement {
+    return buildJsonObject {
+        put(key = "@type", string = "reactionNotificationSourceAll")
+    }
+}
+
+internal fun serialize(dto: ReactionNotificationSettings): JsonElement {
+    return buildJsonObject {
+        put(key = "@type", string = "reactionNotificationSettings")
+        put(key = "message_reaction_source", value = dto.messageReactionSource) { data -> serialize(dto = data) }
+        put(key = "story_reaction_source", value = dto.storyReactionSource) { data -> serialize(dto = data) }
+        put(key = "poll_vote_source", value = dto.pollVoteSource) { data -> serialize(dto = data) }
+        put(key = "sound_id", long = dto.soundId)
+        put(key = "show_preview", boolean = dto.showPreview)
+    }
+}
+
 internal fun serialize(dto: CommunityId): JsonElement {
     return buildJsonObject {
         put(key = "@type", string = "communityId")
@@ -6208,6 +6327,7 @@ internal fun serialize(dto: Community): JsonElement {
         put(key = "date", int = dto.date)
         put(key = "status", value = dto.status) { data -> serialize(dto = data) }
         put(key = "permissions", value = dto.permissions) { data -> serialize(dto = data) }
+        put(key = "are_chats_collapsed", boolean = dto.areChatsCollapsed)
     }
 }
 
@@ -6228,6 +6348,41 @@ internal fun serialize(dto: CommunityFullInfo): JsonElement {
         put(key = "administrator_count", int = dto.administratorCount)
         put(key = "banned_count", int = dto.bannedCount)
         put(key = "add_chat_request_count", int = dto.addChatRequestCount)
+        put(key = "notification_settings", value = dto.notificationSettings) { data -> serialize(dto = data) }
+    }
+}
+
+internal fun serialize(dto: Communities): JsonElement {
+    return buildJsonObject {
+        put(key = "@type", string = "communities")
+        put(key = "community_ids", longs = dto.communityIds)
+    }
+}
+
+internal fun serialize(dto: CommunityAddChatRequest): JsonElement {
+    return buildJsonObject {
+        put(key = "@type", string = "communityAddChatRequest")
+        put(key = "chat_id", long = dto.chatId)
+        put(key = "is_hidden", boolean = dto.isHidden)
+        put(key = "sender_user_id", long = dto.senderUserId)
+        put(key = "date", int = dto.date)
+    }
+}
+
+internal fun serialize(dto: CommunityAddChatRequests): JsonElement {
+    return buildJsonObject {
+        put(key = "@type", string = "communityAddChatRequests")
+        put(key = "total_count", int = dto.totalCount)
+        put(key = "requests", objects = dto.requests) { data -> serialize(dto = data) }
+        put(key = "next_offset", string = dto.nextOffset)
+    }
+}
+
+internal fun serialize(dto: CommunityMemberChats): JsonElement {
+    return buildJsonObject {
+        put(key = "@type", string = "communityMemberChats")
+        put(key = "owned_chat_ids", longs = dto.ownedChatIds)
+        put(key = "joined_chat_ids", longs = dto.joinedChatIds)
     }
 }
 
@@ -6826,6 +6981,7 @@ internal fun serialize(dto: Supergroup): JsonElement {
         put(key = "verification_status", value = dto.verificationStatus) { data -> serialize(dto = data) }
         put(key = "has_direct_messages_group", boolean = dto.hasDirectMessagesGroup)
         put(key = "has_forum_tabs", boolean = dto.hasForumTabs)
+        put(key = "has_forum_sidebar", boolean = dto.hasForumSidebar)
         put(key = "restriction_info", value = dto.restrictionInfo) { data -> serialize(dto = data) }
         put(key = "paid_message_star_count", long = dto.paidMessageStarCount)
         put(key = "active_story_state", value = dto.activeStoryState) { data -> serialize(dto = data) }
@@ -7700,90 +7856,6 @@ internal fun serialize(dto: FoundFileDownloads): JsonElement {
         put(key = "total_counts", value = dto.totalCounts) { data -> serialize(dto = data) }
         put(key = "files", objects = dto.files) { data -> serialize(dto = data) }
         put(key = "next_offset", string = dto.nextOffset)
-    }
-}
-
-internal fun serialize(dto: NotificationSettingsScopePrivateChats): JsonElement {
-    return buildJsonObject {
-        put(key = "@type", string = "notificationSettingsScopePrivateChats")
-    }
-}
-
-internal fun serialize(dto: NotificationSettingsScopeGroupChats): JsonElement {
-    return buildJsonObject {
-        put(key = "@type", string = "notificationSettingsScopeGroupChats")
-    }
-}
-
-internal fun serialize(dto: NotificationSettingsScopeChannelChats): JsonElement {
-    return buildJsonObject {
-        put(key = "@type", string = "notificationSettingsScopeChannelChats")
-    }
-}
-
-internal fun serialize(dto: ChatNotificationSettings): JsonElement {
-    return buildJsonObject {
-        put(key = "@type", string = "chatNotificationSettings")
-        put(key = "use_default_mute_for", boolean = dto.useDefaultMuteFor)
-        put(key = "mute_for", int = dto.muteFor)
-        put(key = "use_default_sound", boolean = dto.useDefaultSound)
-        put(key = "sound_id", long = dto.soundId)
-        put(key = "use_default_show_preview", boolean = dto.useDefaultShowPreview)
-        put(key = "show_preview", boolean = dto.showPreview)
-        put(key = "use_default_mute_stories", boolean = dto.useDefaultMuteStories)
-        put(key = "mute_stories", boolean = dto.muteStories)
-        put(key = "use_default_story_sound", boolean = dto.useDefaultStorySound)
-        put(key = "story_sound_id", long = dto.storySoundId)
-        put(key = "use_default_show_story_poster", boolean = dto.useDefaultShowStoryPoster)
-        put(key = "show_story_poster", boolean = dto.showStoryPoster)
-        put(key = "use_default_disable_pinned_message_notifications", boolean = dto.useDefaultDisablePinnedMessageNotifications)
-        put(key = "disable_pinned_message_notifications", boolean = dto.disablePinnedMessageNotifications)
-        put(key = "use_default_disable_mention_notifications", boolean = dto.useDefaultDisableMentionNotifications)
-        put(key = "disable_mention_notifications", boolean = dto.disableMentionNotifications)
-    }
-}
-
-internal fun serialize(dto: ScopeNotificationSettings): JsonElement {
-    return buildJsonObject {
-        put(key = "@type", string = "scopeNotificationSettings")
-        put(key = "mute_for", int = dto.muteFor)
-        put(key = "sound_id", long = dto.soundId)
-        put(key = "show_preview", boolean = dto.showPreview)
-        put(key = "use_default_mute_stories", boolean = dto.useDefaultMuteStories)
-        put(key = "mute_stories", boolean = dto.muteStories)
-        put(key = "story_sound_id", long = dto.storySoundId)
-        put(key = "show_story_poster", boolean = dto.showStoryPoster)
-        put(key = "disable_pinned_message_notifications", boolean = dto.disablePinnedMessageNotifications)
-        put(key = "disable_mention_notifications", boolean = dto.disableMentionNotifications)
-    }
-}
-
-internal fun serialize(dto: ReactionNotificationSourceNone): JsonElement {
-    return buildJsonObject {
-        put(key = "@type", string = "reactionNotificationSourceNone")
-    }
-}
-
-internal fun serialize(dto: ReactionNotificationSourceContacts): JsonElement {
-    return buildJsonObject {
-        put(key = "@type", string = "reactionNotificationSourceContacts")
-    }
-}
-
-internal fun serialize(dto: ReactionNotificationSourceAll): JsonElement {
-    return buildJsonObject {
-        put(key = "@type", string = "reactionNotificationSourceAll")
-    }
-}
-
-internal fun serialize(dto: ReactionNotificationSettings): JsonElement {
-    return buildJsonObject {
-        put(key = "@type", string = "reactionNotificationSettings")
-        put(key = "message_reaction_source", value = dto.messageReactionSource) { data -> serialize(dto = data) }
-        put(key = "story_reaction_source", value = dto.storyReactionSource) { data -> serialize(dto = data) }
-        put(key = "poll_vote_source", value = dto.pollVoteSource) { data -> serialize(dto = data) }
-        put(key = "sound_id", long = dto.soundId)
-        put(key = "show_preview", boolean = dto.showPreview)
     }
 }
 
@@ -10926,6 +10998,23 @@ internal fun serialize(dto: MessageStory): JsonElement {
     }
 }
 
+internal fun serialize(dto: MessageWidget): JsonElement {
+    return buildJsonObject {
+        put(key = "@type", string = "messageWidget")
+        put(key = "width", int = dto.width)
+        put(key = "height", int = dto.height)
+        put(key = "html", string = dto.html)
+        put(key = "public_data", string = dto.publicData)
+        put(key = "chat_data", string = dto.chatData)
+        put(key = "widget_id", long = dto.widgetId)
+        put(key = "caption", value = dto.caption) { data -> serialize(dto = data) }
+        put(key = "show_caption_above_media", boolean = dto.showCaptionAboveMedia)
+        put(key = "is_copy", boolean = dto.isCopy)
+        put(key = "can_send_queries", boolean = dto.canSendQueries)
+        put(key = "can_send_background_queries", boolean = dto.canSendBackgroundQueries)
+    }
+}
+
 internal fun serialize(dto: MessageChecklist): JsonElement {
     return buildJsonObject {
         put(key = "@type", string = "messageChecklist")
@@ -12535,6 +12624,31 @@ internal fun serialize(dto: InputMessageChecklist): JsonElement {
     }
 }
 
+internal fun serialize(dto: InputMessageWidget): JsonElement {
+    return buildJsonObject {
+        put(key = "@type", string = "inputMessageWidget")
+        put(key = "width", int = dto.width)
+        put(key = "height", int = dto.height)
+        put(key = "html", string = dto.html)
+        put(key = "public_data", string = dto.publicData)
+        put(key = "chat_data", string = dto.chatData)
+        put(key = "caption", value = dto.caption) { data -> serialize(dto = data) }
+        put(key = "show_caption_above_media", boolean = dto.showCaptionAboveMedia)
+        put(key = "allow_queries", boolean = dto.allowQueries)
+        put(key = "is_shared", boolean = dto.isShared)
+    }
+}
+
+internal fun serialize(dto: InputMessageSharedWidget): JsonElement {
+    return buildJsonObject {
+        put(key = "@type", string = "inputMessageSharedWidget")
+        put(key = "widget_id", long = dto.widgetId)
+        put(key = "chat_data", string = dto.chatData)
+        put(key = "caption", value = dto.caption) { data -> serialize(dto = data) }
+        put(key = "show_caption_above_media", boolean = dto.showCaptionAboveMedia)
+    }
+}
+
 internal fun serialize(dto: InputMessageForwarded): JsonElement {
     return buildJsonObject {
         put(key = "@type", string = "inputMessageForwarded")
@@ -13113,14 +13227,6 @@ internal fun serialize(dto: InputStoryAreaTypeLocation): JsonElement {
     }
 }
 
-internal fun serialize(dto: InputStoryAreaTypeFoundVenue): JsonElement {
-    return buildJsonObject {
-        put(key = "@type", string = "inputStoryAreaTypeFoundVenue")
-        put(key = "query_id", long = dto.queryId)
-        put(key = "result_id", string = dto.resultId)
-    }
-}
-
 internal fun serialize(dto: InputStoryAreaTypePreviousVenue): JsonElement {
     return buildJsonObject {
         put(key = "@type", string = "inputStoryAreaTypePreviousVenue")
@@ -13346,6 +13452,7 @@ internal fun serialize(dto: Story): JsonElement {
         put(key = "content", value = dto.content) { data -> serialize(dto = data) }
         put(key = "areas", objects = dto.areas) { data -> serialize(dto = data) }
         put(key = "caption", value = dto.caption) { data -> serialize(dto = data) }
+        put(key = "music", value = dto.music) { data -> serialize(dto = data) }
         put(key = "album_ids", ints = dto.albumIds)
     }
 }
@@ -14304,6 +14411,13 @@ internal fun serialize(dto: SpeechRecognitionResultError): JsonElement {
     }
 }
 
+internal fun serialize(dto: SpeechRecognitionLanguages): JsonElement {
+    return buildJsonObject {
+        put(key = "@type", string = "speechRecognitionLanguages")
+        put(key = "language_codes", strings = dto.languageCodes)
+    }
+}
+
 internal fun serialize(dto: BusinessConnection): JsonElement {
     return buildJsonObject {
         put(key = "@type", string = "businessConnection")
@@ -14788,6 +14902,54 @@ internal fun serialize(dto: CallbackQueryAnswer): JsonElement {
         put(key = "text", string = dto.text)
         put(key = "show_alert", boolean = dto.showAlert)
         put(key = "url", string = dto.url)
+    }
+}
+
+internal fun serialize(dto: WidgetQueryWallet): JsonElement {
+    return buildJsonObject {
+        put(key = "@type", string = "widgetQueryWallet")
+        put(key = "address", string = dto.address)
+        put(key = "gram_amount", long = dto.gramAmount)
+        put(key = "public_key", bytes = dto.publicKey)
+        put(key = "state_init", bytes = dto.stateInit)
+    }
+}
+
+internal fun serialize(dto: WidgetQueryTypeData): JsonElement {
+    return buildJsonObject {
+        put(key = "@type", string = "widgetQueryTypeData")
+        put(key = "with_wallet", boolean = dto.withWallet)
+    }
+}
+
+internal fun serialize(dto: WidgetQueryTypeSignData): JsonElement {
+    return buildJsonObject {
+        put(key = "@type", string = "widgetQueryTypeSignData")
+        put(key = "wallet", value = dto.wallet) { data -> serialize(dto = data) }
+        put(key = "sign_data", string = dto.signData)
+    }
+}
+
+internal fun serialize(dto: WidgetQueryTypeSentTransaction): JsonElement {
+    return buildJsonObject {
+        put(key = "@type", string = "widgetQueryTypeSentTransaction")
+        put(key = "wallet", value = dto.wallet) { data -> serialize(dto = data) }
+        put(key = "msg_hash", string = dto.msgHash)
+    }
+}
+
+internal fun serialize(dto: WidgetQueryAnswer): JsonElement {
+    return buildJsonObject {
+        put(key = "@type", string = "widgetQueryAnswer")
+        put(key = "data", string = dto.data)
+    }
+}
+
+internal fun serialize(dto: WidgetPublicData): JsonElement {
+    return buildJsonObject {
+        put(key = "@type", string = "widgetPublicData")
+        put(key = "data", string = dto.data)
+        put(key = "poll_period", int = dto.pollPeriod)
     }
 }
 
@@ -20658,6 +20820,14 @@ internal fun serialize(dto: UpdateSpeechRecognitionTrial): JsonElement {
     }
 }
 
+internal fun serialize(dto: UpdateSpeechRecognitionInFile): JsonElement {
+    return buildJsonObject {
+        put(key = "@type", string = "updateSpeechRecognitionInFile")
+        put(key = "recognition_id", long = dto.recognitionId)
+        put(key = "partial_text", string = dto.partialText)
+    }
+}
+
 internal fun serialize(dto: UpdateGroupCallMessageLevels): JsonElement {
     return buildJsonObject {
         put(key = "@type", string = "updateGroupCallMessageLevels")
@@ -20829,6 +20999,49 @@ internal fun serialize(dto: UpdateNewBusinessCallbackQuery): JsonElement {
         put(key = "message", value = dto.message) { data -> serialize(dto = data) }
         put(key = "chat_instance", long = dto.chatInstance)
         put(key = "payload", value = dto.payload) { data -> serialize(dto = data) }
+    }
+}
+
+internal fun serialize(dto: UpdateNewWidgetQuery): JsonElement {
+    return buildJsonObject {
+        put(key = "@type", string = "updateNewWidgetQuery")
+        put(key = "id", long = dto.id)
+        put(key = "sender_user_id", long = dto.senderUserId)
+        put(key = "chat_id", long = dto.chatId)
+        put(key = "message_id", long = dto.messageId)
+        put(key = "chat_instance", long = dto.chatInstance)
+        put(key = "chat_type", string = dto.chatType)
+        put(key = "query_type", value = dto.queryType) { data -> serialize(dto = data) }
+        put(key = "data", bytes = dto.data)
+        put(key = "widget_id", long = dto.widgetId)
+        put(key = "wallet_card", value = dto.walletCard) { data -> serialize(dto = data) }
+    }
+}
+
+internal fun serialize(dto: UpdateNewInlineWidgetQuery): JsonElement {
+    return buildJsonObject {
+        put(key = "@type", string = "updateNewInlineWidgetQuery")
+        put(key = "id", long = dto.id)
+        put(key = "sender_user_id", long = dto.senderUserId)
+        put(key = "inline_message_id", string = dto.inlineMessageId)
+        put(key = "chat_instance", long = dto.chatInstance)
+        put(key = "chat_type", string = dto.chatType)
+        put(key = "query_type", value = dto.queryType) { data -> serialize(dto = data) }
+        put(key = "data", bytes = dto.data)
+        put(key = "widget_id", long = dto.widgetId)
+        put(key = "wallet_card", value = dto.walletCard) { data -> serialize(dto = data) }
+    }
+}
+
+internal fun serialize(dto: UpdateNewWidgetCopyQuery): JsonElement {
+    return buildJsonObject {
+        put(key = "@type", string = "updateNewWidgetCopyQuery")
+        put(key = "id", long = dto.id)
+        put(key = "sender_user_id", long = dto.senderUserId)
+        put(key = "query_type", value = dto.queryType) { data -> serialize(dto = data) }
+        put(key = "data", bytes = dto.data)
+        put(key = "widget_id", long = dto.widgetId)
+        put(key = "wallet_card", value = dto.walletCard) { data -> serialize(dto = data) }
     }
 }
 

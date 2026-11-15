@@ -1,5 +1,5 @@
 /*
- * Copyright 2025-2026 Georgii Ippolitov (g000sha256)
+ * Copyright 2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,19 +19,18 @@ package dev.g000sha256.tdl.dto
 import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
-import kotlin.Long
 import kotlin.String
 
 /**
- * An area pointing to a venue found by the bot getOption(&quot;venue&#95;search&#95;bot&#95;username&quot;).
+ * Describes a part of a text.
  *
- * @property queryId Identifier of the inline query, used to find the venue.
- * @property resultId Identifier of the inline query result.
+ * @property offset Offset of the part, in UTF-16 code units.
+ * @property length Length of the part, in UTF-16 code units.
  */
-public class InputStoryAreaTypeFoundVenue public constructor(
-    public val queryId: Long,
-    public val resultId: String,
-) : InputStoryAreaType() {
+public class TextRange public constructor(
+    public val offset: Int,
+    public val length: Int,
+) {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
             return true
@@ -42,29 +41,29 @@ public class InputStoryAreaTypeFoundVenue public constructor(
         if (other::class != this::class) {
             return false
         }
-        other as InputStoryAreaTypeFoundVenue
-        if (other.queryId != queryId) {
+        other as TextRange
+        if (other.offset != offset) {
             return false
         }
-        return other.resultId == resultId
+        return other.length == length
     }
 
     override fun hashCode(): Int {
         var hashCode = this::class.hashCode()
-        hashCode = 31 * hashCode + queryId.hashCode()
-        hashCode = 31 * hashCode + resultId.hashCode()
+        hashCode = 31 * hashCode + offset.hashCode()
+        hashCode = 31 * hashCode + length.hashCode()
         return hashCode
     }
 
     override fun toString(): String {
         return buildString {
-            append("InputStoryAreaTypeFoundVenue")
+            append("TextRange")
             append("(")
-            append("queryId=")
-            append(queryId)
+            append("offset=")
+            append(offset)
             append(", ")
-            append("resultId=")
-            append(resultId)
+            append("length=")
+            append(length)
             append(")")
         }
     }

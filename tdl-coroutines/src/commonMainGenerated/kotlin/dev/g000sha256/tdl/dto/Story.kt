@@ -53,6 +53,7 @@ import kotlin.String
  * @property content Content of the story.
  * @property areas Clickable areas to be shown on the story content.
  * @property caption Caption of the story.
+ * @property music Music attached to the story; may be null if none.
  * @property albumIds Identifiers of story albums to which the story is added; only for manageable stories.
  */
 public class Story public constructor(
@@ -82,6 +83,7 @@ public class Story public constructor(
     public val content: StoryContent,
     public val areas: Array<StoryArea>,
     public val caption: FormattedText,
+    public val music: Audio?,
     public val albumIds: IntArray,
 ) {
     override fun equals(other: Any?): Boolean {
@@ -174,6 +176,9 @@ public class Story public constructor(
         if (other.caption != caption) {
             return false
         }
+        if (other.music != music) {
+            return false
+        }
         return other.albumIds.contentEquals(albumIds)
     }
 
@@ -205,6 +210,7 @@ public class Story public constructor(
         hashCode = 31 * hashCode + content.hashCode()
         hashCode = 31 * hashCode + areas.contentDeepHashCode()
         hashCode = 31 * hashCode + caption.hashCode()
+        hashCode = 31 * hashCode + music.hashCode()
         hashCode = 31 * hashCode + albumIds.contentHashCode()
         return hashCode
     }
@@ -292,6 +298,9 @@ public class Story public constructor(
             append(", ")
             append("caption=")
             append(caption)
+            append(", ")
+            append("music=")
+            append(music)
             append(", ")
             append("albumIds=")
             albumIds

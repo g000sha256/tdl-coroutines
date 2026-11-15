@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Georgii Ippolitov (g000sha256)
+ * Copyright 2025-2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,21 +25,21 @@ import kotlin.String
 /**
  * Contains information about notification settings for a chat or a forum topic.
  *
- * @property useDefaultMuteFor If true, the value for the relevant type of chat or the forum chat is used instead of muteFor.
+ * @property useDefaultMuteFor If true, the value for the topic's chat, the chat's community, or the relevant type of chat is used instead of muteFor.
  * @property muteFor Time left before notifications will be unmuted, in seconds.
- * @property useDefaultSound If true, the value for the relevant type of chat or the forum chat is used instead of soundId.
+ * @property useDefaultSound If true, the value for the topic's chat, the chat's community, or the relevant type of chat is used instead of soundId.
  * @property soundId Identifier of the notification sound to be played for messages; 0 if sound is disabled.
- * @property useDefaultShowPreview If true, the value for the relevant type of chat or the forum chat is used instead of showPreview.
+ * @property useDefaultShowPreview If true, the value for the topic's chat, the chat's community, or the relevant type of chat is used instead of showPreview.
  * @property showPreview True, if message content must be displayed in notifications.
- * @property useDefaultMuteStories If true, the value for the relevant type of chat is used instead of muteStories.
+ * @property useDefaultMuteStories If true, the value for the chat's community or the relevant type of chat is used instead of muteStories.
  * @property muteStories True, if story notifications are disabled for the chat.
- * @property useDefaultStorySound If true, the value for the relevant type of chat is used instead of storySoundId.
+ * @property useDefaultStorySound If true, the value for the chat's community or the relevant type of chat is used instead of storySoundId.
  * @property storySoundId Identifier of the notification sound to be played for stories; 0 if sound is disabled.
- * @property useDefaultShowStoryPoster If true, the value for the relevant type of chat is used instead of showStoryPoster.
+ * @property useDefaultShowStoryPoster If true, the value for the chat's community or the relevant type of chat is used instead of showStoryPoster.
  * @property showStoryPoster True, if the chat that posted a story must be displayed in notifications.
- * @property useDefaultDisablePinnedMessageNotifications If true, the value for the relevant type of chat or the forum chat is used instead of disablePinnedMessageNotifications.
+ * @property useDefaultDisablePinnedMessageNotifications If true, the value for the topic's chat, the chat's community, or the relevant type of chat is used instead of disablePinnedMessageNotifications.
  * @property disablePinnedMessageNotifications If true, notifications for incoming pinned messages will be created as for an ordinary unread message.
- * @property useDefaultDisableMentionNotifications If true, the value for the relevant type of chat or the forum chat is used instead of disableMentionNotifications.
+ * @property useDefaultDisableMentionNotifications If true, the value for the topic's chat, the chat's community, or the relevant type of chat is used instead of disableMentionNotifications.
  * @property disableMentionNotifications If true, notifications for messages with mentions will be created as for an ordinary unread message.
  */
 public class ChatNotificationSettings public constructor(

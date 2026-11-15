@@ -30,6 +30,7 @@ import kotlin.String
  * @property administratorCount Number of privileged users in the community; 0 if the current user isn't an administrator of the community.
  * @property bannedCount Number of users banned from the community; 0 if the current user isn't an administrator of the community.
  * @property addChatRequestCount Number of pending requests for addition of chats to the community; 0 if the current user isn't an administrator of the community.
+ * @property notificationSettings Notification settings for the community. Default notification settings are chosen based on the type of a chat in the community.
  */
 public class CommunityFullInfo public constructor(
     public val photo: ChatPhoto,
@@ -37,6 +38,7 @@ public class CommunityFullInfo public constructor(
     public val administratorCount: Int,
     public val bannedCount: Int,
     public val addChatRequestCount: Int,
+    public val notificationSettings: ChatNotificationSettings,
 ) {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
@@ -62,7 +64,10 @@ public class CommunityFullInfo public constructor(
         if (other.bannedCount != bannedCount) {
             return false
         }
-        return other.addChatRequestCount == addChatRequestCount
+        if (other.addChatRequestCount != addChatRequestCount) {
+            return false
+        }
+        return other.notificationSettings == notificationSettings
     }
 
     override fun hashCode(): Int {
@@ -72,6 +77,7 @@ public class CommunityFullInfo public constructor(
         hashCode = 31 * hashCode + administratorCount.hashCode()
         hashCode = 31 * hashCode + bannedCount.hashCode()
         hashCode = 31 * hashCode + addChatRequestCount.hashCode()
+        hashCode = 31 * hashCode + notificationSettings.hashCode()
         return hashCode
     }
 
@@ -95,6 +101,9 @@ public class CommunityFullInfo public constructor(
             append(", ")
             append("addChatRequestCount=")
             append(addChatRequestCount)
+            append(", ")
+            append("notificationSettings=")
+            append(notificationSettings)
             append(")")
         }
     }

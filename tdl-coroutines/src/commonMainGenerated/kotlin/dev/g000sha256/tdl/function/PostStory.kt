@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Georgii Ippolitov (g000sha256)
+ * Copyright 2025-2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,6 +17,7 @@
 package dev.g000sha256.tdl.function
 
 import dev.g000sha256.tdl.dto.FormattedText
+import dev.g000sha256.tdl.dto.InputAudio
 import dev.g000sha256.tdl.dto.InputStoryAreas
 import dev.g000sha256.tdl.dto.InputStoryContent
 import dev.g000sha256.tdl.dto.StoryFullId
@@ -31,6 +32,7 @@ internal class PostStory internal constructor(
     internal val content: InputStoryContent,
     internal val areas: InputStoryAreas?,
     internal val caption: FormattedText?,
+    internal val music: InputAudio?,
     internal val privacySettings: StoryPrivacySettings,
     internal val albumIds: IntArray,
     internal val activePeriod: Int,
