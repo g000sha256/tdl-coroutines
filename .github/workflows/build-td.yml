@@ -156,7 +156,7 @@ on:
 env:
   TDL_CHECKOUT_REF: ${{ github.event_name == 'workflow_dispatch' && inputs.commit == false && github.sha || github.ref_name }}
   TDL_IOS_DEPLOYMENT_TARGET: '15.0'
-  TDL_MACOS_DEPLOYMENT_TARGET: '12.0'
+  TDL_MACOS_DEPLOYMENT_TARGET: '11.0'
   TDL_TVOS_DEPLOYMENT_TARGET: '15.0'
   TDL_WATCHOS_DEPLOYMENT_TARGET: '8.0'
   TDL_WATCHOS_DEPLOYMENT_TARGET_ARM: '26.0'

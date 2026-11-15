@@ -23,7 +23,13 @@ kotlin {
     withSourcesJar(publish = true)
 
     @OptIn(ExperimentalAbiValidation::class)
-    abiValidation()
+    abiValidation {
+        enabled.set(true)
+
+        klib {
+            enabled.set(true)
+        }
+    }
 
     compilerOptions {
         allWarningsAsErrors = true
