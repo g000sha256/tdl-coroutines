@@ -47,6 +47,7 @@ import kotlin.String
  * @property verificationStatus Information about verification status of the supergroup or channel; may be null if none.
  * @property hasDirectMessagesGroup True, if the channel has direct messages group.
  * @property hasForumTabs True, if the supergroup is a forum, which topics are shown in the same way as in channel direct messages groups.
+ * @property hasForumSidebar True, if the supergroup is a forum, which topics are shown in a sidebar. If true, then hasForumTabs is false.
  * @property restrictionInfo Information about the restrictions that must be applied to the corresponding supergroup or channel chat; may be null if none.
  * @property paidMessageStarCount Number of Telegram Stars that must be paid by non-administrator users of the supergroup chat for each sent message.
  * @property activeStoryState State of active stories of the supergroup or channel; may be null if there are no active stories.
@@ -74,6 +75,7 @@ public class Supergroup public constructor(
     public val verificationStatus: VerificationStatus?,
     public val hasDirectMessagesGroup: Boolean,
     public val hasForumTabs: Boolean,
+    public val hasForumSidebar: Boolean,
     public val restrictionInfo: RestrictionInfo?,
     public val paidMessageStarCount: Long,
     public val activeStoryState: ActiveStoryState?,
@@ -155,6 +157,9 @@ public class Supergroup public constructor(
         if (other.hasForumTabs != hasForumTabs) {
             return false
         }
+        if (other.hasForumSidebar != hasForumSidebar) {
+            return false
+        }
         if (other.restrictionInfo != restrictionInfo) {
             return false
         }
@@ -188,6 +193,7 @@ public class Supergroup public constructor(
         hashCode = 31 * hashCode + verificationStatus.hashCode()
         hashCode = 31 * hashCode + hasDirectMessagesGroup.hashCode()
         hashCode = 31 * hashCode + hasForumTabs.hashCode()
+        hashCode = 31 * hashCode + hasForumSidebar.hashCode()
         hashCode = 31 * hashCode + restrictionInfo.hashCode()
         hashCode = 31 * hashCode + paidMessageStarCount.hashCode()
         hashCode = 31 * hashCode + activeStoryState.hashCode()
@@ -263,6 +269,9 @@ public class Supergroup public constructor(
             append(", ")
             append("hasForumTabs=")
             append(hasForumTabs)
+            append(", ")
+            append("hasForumSidebar=")
+            append(hasForumSidebar)
             append(", ")
             append("restrictionInfo=")
             append(restrictionInfo)

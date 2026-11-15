@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Georgii Ippolitov (g000sha256)
+ * Copyright 2025-2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,7 +30,7 @@ import kotlin.String
  * @property messageThreadId Message thread identifier, unique within the chat.
  * @property replyInfo Information about the message thread; may be null for forum topic threads.
  * @property unreadMessageCount Approximate number of unread messages in the message thread.
- * @property messages The messages from which the thread starts. The messages are returned in reverse chronological order (i.e., in order of decreasing messageId).
+ * @property messages The messages from which the thread starts. The messages are returned in reverse chronological order (i.e., in order of decreasing message.id).
  * @property draftMessage A draft of a message in the message thread; may be null if none.
  */
 public class MessageThreadInfo public constructor(

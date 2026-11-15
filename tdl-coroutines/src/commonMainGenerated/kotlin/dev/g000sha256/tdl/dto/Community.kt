@@ -32,6 +32,7 @@ import kotlin.String
  * @property date Point in time (Unix timestamp) when the community was joined, or the point in time when the community was created, in case the user is not a member of any chat in the community.
  * @property status Status of the current user in the community.
  * @property permissions Actions that non-administrator community members are allowed to take in the community.
+ * @property areChatsCollapsed True, if all chats of the community are collapsed into one entry in the chat list.
  */
 public class Community public constructor(
     public val id: Long,
@@ -41,6 +42,7 @@ public class Community public constructor(
     public val date: Int,
     public val status: CommunityMemberStatus,
     public val permissions: CommunityPermissions,
+    public val areChatsCollapsed: Boolean,
 ) {
     override fun equals(other: Any?): Boolean {
         if (other === this) {
@@ -71,7 +73,10 @@ public class Community public constructor(
         if (other.status != status) {
             return false
         }
-        return other.permissions == permissions
+        if (other.permissions != permissions) {
+            return false
+        }
+        return other.areChatsCollapsed == areChatsCollapsed
     }
 
     override fun hashCode(): Int {
@@ -83,6 +88,7 @@ public class Community public constructor(
         hashCode = 31 * hashCode + date.hashCode()
         hashCode = 31 * hashCode + status.hashCode()
         hashCode = 31 * hashCode + permissions.hashCode()
+        hashCode = 31 * hashCode + areChatsCollapsed.hashCode()
         return hashCode
     }
 
@@ -110,6 +116,9 @@ public class Community public constructor(
             append(", ")
             append("permissions=")
             append(permissions)
+            append(", ")
+            append("areChatsCollapsed=")
+            append(areChatsCollapsed)
             append(")")
         }
     }

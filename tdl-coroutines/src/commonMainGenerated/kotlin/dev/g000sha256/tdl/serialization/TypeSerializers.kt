@@ -548,6 +548,7 @@ import dev.g000sha256.tdl.dto.InputMessageReplyToExternalMessage
 import dev.g000sha256.tdl.dto.InputMessageReplyToMessage
 import dev.g000sha256.tdl.dto.InputMessageReplyToStory
 import dev.g000sha256.tdl.dto.InputMessageRichMessage
+import dev.g000sha256.tdl.dto.InputMessageSharedWidget
 import dev.g000sha256.tdl.dto.InputMessageStakeDice
 import dev.g000sha256.tdl.dto.InputMessageSticker
 import dev.g000sha256.tdl.dto.InputMessageStory
@@ -556,6 +557,7 @@ import dev.g000sha256.tdl.dto.InputMessageVenue
 import dev.g000sha256.tdl.dto.InputMessageVideo
 import dev.g000sha256.tdl.dto.InputMessageVideoNote
 import dev.g000sha256.tdl.dto.InputMessageVoiceNote
+import dev.g000sha256.tdl.dto.InputMessageWidget
 import dev.g000sha256.tdl.dto.InputPageBlock
 import dev.g000sha256.tdl.dto.InputPageBlockAnchor
 import dev.g000sha256.tdl.dto.InputPageBlockAnimation
@@ -625,7 +627,6 @@ import dev.g000sha256.tdl.dto.InputProfileShareTheme
 import dev.g000sha256.tdl.dto.InputProfileShareThemeEmoji
 import dev.g000sha256.tdl.dto.InputProfileShareThemeUpgradedGift
 import dev.g000sha256.tdl.dto.InputStoryAreaType
-import dev.g000sha256.tdl.dto.InputStoryAreaTypeFoundVenue
 import dev.g000sha256.tdl.dto.InputStoryAreaTypeLink
 import dev.g000sha256.tdl.dto.InputStoryAreaTypeLocation
 import dev.g000sha256.tdl.dto.InputStoryAreaTypeMessage
@@ -944,6 +945,7 @@ import dev.g000sha256.tdl.dto.MessageVideoNote
 import dev.g000sha256.tdl.dto.MessageVoiceNote
 import dev.g000sha256.tdl.dto.MessageWebAppDataReceived
 import dev.g000sha256.tdl.dto.MessageWebAppDataSent
+import dev.g000sha256.tdl.dto.MessageWidget
 import dev.g000sha256.tdl.dto.NetworkStatisticsEntry
 import dev.g000sha256.tdl.dto.NetworkStatisticsEntryCall
 import dev.g000sha256.tdl.dto.NetworkStatisticsEntryFile
@@ -1805,10 +1807,13 @@ import dev.g000sha256.tdl.dto.UpdateNewGroupCallPaidReaction
 import dev.g000sha256.tdl.dto.UpdateNewGuestQuery
 import dev.g000sha256.tdl.dto.UpdateNewInlineCallbackQuery
 import dev.g000sha256.tdl.dto.UpdateNewInlineQuery
+import dev.g000sha256.tdl.dto.UpdateNewInlineWidgetQuery
 import dev.g000sha256.tdl.dto.UpdateNewMessage
 import dev.g000sha256.tdl.dto.UpdateNewOauthRequest
 import dev.g000sha256.tdl.dto.UpdateNewPreCheckoutQuery
 import dev.g000sha256.tdl.dto.UpdateNewShippingQuery
+import dev.g000sha256.tdl.dto.UpdateNewWidgetCopyQuery
+import dev.g000sha256.tdl.dto.UpdateNewWidgetQuery
 import dev.g000sha256.tdl.dto.UpdateNotification
 import dev.g000sha256.tdl.dto.UpdateNotificationGroup
 import dev.g000sha256.tdl.dto.UpdateOption
@@ -1833,6 +1838,7 @@ import dev.g000sha256.tdl.dto.UpdateSavedNotificationSounds
 import dev.g000sha256.tdl.dto.UpdateScopeNotificationSettings
 import dev.g000sha256.tdl.dto.UpdateSecretChat
 import dev.g000sha256.tdl.dto.UpdateServiceNotification
+import dev.g000sha256.tdl.dto.UpdateSpeechRecognitionInFile
 import dev.g000sha256.tdl.dto.UpdateSpeechRecognitionTrial
 import dev.g000sha256.tdl.dto.UpdateSpeedLimitNotification
 import dev.g000sha256.tdl.dto.UpdateStakeDiceState
@@ -1947,6 +1953,10 @@ import dev.g000sha256.tdl.dto.WebProxyCarrierErrorUnsupported
 import dev.g000sha256.tdl.dto.WebProxyCarrierMessage
 import dev.g000sha256.tdl.dto.WebProxyCarrierMessageBinary
 import dev.g000sha256.tdl.dto.WebProxyCarrierMessageText
+import dev.g000sha256.tdl.dto.WidgetQueryType
+import dev.g000sha256.tdl.dto.WidgetQueryTypeData
+import dev.g000sha256.tdl.dto.WidgetQueryTypeSentTransaction
+import dev.g000sha256.tdl.dto.WidgetQueryTypeSignData
 import kotlinx.serialization.json.JsonElement
 
 internal fun serialize(dto: AuthenticationCodeType): JsonElement {
@@ -2447,6 +2457,22 @@ internal fun serialize(dto: GiveawayPrize): JsonElement {
     }
 }
 
+internal fun serialize(dto: NotificationSettingsScope): JsonElement {
+    when(dto) {
+        is NotificationSettingsScopePrivateChats -> return serialize(dto = dto)
+        is NotificationSettingsScopeGroupChats -> return serialize(dto = dto)
+        is NotificationSettingsScopeChannelChats -> return serialize(dto = dto)
+    }
+}
+
+internal fun serialize(dto: ReactionNotificationSource): JsonElement {
+    when(dto) {
+        is ReactionNotificationSourceNone -> return serialize(dto = dto)
+        is ReactionNotificationSourceContacts -> return serialize(dto = dto)
+        is ReactionNotificationSourceAll -> return serialize(dto = dto)
+    }
+}
+
 internal fun serialize(dto: CommunityMemberStatus): JsonElement {
     when(dto) {
         is CommunityMemberStatusCreator -> return serialize(dto = dto)
@@ -2637,22 +2663,6 @@ internal fun serialize(dto: ReportSponsoredResult): JsonElement {
         is ReportSponsoredResultOptionRequired -> return serialize(dto = dto)
         is ReportSponsoredResultAdsHidden -> return serialize(dto = dto)
         is ReportSponsoredResultPremiumRequired -> return serialize(dto = dto)
-    }
-}
-
-internal fun serialize(dto: NotificationSettingsScope): JsonElement {
-    when(dto) {
-        is NotificationSettingsScopePrivateChats -> return serialize(dto = dto)
-        is NotificationSettingsScopeGroupChats -> return serialize(dto = dto)
-        is NotificationSettingsScopeChannelChats -> return serialize(dto = dto)
-    }
-}
-
-internal fun serialize(dto: ReactionNotificationSource): JsonElement {
-    when(dto) {
-        is ReactionNotificationSourceNone -> return serialize(dto = dto)
-        is ReactionNotificationSourceContacts -> return serialize(dto = dto)
-        is ReactionNotificationSourceAll -> return serialize(dto = dto)
     }
 }
 
@@ -3140,6 +3150,7 @@ internal fun serialize(dto: MessageContent): JsonElement {
         is MessagePoll -> return serialize(dto = dto)
         is MessageStakeDice -> return serialize(dto = dto)
         is MessageStory -> return serialize(dto = dto)
+        is MessageWidget -> return serialize(dto = dto)
         is MessageChecklist -> return serialize(dto = dto)
         is MessageInvoice -> return serialize(dto = dto)
         is MessageCall -> return serialize(dto = dto)
@@ -3367,6 +3378,8 @@ internal fun serialize(dto: InputMessageContent): JsonElement {
         is InputMessageStakeDice -> return serialize(dto = dto)
         is InputMessageStory -> return serialize(dto = dto)
         is InputMessageChecklist -> return serialize(dto = dto)
+        is InputMessageWidget -> return serialize(dto = dto)
+        is InputMessageSharedWidget -> return serialize(dto = dto)
         is InputMessageForwarded -> return serialize(dto = dto)
     }
 }
@@ -3473,7 +3486,6 @@ internal fun serialize(dto: StoryAreaType): JsonElement {
 internal fun serialize(dto: InputStoryAreaType): JsonElement {
     when(dto) {
         is InputStoryAreaTypeLocation -> return serialize(dto = dto)
-        is InputStoryAreaTypeFoundVenue -> return serialize(dto = dto)
         is InputStoryAreaTypePreviousVenue -> return serialize(dto = dto)
         is InputStoryAreaTypeSuggestedReaction -> return serialize(dto = dto)
         is InputStoryAreaTypeMessage -> return serialize(dto = dto)
@@ -3726,6 +3738,14 @@ internal fun serialize(dto: CallbackQueryPayload): JsonElement {
         is CallbackQueryPayloadData -> return serialize(dto = dto)
         is CallbackQueryPayloadDataWithPassword -> return serialize(dto = dto)
         is CallbackQueryPayloadGame -> return serialize(dto = dto)
+    }
+}
+
+internal fun serialize(dto: WidgetQueryType): JsonElement {
+    when(dto) {
+        is WidgetQueryTypeData -> return serialize(dto = dto)
+        is WidgetQueryTypeSignData -> return serialize(dto = dto)
+        is WidgetQueryTypeSentTransaction -> return serialize(dto = dto)
     }
 }
 
@@ -4731,6 +4751,7 @@ internal fun serialize(dto: Update): JsonElement {
         is UpdateStarRevenueStatus -> return serialize(dto = dto)
         is UpdateGramRevenueStatus -> return serialize(dto = dto)
         is UpdateSpeechRecognitionTrial -> return serialize(dto = dto)
+        is UpdateSpeechRecognitionInFile -> return serialize(dto = dto)
         is UpdateGroupCallMessageLevels -> return serialize(dto = dto)
         is UpdateDiceEmojis -> return serialize(dto = dto)
         is UpdateStakeDiceState -> return serialize(dto = dto)
@@ -4751,6 +4772,9 @@ internal fun serialize(dto: Update): JsonElement {
         is UpdateNewCallbackQuery -> return serialize(dto = dto)
         is UpdateNewInlineCallbackQuery -> return serialize(dto = dto)
         is UpdateNewBusinessCallbackQuery -> return serialize(dto = dto)
+        is UpdateNewWidgetQuery -> return serialize(dto = dto)
+        is UpdateNewInlineWidgetQuery -> return serialize(dto = dto)
+        is UpdateNewWidgetCopyQuery -> return serialize(dto = dto)
         is UpdateNewShippingQuery -> return serialize(dto = dto)
         is UpdateNewPreCheckoutQuery -> return serialize(dto = dto)
         is UpdateNewCustomEvent -> return serialize(dto = dto)

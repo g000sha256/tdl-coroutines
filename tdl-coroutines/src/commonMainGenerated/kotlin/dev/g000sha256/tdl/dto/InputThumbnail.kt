@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Georgii Ippolitov (g000sha256)
+ * Copyright 2025-2026 Georgii Ippolitov (g000sha256)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,7 +24,7 @@ import kotlin.String
 /**
  * A thumbnail to be sent along with a file; must be in JPEG or WEBP format for stickers, and less than 200 KB in size.
  *
- * @property thumbnail Thumbnail file to send. Sending thumbnails by fileId is currently not supported.
+ * @property thumbnail Thumbnail file to send. Sending thumbnails by inputFileId or inputFileRemote is currently not supported.
  * @property width Thumbnail width, usually shouldn't exceed 320. Use 0 if unknown.
  * @property height Thumbnail height, usually shouldn't exceed 320. Use 0 if unknown.
  */
