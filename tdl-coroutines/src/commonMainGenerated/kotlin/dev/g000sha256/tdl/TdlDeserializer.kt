@@ -2556,6 +2556,21 @@ internal class TdlDeserializer internal constructor() {
     }
 
     private fun deserialize(type: String, jsonObject: JsonObject): Any {
+        when {
+            type <= "chatEventForumTopicEdited" -> return deserializeGroup1(type = type, jsonObject = jsonObject)
+            type <= "fileTypeNone" -> return deserializeGroup2(type = type, jsonObject = jsonObject)
+            type <= "inputPassportElementPassport" -> return deserializeGroup3(type = type, jsonObject = jsonObject)
+            type <= "messageGame" -> return deserializeGroup4(type = type, jsonObject = jsonObject)
+            type <= "paymentFormTypeRegular" -> return deserializeGroup5(type = type, jsonObject = jsonObject)
+            type <= "richMessageSourceHtml" -> return deserializeGroup6(type = type, jsonObject = jsonObject)
+            type <= "storyPrivacySettingsEveryone" -> return deserializeGroup7(type = type, jsonObject = jsonObject)
+            type <= "updateEmojiChatThemes" -> return deserializeGroup8(type = type, jsonObject = jsonObject)
+            type <= "welcomeMessage" -> return deserializeGroup9(type = type, jsonObject = jsonObject)
+            else -> error(message = "Unknown dto type: $type")
+        }
+    }
+
+    private fun deserializeGroup1(type: String, jsonObject: JsonObject): Any {
         when(type) {
             "accentColor" -> return deserializeAccentColor(jsonObject = jsonObject)
             "acceptedGiftTypes" -> return deserializeAcceptedGiftTypes(jsonObject = jsonObject)
@@ -2813,6 +2828,12 @@ internal class TdlDeserializer internal constructor() {
             "chatEventForumTopicCreated" -> return deserializeChatEventForumTopicCreated(jsonObject = jsonObject)
             "chatEventForumTopicDeleted" -> return deserializeChatEventForumTopicDeleted(jsonObject = jsonObject)
             "chatEventForumTopicEdited" -> return deserializeChatEventForumTopicEdited(jsonObject = jsonObject)
+            else -> error(message = "Unknown dto type: $type")
+        }
+    }
+
+    private fun deserializeGroup2(type: String, jsonObject: JsonObject): Any {
+        when(type) {
             "chatEventForumTopicPinned" -> return deserializeChatEventForumTopicPinned(jsonObject = jsonObject)
             "chatEventForumTopicToggleIsClosed" -> return deserializeChatEventForumTopicToggleIsClosed(jsonObject = jsonObject)
             "chatEventForumTopicToggleIsHidden" -> return deserializeChatEventForumTopicToggleIsHidden(jsonObject = jsonObject)
@@ -3069,6 +3090,12 @@ internal class TdlDeserializer internal constructor() {
             "fileTypeDocument" -> return deserializeFileTypeDocument(jsonObject = jsonObject)
             "fileTypeLivePhotoVideo" -> return deserializeFileTypeLivePhotoVideo(jsonObject = jsonObject)
             "fileTypeNone" -> return deserializeFileTypeNone(jsonObject = jsonObject)
+            else -> error(message = "Unknown dto type: $type")
+        }
+    }
+
+    private fun deserializeGroup3(type: String, jsonObject: JsonObject): Any {
+        when(type) {
             "fileTypeNotificationSound" -> return deserializeFileTypeNotificationSound(jsonObject = jsonObject)
             "fileTypePhoto" -> return deserializeFileTypePhoto(jsonObject = jsonObject)
             "fileTypePhotoStory" -> return deserializeFileTypePhotoStory(jsonObject = jsonObject)
@@ -3325,6 +3352,12 @@ internal class TdlDeserializer internal constructor() {
             "inputPassportElementIdentityCard" -> return deserializeInputPassportElementIdentityCard(jsonObject = jsonObject)
             "inputPassportElementInternalPassport" -> return deserializeInputPassportElementInternalPassport(jsonObject = jsonObject)
             "inputPassportElementPassport" -> return deserializeInputPassportElementPassport(jsonObject = jsonObject)
+            else -> error(message = "Unknown dto type: $type")
+        }
+    }
+
+    private fun deserializeGroup4(type: String, jsonObject: JsonObject): Any {
+        when(type) {
             "inputPassportElementPassportRegistration" -> return deserializeInputPassportElementPassportRegistration(jsonObject = jsonObject)
             "inputPassportElementPersonalDetails" -> return deserializeInputPassportElementPersonalDetails(jsonObject = jsonObject)
             "inputPassportElementPhoneNumber" -> return deserializeInputPassportElementPhoneNumber(jsonObject = jsonObject)
@@ -3581,6 +3614,12 @@ internal class TdlDeserializer internal constructor() {
             "messageForumTopicIsHiddenToggled" -> return deserializeMessageForumTopicIsHiddenToggled(jsonObject = jsonObject)
             "messageForwardInfo" -> return deserializeMessageForwardInfo(jsonObject = jsonObject)
             "messageGame" -> return deserializeMessageGame(jsonObject = jsonObject)
+            else -> error(message = "Unknown dto type: $type")
+        }
+    }
+
+    private fun deserializeGroup5(type: String, jsonObject: JsonObject): Any {
+        when(type) {
             "messageGameScore" -> return deserializeMessageGameScore(jsonObject = jsonObject)
             "messageGift" -> return deserializeMessageGift(jsonObject = jsonObject)
             "messageGiftedGrams" -> return deserializeMessageGiftedGrams(jsonObject = jsonObject)
@@ -3837,6 +3876,12 @@ internal class TdlDeserializer internal constructor() {
             "passwordState" -> return deserializePasswordState(jsonObject = jsonObject)
             "paymentForm" -> return deserializePaymentForm(jsonObject = jsonObject)
             "paymentFormTypeRegular" -> return deserializePaymentFormTypeRegular(jsonObject = jsonObject)
+            else -> error(message = "Unknown dto type: $type")
+        }
+    }
+
+    private fun deserializeGroup6(type: String, jsonObject: JsonObject): Any {
+        when(type) {
             "paymentFormTypeStarSubscription" -> return deserializePaymentFormTypeStarSubscription(jsonObject = jsonObject)
             "paymentFormTypeStars" -> return deserializePaymentFormTypeStars(jsonObject = jsonObject)
             "paymentOption" -> return deserializePaymentOption(jsonObject = jsonObject)
@@ -4093,6 +4138,12 @@ internal class TdlDeserializer internal constructor() {
             "richMessage" -> return deserializeRichMessage(jsonObject = jsonObject)
             "richMessageSourceBlocks" -> return deserializeRichMessageSourceBlocks(jsonObject = jsonObject)
             "richMessageSourceHtml" -> return deserializeRichMessageSourceHtml(jsonObject = jsonObject)
+            else -> error(message = "Unknown dto type: $type")
+        }
+    }
+
+    private fun deserializeGroup7(type: String, jsonObject: JsonObject): Any {
+        when(type) {
             "richMessageSourceMarkdown" -> return deserializeRichMessageSourceMarkdown(jsonObject = jsonObject)
             "richTextAnchor" -> return deserializeRichTextAnchor(jsonObject = jsonObject)
             "richTextAnchorLink" -> return deserializeRichTextAnchorLink(jsonObject = jsonObject)
@@ -4349,6 +4400,12 @@ internal class TdlDeserializer internal constructor() {
             "storyPrivacySettingsCloseFriends" -> return deserializeStoryPrivacySettingsCloseFriends(jsonObject = jsonObject)
             "storyPrivacySettingsContacts" -> return deserializeStoryPrivacySettingsContacts(jsonObject = jsonObject)
             "storyPrivacySettingsEveryone" -> return deserializeStoryPrivacySettingsEveryone(jsonObject = jsonObject)
+            else -> error(message = "Unknown dto type: $type")
+        }
+    }
+
+    private fun deserializeGroup8(type: String, jsonObject: JsonObject): Any {
+        when(type) {
             "storyPrivacySettingsSelectedUsers" -> return deserializeStoryPrivacySettingsSelectedUsers(jsonObject = jsonObject)
             "storyRepostInfo" -> return deserializeStoryRepostInfo(jsonObject = jsonObject)
             "storyStatistics" -> return deserializeStoryStatistics(jsonObject = jsonObject)
@@ -4605,6 +4662,12 @@ internal class TdlDeserializer internal constructor() {
             "updateDiceEmojis" -> return deserializeUpdateDiceEmojis(jsonObject = jsonObject)
             "updateDirectMessagesChatTopic" -> return deserializeUpdateDirectMessagesChatTopic(jsonObject = jsonObject)
             "updateEmojiChatThemes" -> return deserializeUpdateEmojiChatThemes(jsonObject = jsonObject)
+            else -> error(message = "Unknown dto type: $type")
+        }
+    }
+
+    private fun deserializeGroup9(type: String, jsonObject: JsonObject): Any {
+        when(type) {
             "updateFavoriteStickers" -> return deserializeUpdateFavoriteStickers(jsonObject = jsonObject)
             "updateFile" -> return deserializeUpdateFile(jsonObject = jsonObject)
             "updateFileAddedToDownloads" -> return deserializeUpdateFileAddedToDownloads(jsonObject = jsonObject)

@@ -1178,6 +1178,11 @@ private fun writeFunctionCommonElements(functionCommonElements: List<CommonEleme
 private fun writeDeserializer(dtoCommonElements: List<CommonElement>) {
     val commonElements = dtoCommonElements.sortedBy { it.name }
 
+    // Keep each generated dispatch method well below the JVM's 64 KiB bytecode limit
+    val dtoNameGroups = commonElements
+        .map { commonElement -> commonElement.name }
+        .chunked(size = 256)
+
     FileSpec
         .builder(packageName = PACKAGE, fileName = "TdlDeserializer")
         .addType(
@@ -1240,37 +1245,38 @@ private fun writeDeserializer(dtoCommonElements: List<CommonElement>) {
                         .build()
                 )
                 .addFunction(
-                    funSpec = FunSpec
-                        .builder(name = "deserialize")
-                        .addModifier(modifier = KModifier.PRIVATE)
-                        .addParameter(
-                            parameterSpec = ParameterSpec
-                                .builder(name = "type", type = STRING)
-                                .build()
-                        )
-                        .addParameter(
-                            parameterSpec = ParameterSpec
-                                .builder(
-                                    name = "jsonObject",
-                                    type = TypeName(packageName = "kotlinx.serialization.json", simpleName = "JsonObject"),
-                                )
-                                .build()
-                        )
-                        .returns(returnType = ANY)
-                        .beginControlFlow(controlFlow = "when(type)")
+                    funSpec = buildDtoDispatch(name = "deserialize")
+                        .beginControlFlow(controlFlow = "when")
                         .apply {
-                            commonElements.map { commonElement ->
-                                val name = commonElement.name
+                            dtoNameGroups.forEachIndexed { index, names ->
                                 addStatement(
-                                    format = """"%L" -> return deserialize%L(jsonObject = jsonObject)""",
-                                    name,
-                                    name.capitalized,
+                                    format = "type <= %S -> return deserializeGroup%L(type = type, jsonObject = jsonObject)",
+                                    names.last(),
+                                    index + 1,
                                 )
                             }
                             addStatement(format = "else -> error(message = \"Unknown dto type: \$type\")")
                         }
                         .endControlFlow()
                         .build()
+                )
+                .addFunctions(
+                    funSpecs = dtoNameGroups.mapIndexed { index, names ->
+                        buildDtoDispatch(name = "deserializeGroup${index + 1}")
+                            .beginControlFlow(controlFlow = "when(type)")
+                            .apply {
+                                names.forEach { name ->
+                                    addStatement(
+                                        format = "%S -> return deserialize%L(jsonObject = jsonObject)",
+                                        name,
+                                        name.capitalized,
+                                    )
+                                }
+                                addStatement(format = "else -> error(message = \"Unknown dto type: \$type\")")
+                            }
+                            .endControlFlow()
+                            .build()
+                    },
                 )
                 .addFunctions(
                     funSpecs = commonElements
@@ -1518,6 +1524,18 @@ private fun writeDeserializer(dtoCommonElements: List<CommonElement>) {
         .setIndent()
         .build()
         .writeAndFixContent(folderName = "commonMainGenerated")
+}
+
+private fun buildDtoDispatch(name: String): FunSpec.Builder {
+    return FunSpec
+        .builder(name = name)
+        .addModifier(modifier = KModifier.PRIVATE)
+        .addParameter(name = "type", type = STRING)
+        .addParameter(
+            name = "jsonObject",
+            type = TypeName(packageName = "kotlinx.serialization.json", simpleName = "JsonObject"),
+        )
+        .returns(returnType = ANY)
 }
 
 private fun writeSerializer(functionCommonElements: List<CommonElement>, dtoCommonElements: List<CommonElement>) {
