@@ -204,7 +204,9 @@ jobs:
   run-generator:
     name: Run generator
     if: github.event_name == 'push' || inputs.run-generator
-    runs-on: self-hosted
+    runs-on: macos-26
+    env:
+      DEVELOPER_DIR: /Applications/Xcode_26.4.1.app/Contents/Developer
     permissions:
       contents: write
 
@@ -274,7 +276,7 @@ jobs:
       (needs.run-generator.result == 'success' || needs.run-generator.result == 'skipped') &&
       (github.event_name == 'push' || inputs.build-android)
     needs: run-generator
-    runs-on: self-hosted
+    runs-on: ubuntu-24.04
     permissions:
       contents: write
 
@@ -299,7 +301,9 @@ jobs:
         uses: ./.github/actions/set-up-java
 
       - name: Set up dependencies
-        run: brew install cmake coreutils gperf openssl php
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y gperf libssl-dev php-cli zlib1g-dev
 
       - name: Check environment
         run: |
@@ -317,25 +321,26 @@ jobs:
           ./build-openssl.sh
 
       - name: Build TDLib
+        env:
+          CMAKE_BUILD_PARALLEL_LEVEL: '2'
         run: |
-          cd td/example/android
-          ./build-tdlib.sh '' '' '' '' 'JSONJava'
+          DEST="$GITHUB_WORKSPACE/tdl-coroutines/generated/android"
+          rm -rf "$DEST"
+          mkdir -p "$DEST"
 
-      - name: Copy files
-        run: |
-          rm -rf tdl-coroutines/generated/android
-          mkdir -p tdl-coroutines/generated/android
-          cp -r td/example/android/tdlib/libs/* tdl-coroutines/generated/android
+          cd td/example/android
+          # Release disk space from each ABI before building the next.
+          for abi in arm64-v8a armeabi-v7a x86_64 x86; do
+            ./build-tdlib.sh '' '' '' '' JSONJava 16 "$abi"
+            cp -r "tdlib/libs/$abi" "$DEST/"
+            rm -rf "build-16-$abi-JSONJava" tdlib
+          done
 
       - name: SHA256 checksums
         run: shasum -a 256 tdl-coroutines/generated/android/*/*.so
 
       - name: Verify
-        uses: reactivecircus/android-emulator-runner@v2
-        with:
-          api-level: 36
-          arch: arm64-v8a
-          script: bash .github/scripts/verify-android.sh
+        uses: ./.github/actions/verify-android
 
       - name: Commit and push
         if: github.event_name == 'push' || inputs.commit
@@ -483,7 +488,9 @@ jobs:
       (needs.run-generator.result == 'success' || needs.run-generator.result == 'skipped') &&
       (github.event_name == 'push' || inputs.build-jvm-macos-arm64)
     needs: run-generator
-    runs-on: self-hosted
+    runs-on: macos-26
+    env:
+      DEVELOPER_DIR: /Applications/Xcode_26.4.1.app/Contents/Developer
     permissions:
       contents: write
 
@@ -1173,7 +1180,9 @@ jobs:
       (needs.run-generator.result == 'success' || needs.run-generator.result == 'skipped') &&
       (github.event_name == 'push' || inputs.build-ios-arm64)
     needs: run-generator
-    runs-on: self-hosted
+    runs-on: macos-26
+    env:
+      DEVELOPER_DIR: /Applications/Xcode_26.4.1.app/Contents/Developer
     permissions:
       contents: write
 
@@ -1257,7 +1266,9 @@ jobs:
       (needs.run-generator.result == 'success' || needs.run-generator.result == 'skipped') &&
       (github.event_name == 'push' || inputs.build-ios-arm64-simulator)
     needs: run-generator
-    runs-on: self-hosted
+    runs-on: macos-26
+    env:
+      DEVELOPER_DIR: /Applications/Xcode_26.4.1.app/Contents/Developer
     permissions:
       contents: write
 
@@ -1347,7 +1358,9 @@ jobs:
       (needs.run-generator.result == 'success' || needs.run-generator.result == 'skipped') &&
       (github.event_name == 'push' || inputs.build-ios-x64-simulator)
     needs: run-generator
-    runs-on: self-hosted
+    runs-on: macos-26
+    env:
+      DEVELOPER_DIR: /Applications/Xcode_26.4.1.app/Contents/Developer
     permissions:
       contents: write
 
@@ -1431,7 +1444,9 @@ jobs:
       (needs.run-generator.result == 'success' || needs.run-generator.result == 'skipped') &&
       (github.event_name == 'push' || inputs.build-macos-arm64)
     needs: run-generator
-    runs-on: self-hosted
+    runs-on: macos-26
+    env:
+      DEVELOPER_DIR: /Applications/Xcode_26.4.1.app/Contents/Developer
     permissions:
       contents: write
 
@@ -1606,7 +1621,9 @@ jobs:
       (needs.run-generator.result == 'success' || needs.run-generator.result == 'skipped') &&
       (github.event_name == 'push' || inputs.build-tvos-arm64)
     needs: run-generator
-    runs-on: self-hosted
+    runs-on: macos-26
+    env:
+      DEVELOPER_DIR: /Applications/Xcode_26.4.1.app/Contents/Developer
     permissions:
       contents: write
 
@@ -1690,7 +1707,9 @@ jobs:
       (needs.run-generator.result == 'success' || needs.run-generator.result == 'skipped') &&
       (github.event_name == 'push' || inputs.build-tvos-arm64-simulator)
     needs: run-generator
-    runs-on: self-hosted
+    runs-on: macos-26
+    env:
+      DEVELOPER_DIR: /Applications/Xcode_26.4.1.app/Contents/Developer
     permissions:
       contents: write
 
@@ -1780,7 +1799,9 @@ jobs:
       (needs.run-generator.result == 'success' || needs.run-generator.result == 'skipped') &&
       (github.event_name == 'push' || inputs.build-tvos-x64-simulator)
     needs: run-generator
-    runs-on: self-hosted
+    runs-on: macos-26
+    env:
+      DEVELOPER_DIR: /Applications/Xcode_26.4.1.app/Contents/Developer
     permissions:
       contents: write
 
@@ -1864,7 +1885,9 @@ jobs:
       (needs.run-generator.result == 'success' || needs.run-generator.result == 'skipped') &&
       (github.event_name == 'push' || inputs.build-watchos-arm64)
     needs: run-generator
-    runs-on: self-hosted
+    runs-on: macos-26
+    env:
+      DEVELOPER_DIR: /Applications/Xcode_26.4.1.app/Contents/Developer
     permissions:
       contents: write
 
@@ -1948,7 +1971,9 @@ jobs:
       (needs.run-generator.result == 'success' || needs.run-generator.result == 'skipped') &&
       (github.event_name == 'push' || inputs.build-watchos-arm64-32)
     needs: run-generator
-    runs-on: self-hosted
+    runs-on: macos-26
+    env:
+      DEVELOPER_DIR: /Applications/Xcode_26.4.1.app/Contents/Developer
     permissions:
       contents: write
 
@@ -2032,7 +2057,9 @@ jobs:
       (needs.run-generator.result == 'success' || needs.run-generator.result == 'skipped') &&
       (github.event_name == 'push' || inputs.build-watchos-arm64-simulator)
     needs: run-generator
-    runs-on: self-hosted
+    runs-on: macos-26
+    env:
+      DEVELOPER_DIR: /Applications/Xcode_26.4.1.app/Contents/Developer
     permissions:
       contents: write
 
@@ -2122,7 +2149,9 @@ jobs:
       (needs.run-generator.result == 'success' || needs.run-generator.result == 'skipped') &&
       (github.event_name == 'push' || inputs.build-watchos-x64-simulator)
     needs: run-generator
-    runs-on: self-hosted
+    runs-on: macos-26
+    env:
+      DEVELOPER_DIR: /Applications/Xcode_26.4.1.app/Contents/Developer
     permissions:
       contents: write
 

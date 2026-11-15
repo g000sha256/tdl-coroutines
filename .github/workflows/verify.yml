@@ -6,7 +6,7 @@ on:
 jobs:
   verify-android:
     name: Verify Android
-    runs-on: self-hosted
+    runs-on: ubuntu-24.04
 
     steps:
       - name: Checkout
@@ -18,15 +18,13 @@ jobs:
         uses: ./.github/actions/set-up-java
 
       - name: Verify
-        uses: reactivecircus/android-emulator-runner@v2
-        with:
-          api-level: 36
-          arch: arm64-v8a
-          script: bash .github/scripts/verify-android.sh
+        uses: ./.github/actions/verify-android
 
   verify-ios:
     name: Verify iOS Simulator ARM64
-    runs-on: self-hosted
+    runs-on: macos-26
+    env:
+      DEVELOPER_DIR: /Applications/Xcode_26.4.1.app/Contents/Developer
 
     steps:
       - name: Checkout
@@ -42,7 +40,9 @@ jobs:
 
   verify-tvos:
     name: Verify tvOS Simulator ARM64
-    runs-on: self-hosted
+    runs-on: macos-26
+    env:
+      DEVELOPER_DIR: /Applications/Xcode_26.4.1.app/Contents/Developer
 
     steps:
       - name: Checkout
@@ -58,7 +58,9 @@ jobs:
 
   verify-watchos:
     name: Verify watchOS Simulator ARM64
-    runs-on: self-hosted
+    runs-on: macos-26
+    env:
+      DEVELOPER_DIR: /Applications/Xcode_26.4.1.app/Contents/Developer
 
     steps:
       - name: Checkout
@@ -89,7 +91,7 @@ jobs:
             gradle: ./gradlew
 
           - platform: macOS ARM64
-            runner: self-hosted
+            runner: macos-26
             gradle: ./gradlew
 
           - platform: macOS x64
@@ -182,13 +184,15 @@ jobs:
   verify-macos:
     name: Verify macOS ${{ matrix.arch }}
     runs-on: ${{ matrix.runner }}
+    env:
+      DEVELOPER_DIR: /Applications/Xcode_26.4.1.app/Contents/Developer
 
     strategy:
       fail-fast: false
       matrix:
         include:
           - arch: ARM64
-            runner: self-hosted
+            runner: macos-26
             task: runReleaseExecutableMacosArm64
 
           - arch: x64
