@@ -37,12 +37,15 @@ kotlin {
 
     android {
         buildToolsVersion = "37.0.0"
-        compileSdk = 37
+        compileSdk = 34
         minSdk = 23
         namespace = packageName
 
         compilerOptions {
             moduleName = packageName
+
+            // Use StringBuilder for compatibility with the Android 34 R8 boot classpath.
+            freeCompilerArgs.add("-Xstring-concat=inline")
         }
 
         @Suppress("UnstableApiUsage")
