@@ -147,7 +147,8 @@ kotlin {
             kotlin.srcDirs("src/commonMainGenerated/kotlin")
 
             dependencies {
-                implementation(dependencyNotation = catalog.libraries.jetBrains.coroutines.core)
+                api(dependencyNotation = catalog.libraries.jetBrains.coroutines.core)
+
                 implementation(dependencyNotation = catalog.libraries.jetBrains.kotlinSerialization.core)
                 implementation(dependencyNotation = catalog.libraries.jetBrains.kotlinSerialization.json)
             }
