@@ -8,31 +8,24 @@ TDL Coroutines is a Kotlin Multiplatform library that provides a coroutine-based
 Telegram Database Library ([TDLib](https://github.com/tdlib/td)). It simplifies sending requests and handling updates, making
 TDLib integration more straightforward and idiomatic for Kotlin Multiplatform projects.
 
-<table>
-    <tr>
-        <td>Mobile</td>
-        <td>
-            <a href="https://klibs.io/package/dev.g000sha256/tdl-coroutines"><img alt="Platform Android" src="https://img.shields.io/static/v1?label=Platform&labelColor=000000&message=Android&color=3DDC84"></a>
-            <a href="https://klibs.io/package/dev.g000sha256/tdl-coroutines"><img alt="Platform iOS" src="https://img.shields.io/static/v1?label=Platform&labelColor=000000&message=iOS&color=FFFFFF"></a>
-            <a href="https://klibs.io/package/dev.g000sha256/tdl-coroutines"><img alt="Platform iOS Simulator" src="https://img.shields.io/static/v1?label=Platform&labelColor=000000&message=iOS%20Simulator&color=FFFFFF"></a>
-            <a href="https://klibs.io/package/dev.g000sha256/tdl-coroutines"><img alt="Platform tvOS" src="https://img.shields.io/static/v1?label=Platform&labelColor=000000&message=tvOS&color=FFFFFF"></a>
-            <a href="https://klibs.io/package/dev.g000sha256/tdl-coroutines"><img alt="Platform tvOS Simulator" src="https://img.shields.io/static/v1?label=Platform&labelColor=000000&message=tvOS%20Simulator&color=FFFFFF"></a>
-            <a href="https://klibs.io/package/dev.g000sha256/tdl-coroutines"><img alt="Platform watchOS" src="https://img.shields.io/static/v1?label=Platform&labelColor=000000&message=watchOS&color=FFFFFF"></a>
-            <a href="https://klibs.io/package/dev.g000sha256/tdl-coroutines"><img alt="Platform watchOS Simulator" src="https://img.shields.io/static/v1?label=Platform&labelColor=000000&message=watchOS%20Simulator&color=FFFFFF"></a>
-        </td>
-    </tr>
-    <tr>
-        <td>Desktop</td>
-        <td>
-            <a href="https://klibs.io/package/dev.g000sha256/tdl-coroutines"><img alt="Platform JVM" src="https://img.shields.io/static/v1?label=Platform&labelColor=007396&message=JVM%20(Linux,%20macOS,%20Windows)&color=ED8B00"></a>
-            <a href="https://klibs.io/package/dev.g000sha256/tdl-coroutines"><img alt="Platform Linux" src="https://img.shields.io/static/v1?label=Platform&labelColor=000000&message=Linux&color=FCC624"></a>
-            <a href="https://klibs.io/package/dev.g000sha256/tdl-coroutines"><img alt="Platform macOS" src="https://img.shields.io/static/v1?label=Platform&labelColor=000000&message=macOS&color=FFFFFF"></a>
-            <a href="https://klibs.io/package/dev.g000sha256/tdl-coroutines"><img alt="Platform Windows" src="https://img.shields.io/static/v1?label=Platform&labelColor=000000&message=Windows%20(x64)&color=0078D4"></a>
-        </td>
-    </tr>
-</table>
+## Supported platforms
+
+Built with Kotlin 2.3.21.
+
+| Platform | Architectures                                                 | Requirements                                                                                                                                                                                                      |
+|----------|---------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Android  | `armeabi-v7a`, `arm64-v8a`<br>`x86`, `x86_64`                 | Android 6.0 (API 23)                                                                                                                                                                                              |
+| JVM      | ARM64 / x64 Linux<br>ARM64 / x64 macOS<br>ARM64 / x64 Windows | Java 11+, glibc 2.34+, `libstdc++` with `GLIBCXX_3.4.29`, `libgcc_s.so.1`, OpenSSL 3, `libz.so.1`<br>macOS 11, Java 11+<br>Windows 10 (JDK and VC++ baseline), Java 11+, Microsoft Visual C++ v14 Redistributable |
+| iOS      | ARM64 devices<br>ARM64 / x64 simulators                       | iOS 15                                                                                                                                                                                                            |
+| tvOS     | ARM64 devices<br>ARM64 / x64 simulators                       | tvOS 15<br>tvOS 15                                                                                                                                                                                                |
+| watchOS  | ARM64 devices<br>ARM64_32 devices<br>ARM64 / x64 simulators   | watchOS 26<br>watchOS 8<br>watchOS 8                                                                                                                                                                              |
+| Linux    | ARM64 / x64                                                   | glibc, `libstdc++`, `libgcc_s`                                                                                                                                                                                    |
+| macOS    | ARM64 / x64                                                   | macOS 11                                                                                                                                                                                                          |
+| Windows  | x64                                                           | Windows 10                                                                                                                                                                                                        |
 
 ## Gradle setup
+
+Add `mavenCentral()` to your dependency repositories.
 
 ```kotlin
 repositories {
@@ -40,21 +33,18 @@ repositories {
 }
 ```
 
-Replace `X.X.X` with the version from the Maven Central badge.
+Add this dependency to `commonMain.dependencies` in a Kotlin Multiplatform module or to the module's `dependencies`
+block in a JVM or Android-only module. Replace `X.X.X` with the version from the Maven Central badge.
 
 ```kotlin
-dependencies {
-    implementation("dev.g000sha256:tdl-coroutines:X.X.X")
-}
+implementation("dev.g000sha256:tdl-coroutines:X.X.X")
 ```
 
 ## Usage
 
 > [!CAUTION]
-> Upstream TDLib may include breaking API changes even in patch releases.
-> Since TDL Coroutines wraps TDLib, these changes propagate to this library as well.
-> To minimize the impact, use named arguments when calling generated constructors and request methods,
-> because parameters may be added, renamed, or removed in future releases.
+> TDLib patch releases can change the generated API. Use named arguments with generated constructors and request methods
+> to keep calls clear when parameter lists change.
 
 ### Create a client
 
@@ -63,14 +53,14 @@ val client = TdlClient.create()
 ```
 
 > [!IMPORTANT]
-> Start collecting the update flows you need before sending the first request.
+> Subscribe to the update flows you need before sending the first request. Update flows have no replay.
 
 ### Subscribe to updates
 
-`TdlClient` provides 201 update flows and the `allUpdates` flow, which combines all update events.
+`TdlClient` provides 201 update flows and the `allUpdates` flow, which emits updates of every type for that client.
 
 ```kotlin
-coroutineScope.launch {
+coroutineScope.launch(start = CoroutineStart.UNDISPATCHED) {
     client.authorizationStateUpdates.collect { update ->
         val authorizationState = update.authorizationState
         // TODO
@@ -79,7 +69,7 @@ coroutineScope.launch {
 ```
 
 ```kotlin
-coroutineScope.launch {
+coroutineScope.launch(start = CoroutineStart.UNDISPATCHED) {
     client.allUpdates.collect { update ->
         when (update) {
             is UpdateAuthorizationState -> {
@@ -91,7 +81,10 @@ coroutineScope.launch {
                 val value = update.value
                 // TODO
             }
-            // TODO
+            // ...
+            else -> {
+                // TODO
+            }
         }
     }
 }
@@ -100,6 +93,9 @@ coroutineScope.launch {
 ### Send a request
 
 `TdlClient` provides 1099 request methods.
+
+> [!TIP]
+> Request methods suspend while waiting for a response without blocking the calling thread.
 
 ```kotlin
 coroutineScope.launch {
