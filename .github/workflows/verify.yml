@@ -1,11 +1,16 @@
 name: Verify
 
 on:
+  push:
+    branches:
+      - no-define
+
   workflow_dispatch:
 
 jobs:
   verify-android:
     name: Verify Android
+    if: github.event_name == 'workflow_dispatch'
     runs-on: self-hosted
 
     steps:
@@ -26,6 +31,7 @@ jobs:
 
   verify-ios:
     name: Verify iOS Simulator ARM64
+    if: github.event_name == 'workflow_dispatch'
     runs-on: self-hosted
 
     steps:
@@ -42,6 +48,7 @@ jobs:
 
   verify-tvos:
     name: Verify tvOS Simulator ARM64
+    if: github.event_name == 'workflow_dispatch'
     runs-on: self-hosted
 
     steps:
@@ -58,6 +65,7 @@ jobs:
 
   verify-watchos:
     name: Verify watchOS Simulator ARM64
+    if: github.event_name == 'workflow_dispatch'
     runs-on: self-hosted
 
     steps:
@@ -74,6 +82,7 @@ jobs:
 
   verify-jvm:
     name: Verify JVM ${{ matrix.platform }}
+    if: github.event_name == 'workflow_dispatch'
     runs-on: ${{ matrix.runner }}
 
     strategy:
@@ -181,6 +190,7 @@ jobs:
 
   verify-macos:
     name: Verify macOS ${{ matrix.arch }}
+    if: github.event_name == 'workflow_dispatch'
     runs-on: ${{ matrix.runner }}
 
     strategy:
