@@ -9,20 +9,20 @@
 #  ifndef TDJSON_EXPORT
 #    ifdef tdjson_EXPORTS
         /* We are building this library */
-#      define TDJSON_EXPORT __declspec(dllexport)
+#      define TDJSON_EXPORT __attribute__((visibility("default")))
 #    else
         /* We are using this library */
-#      define TDJSON_EXPORT __declspec(dllimport)
+#      define TDJSON_EXPORT __attribute__((visibility("default")))
 #    endif
 #  endif
 
 #  ifndef TDJSON_NO_EXPORT
-#    define TDJSON_NO_EXPORT 
+#    define TDJSON_NO_EXPORT __attribute__((visibility("hidden")))
 #  endif
 #endif
 
 #ifndef TDJSON_DEPRECATED
-#  define TDJSON_DEPRECATED __declspec(deprecated)
+#  define TDJSON_DEPRECATED __attribute__ ((__deprecated__))
 #endif
 
 #ifndef TDJSON_DEPRECATED_EXPORT
